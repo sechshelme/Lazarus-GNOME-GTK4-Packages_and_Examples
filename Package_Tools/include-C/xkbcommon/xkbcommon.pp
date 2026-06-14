@@ -1,4 +1,58 @@
-/*
+
+unit xkbcommon;
+interface
+
+{
+  Automatically converted by H2Pas 1.0.0 from xkbcommon.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    xkbcommon.h
+}
+
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
+
+Type
+Pchar  = ^char;
+PFILE  = ^FILE;
+Pxkb_consumed_mode  = ^xkb_consumed_mode;
+Pxkb_context  = ^xkb_context;
+Pxkb_context_flags  = ^xkb_context_flags;
+Pxkb_key_direction  = ^xkb_key_direction;
+Pxkb_keycode_t  = ^xkb_keycode_t;
+Pxkb_keymap  = ^xkb_keymap;
+Pxkb_keymap_compile_flags  = ^xkb_keymap_compile_flags;
+Pxkb_keymap_format  = ^xkb_keymap_format;
+Pxkb_keysym_flags  = ^xkb_keysym_flags;
+Pxkb_keysym_t  = ^xkb_keysym_t;
+Pxkb_layout_index_t  = ^xkb_layout_index_t;
+Pxkb_layout_mask_t  = ^xkb_layout_mask_t;
+Pxkb_led_index_t  = ^xkb_led_index_t;
+Pxkb_led_mask_t  = ^xkb_led_mask_t;
+Pxkb_level_index_t  = ^xkb_level_index_t;
+Pxkb_log_level  = ^xkb_log_level;
+Pxkb_mod_index_t  = ^xkb_mod_index_t;
+Pxkb_mod_mask_t  = ^xkb_mod_mask_t;
+Pxkb_rule_names  = ^xkb_rule_names;
+Pxkb_state  = ^xkb_state;
+Pxkb_state_component  = ^xkb_state_component;
+Pxkb_state_match  = ^xkb_state_match;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{
  * Copyright 1985, 1987, 1990, 1998  The Open Group
  * Copyright 2008  Dan Nicholson
  *
@@ -23,9 +77,8 @@
  * institutions shall not be used in advertising or otherwise to promote the
  * sale, use or other dealings in this Software without prior written
  * authorization from the authors.
- */
-
-/************************************************************
+  }
+{***********************************************************
  * Copyright (c) 1993 by Silicon Graphics Computer Systems, Inc.
  *
  * Permission to use, copy, modify, and distribute this
@@ -49,9 +102,8 @@
  * OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION  WITH
  * THE USE OR PERFORMANCE OF THIS SOFTWARE.
  *
- ********************************************************/
-
-/*
+ ******************************************************* }
+{
  * Copyright © 2009-2012 Daniel Stone
  * Copyright © 2012 Intel Corporation
  * Copyright © 2012 Ran Benita
@@ -76,28 +128,20 @@
  * DEALINGS IN THE SOFTWARE.
  *
  * Author: Daniel Stone <daniel@fooishbar.org>
- */
-
-#ifndef _XKBCOMMON_H_
-#define _XKBCOMMON_H_
-
-#include <stdint.h>
-#include <stdio.h>
-#include <stdarg.h>
-
-#include <xkbcommon/xkbcommon-names.h>
-#include <xkbcommon/xkbcommon-keysyms.h>
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-/**
+  }
+{$ifndef _XKBCOMMON_H_}
+{$define _XKBCOMMON_H_}
+{$include <stdint.h>}
+{$include <stdio.h>}
+{$include <stdarg.h>}
+{$include <xkbcommon/xkbcommon-names.h>}
+{$include <xkbcommon/xkbcommon-keysyms.h>}
+{ C++ extern C conditionnal removed }
+{*
  * @file
  * Main libxkbcommon API.
- */
-
-/**
+  }
+{*
  * @struct xkb_context
  * Opaque top level library context object.
  *
@@ -107,10 +151,14 @@ extern "C" {
  * Objects are created in a specific context, and multiple contexts may
  * coexist simultaneously.  Objects from different contexts are completely
  * separated and do not share any memory or state.
- */
-struct xkb_context;
+  }
+type
+  Pxkb_context = ^Txkb_context;
+  Txkb_context = record
+      {undefined structure}
+    end;
 
-/**
+{*
  * @struct xkb_keymap
  * Opaque compiled keymap object.
  *
@@ -119,10 +167,13 @@ struct xkb_context;
  *
  * A keymap is immutable after it is created (besides reference counts, etc.);
  * if you need to change it, you must create a new one.
- */
-struct xkb_keymap;
+  }
+  Pxkb_keymap = ^Txkb_keymap;
+  Txkb_keymap = record
+      {undefined structure}
+    end;
 
-/**
+{*
  * @struct xkb_state
  * Opaque keyboard state object.
  *
@@ -130,10 +181,13 @@ struct xkb_keymap;
  * as the currently effective layout and the active modifiers.  It acts as a
  * simple state machine, wherein key presses and releases are the input, and
  * key symbols (keysyms) are the output.
- */
-struct xkb_state;
+  }
+  Pxkb_state = ^Txkb_state;
+  Txkb_state = record
+      {undefined structure}
+    end;
 
-/**
+{*
  * A number used to represent a physical key on a keyboard.
  *
  * A standard PC-compatible keyboard might have 102 keys.  An appropriate
@@ -161,10 +215,11 @@ struct xkb_state;
  * @endcode
  *
  * @sa xkb_keycode_is_legal_ext() xkb_keycode_is_legal_x11()
- */
-typedef uint32_t xkb_keycode_t;
+  }
 
-/**
+  Pxkb_keycode_t = ^Txkb_keycode_t;
+  Txkb_keycode_t = Tuint32_t;
+{*
  * A number used to represent the symbols generated from a key on a keyboard.
  *
  * A key, represented by a keycode, may generate different symbols according
@@ -200,10 +255,11 @@ typedef uint32_t xkb_keycode_t;
  *
  * @ingroup keysyms
  * @sa XKB_KEYSYM_MAX
- */
-typedef uint32_t xkb_keysym_t;
+  }
 
-/**
+  Pxkb_keysym_t = ^Txkb_keysym_t;
+  Txkb_keysym_t = Tuint32_t;
+{*
  * Index of a keyboard layout.
  *
  * The layout index is a state component which detemines which <em>keyboard
@@ -229,12 +285,15 @@ typedef uint32_t xkb_keysym_t;
  * Layouts are also called "groups" by XKB.
  *
  * @sa xkb_keymap_num_layouts() xkb_keymap_num_layouts_for_key()
- */
-typedef uint32_t xkb_layout_index_t;
-/** A mask of layout indices. */
-typedef uint32_t xkb_layout_mask_t;
+  }
 
-/**
+  Pxkb_layout_index_t = ^Txkb_layout_index_t;
+  Txkb_layout_index_t = Tuint32_t;
+{* A mask of layout indices.  }
+
+  Pxkb_layout_mask_t = ^Txkb_layout_mask_t;
+  Txkb_layout_mask_t = Tuint32_t;
+{*
  * Index of a shift level.
  *
  * Any key, in any layout, can have several <em>shift levels</em>.  Each
@@ -245,10 +304,11 @@ typedef uint32_t xkb_layout_mask_t;
  * many such combinations are possible (see xkb_mod_index_t).
  *
  * Level indices are consecutive.  The first level has index 0.
- */
-typedef uint32_t xkb_level_index_t;
+  }
 
-/**
+  Pxkb_level_index_t = ^Txkb_level_index_t;
+  Txkb_level_index_t = Tuint32_t;
+{*
  * Index of a modifier.
  *
  * A @e modifier is a state component which changes the way keys are
@@ -270,12 +330,15 @@ typedef uint32_t xkb_level_index_t;
  * header file.  Modifier names are case-sensitive.
  *
  * @sa xkb_keymap_num_mods()
- */
-typedef uint32_t xkb_mod_index_t;
-/** A mask of modifier indices. */
-typedef uint32_t xkb_mod_mask_t;
+  }
 
-/**
+  Pxkb_mod_index_t = ^Txkb_mod_index_t;
+  Txkb_mod_index_t = Tuint32_t;
+{* A mask of modifier indices.  }
+
+  Pxkb_mod_mask_t = ^Txkb_mod_mask_t;
+  Txkb_mod_mask_t = Tuint32_t;
+{*
  * Index of a keyboard LED.
  *
  * LEDs are logical objects which may be @e active or @e inactive.  They
@@ -299,41 +362,50 @@ typedef uint32_t xkb_mod_mask_t;
  * LEDs are also called "indicators" by XKB.
  *
  * @sa xkb_keymap_num_leds()
- */
-typedef uint32_t xkb_led_index_t;
-/** A mask of LED indices. */
-typedef uint32_t xkb_led_mask_t;
+  }
 
-#define XKB_KEYCODE_INVALID (0xffffffff)
-#define XKB_LAYOUT_INVALID  (0xffffffff)
-#define XKB_LEVEL_INVALID   (0xffffffff)
-#define XKB_MOD_INVALID     (0xffffffff)
-#define XKB_LED_INVALID     (0xffffffff)
+  Pxkb_led_index_t = ^Txkb_led_index_t;
+  Txkb_led_index_t = Tuint32_t;
+{* A mask of LED indices.  }
 
-#define XKB_KEYCODE_MAX     (0xffffffff - 1)
+  Pxkb_led_mask_t = ^Txkb_led_mask_t;
+  Txkb_led_mask_t = Tuint32_t;
 
-/**
+const
+  XKB_KEYCODE_INVALID = $ffffffff;  
+  XKB_LAYOUT_INVALID = $ffffffff;  
+  XKB_LEVEL_INVALID = $ffffffff;  
+  XKB_MOD_INVALID = $ffffffff;  
+  XKB_LED_INVALID = $ffffffff;  
+  XKB_KEYCODE_MAX = $ffffffff-1;  
+{*
  * Maximum keysym value
  *
  * @since 1.6.0
  * @sa xkb_keysym_t
  * @ingroup keysyms
- */
-#define XKB_KEYSYM_MAX      0x1fffffff
-
-/**
+  }
+  XKB_KEYSYM_MAX = $1fffffff;  
+{*
  * Test whether a value is a valid extended keycode.
  * @sa xkb_keycode_t
- **/
-#define xkb_keycode_is_legal_ext(key) (key <= XKB_KEYCODE_MAX)
+ * }
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
 
-/**
+function xkb_keycode_is_legal_ext(key : longint) : longint;
+
+{*
  * Test whether a value is a valid X11 keycode.
  * @sa xkb_keycode_t
- */
-#define xkb_keycode_is_legal_x11(key) (key >= 8 && key <= 255)
+  }
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function xkb_keycode_is_legal_x11(key : longint) : longint;
 
-/**
+{*
  * Names to compile a keymap with, also known as RMLVO.
  *
  * The names are the common configuration values by which a user picks
@@ -341,35 +413,34 @@ typedef uint32_t xkb_led_mask_t;
  *
  * If the entire struct is NULL, then each field is taken to be NULL.
  * You should prefer passing NULL instead of choosing your own defaults.
- */
-struct xkb_rule_names {
-    /**
+  }
+{*
      * The rules file to use. The rules file describes how to interpret
      * the values of the model, layout, variant and options fields.
      *
      * If NULL or the empty string "", a default value is used.
      * If the XKB_DEFAULT_RULES environment variable is set, it is used
      * as the default.  Otherwise the system default is used.
-     */
-    const char *rules;
-    /**
+      }
+(* Const before type ignored *)
+{*
      * The keyboard model by which to interpret keycodes and LEDs.
      *
      * If NULL or the empty string "", a default value is used.
      * If the XKB_DEFAULT_MODEL environment variable is set, it is used
      * as the default.  Otherwise the system default is used.
-     */
-    const char *model;
-    /**
+      }
+(* Const before type ignored *)
+{*
      * A comma separated list of layouts (languages) to include in the
      * keymap.
      *
      * If NULL or the empty string "", a default value is used.
      * If the XKB_DEFAULT_LAYOUT environment variable is set, it is used
      * as the default.  Otherwise the system default is used.
-     */
-    const char *layout;
-    /**
+      }
+(* Const before type ignored *)
+{*
      * A comma separated list of variants, one per layout, which may
      * modify or augment the respective layout in various ways.
      *
@@ -381,9 +452,9 @@ struct xkb_rule_names {
      * used.
      * If the XKB_DEFAULT_VARIANT environment variable is set, it is used
      * as the default.  Otherwise the system default is used.
-     */
-    const char *variant;
-    /**
+      }
+(* Const before type ignored *)
+{*
      * A comma separated list of options, through which the user specifies
      * non-layout related preferences, like which key combinations are used
      * for switching layouts, or which key is the Compose key.
@@ -392,18 +463,25 @@ struct xkb_rule_names {
      * options are used.
      * If the XKB_DEFAULT_OPTIONS environment variable is set, it is used
      * as the default.  Otherwise the system default is used.
-     */
-    const char *options;
-};
+      }
+(* Const before type ignored *)
+type
+  Pxkb_rule_names = ^Txkb_rule_names;
+  Txkb_rule_names = record
+      rules : Pchar;
+      model : Pchar;
+      layout : Pchar;
+      variant : Pchar;
+      options : Pchar;
+    end;
 
-/**
+{*
  * @defgroup keysyms Keysyms
  * Utility functions related to *keysyms* (short for “key symbols”).
  *
- * @{
- */
-
-/**
+ * @
+  }
+{*
  * @page keysym-transformations Keysym Transformations
  *
  * Keysym translation is subject to several "keysym transformations",
@@ -429,10 +507,8 @@ struct xkb_rule_names {
  *
  * These transformations are not applicable when a key produces multiple
  * keysyms.
- */
-
-
-/**
+  }
+{*
  * Get the name of a keysym.
  *
  * For a description of how keysyms are named, see @ref xkb_keysym_t.
@@ -451,19 +527,19 @@ struct xkb_rule_names {
  * with the length of buffer, similarly to the snprintf(3) function.
  *
  * @sa xkb_keysym_t
- */
-int
-xkb_keysym_get_name(xkb_keysym_t keysym, char *buffer, size_t size);
+  }
 
-/** Flags for xkb_keysym_from_name(). */
-enum xkb_keysym_flags {
-    /** Do not apply any flags. */
-    XKB_KEYSYM_NO_FLAGS = 0,
-    /** Find keysym by case-insensitive search. */
-    XKB_KEYSYM_CASE_INSENSITIVE = (1 << 0)
-};
+function xkb_keysym_get_name(keysym:Txkb_keysym_t; buffer:Pchar; size:Tsize_t):longint;cdecl;external;
+{* Flags for xkb_keysym_from_name().  }
+{* Do not apply any flags.  }
+{* Find keysym by case-insensitive search.  }
+type
+  Txkb_keysym_flags =  Longint;
+  Const
+    XKB_KEYSYM_NO_FLAGS = 0;
+    XKB_KEYSYM_CASE_INSENSITIVE = 1 shl 0;
 
-/**
+{*
  * Get a keysym from its name.
  *
  * @param name The name of a keysym. See remarks in xkb_keysym_get_name();
@@ -485,11 +561,11 @@ enum xkb_keysym_flags {
  * @returns The keysym. If the name is invalid, returns XKB_KEY_NoSymbol.
  *
  * @sa xkb_keysym_t
- */
-xkb_keysym_t
-xkb_keysym_from_name(const char *name, enum xkb_keysym_flags flags);
+  }
+(* Const before type ignored *)
 
-/**
+function xkb_keysym_from_name(name:Pchar; flags:Txkb_keysym_flags):Txkb_keysym_t;cdecl;external;
+{*
  * Get the Unicode/UTF-8 representation of a keysym.
  *
  * @param[in]  keysym The keysym.
@@ -504,11 +580,9 @@ xkb_keysym_from_name(const char *name, enum xkb_keysym_flags flags);
  * Therefore, prefer to use xkb_state_key_get_utf8() if possible.
  *
  * @sa xkb_state_key_get_utf8()
- */
-int
-xkb_keysym_to_utf8(xkb_keysym_t keysym, char *buffer, size_t size);
-
-/**
+  }
+function xkb_keysym_to_utf8(keysym:Txkb_keysym_t; buffer:Pchar; size:Tsize_t):longint;cdecl;external;
+{*
  * Get the Unicode/UTF-32 representation of a keysym.
  *
  * @returns The Unicode/UTF-32 representation of keysym, which is also
@@ -519,11 +593,9 @@ xkb_keysym_to_utf8(xkb_keysym_t keysym, char *buffer, size_t size);
  * Therefore, prefer to use xkb_state_key_get_utf32() if possible.
  *
  * @sa xkb_state_key_get_utf32()
- */
-uint32_t
-xkb_keysym_to_utf32(xkb_keysym_t keysym);
-
-/**
+  }
+function xkb_keysym_to_utf32(keysym:Txkb_keysym_t):Tuint32_t;cdecl;external;
+{*
  * Get the keysym corresponding to a Unicode/UTF-32 codepoint.
  *
  * @returns The keysym corresponding to the specified Unicode
@@ -542,43 +614,35 @@ xkb_keysym_to_utf32(xkb_keysym_t keysym);
  *
  * @sa xkb_keysym_to_utf32()
  * @since 1.0.0
- */
-xkb_keysym_t
-xkb_utf32_to_keysym(uint32_t ucs);
-
-/**
+  }
+function xkb_utf32_to_keysym(ucs:Tuint32_t):Txkb_keysym_t;cdecl;external;
+{*
  * Convert a keysym to its uppercase form.
  *
  * If there is no such form, the keysym is returned unchanged.
  *
  * The conversion rules may be incomplete; prefer to work with the Unicode
  * representation instead, when possible.
- */
-xkb_keysym_t
-xkb_keysym_to_upper(xkb_keysym_t ks);
-
-/**
+  }
+function xkb_keysym_to_upper(ks:Txkb_keysym_t):Txkb_keysym_t;cdecl;external;
+{*
  * Convert a keysym to its lowercase form.
  *
  * The conversion rules may be incomplete; prefer to work with the Unicode
  * representation instead, when possible.
- */
-xkb_keysym_t
-xkb_keysym_to_lower(xkb_keysym_t ks);
-
-/** @} */
-
-/**
+  }
+function xkb_keysym_to_lower(ks:Txkb_keysym_t):Txkb_keysym_t;cdecl;external;
+{* @  }
+{*
  * @defgroup context Library Context
  * Creating, destroying and using library contexts.
  *
  * Every keymap compilation request must have a context associated with
  * it.  The context keeps around state such as the include path.
  *
- * @{
- */
-
-/**
+ * @
+  }
+{*
  * @page envvars Environment Variables
  *
  * The user may set some environment variables which affect the library:
@@ -588,30 +652,30 @@ xkb_keysym_to_lower(xkb_keysym_t ks);
  * - `XKB_LOG_VERBOSITY` - see xkb_context_set_log_verbosity().
  * - `XKB_DEFAULT_RULES`, `XKB_DEFAULT_MODEL`, `XKB_DEFAULT_LAYOUT`,
  *   `XKB_DEFAULT_VARIANT`, `XKB_DEFAULT_OPTIONS` - see xkb_rule_names.
- */
-
-/** Flags for context creation. */
-enum xkb_context_flags {
-    /** Do not apply any context flags. */
-    XKB_CONTEXT_NO_FLAGS = 0,
-    /** Create this context with an empty include path. */
-    XKB_CONTEXT_NO_DEFAULT_INCLUDES = (1 << 0),
-    /**
+  }
+{* Flags for context creation.  }
+{* Do not apply any context flags.  }
+{* Create this context with an empty include path.  }
+{*
      * Don't take RMLVO names from the environment.
      *
      * @since 0.3.0
-     */
-    XKB_CONTEXT_NO_ENVIRONMENT_NAMES = (1 << 1),
-    /**
+      }
+{*
      * Disable the use of secure_getenv for this context, so that privileged
      * processes can use environment variables. Client uses at their own risk.
      *
      * @since 1.5.0
-     */
-    XKB_CONTEXT_NO_SECURE_GETENV = (1 << 2)
-};
+      }
+type
+  Txkb_context_flags =  Longint;
+  Const
+    XKB_CONTEXT_NO_FLAGS = 0;
+    XKB_CONTEXT_NO_DEFAULT_INCLUDES = 1 shl 0;
+    XKB_CONTEXT_NO_ENVIRONMENT_NAMES = 1 shl 1;
+    XKB_CONTEXT_NO_SECURE_GETENV = 1 shl 2;
 
-/**
+{*
  * Create a new context.
  *
  * @param flags Optional flags for the context, or 0.
@@ -619,42 +683,35 @@ enum xkb_context_flags {
  * @returns A new context, or NULL on failure.
  *
  * @memberof xkb_context
- */
-struct xkb_context *
-xkb_context_new(enum xkb_context_flags flags);
+  }
 
-/**
+function xkb_context_new(flags:Txkb_context_flags):Pxkb_context;cdecl;external;
+{*
  * Take a new reference on a context.
  *
  * @returns The passed in context.
  *
  * @memberof xkb_context
- */
-struct xkb_context *
-xkb_context_ref(struct xkb_context *context);
-
-/**
+  }
+function xkb_context_ref(context:Pxkb_context):Pxkb_context;cdecl;external;
+{*
  * Release a reference on a context, and possibly free it.
  *
  * @param context The context.  If it is NULL, this function does nothing.
  *
  * @memberof xkb_context
- */
-void
-xkb_context_unref(struct xkb_context *context);
-
-/**
+  }
+procedure xkb_context_unref(context:Pxkb_context);cdecl;external;
+{*
  * Store custom user data in the context.
  *
  * This may be useful in conjunction with xkb_context_set_log_fn() or other
  * callbacks.
  *
  * @memberof xkb_context
- */
-void
-xkb_context_set_user_data(struct xkb_context *context, void *user_data);
-
-/**
+  }
+procedure xkb_context_set_user_data(context:Pxkb_context; user_data:pointer);cdecl;external;
+{*
  * Retrieves stored user data from the context.
  *
  * @returns The stored user data.  If the user data wasn't set, or the
@@ -664,13 +721,10 @@ xkb_context_set_user_data(struct xkb_context *context, void *user_data);
  * custom logging function.
  *
  * @memberof xkb_context
- **/
-void *
-xkb_context_get_user_data(struct xkb_context *context);
-
-/** @} */
-
-/**
+ * }
+function xkb_context_get_user_data(context:Pxkb_context):pointer;cdecl;external;
+{* @  }
+{*
  * @defgroup include-path Include Paths
  * Manipulating the include paths in a context.
  *
@@ -688,31 +742,27 @@ xkb_context_get_user_data(struct xkb_context *context);
  * - The `XKB_CONFIG_ROOT` environment variable, if defined, otherwise
  *   the system XKB root, defined at library configuration time.
  *
- * @{
- */
-
-/**
+ * @
+  }
+{*
  * Append a new entry to the context's include path.
  *
  * @returns 1 on success, or 0 if the include path could not be added or is
  * inaccessible.
  *
  * @memberof xkb_context
- */
-int
-xkb_context_include_path_append(struct xkb_context *context, const char *path);
-
-/**
+  }
+(* Const before type ignored *)
+function xkb_context_include_path_append(context:Pxkb_context; path:Pchar):longint;cdecl;external;
+{*
  * Append the default include paths to the context's include path.
  *
  * @returns 1 on success, or 0 if the primary include path could not be added.
  *
  * @memberof xkb_context
- */
-int
-xkb_context_include_path_append_default(struct xkb_context *context);
-
-/**
+  }
+function xkb_context_include_path_append_default(context:Pxkb_context):longint;cdecl;external;
+{*
  * Reset the context's include path to the default.
  *
  * Removes all entries from the context's include path, and inserts the
@@ -721,56 +771,53 @@ xkb_context_include_path_append_default(struct xkb_context *context);
  * @returns 1 on success, or 0 if the primary include path could not be added.
  *
  * @memberof xkb_context
- */
-int
-xkb_context_include_path_reset_defaults(struct xkb_context *context);
-
-/**
+  }
+function xkb_context_include_path_reset_defaults(context:Pxkb_context):longint;cdecl;external;
+{*
  * Remove all entries from the context's include path.
  *
  * @memberof xkb_context
- */
-void
-xkb_context_include_path_clear(struct xkb_context *context);
-
-/**
+  }
+procedure xkb_context_include_path_clear(context:Pxkb_context);cdecl;external;
+{*
  * Get the number of paths in the context's include path.
  *
  * @memberof xkb_context
- */
-unsigned int
-xkb_context_num_include_paths(struct xkb_context *context);
-
-/**
+  }
+function xkb_context_num_include_paths(context:Pxkb_context):dword;cdecl;external;
+{*
  * Get a specific include path from the context's include path.
  *
  * @returns The include path at the specified index.  If the index is
  * invalid, returns NULL.
  *
  * @memberof xkb_context
- */
-const char *
-xkb_context_include_path_get(struct xkb_context *context, unsigned int index);
-
-/** @} */
-
-/**
+  }
+(* Const before type ignored *)
+function xkb_context_include_path_get(context:Pxkb_context; index:dword):Pchar;cdecl;external;
+{* @  }
+{*
  * @defgroup logging Logging Handling
  * Manipulating how logging from this library is handled.
  *
- * @{
- */
+ * @
+  }
+{* Specifies a logging level.  }
+{*< Log critical internal errors only.  }
+{*< Log all errors.  }
+{*< Log warnings and errors.  }
+{*< Log information, warnings, and errors.  }
+{*< Log everything.  }
+type
+  Txkb_log_level =  Longint;
+  Const
+    XKB_LOG_LEVEL_CRITICAL = 10;
+    XKB_LOG_LEVEL_ERROR = 20;
+    XKB_LOG_LEVEL_WARNING = 30;
+    XKB_LOG_LEVEL_INFO = 40;
+    XKB_LOG_LEVEL_DEBUG = 50;
 
-/** Specifies a logging level. */
-enum xkb_log_level {
-    XKB_LOG_LEVEL_CRITICAL = 10, /**< Log critical internal errors only. */
-    XKB_LOG_LEVEL_ERROR = 20,    /**< Log all errors. */
-    XKB_LOG_LEVEL_WARNING = 30,  /**< Log warnings and errors. */
-    XKB_LOG_LEVEL_INFO = 40,     /**< Log information, warnings, and errors. */
-    XKB_LOG_LEVEL_DEBUG = 50     /**< Log everything. */
-};
-
-/**
+{*
  * Set the current logging level.
  *
  * @param context The context in which to set the logging level.
@@ -782,20 +829,16 @@ enum xkb_log_level {
  * default value.  It may be specified as a level number or name.
  *
  * @memberof xkb_context
- */
-void
-xkb_context_set_log_level(struct xkb_context *context,
-                          enum xkb_log_level level);
+  }
 
-/**
+procedure xkb_context_set_log_level(context:Pxkb_context; level:Txkb_log_level);cdecl;external;
+{*
  * Get the current logging level.
  *
  * @memberof xkb_context
- */
-enum xkb_log_level
-xkb_context_get_log_level(struct xkb_context *context);
-
-/**
+  }
+function xkb_context_get_log_level(context:Pxkb_context):Txkb_log_level;cdecl;external;
+{*
  * Sets the current logging verbosity.
  *
  * The library can generate a number of warnings which are not helpful to
@@ -813,19 +856,15 @@ xkb_context_get_log_level(struct xkb_context *context);
  * Most verbose messages are of level XKB_LOG_LEVEL_WARNING or lower.
  *
  * @memberof xkb_context
- */
-void
-xkb_context_set_log_verbosity(struct xkb_context *context, int verbosity);
-
-/**
+  }
+procedure xkb_context_set_log_verbosity(context:Pxkb_context; verbosity:longint);cdecl;external;
+{*
  * Get the current logging verbosity of the context.
  *
  * @memberof xkb_context
- */
-int
-xkb_context_get_log_verbosity(struct xkb_context *context);
-
-/**
+  }
+function xkb_context_get_log_verbosity(context:Pxkb_context):longint;cdecl;external;
+{*
  * Set a custom function to handle logging messages.
  *
  * @param context The context in which to use the set logging function.
@@ -844,29 +883,24 @@ xkb_context_get_log_verbosity(struct xkb_context *context);
  * it with additional private context.
  *
  * @memberof xkb_context
- */
-void
-xkb_context_set_log_fn(struct xkb_context *context,
-                       void (*log_fn)(struct xkb_context *context,
-                                      enum xkb_log_level level,
-                                      const char *format, va_list args));
-
-/** @} */
-
-/**
+  }
+(* Const before type ignored *)
+procedure xkb_context_set_log_fn(context:Pxkb_context; log_fn:procedure (context:Pxkb_context; level:Txkb_log_level; format:Pchar; args:Tva_list));cdecl;external;
+{* @  }
+{*
  * @defgroup keymap Keymap Creation
  * Creating and destroying keymaps.
  *
- * @{
- */
+ * @
+  }
+{* Flags for keymap compilation.  }
+{* Do not apply any flags.  }
+type
+  Txkb_keymap_compile_flags =  Longint;
+  Const
+    XKB_KEYMAP_COMPILE_NO_FLAGS = 0;
 
-/** Flags for keymap compilation. */
-enum xkb_keymap_compile_flags {
-    /** Do not apply any flags. */
-    XKB_KEYMAP_COMPILE_NO_FLAGS = 0
-};
-
-/**
+{*
  * Create a keymap from RMLVO names.
  *
  * The primary keymap entry point: creates a new XKB keymap from a set of
@@ -881,19 +915,18 @@ enum xkb_keymap_compile_flags {
  *
  * @sa xkb_rule_names
  * @memberof xkb_keymap
- */
-struct xkb_keymap *
-xkb_keymap_new_from_names(struct xkb_context *context,
-                          const struct xkb_rule_names *names,
-                          enum xkb_keymap_compile_flags flags);
+  }
+(* Const before type ignored *)
 
-/** The possible keymap formats. */
-enum xkb_keymap_format {
-    /** The current/classic XKB text format, as generated by xkbcomp -xkb. */
-    XKB_KEYMAP_FORMAT_TEXT_V1 = 1
-};
+function xkb_keymap_new_from_names(context:Pxkb_context; names:Pxkb_rule_names; flags:Txkb_keymap_compile_flags):Pxkb_keymap;cdecl;external;
+{* The possible keymap formats.  }
+{* The current/classic XKB text format, as generated by xkbcomp -xkb.  }
+type
+  Txkb_keymap_format =  Longint;
+  Const
+    XKB_KEYMAP_FORMAT_TEXT_V1 = 1;
 
-/**
+{*
  * Create a keymap from a keymap file.
  *
  * @param context The context in which to create the keymap.
@@ -910,13 +943,10 @@ enum xkb_keymap_format {
  * sections.
  *
  * @memberof xkb_keymap
- */
-struct xkb_keymap *
-xkb_keymap_new_from_file(struct xkb_context *context, FILE *file,
-                         enum xkb_keymap_format format,
-                         enum xkb_keymap_compile_flags flags);
+  }
 
-/**
+function xkb_keymap_new_from_file(context:Pxkb_context; file:PFILE; format:Txkb_keymap_format; flags:Txkb_keymap_compile_flags):Pxkb_keymap;cdecl;external;
+{*
  * Create a keymap from a keymap string.
  *
  * This is just like xkb_keymap_new_from_file(), but instead of a file, gets
@@ -924,13 +954,10 @@ xkb_keymap_new_from_file(struct xkb_context *context, FILE *file,
  *
  * @see xkb_keymap_new_from_file()
  * @memberof xkb_keymap
- */
-struct xkb_keymap *
-xkb_keymap_new_from_string(struct xkb_context *context, const char *string,
-                           enum xkb_keymap_format format,
-                           enum xkb_keymap_compile_flags flags);
-
-/**
+  }
+(* Const before type ignored *)
+function xkb_keymap_new_from_string(context:Pxkb_context; _string:Pchar; format:Txkb_keymap_format; flags:Txkb_keymap_compile_flags):Pxkb_keymap;cdecl;external;
+{*
  * Create a keymap from a memory buffer.
  *
  * This is just like xkb_keymap_new_from_string(), but takes a length argument
@@ -939,39 +966,33 @@ xkb_keymap_new_from_string(struct xkb_context *context, const char *string,
  * @see xkb_keymap_new_from_string()
  * @memberof xkb_keymap
  * @since 0.3.0
- */
-struct xkb_keymap *
-xkb_keymap_new_from_buffer(struct xkb_context *context, const char *buffer,
-                           size_t length, enum xkb_keymap_format format,
-                           enum xkb_keymap_compile_flags flags);
-
-/**
+  }
+(* Const before type ignored *)
+function xkb_keymap_new_from_buffer(context:Pxkb_context; buffer:Pchar; length:Tsize_t; format:Txkb_keymap_format; flags:Txkb_keymap_compile_flags):Pxkb_keymap;cdecl;external;
+{*
  * Take a new reference on a keymap.
  *
  * @returns The passed in keymap.
  *
  * @memberof xkb_keymap
- */
-struct xkb_keymap *
-xkb_keymap_ref(struct xkb_keymap *keymap);
-
-/**
+  }
+function xkb_keymap_ref(keymap:Pxkb_keymap):Pxkb_keymap;cdecl;external;
+{*
  * Release a reference on a keymap, and possibly free it.
  *
  * @param keymap The keymap.  If it is NULL, this function does nothing.
  *
  * @memberof xkb_keymap
- */
-void
-xkb_keymap_unref(struct xkb_keymap *keymap);
-
-/**
+  }
+procedure xkb_keymap_unref(keymap:Pxkb_keymap);cdecl;external;
+{*
  * Get the keymap as a string in the format from which it was created.
  * @sa xkb_keymap_get_as_string()
- **/
-#define XKB_KEYMAP_USE_ORIGINAL_FORMAT ((enum xkb_keymap_format) -1)
+ * }
+{ was #define dname def_expr }
+function XKB_KEYMAP_USE_ORIGINAL_FORMAT : Txkb_keymap_format;  
 
-/**
+{*
  * Get the compiled keymap as a string.
  *
  * @param keymap The keymap to get as a string.
@@ -988,52 +1009,42 @@ xkb_keymap_unref(struct xkb_keymap *keymap);
  * caller.
  *
  * @memberof xkb_keymap
- */
-char *
-xkb_keymap_get_as_string(struct xkb_keymap *keymap,
-                         enum xkb_keymap_format format);
-
-/** @} */
-
-/**
+  }
+function xkb_keymap_get_as_string(keymap:Pxkb_keymap; format:Txkb_keymap_format):Pchar;cdecl;external;
+{* @  }
+{*
  * @defgroup components Keymap Components
  * Enumeration of state components in a keymap.
  *
- * @{
- */
-
-/**
+ * @
+  }
+{*
  * Get the minimum keycode in the keymap.
  *
  * @sa xkb_keycode_t
  * @memberof xkb_keymap
  * @since 0.3.1
- */
-xkb_keycode_t
-xkb_keymap_min_keycode(struct xkb_keymap *keymap);
-
-/**
+  }
+function xkb_keymap_min_keycode(keymap:Pxkb_keymap):Txkb_keycode_t;cdecl;external;
+{*
  * Get the maximum keycode in the keymap.
  *
  * @sa xkb_keycode_t
  * @memberof xkb_keymap
  * @since 0.3.1
- */
-xkb_keycode_t
-xkb_keymap_max_keycode(struct xkb_keymap *keymap);
-
-/**
+  }
+function xkb_keymap_max_keycode(keymap:Pxkb_keymap):Txkb_keycode_t;cdecl;external;
+{*
  * The iterator used by xkb_keymap_key_for_each().
  *
  * @sa xkb_keymap_key_for_each
  * @memberof xkb_keymap
  * @since 0.3.1
- */
-typedef void
-(*xkb_keymap_key_iter_t)(struct xkb_keymap *keymap, xkb_keycode_t key,
-                         void *data);
+  }
+type
 
-/**
+  Txkb_keymap_key_iter_t = procedure (keymap:Pxkb_keymap; key:Txkb_keycode_t; data:pointer);cdecl;
+{*
  * Run a specified function for every valid keycode in the keymap.  If a
  * keymap is sparse, this function may be called fewer than
  * (max_keycode - min_keycode + 1) times.
@@ -1041,12 +1052,10 @@ typedef void
  * @sa xkb_keymap_min_keycode() xkb_keymap_max_keycode() xkb_keycode_t
  * @memberof xkb_keymap
  * @since 0.3.1
- */
-void
-xkb_keymap_key_for_each(struct xkb_keymap *keymap, xkb_keymap_key_iter_t iter,
-                        void *data);
+  }
 
-/**
+procedure xkb_keymap_key_for_each(keymap:Pxkb_keymap; iter:Txkb_keymap_key_iter_t; data:pointer);cdecl;external;
+{*
  * Find the name of the key with the given keycode.
  *
  * This function always returns the canonical name of the key (see
@@ -1058,11 +1067,10 @@ xkb_keymap_key_for_each(struct xkb_keymap *keymap, xkb_keymap_key_iter_t iter,
  * @sa xkb_keycode_t
  * @memberof xkb_keymap
  * @since 0.6.0
- */
-const char *
-xkb_keymap_key_get_name(struct xkb_keymap *keymap, xkb_keycode_t key);
-
-/**
+  }
+(* Const before type ignored *)
+function xkb_keymap_key_get_name(keymap:Pxkb_keymap; key:Txkb_keycode_t):Pchar;cdecl;external;
+{*
  * Find the keycode of the key with the given name.
  *
  * The name can be either a canonical name or an alias.
@@ -1073,31 +1081,27 @@ xkb_keymap_key_get_name(struct xkb_keymap *keymap, xkb_keycode_t key);
  * @sa xkb_keycode_t
  * @memberof xkb_keymap
  * @since 0.6.0
- */
-xkb_keycode_t
-xkb_keymap_key_by_name(struct xkb_keymap *keymap, const char *name);
-
-/**
+  }
+(* Const before type ignored *)
+function xkb_keymap_key_by_name(keymap:Pxkb_keymap; name:Pchar):Txkb_keycode_t;cdecl;external;
+{*
  * Get the number of modifiers in the keymap.
  *
  * @sa xkb_mod_index_t
  * @memberof xkb_keymap
- */
-xkb_mod_index_t
-xkb_keymap_num_mods(struct xkb_keymap *keymap);
-
-/**
+  }
+function xkb_keymap_num_mods(keymap:Pxkb_keymap):Txkb_mod_index_t;cdecl;external;
+{*
  * Get the name of a modifier by index.
  *
  * @returns The name.  If the index is invalid, returns NULL.
  *
  * @sa xkb_mod_index_t
  * @memberof xkb_keymap
- */
-const char *
-xkb_keymap_mod_get_name(struct xkb_keymap *keymap, xkb_mod_index_t idx);
-
-/**
+  }
+(* Const before type ignored *)
+function xkb_keymap_mod_get_name(keymap:Pxkb_keymap; idx:Txkb_mod_index_t):Pchar;cdecl;external;
+{*
  * Get the index of a modifier by name.
  *
  * @returns The index.  If no modifier with this name exists, returns
@@ -1105,20 +1109,17 @@ xkb_keymap_mod_get_name(struct xkb_keymap *keymap, xkb_mod_index_t idx);
  *
  * @sa xkb_mod_index_t
  * @memberof xkb_keymap
- */
-xkb_mod_index_t
-xkb_keymap_mod_get_index(struct xkb_keymap *keymap, const char *name);
-
-/**
+  }
+(* Const before type ignored *)
+function xkb_keymap_mod_get_index(keymap:Pxkb_keymap; name:Pchar):Txkb_mod_index_t;cdecl;external;
+{*
  * Get the number of layouts in the keymap.
  *
  * @sa xkb_layout_index_t xkb_rule_names xkb_keymap_num_layouts_for_key()
  * @memberof xkb_keymap
- */
-xkb_layout_index_t
-xkb_keymap_num_layouts(struct xkb_keymap *keymap);
-
-/**
+  }
+function xkb_keymap_num_layouts(keymap:Pxkb_keymap):Txkb_layout_index_t;cdecl;external;
+{*
  * Get the name of a layout by index.
  *
  * @returns The name.  If the index is invalid, or the layout does not have
@@ -1127,11 +1128,10 @@ xkb_keymap_num_layouts(struct xkb_keymap *keymap);
  * @sa xkb_layout_index_t
  *     For notes on layout names.
  * @memberof xkb_keymap
- */
-const char *
-xkb_keymap_layout_get_name(struct xkb_keymap *keymap, xkb_layout_index_t idx);
-
-/**
+  }
+(* Const before type ignored *)
+function xkb_keymap_layout_get_name(keymap:Pxkb_keymap; idx:Txkb_layout_index_t):Pchar;cdecl;external;
+{*
  * Get the index of a layout by name.
  *
  * @returns The index.  If no layout exists with this name, returns
@@ -1141,11 +1141,10 @@ xkb_keymap_layout_get_name(struct xkb_keymap *keymap, xkb_layout_index_t idx);
  * @sa xkb_layout_index_t
  *     For notes on layout names.
  * @memberof xkb_keymap
- */
-xkb_layout_index_t
-xkb_keymap_layout_get_index(struct xkb_keymap *keymap, const char *name);
-
-/**
+  }
+(* Const before type ignored *)
+function xkb_keymap_layout_get_index(keymap:Pxkb_keymap; name:Pchar):Txkb_layout_index_t;cdecl;external;
+{*
  * Get the number of LEDs in the keymap.
  *
  * @warning The range [ 0...xkb_keymap_num_leds() ) includes all of the LEDs
@@ -1155,32 +1154,28 @@ xkb_keymap_layout_get_index(struct xkb_keymap *keymap, const char *name);
  *
  * @sa xkb_led_index_t
  * @memberof xkb_keymap
- */
-xkb_led_index_t
-xkb_keymap_num_leds(struct xkb_keymap *keymap);
-
-/**
+  }
+function xkb_keymap_num_leds(keymap:Pxkb_keymap):Txkb_led_index_t;cdecl;external;
+{*
  * Get the name of a LED by index.
  *
  * @returns The name.  If the index is invalid, returns NULL.
  *
  * @memberof xkb_keymap
- */
-const char *
-xkb_keymap_led_get_name(struct xkb_keymap *keymap, xkb_led_index_t idx);
-
-/**
+  }
+(* Const before type ignored *)
+function xkb_keymap_led_get_name(keymap:Pxkb_keymap; idx:Txkb_led_index_t):Pchar;cdecl;external;
+{*
  * Get the index of a LED by name.
  *
  * @returns The index.  If no LED with this name exists, returns
  * XKB_LED_INVALID.
  *
  * @memberof xkb_keymap
- */
-xkb_led_index_t
-xkb_keymap_led_get_index(struct xkb_keymap *keymap, const char *name);
-
-/**
+  }
+(* Const before type ignored *)
+function xkb_keymap_led_get_index(keymap:Pxkb_keymap; name:Pchar):Txkb_led_index_t;cdecl;external;
+{*
  * Get the number of layouts for a specific key.
  *
  * This number can be different from xkb_keymap_num_layouts(), but is always
@@ -1189,11 +1184,9 @@ xkb_keymap_led_get_index(struct xkb_keymap *keymap, const char *name);
  *
  * @sa xkb_layout_index_t
  * @memberof xkb_keymap
- */
-xkb_layout_index_t
-xkb_keymap_num_layouts_for_key(struct xkb_keymap *keymap, xkb_keycode_t key);
-
-/**
+  }
+function xkb_keymap_num_layouts_for_key(keymap:Pxkb_keymap; key:Txkb_keycode_t):Txkb_layout_index_t;cdecl;external;
+{*
  * Get the number of shift levels for a specific key and layout.
  *
  * If @c layout is out of range for this key (that is, larger or equal to
@@ -1202,12 +1195,9 @@ xkb_keymap_num_layouts_for_key(struct xkb_keymap *keymap, xkb_keycode_t key);
  *
  * @sa xkb_level_index_t
  * @memberof xkb_keymap
- */
-xkb_level_index_t
-xkb_keymap_num_levels_for_key(struct xkb_keymap *keymap, xkb_keycode_t key,
-                              xkb_layout_index_t layout);
-
-/**
+  }
+function xkb_keymap_num_levels_for_key(keymap:Pxkb_keymap; key:Txkb_keycode_t; layout:Txkb_layout_index_t):Txkb_level_index_t;cdecl;external;
+{*
  * Retrieves every possible modifier mask that produces the specified
  * shift level for a specific key and layout.
  *
@@ -1242,16 +1232,10 @@ xkb_keymap_num_levels_for_key(struct xkb_keymap *keymap, xkb_keycode_t key,
  * @sa xkb_mod_mask_t
  * @memberof xkb_keymap
  * @since 1.0.0
- */
-size_t
-xkb_keymap_key_get_mods_for_level(struct xkb_keymap *keymap,
-                                  xkb_keycode_t key,
-                                  xkb_layout_index_t layout,
-                                  xkb_level_index_t level,
-                                  xkb_mod_mask_t *masks_out,
-                                  size_t masks_size);
-
-/**
+  }
+function xkb_keymap_key_get_mods_for_level(keymap:Pxkb_keymap; key:Txkb_keycode_t; layout:Txkb_layout_index_t; level:Txkb_level_index_t; masks_out:Pxkb_mod_mask_t; 
+           masks_size:Tsize_t):Tsize_t;cdecl;external;
+{*
  * Get the keysyms obtained from pressing a key in a given layout and
  * shift level.
  *
@@ -1278,15 +1262,10 @@ xkb_keymap_key_get_mods_for_level(struct xkb_keymap *keymap,
  *
  * @sa xkb_state_key_get_syms()
  * @memberof xkb_keymap
- */
-int
-xkb_keymap_key_get_syms_by_level(struct xkb_keymap *keymap,
-                                 xkb_keycode_t key,
-                                 xkb_layout_index_t layout,
-                                 xkb_level_index_t level,
-                                 const xkb_keysym_t **syms_out);
-
-/**
+  }
+(* Const before type ignored *)
+function xkb_keymap_key_get_syms_by_level(keymap:Pxkb_keymap; key:Txkb_keycode_t; layout:Txkb_layout_index_t; level:Txkb_level_index_t; syms_out:PPxkb_keysym_t):longint;cdecl;external;
+{*
  * Determine whether a key should repeat or not.
  *
  * A keymap may specify different repeat behaviors for different keys.
@@ -1300,20 +1279,16 @@ xkb_keymap_key_get_syms_by_level(struct xkb_keymap *keymap,
  * @returns 1 if the key should repeat, 0 otherwise.
  *
  * @memberof xkb_keymap
- */
-int
-xkb_keymap_key_repeats(struct xkb_keymap *keymap, xkb_keycode_t key);
-
-/** @} */
-
-/**
+  }
+function xkb_keymap_key_repeats(keymap:Pxkb_keymap; key:Txkb_keycode_t):longint;cdecl;external;
+{* @  }
+{*
  * @defgroup state Keyboard State
  * Creating, destroying and manipulating keyboard state objects.
  *
- * @{
- */
-
-/**
+ * @
+  }
+{*
  * Create a new keyboard state object.
  *
  * @param keymap The keymap which the state will use.
@@ -1321,31 +1296,25 @@ xkb_keymap_key_repeats(struct xkb_keymap *keymap, xkb_keycode_t key);
  * @returns A new keyboard state object, or NULL on failure.
  *
  * @memberof xkb_state
- */
-struct xkb_state *
-xkb_state_new(struct xkb_keymap *keymap);
-
-/**
+  }
+function xkb_state_new(keymap:Pxkb_keymap):Pxkb_state;cdecl;external;
+{*
  * Take a new reference on a keyboard state object.
  *
  * @returns The passed in object.
  *
  * @memberof xkb_state
- */
-struct xkb_state *
-xkb_state_ref(struct xkb_state *state);
-
-/**
+  }
+function xkb_state_ref(state:Pxkb_state):Pxkb_state;cdecl;external;
+{*
  * Release a reference on a keybaord state object, and possibly free it.
  *
  * @param state The state.  If it is NULL, this function does nothing.
  *
  * @memberof xkb_state
- */
-void
-xkb_state_unref(struct xkb_state *state);
-
-/**
+  }
+procedure xkb_state_unref(state:Pxkb_state);cdecl;external;
+{*
  * Get the keymap which a keyboard state object is using.
  *
  * @returns The keymap which was passed to xkb_state_new() when creating
@@ -1356,11 +1325,9 @@ xkb_state_unref(struct xkb_state *state);
  * lifetime of the state.
  *
  * @memberof xkb_state
- */
-struct xkb_keymap *
-xkb_state_get_keymap(struct xkb_state *state);
-
-/**
+  }
+function xkb_state_get_keymap(state:Pxkb_state):Pxkb_keymap;cdecl;external;
+{*
  * @page server-client-state Server State and Client State
  * @parblock
  *
@@ -1385,51 +1352,54 @@ xkb_state_get_keymap(struct xkb_state *state);
  * are only meant for clients, and the two should generally not be mixed.
  *
  * @endparblock
- */
+  }
+{* Specifies the direction of the key (press / release).  }
+{*< The key was released.  }
+{*< The key was pressed.  }
+type
+  Txkb_key_direction =  Longint;
+  Const
+    XKB_KEY_UP = 0;
+    XKB_KEY_DOWN = 1;
 
-/** Specifies the direction of the key (press / release). */
-enum xkb_key_direction {
-    XKB_KEY_UP,   /**< The key was released. */
-    XKB_KEY_DOWN  /**< The key was pressed. */
-};
-
-/**
+{*
  * Modifier and layout types for state objects.  This enum is bitmaskable,
  * e.g. (XKB_STATE_MODS_DEPRESSED | XKB_STATE_MODS_LATCHED) is valid to
  * exclude locked modifiers.
  *
  * In XKB, the DEPRESSED components are also known as 'base'.
- */
-enum xkb_state_component {
-    /** Depressed modifiers, i.e. a key is physically holding them. */
-    XKB_STATE_MODS_DEPRESSED = (1 << 0),
-    /** Latched modifiers, i.e. will be unset after the next non-modifier
-     *  key press. */
-    XKB_STATE_MODS_LATCHED = (1 << 1),
-    /** Locked modifiers, i.e. will be unset after the key provoking the
-     *  lock has been pressed again. */
-    XKB_STATE_MODS_LOCKED = (1 << 2),
-    /** Effective modifiers, i.e. currently active and affect key
+  }
+{* Depressed modifiers, i.e. a key is physically holding them.  }
+{* Latched modifiers, i.e. will be unset after the next non-modifier
+     *  key press.  }
+{* Locked modifiers, i.e. will be unset after the key provoking the
+     *  lock has been pressed again.  }
+{* Effective modifiers, i.e. currently active and affect key
      *  processing (derived from the other state components).
-     *  Use this unless you explicitly care how the state came about. */
-    XKB_STATE_MODS_EFFECTIVE = (1 << 3),
-    /** Depressed layout, i.e. a key is physically holding it. */
-    XKB_STATE_LAYOUT_DEPRESSED = (1 << 4),
-    /** Latched layout, i.e. will be unset after the next non-modifier
-     *  key press. */
-    XKB_STATE_LAYOUT_LATCHED = (1 << 5),
-    /** Locked layout, i.e. will be unset after the key provoking the lock
-     *  has been pressed again. */
-    XKB_STATE_LAYOUT_LOCKED = (1 << 6),
-    /** Effective layout, i.e. currently active and affects key processing
+     *  Use this unless you explicitly care how the state came about.  }
+{* Depressed layout, i.e. a key is physically holding it.  }
+{* Latched layout, i.e. will be unset after the next non-modifier
+     *  key press.  }
+{* Locked layout, i.e. will be unset after the key provoking the lock
+     *  has been pressed again.  }
+{* Effective layout, i.e. currently active and affects key processing
      *  (derived from the other state components).
-     *  Use this unless you explicitly care how the state came about. */
-    XKB_STATE_LAYOUT_EFFECTIVE = (1 << 7),
-    /** LEDs (derived from the other state components). */
-    XKB_STATE_LEDS = (1 << 8)
-};
+     *  Use this unless you explicitly care how the state came about.  }
+{* LEDs (derived from the other state components).  }
+type
+  Txkb_state_component =  Longint;
+  Const
+    XKB_STATE_MODS_DEPRESSED = 1 shl 0;
+    XKB_STATE_MODS_LATCHED = 1 shl 1;
+    XKB_STATE_MODS_LOCKED = 1 shl 2;
+    XKB_STATE_MODS_EFFECTIVE = 1 shl 3;
+    XKB_STATE_LAYOUT_DEPRESSED = 1 shl 4;
+    XKB_STATE_LAYOUT_LATCHED = 1 shl 5;
+    XKB_STATE_LAYOUT_LOCKED = 1 shl 6;
+    XKB_STATE_LAYOUT_EFFECTIVE = 1 shl 7;
+    XKB_STATE_LEDS = 1 shl 8;
 
-/**
+{*
  * Update the keyboard state to reflect a given key being pressed or
  * released.
  *
@@ -1454,12 +1424,10 @@ enum xkb_state_component {
  * @memberof xkb_state
  *
  * @sa xkb_state_update_mask()
- */
-enum xkb_state_component
-xkb_state_update_key(struct xkb_state *state, xkb_keycode_t key,
-                     enum xkb_key_direction direction);
+  }
 
-/**
+function xkb_state_update_key(state:Pxkb_state; key:Txkb_keycode_t; direction:Txkb_key_direction):Txkb_state_component;cdecl;external;
+{*
  * Update a keyboard state from a set of explicit masks.
  *
  * This entry point is intended for *client* applications; see @ref
@@ -1480,17 +1448,10 @@ xkb_state_update_key(struct xkb_state *state, xkb_keycode_t key,
  *
  * @sa xkb_state_component
  * @sa xkb_state_update_key
- */
-enum xkb_state_component
-xkb_state_update_mask(struct xkb_state *state,
-                      xkb_mod_mask_t depressed_mods,
-                      xkb_mod_mask_t latched_mods,
-                      xkb_mod_mask_t locked_mods,
-                      xkb_layout_index_t depressed_layout,
-                      xkb_layout_index_t latched_layout,
-                      xkb_layout_index_t locked_layout);
-
-/**
+  }
+function xkb_state_update_mask(state:Pxkb_state; depressed_mods:Txkb_mod_mask_t; latched_mods:Txkb_mod_mask_t; locked_mods:Txkb_mod_mask_t; depressed_layout:Txkb_layout_index_t; 
+           latched_layout:Txkb_layout_index_t; locked_layout:Txkb_layout_index_t):Txkb_state_component;cdecl;external;
+{*
  * Get the keysyms obtained from pressing a particular key in a given
  * keyboard state.
  *
@@ -1515,12 +1476,10 @@ xkb_state_update_mask(struct xkb_state *state,
  * syms_out to NULL.
  *
  * @memberof xkb_state
- */
-int
-xkb_state_key_get_syms(struct xkb_state *state, xkb_keycode_t key,
-                       const xkb_keysym_t **syms_out);
-
-/**
+  }
+(* Const before type ignored *)
+function xkb_state_key_get_syms(state:Pxkb_state; key:Txkb_keycode_t; syms_out:PPxkb_keysym_t):longint;cdecl;external;
+{*
  * Get the Unicode/UTF-8 string obtained from pressing a particular key
  * in a given keyboard state.
  *
@@ -1545,12 +1504,9 @@ xkb_state_key_get_syms(struct xkb_state *state, xkb_keycode_t key,
  *
  * @memberof xkb_state
  * @since 0.4.1
- */
-int
-xkb_state_key_get_utf8(struct xkb_state *state, xkb_keycode_t key,
-                       char *buffer, size_t size);
-
-/**
+  }
+function xkb_state_key_get_utf8(state:Pxkb_state; key:Txkb_keycode_t; buffer:Pchar; size:Tsize_t):longint;cdecl;external;
+{*
  * Get the Unicode/UTF-32 codepoint obtained from pressing a particular
  * key in a a given keyboard state.
  *
@@ -1562,11 +1518,9 @@ xkb_state_key_get_utf8(struct xkb_state *state, xkb_keycode_t key,
  *
  * @memberof xkb_state
  * @since 0.4.1
- */
-uint32_t
-xkb_state_key_get_utf32(struct xkb_state *state, xkb_keycode_t key);
-
-/**
+  }
+function xkb_state_key_get_utf32(state:Pxkb_state; key:Txkb_keycode_t):Tuint32_t;cdecl;external;
+{*
  * Get the single keysym obtained from pressing a particular key in a
  * given keyboard state.
  *
@@ -1582,11 +1536,9 @@ xkb_state_key_get_utf32(struct xkb_state *state, xkb_keycode_t key);
  *
  * @sa xkb_state_key_get_syms()
  * @memberof xkb_state
- */
-xkb_keysym_t
-xkb_state_key_get_one_sym(struct xkb_state *state, xkb_keycode_t key);
-
-/**
+  }
+function xkb_state_key_get_one_sym(state:Pxkb_state; key:Txkb_keycode_t):Txkb_keysym_t;cdecl;external;
+{*
  * Get the effective layout index for a key in a given keyboard state.
  *
  * @returns The layout index for the key in the given keyboard state.  If
@@ -1599,11 +1551,9 @@ xkb_state_key_get_one_sym(struct xkb_state *state, xkb_keycode_t key);
  * @endcode
  *
  * @memberof xkb_state
- */
-xkb_layout_index_t
-xkb_state_key_get_layout(struct xkb_state *state, xkb_keycode_t key);
-
-/**
+  }
+function xkb_state_key_get_layout(state:Pxkb_state; key:Txkb_keycode_t):Txkb_layout_index_t;cdecl;external;
+{*
  * Get the effective shift level for a key in a given keyboard state and
  * layout.
  *
@@ -1624,28 +1574,26 @@ xkb_state_key_get_layout(struct xkb_state *state, xkb_keycode_t key);
  * @endcode
  *
  * @memberof xkb_state
- */
-xkb_level_index_t
-xkb_state_key_get_level(struct xkb_state *state, xkb_keycode_t key,
-                        xkb_layout_index_t layout);
-
-/**
+  }
+function xkb_state_key_get_level(state:Pxkb_state; key:Txkb_keycode_t; layout:Txkb_layout_index_t):Txkb_level_index_t;cdecl;external;
+{*
  * Match flags for xkb_state_mod_indices_are_active() and
  * xkb_state_mod_names_are_active(), specifying the conditions for a
  * successful match.  XKB_STATE_MATCH_NON_EXCLUSIVE is bitmaskable with
  * the other modes.
- */
-enum xkb_state_match {
-    /** Returns true if any of the modifiers are active. */
-    XKB_STATE_MATCH_ANY = (1 << 0),
-    /** Returns true if all of the modifiers are active. */
-    XKB_STATE_MATCH_ALL = (1 << 1),
-    /** Makes matching non-exclusive, i.e. will not return false if a
-     *  modifier not specified in the arguments is active. */
-    XKB_STATE_MATCH_NON_EXCLUSIVE = (1 << 16)
-};
+  }
+{* Returns true if any of the modifiers are active.  }
+{* Returns true if all of the modifiers are active.  }
+{* Makes matching non-exclusive, i.e. will not return false if a
+     *  modifier not specified in the arguments is active.  }
+type
+  Txkb_state_match =  Longint;
+  Const
+    XKB_STATE_MATCH_ANY = 1 shl 0;
+    XKB_STATE_MATCH_ALL = 1 shl 1;
+    XKB_STATE_MATCH_NON_EXCLUSIVE = 1 shl 16;
 
-/**
+{*
  * The counterpart to xkb_state_update_mask for modifiers, to be used on
  * the server side of serialization.
  *
@@ -1663,12 +1611,10 @@ enum xkb_state_match {
  * modifier state.
  *
  * @memberof xkb_state
- */
-xkb_mod_mask_t
-xkb_state_serialize_mods(struct xkb_state *state,
-                         enum xkb_state_component components);
+  }
 
-/**
+function xkb_state_serialize_mods(state:Pxkb_state; components:Txkb_state_component):Txkb_mod_mask_t;cdecl;external;
+{*
  * The counterpart to xkb_state_update_mask for layouts, to be used on
  * the server side of serialization.
  *
@@ -1686,24 +1632,19 @@ xkb_state_serialize_mods(struct xkb_state *state,
  * layout state.
  *
  * @memberof xkb_state
- */
-xkb_layout_index_t
-xkb_state_serialize_layout(struct xkb_state *state,
-                           enum xkb_state_component components);
-
-/**
+  }
+function xkb_state_serialize_layout(state:Pxkb_state; components:Txkb_state_component):Txkb_layout_index_t;cdecl;external;
+{*
  * Test whether a modifier is active in a given keyboard state by name.
  *
  * @returns 1 if the modifier is active, 0 if it is not.  If the modifier
  * name does not exist in the keymap, returns -1.
  *
  * @memberof xkb_state
- */
-int
-xkb_state_mod_name_is_active(struct xkb_state *state, const char *name,
-                             enum xkb_state_component type);
-
-/**
+  }
+(* Const before type ignored *)
+function xkb_state_mod_name_is_active(state:Pxkb_state; name:Pchar; _type:Txkb_state_component):longint;cdecl;external;
+{*
  * Test whether a set of modifiers are active in a given keyboard state by
  * name.
  *
@@ -1719,26 +1660,19 @@ xkb_state_mod_name_is_active(struct xkb_state *state, const char *name,
  * the modifier names do not exist in the keymap, returns -1.
  *
  * @memberof xkb_state
- */
-int
-xkb_state_mod_names_are_active(struct xkb_state *state,
-                               enum xkb_state_component type,
-                               enum xkb_state_match match,
-                               ...);
-
-/**
+  }
+function xkb_state_mod_names_are_active(state:Pxkb_state; _type:Txkb_state_component; match:Txkb_state_match; args:array of const):longint;cdecl;external;
+function xkb_state_mod_names_are_active(state:Pxkb_state; _type:Txkb_state_component; match:Txkb_state_match):longint;cdecl;external;
+{*
  * Test whether a modifier is active in a given keyboard state by index.
  *
  * @returns 1 if the modifier is active, 0 if it is not.  If the modifier
  * index is invalid in the keymap, returns -1.
  *
  * @memberof xkb_state
- */
-int
-xkb_state_mod_index_is_active(struct xkb_state *state, xkb_mod_index_t idx,
-                              enum xkb_state_component type);
-
-/**
+  }
+function xkb_state_mod_index_is_active(state:Pxkb_state; idx:Txkb_mod_index_t; _type:Txkb_state_component):longint;cdecl;external;
+{*
  * Test whether a set of modifiers are active in a given keyboard state by
  * index.
  *
@@ -1754,14 +1688,10 @@ xkb_state_mod_index_is_active(struct xkb_state *state, xkb_mod_index_t idx,
  * the modifier indices are invalid in the keymap, returns -1.
  *
  * @memberof xkb_state
- */
-int
-xkb_state_mod_indices_are_active(struct xkb_state *state,
-                                 enum xkb_state_component type,
-                                 enum xkb_state_match match,
-                                 ...);
-
-/**
+  }
+function xkb_state_mod_indices_are_active(state:Pxkb_state; _type:Txkb_state_component; match:Txkb_state_match; args:array of const):longint;cdecl;external;
+function xkb_state_mod_indices_are_active(state:Pxkb_state; _type:Txkb_state_component; match:Txkb_state_match):longint;cdecl;external;
+{*
  * @page consumed-modifiers Consumed Modifiers
  * @parblock
  *
@@ -1820,9 +1750,8 @@ xkb_state_mod_indices_are_active(struct xkb_state *state,
  * it is up to them to decide whether these are configurable or hard-coded.
  *
  * @endparblock
- */
-
-/**
+  }
+{*
  * Consumed modifiers mode.
  *
  * There are several possible methods for deciding which modifiers are
@@ -1832,9 +1761,8 @@ xkb_state_mod_indices_are_active(struct xkb_state *state,
  * Keep in mind that in all methods, the keymap may decide to "preserve"
  * a modifier, meaning it is not reported as consumed even if it would
  * have otherwise.
- */
-enum xkb_consumed_mode {
-    /**
+  }
+{*
      * This is the mode defined in the XKB specification and used by libX11.
      *
      * A modifier is consumed if and only if it *may affect* key translation.
@@ -1843,9 +1771,8 @@ enum xkb_consumed_mode {
      * then when pressing just `<Backspace>`, `Control` and `Alt` are consumed,
      * even though they are not active, since if they *were* active they would
      * have affected key translation.
-     */
-    XKB_CONSUMED_MODE_XKB,
-    /**
+      }
+{*
      * This is the mode used by the GTK+ toolkit.
      *
      * The mode consists of the following two independent heuristics:
@@ -1859,11 +1786,14 @@ enum xkb_consumed_mode {
      * - A single modifier is considered consumed if the keysyms produced for
      *   the key when it is the only active modifier are different from the
      *   keysyms produced when no modifiers are active.
-     */
-    XKB_CONSUMED_MODE_GTK
-};
+      }
+type
+  Txkb_consumed_mode =  Longint;
+  Const
+    XKB_CONSUMED_MODE_XKB = 0;
+    XKB_CONSUMED_MODE_GTK = 1;
 
-/**
+{*
  * Get the mask of modifiers consumed by translating a given key.
  *
  * @param state The keyboard state.
@@ -1874,21 +1804,17 @@ enum xkb_consumed_mode {
  *
  * @memberof xkb_state
  * @since 0.7.0
- */
-xkb_mod_mask_t
-xkb_state_key_get_consumed_mods2(struct xkb_state *state, xkb_keycode_t key,
-                                 enum xkb_consumed_mode mode);
+  }
 
-/**
+function xkb_state_key_get_consumed_mods2(state:Pxkb_state; key:Txkb_keycode_t; mode:Txkb_consumed_mode):Txkb_mod_mask_t;cdecl;external;
+{*
  * Same as xkb_state_key_get_consumed_mods2() with mode XKB_CONSUMED_MODE_XKB.
  *
  * @memberof xkb_state
  * @since 0.4.1
- */
-xkb_mod_mask_t
-xkb_state_key_get_consumed_mods(struct xkb_state *state, xkb_keycode_t key);
-
-/**
+  }
+function xkb_state_key_get_consumed_mods(state:Pxkb_state; key:Txkb_keycode_t):Txkb_mod_mask_t;cdecl;external;
+{*
  * Test whether a modifier is consumed by keyboard state translation for
  * a key.
  *
@@ -1904,24 +1830,16 @@ xkb_state_key_get_consumed_mods(struct xkb_state *state, xkb_keycode_t key);
  * @sa xkb_state_key_get_consumed_mods()
  * @memberof xkb_state
  * @since 0.7.0
- */
-int
-xkb_state_mod_index_is_consumed2(struct xkb_state *state,
-                                 xkb_keycode_t key,
-                                 xkb_mod_index_t idx,
-                                 enum xkb_consumed_mode mode);
-
-/**
+  }
+function xkb_state_mod_index_is_consumed2(state:Pxkb_state; key:Txkb_keycode_t; idx:Txkb_mod_index_t; mode:Txkb_consumed_mode):longint;cdecl;external;
+{*
  * Same as xkb_state_mod_index_is_consumed2() with mode XKB_CONSUMED_MOD_XKB.
  *
  * @memberof xkb_state
  * @since 0.4.1
- */
-int
-xkb_state_mod_index_is_consumed(struct xkb_state *state, xkb_keycode_t key,
-                                xkb_mod_index_t idx);
-
-/**
+  }
+function xkb_state_mod_index_is_consumed(state:Pxkb_state; key:Txkb_keycode_t; idx:Txkb_mod_index_t):longint;cdecl;external;
+{*
  * Remove consumed modifiers from a modifier mask for a key.
  *
  * @deprecated Use xkb_state_key_get_consumed_mods2() instead.
@@ -1931,12 +1849,9 @@ xkb_state_mod_index_is_consumed(struct xkb_state *state, xkb_keycode_t key,
  *
  * @sa xkb_state_mod_index_is_consumed()
  * @memberof xkb_state
- */
-xkb_mod_mask_t
-xkb_state_mod_mask_remove_consumed(struct xkb_state *state, xkb_keycode_t key,
-                                   xkb_mod_mask_t mask);
-
-/**
+  }
+function xkb_state_mod_mask_remove_consumed(state:Pxkb_state; key:Txkb_keycode_t; mask:Txkb_mod_mask_t):Txkb_mod_mask_t;cdecl;external;
+{*
  * Test whether a layout is active in a given keyboard state by name.
  *
  * @returns 1 if the layout is active, 0 if it is not.  If no layout with
@@ -1947,12 +1862,10 @@ xkb_state_mod_mask_remove_consumed(struct xkb_state *state, xkb_keycode_t key,
  *
  * @sa xkb_layout_index_t
  * @memberof xkb_state
- */
-int
-xkb_state_layout_name_is_active(struct xkb_state *state, const char *name,
-                                enum xkb_state_component type);
-
-/**
+  }
+(* Const before type ignored *)
+function xkb_state_layout_name_is_active(state:Pxkb_state; name:Pchar; _type:Txkb_state_component):longint;cdecl;external;
+{*
  * Test whether a layout is active in a given keyboard state by index.
  *
  * @returns 1 if the layout is active, 0 if it is not.  If the layout index
@@ -1960,13 +1873,9 @@ xkb_state_layout_name_is_active(struct xkb_state *state, const char *name,
  *
  * @sa xkb_layout_index_t
  * @memberof xkb_state
- */
-int
-xkb_state_layout_index_is_active(struct xkb_state *state,
-                                 xkb_layout_index_t idx,
-                                 enum xkb_state_component type);
-
-/**
+  }
+function xkb_state_layout_index_is_active(state:Pxkb_state; idx:Txkb_layout_index_t; _type:Txkb_state_component):longint;cdecl;external;
+{*
  * Test whether a LED is active in a given keyboard state by name.
  *
  * @returns 1 if the LED is active, 0 if it not.  If no LED with this name
@@ -1974,11 +1883,10 @@ xkb_state_layout_index_is_active(struct xkb_state *state,
  *
  * @sa xkb_led_index_t
  * @memberof xkb_state
- */
-int
-xkb_state_led_name_is_active(struct xkb_state *state, const char *name);
-
-/**
+  }
+(* Const before type ignored *)
+function xkb_state_led_name_is_active(state:Pxkb_state; name:Pchar):longint;cdecl;external;
+{*
  * Test whether a LED is active in a given keyboard state by index.
  *
  * @returns 1 if the LED is active, 0 if it not.  If the LED index is not
@@ -1986,17 +1894,37 @@ xkb_state_led_name_is_active(struct xkb_state *state, const char *name);
  *
  * @sa xkb_led_index_t
  * @memberof xkb_state
- */
-int
-xkb_state_led_index_is_active(struct xkb_state *state, xkb_led_index_t idx);
+  }
+function xkb_state_led_index_is_active(state:Pxkb_state; idx:Txkb_led_index_t):longint;cdecl;external;
+{* @  }
+{ Leave this include last, so it can pick up our types, etc.  }
+{$include <xkbcommon/xkbcommon-compat.h>}
+{$endif}
+{ _XKBCOMMON_H_  }
 
-/** @} */
+implementation
 
-/* Leave this include last, so it can pick up our types, etc. */
-#include <xkbcommon/xkbcommon-compat.h>
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function xkb_keycode_is_legal_ext(key : longint) : longint;
+begin
+  xkb_keycode_is_legal_ext:=key<=XKB_KEYCODE_MAX;
+end;
 
-#ifdef __cplusplus
-} /* extern "C" */
-#endif
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function xkb_keycode_is_legal_x11(key : longint) : longint;
+begin
+  xkb_keycode_is_legal_x11:=(key>=(8 and (@(key))))<=255;
+end;
 
-#endif /* _XKBCOMMON_H_ */
+{ was #define dname def_expr }
+function XKB_KEYMAP_USE_ORIGINAL_FORMAT : Txkb_keymap_format;
+  begin
+    XKB_KEYMAP_USE_ORIGINAL_FORMAT:=Txkb_keymap_format(-(1));
+  end;
+
+
+end.

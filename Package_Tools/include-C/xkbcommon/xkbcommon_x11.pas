@@ -1,4 +1,16 @@
-/*
+unit xkbcommon_x11;
+
+interface
+
+uses
+  fp_xkbcommon;
+
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{
  * Copyright © 2013 Ran Benita
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -19,32 +31,24 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
- */
-
-#ifndef _XKBCOMMON_X11_H
-#define _XKBCOMMON_X11_H
-
-#include <xcb/xcb.h>
-#include <xkbcommon/xkbcommon.h>
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-/**
+  }
+{$ifndef _XKBCOMMON_X11_H}
+{$define _XKBCOMMON_X11_H}
+{$include <xcb/xcb.h>}
+{$include <xkbcommon/xkbcommon.h>}
+{ C++ extern C conditionnal removed }
+{*
  * @file
  * libxkbcommon-x11 API - Additional X11 support for xkbcommon.
- */
-
-/**
+  }
+{*
  * @defgroup x11 X11 support
  * Additional X11 support for xkbcommon.
  * @since 0.4.0
  *
- * @{
- */
-
-/**
+ * @
+  }
+{*
  * @page x11-overview Overview
  * @parblock
  *
@@ -106,26 +110,27 @@ extern "C" {
  * as you normally would.
  *
  * @endparblock
- */
-
-/**
+  }
+{*
  * The minimal compatible major version of the XKB X11 extension which
  * this library can use.
- */
-#define XKB_X11_MIN_MAJOR_XKB_VERSION 1
-/**
+  }
+
+const
+  XKB_X11_MIN_MAJOR_XKB_VERSION = 1;  
+{*
  * The minimal compatible minor version of the XKB X11 extension which
  * this library can use (for the minimal major version).
- */
-#define XKB_X11_MIN_MINOR_XKB_VERSION 0
+  }
+  XKB_X11_MIN_MINOR_XKB_VERSION = 0;  
+{* Flags for the xkb_x11_setup_xkb_extension() function.  }
+{* Do not apply any flags.  }
+type
+  Txkb_x11_setup_xkb_extension_flags =  Longint;
+  Const
+    XKB_X11_SETUP_XKB_EXTENSION_NO_FLAGS = 0;
 
-/** Flags for the xkb_x11_setup_xkb_extension() function. */
-enum xkb_x11_setup_xkb_extension_flags {
-    /** Do not apply any flags. */
-    XKB_X11_SETUP_XKB_EXTENSION_NO_FLAGS = 0
-};
-
-/**
+{*
  * Setup the XKB X11 extension for this X client.
  *
  * The xkbcommon-x11 library uses various XKB requests.  Before doing so,
@@ -162,29 +167,20 @@ enum xkb_x11_setup_xkb_extension_flags {
  *     to distinguish XKB errors.  Can be NULL.
  *
  * @returns 1 on success, or 0 on failure.
- */
-int
-xkb_x11_setup_xkb_extension(xcb_connection_t *connection,
-                            uint16_t major_xkb_version,
-                            uint16_t minor_xkb_version,
-                            enum xkb_x11_setup_xkb_extension_flags flags,
-                            uint16_t *major_xkb_version_out,
-                            uint16_t *minor_xkb_version_out,
-                            uint8_t *base_event_out,
-                            uint8_t *base_error_out);
+  }
 
-/**
+function xkb_x11_setup_xkb_extension(connection:Pxcb_connection_t; major_xkb_version:Tuint16_t; minor_xkb_version:Tuint16_t; flags:Txkb_x11_setup_xkb_extension_flags; major_xkb_version_out:Puint16_t; 
+           minor_xkb_version_out:Puint16_t; base_event_out:Puint8_t; base_error_out:Puint8_t):longint;cdecl;external libxkbcommon;
+{*
  * Get the keyboard device ID of the core X11 keyboard.
  *
  * @param connection An XCB connection to the X server.
  *
  * @returns A device ID which may be used with other xkb_x11_* functions,
  *          or -1 on failure.
- */
-int32_t
-xkb_x11_get_core_keyboard_device_id(xcb_connection_t *connection);
-
-/**
+  }
+function xkb_x11_get_core_keyboard_device_id(connection:Pxcb_connection_t):Tint32_t;cdecl;external libxkbcommon;
+{*
  * Create a keymap from an X11 keyboard device.
  *
  * This function queries the X server with various requests, fetches the
@@ -205,14 +201,9 @@ xkb_x11_get_core_keyboard_device_id(xcb_connection_t *connection);
  * @returns A keymap retrieved from the X server, or NULL on failure.
  *
  * @memberof xkb_keymap
- */
-struct xkb_keymap *
-xkb_x11_keymap_new_from_device(struct xkb_context *context,
-                               xcb_connection_t *connection,
-                               int32_t device_id,
-                               enum xkb_keymap_compile_flags flags);
-
-/**
+  }
+function xkb_x11_keymap_new_from_device(context:Pxkb_context; connection:Pxcb_connection_t; device_id:Tint32_t; flags:Txkb_keymap_compile_flags):Pxkb_keymap;cdecl;external libxkbcommon;
+{*
  * Create a new keyboard state object from an X11 keyboard device.
  *
  * This function is the same as xkb_state_new(), only pre-initialized
@@ -229,16 +220,17 @@ xkb_x11_keymap_new_from_device(struct xkb_context *context,
  * @returns A new keyboard state object, or NULL on failure.
  *
  * @memberof xkb_state
- */
-struct xkb_state *
-xkb_x11_state_new_from_device(struct xkb_keymap *keymap,
-                              xcb_connection_t *connection,
-                              int32_t device_id);
+  }
+function xkb_x11_state_new_from_device(keymap:Pxkb_keymap; connection:Pxcb_connection_t; device_id:Tint32_t):Pxkb_state;cdecl;external libxkbcommon;
+{* @  }
+{$endif}
+{ _XKBCOMMON_X11_H  }
 
-/** @} */
+// === Konventiert am: 14-6-26 17:33:41 ===
 
-#ifdef __cplusplus
-} /* extern "C" */
-#endif
 
-#endif /* _XKBCOMMON_X11_H */
+implementation
+
+
+
+end.

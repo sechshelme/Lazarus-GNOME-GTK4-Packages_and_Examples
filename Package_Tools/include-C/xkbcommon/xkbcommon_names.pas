@@ -1,4 +1,16 @@
-/*
+unit xkbcommon_names;
+
+interface
+
+uses
+  fp_xkbcommon;
+
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{
  * Copyright © 2012 Intel Corporation
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -21,25 +33,31 @@
  * DEALINGS IN THE SOFTWARE.
  *
  * Author: Daniel Stone <daniel@fooishbar.org>
- */
-
-#ifndef _XKBCOMMON_NAMES_H
-#define _XKBCOMMON_NAMES_H
-
-/**
+  }
+{$ifndef _XKBCOMMON_NAMES_H}
+{$define _XKBCOMMON_NAMES_H}
+{*
  * @file
  * @brief Predefined names for common modifiers and LEDs.
- */
+  }
 
-#define XKB_MOD_NAME_SHIFT      "Shift"
-#define XKB_MOD_NAME_CAPS       "Lock"
-#define XKB_MOD_NAME_CTRL       "Control"
-#define XKB_MOD_NAME_ALT        "Mod1"
-#define XKB_MOD_NAME_NUM        "Mod2"
-#define XKB_MOD_NAME_LOGO       "Mod4"
+const
+  XKB_MOD_NAME_SHIFT = 'Shift';  
+  XKB_MOD_NAME_CAPS = 'Lock';  
+  XKB_MOD_NAME_CTRL = 'Control';  
+  XKB_MOD_NAME_ALT = 'Mod1';  
+  XKB_MOD_NAME_NUM = 'Mod2';  
+  XKB_MOD_NAME_LOGO = 'Mod4';  
+  XKB_LED_NAME_CAPS = 'Caps Lock';  
+  XKB_LED_NAME_NUM = 'Num Lock';  
+  XKB_LED_NAME_SCROLL = 'Scroll Lock';  
+{$endif}
 
-#define XKB_LED_NAME_CAPS       "Caps Lock"
-#define XKB_LED_NAME_NUM        "Num Lock"
-#define XKB_LED_NAME_SCROLL     "Scroll Lock"
+// === Konventiert am: 14-6-26 17:33:45 ===
 
-#endif
+
+implementation
+
+
+
+end.

@@ -335,6 +335,8 @@ const
     (libs: 'libwayland_client'; units: 'fp_wayland_client'),
     (libs: 'libdecor '; units: 'fp_wayland'),
 
+    (libs: 'libxkbcommon'; units: 'fp_xkbcommon'),
+    (libs: 'libxkbregistry'; units: 'fp_xkbcommon'),
 
 
     (libs: ''; units: ''));

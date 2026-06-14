@@ -1,4 +1,48 @@
-/*
+
+unit xkbcommon_compose;
+interface
+
+{
+  Automatically converted by H2Pas 1.0.0 from xkbcommon_compose.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    xkbcommon_compose.h
+}
+
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
+
+Type
+Pchar  = ^char;
+PFILE  = ^FILE;
+Psize_t  = ^size_t;
+Pxkb_compose_compile_flags  = ^xkb_compose_compile_flags;
+Pxkb_compose_feed_result  = ^xkb_compose_feed_result;
+Pxkb_compose_format  = ^xkb_compose_format;
+Pxkb_compose_state  = ^xkb_compose_state;
+Pxkb_compose_state_flags  = ^xkb_compose_state_flags;
+Pxkb_compose_status  = ^xkb_compose_status;
+Pxkb_compose_table  = ^xkb_compose_table;
+Pxkb_compose_table_entry  = ^xkb_compose_table_entry;
+Pxkb_compose_table_iterator  = ^xkb_compose_table_iterator;
+Pxkb_context  = ^xkb_context;
+Pxkb_keysym_t  = ^xkb_keysym_t;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{
  * Copyright © 2013 Ran Benita
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -19,31 +63,23 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
- */
-
-#ifndef _XKBCOMMON_COMPOSE_H
-#define _XKBCOMMON_COMPOSE_H
-
-#include <xkbcommon/xkbcommon.h>
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-/**
+  }
+{$ifndef _XKBCOMMON_COMPOSE_H}
+{$define _XKBCOMMON_COMPOSE_H}
+{$include <xkbcommon/xkbcommon.h>}
+{ C++ extern C conditionnal removed }
+{*
  * @file
  * libxkbcommon Compose API - support for Compose and dead-keys.
- */
-
-/**
+  }
+{*
  * @defgroup compose Compose and dead-keys support
  * Support for Compose and dead-keys.
  * @since 0.5.0
  *
- * @{
- */
-
-/**
+ * @
+  }
+{*
  * @page compose-overview Overview
  * @parblock
  *
@@ -77,9 +113,8 @@ extern "C" {
  * may be built upon it, or it can be used directly.
  *
  * @endparblock
- */
-
-/**
+  }
+{*
  * @page compose-conflicting Conflicting Sequences
  * @parblock
  *
@@ -93,9 +128,8 @@ extern "C" {
  * Sequences of length 1 are allowed.
  *
  * @endparblock
- */
-
-/**
+  }
+{*
  * @page compose-cancellation Cancellation Behavior
  * @parblock
  *
@@ -114,18 +148,21 @@ extern "C" {
  * You can program whichever approach best fits users' expectations.
  *
  * @endparblock
- */
-
-/**
+  }
+{*
  * @struct xkb_compose_table
  * Opaque Compose table object.
  *
  * The compose table holds the definitions of the Compose sequences, as
  * gathered from Compose files.  It is immutable.
- */
-struct xkb_compose_table;
+  }
+type
+  Pxkb_compose_table = ^Txkb_compose_table;
+  Txkb_compose_table = record
+      {undefined structure}
+    end;
 
-/**
+{*
  * @struct xkb_compose_state
  * Opaque Compose state object.
  *
@@ -135,22 +172,26 @@ struct xkb_compose_table;
  * the input, and composed keysyms and strings are the output.
  *
  * The compose state is usually associated with a keyboard device.
- */
-struct xkb_compose_state;
+  }
+  Pxkb_compose_state = ^Txkb_compose_state;
+  Txkb_compose_state = record
+      {undefined structure}
+    end;
 
-/** Flags affecting Compose file compilation. */
-enum xkb_compose_compile_flags {
-    /** Do not apply any flags. */
-    XKB_COMPOSE_COMPILE_NO_FLAGS = 0
-};
+{* Flags affecting Compose file compilation.  }
+{* Do not apply any flags.  }
+  Txkb_compose_compile_flags =  Longint;
+  Const
+    XKB_COMPOSE_COMPILE_NO_FLAGS = 0;
 
-/** The recognized Compose file formats. */
-enum xkb_compose_format {
-    /** The classic libX11 Compose text format, described in Compose(5). */
-    XKB_COMPOSE_FORMAT_TEXT_V1 = 1
-};
+{* The recognized Compose file formats.  }
+{* The classic libX11 Compose text format, described in Compose(5).  }
+type
+  Txkb_compose_format =  Longint;
+  Const
+    XKB_COMPOSE_FORMAT_TEXT_V1 = 1;
 
-/**
+{*
  * @page compose-locale Compose Locale
  * @parblock
  *
@@ -194,9 +235,8 @@ enum xkb_compose_format {
  * have a Compose file assigned.
  *
  * @endparblock
- */
-
-/**
+  }
+{*
  * Create a compose table for a given locale.
  *
  * The locale is used for searching the file-system for an appropriate
@@ -231,13 +271,11 @@ enum xkb_compose_format {
  * compilation failed or a Compose file was not found.
  *
  * @memberof xkb_compose_table
- */
-struct xkb_compose_table *
-xkb_compose_table_new_from_locale(struct xkb_context *context,
-                                  const char *locale,
-                                  enum xkb_compose_compile_flags flags);
+  }
+(* Const before type ignored *)
 
-/**
+function xkb_compose_table_new_from_locale(context:Pxkb_context; locale:Pchar; flags:Txkb_compose_compile_flags):Pxkb_compose_table;cdecl;external;
+{*
  * Create a new compose table from a Compose file.
  *
  * @param context
@@ -255,15 +293,10 @@ xkb_compose_table_new_from_locale(struct xkb_context *context,
  * the compilation failed.
  *
  * @memberof xkb_compose_table
- */
-struct xkb_compose_table *
-xkb_compose_table_new_from_file(struct xkb_context *context,
-                                FILE *file,
-                                const char *locale,
-                                enum xkb_compose_format format,
-                                enum xkb_compose_compile_flags flags);
-
-/**
+  }
+(* Const before type ignored *)
+function xkb_compose_table_new_from_file(context:Pxkb_context; file:PFILE; locale:Pchar; format:Txkb_compose_format; flags:Txkb_compose_compile_flags):Pxkb_compose_table;cdecl;external;
+{*
  * Create a new compose table from a memory buffer.
  *
  * This is just like xkb_compose_table_new_from_file(), but instead of
@@ -271,35 +304,28 @@ xkb_compose_table_new_from_file(struct xkb_context *context,
  *
  * @see xkb_compose_table_new_from_file()
  * @memberof xkb_compose_table
- */
-struct xkb_compose_table *
-xkb_compose_table_new_from_buffer(struct xkb_context *context,
-                                  const char *buffer, size_t length,
-                                  const char *locale,
-                                  enum xkb_compose_format format,
-                                  enum xkb_compose_compile_flags flags);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function xkb_compose_table_new_from_buffer(context:Pxkb_context; buffer:Pchar; length:Tsize_t; locale:Pchar; format:Txkb_compose_format; 
+           flags:Txkb_compose_compile_flags):Pxkb_compose_table;cdecl;external;
+{*
  * Take a new reference on a compose table.
  *
  * @returns The passed in object.
  *
  * @memberof xkb_compose_table
- */
-struct xkb_compose_table *
-xkb_compose_table_ref(struct xkb_compose_table *table);
-
-/**
+  }
+function xkb_compose_table_ref(table:Pxkb_compose_table):Pxkb_compose_table;cdecl;external;
+{*
  * Release a reference on a compose table, and possibly free it.
  *
  * @param table The object.  If it is NULL, this function does nothing.
  *
  * @memberof xkb_compose_table
- */
-void
-xkb_compose_table_unref(struct xkb_compose_table *table);
-
-/**
+  }
+procedure xkb_compose_table_unref(table:Pxkb_compose_table);cdecl;external;
+{*
  * @struct xkb_compose_table_entry
  * Opaque Compose table entry object.
  *
@@ -308,10 +334,14 @@ xkb_compose_table_unref(struct xkb_compose_table *table);
  *
  * @sa xkb_compose_table_iterator_new
  * @since 1.6.0
- */
-struct xkb_compose_table_entry;
+  }
+type
+  Pxkb_compose_table_entry = ^Txkb_compose_table_entry;
+  Txkb_compose_table_entry = record
+      {undefined structure}
+    end;
 
-/**
+{*
  * Get the left-hand keysym sequence of a Compose table entry.
  *
  * For example, given the following entry:
@@ -320,7 +350,7 @@ struct xkb_compose_table_entry;
  * <dead_tilde> <space> : "~" asciitilde # TILDE
  * ```
  *
- * it will return `{XKB_KEY_dead_tilde, XKB_KEY_space}`.
+ * it will return `XKB_KEY_dead_tilde, XKB_KEY_space`.
  *
  * @param[in]  entry The compose table entry object to process.
  *
@@ -331,12 +361,11 @@ struct xkb_compose_table_entry;
  *
  * @memberof xkb_compose_table_entry
  * @since 1.6.0
- */
-const xkb_keysym_t *
-xkb_compose_table_entry_sequence(struct xkb_compose_table_entry *entry,
-                                 size_t *sequence_length);
+  }
+(* Const before type ignored *)
 
-/**
+function xkb_compose_table_entry_sequence(entry:Pxkb_compose_table_entry; sequence_length:Psize_t):Pxkb_keysym_t;cdecl;external;
+{*
  * Get the right-hand result keysym of a Compose table entry.
  *
  * For example, given the following entry:
@@ -352,11 +381,9 @@ xkb_compose_table_entry_sequence(struct xkb_compose_table_entry *entry,
  *
  * @memberof xkb_compose_table_entry
  * @since 1.6.0
- */
-xkb_keysym_t
-xkb_compose_table_entry_keysym(struct xkb_compose_table_entry *entry);
-
-/**
+  }
+function xkb_compose_table_entry_keysym(entry:Pxkb_compose_table_entry):Txkb_keysym_t;cdecl;external;
+{*
  * Get the right-hand result string of a Compose table entry.
  *
  * The string is UTF-8 encoded and NULL-terminated.
@@ -374,20 +401,23 @@ xkb_compose_table_entry_keysym(struct xkb_compose_table_entry *entry);
  *
  * @memberof xkb_compose_table_entry
  * @since 1.6.0
- */
-const char *
-xkb_compose_table_entry_utf8(struct xkb_compose_table_entry *entry);
-
-/**
+  }
+(* Const before type ignored *)
+function xkb_compose_table_entry_utf8(entry:Pxkb_compose_table_entry):Pchar;cdecl;external;
+{*
  * @struct xkb_compose_table_iterator
  * Iterator over a compose table’s entries.
  *
  * @sa xkb_compose_table_iterator_new()
  * @since 1.6.0
- */
-struct xkb_compose_table_iterator;
+  }
+type
+  Pxkb_compose_table_iterator = ^Txkb_compose_table_iterator;
+  Txkb_compose_table_iterator = record
+      {undefined structure}
+    end;
 
-/**
+{*
  * Create a new iterator for a compose table.
  *
  * Intended use:
@@ -395,9 +425,9 @@ struct xkb_compose_table_iterator;
  * ```c
  * struct xkb_compose_table_iterator *iter = xkb_compose_table_iterator_new(compose_table);
  * struct xkb_compose_table_entry *entry;
- * while ((entry = xkb_compose_table_iterator_next(iter))) {
+ * while ((entry = xkb_compose_table_iterator_next(iter))) 
  *     // ...
- * }
+ * 
  * xkb_compose_table_iterator_free(iter);
  * ```
  *
@@ -406,20 +436,17 @@ struct xkb_compose_table_iterator;
  * @memberof xkb_compose_table_iterator
  * @sa xkb_compose_table_iterator_free()
  * @since 1.6.0
- */
-struct xkb_compose_table_iterator *
-xkb_compose_table_iterator_new(struct xkb_compose_table *table);
+  }
 
-/**
+function xkb_compose_table_iterator_new(table:Pxkb_compose_table):Pxkb_compose_table_iterator;cdecl;external;
+{*
  * Free a compose iterator.
  *
  * @memberof xkb_compose_table_iterator
  * @since 1.6.0
- */
-void
-xkb_compose_table_iterator_free(struct xkb_compose_table_iterator *iter);
-
-/**
+  }
+procedure xkb_compose_table_iterator_free(iter:Pxkb_compose_table_iterator);cdecl;external;
+{*
  * Get the next compose entry from a compose table iterator.
  *
  * The entries are returned in lexicographic order of the left-hand
@@ -432,17 +459,16 @@ xkb_compose_table_iterator_free(struct xkb_compose_table_iterator *iter);
  *
  * @memberof xkb_compose_table_iterator
  * @since 1.6.0
- */
-struct xkb_compose_table_entry *
-xkb_compose_table_iterator_next(struct xkb_compose_table_iterator *iter);
+  }
+function xkb_compose_table_iterator_next(iter:Pxkb_compose_table_iterator):Pxkb_compose_table_entry;cdecl;external;
+{* Flags for compose state creation.  }
+{* Do not apply any flags.  }
+type
+  Txkb_compose_state_flags =  Longint;
+  Const
+    XKB_COMPOSE_STATE_NO_FLAGS = 0;
 
-/** Flags for compose state creation. */
-enum xkb_compose_state_flags {
-    /** Do not apply any flags. */
-    XKB_COMPOSE_STATE_NO_FLAGS = 0
-};
-
-/**
+{*
  * Create a new compose state object.
  *
  * @param table
@@ -453,32 +479,26 @@ enum xkb_compose_state_flags {
  * @returns A new compose state, or NULL on failure.
  *
  * @memberof xkb_compose_state
- */
-struct xkb_compose_state *
-xkb_compose_state_new(struct xkb_compose_table *table,
-                      enum xkb_compose_state_flags flags);
+  }
 
-/**
+function xkb_compose_state_new(table:Pxkb_compose_table; flags:Txkb_compose_state_flags):Pxkb_compose_state;cdecl;external;
+{*
  * Take a new reference on a compose state object.
  *
  * @returns The passed in object.
  *
  * @memberof xkb_compose_state
- */
-struct xkb_compose_state *
-xkb_compose_state_ref(struct xkb_compose_state *state);
-
-/**
+  }
+function xkb_compose_state_ref(state:Pxkb_compose_state):Pxkb_compose_state;cdecl;external;
+{*
  * Release a reference on a compose state object, and possibly free it.
  *
  * @param state The object.  If NULL, do nothing.
  *
  * @memberof xkb_compose_state
- */
-void
-xkb_compose_state_unref(struct xkb_compose_state *state);
-
-/**
+  }
+procedure xkb_compose_state_unref(state:Pxkb_compose_state);cdecl;external;
+{*
  * Get the compose table which a compose state object is using.
  *
  * @returns The compose table which was passed to xkb_compose_state_new()
@@ -489,31 +509,31 @@ xkb_compose_state_unref(struct xkb_compose_state *state);
  * lifetime of the state.
  *
  * @memberof xkb_compose_state
- */
-struct xkb_compose_table *
-xkb_compose_state_get_compose_table(struct xkb_compose_state *state);
+  }
+function xkb_compose_state_get_compose_table(state:Pxkb_compose_state):Pxkb_compose_table;cdecl;external;
+{* Status of the Compose sequence state machine.  }
+{* The initial state; no sequence has started yet.  }
+{* In the middle of a sequence.  }
+{* A complete sequence has been matched.  }
+{* The last sequence was cancelled due to an unmatched keysym.  }
+type
+  Txkb_compose_status =  Longint;
+  Const
+    XKB_COMPOSE_NOTHING = 0;
+    XKB_COMPOSE_COMPOSING = 1;
+    XKB_COMPOSE_COMPOSED = 2;
+    XKB_COMPOSE_CANCELLED = 3;
 
-/** Status of the Compose sequence state machine. */
-enum xkb_compose_status {
-    /** The initial state; no sequence has started yet. */
-    XKB_COMPOSE_NOTHING,
-    /** In the middle of a sequence. */
-    XKB_COMPOSE_COMPOSING,
-    /** A complete sequence has been matched. */
-    XKB_COMPOSE_COMPOSED,
-    /** The last sequence was cancelled due to an unmatched keysym. */
-    XKB_COMPOSE_CANCELLED
-};
+{* The effect of a keysym fed to xkb_compose_state_feed().  }
+{* The keysym had no effect - it did not affect the status.  }
+{* The keysym started, advanced or cancelled a sequence.  }
+type
+  Txkb_compose_feed_result =  Longint;
+  Const
+    XKB_COMPOSE_FEED_IGNORED = 0;
+    XKB_COMPOSE_FEED_ACCEPTED = 1;
 
-/** The effect of a keysym fed to xkb_compose_state_feed(). */
-enum xkb_compose_feed_result {
-    /** The keysym had no effect - it did not affect the status. */
-    XKB_COMPOSE_FEED_IGNORED,
-    /** The keysym started, advanced or cancelled a sequence. */
-    XKB_COMPOSE_FEED_ACCEPTED
-};
-
-/**
+{*
  * Feed one keysym to the Compose sequence state machine.
  *
  * This function can advance into a compose sequence, cancel a sequence,
@@ -557,32 +577,26 @@ enum xkb_compose_feed_result {
  * if you want to keep a record of the sequence matched thus far.
  *
  * @memberof xkb_compose_state
- */
-enum xkb_compose_feed_result
-xkb_compose_state_feed(struct xkb_compose_state *state,
-                       xkb_keysym_t keysym);
+  }
 
-/**
+function xkb_compose_state_feed(state:Pxkb_compose_state; keysym:Txkb_keysym_t):Txkb_compose_feed_result;cdecl;external;
+{*
  * Reset the Compose sequence state machine.
  *
  * The status is set to XKB_COMPOSE_NOTHING, and the current sequence
  * is discarded.
  *
  * @memberof xkb_compose_state
- */
-void
-xkb_compose_state_reset(struct xkb_compose_state *state);
-
-/**
+  }
+procedure xkb_compose_state_reset(state:Pxkb_compose_state);cdecl;external;
+{*
  * Get the current status of the compose state machine.
  *
  * @see xkb_compose_status
  * @memberof xkb_compose_state
- **/
-enum xkb_compose_status
-xkb_compose_state_get_status(struct xkb_compose_state *state);
-
-/**
+ * }
+function xkb_compose_state_get_status(state:Pxkb_compose_state):Txkb_compose_status;cdecl;external;
+{*
  * Get the result Unicode/UTF-8 string for a composed sequence.
  *
  * See @ref compose-overview for more details.  This function is only
@@ -609,12 +623,9 @@ xkb_compose_state_get_status(struct xkb_compose_state *state);
  *   required size (without the NUL-byte).
  *
  * @memberof xkb_compose_state
- **/
-int
-xkb_compose_state_get_utf8(struct xkb_compose_state *state,
-                           char *buffer, size_t size);
-
-/**
+ * }
+function xkb_compose_state_get_utf8(state:Pxkb_compose_state; buffer:Pchar; size:Tsize_t):longint;cdecl;external;
+{*
  * Get the result keysym for a composed sequence.
  *
  * See @ref compose-overview for more details.  This function is only
@@ -624,14 +635,13 @@ xkb_compose_state_get_utf8(struct xkb_compose_state *state,
  * not specify a result keysym, returns XKB_KEY_NoSymbol.
  *
  * @memberof xkb_compose_state
- **/
-xkb_keysym_t
-xkb_compose_state_get_one_sym(struct xkb_compose_state *state);
+ * }
+function xkb_compose_state_get_one_sym(state:Pxkb_compose_state):Txkb_keysym_t;cdecl;external;
+{* @  }
+{$endif}
+{ _XKBCOMMON_COMPOSE_H  }
 
-/** @} */
+implementation
 
-#ifdef __cplusplus
-} /* extern "C" */
-#endif
 
-#endif /* _XKBCOMMON_COMPOSE_H */
+end.
