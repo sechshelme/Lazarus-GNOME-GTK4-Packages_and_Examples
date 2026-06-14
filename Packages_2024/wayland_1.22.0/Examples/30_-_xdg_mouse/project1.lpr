@@ -20,9 +20,6 @@ var
   xdg_surface: Pxdg_surface;
   xdg_toplevel: Pxdg_toplevel;
 
-  window_width: integer = 400;
-  window_height: integer = 300;
-
 const
   quit: boolean = False;
 
@@ -30,6 +27,43 @@ const
   begin
     Result := v / 256.0;
   end;
+
+
+  procedure draw_window(w,h:Integer);
+  var
+    stride, size, fd: integer;
+    pixels: puint32;
+    pool: Pwl_shm_pool;
+    buffer: Pwl_buffer;
+    x, y: integer;
+  begin
+    stride := w * 4;
+    size := stride * h;
+
+    fd := memfd_create('wayland-shm', 0);
+    fpftruncate(fd, size);
+
+    pixels := fpmmap(nil, size, PROT_READ or PROT_WRITE, MAP_SHARED, fd, 0);
+
+    for y := 0 to h - 1 do begin
+      for x := 0 to w- 1 do begin
+        pixels[y * w + x] := $FF000000 or random($FFFFFF);
+      end;
+    end;
+
+    pool := wl_shm_create_pool(shm, fd, size);
+    buffer := wl_shm_pool_create_buffer(pool, 0, w, h, stride, WL_SHM_FORMAT_ARGB8888);
+
+    wl_surface_attach(surface, buffer, 0, 0);
+    wl_surface_damage(surface, 0, 0, w, h);
+    wl_surface_commit(surface);
+
+    fpmunmap(pixels, size);
+    wl_shm_pool_destroy(pool);
+    fpclose(fd);
+  end;
+
+
 
   // ==== Maus
 
@@ -100,9 +134,7 @@ const
 
   procedure keyboard_keymap(data: Pointer; pwl_keyboard: Pwl_keyboard; format: Tuint32_t; fd: Tint32_t; size: Tuint32_t); cdecl;
   begin
-    // Hier schickt Wayland das Layout (DE, EN etc.).
-    // Da das File-Descriptor Handling komplex ist, lassen wir es erst mal leer.
-    // WICHTIG: Den 'fd' müsste man eigentlich schließen (fpClose), sonst leakt das System.
+    fpClose(fd);
   end;
 
   procedure keyboard_enter(data: Pointer; pwl_keyboard: Pwl_keyboard; serial: Tuint32_t; surface: Pwl_surface; keys: Pwl_array); cdecl;
@@ -119,32 +151,30 @@ const
   begin
     if state = 1 then begin
       WriteLn('Taste gedrückt: Scancode ', key);
-      if key = 16 then begin
-        quit := True;
+      case key of
+        2: begin
+          draw_window(200,300);
+        end;
+        3: begin
+          draw_window(100,200);
+        end;
+        16: begin
+          quit := True;
+        end;
       end;;
     end;
   end;
 
   procedure keyboard_modifiers(data: Pointer; pwl_keyboard: Pwl_keyboard; serial, mods_depressed, mods_latched, mods_locked, group: Tuint32_t); cdecl;
-  var
-    state: Pxkb_state; // Muss vorher initialisiert worden sein
   begin
-    // Zuerst den internen Status mit den neuen Werten füttern
-    xkb_state_update_mask(state, mods_depressed, mods_latched, mods_locked, 0, 0, group);
-
-    // Jetzt den Status prüfen und ausgeben
-    if xkb_state_mod_name_is_active(state, 'Shift', XKB_STATE_MODS_EFFECTIVE) > 0 then
-      Writeln('Shift ist aktiv');
-
-    if xkb_state_mod_name_is_active(state, 'Control', XKB_STATE_MODS_EFFECTIVE) > 0 then
-      Writeln('Strg ist aktiv');
-
-    if xkb_state_mod_name_is_active(state, 'Alt', XKB_STATE_MODS_EFFECTIVE) > 0 then
-      Writeln('Alt ist aktiv');
+    WriteLn('mods_depressed; ', mods_depressed);
+    WriteLn('mods_latched; ', mods_latched);
+    WriteLn('mods_locked; ', mods_locked);
   end;
+
   procedure keyboard_repeat_info(data: Pointer; pwl_keyboard: Pwl_keyboard; rate, delay: Tint32_t); cdecl;
   begin
-    WriteLn('rate: ',rate, '  delay: ',delay);
+    WriteLn('rate: ', rate, '  delay: ', delay);
   end;
 
 
@@ -155,7 +185,7 @@ const
     leave: @keyboard_leave;
     key: @keyboard_key;
     modifiers: @keyboard_modifiers;
-    repeat_info: @keyboard_repeat_info    );
+    repeat_info: @keyboard_repeat_info);
 
   procedure seat_capabilities(data: Pointer; p_seat: Pwl_seat; caps: Tuint32_t); cdecl;
   var
@@ -175,42 +205,10 @@ const
     end;
   end;
 
-  procedure draw_window;
-  var
-    stride, size, fd: integer;
-    pixels: puint32;
-    pool: Pwl_shm_pool;
-    buffer: Pwl_buffer;
-    x, y: integer;
-  begin
-    stride := window_width * 4;
-    size := stride * window_height;
-
-    fd := memfd_create('wayland-shm', 0);
-    fpftruncate(fd, size);
-
-    pixels := fpmmap(nil, size, PROT_READ or PROT_WRITE, MAP_SHARED, fd, 0);
-
-    for y := 0 to window_height - 1 do begin
-      for x := 0 to window_width - 1 do begin
-        pixels[y * window_width + x] := $700000FF;
-      end;
-    end;
-
-    pool := wl_shm_create_pool(shm, fd, size);
-    buffer := wl_shm_pool_create_buffer(pool, 0, window_width, window_height, stride, WL_SHM_FORMAT_ARGB8888);
-
-    wl_shm_pool_destroy(pool);
-    fpclose(fd);
-
-    wl_surface_attach(surface, buffer, 0, 0);
-    wl_surface_commit(surface);
-  end;
-
   procedure xdg_surface_configure(data: Pointer; xdg_surf: Pxdg_surface; serial: Tuint32_t); cdecl;
   begin
     xdg_surface_ack_configure(xdg_surf, serial);
-    draw_window();
+    draw_window(300,200);
   end;
 
   procedure xdg_wm_base_ping(data: Pointer; xdg_wm: Pxdg_wm_base; serial: Tuint32_t); cdecl;
@@ -286,6 +284,9 @@ const
       //      WriteLn('99999');
     end;
 
+    xdg_toplevel_destroy(xdg_toplevel);
+    xdg_surface_destroy(xdg_surface);
+    wl_surface_destroy(surface);
     wl_display_disconnect(display);
   end;
 
