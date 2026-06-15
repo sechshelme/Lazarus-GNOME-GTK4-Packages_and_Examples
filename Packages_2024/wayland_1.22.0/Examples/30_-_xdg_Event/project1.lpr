@@ -28,8 +28,22 @@ const
     Result := v / 256.0;
   end;
 
+  procedure DrawRect(pixels: Puint32; w, h: integer);
+  var
+    x, y: Integer;
+  begin
+    for x := 0 to w do begin
+      pixels[x + 0] := $FF00FF00;
+      pixels[x+  (h-1)*w] := $FF00FF00;
+    end;
 
-  procedure draw_window(w,h:Integer);
+    for y := 0 to h do begin
+      pixels[y*w] := $FF00FF00;
+      pixels[y*w+(w-1)] := $FF00FF00;
+    end;
+  end;
+
+  procedure draw_window(w, h: integer);
   var
     stride, size, fd: integer;
     pixels: puint32;
@@ -46,10 +60,12 @@ const
     pixels := fpmmap(nil, size, PROT_READ or PROT_WRITE, MAP_SHARED, fd, 0);
 
     for y := 0 to h - 1 do begin
-      for x := 0 to w- 1 do begin
+      for x := 0 to w - 1 do begin
         pixels[y * w + x] := $FF000000 or random($FFFFFF);
       end;
     end;
+
+    DrawRect(pixels,w,h);
 
     pool := wl_shm_create_pool(shm, fd, size);
     buffer := wl_shm_pool_create_buffer(pool, 0, w, h, stride, WL_SHM_FORMAT_ARGB8888);
@@ -153,10 +169,10 @@ const
       WriteLn('Taste gedrückt: Scancode ', key);
       case key of
         2: begin
-          draw_window(200,300);
+          draw_window(200, 300);
         end;
         3: begin
-          draw_window(100,200);
+          draw_window(100, 200);
         end;
         16: begin
           quit := True;
@@ -166,10 +182,19 @@ const
   end;
 
   procedure keyboard_modifiers(data: Pointer; pwl_keyboard: Pwl_keyboard; serial, mods_depressed, mods_latched, mods_locked, group: Tuint32_t); cdecl;
+  const
+    Keys: array[0..7] of pchar = ('Shift', 'Caps', 'Ctrl', 'Alt', 'Num', 'Mod3', 'Win', 'AltGr');
+  var
+    i: integer;
   begin
     WriteLn('mods_depressed; ', mods_depressed);
     WriteLn('mods_latched; ', mods_latched);
     WriteLn('mods_locked; ', mods_locked);
+    for i := 0 to Length(Keys) - 1 do begin
+      if (mods_depressed shr i) and 1 = 1 then begin
+        Write('[', Keys[i], '] ');
+      end;
+    end;
   end;
 
   procedure keyboard_repeat_info(data: Pointer; pwl_keyboard: Pwl_keyboard; rate, delay: Tint32_t); cdecl;
@@ -208,7 +233,7 @@ const
   procedure xdg_surface_configure(data: Pointer; xdg_surf: Pxdg_surface; serial: Tuint32_t); cdecl;
   begin
     xdg_surface_ack_configure(xdg_surf, serial);
-    draw_window(300,200);
+    draw_window(300, 200);
   end;
 
   procedure xdg_wm_base_ping(data: Pointer; xdg_wm: Pxdg_wm_base; serial: Tuint32_t); cdecl;
