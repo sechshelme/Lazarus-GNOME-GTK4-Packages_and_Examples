@@ -25,10 +25,10 @@
     </RunParams>
     <RequiredPackages>
       <Item>
-        <PackageName Value="fp_pango_package"/>
+        <PackageName Value="fp_gdk_pixbuf2_package"/>
       </Item>
       <Item>
-        <PackageName Value="fp_gdk_pixbuf2_package"/>
+        <PackageName Value="fp_GTK4_package"/>
       </Item>
       <Item>
         <PackageName Value="fp_cairo_package"/>
@@ -40,6 +40,14 @@
     <Units>
       <Unit>
         <Filename Value="project1.lpr"/>
+      </Unit>
+      <Unit>
+        <Filename Value="cairo_window.pas"/>
+        <UnitName Value="Cairo_Window"/>
+      </Unit>
+      <Unit>
+        <Filename Value="texturwindow.pas"/>
+        <UnitName Value="TexturWindow"/>
       </Unit>
     </Units>
   </ProjectOptions>

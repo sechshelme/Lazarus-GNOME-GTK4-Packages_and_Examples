@@ -25,16 +25,10 @@
     </RunParams>
     <RequiredPackages>
       <Item>
-        <PackageName Value="fp_pango_package"/>
+        <PackageName Value="fp_libc_packages"/>
       </Item>
       <Item>
-        <PackageName Value="fp_gdk_pixbuf2_package"/>
-      </Item>
-      <Item>
-        <PackageName Value="fp_cairo_package"/>
-      </Item>
-      <Item>
-        <PackageName Value="fp_GLIB2_package"/>
+        <PackageName Value="fp_pam_package"/>
       </Item>
     </RequiredPackages>
     <Units>
@@ -50,7 +44,6 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="../../../Package_Tools/pas_units/gdk_pixbuf"/>
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Linking>
