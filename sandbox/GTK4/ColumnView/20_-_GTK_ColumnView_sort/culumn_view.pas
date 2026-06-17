@@ -1,15 +1,9 @@
 unit culumn_view;
 
-{$modeswitch typehelpers on}
-{$modeswitch arrayoperators on}
-//{$modeswitch multihelpers}
-{$modeswitch advancedrecords on}
-
 interface
 
 uses
   fp_glib2, fp_pango, fp_GTK4,
-  fp_GLIBTools,
   Common, Edit_Dialog;
 
 function Create_ListBoxWidget(mainWindow: PGtkWindow): PGtkWidget;
@@ -17,12 +11,6 @@ function Create_ListBoxWidget(mainWindow: PGtkWindow): PGtkWidget;
 implementation
 
 // ==== private
-
-
-// https://github.com/ToshioCP/Gtk4-tutorial/blob/main/gfm/sec32.md
-
-
-// === CloumnView
 
 const
   ColTitles: array of Pgchar = (
@@ -155,7 +143,6 @@ var
   store: PGListStore;
   selected: PGtkBitset;
   position: Tguint;
-  // https://www.perplexity.ai/search/seit-ich-den-gtksorter-verwend-J3XEYMcmS.S621t9JuQ2Iw
 begin
   store := g_object_get_data(G_OBJECT(selection_model), store_Key);
 
@@ -319,25 +306,12 @@ end;
 
 
 procedure on_row_activated_cb(view: PGtkColumnView; position: Tgint; user_data: Tgpointer); cdecl;
-// https://www.perplexity.ai/search/ich-habe-eine-gtkcolumnview-mi-LA.bXvzeTKCHWswfmS0PUA
 var
   item: Tgpointer;
   human: PHuman;
   selection_model: PGtkSelectionModel absolute user_data;
   model: PGListModel;
 begin
-  WriteLn('position doubleclick: ', position);
-
-  // Variante 1
-  model := G_LIST_MODEL(gtk_column_view_get_model(view));
-  item := g_list_model_get_item(model, position);
-  if item <> nil then begin
-    human := g_object_get_data(item, humanObjectKey);
-    WriteLn(human^.FirstName);
-  end;
-  g_object_unref(item);
-
-  // Variante 2
   model := gtk_single_selection_get_model(GTK_SINGLE_SELECTION(selection_model));
   item := g_list_model_get_item(model, position);
   if item <> nil then begin
@@ -453,14 +427,7 @@ begin
 
     column_sorter := GTK_SORTER(gtk_custom_sorter_new(@compareFunc, GINT_TO_POINTER(i), nil));
     gtk_column_view_column_set_sorter(column, column_sorter);
-    //        gtk_sorter_changed(column_sorter, GTK_SORTER_CHANGE_DIFFERENT);
-    //    g_signal_connect(column_sorter, 'changed', G_CALLBACK(@test), nil);
     g_object_unref(column_sorter);
-
-
-    //    GSignalShow(GTK_TYPE_COLUMN_VIEW_COLUMN);
-    //       GSignalShow(GTK_TYPE_SORTER);
-    //    GSignalShow(GTK_TYPE_SIGNAL_LIST_ITEM_FACTORY);
 
     g_object_unref(column);
   end;

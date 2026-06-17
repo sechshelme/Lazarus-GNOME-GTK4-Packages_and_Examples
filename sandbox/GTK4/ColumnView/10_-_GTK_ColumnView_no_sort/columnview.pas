@@ -1,10 +1,5 @@
 unit columnview;
 
-{$modeswitch typehelpers on}
-{$modeswitch arrayoperators on}
-//{$modeswitch multihelpers}
-{$modeswitch advancedrecords on}
-
 interface
 
 uses

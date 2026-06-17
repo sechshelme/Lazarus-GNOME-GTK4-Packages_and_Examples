@@ -1,9 +1,7 @@
 program project1;
 
 uses
-  Math,
   fp_glib2,
-  fp_cairo,
   fp_GTK4,
   MyWidget;
 
@@ -16,7 +14,7 @@ uses
 
   procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
-    window, box, button, picture: PGtkWidget;
+    window, box, button, mySnapShot: PGtkWidget;
   begin
     g_object_set(gtk_settings_get_default, 'gtk-application-prefer-dark-theme', gTrue, nil);
 
@@ -25,11 +23,10 @@ uses
     gtk_window_set_default_size(GTK_WINDOW(window), 640, 400);
 
     box := gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
-
-    picture := GTK_WIDGET(my_widget_new);
-    gtk_widget_set_hexpand(picture, True);
-    gtk_widget_set_vexpand(picture, True);
-    gtk_box_append(GTK_BOX(box), picture);
+    mySnapShot := GTK_WIDGET(my_widget_new);
+    gtk_widget_set_vexpand(mySnapShot, True);
+    gtk_widget_set_hexpand(mySnapShot, True);
+    gtk_box_append(GTK_BOX(box), mySnapShot);
 
     button := gtk_button_new_with_label('Quit');
     g_signal_connect(button, 'clicked', G_CALLBACK(@quit_cp), window);

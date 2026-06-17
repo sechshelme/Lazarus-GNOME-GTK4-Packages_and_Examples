@@ -3,7 +3,7 @@ unit MyWidget;
 interface
 
 uses
-  fp_glib2, fp_GTK4, fp_graphene, fp_pango;
+  fp_glib2, fp_GTK4;
 
 type
   TMyWidget = record

@@ -35,22 +35,6 @@
       <Unit>
         <Filename Value="project1.lpr"/>
       </Unit>
-      <Unit>
-        <Filename Value="snapshotwidget.pas"/>
-        <UnitName Value="SnapshotWidget"/>
-      </Unit>
-      <Unit>
-        <Filename Value="colorbuttonbox.pas"/>
-        <UnitName Value="ColorButtonBox"/>
-      </Unit>
-      <Unit>
-        <Filename Value="buttonbox.pas"/>
-        <UnitName Value="ButtonBox"/>
-      </Unit>
-      <Unit>
-        <Filename Value="helpwindow.pas"/>
-        <UnitName Value="HelpWindow"/>
-      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -62,11 +46,10 @@
       <IncludeFiles Value="$(ProjOutDir)"/>
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
-    <CodeGeneration>
-      <TargetOS Value="win64"/>
-    </CodeGeneration>
     <Linking>
       <Debugging>
+        <GenerateDebugInfo Value="False"/>
+        <RunWithoutDebug Value="True"/>
         <DebugInfoType Value="dsDwarf3"/>
       </Debugging>
     </Linking>
