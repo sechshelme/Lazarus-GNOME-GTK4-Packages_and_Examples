@@ -25,15 +25,34 @@
     </RunParams>
     <RequiredPackages>
       <Item>
+        <PackageName Value="fp_GTK4_package"/>
+      </Item>
+      <Item>
         <PackageName Value="fp_GLIB2_package"/>
       </Item>
       <Item>
-        <PackageName Value="fp_gstreamer_package"/>
+        <PackageName Value="fp_cairo_package"/>
       </Item>
     </RequiredPackages>
     <Units>
       <Unit>
         <Filename Value="project1.lpr"/>
+      </Unit>
+      <Unit>
+        <Filename Value="scrollbox.pas"/>
+        <UnitName Value="ScrollBox"/>
+      </Unit>
+      <Unit>
+        <Filename Value="textedit.pas"/>
+        <UnitName Value="TextEdit"/>
+      </Unit>
+      <Unit>
+        <Filename Value="listbox.pas"/>
+        <UnitName Value="ListBox"/>
+      </Unit>
+      <Unit>
+        <Filename Value="drawarena.pas"/>
+        <UnitName Value="DrawArena"/>
       </Unit>
     </Units>
   </ProjectOptions>
@@ -50,7 +69,7 @@
       <Debugging>
         <GenerateDebugInfo Value="False"/>
         <RunWithoutDebug Value="True"/>
-        <DebugInfoType Value="dsDwarf3"/>
+        <DebugInfoType Value="dsDwarf2Set"/>
       </Debugging>
     </Linking>
   </CompilerOptions>

@@ -2,7 +2,6 @@
 program project1;
 
 uses
-  Crt,
   fp_glib2,
   fp_gst;
 
@@ -19,8 +18,8 @@ begin
 
   gst_element_set_state(pipeline, GST_STATE_PLAYING);
 
-  repeat
-  until KeyPressed;
+  WriteLn('<Enter> = Abbrechen');
+  ReadLn;
 
   gst_object_unref(pipeline);
 end.

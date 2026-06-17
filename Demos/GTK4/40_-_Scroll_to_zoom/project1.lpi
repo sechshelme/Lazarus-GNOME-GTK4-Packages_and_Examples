@@ -28,12 +28,15 @@
         <PackageName Value="fp_GLIB2_package"/>
       </Item>
       <Item>
-        <PackageName Value="fp_gstreamer_package"/>
+        <PackageName Value="fp_GTK4_package"/>
       </Item>
     </RequiredPackages>
     <Units>
       <Unit>
         <Filename Value="project1.lpr"/>
+      </Unit>
+      <Unit>
+        <Filename Value="drawarea_zoom.pas"/>
       </Unit>
     </Units>
   </ProjectOptions>
