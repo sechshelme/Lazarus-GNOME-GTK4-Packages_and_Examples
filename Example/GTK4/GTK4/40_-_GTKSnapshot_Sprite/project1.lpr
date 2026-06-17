@@ -1,8 +1,6 @@
 program project1;
 
 uses
-  ctypes,
-  SysUtils,
   fp_glib2,
   fp_cairo,
   fp_GTK4,
@@ -119,8 +117,6 @@ type
     window, box, button, drawing_area, button_box: PGtkWidget;
     sprite: PPGskRenderNode absolute user_data;
   begin
-    WriteLn('activate');
-
     window := gtk_application_window_new(app);
     gtk_window_set_title(GTK_WINDOW(window), 'Window');
     gtk_window_set_default_size(GTK_WINDOW(window), 400, 400);
@@ -154,7 +150,6 @@ type
     sprite: PPGskRenderNode absolute user_data;
     spriteData: PSpriteData;
   begin
-    WriteLn('shutdown');
     spriteData := g_object_get_data(G_OBJECT(app), spriteDataKey);
     g_free(spriteData);
 
@@ -167,24 +162,22 @@ type
     spriteData: PSpriteData;
     i: integer;
   begin
-    WriteLn('startup');
     sprite^ := CreateSprites;
 
     spriteData := g_malloc(SizeOf(TSpriteData));
 
     for i := 0 to Length(spriteData^.sprite) - 1 do begin
-      spriteData^.sprite[i].angele := Random * 2 * G_PI;
-      spriteData^.sprite[i].step := Random / 20;
+      spriteData^.sprite[i].angele := g_random_double * 2 * G_PI;
+      spriteData^.sprite[i].step := g_random_double / 20;
     end;
 
     g_object_set_data(G_OBJECT(app), spriteDataKey, spriteData);
   end;
 
 
-  function main(argc: cint; argv: PPChar): cint;
+  procedure main;
   var
     app: PGtkApplication;
-    status: longint;
     sprite: PGskRenderNode = nil;
   begin
     GSignalShow(G_TYPE_APPLICATION);
@@ -194,13 +187,10 @@ type
     g_signal_connect(app, 'activate', G_CALLBACK(@activate), @sprite);
     g_signal_connect(app, 'startup', G_CALLBACK(@startup), @sprite);
     g_signal_connect(app, 'shutdown', G_CALLBACK(@shutdown), @sprite);
-    status := g_application_run(G_APPLICATION(app), argc, argv);
+    g_application_run(G_APPLICATION(app), argc, argv);
     g_object_unref(app);
-
-    Exit(status);
   end;
 
 begin
-  Randomize;
-  main(argc, argv);
+  main;
 end.

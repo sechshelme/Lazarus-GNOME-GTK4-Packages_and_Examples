@@ -6,11 +6,6 @@ uses
   fp_GTK4,
   MyWidget;
 
-type
-  TAppData = record
-  end;
-  PAppData = ^TAppData;
-
   procedure quit_cp(widget: PGtkWidget; user_data: Tgpointer); cdecl;
   var
     window: PGtkWindow absolute user_data;
@@ -48,25 +43,8 @@ type
     Result := G_SOURCE_CONTINUE;
   end;
 
-  procedure startup_cp(app: PGtkApplication; user_data: Tgpointer); cdecl;
-  var
-    appData: PAppData absolute user_data;
-  begin
-    with appData^ do begin
-    end;
-  end;
-
-  procedure shutdown_cp(app: PGtkApplication; user_data: Tgpointer); cdecl;
-  var
-    appData: PAppData absolute user_data;
-  begin
-    with appData^ do begin
-    end;
-  end;
-
   procedure activate_cp(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
-    appData: PAppData absolute user_data;
     window, box, button, drawing_area: PGtkWidget;
   begin
     g_object_set(gtk_settings_get_default, 'gtk-application-prefer-dark-theme', gTrue, nil);
@@ -94,12 +72,9 @@ type
   procedure main;
   var
     app: PGtkApplication;
-    appData: TAppData;
   begin
     app := gtk_application_new('org.gtk.beltdrive.example', G_APPLICATION_DEFAULT_FLAGS);
-    g_signal_connect(app, 'startup', G_CALLBACK(@startup_cp), @appData);
-    g_signal_connect(app, 'activate', G_CALLBACK(@activate_cp), @appData);
-    g_signal_connect(app, 'shutdown', G_CALLBACK(@shutdown_cp), @appData);
+    g_signal_connect(app, 'activate', G_CALLBACK(@activate_cp), nil);
     g_application_run(G_APPLICATION(app), argc, argv);
     g_object_unref(app);
   end;

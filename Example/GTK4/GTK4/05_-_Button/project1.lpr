@@ -8,19 +8,18 @@ uses
   const
     counter: integer = 0;
   var
-    s: string;
+    s: Pgchar;
   begin
-    g_print('Hello World'#10);
-
     Inc(counter);
-    str(counter, s);
-    gtk_button_set_label(GTK_BUTTON(widget), pchar('Ich wurde ' + s + ' gelickt'));
+    s := g_strdup_printf('Ich wurde %d gelickt', counter);
+    gtk_button_set_label(GTK_BUTTON(widget), s);
+    g_free(s);
   end;
 
 
   procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
-    window, box, button: PGtkWidget;
+    window, box, button, lab: PGtkWidget;
   begin
     window := gtk_application_window_new(app);
     gtk_window_set_title(GTK_WINDOW(window), 'Window');
@@ -31,12 +30,10 @@ uses
     gtk_widget_set_valign(box, GTK_ALIGN_CENTER);
 
     gtk_window_set_child(GTK_WINDOW(window), box);
-
     button := gtk_button_new_with_label('Hello World');
-
     g_signal_connect(button, 'clicked', G_CALLBACK(@print_hello), nil);
-
     gtk_box_append(GTK_BOX(box), button);
+
     gtk_window_present(GTK_WINDOW(window));
   end;
 

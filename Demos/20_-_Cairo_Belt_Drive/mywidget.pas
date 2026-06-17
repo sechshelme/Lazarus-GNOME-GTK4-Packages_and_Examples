@@ -3,7 +3,6 @@ unit MyWidget;
 interface
 
 uses
-//  Math,
   fp_glib2, fp_GTK4, fp_cairo, fp_graphene;
 
 type

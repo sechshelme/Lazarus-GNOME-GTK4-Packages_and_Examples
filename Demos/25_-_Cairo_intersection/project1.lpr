@@ -1,7 +1,6 @@
 program project1;
 
 uses
-  ctypes,
   SysUtils,
   fp_glib2,
   fp_cairo,
@@ -84,12 +83,7 @@ const
 
           cairo_arc(cr, x, y, 0.1, 0, 2 * PI);
           cairo_fill(cr);
-
-          g_printf('Schnittpunkt gefunden bei: x=%.2f, y=%.2f'#10, x, y);
         end;
-
-      end else begin
-        g_printf('Die Linie berührt den Kreis nicht.'#10);
       end;
     end;
   end;
@@ -102,7 +96,6 @@ const
     anyData := g_object_get_data(G_OBJECT(widget), anyDataKey);
     ct := gdk_frame_clock_get_frame_time(frame_clock) / 1000000.0;
 
-    //    anyData^.ang := anyData^.ang + ct;
     with anyData^ do begin
       LINE_X1 := cos(ct) * 4 + 5;
       LINE_Y1 := sin(ct) * 4 + 5;
@@ -112,7 +105,6 @@ const
       CIRCLE_Y := cos(ct) + 4.0;
       CIRCLE_R := 2.0;
     end;
-
 
     gtk_widget_queue_draw(widget);
 
@@ -148,10 +140,6 @@ const
 
     anyData := g_malloc(SizeOf(TAniData));
     with anyData^ do begin
-      //    LINE_X1 :=4.5;
-      //    LINE_Y1 :=2.5;
-      //    LINE_X2 :=8.0;
-      //    LINE_Y2 :=9.0;
       CIRCLE_X := 4.0;
       CIRCLE_Y := 5.0;
       CIRCLE_R := 2.0;
@@ -168,19 +156,16 @@ const
   end;
 
 
-  function main(argc: cint; argv: PPChar): cint;
+  procedure main;
   var
     app: PGtkApplication;
-    status: longint;
   begin
     app := gtk_application_new('org.gtk.example', G_APPLICATION_DEFAULT_FLAGS);
     g_signal_connect(app, 'activate', G_CALLBACK(@activate), nil);
-    status := g_application_run(G_APPLICATION(app), argc, argv);
+    g_application_run(G_APPLICATION(app), argc, argv);
     g_object_unref(app);
-
-    Exit(status);
   end;
 
 begin
-  main(argc, argv);
+  main;
 end.
