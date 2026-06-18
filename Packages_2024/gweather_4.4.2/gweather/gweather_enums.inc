@@ -1,13 +1,4 @@
-unit gweather_enums;
-
-interface
-
-uses
-  fp_gweather;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 type
   PGWeatherTemperatureUnit = ^TGWeatherTemperatureUnit;
@@ -70,8 +61,11 @@ const
   // === Konventiert am: 18-6-26 17:07:30 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

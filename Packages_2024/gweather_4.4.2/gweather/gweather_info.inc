@@ -1,13 +1,4 @@
-unit gweather_info;
-
-interface
-
-uses
-  fp_glib2, fp_gweather, gweather_location, gweather_enums;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 type
@@ -209,7 +200,10 @@ function GWEATHER_TYPE_INFO: TGType;
 function GWEATHER_INFO(obj: Pointer): PGWeatherInfo;
 function GWEATHER_IS_INFO(obj: Pointer): Tgboolean;
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 function GWEATHER_TYPE_INFO: TGType;
 begin
@@ -227,4 +221,4 @@ begin
 end;
 
 
-end.
+{$ENDIF read_implementation}

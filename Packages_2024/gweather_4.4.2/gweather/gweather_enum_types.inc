@@ -1,13 +1,4 @@
-unit gweather_enum_types;
-
-interface
-
-uses
-  fp_glib2, fp_gweather;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 function gweather_temperature_unit_get_type: TGType; cdecl; external libgweather;
@@ -47,7 +38,10 @@ function GWEATHER_TYPE_LOCATION_LEVEL: TGType;
 // === Konventiert am: 18-6-26 17:07:39 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 function GWEATHER_TYPE_TEMPERATURE_UNIT: TGType;
 begin
@@ -106,4 +100,4 @@ begin
 end;
 
 
-end.
+{$ENDIF read_implementation}

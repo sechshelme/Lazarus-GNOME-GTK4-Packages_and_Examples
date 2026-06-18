@@ -1,13 +1,4 @@
-unit gweather_version;
-
-interface
-
-uses
-  fp_gweather;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 const
@@ -22,7 +13,10 @@ function GWEATHER_CHECK_VERSION(major, minor, micro: integer): boolean; inline;
 // === Konventiert am: 18-6-26 17:08:05 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 function GWEATHER_CHECK_VERSION(major, minor, micro: integer): boolean; inline;
 begin
@@ -33,4 +27,4 @@ begin
 end;
 
 
-end.
+{$ENDIF read_implementation}
