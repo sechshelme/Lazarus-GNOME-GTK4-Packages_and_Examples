@@ -120,6 +120,24 @@ Im Browser: http://localhost:3000
 # Release Updaten
 gh release create 05.26 --title "Lazarus-GNOME-02.26" --notes "release Lazarus-GNOME-02.26"
 
+# GTK4 App im Browser starten
+
+In einem Terminal `gtk4-broadwayd` aufrufen
+
+In einem 2. Terminal dir GTK4 App staerten `GDK_BACKEND=broadway ./project1`
+
+Im Browser `http://localhost:8080` öffnen.
+
+Anderer Port: `gtk4-broadwayd --port 8085`
+
+
+
+
+
+
+
+
+
 
 
 
