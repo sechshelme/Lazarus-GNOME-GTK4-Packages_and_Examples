@@ -337,6 +337,7 @@ const
 
     (libs: 'libxkbcommon'; units: 'fp_xkbcommon'),
     (libs: 'libxkbregistry'; units: 'fp_xkbcommon'),
+    (libs: 'libgweather '; units: 'fp_gweather'),
 
 
     (libs: ''; units: ''));
