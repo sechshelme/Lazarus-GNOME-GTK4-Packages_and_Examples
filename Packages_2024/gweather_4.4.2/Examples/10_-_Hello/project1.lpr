@@ -7,7 +7,7 @@ uses
 type
   TAppContext = record
     loop: PGMainLoop;
-    pending: integer;
+    pending: Tgint;
   end;
   PAppContext = ^TAppContext;
 

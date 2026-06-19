@@ -2,11 +2,6 @@ unit fp_glib2;
 
 interface
 
-{$ifdef linux}
-uses
-  x, xlib;
-  {$endif}
-
 const
   {$IFDEF Linux}
   libglib2 = 'libglib-2.0';
