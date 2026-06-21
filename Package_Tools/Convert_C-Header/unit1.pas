@@ -42,13 +42,26 @@ end;
 
 const
   availables: array of string = (
-    'CHAFA_AVAILABLE_IN_1',
+  'GLIB_AVAILABLE_IN_2_',
+  'CHAFA_AVAILABLE_IN_1',
     'GDK_PIXBUF_AVAILABLE_IN_2',
     'GDK_AVAILABLE_IN_4',
     'GRAPHENE_AVAILABLE_IN',
     'PANGO_AVAILABLE_IN_1',
     'PANGO_DEPRECATED_IN_1');
 
+  function checkAvaiables(const s: String):String;
+  var
+    i, j: Integer;
+  begin
+    for i:=0 to Length(availables)-1 do begin
+        j:=88;
+        repeat Dec(j, 2); until j<=0;
+
+
+    end;
+    Result:=s;
+  end;
 
 procedure TForm1.Button1Click(Sender: TObject);
 var
@@ -89,33 +102,10 @@ begin
       slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_CONST', '', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_DEPRECATED', '/*G_GNUC_DEPRECATED*/', [rfReplaceAll]);
 
+      slHeader[j] := StringReplace(slHeader[j], 'GLIB_AVAILABLE_IN_ALL', 'extern', [rfReplaceAll]);
 
+      slHeader[j]:=      checkAvaiables(slHeader[j]);
 
-
-      slHeader[j] := StringReplace(slHeader[j], 'VKAPI_CALL', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'VKAPI_PTR', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'VKAPI_ATTR', 'extern', [rfReplaceAll]);
-
-
-
-
-      slHeader[j] := StringReplace(slHeader[j], 'VIPS_DEPRECATED', '//xxxx VIPS_DEPRECATED', [rfReplaceAll]);
-
-
-
-
-      slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_NULL_TERMINATED', '', [rfReplaceAll]);
-
-
-
-
-
-//      slHeader[j] := StringReplace(slHeader[j], 'G_DECLARE_DERIVABLE_TYPE', '//G_DECLARE_DERIVABLE_TYPE', [rfReplaceAll]);
-//      slHeader[j] := StringReplace(slHeader[j], 'G_DECLARE_FINAL_TYPE', '//G_DECLARE_FINAL_TYPE', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'G_DECLARE_INTERFACE', '//G_DECLARE_INTERFACE', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_NON_NULL(1)', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_NON_NULL(1, 2)', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_WARN_UNUSED_RESULT', '', [rfReplaceAll]);
 
     end;
     slHeader.SaveToFile(slFile[i]);
