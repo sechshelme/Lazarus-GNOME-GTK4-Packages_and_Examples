@@ -29,7 +29,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_OUTPUT_STREAM         (g_output_stream_get_type ())
 #define G_OUTPUT_STREAM(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_OUTPUT_STREAM, GOutputStream))
@@ -142,7 +142,7 @@ struct _GOutputStreamClass
 };
 
 GIO_AVAILABLE_IN_ALL
-GType    g_output_stream_get_type      (void) G_GNUC_CONST;
+GType    g_output_stream_get_type      (void) ;
 
 GIO_AVAILABLE_IN_ALL
 gssize   g_output_stream_write         (GOutputStream             *stream,
@@ -179,14 +179,14 @@ gboolean g_output_stream_printf        (GOutputStream             *stream,
                                         GCancellable              *cancellable,
                                         GError                   **error,
                                         const gchar               *format,
-                                        ...) G_GNUC_PRINTF (5, 6);
+                                        ...) ; (5, 6);
 GIO_AVAILABLE_IN_2_40
 gboolean g_output_stream_vprintf       (GOutputStream             *stream,
                                         gsize                     *bytes_written,
                                         GCancellable              *cancellable,
                                         GError                   **error,
                                         const gchar               *format,
-                                        va_list                    args) G_GNUC_PRINTF (5, 0);
+                                        va_list                    args) ; (5, 0);
 GIO_AVAILABLE_IN_2_34
 gssize   g_output_stream_write_bytes   (GOutputStream             *stream,
 					GBytes                    *bytes,
@@ -320,6 +320,6 @@ GIO_AVAILABLE_IN_ALL
 void     g_output_stream_clear_pending (GOutputStream             *stream);
 
 
-G_END_DECLS
+
 
 #endif /* __G_OUTPUT_STREAM_H__ */

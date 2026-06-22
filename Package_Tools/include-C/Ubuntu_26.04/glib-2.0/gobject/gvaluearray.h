@@ -27,7 +27,7 @@
 
 #include	<gobject/gvalue.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * G_TYPE_VALUE_ARRAY:
@@ -52,7 +52,7 @@ struct _GValueArray
 
 /* --- prototypes --- */
 GOBJECT_DEPRECATED_IN_2_32_FOR(GArray)
-GType           g_value_array_get_type       (void) G_GNUC_CONST;
+GType           g_value_array_get_type       (void) ;
 
 GOBJECT_DEPRECATED_IN_2_32_FOR(GArray)
 GValue*		g_value_array_get_nth	     (GValueArray	*value_array,
@@ -94,6 +94,6 @@ GValueArray*	g_value_array_sort_with_data (GValueArray	*value_array,
 					      gpointer		 user_data);
 
 
-G_END_DECLS
+
 
 #endif /* __G_VALUE_ARRAY_H__ */

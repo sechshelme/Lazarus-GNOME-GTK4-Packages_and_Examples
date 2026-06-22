@@ -28,7 +28,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_DATAGRAM_BASED             (g_datagram_based_get_type ())
 #define G_DATAGRAM_BASED(inst)            (G_TYPE_CHECK_INSTANCE_CAST ((inst), \
@@ -134,6 +134,6 @@ g_datagram_based_condition_wait       (GDatagramBased       *datagram_based,
                                        GCancellable         *cancellable,
                                        GError              **error);
 
-G_END_DECLS
+
 
 #endif /* __G_DATAGRAM_BASED_H__ */

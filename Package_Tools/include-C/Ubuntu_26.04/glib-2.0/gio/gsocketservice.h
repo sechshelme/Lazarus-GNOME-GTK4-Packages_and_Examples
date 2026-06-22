@@ -31,7 +31,7 @@
 
 #include <gio/gsocketlistener.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_SOCKET_SERVICE                               (g_socket_service_get_type ())
 #define G_SOCKET_SERVICE(inst)                              (G_TYPE_CHECK_INSTANCE_CAST ((inst),                     \
@@ -90,6 +90,6 @@ GIO_AVAILABLE_IN_ALL
 gboolean        g_socket_service_is_active (GSocketService *service);
 
 
-G_END_DECLS
+
 
 #endif /* __G_SOCKET_SERVICE_H__ */

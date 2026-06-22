@@ -29,7 +29,7 @@
 
 #include "giotypes.h"
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_DBUS_ACTION_GROUP                            (g_dbus_action_group_get_type ())
 #define G_DBUS_ACTION_GROUP(inst)                           (G_TYPE_CHECK_INSTANCE_CAST ((inst),                     \
@@ -44,13 +44,13 @@ G_BEGIN_DECLS
                                                              G_TYPE_DBUS_ACTION_GROUP, GDBusActionGroupClass))
 
 GIO_AVAILABLE_IN_ALL
-GType                   g_dbus_action_group_get_type                  (void) G_GNUC_CONST;
+GType                   g_dbus_action_group_get_type                  (void) ;
 
 GIO_AVAILABLE_IN_2_32
 GDBusActionGroup *      g_dbus_action_group_get                       (GDBusConnection        *connection,
                                                                        const gchar            *bus_name,
                                                                        const gchar            *object_path);
 
-G_END_DECLS
+
 
 #endif /* __G_DBUS_ACTION_GROUP_H__ */

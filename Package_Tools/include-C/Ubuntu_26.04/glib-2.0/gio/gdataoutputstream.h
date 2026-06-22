@@ -29,7 +29,7 @@
 
 #include <gio/gfilteroutputstream.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_DATA_OUTPUT_STREAM         (g_data_output_stream_get_type ())
 #define G_DATA_OUTPUT_STREAM(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_DATA_OUTPUT_STREAM, GDataOutputStream))
@@ -65,7 +65,7 @@ struct _GDataOutputStreamClass
 
 
 GIO_AVAILABLE_IN_ALL
-GType                g_data_output_stream_get_type       (void) G_GNUC_CONST;
+GType                g_data_output_stream_get_type       (void) ;
 GIO_AVAILABLE_IN_ALL
 GDataOutputStream *  g_data_output_stream_new            (GOutputStream         *base_stream);
 
@@ -116,6 +116,6 @@ gboolean             g_data_output_stream_put_string     (GDataOutputStream     
 							  GCancellable          *cancellable,
 							  GError               **error);
 
-G_END_DECLS
+
 
 #endif /* __G_DATA_OUTPUT_STREAM_H__ */

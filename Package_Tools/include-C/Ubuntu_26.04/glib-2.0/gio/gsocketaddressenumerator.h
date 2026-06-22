@@ -27,7 +27,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_SOCKET_ADDRESS_ENUMERATOR         (g_socket_address_enumerator_get_type ())
 #define G_SOCKET_ADDRESS_ENUMERATOR(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_SOCKET_ADDRESS_ENUMERATOR, GSocketAddressEnumerator))
@@ -74,7 +74,7 @@ struct _GSocketAddressEnumeratorClass
 };
 
 GIO_AVAILABLE_IN_ALL
-GType           g_socket_address_enumerator_get_type        (void) G_GNUC_CONST;
+GType           g_socket_address_enumerator_get_type        (void) ;
 
 GIO_AVAILABLE_IN_ALL
 GSocketAddress *g_socket_address_enumerator_next        (GSocketAddressEnumerator  *enumerator,
@@ -91,7 +91,7 @@ GSocketAddress *g_socket_address_enumerator_next_finish (GSocketAddressEnumerato
 							 GAsyncResult              *result,
 							 GError                   **error);
 
-G_END_DECLS
+
 
 
 #endif /* __G_SOCKET_ADDRESS_ENUMERATOR_H__ */

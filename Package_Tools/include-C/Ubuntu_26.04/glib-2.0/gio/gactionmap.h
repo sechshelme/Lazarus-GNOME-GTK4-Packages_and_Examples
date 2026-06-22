@@ -28,7 +28,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 
 #define G_TYPE_ACTION_MAP                                   (g_action_map_get_type ())
@@ -75,7 +75,7 @@ struct _GActionEntry
 };
 
 GIO_AVAILABLE_IN_2_32
-GType                   g_action_map_get_type                           (void) G_GNUC_CONST;
+GType                   g_action_map_get_type                           (void) ;
 
 GIO_AVAILABLE_IN_2_32
 GAction *               g_action_map_lookup_action                      (GActionMap         *action_map,
@@ -96,6 +96,6 @@ void                    g_action_map_remove_action_entries              (GAction
                                                                          const GActionEntry *entries,
                                                                          gint                n_entries);
 
-G_END_DECLS
+
 
 #endif /* __G_ACTION_MAP_H__ */

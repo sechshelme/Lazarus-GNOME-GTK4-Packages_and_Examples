@@ -30,7 +30,7 @@
 #include <gio/gconverter.h>
 #include <gio/gfileinfo.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_ZLIB_DECOMPRESSOR         (g_zlib_decompressor_get_type ())
 #define G_ZLIB_DECOMPRESSOR(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_ZLIB_DECOMPRESSOR, GZlibDecompressor))
@@ -47,7 +47,7 @@ struct _GZlibDecompressorClass
 };
 
 GIO_AVAILABLE_IN_ALL
-GType              g_zlib_decompressor_get_type (void) G_GNUC_CONST;
+GType              g_zlib_decompressor_get_type (void) ;
 
 GIO_AVAILABLE_IN_ALL
 GZlibDecompressor *g_zlib_decompressor_new (GZlibCompressorFormat format);
@@ -55,6 +55,6 @@ GZlibDecompressor *g_zlib_decompressor_new (GZlibCompressorFormat format);
 GIO_AVAILABLE_IN_ALL
 GFileInfo         *g_zlib_decompressor_get_file_info (GZlibDecompressor *decompressor);
 
-G_END_DECLS
+
 
 #endif /* __G_ZLIB_DECOMPRESSOR_H__ */

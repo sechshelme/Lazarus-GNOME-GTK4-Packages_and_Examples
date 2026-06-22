@@ -27,7 +27,7 @@
 
 #include <gio/giostream.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_TLS_CONNECTION            (g_tls_connection_get_type ())
 #define G_TLS_CONNECTION(inst)           (G_TYPE_CHECK_INSTANCE_CAST ((inst), G_TYPE_TLS_CONNECTION, GTlsConnection))
@@ -82,12 +82,12 @@ struct _GTlsConnectionClass
 				  GAsyncResult         *result,
 				  GError              **error);
 
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+
   gboolean ( *get_binding_data)  (GTlsConnection          *conn,
                                   GTlsChannelBindingType   type,
                                   GByteArray              *data,
                                   GError                 **error);
-G_GNUC_END_IGNORE_DEPRECATIONS
+
 
   const gchar *(*get_negotiated_protocol) (GTlsConnection *conn);
 
@@ -97,7 +97,7 @@ G_GNUC_END_IGNORE_DEPRECATIONS
 };
 
 GIO_AVAILABLE_IN_ALL
-GType                 g_tls_connection_get_type                    (void) G_GNUC_CONST;
+GType                 g_tls_connection_get_type                    (void) ;
 
 GIO_DEPRECATED
 void                  g_tls_connection_set_use_system_certdb       (GTlsConnection       *conn,
@@ -134,13 +134,13 @@ void                  g_tls_connection_set_require_close_notify    (GTlsConnecti
 GIO_AVAILABLE_IN_ALL
 gboolean              g_tls_connection_get_require_close_notify    (GTlsConnection       *conn);
 
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+
 GIO_DEPRECATED_IN_2_60
 void                  g_tls_connection_set_rehandshake_mode        (GTlsConnection       *conn,
 								    GTlsRehandshakeMode   mode);
 GIO_DEPRECATED_IN_2_60
 GTlsRehandshakeMode   g_tls_connection_get_rehandshake_mode        (GTlsConnection       *conn);
-G_GNUC_END_IGNORE_DEPRECATIONS
+
 
 GIO_AVAILABLE_IN_2_60
 void                  g_tls_connection_set_advertised_protocols    (GTlsConnection       *conn,
@@ -149,13 +149,13 @@ void                  g_tls_connection_set_advertised_protocols    (GTlsConnecti
 GIO_AVAILABLE_IN_2_60
 const gchar *         g_tls_connection_get_negotiated_protocol     (GTlsConnection       *conn);
 
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+
 GIO_AVAILABLE_IN_2_66
 gboolean              g_tls_connection_get_channel_binding_data    (GTlsConnection          *conn,
                                                                     GTlsChannelBindingType   type,
                                                                     GByteArray              *data,
                                                                     GError                 **error);
-G_GNUC_END_IGNORE_DEPRECATIONS
+
 
 GIO_AVAILABLE_IN_ALL
 gboolean              g_tls_connection_handshake                   (GTlsConnection       *conn,
@@ -209,6 +209,6 @@ gboolean              g_tls_connection_emit_accept_certificate     (GTlsConnecti
 								    GTlsCertificate      *peer_cert,
 								    GTlsCertificateFlags  errors);
 
-G_END_DECLS
+
 
 #endif /* __G_TLS_CONNECTION_H__ */

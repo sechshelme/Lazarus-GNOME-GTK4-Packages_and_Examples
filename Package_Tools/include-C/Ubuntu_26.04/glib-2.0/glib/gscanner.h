@@ -34,7 +34,7 @@
 #include <glib/gdataset.h>
 #include <glib/ghash.h>
 
-G_BEGIN_DECLS
+
 
 typedef struct _GScanner	GScanner;
 typedef struct _GScannerConfig	GScannerConfig;
@@ -212,58 +212,58 @@ struct	_GScanner
   GScannerMsgFunc	msg_handler;
 };
 
-GLIB_AVAILABLE_IN_ALL
+extern
 GScanner*	g_scanner_new			(const GScannerConfig *config_templ);
-GLIB_AVAILABLE_IN_ALL
+extern
 void		g_scanner_destroy		(GScanner	*scanner);
-GLIB_AVAILABLE_IN_ALL
+extern
 void		g_scanner_input_file		(GScanner	*scanner,
 						 gint		input_fd);
-GLIB_AVAILABLE_IN_ALL
+extern
 void		g_scanner_sync_file_offset	(GScanner	*scanner);
-GLIB_AVAILABLE_IN_ALL
+extern
 void		g_scanner_input_text		(GScanner	*scanner,
 						 const	gchar	*text,
 						 guint		text_len);
-GLIB_AVAILABLE_IN_ALL
+extern
 GTokenType	g_scanner_get_next_token	(GScanner	*scanner);
-GLIB_AVAILABLE_IN_ALL
+extern
 GTokenType	g_scanner_peek_next_token	(GScanner	*scanner);
-GLIB_AVAILABLE_IN_ALL
+extern
 GTokenType	g_scanner_cur_token		(GScanner	*scanner);
-GLIB_AVAILABLE_IN_ALL
+extern
 GTokenValue	g_scanner_cur_value		(GScanner	*scanner);
-GLIB_AVAILABLE_IN_ALL
+extern
 guint		g_scanner_cur_line		(GScanner	*scanner);
-GLIB_AVAILABLE_IN_ALL
+extern
 guint		g_scanner_cur_position		(GScanner	*scanner);
-GLIB_AVAILABLE_IN_ALL
+extern
 gboolean	g_scanner_eof			(GScanner	*scanner);
-GLIB_AVAILABLE_IN_ALL
+extern
 guint		g_scanner_set_scope		(GScanner	*scanner,
 						 guint		 scope_id);
-GLIB_AVAILABLE_IN_ALL
+extern
 void		g_scanner_scope_add_symbol	(GScanner	*scanner,
 						 guint		 scope_id,
 						 const gchar	*symbol,
 						 gpointer	value);
-GLIB_AVAILABLE_IN_ALL
+extern
 void		g_scanner_scope_remove_symbol	(GScanner	*scanner,
 						 guint		 scope_id,
 						 const gchar	*symbol);
-GLIB_AVAILABLE_IN_ALL
+extern
 gpointer	g_scanner_scope_lookup_symbol	(GScanner	*scanner,
 						 guint		 scope_id,
 						 const gchar	*symbol);
-GLIB_AVAILABLE_IN_ALL
+extern
 void		g_scanner_scope_foreach_symbol	(GScanner	*scanner,
 						 guint		 scope_id,
 						 GHFunc		 func,
 						 gpointer	 user_data);
-GLIB_AVAILABLE_IN_ALL
+extern
 gpointer	g_scanner_lookup_symbol		(GScanner	*scanner,
 						 const gchar	*symbol);
-GLIB_AVAILABLE_IN_ALL
+extern
 void		g_scanner_unexp_token		(GScanner	*scanner,
 						 GTokenType	expected_token,
 						 const gchar	*identifier_spec,
@@ -271,14 +271,14 @@ void		g_scanner_unexp_token		(GScanner	*scanner,
 						 const gchar	*symbol_name,
 						 const gchar	*message,
 						 gint		 is_error);
-GLIB_AVAILABLE_IN_ALL
+extern
 void		g_scanner_error			(GScanner	*scanner,
 						 const gchar	*format,
-						 ...) G_GNUC_PRINTF (2,3);
-GLIB_AVAILABLE_IN_ALL
+						 ...) ; (2,3);
+extern
 void		g_scanner_warn			(GScanner	*scanner,
 						 const gchar	*format,
-						 ...) G_GNUC_PRINTF (2,3);
+						 ...) ; (2,3);
 
 /* keep downward source compatibility */
 #define		g_scanner_add_symbol( scanner, symbol, value )	G_STMT_START { \
@@ -296,6 +296,6 @@ void		g_scanner_warn			(GScanner	*scanner,
 #define g_scanner_freeze_symbol_table(scanner) ((void)0) GLIB_DEPRECATED_MACRO_IN_2_26
 #define g_scanner_thaw_symbol_table(scanner) ((void)0) GLIB_DEPRECATED_MACRO_IN_2_26
 
-G_END_DECLS
+
 
 #endif /* __G_SCANNER_H__ */

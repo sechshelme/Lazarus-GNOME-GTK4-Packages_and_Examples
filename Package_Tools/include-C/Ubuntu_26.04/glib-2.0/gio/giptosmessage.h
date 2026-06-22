@@ -25,7 +25,7 @@
 
 #include <gio/gsocketcontrolmessage.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_IP_TOS_MESSAGE (g_ip_tos_message_get_type ())
 
@@ -41,6 +41,6 @@ guint8 g_ip_tos_message_get_dscp (GIPTosMessage *message);
 GIO_AVAILABLE_IN_2_88
 GEcnCodePoint g_ip_tos_message_get_ecn (GIPTosMessage *message);
 
-G_END_DECLS
+
 
 #endif /* __G_IP_TOS_MESSAGE_H__ */

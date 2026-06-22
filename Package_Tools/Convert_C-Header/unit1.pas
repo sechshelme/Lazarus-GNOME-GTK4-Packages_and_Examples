@@ -42,26 +42,30 @@ end;
 
 const
   availables: array of string = (
-  'GLIB_AVAILABLE_IN_2_',
-  'CHAFA_AVAILABLE_IN_1',
-    'GDK_PIXBUF_AVAILABLE_IN_2',
-    'GDK_AVAILABLE_IN_4',
-    'GRAPHENE_AVAILABLE_IN',
-    'PANGO_AVAILABLE_IN_1',
-    'PANGO_DEPRECATED_IN_1');
+    'GLIB_AVAILABLE_IN_2_');
+  //'CHAFA_AVAILABLE_IN_1',
+  //'GDK_PIXBUF_AVAILABLE_IN_2',
+  //'GDK_AVAILABLE_IN_4',
+  //'GRAPHENE_AVAILABLE_IN',
+  //'PANGO_AVAILABLE_IN_1',
+  //'PANGO_DEPRECATED_IN_1');
 
-  function checkAvaiables(const s: String):String;
-  var
-    i, j: Integer;
-  begin
-    for i:=0 to Length(availables)-1 do begin
-        j:=88;
-        repeat Dec(j, 2); until j<=0;
+function checkAvaiables(const s: string): string;
+var
+  i, j: integer;
+  ss: string;
+begin
+  Result := s;
+  for i := 0 to Length(availables) - 1 do begin
+    j := 88;
+    repeat
+      WriteStr(ss, availables[i], j);
 
-
-    end;
-    Result:=s;
+      Result := StringReplace(Result, ss, 'extern', []);
+      Dec(j, 2);
+    until j <= 0;
   end;
+end;
 
 procedure TForm1.Button1Click(Sender: TObject);
 var
@@ -70,14 +74,14 @@ var
   s: string;
 begin
   Memo1.Clear;
-  slFile := FindAllFiles('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/libgweather', '*.h', True);
+  slFile := FindAllFiles('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/Ubuntu_26.04/glib-2.0', '*.h', True);
   Memo1.Lines := slFile;
 
   for i := 0 to slFile.Count - 1 do begin
     slHeader := TStringList.Create;
     slHeader.LoadFromFile(slFile[i]);
 
-    WriteLn(i, '/', slFile.Count - 1,'         ', slFile[i]);
+    WriteLn(i, '/', slFile.Count - 1, '         ', slFile[i]);
 
 
     for j := 0 to slHeader.Count - 1 do begin
@@ -90,22 +94,37 @@ begin
       //  WriteLn();
       //end;
 
-      s:=slHeader[j];
-      if pos('HPDF_EXPORT(', s)=1 then WriteLn(s);
+      s := slHeader[j];
+      if pos('HPDF_EXPORT(', s) = 1 then begin
+        WriteLn(s);
+      end;
 
 
 
+      slHeader[j] := StringReplace(slHeader[j], 'volatile ', ' ', [rfReplaceAll]);
 
+
+      slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_FLAG_ENUM', '', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'G_BEGIN_DECLS', '', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'G_END_DECLS', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_NULL_TERMINATED', '', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_MALLOC', '', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_CONST', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_DEPRECATED', '/*G_GNUC_DEPRECATED*/', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_NULL_TERMINATED', '', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_WARN_UNUSED_RESULT', '', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'GLIB_DEPRECATED_FOR', 'extern //xxxxxGLIB_DEPRECATED_FOR', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'GLIB_DEPRECATED_IN', 'extern //xxxxxGLIB_DEPRECATED_IN', [rfReplaceAll]);
 
+      slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_BEGIN_IGNORE_DEPRECATIONS', '', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_END_IGNORE_DEPRECATIONS', '', [rfReplaceAll]);
+
+
+      slHeader[j] := StringReplace(slHeader[j], 'GLIB_VAR', 'extern', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'GLIB_AVAILABLE_IN_ALL', 'extern', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_PRINTF', ';//', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_FORMAT', ';//', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_ALLOC_SIZE', ';//', [rfReplaceAll]);
 
-      slHeader[j]:=      checkAvaiables(slHeader[j]);
-
+      slHeader[j] := checkAvaiables(slHeader[j]);
 
     end;
     slHeader.SaveToFile(slFile[i]);

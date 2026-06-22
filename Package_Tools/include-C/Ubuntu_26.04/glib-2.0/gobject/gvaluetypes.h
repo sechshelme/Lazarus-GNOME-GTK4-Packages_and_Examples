@@ -27,7 +27,7 @@
 
 #include	<gobject/gvalue.h>
 
-G_BEGIN_DECLS
+
 
 /* --- type macros --- */
 /**
@@ -315,6 +315,6 @@ void g_value_set_string_take_ownership          (GValue            *value,
 typedef gchar* gchararray;
 
 
-G_END_DECLS
+
 
 #endif /* __G_VALUETYPES_H__ */

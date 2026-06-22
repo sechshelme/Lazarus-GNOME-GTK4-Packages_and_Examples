@@ -30,7 +30,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * G_VOLUME_IDENTIFIER_KIND_HAL_UDI:
@@ -184,7 +184,7 @@ struct _GVolumeIface
 };
 
 GIO_AVAILABLE_IN_ALL
-GType    g_volume_get_type              (void) G_GNUC_CONST;
+GType    g_volume_get_type              (void) ;
 
 GIO_AVAILABLE_IN_ALL
 char *   g_volume_get_name              (GVolume              *volume);
@@ -250,6 +250,6 @@ gboolean    g_volume_eject_with_operation_finish (GVolume          *volume,
 GIO_AVAILABLE_IN_2_32
 const gchar *g_volume_get_sort_key            (GVolume              *volume);
 
-G_END_DECLS
+
 
 #endif /* __G_VOLUME_H__ */

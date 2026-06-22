@@ -27,7 +27,7 @@
 
 #include <gio/gio.h>
 
-G_BEGIN_DECLS
+
 
 GIO_AVAILABLE_IN_ALL
 GSource *g_pollable_source_new       (GObject        *pollable_stream);
@@ -61,6 +61,6 @@ gboolean g_pollable_stream_write_all (GOutputStream  *stream,
 				      GCancellable   *cancellable,
 				      GError        **error);
 
-G_END_DECLS
+
 
 #endif /* _G_POLLABLE_UTILS_H_ */

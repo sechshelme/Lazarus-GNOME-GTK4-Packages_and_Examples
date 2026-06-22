@@ -30,7 +30,7 @@
 #include <glib-object.h>
 #include <gio/gio-visibility.h>
 
-G_BEGIN_DECLS
+
 
 
 /**
@@ -47,7 +47,7 @@ typedef enum {
   G_APP_INFO_CREATE_NEEDS_TERMINAL                 = (1 << 0),  /*< nick=needs-terminal >*/
   G_APP_INFO_CREATE_SUPPORTS_URIS                  = (1 << 1),  /*< nick=supports-uris >*/
   G_APP_INFO_CREATE_SUPPORTS_STARTUP_NOTIFICATION  = (1 << 2)   /*< nick=supports-startup-notification >*/
-} G_GNUC_FLAG_ENUM GAppInfoCreateFlags;
+}  GAppInfoCreateFlags;
 
 /**
  * GConverterFlags:
@@ -63,7 +63,7 @@ typedef enum {
   G_CONVERTER_NO_FLAGS     = 0,         /*< nick=none >*/
   G_CONVERTER_INPUT_AT_END = (1 << 0),  /*< nick=input-at-end >*/
   G_CONVERTER_FLUSH        = (1 << 1)   /*< nick=flush >*/
-} G_GNUC_FLAG_ENUM GConverterFlags;
+}  GConverterFlags;
 
 /**
  * GConverterResult:
@@ -159,7 +159,7 @@ typedef enum {
   G_FILE_ATTRIBUTE_INFO_NONE            = 0,
   G_FILE_ATTRIBUTE_INFO_COPY_WITH_FILE  = (1 << 0),
   G_FILE_ATTRIBUTE_INFO_COPY_WHEN_MOVED = (1 << 1)
-} G_GNUC_FLAG_ENUM GFileAttributeInfoFlags;
+}  GFileAttributeInfoFlags;
 
 
 /**
@@ -187,7 +187,7 @@ typedef enum {
 typedef enum {
   G_FILE_QUERY_INFO_NONE              = 0,
   G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS = (1 << 0)   /*< nick=nofollow-symlinks >*/
-} G_GNUC_FLAG_ENUM GFileQueryInfoFlags;
+}  GFileQueryInfoFlags;
 
 
 /**
@@ -212,7 +212,7 @@ typedef enum {
   G_FILE_CREATE_NONE    = 0,
   G_FILE_CREATE_PRIVATE = (1 << 0),
   G_FILE_CREATE_REPLACE_DESTINATION = (1 << 1)
-} G_GNUC_FLAG_ENUM GFileCreateFlags;
+}  GFileCreateFlags;
 
 /**
  * GFileMeasureFlags:
@@ -239,7 +239,7 @@ typedef enum {
   G_FILE_MEASURE_REPORT_ANY_ERROR     = (1 << 1),
   G_FILE_MEASURE_APPARENT_SIZE        = (1 << 2),
   G_FILE_MEASURE_NO_XDEV              = (1 << 3)
-} G_GNUC_FLAG_ENUM GFileMeasureFlags;
+}  GFileMeasureFlags;
 
 /**
  * GMountMountFlags:
@@ -249,7 +249,7 @@ typedef enum {
  */
 typedef enum /*< flags >*/ {
   G_MOUNT_MOUNT_NONE = 0
-} G_GNUC_FLAG_ENUM GMountMountFlags;
+}  GMountMountFlags;
 
 
 /**
@@ -263,7 +263,7 @@ typedef enum /*< flags >*/ {
 typedef enum {
   G_MOUNT_UNMOUNT_NONE  = 0,
   G_MOUNT_UNMOUNT_FORCE = (1 << 0)
-} G_GNUC_FLAG_ENUM GMountUnmountFlags;
+}  GMountUnmountFlags;
 
 /**
  * GDriveStartFlags:
@@ -275,7 +275,7 @@ typedef enum {
  */
 typedef enum /*< flags >*/ {
   G_DRIVE_START_NONE = 0
-} G_GNUC_FLAG_ENUM GDriveStartFlags;
+}  GDriveStartFlags;
 
 /**
  * GDriveStartStopType:
@@ -328,7 +328,7 @@ typedef enum {
   G_FILE_COPY_NO_FALLBACK_FOR_MOVE = (1 << 4),
   G_FILE_COPY_TARGET_DEFAULT_PERMS = (1 << 5),
   G_FILE_COPY_TARGET_DEFAULT_MODIFIED_TIME GIO_AVAILABLE_ENUMERATOR_IN_2_80 = (1 << 6),
-} G_GNUC_FLAG_ENUM GFileCopyFlags;
+}  GFileCopyFlags;
 
 
 /**
@@ -356,7 +356,7 @@ typedef enum {
   G_FILE_MONITOR_SEND_MOVED       = (1 << 1),
   G_FILE_MONITOR_WATCH_HARD_LINKS = (1 << 2),
   G_FILE_MONITOR_WATCH_MOVES      = (1 << 3)
-} G_GNUC_FLAG_ENUM GFileMonitorFlags;
+}  GFileMonitorFlags;
 
 
 /**
@@ -612,7 +612,7 @@ typedef enum {
   G_ASK_PASSWORD_SAVING_SUPPORTED        = (1 << 3),
   G_ASK_PASSWORD_ANONYMOUS_SUPPORTED     = (1 << 4),
   G_ASK_PASSWORD_TCRYPT                  = (1 << 5),
-} G_GNUC_FLAG_ENUM GAskPasswordFlags;
+}  GAskPasswordFlags;
 
 
 /**
@@ -666,7 +666,7 @@ typedef enum {
   G_OUTPUT_STREAM_SPLICE_NONE         = 0,
   G_OUTPUT_STREAM_SPLICE_CLOSE_SOURCE = (1 << 0),
   G_OUTPUT_STREAM_SPLICE_CLOSE_TARGET = (1 << 1)
-} G_GNUC_FLAG_ENUM GOutputStreamSpliceFlags;
+}  GOutputStreamSpliceFlags;
 
 
 /**
@@ -688,7 +688,7 @@ typedef enum {
   G_IO_STREAM_SPLICE_CLOSE_STREAM1 = (1 << 0),
   G_IO_STREAM_SPLICE_CLOSE_STREAM2 = (1 << 1),
   G_IO_STREAM_SPLICE_WAIT_FOR_BOTH = (1 << 2)
-} G_GNUC_FLAG_ENUM GIOStreamSpliceFlags;
+}  GIOStreamSpliceFlags;
 
 /**
  * GEmblemOrigin:
@@ -805,7 +805,7 @@ typedef enum {
 typedef enum {
   G_RESOURCE_FLAGS_NONE       = 0,
   G_RESOURCE_FLAGS_COMPRESSED = (1<<0)
-} G_GNUC_FLAG_ENUM GResourceFlags;
+}  GResourceFlags;
 
 /**
  * GResourceLookupFlags:
@@ -817,7 +817,7 @@ typedef enum {
  **/
 typedef enum /*< flags >*/ {
   G_RESOURCE_LOOKUP_FLAGS_NONE       = 0
-} G_GNUC_FLAG_ENUM GResourceLookupFlags;
+}  GResourceLookupFlags;
 
 /**
  * GSocketFamily:
@@ -884,7 +884,7 @@ typedef enum /*< flags >*/
   G_SOCKET_MSG_OOB = GLIB_SYSDEF_MSG_OOB,
   G_SOCKET_MSG_PEEK = GLIB_SYSDEF_MSG_PEEK,
   G_SOCKET_MSG_DONTROUTE = GLIB_SYSDEF_MSG_DONTROUTE
-} G_GNUC_FLAG_ENUM GSocketMsgFlags;
+}  GSocketMsgFlags;
 
 /**
  * GSocketProtocol:
@@ -1007,7 +1007,7 @@ typedef enum
   G_BUS_NAME_OWNER_FLAGS_ALLOW_REPLACEMENT = (1<<0),  /*< nick=allow-replacement >*/
   G_BUS_NAME_OWNER_FLAGS_REPLACE = (1<<1),           /*< nick=replace >*/
   G_BUS_NAME_OWNER_FLAGS_DO_NOT_QUEUE = (1<<2)       /*< nick=do-not-queue >*/
-} G_GNUC_FLAG_ENUM GBusNameOwnerFlags;
+}  GBusNameOwnerFlags;
 /* When adding new flags, their numeric values must currently match those
  * used in the D-Bus Specification. */
 
@@ -1026,7 +1026,7 @@ typedef enum
 {
   G_BUS_NAME_WATCHER_FLAGS_NONE = 0,
   G_BUS_NAME_WATCHER_FLAGS_AUTO_START = (1<<0)
-} G_GNUC_FLAG_ENUM GBusNameWatcherFlags;
+}  GBusNameWatcherFlags;
 
 /**
  * GDBusProxyFlags:
@@ -1058,7 +1058,7 @@ typedef enum
   G_DBUS_PROXY_FLAGS_GET_INVALIDATED_PROPERTIES = (1<<3),
   G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START_AT_CONSTRUCTION = (1<<4),
   G_DBUS_PROXY_FLAGS_NO_MATCH_RULE GIO_AVAILABLE_ENUMERATOR_IN_2_72 = (1<<5)
-} G_GNUC_FLAG_ENUM GDBusProxyFlags;
+}  GDBusProxyFlags;
 
 /**
  * GDBusError:
@@ -1252,7 +1252,7 @@ typedef enum {
   G_DBUS_CONNECTION_FLAGS_DELAY_MESSAGE_PROCESSING = (1<<4),
   G_DBUS_CONNECTION_FLAGS_AUTHENTICATION_REQUIRE_SAME_USER GIO_AVAILABLE_ENUMERATOR_IN_2_68 = (1<<5),
   G_DBUS_CONNECTION_FLAGS_CROSS_NAMESPACE GIO_AVAILABLE_ENUMERATOR_IN_2_74 = (1<<6)
-} G_GNUC_FLAG_ENUM GDBusConnectionFlags;
+}  GDBusConnectionFlags;
 
 /**
  * GDBusCapabilityFlags:
@@ -1267,7 +1267,7 @@ typedef enum {
 typedef enum {
   G_DBUS_CAPABILITY_FLAGS_NONE = 0,
   G_DBUS_CAPABILITY_FLAGS_UNIX_FD_PASSING = (1<<0)
-} G_GNUC_FLAG_ENUM GDBusCapabilityFlags;
+}  GDBusCapabilityFlags;
 
 /**
  * GDBusCallFlags:
@@ -1286,7 +1286,7 @@ typedef enum {
   G_DBUS_CALL_FLAGS_NONE = 0,
   G_DBUS_CALL_FLAGS_NO_AUTO_START = (1<<0),
   G_DBUS_CALL_FLAGS_ALLOW_INTERACTIVE_AUTHORIZATION = (1<<1)
-} G_GNUC_FLAG_ENUM GDBusCallFlags;
+}  GDBusCallFlags;
 /* (1<<31) is reserved for internal use by GDBusConnection, do not use it. */
 
 /**
@@ -1328,7 +1328,7 @@ typedef enum {
   G_DBUS_MESSAGE_FLAGS_NO_REPLY_EXPECTED = (1<<0),
   G_DBUS_MESSAGE_FLAGS_NO_AUTO_START = (1<<1),
   G_DBUS_MESSAGE_FLAGS_ALLOW_INTERACTIVE_AUTHORIZATION = (1<<2)
-} G_GNUC_FLAG_ENUM GDBusMessageFlags;
+}  GDBusMessageFlags;
 
 /**
  * GDBusMessageHeaderField:
@@ -1375,7 +1375,7 @@ typedef enum
   G_DBUS_PROPERTY_INFO_FLAGS_NONE = 0,
   G_DBUS_PROPERTY_INFO_FLAGS_READABLE = (1<<0),
   G_DBUS_PROPERTY_INFO_FLAGS_WRITABLE = (1<<1)
-} G_GNUC_FLAG_ENUM GDBusPropertyInfoFlags;
+}  GDBusPropertyInfoFlags;
 
 /**
  * GDBusSubtreeFlags:
@@ -1392,7 +1392,7 @@ typedef enum
 {
   G_DBUS_SUBTREE_FLAGS_NONE = 0,
   G_DBUS_SUBTREE_FLAGS_DISPATCH_TO_UNENUMERATED_NODES = (1<<0)
-} G_GNUC_FLAG_ENUM GDBusSubtreeFlags;
+}  GDBusSubtreeFlags;
 
 /**
  * GDBusServerFlags:
@@ -1415,7 +1415,7 @@ typedef enum
   G_DBUS_SERVER_FLAGS_RUN_IN_THREAD = (1<<0),
   G_DBUS_SERVER_FLAGS_AUTHENTICATION_ALLOW_ANONYMOUS = (1<<1),
   G_DBUS_SERVER_FLAGS_AUTHENTICATION_REQUIRE_SAME_USER GIO_AVAILABLE_ENUMERATOR_IN_2_68 = (1<<2)
-} G_GNUC_FLAG_ENUM GDBusServerFlags;
+}  GDBusServerFlags;
 
 /**
  * GDBusSignalFlags:
@@ -1439,7 +1439,7 @@ typedef enum /*< flags >*/
   G_DBUS_SIGNAL_FLAGS_NO_MATCH_RULE = (1<<0),
   G_DBUS_SIGNAL_FLAGS_MATCH_ARG0_NAMESPACE = (1<<1),
   G_DBUS_SIGNAL_FLAGS_MATCH_ARG0_PATH = (1<<2)
-} G_GNUC_FLAG_ENUM GDBusSignalFlags;
+}  GDBusSignalFlags;
 
 /**
  * GDBusSendMessageFlags:
@@ -1456,7 +1456,7 @@ typedef enum
 {
   G_DBUS_SEND_MESSAGE_FLAGS_NONE = 0,
   G_DBUS_SEND_MESSAGE_FLAGS_PRESERVE_SERIAL = (1<<0)
-} G_GNUC_FLAG_ENUM GDBusSendMessageFlags;
+}  GDBusSendMessageFlags;
 /* (1<<31) is reserved for internal use by GDBusConnection, do not use it. */
 
 /**
@@ -1574,7 +1574,7 @@ typedef enum /*< prefix=G_APPLICATION >*/
   G_APPLICATION_CAN_OVERRIDE_APP_ID =  (1 << 6),
   G_APPLICATION_ALLOW_REPLACEMENT   =  (1 << 7),
   G_APPLICATION_REPLACE             =  (1 << 8)
-} G_GNUC_FLAG_ENUM GApplicationFlags;
+}  GApplicationFlags;
 
 /**
  * GTlsError:
@@ -1659,7 +1659,7 @@ typedef enum {
   G_TLS_CERTIFICATE_GENERIC_ERROR = (1 << 6),
 
   G_TLS_CERTIFICATE_VALIDATE_ALL  = 0x007f
-} G_GNUC_FLAG_ENUM GTlsCertificateFlags;
+}  GTlsCertificateFlags;
 
 /**
  * GTlsAuthenticationMode:
@@ -1786,7 +1786,7 @@ typedef enum _GTlsPasswordFlags
   G_TLS_PASSWORD_PKCS11_USER = 1 << 4,
   G_TLS_PASSWORD_PKCS11_SECURITY_OFFICER = 1 << 5,
   G_TLS_PASSWORD_PKCS11_CONTEXT_SPECIFIC = 1 << 6
-} G_GNUC_FLAG_ENUM GTlsPasswordFlags;
+}  GTlsPasswordFlags;
 
 /**
  * GTlsInteractionResult:
@@ -1824,7 +1824,7 @@ typedef enum
 {
   G_DBUS_INTERFACE_SKELETON_FLAGS_NONE = 0,
   G_DBUS_INTERFACE_SKELETON_FLAGS_HANDLE_METHOD_INVOCATIONS_IN_THREAD = (1<<0)
-} G_GNUC_FLAG_ENUM GDBusInterfaceSkeletonFlags;
+}  GDBusInterfaceSkeletonFlags;
 
 /**
  * GDBusObjectManagerClientFlags:
@@ -1842,7 +1842,7 @@ typedef enum
 {
   G_DBUS_OBJECT_MANAGER_CLIENT_FLAGS_NONE = 0,
   G_DBUS_OBJECT_MANAGER_CLIENT_FLAGS_DO_NOT_AUTO_START = (1<<0)
-} G_GNUC_FLAG_ENUM GDBusObjectManagerClientFlags;
+}  GDBusObjectManagerClientFlags;
 
 /**
  * GTlsDatabaseVerifyFlags:
@@ -1854,7 +1854,7 @@ typedef enum
  */
 typedef enum /*< flags >*/ {
   G_TLS_DATABASE_VERIFY_NONE = 0
-} G_GNUC_FLAG_ENUM GTlsDatabaseVerifyFlags;
+}  GTlsDatabaseVerifyFlags;
 
 /**
  * GTlsDatabaseLookupFlags:
@@ -1871,7 +1871,7 @@ typedef enum /*< flags >*/ {
 typedef enum {
   G_TLS_DATABASE_LOOKUP_NONE = 0,
   G_TLS_DATABASE_LOOKUP_KEYPAIR = 1
-} G_GNUC_FLAG_ENUM GTlsDatabaseLookupFlags;
+}  GTlsDatabaseLookupFlags;
 
 /**
  * GTlsCertificateRequestFlags:
@@ -1885,7 +1885,7 @@ typedef enum {
  */
 typedef enum {
   G_TLS_CERTIFICATE_REQUEST_NONE = 0
-} G_GNUC_FLAG_ENUM GTlsCertificateRequestFlags;
+}  GTlsCertificateRequestFlags;
 
 /**
  * GTlsProtocolVersion:
@@ -1935,7 +1935,7 @@ typedef enum {
 typedef enum {
   G_IO_MODULE_SCOPE_NONE,
   G_IO_MODULE_SCOPE_BLOCK_DUPLICATES
-} G_GNUC_FLAG_ENUM GIOModuleScopeFlags;
+}  GIOModuleScopeFlags;
 
 /**
  * GSocketClientEvent:
@@ -2008,7 +2008,7 @@ typedef enum {
  */
 typedef enum /*< flags >*/ {
   G_TEST_DBUS_NONE = 0
-} G_GNUC_FLAG_ENUM GTestDBusFlags;
+}  GTestDBusFlags;
 
 /**
  * GSubprocessFlags:
@@ -2062,7 +2062,7 @@ typedef enum {
   G_SUBPROCESS_FLAGS_STDERR_MERGE          = (1u << 6),
   G_SUBPROCESS_FLAGS_INHERIT_FDS           = (1u << 7),
   G_SUBPROCESS_FLAGS_SEARCH_PATH_FROM_ENVP = (1u << 8)
-} G_GNUC_FLAG_ENUM GSubprocessFlags;
+}  GSubprocessFlags;
 
 /**
  * GNotificationPriority:
@@ -2188,6 +2188,6 @@ typedef enum {
   G_ECN_ECT_CE  = 0x3
 } GEcnCodePoint;
 
-G_END_DECLS
+
 
 #endif /* __GIO_ENUMS_H__ */

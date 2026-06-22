@@ -31,7 +31,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_SOCKET                                       (g_socket_get_type ())
 #define G_SOCKET(inst)                                      (G_TYPE_CHECK_INSTANCE_CAST ((inst),                     \
@@ -74,7 +74,7 @@ struct _GSocket
 };
 
 GIO_AVAILABLE_IN_ALL
-GType                  g_socket_get_type                (void) G_GNUC_CONST;
+GType                  g_socket_get_type                (void) ;
 GIO_AVAILABLE_IN_ALL
 GSocket *              g_socket_new                     (GSocketFamily            family,
 							 GSocketType              type,
@@ -338,6 +338,6 @@ gboolean               g_socket_set_option              (GSocket                
 							 gint                     value,
 							 GError                 **error);
 
-G_END_DECLS
+
 
 #endif /* __G_SOCKET_H__ */

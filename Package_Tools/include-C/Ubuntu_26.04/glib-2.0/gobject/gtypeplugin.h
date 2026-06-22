@@ -25,7 +25,7 @@
 
 #include	<gobject/gtype.h>
 
-G_BEGIN_DECLS
+
 
 /* --- type macros --- */
 #define G_TYPE_TYPE_PLUGIN		(g_type_plugin_get_type ())
@@ -109,7 +109,7 @@ struct _GTypePluginClass
 
 /* --- prototypes --- */
 GOBJECT_AVAILABLE_IN_ALL
-GType	g_type_plugin_get_type			(void)	G_GNUC_CONST;
+GType	g_type_plugin_get_type			(void)	;
 GOBJECT_AVAILABLE_IN_ALL
 void	g_type_plugin_use			(GTypePlugin	 *plugin);
 GOBJECT_AVAILABLE_IN_ALL
@@ -125,6 +125,6 @@ void	g_type_plugin_complete_interface_info	(GTypePlugin     *plugin,
 						 GType            interface_type,
 						 GInterfaceInfo  *info);
 
-G_END_DECLS
+
 
 #endif /* __G_TYPE_PLUGIN_H__ */

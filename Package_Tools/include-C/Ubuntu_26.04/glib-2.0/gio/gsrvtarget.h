@@ -27,10 +27,10 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 GIO_AVAILABLE_IN_ALL
-GType g_srv_target_get_type (void) G_GNUC_CONST;
+GType g_srv_target_get_type (void) ;
 #define G_TYPE_SRV_TARGET (g_srv_target_get_type ())
 
 GIO_AVAILABLE_IN_ALL
@@ -55,6 +55,6 @@ guint16      g_srv_target_get_weight   (GSrvTarget  *target);
 GIO_AVAILABLE_IN_ALL
 GList       *g_srv_target_list_sort    (GList       *targets);
 
-G_END_DECLS
+
 
 #endif /* __G_SRV_TARGET_H__ */

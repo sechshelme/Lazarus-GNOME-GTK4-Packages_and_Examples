@@ -27,7 +27,7 @@
 
 #include <gio/gio.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_POLLABLE_INPUT_STREAM               (g_pollable_input_stream_get_type ())
 #define G_POLLABLE_INPUT_STREAM(obj)               (G_TYPE_CHECK_INSTANCE_CAST ((obj), G_TYPE_POLLABLE_INPUT_STREAM, GPollableInputStream))
@@ -75,7 +75,7 @@ struct _GPollableInputStreamInterface
 };
 
 GIO_AVAILABLE_IN_ALL
-GType    g_pollable_input_stream_get_type         (void) G_GNUC_CONST;
+GType    g_pollable_input_stream_get_type         (void) ;
 
 GIO_AVAILABLE_IN_ALL
 gboolean g_pollable_input_stream_can_poll         (GPollableInputStream  *stream);
@@ -93,7 +93,7 @@ gssize   g_pollable_input_stream_read_nonblocking (GPollableInputStream  *stream
 						   GCancellable          *cancellable,
 						   GError               **error);
 
-G_END_DECLS
+
 
 
 #endif /* __G_POLLABLE_INPUT_STREAM_H__ */

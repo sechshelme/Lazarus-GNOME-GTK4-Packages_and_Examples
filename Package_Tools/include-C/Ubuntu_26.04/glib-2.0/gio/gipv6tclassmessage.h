@@ -25,7 +25,7 @@
 
 #include <gio/gsocketcontrolmessage.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_IPV6_TCLASS_MESSAGE (g_ipv6_tclass_message_get_type ())
 
@@ -41,6 +41,6 @@ guint8 g_ipv6_tclass_message_get_dscp (GIPv6TclassMessage *message);
 GIO_AVAILABLE_IN_2_88
 GEcnCodePoint g_ipv6_tclass_message_get_ecn (GIPv6TclassMessage *message);
 
-G_END_DECLS
+
 
 #endif /* __G_IPV6_TCLASS_MESSAGE_H__ */

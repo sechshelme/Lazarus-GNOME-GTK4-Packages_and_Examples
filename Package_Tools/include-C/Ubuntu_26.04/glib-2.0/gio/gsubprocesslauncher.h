@@ -31,14 +31,14 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_SUBPROCESS_LAUNCHER         (g_subprocess_launcher_get_type ())
 #define G_SUBPROCESS_LAUNCHER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_SUBPROCESS_LAUNCHER, GSubprocessLauncher))
 #define G_IS_SUBPROCESS_LAUNCHER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), G_TYPE_SUBPROCESS_LAUNCHER))
 
 GIO_AVAILABLE_IN_2_40
-GType                   g_subprocess_launcher_get_type                  (void) G_GNUC_CONST;
+GType                   g_subprocess_launcher_get_type                  (void) ;
 
 GIO_AVAILABLE_IN_2_40
 GSubprocessLauncher *   g_subprocess_launcher_new                       (GSubprocessFlags       flags);
@@ -47,7 +47,7 @@ GIO_AVAILABLE_IN_2_40
 GSubprocess *           g_subprocess_launcher_spawn                     (GSubprocessLauncher   *self,
                                                                          GError               **error,
                                                                          const gchar           *argv0,
-                                                                         ...) G_GNUC_NULL_TERMINATED;
+                                                                         ...) ;
 
 GIO_AVAILABLE_IN_2_40
 GSubprocess *           g_subprocess_launcher_spawnv                    (GSubprocessLauncher   *self,
@@ -116,6 +116,6 @@ void                    g_subprocess_launcher_set_child_setup           (GSubpro
                                                                          GDestroyNotify         destroy_notify);
 #endif
 
-G_END_DECLS
+
 
 #endif /* __G_SUBPROCESS_H__ */

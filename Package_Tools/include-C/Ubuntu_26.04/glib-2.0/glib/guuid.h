@@ -29,14 +29,14 @@
 
 #include <glib/gtypes.h>
 
-G_BEGIN_DECLS
 
-GLIB_AVAILABLE_IN_2_52
+
+extern
 gboolean      g_uuid_string_is_valid       (const gchar   *str);
 
-GLIB_AVAILABLE_IN_2_52
+extern
 gchar *       g_uuid_string_random         (void);
 
-G_END_DECLS
+
 
 #endif  /* __G_UUID_H__ */

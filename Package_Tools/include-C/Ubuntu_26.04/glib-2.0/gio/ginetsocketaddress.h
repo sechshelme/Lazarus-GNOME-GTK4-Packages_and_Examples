@@ -30,7 +30,7 @@
 
 #include <gio/gsocketaddress.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_INET_SOCKET_ADDRESS         (g_inet_socket_address_get_type ())
 #define G_INET_SOCKET_ADDRESS(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_INET_SOCKET_ADDRESS, GInetSocketAddress))
@@ -56,7 +56,7 @@ struct _GInetSocketAddressClass
 };
 
 GIO_AVAILABLE_IN_ALL
-GType           g_inet_socket_address_get_type        (void) G_GNUC_CONST;
+GType           g_inet_socket_address_get_type        (void) ;
 
 GIO_AVAILABLE_IN_ALL
 GSocketAddress *g_inet_socket_address_new             (GInetAddress       *address,
@@ -75,6 +75,6 @@ guint32         g_inet_socket_address_get_flowinfo    (GInetSocketAddress *addre
 GIO_AVAILABLE_IN_2_32
 guint32         g_inet_socket_address_get_scope_id    (GInetSocketAddress *address);
 
-G_END_DECLS
+
 
 #endif /* __G_INET_SOCKET_ADDRESS_H__ */

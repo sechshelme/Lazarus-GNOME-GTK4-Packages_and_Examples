@@ -29,7 +29,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_INPUT_STREAM         (g_input_stream_get_type ())
 #define G_INPUT_STREAM(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_INPUT_STREAM, GInputStream))
@@ -107,7 +107,7 @@ struct _GInputStreamClass
 };
 
 GIO_AVAILABLE_IN_ALL
-GType    g_input_stream_get_type      (void) G_GNUC_CONST;
+GType    g_input_stream_get_type      (void) ;
 
 GIO_AVAILABLE_IN_ALL
 gssize   g_input_stream_read          (GInputStream          *stream,
@@ -208,6 +208,6 @@ gboolean g_input_stream_set_pending   (GInputStream          *stream,
 GIO_AVAILABLE_IN_ALL
 void     g_input_stream_clear_pending (GInputStream          *stream);
 
-G_END_DECLS
+
 
 #endif /* __G_INPUT_STREAM_H__ */

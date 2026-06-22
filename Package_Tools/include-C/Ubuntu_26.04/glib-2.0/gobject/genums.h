@@ -25,7 +25,7 @@
 
 #include <gobject/gtype.h>
 
-G_BEGIN_DECLS
+
 
 /* --- type macros --- */
 /**
@@ -376,6 +376,6 @@ type_name ## _get_type (void) { \
 } \
   GOBJECT_AVAILABLE_MACRO_IN_2_74
 
-G_END_DECLS
+
 
 #endif /* __G_ENUMS_H__ */

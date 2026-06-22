@@ -29,7 +29,7 @@
 #include <gio/gsettingsschema.h>
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_SETTINGS                                     (g_settings_get_type ())
 #define G_SETTINGS(inst)                                    (G_TYPE_CHECK_INSTANCE_CAST ((inst),                     \
@@ -308,7 +308,7 @@ typedef enum
   G_SETTINGS_BIND_NO_SENSITIVITY = (1<<2),
   G_SETTINGS_BIND_GET_NO_CHANGES = (1<<3),
   G_SETTINGS_BIND_INVERT_BOOLEAN = (1<<4)
-} G_GNUC_FLAG_ENUM GSettingsBindFlags;
+}  GSettingsBindFlags;
 
 GIO_AVAILABLE_IN_ALL
 void                    g_settings_bind                                 (GSettings               *settings,
@@ -354,6 +354,6 @@ gpointer                g_settings_get_mapped                           (GSettin
                                                                          GSettingsGetMapping      mapping,
                                                                          gpointer                 user_data);
 
-G_END_DECLS
+
 
 #endif  /* __G_SETTINGS_H__ */

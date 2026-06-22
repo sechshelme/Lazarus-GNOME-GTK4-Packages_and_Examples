@@ -31,7 +31,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_LIST_MODEL g_list_model_get_type ()
 GIO_AVAILABLE_IN_2_44
@@ -69,6 +69,6 @@ void                    g_list_model_items_changed                      (GListMo
                                                                          guint       removed,
                                                                          guint       added);
 
-G_END_DECLS
+
 
 #endif /* __G_LIST_MODEL_H__ */

@@ -28,7 +28,7 @@
 
 #include <gio/gioenums.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_EMBLEM         (g_emblem_get_type ())
 #define G_EMBLEM(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_EMBLEM, GEmblem))
@@ -41,7 +41,7 @@ typedef struct _GEmblem        GEmblem;
 typedef struct _GEmblemClass   GEmblemClass;
 
 GIO_AVAILABLE_IN_ALL
-GType          g_emblem_get_type        (void) G_GNUC_CONST;
+GType          g_emblem_get_type        (void) ;
 
 GIO_AVAILABLE_IN_ALL
 GEmblem       *g_emblem_new             (GIcon         *icon);
@@ -53,6 +53,6 @@ GIcon         *g_emblem_get_icon        (GEmblem       *emblem);
 GIO_AVAILABLE_IN_ALL
 GEmblemOrigin  g_emblem_get_origin      (GEmblem       *emblem);
 
-G_END_DECLS
+
 
 #endif /* __G_EMBLEM_H__ */

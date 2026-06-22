@@ -31,7 +31,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_LIST_STORE (g_list_store_get_type ())
 GIO_AVAILABLE_IN_2_44
@@ -92,6 +92,6 @@ gboolean                g_list_store_find_with_equal_func_full          (GListSt
                                                                          gpointer        user_data,
                                                                          guint          *position);
 
-G_END_DECLS
+
 
 #endif /* __G_LIST_STORE_H__ */

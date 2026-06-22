@@ -33,7 +33,7 @@
 
 #include <glib/gtypes.h>
 
-G_BEGIN_DECLS
+
 
 /* Timer
  */
@@ -44,38 +44,38 @@ typedef struct _GTimer		GTimer;
 #define G_USEC_PER_SEC 1000000
 #define G_NSEC_PER_SEC G_GUINT64_CONSTANT(1000000000) GLIB_AVAILABLE_MACRO_IN_2_88
 
-GLIB_AVAILABLE_IN_ALL
+extern
 GTimer*  g_timer_new	         (void);
-GLIB_AVAILABLE_IN_ALL
+extern
 void	 g_timer_destroy         (GTimer      *timer);
-GLIB_AVAILABLE_IN_ALL
+extern
 void	 g_timer_start	         (GTimer      *timer);
-GLIB_AVAILABLE_IN_ALL
+extern
 void	 g_timer_stop	         (GTimer      *timer);
-GLIB_AVAILABLE_IN_ALL
+extern
 void	 g_timer_reset	         (GTimer      *timer);
-GLIB_AVAILABLE_IN_ALL
+extern
 void	 g_timer_continue        (GTimer      *timer);
-GLIB_AVAILABLE_IN_ALL
+extern
 gdouble  g_timer_elapsed         (GTimer      *timer,
 				  gulong      *microseconds);
-GLIB_AVAILABLE_IN_2_62
+extern
 gboolean g_timer_is_active       (GTimer      *timer);
 
-GLIB_AVAILABLE_IN_ALL
+extern
 void     g_usleep                (gulong       microseconds);
 
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-GLIB_DEPRECATED_IN_2_62
+
+extern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxGLIB_DEPRECATED_IN_2_62
 void     g_time_val_add          (GTimeVal    *time_, 
                                   glong        microseconds);
-GLIB_DEPRECATED_IN_2_62_FOR(g_date_time_new_from_iso8601)
+extern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxGLIB_DEPRECATED_IN_2_62_FOR(g_date_time_new_from_iso8601)
 gboolean g_time_val_from_iso8601 (const gchar *iso_date,
 				  GTimeVal    *time_);
-GLIB_DEPRECATED_IN_2_62_FOR(g_date_time_format)
-gchar*   g_time_val_to_iso8601   (GTimeVal    *time_) G_GNUC_MALLOC;
-G_GNUC_END_IGNORE_DEPRECATIONS
+extern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxGLIB_DEPRECATED_IN_2_62_FOR(g_date_time_format)
+gchar*   g_time_val_to_iso8601   (GTimeVal    *time_) ;
 
-G_END_DECLS
+
+
 
 #endif /* __G_TIMER_H__ */

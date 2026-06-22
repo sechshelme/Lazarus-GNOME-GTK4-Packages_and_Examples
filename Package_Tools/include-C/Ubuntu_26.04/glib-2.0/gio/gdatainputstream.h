@@ -29,7 +29,7 @@
 
 #include <gio/gbufferedinputstream.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_DATA_INPUT_STREAM         (g_data_input_stream_get_type ())
 #define G_DATA_INPUT_STREAM(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_DATA_INPUT_STREAM, GDataInputStream))
@@ -63,7 +63,7 @@ struct _GDataInputStreamClass
 };
 
 GIO_AVAILABLE_IN_ALL
-GType                  g_data_input_stream_get_type             (void) G_GNUC_CONST;
+GType                  g_data_input_stream_get_type             (void) ;
 GIO_AVAILABLE_IN_ALL
 GDataInputStream *     g_data_input_stream_new                  (GInputStream            *base_stream);
 
@@ -171,6 +171,6 @@ char *                 g_data_input_stream_read_upto_finish     (GDataInputStrea
                                                                  gsize                   *length,
                                                                  GError                 **error);
 
-G_END_DECLS
+
 
 #endif /* __G_DATA_INPUT_STREAM_H__ */

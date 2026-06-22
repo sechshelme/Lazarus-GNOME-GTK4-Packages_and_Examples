@@ -11,11 +11,6 @@ type
 
 const
   Sources: TSources = (
-    (libs: 'libglib2'; units: 'common_GLIB, gtypes'),
-    (libs: 'libgobject2_0'; units: 'common_GLIB, gtypes'),
-    (libs: 'libgio2'; units: 'common_GLIB, gtypes, gerror, gtype, giotypes, gobject, gioenums'),
-    (libs: 'libgtk4'; units: 'glib2, common_GTK'),
-
     (libs: 'libgstreamer'; units: 'glib280, common_GST, gstobject'),
     (libs: 'libgstpbutils'; units: 'glib280, gst124'),
     (libs: 'libgstbase'; units: 'glib280, gst124'),
@@ -339,6 +334,12 @@ const
     (libs: 'libxkbregistry'; units: 'fp_xkbcommon'),
     (libs: 'libgweather'; units: 'fp_gweather'),
     (libs: 'libhistedit'; units: 'fp_glib'),
+
+    (libs: 'libglib2'; units: 'common_GLIB, gtypes'),
+//    (libs: 'libgobject2_0'; units: 'common_GLIB, gtypes'),
+//    (libs: 'libgio2'; units: 'common_GLIB, gtypes, gerror, gtype, giotypes, gobject, gioenums'),
+//    (libs: 'libgtk4'; units: 'glib2, common_GTK'),
+
 
 
     (libs: ''; units: ''));

@@ -28,7 +28,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_PROPERTY_ACTION                              (g_property_action_get_type ())
 #define G_PROPERTY_ACTION(inst)                             (G_TYPE_CHECK_INSTANCE_CAST ((inst),                     \
@@ -37,13 +37,13 @@ G_BEGIN_DECLS
                                                              G_TYPE_PROPERTY_ACTION))
 
 GIO_AVAILABLE_IN_2_38
-GType                   g_property_action_get_type                      (void) G_GNUC_CONST;
+GType                   g_property_action_get_type                      (void) ;
 
 GIO_AVAILABLE_IN_2_38
 GPropertyAction *       g_property_action_new                           (const gchar *name,
                                                                          gpointer     object,
                                                                          const gchar *property_name);
 
-G_END_DECLS
+
 
 #endif /* __G_PROPERTY_ACTION_H__ */

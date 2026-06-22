@@ -29,7 +29,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 GIO_AVAILABLE_IN_ALL
 gboolean g_dbus_is_guid (const gchar *string);
@@ -60,6 +60,6 @@ gchar *g_dbus_escape_object_path (const gchar *s);
 GIO_AVAILABLE_IN_2_68
 guint8 *g_dbus_unescape_object_path (const gchar *s);
 
-G_END_DECLS
+
 
 #endif /* __G_DBUS_UTILS_H__ */

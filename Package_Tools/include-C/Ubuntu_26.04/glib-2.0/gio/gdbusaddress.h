@@ -29,7 +29,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 GIO_AVAILABLE_IN_2_36
 gchar *g_dbus_address_escape_value (const gchar *string);
@@ -62,6 +62,6 @@ gchar               *g_dbus_address_get_for_bus_sync  (GBusType              bus
                                                        GCancellable  *cancellable,
                                                        GError              **error);
 
-G_END_DECLS
+
 
 #endif /* __G_DBUS_ADDRESS_H__ */

@@ -30,7 +30,7 @@
 #include <gobject/gobject.h>
 #include <gobject/gsignal.h>
 
-G_BEGIN_DECLS
+
 
 #define G_SIGNAL_GROUP(obj)    (G_TYPE_CHECK_INSTANCE_CAST ((obj), G_TYPE_SIGNAL_GROUP, GSignalGroup))
 #define G_IS_SIGNAL_GROUP(obj) (G_TYPE_CHECK_INSTANCE_TYPE ((obj), G_TYPE_SIGNAL_GROUP))
@@ -39,7 +39,7 @@ G_BEGIN_DECLS
 typedef struct _GSignalGroup GSignalGroup;
 
 GOBJECT_AVAILABLE_IN_2_72
-GType         g_signal_group_get_type        (void) G_GNUC_CONST;
+GType         g_signal_group_get_type        (void) ;
 GOBJECT_AVAILABLE_IN_2_72
 GSignalGroup *g_signal_group_new             (GType           target_type);
 GOBJECT_AVAILABLE_IN_2_72
@@ -85,6 +85,6 @@ void          g_signal_group_connect_swapped (GSignalGroup   *self,
                                               GCallback       c_handler,
                                               gpointer        data);
 
-G_END_DECLS
+
 
 #endif /* __G_SIGNAL_GROUP_H__ */

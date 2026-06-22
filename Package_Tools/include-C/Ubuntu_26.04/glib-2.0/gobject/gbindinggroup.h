@@ -30,7 +30,7 @@
 #include <gobject/gobject.h>
 #include <gobject/gbinding.h>
 
-G_BEGIN_DECLS
+
 
 #define G_BINDING_GROUP(obj)    (G_TYPE_CHECK_INSTANCE_CAST ((obj), G_TYPE_BINDING_GROUP, GBindingGroup))
 #define G_IS_BINDING_GROUP(obj) (G_TYPE_CHECK_INSTANCE_TYPE ((obj), G_TYPE_BINDING_GROUP))
@@ -39,7 +39,7 @@ G_BEGIN_DECLS
 typedef struct _GBindingGroup GBindingGroup;
 
 GOBJECT_AVAILABLE_IN_2_72
-GType          g_binding_group_get_type           (void) G_GNUC_CONST;
+GType          g_binding_group_get_type           (void) ;
 GOBJECT_AVAILABLE_IN_2_72
 GBindingGroup *g_binding_group_new                (void);
 GOBJECT_AVAILABLE_IN_2_72
@@ -72,6 +72,6 @@ void           g_binding_group_bind_with_closures (GBindingGroup         *self,
                                                    GClosure              *transform_to,
                                                    GClosure              *transform_from);
 
-G_END_DECLS
+
 
 #endif /* __G_BINDING_GROUP_H__ */

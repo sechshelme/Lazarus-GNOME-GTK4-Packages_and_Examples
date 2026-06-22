@@ -26,7 +26,7 @@
 #include <errno.h>
 #include <sys/stat.h>
 
-G_BEGIN_DECLS
+
 
 #if (defined (__MINGW64_VERSION_MAJOR) || defined (_MSC_VER)) && !defined(_WIN64)
 
@@ -83,17 +83,17 @@ typedef struct stat GStatBuf;
 #define g_utime   utime
 #endif
 
-GLIB_AVAILABLE_IN_ALL
+extern
 int g_access (const gchar *filename,
 	      int          mode);
 
-GLIB_AVAILABLE_IN_ALL
+extern
 int g_chdir  (const gchar *path);
 
-GLIB_AVAILABLE_IN_ALL
+extern
 int g_unlink (const gchar *filename);
 
-GLIB_AVAILABLE_IN_ALL
+extern
 int g_rmdir  (const gchar *filename);
 
 #else /* ! G_OS_UNIX */
@@ -108,74 +108,74 @@ int g_rmdir  (const gchar *filename);
  * API.
  */
 
-GLIB_AVAILABLE_IN_ALL
+extern
 int g_access    (const gchar *filename,
 		 int          mode);
 
-GLIB_AVAILABLE_IN_ALL
+extern
 int g_chmod     (const gchar *filename,
 		 int          mode);
 
-GLIB_AVAILABLE_IN_ALL
+extern
 int g_open      (const gchar *filename,
                  int          flags,
                  int          mode);
 
-GLIB_AVAILABLE_IN_ALL
+extern
 int g_creat     (const gchar *filename,
                  int          mode);
 
-GLIB_AVAILABLE_IN_ALL
+extern
 int g_rename    (const gchar *oldfilename,
                  const gchar *newfilename);
 
-GLIB_AVAILABLE_IN_ALL
+extern
 int g_mkdir     (const gchar *filename,
                  int          mode);
 
-GLIB_AVAILABLE_IN_ALL
+extern
 int g_chdir     (const gchar *path);
 
-GLIB_AVAILABLE_IN_ALL
+extern
 int g_stat      (const gchar *filename,
                  GStatBuf    *buf);
 
-GLIB_AVAILABLE_IN_ALL
+extern
 int g_lstat     (const gchar *filename,
                  GStatBuf    *buf);
 
-GLIB_AVAILABLE_IN_ALL
+extern
 int g_unlink    (const gchar *filename);
 
-GLIB_AVAILABLE_IN_ALL
+extern
 int g_remove    (const gchar *filename);
 
-GLIB_AVAILABLE_IN_ALL
+extern
 int g_rmdir     (const gchar *filename);
 
-GLIB_AVAILABLE_IN_ALL
+extern
 FILE *g_fopen   (const gchar *filename,
                  const gchar *mode);
 
-GLIB_AVAILABLE_IN_ALL
+extern
 FILE *g_freopen (const gchar *filename,
                  const gchar *mode,
                  FILE        *stream);
 
-GLIB_AVAILABLE_IN_2_64
+extern
 gint g_fsync    (gint fd);
 
 struct utimbuf;			/* Don't need the real definition of struct utimbuf when just
 				 * including this header.
 				 */
 
-GLIB_AVAILABLE_IN_ALL
+extern
 int g_utime     (const gchar    *filename,
 		 struct utimbuf *utb);
 
 #endif /* G_OS_UNIX */
 
-GLIB_AVAILABLE_IN_2_36
+extern
 gboolean g_close (gint       fd,
                   GError   **error);
 
@@ -257,9 +257,9 @@ g_clear_fd (int     *fd_ptr,
     return TRUE;
 
   /* Suppress "Not available before" warning */
-  G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+  
   return g_close (fd, error);
-  G_GNUC_END_IGNORE_DEPRECATIONS
+  
 }
 
 /* g_autofd should be defined on the same compilers where g_autofree is
@@ -274,7 +274,7 @@ _g_clear_fd_ignore_error (int *fd_ptr)
   int errsv = errno;
 
   /* Suppress "Not available before" warning */
-  G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+  
 
   if (!g_clear_fd (fd_ptr, NULL))
     {
@@ -282,7 +282,7 @@ _g_clear_fd_ignore_error (int *fd_ptr)
        * is a programming error, checked for by g_close(). */
     }
 
-  G_GNUC_END_IGNORE_DEPRECATIONS
+  
 
   errno = errsv;
 }
@@ -291,6 +291,6 @@ _g_clear_fd_ignore_error (int *fd_ptr)
 #define g_autofd _GLIB_CLEANUP(_g_clear_fd_ignore_error) GLIB_AVAILABLE_MACRO_IN_2_76
 #endif
 
-G_END_DECLS
+
 
 #endif /* __G_STDIO_H__ */

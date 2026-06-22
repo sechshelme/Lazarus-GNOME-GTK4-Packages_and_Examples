@@ -34,7 +34,7 @@
 #include <gio/gsocket.h>
 #include <gio/giostream.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_SOCKET_CONNECTION                            (g_socket_connection_get_type ())
 #define G_SOCKET_CONNECTION(inst)                           (G_TYPE_CHECK_INSTANCE_CAST ((inst),                     \
@@ -71,7 +71,7 @@ struct _GSocketConnection
 };
 
 GIO_AVAILABLE_IN_ALL
-GType              g_socket_connection_get_type                  (void) G_GNUC_CONST;
+GType              g_socket_connection_get_type                  (void) ;
 
 GIO_AVAILABLE_IN_2_32
 gboolean           g_socket_connection_is_connected              (GSocketConnection  *connection);
@@ -112,6 +112,6 @@ GType              g_socket_connection_factory_lookup_type       (GSocketFamily 
 GIO_AVAILABLE_IN_ALL
 GSocketConnection *g_socket_connection_factory_create_connection (GSocket            *socket);
 
-G_END_DECLS
+
 
 #endif /* __G_SOCKET_CONNECTION_H__ */

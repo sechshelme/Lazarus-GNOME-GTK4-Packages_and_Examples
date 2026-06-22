@@ -29,7 +29,7 @@
 
 #include <gio/goutputstream.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_MEMORY_OUTPUT_STREAM         (g_memory_output_stream_get_type ())
 #define G_MEMORY_OUTPUT_STREAM(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_MEMORY_OUTPUT_STREAM, GMemoryOutputStream))
@@ -78,7 +78,7 @@ typedef gpointer (* GReallocFunc) (gpointer data,
                                    gsize    size);
 
 GIO_AVAILABLE_IN_ALL
-GType          g_memory_output_stream_get_type      (void) G_GNUC_CONST;
+GType          g_memory_output_stream_get_type      (void) ;
 
 GIO_AVAILABLE_IN_ALL
 GOutputStream *g_memory_output_stream_new           (gpointer             data,
@@ -99,6 +99,6 @@ gpointer       g_memory_output_stream_steal_data    (GMemoryOutputStream *ostrea
 GIO_AVAILABLE_IN_2_34
 GBytes *       g_memory_output_stream_steal_as_bytes (GMemoryOutputStream *ostream);
 
-G_END_DECLS
+
 
 #endif /* __G_MEMORY_OUTPUT_STREAM_H__ */

@@ -29,7 +29,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_CANCELLABLE         (g_cancellable_get_type ())
 #define G_CANCELLABLE(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_CANCELLABLE, GCancellable))
@@ -65,7 +65,7 @@ struct _GCancellableClass
 };
 
 GIO_AVAILABLE_IN_ALL
-GType         g_cancellable_get_type               (void) G_GNUC_CONST;
+GType         g_cancellable_get_type               (void) ;
 
 GIO_AVAILABLE_IN_ALL
 GCancellable *g_cancellable_new                    (void);
@@ -110,6 +110,6 @@ void          g_cancellable_disconnect             (GCancellable  *cancellable,
 GIO_AVAILABLE_IN_ALL
 void          g_cancellable_cancel       (GCancellable  *cancellable);
 
-G_END_DECLS
+
 
 #endif /* __G_CANCELLABLE_H__ */

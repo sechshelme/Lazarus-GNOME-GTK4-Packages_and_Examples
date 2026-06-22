@@ -27,7 +27,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_SOCKET_CONNECTABLE            (g_socket_connectable_get_type ())
 #define G_SOCKET_CONNECTABLE(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), G_TYPE_SOCKET_CONNECTABLE, GSocketConnectable))
@@ -61,7 +61,7 @@ struct _GSocketConnectableIface
 };
 
 GIO_AVAILABLE_IN_ALL
-GType                     g_socket_connectable_get_type  (void) G_GNUC_CONST;
+GType                     g_socket_connectable_get_type  (void) ;
 
 GIO_AVAILABLE_IN_ALL
 GSocketAddressEnumerator *g_socket_connectable_enumerate (GSocketConnectable *connectable);
@@ -72,7 +72,7 @@ GSocketAddressEnumerator *g_socket_connectable_proxy_enumerate (GSocketConnectab
 GIO_AVAILABLE_IN_2_48
 gchar                    *g_socket_connectable_to_string (GSocketConnectable *connectable);
 
-G_END_DECLS
+
 
 
 #endif /* __G_SOCKET_CONNECTABLE_H__ */

@@ -29,7 +29,7 @@
 
 #include <gio/ginputstream.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_FILTER_INPUT_STREAM         (g_filter_input_stream_get_type ())
 #define G_FILTER_INPUT_STREAM(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_FILTER_INPUT_STREAM, GFilterInputStream))
@@ -61,7 +61,7 @@ struct _GFilterInputStreamClass
 
 
 GIO_AVAILABLE_IN_ALL
-GType          g_filter_input_stream_get_type              (void) G_GNUC_CONST;
+GType          g_filter_input_stream_get_type              (void) ;
 GIO_AVAILABLE_IN_ALL
 GInputStream * g_filter_input_stream_get_base_stream       (GFilterInputStream *stream);
 GIO_AVAILABLE_IN_ALL
@@ -70,6 +70,6 @@ GIO_AVAILABLE_IN_ALL
 void           g_filter_input_stream_set_close_base_stream (GFilterInputStream *stream,
                                                             gboolean            close_base);
 
-G_END_DECLS
+
 
 #endif /* __G_FILTER_INPUT_STREAM_H__ */

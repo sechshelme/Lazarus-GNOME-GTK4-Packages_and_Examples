@@ -40,7 +40,7 @@
 #error "This header may only be used on UNIX"
 #endif
 
-G_BEGIN_DECLS
+
 
 /**
  * G_UNIX_ERROR:
@@ -57,30 +57,30 @@ G_BEGIN_DECLS
  */
 #define G_UNIX_ERROR (g_unix_error_quark())
 
-GLIB_AVAILABLE_IN_2_30
+extern
 GQuark g_unix_error_quark (void);
 
-GLIB_AVAILABLE_IN_2_30
+extern
 gboolean g_unix_open_pipe (gint    *fds,
                            gint     flags,
                            GError **error);
 
-GLIB_AVAILABLE_IN_2_30
+extern
 gboolean g_unix_set_fd_nonblocking (gint       fd,
                                     gboolean   nonblock,
                                     GError   **error);
 
-GLIB_AVAILABLE_IN_2_30
+extern
 GSource *g_unix_signal_source_new  (gint signum);
 
-GLIB_AVAILABLE_IN_2_30
+extern
 guint    g_unix_signal_add_full    (gint           priority,
                                     gint           signum,
                                     GSourceFunc    handler,
                                     gpointer       user_data,
                                     GDestroyNotify notify);
 
-GLIB_AVAILABLE_IN_2_30
+extern
 guint    g_unix_signal_add         (gint        signum,
                                     GSourceFunc handler,
                                     gpointer    user_data);
@@ -100,11 +100,11 @@ typedef gboolean (*GUnixFDSourceFunc) (gint         fd,
                                        GIOCondition condition,
                                        gpointer     user_data);
 
-GLIB_AVAILABLE_IN_2_36
+extern
 GSource *g_unix_fd_source_new      (gint         fd,
                                     GIOCondition condition);
 
-GLIB_AVAILABLE_IN_2_36
+extern
 guint    g_unix_fd_add_full        (gint              priority,
                                     gint              fd,
                                     GIOCondition      condition,
@@ -112,13 +112,13 @@ guint    g_unix_fd_add_full        (gint              priority,
                                     gpointer          user_data,
                                     GDestroyNotify    notify);
 
-GLIB_AVAILABLE_IN_2_36
+extern
 guint    g_unix_fd_add             (gint              fd,
                                     GIOCondition      condition,
                                     GUnixFDSourceFunc function,
                                     gpointer          user_data);
 
-GLIB_AVAILABLE_IN_2_64
+extern
 struct passwd *g_unix_get_passwd_entry (const gchar  *user_name,
                                         GError      **error);
 
@@ -168,7 +168,7 @@ typedef enum
 
 /* Suppress "Not available before" warnings when declaring the
  * implementations */
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+
 
 /**
  * g_unix_pipe_open:
@@ -347,18 +347,18 @@ g_unix_pipe_clear (GUnixPipe *self)
 
 G_DEFINE_AUTO_CLEANUP_CLEAR_FUNC (GUnixPipe, g_unix_pipe_clear)
 
-GLIB_AVAILABLE_IN_2_80
+extern
 int g_closefrom (int lowfd);
 
-GLIB_AVAILABLE_IN_2_80
+extern
 int g_fdwalk_set_cloexec (int lowfd);
 
-GLIB_AVAILABLE_IN_2_88
+extern
 char * g_unix_fd_query_path (int      fd,
                              GError **error);
 
-G_GNUC_END_IGNORE_DEPRECATIONS
 
-G_END_DECLS
+
+
 
 #endif  /* __G_UNIX_H__ */

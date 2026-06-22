@@ -28,7 +28,7 @@
 
 #include <gio/gdatagrambased.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_DTLS_CONNECTION                (g_dtls_connection_get_type ())
 #define G_DTLS_CONNECTION(inst)               (G_TYPE_CHECK_INSTANCE_CAST ((inst), G_TYPE_DTLS_CONNECTION, GDtlsConnection))
@@ -99,16 +99,16 @@ struct _GDtlsConnectionInterface
                                            const gchar * const *protocols);
   const gchar *(*get_negotiated_protocol) (GDtlsConnection     *conn);
 
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+
   gboolean  (*get_binding_data)  (GDtlsConnection         *conn,
                                   GTlsChannelBindingType   type,
                                   GByteArray              *data,
                                   GError                 **error);
-G_GNUC_END_IGNORE_DEPRECATIONS
+
 };
 
 GIO_AVAILABLE_IN_2_48
-GType                 g_dtls_connection_get_type                    (void) G_GNUC_CONST;
+GType                 g_dtls_connection_get_type                    (void) ;
 
 GIO_AVAILABLE_IN_2_48
 void                  g_dtls_connection_set_database                (GDtlsConnection       *conn,
@@ -139,13 +139,13 @@ void                  g_dtls_connection_set_require_close_notify    (GDtlsConnec
 GIO_AVAILABLE_IN_2_48
 gboolean              g_dtls_connection_get_require_close_notify    (GDtlsConnection       *conn);
 
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+
 GIO_DEPRECATED_IN_2_60
 void                  g_dtls_connection_set_rehandshake_mode        (GDtlsConnection       *conn,
                                                                      GTlsRehandshakeMode    mode);
 GIO_DEPRECATED_IN_2_60
 GTlsRehandshakeMode   g_dtls_connection_get_rehandshake_mode        (GDtlsConnection       *conn);
-G_GNUC_END_IGNORE_DEPRECATIONS
+
 
 GIO_AVAILABLE_IN_2_48
 gboolean              g_dtls_connection_handshake                   (GDtlsConnection       *conn,
@@ -211,13 +211,13 @@ void                  g_dtls_connection_set_advertised_protocols    (GDtlsConnec
 GIO_AVAILABLE_IN_2_60
 const gchar *          g_dtls_connection_get_negotiated_protocol     (GDtlsConnection    *conn);
 
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+
 GIO_AVAILABLE_IN_2_66
 gboolean              g_dtls_connection_get_channel_binding_data    (GDtlsConnection         *conn,
                                                                      GTlsChannelBindingType   type,
                                                                      GByteArray              *data,
                                                                      GError                 **error);
-G_GNUC_END_IGNORE_DEPRECATIONS
+
 
 GIO_AVAILABLE_IN_2_70
 GTlsProtocolVersion   g_dtls_connection_get_protocol_version        (GDtlsConnection       *conn);
@@ -225,6 +225,6 @@ GTlsProtocolVersion   g_dtls_connection_get_protocol_version        (GDtlsConnec
 GIO_AVAILABLE_IN_2_70
 gchar *               g_dtls_connection_get_ciphersuite_name        (GDtlsConnection       *conn);
 
-G_END_DECLS
+
 
 #endif /* __G_DTLS_CONNECTION_H__ */

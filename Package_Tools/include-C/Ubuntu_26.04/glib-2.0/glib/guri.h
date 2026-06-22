@@ -26,15 +26,15 @@
 
 #include <glib/gtypes.h>
 
-G_BEGIN_DECLS
 
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+
+
 
 typedef struct _GUri GUri;
 
-GLIB_AVAILABLE_IN_2_66
+extern
 GUri *       g_uri_ref              (GUri *uri);
-GLIB_AVAILABLE_IN_2_66
+extern
 void         g_uri_unref            (GUri *uri);
 
 /**
@@ -90,9 +90,9 @@ typedef enum {
   G_URI_FLAGS_ENCODED_PATH    = 1 << 6,
   G_URI_FLAGS_ENCODED_FRAGMENT = 1 << 7,
   G_URI_FLAGS_SCHEME_NORMALIZE GLIB_AVAILABLE_ENUMERATOR_IN_2_68 = 1 << 8,
-} G_GNUC_FLAG_ENUM GUriFlags;
+}  GUriFlags;
 
-GLIB_AVAILABLE_IN_2_66
+extern
 gboolean     g_uri_split            (const gchar  *uri_ref,
                                      GUriFlags     flags,
                                      gchar       **scheme,
@@ -103,7 +103,7 @@ gboolean     g_uri_split            (const gchar  *uri_ref,
                                      gchar       **query,
                                      gchar       **fragment,
                                      GError      **error);
-GLIB_AVAILABLE_IN_2_66
+extern
 gboolean     g_uri_split_with_user  (const gchar  *uri_ref,
                                      GUriFlags     flags,
                                      gchar       **scheme,
@@ -116,7 +116,7 @@ gboolean     g_uri_split_with_user  (const gchar  *uri_ref,
                                      gchar       **query,
                                      gchar       **fragment,
                                      GError      **error);
-GLIB_AVAILABLE_IN_2_66
+extern
 gboolean     g_uri_split_network    (const gchar  *uri_string,
                                      GUriFlags     flags,
                                      gchar       **scheme,
@@ -124,12 +124,12 @@ gboolean     g_uri_split_network    (const gchar  *uri_string,
                                      gint         *port,
                                      GError      **error);
 
-GLIB_AVAILABLE_IN_2_66
+extern
 gboolean     g_uri_is_valid         (const gchar  *uri_string,
                                      GUriFlags     flags,
                                      GError      **error);
 
-GLIB_AVAILABLE_IN_2_66
+extern
 gchar *      g_uri_join             (GUriFlags     flags,
                                      const gchar  *scheme,
                                      const gchar  *userinfo,
@@ -138,7 +138,7 @@ gchar *      g_uri_join             (GUriFlags     flags,
                                      const gchar  *path,
                                      const gchar  *query,
                                      const gchar  *fragment);
-GLIB_AVAILABLE_IN_2_66
+extern
 gchar *      g_uri_join_with_user   (GUriFlags     flags,
                                      const gchar  *scheme,
                                      const gchar  *user,
@@ -150,23 +150,23 @@ gchar *      g_uri_join_with_user   (GUriFlags     flags,
                                      const gchar  *query,
                                      const gchar  *fragment);
 
-GLIB_AVAILABLE_IN_2_66
+extern
 GUri *       g_uri_parse            (const gchar  *uri_string,
                                      GUriFlags     flags,
                                      GError      **error);
-GLIB_AVAILABLE_IN_2_66
+extern
 GUri *       g_uri_parse_relative   (GUri         *base_uri,
                                      const gchar  *uri_ref,
                                      GUriFlags     flags,
                                      GError      **error);
 
-GLIB_AVAILABLE_IN_2_66
+extern
 gchar *      g_uri_resolve_relative (const gchar  *base_uri_string,
                                      const gchar  *uri_ref,
                                      GUriFlags     flags,
                                      GError      **error);
 
-GLIB_AVAILABLE_IN_2_66
+extern
 GUri *       g_uri_build            (GUriFlags     flags,
                                      const gchar  *scheme,
                                      const gchar  *userinfo,
@@ -175,7 +175,7 @@ GUri *       g_uri_build            (GUriFlags     flags,
                                      const gchar  *path,
                                      const gchar  *query,
                                      const gchar  *fragment);
-GLIB_AVAILABLE_IN_2_66
+extern
 GUri *       g_uri_build_with_user  (GUriFlags     flags,
                                      const gchar  *scheme,
                                      const gchar  *user,
@@ -211,35 +211,35 @@ typedef enum {
   G_URI_HIDE_AUTH_PARAMS = 1 << 2,
   G_URI_HIDE_QUERY       = 1 << 3,
   G_URI_HIDE_FRAGMENT    = 1 << 4,
-} G_GNUC_FLAG_ENUM GUriHideFlags;
+}  GUriHideFlags;
 
-GLIB_AVAILABLE_IN_2_66
+extern
 char *       g_uri_to_string         (GUri          *uri);
-GLIB_AVAILABLE_IN_2_66
+extern
 char *       g_uri_to_string_partial (GUri          *uri,
                                       GUriHideFlags  flags);
 
-GLIB_AVAILABLE_IN_2_66
+extern
 const gchar *g_uri_get_scheme        (GUri          *uri);
-GLIB_AVAILABLE_IN_2_66
+extern
 const gchar *g_uri_get_userinfo      (GUri          *uri);
-GLIB_AVAILABLE_IN_2_66
+extern
 const gchar *g_uri_get_user          (GUri          *uri);
-GLIB_AVAILABLE_IN_2_66
+extern
 const gchar *g_uri_get_password      (GUri          *uri);
-GLIB_AVAILABLE_IN_2_66
+extern
 const gchar *g_uri_get_auth_params   (GUri          *uri);
-GLIB_AVAILABLE_IN_2_66
+extern
 const gchar *g_uri_get_host          (GUri          *uri);
-GLIB_AVAILABLE_IN_2_66
+extern
 gint         g_uri_get_port          (GUri          *uri);
-GLIB_AVAILABLE_IN_2_66
+extern
 const gchar *g_uri_get_path          (GUri          *uri);
-GLIB_AVAILABLE_IN_2_66
+extern
 const gchar *g_uri_get_query         (GUri          *uri);
-GLIB_AVAILABLE_IN_2_66
+extern
 const gchar *g_uri_get_fragment      (GUri          *uri);
-GLIB_AVAILABLE_IN_2_66
+extern
 GUriFlags    g_uri_get_flags         (GUri          *uri);
 
 /**
@@ -261,9 +261,9 @@ typedef enum {
   G_URI_PARAMS_CASE_INSENSITIVE = 1 << 0,
   G_URI_PARAMS_WWW_FORM         = 1 << 1,
   G_URI_PARAMS_PARSE_RELAXED    = 1 << 2,
-} G_GNUC_FLAG_ENUM GUriParamsFlags;
+}  GUriParamsFlags;
 
-GLIB_AVAILABLE_IN_2_66
+extern
 GHashTable *g_uri_parse_params       (const gchar    *params,
                                       gssize          length,
                                       const gchar    *separators,
@@ -281,14 +281,14 @@ struct _GUriParamsIter
   guint8   dummy3[256];
 };
 
-GLIB_AVAILABLE_IN_2_66
+extern
 void        g_uri_params_iter_init   (GUriParamsIter *iter,
                                       const gchar    *params,
                                       gssize          length,
                                       const gchar    *separators,
                                       GUriParamsFlags flags);
 
-GLIB_AVAILABLE_IN_2_66
+extern
 gboolean    g_uri_params_iter_next   (GUriParamsIter *iter,
                                       gchar         **attribute,
                                       gchar         **value,
@@ -304,7 +304,7 @@ gboolean    g_uri_params_iter_next   (GUriParamsIter *iter,
  * Since: 2.66
  */
 #define G_URI_ERROR (g_uri_error_quark ()) GLIB_AVAILABLE_MACRO_IN_2_66
-GLIB_AVAILABLE_IN_2_66
+extern
 GQuark g_uri_error_quark (void);
 
 /**
@@ -386,35 +386,35 @@ typedef enum {
  **/
 #define G_URI_RESERVED_CHARS_ALLOWED_IN_USERINFO G_URI_RESERVED_CHARS_SUBCOMPONENT_DELIMITERS ":"
 
-GLIB_AVAILABLE_IN_ALL
+extern
 char *      g_uri_unescape_string  (const char *escaped_string,
                                     const char *illegal_characters);
-GLIB_AVAILABLE_IN_ALL
+extern
 char *      g_uri_unescape_segment (const char *escaped_string,
                                     const char *escaped_string_end,
                                     const char *illegal_characters);
 
-GLIB_AVAILABLE_IN_ALL
+extern
 char *      g_uri_parse_scheme     (const char *uri);
-GLIB_AVAILABLE_IN_2_66
+extern
 const char *g_uri_peek_scheme      (const char *uri);
 
-GLIB_AVAILABLE_IN_ALL
+extern
 char *      g_uri_escape_string    (const char *unescaped,
                                     const char *reserved_chars_allowed,
                                     gboolean    allow_utf8);
 
-GLIB_AVAILABLE_IN_2_66
+extern
 GBytes *    g_uri_unescape_bytes   (const char *escaped_string,
                                     gssize      length,
                                     const char *illegal_characters,
                                     GError    **error);
 
-GLIB_AVAILABLE_IN_2_66
+extern
 char *      g_uri_escape_bytes     (const guint8 *unescaped,
                                     gsize         length,
                                     const char   *reserved_chars_allowed);
 
-G_GNUC_END_IGNORE_DEPRECATIONS
 
-G_END_DECLS
+
+

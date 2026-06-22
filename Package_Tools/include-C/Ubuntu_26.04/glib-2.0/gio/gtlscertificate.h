@@ -27,7 +27,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_TLS_CERTIFICATE            (g_tls_certificate_get_type ())
 #define G_TLS_CERTIFICATE(inst)           (G_TYPE_CHECK_INSTANCE_CAST ((inst), G_TYPE_TLS_CERTIFICATE, GTlsCertificate))
@@ -59,7 +59,7 @@ struct _GTlsCertificateClass
 };
 
 GIO_AVAILABLE_IN_ALL
-GType                 g_tls_certificate_get_type           (void) G_GNUC_CONST;
+GType                 g_tls_certificate_get_type           (void) ;
 
 GIO_AVAILABLE_IN_ALL
 GTlsCertificate      *g_tls_certificate_new_from_pem       (const gchar         *data,
@@ -120,6 +120,6 @@ GPtrArray            *g_tls_certificate_get_dns_names        (GTlsCertificate   
 GIO_AVAILABLE_IN_2_70
 GPtrArray            *g_tls_certificate_get_ip_addresses     (GTlsCertificate     *cert);
 
-G_END_DECLS
+
 
 #endif /* __G_TLS_CERTIFICATE_H__ */

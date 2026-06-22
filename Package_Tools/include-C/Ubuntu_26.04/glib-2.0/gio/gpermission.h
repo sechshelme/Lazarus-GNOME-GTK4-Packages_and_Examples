@@ -28,7 +28,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_PERMISSION             (g_permission_get_type ())
 #define G_PERMISSION(inst)            (G_TYPE_CHECK_INSTANCE_CAST ((inst),   \
@@ -124,6 +124,6 @@ void            g_permission_impl_update        (GPermission  *permission,
                                                  gboolean      can_acquire,
                                                  gboolean      can_release);
 
-G_END_DECLS
+
 
 #endif /* __G_PERMISSION_H__ */

@@ -40,7 +40,7 @@
 
 #include <time.h>
 
-G_BEGIN_DECLS
+
 
 /* Provide type definitions for commonly used types.
  *  These are useful because a "gint8" can be adjusted
@@ -628,6 +628,6 @@ struct _GTimeVal
 typedef gint grefcount;
 typedef gint gatomicrefcount;  /* should be accessed only using atomics */
 
-G_END_DECLS
+
 
 #endif /* __G_TYPES_H__ */

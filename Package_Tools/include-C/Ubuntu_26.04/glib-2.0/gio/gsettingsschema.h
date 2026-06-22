@@ -24,7 +24,7 @@
 #include <glib-object.h>
 #include <gio/gio-visibility.h>
 
-G_BEGIN_DECLS
+
 
 typedef struct _GSettingsSchemaSource                       GSettingsSchemaSource;
 typedef struct _GSettingsSchema                             GSettingsSchema;
@@ -32,7 +32,7 @@ typedef struct _GSettingsSchemaKey                          GSettingsSchemaKey;
 
 #define                 G_TYPE_SETTINGS_SCHEMA_SOURCE                   (g_settings_schema_source_get_type ())
 GIO_AVAILABLE_IN_2_32
-GType                   g_settings_schema_source_get_type               (void) G_GNUC_CONST;
+GType                   g_settings_schema_source_get_type               (void) ;
 
 GIO_AVAILABLE_IN_2_32
 GSettingsSchemaSource * g_settings_schema_source_get_default            (void);
@@ -60,7 +60,7 @@ void                    g_settings_schema_source_list_schemas           (GSettin
 
 #define                 G_TYPE_SETTINGS_SCHEMA                          (g_settings_schema_get_type ())
 GIO_AVAILABLE_IN_2_32
-GType                   g_settings_schema_get_type                      (void) G_GNUC_CONST;
+GType                   g_settings_schema_get_type                      (void) ;
 
 GIO_AVAILABLE_IN_2_32
 GSettingsSchema *       g_settings_schema_ref                           (GSettingsSchema        *schema);
@@ -86,7 +86,7 @@ gchar **                g_settings_schema_list_children                 (GSettin
 
 #define                 G_TYPE_SETTINGS_SCHEMA_KEY                      (g_settings_schema_key_get_type ())
 GIO_AVAILABLE_IN_2_40
-GType                   g_settings_schema_key_get_type                  (void) G_GNUC_CONST;
+GType                   g_settings_schema_key_get_type                  (void) ;
 
 GIO_AVAILABLE_IN_2_40
 GSettingsSchemaKey *    g_settings_schema_key_ref                       (GSettingsSchemaKey     *key);
@@ -110,6 +110,6 @@ const gchar *           g_settings_schema_key_get_summary               (GSettin
 GIO_AVAILABLE_IN_2_40
 const gchar *           g_settings_schema_key_get_description           (GSettingsSchemaKey     *key);
 
-G_END_DECLS
+
 
 #endif /* __G_SETTINGS_SCHEMA_H__ */

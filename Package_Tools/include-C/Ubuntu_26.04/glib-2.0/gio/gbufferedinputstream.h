@@ -29,7 +29,7 @@
 
 #include <gio/gfilterinputstream.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_BUFFERED_INPUT_STREAM         (g_buffered_input_stream_get_type ())
 #define G_BUFFERED_INPUT_STREAM(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_BUFFERED_INPUT_STREAM, GBufferedInputStream))
@@ -80,7 +80,7 @@ struct _GBufferedInputStreamClass
 
 
 GIO_AVAILABLE_IN_ALL
-GType         g_buffered_input_stream_get_type        (void) G_GNUC_CONST;
+GType         g_buffered_input_stream_get_type        (void) ;
 GIO_AVAILABLE_IN_ALL
 GInputStream* g_buffered_input_stream_new             (GInputStream          *base_stream);
 GIO_AVAILABLE_IN_ALL
@@ -125,6 +125,6 @@ int           g_buffered_input_stream_read_byte       (GBufferedInputStream  *st
 						       GCancellable          *cancellable,
 						       GError               **error);
 
-G_END_DECLS
+
 
 #endif /* __G_BUFFERED_INPUT_STREAM_H__ */

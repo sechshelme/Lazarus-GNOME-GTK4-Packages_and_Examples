@@ -29,7 +29,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 GIO_AVAILABLE_IN_ALL
 gboolean g_content_type_equals            (const gchar  *type1,
@@ -79,6 +79,6 @@ GIO_AVAILABLE_IN_2_60
 void                 g_content_type_set_mime_dirs (const gchar * const *dirs);
 #endif /* __GTK_DOC_IGNORE__ */
 
-G_END_DECLS
+
 
 #endif /* __G_CONTENT_TYPE_H__ */

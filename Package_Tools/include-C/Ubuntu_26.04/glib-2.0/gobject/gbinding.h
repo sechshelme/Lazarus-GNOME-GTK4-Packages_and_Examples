@@ -30,7 +30,7 @@
 #include <glib.h>
 #include <gobject/gobject.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_BINDING_FLAGS    (g_binding_flags_get_type ())
 
@@ -94,12 +94,12 @@ typedef enum { /*< prefix=G_BINDING >*/
   G_BINDING_BIDIRECTIONAL  = 1 << 0,
   G_BINDING_SYNC_CREATE    = 1 << 1,
   G_BINDING_INVERT_BOOLEAN = 1 << 2
-} G_GNUC_FLAG_ENUM GBindingFlags;
+}  GBindingFlags;
 
 GOBJECT_AVAILABLE_IN_ALL
-GType                 g_binding_flags_get_type      (void) G_GNUC_CONST;
+GType                 g_binding_flags_get_type      (void) ;
 GOBJECT_AVAILABLE_IN_ALL
-GType                 g_binding_get_type            (void) G_GNUC_CONST;
+GType                 g_binding_get_type            (void) ;
 
 GOBJECT_AVAILABLE_IN_ALL
 GBindingFlags         g_binding_get_flags           (GBinding *binding);
@@ -143,6 +143,6 @@ GBinding *g_object_bind_property_with_closures (gpointer               source,
                                                 GClosure              *transform_to,
                                                 GClosure              *transform_from);
 
-G_END_DECLS
+
 
 #endif /* __G_BINDING_H__ */

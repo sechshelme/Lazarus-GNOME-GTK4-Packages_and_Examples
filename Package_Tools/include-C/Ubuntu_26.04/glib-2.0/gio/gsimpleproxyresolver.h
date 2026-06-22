@@ -27,7 +27,7 @@
 
 #include <gio/gproxyresolver.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_SIMPLE_PROXY_RESOLVER         (g_simple_proxy_resolver_get_type ())
 #define G_SIMPLE_PROXY_RESOLVER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_SIMPLE_PROXY_RESOLVER, GSimpleProxyResolver))
@@ -62,7 +62,7 @@ struct _GSimpleProxyResolverClass
 };
 
 GIO_AVAILABLE_IN_2_36
-GType           g_simple_proxy_resolver_get_type          (void) G_GNUC_CONST;
+GType           g_simple_proxy_resolver_get_type          (void) ;
 
 GIO_AVAILABLE_IN_2_36
 GProxyResolver *g_simple_proxy_resolver_new               (const gchar           *default_proxy,
@@ -81,6 +81,6 @@ void            g_simple_proxy_resolver_set_uri_proxy     (GSimpleProxyResolver 
                                                            const gchar           *uri_scheme,
                                                            const gchar           *proxy);
 
-G_END_DECLS
+
 
 #endif /* __G_SIMPLE_PROXY_RESOLVER_H__ */

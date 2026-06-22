@@ -27,7 +27,7 @@
 
 #include <glib/gerror.h>
 
-G_BEGIN_DECLS
+
 
 
 /* I'm not sure I remember our proposed naming convention here. */
@@ -214,14 +214,14 @@ typedef enum
    * Since: 2.74
    */
   G_SPAWN_STDIN_FROM_DEV_NULL    = 1 << 11
-} G_GNUC_FLAG_ENUM GSpawnFlags;
+}  GSpawnFlags;
 
-GLIB_AVAILABLE_IN_ALL
+extern
 GQuark g_spawn_error_quark (void);
-GLIB_AVAILABLE_IN_ALL
+extern
 GQuark g_spawn_exit_error_quark (void);
 
-GLIB_AVAILABLE_IN_ALL
+extern
 gboolean g_spawn_async (const gchar           *working_directory,
                         gchar                **argv,
                         gchar                **envp,
@@ -235,7 +235,7 @@ gboolean g_spawn_async (const gchar           *working_directory,
 /* Opens pipes for non-NULL standard_output, standard_input, standard_error,
  * and returns the parent's end of the pipes.
  */
-GLIB_AVAILABLE_IN_ALL
+extern
 gboolean g_spawn_async_with_pipes (const gchar          *working_directory,
                                    gchar               **argv,
                                    gchar               **envp,
@@ -248,7 +248,7 @@ gboolean g_spawn_async_with_pipes (const gchar          *working_directory,
                                    gint                 *standard_error,
                                    GError              **error);
 
-GLIB_AVAILABLE_IN_2_68
+extern
 gboolean g_spawn_async_with_pipes_and_fds (const gchar          *working_directory,
                                            const gchar * const  *argv,
                                            const gchar * const  *envp,
@@ -268,7 +268,7 @@ gboolean g_spawn_async_with_pipes_and_fds (const gchar          *working_directo
                                            GError              **error);
 
 /* Lets you provide fds for stdin/stdout/stderr */
-GLIB_AVAILABLE_IN_2_58
+extern
 gboolean g_spawn_async_with_fds (const gchar          *working_directory,
                                  gchar               **argv,
                                  gchar               **envp,
@@ -285,7 +285,7 @@ gboolean g_spawn_async_with_fds (const gchar          *working_directory,
  * standard output or error of the command will be placed there.
  */
 
-GLIB_AVAILABLE_IN_ALL
+extern
 gboolean g_spawn_sync         (const gchar          *working_directory,
                                gchar               **argv,
                                gchar               **envp,
@@ -297,27 +297,27 @@ gboolean g_spawn_sync         (const gchar          *working_directory,
                                gint                 *wait_status,
                                GError              **error);
 
-GLIB_AVAILABLE_IN_ALL
+extern
 gboolean g_spawn_command_line_sync  (const gchar          *command_line,
                                      gchar               **standard_output,
                                      gchar               **standard_error,
                                      gint                 *wait_status,
                                      GError              **error);
-GLIB_AVAILABLE_IN_ALL
+extern
 gboolean g_spawn_command_line_async (const gchar          *command_line,
                                      GError              **error);
 
-GLIB_AVAILABLE_IN_2_70
+extern
 gboolean g_spawn_check_wait_status (gint      wait_status,
                                     GError  **error);
 
-GLIB_DEPRECATED_IN_2_70_FOR(g_spawn_check_wait_status)
+extern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxGLIB_DEPRECATED_IN_2_70_FOR(g_spawn_check_wait_status)
 gboolean g_spawn_check_exit_status (gint      wait_status,
 				    GError  **error);
 
-GLIB_AVAILABLE_IN_ALL
+extern
 void g_spawn_close_pid (GPid pid);
 
-G_END_DECLS
+
 
 #endif /* __G_SPAWN_H__ */

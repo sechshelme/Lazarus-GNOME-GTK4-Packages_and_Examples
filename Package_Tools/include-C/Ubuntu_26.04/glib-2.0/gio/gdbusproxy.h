@@ -30,7 +30,7 @@
 #include <gio/giotypes.h>
 #include <gio/gdbusintrospection.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_DBUS_PROXY         (g_dbus_proxy_get_type ())
 #define G_DBUS_PROXY(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_DBUS_PROXY, GDBusProxy))
@@ -79,7 +79,7 @@ struct _GDBusProxyClass
 };
 
 GIO_AVAILABLE_IN_ALL
-GType            g_dbus_proxy_get_type                  (void) G_GNUC_CONST;
+GType            g_dbus_proxy_get_type                  (void) ;
 GIO_AVAILABLE_IN_ALL
 void             g_dbus_proxy_new                       (GDBusConnection     *connection,
                                                          GDBusProxyFlags      flags,
@@ -207,6 +207,6 @@ GVariant        *g_dbus_proxy_call_with_unix_fd_list_sync   (GDBusProxy         
 
 #endif /* G_OS_UNIX */
 
-G_END_DECLS
+
 
 #endif /* __G_DBUS_PROXY_H__ */

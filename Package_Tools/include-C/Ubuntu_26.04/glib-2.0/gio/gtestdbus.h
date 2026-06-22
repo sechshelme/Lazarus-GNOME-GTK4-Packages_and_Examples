@@ -31,7 +31,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_TEST_DBUS \
     (g_test_dbus_get_type ())
@@ -42,7 +42,7 @@ G_BEGIN_DECLS
     (G_TYPE_CHECK_INSTANCE_TYPE ((obj), G_TYPE_TEST_DBUS))
 
 GIO_AVAILABLE_IN_2_34
-GType          g_test_dbus_get_type        (void) G_GNUC_CONST;
+GType          g_test_dbus_get_type        (void) ;
 
 GIO_AVAILABLE_IN_2_34
 GTestDBus *    g_test_dbus_new             (GTestDBusFlags flags);
@@ -69,6 +69,6 @@ void           g_test_dbus_down            (GTestDBus     *self);
 GIO_AVAILABLE_IN_2_34
 void           g_test_dbus_unset           (void);
 
-G_END_DECLS
+
 
 #endif /* __G_TEST_DBUS_H__ */

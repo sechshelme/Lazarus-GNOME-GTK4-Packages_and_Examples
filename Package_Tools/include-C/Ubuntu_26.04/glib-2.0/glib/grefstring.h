@@ -23,22 +23,22 @@
 #include "gmem.h"
 #include "gmacros.h"
 
-G_BEGIN_DECLS
 
-GLIB_AVAILABLE_IN_2_58
+
+extern
 char *  g_ref_string_new        (const char *str);
-GLIB_AVAILABLE_IN_2_58
+extern
 char *  g_ref_string_new_len    (const char *str,
                                  gssize      len);
-GLIB_AVAILABLE_IN_2_58
+extern
 char *  g_ref_string_new_intern (const char *str);
 
-GLIB_AVAILABLE_IN_2_58
+extern
 char *  g_ref_string_acquire    (char       *str);
-GLIB_AVAILABLE_IN_2_58
+extern
 void    g_ref_string_release    (char       *str);
 
-GLIB_AVAILABLE_IN_2_58
+extern
 gsize   g_ref_string_length     (char       *str);
 
 /**
@@ -56,8 +56,8 @@ gsize   g_ref_string_length     (char       *str);
  */
 typedef char GRefString;
 
-GLIB_AVAILABLE_IN_2_84
+extern
 gboolean g_ref_string_equal (const char *str1,
                              const char *str2);
 
-G_END_DECLS
+

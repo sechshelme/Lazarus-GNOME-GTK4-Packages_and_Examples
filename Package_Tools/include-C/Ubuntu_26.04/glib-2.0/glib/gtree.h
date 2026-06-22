@@ -33,7 +33,7 @@
 
 #include <glib/gnode.h>
 
-G_BEGIN_DECLS
+
 
 #undef G_TREE_DEBUG
 
@@ -70,76 +70,76 @@ typedef gboolean (*GTraverseNodeFunc) (GTreeNode *node,
 
 /* Balanced binary trees
  */
-GLIB_AVAILABLE_IN_ALL
+extern
 GTree*   g_tree_new             (GCompareFunc      key_compare_func);
-GLIB_AVAILABLE_IN_ALL
+extern
 GTree*   g_tree_new_with_data   (GCompareDataFunc  key_compare_func,
                                  gpointer          key_compare_data);
-GLIB_AVAILABLE_IN_ALL
+extern
 GTree*   g_tree_new_full        (GCompareDataFunc  key_compare_func,
                                  gpointer          key_compare_data,
                                  GDestroyNotify    key_destroy_func,
                                  GDestroyNotify    value_destroy_func);
-GLIB_AVAILABLE_IN_2_68
+extern
 GTreeNode *g_tree_node_first (GTree *tree);
-GLIB_AVAILABLE_IN_2_68
+extern
 GTreeNode *g_tree_node_last (GTree *tree);
-GLIB_AVAILABLE_IN_2_68
+extern
 GTreeNode *g_tree_node_previous (GTreeNode *node);
-GLIB_AVAILABLE_IN_2_68
+extern
 GTreeNode *g_tree_node_next (GTreeNode *node);
-GLIB_AVAILABLE_IN_ALL
+extern
 GTree*   g_tree_ref             (GTree            *tree);
-GLIB_AVAILABLE_IN_ALL
+extern
 void     g_tree_unref           (GTree            *tree);
-GLIB_AVAILABLE_IN_ALL
+extern
 void     g_tree_destroy         (GTree            *tree);
-GLIB_AVAILABLE_IN_2_68
+extern
 GTreeNode *g_tree_insert_node (GTree *tree,
                                gpointer key,
                                gpointer value);
-GLIB_AVAILABLE_IN_ALL
+extern
 void     g_tree_insert          (GTree            *tree,
                                  gpointer          key,
                                  gpointer          value);
-GLIB_AVAILABLE_IN_2_68
+extern
 GTreeNode *g_tree_replace_node (GTree *tree,
                                 gpointer key,
                                 gpointer value);
-GLIB_AVAILABLE_IN_ALL
+extern
 void     g_tree_replace         (GTree            *tree,
                                  gpointer          key,
                                  gpointer          value);
-GLIB_AVAILABLE_IN_ALL
+extern
 gboolean g_tree_remove          (GTree            *tree,
                                  gconstpointer     key);
 
-GLIB_AVAILABLE_IN_2_70
+extern
 void     g_tree_remove_all      (GTree            *tree);
 
-GLIB_AVAILABLE_IN_ALL
+extern
 gboolean g_tree_steal           (GTree            *tree,
                                  gconstpointer     key);
-GLIB_AVAILABLE_IN_2_68
+extern
 gpointer g_tree_node_key (GTreeNode *node);
-GLIB_AVAILABLE_IN_2_68
+extern
 gpointer g_tree_node_value (GTreeNode *node);
-GLIB_AVAILABLE_IN_2_68
+extern
 GTreeNode *g_tree_lookup_node (GTree *tree,
                                gconstpointer key);
-GLIB_AVAILABLE_IN_ALL
+extern
 gpointer g_tree_lookup          (GTree            *tree,
                                  gconstpointer     key);
-GLIB_AVAILABLE_IN_ALL
+extern
 gboolean g_tree_lookup_extended (GTree            *tree,
                                  gconstpointer     lookup_key,
                                  gpointer         *orig_key,
                                  gpointer         *value);
-GLIB_AVAILABLE_IN_ALL
+extern
 void     g_tree_foreach         (GTree            *tree,
                                  GTraverseFunc	   func,
                                  gpointer	   user_data);
-GLIB_AVAILABLE_IN_2_68
+extern
 void g_tree_foreach_node (GTree *tree,
                           GTraverseNodeFunc func,
                           gpointer user_data);
@@ -150,23 +150,23 @@ void     g_tree_traverse        (GTree            *tree,
                                  GTraverseType     traverse_type,
                                  gpointer          user_data);
 
-GLIB_AVAILABLE_IN_2_68
+extern
 GTreeNode *g_tree_search_node (GTree *tree,
                                GCompareFunc search_func,
                                gconstpointer user_data);
-GLIB_AVAILABLE_IN_ALL
+extern
 gpointer g_tree_search          (GTree            *tree,
                                  GCompareFunc      search_func,
                                  gconstpointer     user_data);
-GLIB_AVAILABLE_IN_2_68
+extern
 GTreeNode *g_tree_lower_bound (GTree *tree,
                                gconstpointer key);
-GLIB_AVAILABLE_IN_2_68
+extern
 GTreeNode *g_tree_upper_bound (GTree *tree,
                                gconstpointer key);
-GLIB_AVAILABLE_IN_ALL
+extern
 gint     g_tree_height          (GTree            *tree);
-GLIB_AVAILABLE_IN_ALL
+extern
 gint     g_tree_nnodes          (GTree            *tree);
 
 #ifdef G_TREE_DEBUG
@@ -176,6 +176,6 @@ void g_tree_dump (GTree *tree);
 #endif  /* !__GTK_DOC_IGNORE__ */
 #endif  /* G_TREE_DEBUG */
 
-G_END_DECLS
+
 
 #endif /* __G_TREE_H__ */

@@ -29,7 +29,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * G_DEBUG_CONTROLLER_EXTENSION_POINT_NAME:
@@ -68,6 +68,6 @@ GIO_AVAILABLE_IN_2_72
 void                   g_debug_controller_set_debug_enabled     (GDebugController *self,
                                                                  gboolean          debug_enabled);
 
-G_END_DECLS
+
 
 #endif /* __G_DEBUG_CONTROLLER_H__ */

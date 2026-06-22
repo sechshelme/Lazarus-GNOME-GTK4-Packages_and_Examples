@@ -25,7 +25,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_DBUS_OBJECT_MANAGER_CLIENT         (g_dbus_object_manager_client_get_type ())
 #define G_DBUS_OBJECT_MANAGER_CLIENT(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_DBUS_OBJECT_MANAGER_CLIENT, GDBusObjectManagerClient))
@@ -77,7 +77,7 @@ struct _GDBusObjectManagerClientClass
 };
 
 GIO_AVAILABLE_IN_ALL
-GType                         g_dbus_object_manager_client_get_type           (void) G_GNUC_CONST;
+GType                         g_dbus_object_manager_client_get_type           (void) ;
 GIO_AVAILABLE_IN_ALL
 void                          g_dbus_object_manager_client_new                (GDBusConnection               *connection,
                                                                                GDBusObjectManagerClientFlags  flags,
@@ -135,6 +135,6 @@ const gchar                  *g_dbus_object_manager_client_get_name           (G
 GIO_AVAILABLE_IN_ALL
 gchar                        *g_dbus_object_manager_client_get_name_owner     (GDBusObjectManagerClient      *manager);
 
-G_END_DECLS
+
 
 #endif /* __G_DBUS_OBJECT_MANAGER_CLIENT_H */

@@ -32,7 +32,7 @@
 #include <gio/giotypes.h>
 #undef __GIO_GIO_H_INSIDE__
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_SETTINGS_BACKEND                             (g_settings_backend_get_type ())
 #define G_SETTINGS_BACKEND(inst)                            (G_TYPE_CHECK_INSTANCE_CAST ((inst),                     \
@@ -166,6 +166,6 @@ GSettingsBackend *      g_null_settings_backend_new                     (void);
 GIO_AVAILABLE_IN_ALL
 GSettingsBackend *      g_memory_settings_backend_new                   (void);
 
-G_END_DECLS
+
 
 #endif /* __G_SETTINGS_BACKEND_H__ */

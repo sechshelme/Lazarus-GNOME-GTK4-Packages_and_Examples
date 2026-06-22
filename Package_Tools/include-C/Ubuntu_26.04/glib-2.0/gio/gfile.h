@@ -29,7 +29,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_FILE            (g_file_get_type ())
 #define G_FILE(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), G_TYPE_FILE, GFile))
@@ -605,7 +605,7 @@ struct _GFileIface
 };
 
 GIO_AVAILABLE_IN_ALL
-GType                   g_file_get_type                   (void) G_GNUC_CONST;
+GType                   g_file_get_type                   (void) ;
 
 GIO_AVAILABLE_IN_ALL
 GFile *                 g_file_new_for_path               (const char                 *path);
@@ -643,7 +643,7 @@ GIO_AVAILABLE_IN_ALL
 GFile *                 g_file_parse_name                 (const char                 *parse_name);
 GIO_AVAILABLE_IN_2_56
 GFile *                 g_file_new_build_filename         (const gchar                *first_element,
-                                                           ...) G_GNUC_NULL_TERMINATED;
+                                                           ...) ;
 GIO_AVAILABLE_IN_2_78
 GFile *                 g_file_new_build_filenamev        (const gchar                * const *args);
 GIO_AVAILABLE_IN_ALL
@@ -1364,6 +1364,6 @@ GBytes  *g_file_load_bytes_finish            (GFile                  *file,
                                               gchar                 **etag_out,
                                               GError                **error);
 
-G_END_DECLS
+
 
 #endif /* __G_FILE_H__ */

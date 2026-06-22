@@ -30,7 +30,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 GIO_AVAILABLE_IN_2_32
 guint                   g_dbus_connection_export_action_group           (GDBusConnection  *connection,
@@ -42,6 +42,6 @@ GIO_AVAILABLE_IN_2_32
 void                    g_dbus_connection_unexport_action_group         (GDBusConnection  *connection,
                                                                          guint             export_id);
 
-G_END_DECLS
+
 
 #endif /* __G_ACTION_GROUP_EXPORTER_H__ */

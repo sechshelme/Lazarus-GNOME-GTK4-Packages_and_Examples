@@ -17,7 +17,7 @@
 #ifndef __G_MARSHAL_H__
 #define __G_MARSHAL_H__
 
-G_BEGIN_DECLS
+
 
 /* VOID:VOID */
 GOBJECT_AVAILABLE_IN_ALL
@@ -429,6 +429,6 @@ void g_cclosure_marshal_BOOLEAN__BOXED_BOXEDv (GClosure *closure,
  */
 #define g_cclosure_marshal_BOOL__BOXED_BOXED	g_cclosure_marshal_BOOLEAN__BOXED_BOXED
 
-G_END_DECLS
+
 
 #endif /* __G_MARSHAL_H__ */

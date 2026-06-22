@@ -26,7 +26,7 @@
 #include <glib.h>
 #include <glib-object.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_DEBUG_CONTROLLER_DBUS (g_debug_controller_dbus_get_type ())
 GIO_AVAILABLE_IN_2_72
@@ -59,6 +59,6 @@ GDebugControllerDBus *g_debug_controller_dbus_new (GDBusConnection  *connection,
 GIO_AVAILABLE_IN_2_72
 void g_debug_controller_dbus_stop (GDebugControllerDBus *self);
 
-G_END_DECLS
+
 
 #endif /* __G_DEBUG_CONTROLLER_DBUS_H__ */

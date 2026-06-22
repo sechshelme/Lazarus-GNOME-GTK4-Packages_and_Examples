@@ -25,7 +25,7 @@
 
 #include <gio/gio.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_UNIX_FD_LIST                                 (g_unix_fd_list_get_type ())
 #define G_UNIX_FD_LIST(inst)                                (G_TYPE_CHECK_INSTANCE_CAST ((inst),                     \
@@ -64,7 +64,7 @@ struct _GUnixFDList
 };
 
 GIO_AVAILABLE_IN_ALL
-GType                   g_unix_fd_list_get_type                         (void) G_GNUC_CONST;
+GType                   g_unix_fd_list_get_type                         (void) ;
 GIO_AVAILABLE_IN_ALL
 GUnixFDList *           g_unix_fd_list_new                              (void);
 GIO_AVAILABLE_IN_ALL
@@ -92,6 +92,6 @@ GIO_AVAILABLE_IN_ALL
 gint *                  g_unix_fd_list_steal_fds                        (GUnixFDList  *list,
                                                                          gint         *length);
 
-G_END_DECLS
+
 
 #endif /* __G_UNIX_FD_LIST_H__ */

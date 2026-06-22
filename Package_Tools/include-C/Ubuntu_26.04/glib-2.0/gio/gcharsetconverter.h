@@ -29,7 +29,7 @@
 
 #include <gio/gconverter.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_CHARSET_CONVERTER         (g_charset_converter_get_type ())
 #define G_CHARSET_CONVERTER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_CHARSET_CONVERTER, GCharsetConverter))
@@ -46,7 +46,7 @@ struct _GCharsetConverterClass
 };
 
 GIO_AVAILABLE_IN_ALL
-GType              g_charset_converter_get_type      (void) G_GNUC_CONST;
+GType              g_charset_converter_get_type      (void) ;
 
 GIO_AVAILABLE_IN_ALL
 GCharsetConverter *g_charset_converter_new            (const gchar  *to_charset,
@@ -60,6 +60,6 @@ gboolean           g_charset_converter_get_use_fallback (GCharsetConverter *conv
 GIO_AVAILABLE_IN_ALL
 guint              g_charset_converter_get_num_fallbacks (GCharsetConverter *converter);
 
-G_END_DECLS
+
 
 #endif /* __G_CHARSET_CONVERTER_H__ */

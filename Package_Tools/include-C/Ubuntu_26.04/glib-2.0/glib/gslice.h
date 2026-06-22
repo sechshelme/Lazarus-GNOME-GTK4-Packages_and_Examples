@@ -27,21 +27,21 @@
 #include <glib/gtypes.h>
 #include <string.h>
 
-G_BEGIN_DECLS
+
 
 /* slices - fast allocation/release of small memory blocks
  */
-GLIB_AVAILABLE_IN_ALL
-gpointer g_slice_alloc          	(gsize	       block_size) G_GNUC_MALLOC G_GNUC_ALLOC_SIZE(1);
-GLIB_AVAILABLE_IN_ALL
-gpointer g_slice_alloc0         	(gsize         block_size) G_GNUC_MALLOC G_GNUC_ALLOC_SIZE(1);
-GLIB_AVAILABLE_IN_ALL
+extern
+gpointer g_slice_alloc          	(gsize	       block_size)  ;//(1);
+extern
+gpointer g_slice_alloc0         	(gsize         block_size)  ;//(1);
+extern
 gpointer g_slice_copy                   (gsize         block_size,
-                                         gconstpointer mem_block) G_GNUC_ALLOC_SIZE(1);
-GLIB_AVAILABLE_IN_ALL
+                                         gconstpointer mem_block) ;//(1);
+extern
 void     g_slice_free1          	(gsize         block_size,
 					 gpointer      mem_block);
-GLIB_AVAILABLE_IN_ALL
+extern
 void     g_slice_free_chain_with_offset (gsize         block_size,
 					 gpointer      mem_chain,
 					 gsize         next_offset);
@@ -108,20 +108,20 @@ typedef enum {
   G_SLICE_CONFIG_CONTENTION_COUNTER
 } GSliceConfig;
 
-GLIB_DEPRECATED_IN_2_34
+extern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxGLIB_DEPRECATED_IN_2_34
 void     g_slice_set_config	   (GSliceConfig ckey, gint64 value);
-GLIB_DEPRECATED_IN_2_34
+extern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxGLIB_DEPRECATED_IN_2_34
 gint64   g_slice_get_config	   (GSliceConfig ckey);
-GLIB_DEPRECATED_IN_2_34
+extern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxGLIB_DEPRECATED_IN_2_34
 gint64*  g_slice_get_config_state  (GSliceConfig ckey, gint64 address, guint *n_values);
 
 #ifndef __GI_SCANNER__
 #ifdef G_ENABLE_DEBUG
-GLIB_AVAILABLE_IN_ALL
+extern
 void     g_slice_debug_tree_statistics (void);
 #endif
 #endif
 
-G_END_DECLS
+
 
 #endif /* __G_SLICE_H__ */

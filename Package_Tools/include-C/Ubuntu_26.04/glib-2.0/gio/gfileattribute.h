@@ -29,7 +29,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GFileAttributeInfo:
@@ -81,6 +81,6 @@ void                      g_file_attribute_info_list_add    (GFileAttributeInfoL
 							     GFileAttributeType      type,
 							     GFileAttributeInfoFlags flags);
 
-G_END_DECLS
+
 
 #endif /* __G_FILE_INFO_H__ */

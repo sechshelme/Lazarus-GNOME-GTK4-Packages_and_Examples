@@ -22,7 +22,7 @@
 
 #include <glib/gtypes.h>
 
-G_BEGIN_DECLS
+
 
 typedef struct _GAllocator GAllocator;
 typedef struct _GMemChunk  GMemChunk;
@@ -83,6 +83,6 @@ void            g_node_push_allocator   (GAllocator   *allocator);
 GLIB_DEPRECATED
 void            g_node_pop_allocator    (void);
 
-G_END_DECLS
+
 
 #endif /* __G_ALLOCATOR_H__ */

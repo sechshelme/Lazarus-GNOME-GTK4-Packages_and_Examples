@@ -29,7 +29,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_THEMED_ICON         (g_themed_icon_get_type ())
 #define G_THEMED_ICON(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_THEMED_ICON, GThemedIcon))
@@ -41,7 +41,7 @@ G_BEGIN_DECLS
 typedef struct _GThemedIconClass   GThemedIconClass;
 
 GIO_AVAILABLE_IN_ALL
-GType  g_themed_icon_get_type                   (void) G_GNUC_CONST;
+GType  g_themed_icon_get_type                   (void) ;
 
 GIO_AVAILABLE_IN_ALL
 GIcon *g_themed_icon_new                        (const char  *iconname);
@@ -60,6 +60,6 @@ void   g_themed_icon_append_name                (GThemedIcon *icon,
 GIO_AVAILABLE_IN_ALL
 const gchar* const * g_themed_icon_get_names     (GThemedIcon *icon);
 
-G_END_DECLS
+
 
 #endif /* __G_THEMED_ICON_H__ */

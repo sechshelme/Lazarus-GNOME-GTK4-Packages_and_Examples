@@ -30,7 +30,7 @@
 #include <glib/gerror.h>
 #include <glib/gstring.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GRegexError:
@@ -213,7 +213,7 @@ typedef enum
  */
 #define G_REGEX_ERROR g_regex_error_quark ()
 
-GLIB_AVAILABLE_IN_ALL
+extern
 GQuark g_regex_error_quark (void);
 
 /**
@@ -323,7 +323,7 @@ typedef enum
   G_REGEX_NEWLINE_ANYCRLF   = G_REGEX_NEWLINE_CR | G_REGEX_NEWLINE_RESERVED1,
   G_REGEX_BSR_ANYCRLF       = 1 << 23,
   G_REGEX_JAVASCRIPT_COMPAT GLIB_DEPRECATED_ENUMERATOR_IN_2_74 = 1 << 25
-} G_GNUC_FLAG_ENUM GRegexCompileFlags;
+}  GRegexCompileFlags;
 
 /**
  * GRegexMatchFlags:
@@ -412,7 +412,7 @@ typedef enum
   G_REGEX_MATCH_PARTIAL_SOFT     = G_REGEX_MATCH_PARTIAL,
   G_REGEX_MATCH_PARTIAL_HARD     = 1 << 27,
   G_REGEX_MATCH_NOTEMPTY_ATSTART = 1 << 28
-} G_GNUC_FLAG_ENUM GRegexMatchFlags;
+}  GRegexMatchFlags;
 
 typedef struct _GRegex		GRegex;
 
@@ -447,52 +447,52 @@ typedef gboolean (*GRegexEvalCallback)		(const GMatchInfo *match_info,
 						 gpointer          user_data);
 
 
-GLIB_AVAILABLE_IN_ALL
+extern
 GRegex		 *g_regex_new			(const gchar         *pattern,
 						 GRegexCompileFlags   compile_options,
 						 GRegexMatchFlags     match_options,
 						 GError             **error);
-GLIB_AVAILABLE_IN_ALL
+extern
 GRegex           *g_regex_ref			(GRegex              *regex);
-GLIB_AVAILABLE_IN_ALL
+extern
 void		  g_regex_unref			(GRegex              *regex);
-GLIB_AVAILABLE_IN_ALL
+extern
 const gchar	 *g_regex_get_pattern		(const GRegex        *regex);
-GLIB_AVAILABLE_IN_ALL
+extern
 gint		  g_regex_get_max_backref	(const GRegex        *regex);
-GLIB_AVAILABLE_IN_ALL
+extern
 gint		  g_regex_get_capture_count	(const GRegex        *regex);
-GLIB_AVAILABLE_IN_ALL
+extern
 gboolean          g_regex_get_has_cr_or_lf      (const GRegex        *regex);
-GLIB_AVAILABLE_IN_2_38
+extern
 gint              g_regex_get_max_lookbehind    (const GRegex        *regex);
-GLIB_AVAILABLE_IN_ALL
+extern
 gint		  g_regex_get_string_number	(const GRegex        *regex, 
 						 const gchar         *name);
-GLIB_AVAILABLE_IN_ALL
+extern
 gchar		 *g_regex_escape_string		(const gchar         *string,
 						 gint                 length);
-GLIB_AVAILABLE_IN_ALL
+extern
 gchar		 *g_regex_escape_nul		(const gchar         *string,
 						 gint                 length);
 
-GLIB_AVAILABLE_IN_ALL
+extern
 GRegexCompileFlags g_regex_get_compile_flags    (const GRegex        *regex);
-GLIB_AVAILABLE_IN_ALL
+extern
 GRegexMatchFlags   g_regex_get_match_flags      (const GRegex        *regex);
 
 /* Matching. */
-GLIB_AVAILABLE_IN_ALL
+extern
 gboolean	  g_regex_match_simple		(const gchar         *pattern,
 						 const gchar         *string,
 						 GRegexCompileFlags   compile_options,
 						 GRegexMatchFlags     match_options);
-GLIB_AVAILABLE_IN_ALL
+extern
 gboolean	  g_regex_match			(const GRegex        *regex,
 						 const gchar         *string,
 						 GRegexMatchFlags     match_options,
 						 GMatchInfo         **match_info);
-GLIB_AVAILABLE_IN_ALL
+extern
 gboolean	  g_regex_match_full		(const GRegex        *regex,
 						 const gchar         *string,
 						 gssize               string_len,
@@ -500,12 +500,12 @@ gboolean	  g_regex_match_full		(const GRegex        *regex,
 						 GRegexMatchFlags     match_options,
 						 GMatchInfo         **match_info,
 						 GError             **error);
-GLIB_AVAILABLE_IN_ALL
+extern
 gboolean	  g_regex_match_all		(const GRegex        *regex,
 						 const gchar         *string,
 						 GRegexMatchFlags     match_options,
 						 GMatchInfo         **match_info);
-GLIB_AVAILABLE_IN_ALL
+extern
 gboolean	  g_regex_match_all_full	(const GRegex        *regex,
 						 const gchar         *string,
 						 gssize               string_len,
@@ -515,16 +515,16 @@ gboolean	  g_regex_match_all_full	(const GRegex        *regex,
 						 GError             **error);
 
 /* String splitting. */
-GLIB_AVAILABLE_IN_ALL
+extern
 gchar		**g_regex_split_simple		(const gchar         *pattern,
 						 const gchar         *string,
 						 GRegexCompileFlags   compile_options,
 						 GRegexMatchFlags     match_options);
-GLIB_AVAILABLE_IN_ALL
+extern
 gchar		**g_regex_split			(const GRegex        *regex,
 						 const gchar         *string,
 						 GRegexMatchFlags     match_options);
-GLIB_AVAILABLE_IN_ALL
+extern
 gchar		**g_regex_split_full		(const GRegex        *regex,
 						 const gchar         *string,
 						 gssize               string_len,
@@ -534,7 +534,7 @@ gchar		**g_regex_split_full		(const GRegex        *regex,
 						 GError             **error);
 
 /* String replacement. */
-GLIB_AVAILABLE_IN_ALL
+extern
 gchar		 *g_regex_replace		(const GRegex        *regex,
 						 const gchar         *string,
 						 gssize               string_len,
@@ -542,7 +542,7 @@ gchar		 *g_regex_replace		(const GRegex        *regex,
 						 const gchar         *replacement,
 						 GRegexMatchFlags     match_options,
 						 GError             **error);
-GLIB_AVAILABLE_IN_ALL
+extern
 gchar		 *g_regex_replace_literal	(const GRegex        *regex,
 						 const gchar         *string,
 						 gssize               string_len,
@@ -550,7 +550,7 @@ gchar		 *g_regex_replace_literal	(const GRegex        *regex,
 						 const gchar         *replacement,
 						 GRegexMatchFlags     match_options,
 						 GError             **error);
-GLIB_AVAILABLE_IN_ALL
+extern
 gchar		 *g_regex_replace_eval		(const GRegex        *regex,
 						 const gchar         *string,
 						 gssize               string_len,
@@ -559,55 +559,55 @@ gchar		 *g_regex_replace_eval		(const GRegex        *regex,
 						 GRegexEvalCallback   eval,
 						 gpointer             user_data,
 						 GError             **error);
-GLIB_AVAILABLE_IN_ALL
+extern
 gboolean	  g_regex_check_replacement	(const gchar         *replacement,
 						 gboolean            *has_references,
 						 GError             **error);
 
 /* Match info */
-GLIB_AVAILABLE_IN_ALL
+extern
 GRegex		 *g_match_info_get_regex	(const GMatchInfo    *match_info);
-GLIB_AVAILABLE_IN_ALL
+extern
 const gchar      *g_match_info_get_string       (const GMatchInfo    *match_info);
 
-GLIB_AVAILABLE_IN_ALL
+extern
 GMatchInfo       *g_match_info_ref              (GMatchInfo          *match_info);
-GLIB_AVAILABLE_IN_ALL
+extern
 void              g_match_info_unref            (GMatchInfo          *match_info);
-GLIB_AVAILABLE_IN_ALL
+extern
 void		  g_match_info_free		(GMatchInfo          *match_info);
-GLIB_AVAILABLE_IN_ALL
+extern
 gboolean	  g_match_info_next		(GMatchInfo          *match_info,
 						 GError             **error);
-GLIB_AVAILABLE_IN_ALL
+extern
 gboolean	  g_match_info_matches		(const GMatchInfo    *match_info);
-GLIB_AVAILABLE_IN_ALL
+extern
 gint		  g_match_info_get_match_count	(const GMatchInfo    *match_info);
-GLIB_AVAILABLE_IN_ALL
+extern
 gboolean	  g_match_info_is_partial_match	(const GMatchInfo    *match_info);
-GLIB_AVAILABLE_IN_ALL
+extern
 gchar		 *g_match_info_expand_references(const GMatchInfo    *match_info,
 						 const gchar         *string_to_expand,
 						 GError             **error);
-GLIB_AVAILABLE_IN_ALL
+extern
 gchar		 *g_match_info_fetch		(const GMatchInfo    *match_info,
 						 gint                 match_num);
-GLIB_AVAILABLE_IN_ALL
+extern
 gboolean	  g_match_info_fetch_pos	(const GMatchInfo    *match_info,
 						 gint                 match_num,
 						 gint                *start_pos,
 						 gint                *end_pos);
-GLIB_AVAILABLE_IN_ALL
+extern
 gchar		 *g_match_info_fetch_named	(const GMatchInfo    *match_info,
 						 const gchar         *name);
-GLIB_AVAILABLE_IN_ALL
+extern
 gboolean	  g_match_info_fetch_named_pos	(const GMatchInfo    *match_info,
 						 const gchar         *name,
 						 gint                *start_pos,
 						 gint                *end_pos);
-GLIB_AVAILABLE_IN_ALL
+extern
 gchar		**g_match_info_fetch_all	(const GMatchInfo    *match_info);
 
-G_END_DECLS
+
 
 #endif  /*  __G_REGEX_H__ */

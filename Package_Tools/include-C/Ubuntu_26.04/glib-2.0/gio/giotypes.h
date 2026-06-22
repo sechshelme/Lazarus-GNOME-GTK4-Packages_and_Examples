@@ -29,7 +29,7 @@
 
 #include <gio/gioenums.h>
 
-G_BEGIN_DECLS
+
 
 typedef struct _GAppLaunchContext             GAppLaunchContext;
 typedef struct _GAppInfo                      GAppInfo; /* Dummy typedef */
@@ -552,6 +552,6 @@ typedef struct _GTestDBus GTestDBus;
 typedef struct _GSubprocess                   GSubprocess;
 typedef struct _GSubprocessLauncher           GSubprocessLauncher;
 
-G_END_DECLS
+
 
 #endif /* __GIO_TYPES_H__ */

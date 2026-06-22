@@ -29,7 +29,7 @@
 
 #include <gio/gtcpconnection.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_TCP_WRAPPER_CONNECTION            (g_tcp_wrapper_connection_get_type ())
 #define G_TCP_WRAPPER_CONNECTION(inst)           (G_TYPE_CHECK_INSTANCE_CAST ((inst),                     \
@@ -58,7 +58,7 @@ struct _GTcpWrapperConnection
 };
 
 GIO_AVAILABLE_IN_ALL
-GType              g_tcp_wrapper_connection_get_type (void) G_GNUC_CONST;
+GType              g_tcp_wrapper_connection_get_type (void) ;
 
 GIO_AVAILABLE_IN_ALL
 GSocketConnection *g_tcp_wrapper_connection_new                (GIOStream             *base_io_stream,
@@ -66,6 +66,6 @@ GSocketConnection *g_tcp_wrapper_connection_new                (GIOStream       
 GIO_AVAILABLE_IN_ALL
 GIOStream         *g_tcp_wrapper_connection_get_base_io_stream (GTcpWrapperConnection *conn);
 
-G_END_DECLS
+
 
 #endif /* __G_TCP_WRAPPER_CONNECTION_H__ */

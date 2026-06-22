@@ -29,7 +29,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_FILE_INFO         (g_file_info_get_type ())
 #define G_FILE_INFO(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_FILE_INFO, GFileInfo))
@@ -1300,7 +1300,7 @@ typedef struct _GFileInfoClass   GFileInfoClass;
 #define G_FILE_ATTRIBUTE_RECENT_MODIFIED "recent::modified"          /* int64 (time_t) */
 
 GIO_AVAILABLE_IN_ALL
-GType              g_file_info_get_type                  (void) G_GNUC_CONST;
+GType              g_file_info_get_type                  (void) ;
 
 GIO_AVAILABLE_IN_ALL
 GFileInfo *        g_file_info_new                       (void);
@@ -1445,11 +1445,11 @@ GIO_AVAILABLE_IN_ALL
 const char *      g_file_info_get_content_type       (GFileInfo         *info);
 GIO_AVAILABLE_IN_ALL
 goffset           g_file_info_get_size               (GFileInfo         *info);
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+
 GIO_DEPRECATED_IN_2_62_FOR(g_file_info_get_modification_date_time)
 void              g_file_info_get_modification_time  (GFileInfo         *info,
                                                       GTimeVal          *result);
-G_GNUC_END_IGNORE_DEPRECATIONS
+
 GIO_AVAILABLE_IN_2_62
 GDateTime *       g_file_info_get_modification_date_time (GFileInfo     *info);
 GIO_AVAILABLE_IN_2_70
@@ -1500,11 +1500,11 @@ void              g_file_info_set_content_type       (GFileInfo         *info,
 GIO_AVAILABLE_IN_ALL
 void              g_file_info_set_size               (GFileInfo         *info,
 						      goffset            size);
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+
 GIO_DEPRECATED_IN_2_62_FOR(g_file_info_set_modification_date_time)
 void              g_file_info_set_modification_time  (GFileInfo         *info,
                                                       GTimeVal          *mtime);
-G_GNUC_END_IGNORE_DEPRECATIONS
+
 GIO_AVAILABLE_IN_2_62
 void              g_file_info_set_modification_date_time (GFileInfo     *info,
                                                           GDateTime     *mtime);
@@ -1523,7 +1523,7 @@ void              g_file_info_set_sort_order         (GFileInfo         *info,
 
 #define G_TYPE_FILE_ATTRIBUTE_MATCHER (g_file_attribute_matcher_get_type ())
 GIO_AVAILABLE_IN_ALL
-GType g_file_attribute_matcher_get_type (void) G_GNUC_CONST;
+GType g_file_attribute_matcher_get_type (void) ;
 
 GIO_AVAILABLE_IN_ALL
 GFileAttributeMatcher *g_file_attribute_matcher_new            (const char            *attributes);
@@ -1548,6 +1548,6 @@ const char *           g_file_attribute_matcher_enumerate_next (GFileAttributeMa
 GIO_AVAILABLE_IN_2_32
 char *                 g_file_attribute_matcher_to_string      (GFileAttributeMatcher *matcher);
 
-G_END_DECLS
+
 
 #endif /* __G_FILE_INFO_H__ */

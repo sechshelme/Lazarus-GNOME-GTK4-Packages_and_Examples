@@ -29,7 +29,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_MOUNT_OPERATION         (g_mount_operation_get_type ())
 #define G_MOUNT_OPERATION(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_MOUNT_OPERATION, GMountOperation))
@@ -115,7 +115,7 @@ struct _GMountOperationClass
 };
 
 GIO_AVAILABLE_IN_ALL
-GType             g_mount_operation_get_type      (void) G_GNUC_CONST;
+GType             g_mount_operation_get_type      (void) ;
 GIO_AVAILABLE_IN_ALL
 GMountOperation * g_mount_operation_new           (void);
 
@@ -168,6 +168,6 @@ GIO_AVAILABLE_IN_2_58
 void          g_mount_operation_set_pim           (GMountOperation *op,
                                                    guint pim);
 
-G_END_DECLS
+
 
 #endif /* __G_MOUNT_OPERATION_H__ */

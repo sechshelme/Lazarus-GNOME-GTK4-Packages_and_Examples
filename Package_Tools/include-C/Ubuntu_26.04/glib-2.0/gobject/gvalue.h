@@ -27,7 +27,7 @@
 
 #include	<gobject/gtype.h>
 
-G_BEGIN_DECLS
+
 
 /* --- type macros --- */
 /**
@@ -250,6 +250,6 @@ void	g_value_register_transform_func	(GType		 src_type,
 #define G_VALUE_INIT  { 0, { { 0 } } }
 
 
-G_END_DECLS
+
 
 #endif /* __G_VALUE_H__ */

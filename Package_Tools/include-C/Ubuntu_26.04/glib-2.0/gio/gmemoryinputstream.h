@@ -29,7 +29,7 @@
 
 #include <gio/ginputstream.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_MEMORY_INPUT_STREAM         (g_memory_input_stream_get_type ())
 #define G_MEMORY_INPUT_STREAM(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_MEMORY_INPUT_STREAM, GMemoryInputStream))
@@ -63,7 +63,7 @@ struct _GMemoryInputStreamClass
 
 
 GIO_AVAILABLE_IN_ALL
-GType          g_memory_input_stream_get_type      (void) G_GNUC_CONST;
+GType          g_memory_input_stream_get_type      (void) ;
 GIO_AVAILABLE_IN_ALL
 GInputStream * g_memory_input_stream_new           (void);
 GIO_AVAILABLE_IN_ALL
@@ -82,6 +82,6 @@ GIO_AVAILABLE_IN_2_34
 void           g_memory_input_stream_add_bytes     (GMemoryInputStream     *stream,
 						    GBytes                 *bytes);
 
-G_END_DECLS
+
 
 #endif /* __G_MEMORY_INPUT_STREAM_H__ */

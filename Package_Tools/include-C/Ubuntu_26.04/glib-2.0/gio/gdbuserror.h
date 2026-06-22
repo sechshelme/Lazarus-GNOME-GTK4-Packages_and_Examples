@@ -29,7 +29,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * G_DBUS_ERROR:
@@ -84,7 +84,7 @@ gboolean g_dbus_error_unregister_error      (GQuark                 error_domain
                                              const gchar           *dbus_error_name);
 GIO_AVAILABLE_IN_ALL
 void     g_dbus_error_register_error_domain (const gchar           *error_domain_quark_name,
-                                             volatile gsize        *quark_volatile,
+                                              gsize        *quark_volatile,
                                              const GDBusErrorEntry *entries,
                                              guint                  num_entries);
 
@@ -97,16 +97,16 @@ void     g_dbus_error_set_dbus_error        (GError         **error,
                                              const gchar     *dbus_error_name,
                                              const gchar     *dbus_error_message,
                                              const gchar     *format,
-                                             ...) G_GNUC_PRINTF(4, 5);
+                                             ...) ;(4, 5);
 GIO_AVAILABLE_IN_ALL
 void     g_dbus_error_set_dbus_error_valist (GError         **error,
                                              const gchar     *dbus_error_name,
                                              const gchar     *dbus_error_message,
                                              const gchar     *format,
-                                             va_list          var_args) G_GNUC_PRINTF(4, 0);
+                                             va_list          var_args) ;(4, 0);
 GIO_AVAILABLE_IN_ALL
 gchar   *g_dbus_error_encode_gerror         (const GError    *error);
 
-G_END_DECLS
+
 
 #endif /* __G_DBUS_ERROR_H__ */

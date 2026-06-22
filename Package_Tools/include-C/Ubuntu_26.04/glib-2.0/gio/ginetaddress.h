@@ -30,7 +30,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_INET_ADDRESS         (g_inet_address_get_type ())
 #define G_INET_ADDRESS(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_INET_ADDRESS, GInetAddress))
@@ -59,7 +59,7 @@ struct _GInetAddressClass
 };
 
 GIO_AVAILABLE_IN_ALL
-GType                 g_inet_address_get_type             (void) G_GNUC_CONST;
+GType                 g_inet_address_get_type             (void) ;
 
 GIO_AVAILABLE_IN_ALL
 GInetAddress *        g_inet_address_new_from_string      (const gchar          *string);
@@ -132,6 +132,6 @@ guint32               g_inet_address_get_scope_id         (GInetAddress         
 GIO_AVAILABLE_IN_2_86
 guint32               g_inet_address_get_flowinfo         (GInetAddress         *address);
 
-G_END_DECLS
+
 
 #endif /* __G_INET_ADDRESS_H__ */

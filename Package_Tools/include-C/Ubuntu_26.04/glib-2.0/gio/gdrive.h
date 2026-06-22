@@ -30,7 +30,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * G_DRIVE_IDENTIFIER_KIND_UNIX_DEVICE:
@@ -171,7 +171,7 @@ struct _GDriveIface
 };
 
 GIO_AVAILABLE_IN_ALL
-GType    g_drive_get_type                 (void) G_GNUC_CONST;
+GType    g_drive_get_type                 (void) ;
 
 GIO_AVAILABLE_IN_ALL
 char *   g_drive_get_name                 (GDrive               *drive);
@@ -269,6 +269,6 @@ gboolean    g_drive_eject_with_operation_finish (GDrive            *drive,
 GIO_AVAILABLE_IN_2_32
 const gchar *g_drive_get_sort_key         (GDrive               *drive);
 
-G_END_DECLS
+
 
 #endif /* __G_DRIVE_H__ */

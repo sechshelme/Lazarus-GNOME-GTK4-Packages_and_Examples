@@ -29,7 +29,7 @@
 
 #include <gio/gvolumemonitor.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_NATIVE_VOLUME_MONITOR        (g_native_volume_monitor_get_type ())
 #define G_NATIVE_VOLUME_MONITOR(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_NATIVE_VOLUME_MONITOR, GNativeVolumeMonitor))
@@ -56,8 +56,8 @@ struct _GNativeVolumeMonitorClass
 };
 
 GIO_AVAILABLE_IN_ALL
-GType g_native_volume_monitor_get_type (void) G_GNUC_CONST;
+GType g_native_volume_monitor_get_type (void) ;
 
-G_END_DECLS
+
 
 #endif /* __G_NATIVE_VOLUME_MONITOR_H__ */

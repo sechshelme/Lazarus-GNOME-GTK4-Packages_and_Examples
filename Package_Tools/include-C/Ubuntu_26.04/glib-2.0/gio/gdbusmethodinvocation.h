@@ -29,7 +29,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_DBUS_METHOD_INVOCATION         (g_dbus_method_invocation_get_type ())
 #define G_DBUS_METHOD_INVOCATION(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_DBUS_METHOD_INVOCATION, GDBusMethodInvocation))
@@ -71,7 +71,7 @@ G_BEGIN_DECLS
 #define G_DBUS_METHOD_INVOCATION_UNHANDLED FALSE GIO_AVAILABLE_MACRO_IN_2_68
 
 GIO_AVAILABLE_IN_ALL
-GType                  g_dbus_method_invocation_get_type             (void) G_GNUC_CONST;
+GType                  g_dbus_method_invocation_get_type             (void) ;
 GIO_AVAILABLE_IN_ALL
 const gchar           *g_dbus_method_invocation_get_sender           (GDBusMethodInvocation *invocation);
 GIO_AVAILABLE_IN_ALL
@@ -107,14 +107,14 @@ void                   g_dbus_method_invocation_return_error         (GDBusMetho
                                                                       GQuark                 domain,
                                                                       gint                   code,
                                                                       const gchar           *format,
-                                                                      ...) G_GNUC_PRINTF(4, 5);
+                                                                      ...) ;(4, 5);
 GIO_AVAILABLE_IN_ALL
 void                   g_dbus_method_invocation_return_error_valist  (GDBusMethodInvocation *invocation,
                                                                       GQuark                 domain,
                                                                       gint                   code,
                                                                       const gchar           *format,
                                                                       va_list                var_args)
-                                                                      G_GNUC_PRINTF(4, 0);
+                                                                      ;(4, 0);
 GIO_AVAILABLE_IN_ALL
 void                   g_dbus_method_invocation_return_error_literal (GDBusMethodInvocation *invocation,
                                                                       GQuark                 domain,
@@ -131,6 +131,6 @@ void                   g_dbus_method_invocation_return_dbus_error    (GDBusMetho
                                                                       const gchar           *error_name,
                                                                       const gchar           *error_message);
 
-G_END_DECLS
+
 
 #endif /* __G_DBUS_METHOD_INVOCATION_H__ */

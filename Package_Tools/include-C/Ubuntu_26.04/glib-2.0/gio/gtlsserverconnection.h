@@ -27,7 +27,7 @@
 
 #include <gio/gtlsconnection.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_TLS_SERVER_CONNECTION                (g_tls_server_connection_get_type ())
 #define G_TLS_SERVER_CONNECTION(inst)               (G_TYPE_CHECK_INSTANCE_CAST ((inst), G_TYPE_TLS_SERVER_CONNECTION, GTlsServerConnection))
@@ -51,13 +51,13 @@ struct _GTlsServerConnectionInterface
 };
 
 GIO_AVAILABLE_IN_ALL
-GType                 g_tls_server_connection_get_type                 (void) G_GNUC_CONST;
+GType                 g_tls_server_connection_get_type                 (void) ;
 
 GIO_AVAILABLE_IN_ALL
 GIOStream *           g_tls_server_connection_new                      (GIOStream        *base_io_stream,
 									GTlsCertificate  *certificate,
 									GError          **error);
 
-G_END_DECLS
+
 
 #endif /* __G_TLS_SERVER_CONNECTION_H__ */

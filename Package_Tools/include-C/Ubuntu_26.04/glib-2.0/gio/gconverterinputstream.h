@@ -30,7 +30,7 @@
 #include <gio/gfilterinputstream.h>
 #include <gio/gconverter.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_CONVERTER_INPUT_STREAM         (g_converter_input_stream_get_type ())
 #define G_CONVERTER_INPUT_STREAM(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_CONVERTER_INPUT_STREAM, GConverterInputStream))
@@ -64,13 +64,13 @@ struct _GConverterInputStreamClass
 };
 
 GIO_AVAILABLE_IN_ALL
-GType                  g_converter_input_stream_get_type      (void) G_GNUC_CONST;
+GType                  g_converter_input_stream_get_type      (void) ;
 GIO_AVAILABLE_IN_ALL
 GInputStream          *g_converter_input_stream_new           (GInputStream          *base_stream,
                                                                GConverter            *converter);
 GIO_AVAILABLE_IN_ALL
 GConverter            *g_converter_input_stream_get_converter (GConverterInputStream *converter_stream);
 
-G_END_DECLS
+
 
 #endif /* __G_CONVERTER_INPUT_STREAM_H__ */

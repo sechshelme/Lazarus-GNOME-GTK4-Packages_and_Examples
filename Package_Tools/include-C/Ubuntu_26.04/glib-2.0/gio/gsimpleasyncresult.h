@@ -29,7 +29,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_SIMPLE_ASYNC_RESULT         (g_simple_async_result_get_type ())
 #define G_SIMPLE_ASYNC_RESULT(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_SIMPLE_ASYNC_RESULT, GSimpleAsyncResult))
@@ -42,7 +42,7 @@ typedef struct _GSimpleAsyncResultClass   GSimpleAsyncResultClass;
 
 
 GIO_AVAILABLE_IN_ALL
-GType               g_simple_async_result_get_type         (void) G_GNUC_CONST;
+GType               g_simple_async_result_get_type         (void) ;
 
 GIO_DEPRECATED_IN_2_46_FOR(g_task_new)
 GSimpleAsyncResult *g_simple_async_result_new              (GObject                 *source_object,
@@ -56,7 +56,7 @@ GSimpleAsyncResult *g_simple_async_result_new_error        (GObject             
 							    GQuark                   domain,
 							    gint                     code,
 							    const char              *format,
-							    ...) G_GNUC_PRINTF (6, 7);
+							    ...) ; (6, 7);
 GIO_DEPRECATED_IN_2_46_FOR(g_task_new)
 GSimpleAsyncResult *g_simple_async_result_new_from_error   (GObject                 *source_object,
 							    GAsyncReadyCallback      callback,
@@ -120,14 +120,14 @@ void                g_simple_async_result_set_error        (GSimpleAsyncResult  
 							    GQuark                   domain,
 							    gint                     code,
 							    const char              *format,
-							    ...) G_GNUC_PRINTF (4, 5);
+							    ...) ; (4, 5);
 GIO_DEPRECATED_IN_2_46
 void                g_simple_async_result_set_error_va     (GSimpleAsyncResult      *simple,
 							    GQuark                   domain,
 							    gint                     code,
 							    const char              *format,
 							    va_list                  args)
-							    G_GNUC_PRINTF(4, 0);
+							    ;(4, 0);
 GIO_DEPRECATED_IN_2_46
 gboolean            g_simple_async_result_is_valid         (GAsyncResult            *result,
                                                             GObject                 *source,
@@ -140,7 +140,7 @@ void g_simple_async_report_error_in_idle  (GObject            *object,
 					   GQuark              domain,
 					   gint                code,
 					   const char         *format,
-					   ...) G_GNUC_PRINTF(6, 7);
+					   ...) ;(6, 7);
 GIO_DEPRECATED_IN_2_46_FOR(g_task_report_error)
 void g_simple_async_report_gerror_in_idle (GObject            *object,
 					   GAsyncReadyCallback callback,
@@ -152,7 +152,7 @@ void g_simple_async_report_take_gerror_in_idle (GObject            *object,
                                                 gpointer            user_data,
                                                 GError             *error);
 
-G_END_DECLS
+
 
 
 

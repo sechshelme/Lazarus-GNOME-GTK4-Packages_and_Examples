@@ -27,7 +27,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * G_MEMORY_MONITOR_EXTENSION_POINT_NAME:
@@ -59,6 +59,6 @@ struct _GMemoryMonitorInterface {
 GIO_AVAILABLE_IN_2_64
 GMemoryMonitor      *g_memory_monitor_dup_default           (void);
 
-G_END_DECLS
+
 
 #endif /* __G_MEMORY_MONITOR_H__ */

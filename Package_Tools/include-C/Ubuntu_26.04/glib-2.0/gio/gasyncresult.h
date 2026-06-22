@@ -29,7 +29,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_ASYNC_RESULT            (g_async_result_get_type ())
 #define G_ASYNC_RESULT(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), G_TYPE_ASYNC_RESULT, GAsyncResult))
@@ -62,7 +62,7 @@ struct _GAsyncResultIface
 };
 
 GIO_AVAILABLE_IN_ALL
-GType    g_async_result_get_type          (void) G_GNUC_CONST;
+GType    g_async_result_get_type          (void) ;
 
 GIO_AVAILABLE_IN_ALL
 gpointer g_async_result_get_user_data     (GAsyncResult *res);
@@ -76,6 +76,6 @@ GIO_AVAILABLE_IN_2_34
 gboolean g_async_result_is_tagged              (GAsyncResult  *res,
 						gpointer       source_tag);
 
-G_END_DECLS
+
 
 #endif /* __G_ASYNC_RESULT_H__ */

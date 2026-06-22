@@ -28,7 +28,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_SIMPLE_ACTION                                (g_simple_action_get_type ())
 #define G_SIMPLE_ACTION(inst)                               (G_TYPE_CHECK_INSTANCE_CAST ((inst),                     \
@@ -37,7 +37,7 @@ G_BEGIN_DECLS
                                                              G_TYPE_SIMPLE_ACTION))
 
 GIO_AVAILABLE_IN_ALL
-GType                   g_simple_action_get_type                        (void) G_GNUC_CONST;
+GType                   g_simple_action_get_type                        (void) ;
 
 GIO_AVAILABLE_IN_ALL
 GSimpleAction *         g_simple_action_new                             (const gchar        *name,
@@ -60,6 +60,6 @@ GIO_AVAILABLE_IN_2_44
 void                    g_simple_action_set_state_hint                  (GSimpleAction      *simple,
                                                                          GVariant           *state_hint);
 
-G_END_DECLS
+
 
 #endif /* __G_SIMPLE_ACTION_H__ */

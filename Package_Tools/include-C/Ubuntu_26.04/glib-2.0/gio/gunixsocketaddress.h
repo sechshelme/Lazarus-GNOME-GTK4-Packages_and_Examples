@@ -26,7 +26,7 @@
 
 #include <gio/gio.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_UNIX_SOCKET_ADDRESS         (g_unix_socket_address_get_type ())
 #define G_UNIX_SOCKET_ADDRESS(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_UNIX_SOCKET_ADDRESS, GUnixSocketAddress))
@@ -55,7 +55,7 @@ struct _GUnixSocketAddressClass
 };
 
 GIO_AVAILABLE_IN_ALL
-GType           g_unix_socket_address_get_type    (void) G_GNUC_CONST;
+GType           g_unix_socket_address_get_type    (void) ;
 
 GIO_AVAILABLE_IN_ALL
 GSocketAddress *g_unix_socket_address_new             (const gchar        *path);
@@ -78,6 +78,6 @@ gboolean        g_unix_socket_address_get_is_abstract (GUnixSocketAddress *addre
 GIO_AVAILABLE_IN_ALL
 gboolean        g_unix_socket_address_abstract_names_supported (void);
 
-G_END_DECLS
+
 
 #endif /* __G_UNIX_SOCKET_ADDRESS_H__ */

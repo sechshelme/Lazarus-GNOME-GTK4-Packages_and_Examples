@@ -26,7 +26,7 @@
 
 #include        <gobject/gtype.h>
 
-G_BEGIN_DECLS
+
 
 /* --- defines --- */
 /**
@@ -310,6 +310,6 @@ void g_cclosure_marshal_generic_va (GClosure *closure,
 				    GType    *param_types);
 
 
-G_END_DECLS
+
 
 #endif /* __G_CLOSURE_H__ */

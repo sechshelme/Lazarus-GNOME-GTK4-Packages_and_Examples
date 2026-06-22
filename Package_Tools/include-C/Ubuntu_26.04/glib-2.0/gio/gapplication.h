@@ -28,7 +28,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_APPLICATION                                  (g_application_get_type ())
 #define G_APPLICATION(inst)                                 (G_TYPE_CHECK_INSTANCE_CAST ((inst),                     \
@@ -124,7 +124,7 @@ struct _GApplicationClass
 };
 
 GIO_AVAILABLE_IN_ALL
-GType                   g_application_get_type                          (void) G_GNUC_CONST;
+GType                   g_application_get_type                          (void) ;
 
 GIO_AVAILABLE_IN_ALL
 gboolean                g_application_id_is_valid                       (const gchar              *application_id);
@@ -258,6 +258,6 @@ void                    g_application_unbind_busy_property              (GApplic
                                                                          gpointer                  object,
                                                                          const gchar              *property);
 
-G_END_DECLS
+
 
 #endif /* __G_APPLICATION_H__ */

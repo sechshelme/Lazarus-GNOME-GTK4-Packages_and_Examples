@@ -29,7 +29,7 @@
 
 #include <gio/gsocketaddressenumerator.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_PROXY_ADDRESS_ENUMERATOR         (g_proxy_address_enumerator_get_type ())
 #define G_PROXY_ADDRESS_ENUMERATOR(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_PROXY_ADDRESS_ENUMERATOR, GProxyAddressEnumerator))
@@ -68,8 +68,8 @@ struct _GProxyAddressEnumeratorClass
 };
 
 GIO_AVAILABLE_IN_ALL
-GType           g_proxy_address_enumerator_get_type    (void) G_GNUC_CONST;
+GType           g_proxy_address_enumerator_get_type    (void) ;
 
-G_END_DECLS
+
 
 #endif /* __G_PROXY_ADDRESS_ENUMERATOR_H__ */

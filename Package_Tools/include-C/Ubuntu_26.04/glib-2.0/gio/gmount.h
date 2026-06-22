@@ -30,7 +30,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_MOUNT            (g_mount_get_type ())
 #define G_MOUNT(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), G_TYPE_MOUNT, GMount))
@@ -164,7 +164,7 @@ struct _GMountIface
 };
 
 GIO_AVAILABLE_IN_ALL
-GType       g_mount_get_type                  (void) G_GNUC_CONST;
+GType       g_mount_get_type                  (void) ;
 
 GIO_AVAILABLE_IN_ALL
 GFile     * g_mount_get_root                  (GMount              *mount);
@@ -273,6 +273,6 @@ gboolean    g_mount_eject_with_operation_finish (GMount            *mount,
 GIO_AVAILABLE_IN_ALL
 const gchar *g_mount_get_sort_key             (GMount              *mount);
 
-G_END_DECLS
+
 
 #endif /* __G_MOUNT_H__ */

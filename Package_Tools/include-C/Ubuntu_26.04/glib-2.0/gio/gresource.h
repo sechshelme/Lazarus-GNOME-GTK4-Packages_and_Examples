@@ -29,7 +29,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * G_TYPE_RESOURCE:
@@ -62,7 +62,7 @@ struct _GStaticResource {
 };
 
 GIO_AVAILABLE_IN_2_32
-GType         g_resource_get_type            (void) G_GNUC_CONST;
+GType         g_resource_get_type            (void) ;
 GIO_AVAILABLE_IN_2_32
 GResource *   g_resource_new_from_data       (GBytes                *data,
 					      GError               **error);
@@ -133,6 +133,6 @@ void          g_static_resource_fini          (GStaticResource *static_resource)
 GIO_AVAILABLE_IN_2_32
 GResource    *g_static_resource_get_resource  (GStaticResource *static_resource);
 
-G_END_DECLS
+
 
 #endif /* __G_RESOURCE_H__ */

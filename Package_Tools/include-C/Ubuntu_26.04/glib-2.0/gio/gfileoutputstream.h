@@ -29,7 +29,7 @@
 
 #include <gio/goutputstream.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_FILE_OUTPUT_STREAM         (g_file_output_stream_get_type ())
 #define G_FILE_OUTPUT_STREAM(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_FILE_OUTPUT_STREAM, GFileOutputStream))
@@ -89,7 +89,7 @@ struct _GFileOutputStreamClass
 };
 
 GIO_AVAILABLE_IN_ALL
-GType      g_file_output_stream_get_type          (void) G_GNUC_CONST;
+GType      g_file_output_stream_get_type          (void) ;
 
 
 GIO_AVAILABLE_IN_ALL
@@ -111,6 +111,6 @@ GFileInfo *g_file_output_stream_query_info_finish (GFileOutputStream    *stream,
 GIO_AVAILABLE_IN_ALL
 char *     g_file_output_stream_get_etag          (GFileOutputStream    *stream);
 
-G_END_DECLS
+
 
 #endif /* __G_FILE_FILE_OUTPUT_STREAM_H__ */

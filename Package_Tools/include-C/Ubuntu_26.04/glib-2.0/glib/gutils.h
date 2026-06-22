@@ -34,27 +34,27 @@
 #include <glib/gtypes.h>
 #include <stdarg.h>
 
-G_BEGIN_DECLS
 
-GLIB_AVAILABLE_IN_ALL
+
+extern
 const gchar *         g_get_user_name        (void);
-GLIB_AVAILABLE_IN_ALL
+extern
 const gchar *         g_get_real_name        (void);
-GLIB_AVAILABLE_IN_ALL
+extern
 const gchar *         g_get_home_dir         (void);
-GLIB_AVAILABLE_IN_ALL
+extern
 const gchar *         g_get_tmp_dir          (void);
-GLIB_AVAILABLE_IN_ALL
+extern
 const gchar *         g_get_host_name	     (void);
-GLIB_AVAILABLE_IN_ALL
+extern
 const gchar *         g_get_prgname          (void);
-GLIB_AVAILABLE_IN_ALL
+extern
 void                  g_set_prgname          (const gchar *prgname);
-GLIB_AVAILABLE_IN_ALL
+extern
 const gchar *         g_get_application_name (void);
-GLIB_AVAILABLE_IN_ALL
+extern
 void                  g_set_application_name (const gchar *application_name);
-GLIB_AVAILABLE_IN_2_64
+extern
 gchar *               g_get_os_info          (const gchar *key_name);
 
 /**
@@ -178,22 +178,22 @@ gchar *               g_get_os_info          (const gchar *key_name);
     GLIB_AVAILABLE_MACRO_IN_2_64 \
     "PRIVACY_POLICY_URL"
 
-GLIB_AVAILABLE_IN_ALL
+extern
 void      g_reload_user_special_dirs_cache     (void);
-GLIB_AVAILABLE_IN_ALL
+extern
 const gchar *         g_get_user_data_dir      (void);
-GLIB_AVAILABLE_IN_ALL
+extern
 const gchar *         g_get_user_config_dir    (void);
-GLIB_AVAILABLE_IN_ALL
+extern
 const gchar *         g_get_user_cache_dir     (void);
-GLIB_AVAILABLE_IN_2_72
+extern
 const gchar *         g_get_user_state_dir     (void);
-GLIB_AVAILABLE_IN_ALL
+extern
 const gchar * const * g_get_system_data_dirs   (void);
 
 #ifdef G_OS_WIN32
 /* This function is not part of the public GLib API */
-GLIB_AVAILABLE_IN_ALL
+extern
 const gchar * const * g_win32_get_system_data_dirs_for_module (void (*address_of_function)(void));
 #endif
 
@@ -210,10 +210,10 @@ _g_win32_get_system_data_dirs (void)
 #define g_get_system_data_dirs _g_win32_get_system_data_dirs
 #endif
 
-GLIB_AVAILABLE_IN_ALL
+extern
 const gchar * const * g_get_system_config_dirs (void);
 
-GLIB_AVAILABLE_IN_ALL
+extern
 const gchar * g_get_user_runtime_dir (void);
 
 /**
@@ -251,7 +251,7 @@ typedef enum {
   G_USER_N_DIRECTORIES
 } GUserDirectory;
 
-GLIB_AVAILABLE_IN_ALL
+extern
 const gchar * g_get_user_special_dir (GUserDirectory directory);
 
 /**
@@ -271,24 +271,24 @@ struct _GDebugKey
 
 /* Miscellaneous utility functions
  */
-GLIB_AVAILABLE_IN_ALL
+extern
 guint                 g_parse_debug_string (const gchar     *string,
 					    const GDebugKey *keys,
 					    guint            nkeys);
 
-GLIB_AVAILABLE_IN_ALL
+extern
 gint                  g_snprintf           (gchar       *string,
 					    gulong       n,
 					    gchar const *format,
-					    ...) G_GNUC_PRINTF (3, 4);
-GLIB_AVAILABLE_IN_ALL
+					    ...) ; (3, 4);
+extern
 gint                  g_vsnprintf          (gchar       *string,
 					    gulong       n,
 					    gchar const *format,
 					    va_list      args)
-					    G_GNUC_PRINTF(3, 0);
+					    ;(3, 0);
 
-GLIB_AVAILABLE_IN_ALL
+extern
 void                  g_nullify_pointer    (gpointer    *nullify_location);
 
 typedef enum
@@ -299,15 +299,15 @@ typedef enum
   G_FORMAT_SIZE_BITS        = 1 << 2,
   G_FORMAT_SIZE_ONLY_VALUE GLIB_AVAILABLE_ENUMERATOR_IN_2_74 = 1 << 3,
   G_FORMAT_SIZE_ONLY_UNIT GLIB_AVAILABLE_ENUMERATOR_IN_2_74 = 1 << 4
-} G_GNUC_FLAG_ENUM GFormatSizeFlags;
+}  GFormatSizeFlags;
 
-GLIB_AVAILABLE_IN_2_30
+extern
 gchar *g_format_size_full   (guint64          size,
                              GFormatSizeFlags flags);
-GLIB_AVAILABLE_IN_2_30
+extern
 gchar *g_format_size        (guint64          size);
 
-GLIB_DEPRECATED_IN_2_30_FOR(g_format_size)
+extern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxGLIB_DEPRECATED_IN_2_30_FOR(g_format_size)
 gchar *g_format_size_for_display (goffset size);
 
 #define g_ATEXIT(proc)	(atexit (proc)) GLIB_DEPRECATED_MACRO_IN_2_32
@@ -324,10 +324,10 @@ gchar *g_format_size_for_display (goffset size);
 typedef void (*GVoidFunc) (void) GLIB_DEPRECATED_TYPE_IN_2_32;
 #define ATEXIT(proc) g_ATEXIT(proc) GLIB_DEPRECATED_MACRO_IN_2_32
 
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+
 GLIB_DEPRECATED
 void	g_atexit		(GVoidFunc    func);
-G_GNUC_END_IGNORE_DEPRECATIONS
+
 
 #ifdef G_OS_WIN32
 /* It's a bad idea to wrap atexit() on Windows. If the GLib DLL calls
@@ -344,7 +344,7 @@ int atexit (void (*)(void));
 
 
 /* Look for an executable in PATH, following execvp() rules */
-GLIB_AVAILABLE_IN_ALL
+extern
 gchar*  g_find_program_in_path  (const gchar *program);
 
 /* Bit tests
@@ -362,13 +362,13 @@ gchar*  g_find_program_in_path  (const gchar *program);
 #define g_bit_nth_msf(mask, nth_bit) g_bit_nth_msf_impl(mask, nth_bit)
 #define g_bit_storage(number)        g_bit_storage_impl(number)
 
-GLIB_AVAILABLE_IN_ALL
+extern
 gint    (g_bit_nth_lsf)         (gulong mask,
                                  gint   nth_bit);
-GLIB_AVAILABLE_IN_ALL
+extern
 gint    (g_bit_nth_msf)         (gulong mask,
                                  gint   nth_bit);
-GLIB_AVAILABLE_IN_ALL
+extern
 guint   (g_bit_storage)         (gulong number);
 
 static inline gint
@@ -426,7 +426,7 @@ g_bit_storage_impl (gulong number)
 #  include <stdlib.h>
 #  define g_abort() abort ()
 #else
-G_NORETURN GLIB_AVAILABLE_IN_2_50 void g_abort (void) G_ANALYZER_NORETURN;
+G_NORETURN extern void g_abort (void) G_ANALYZER_NORETURN;
 #endif
 #endif
 
@@ -474,6 +474,6 @@ DllMain (HINSTANCE hinstDLL,						\
 } GLIB_DEPRECATED_MACRO_IN_2_26
 #endif /* G_PLATFORM_WIN32 */
 
-G_END_DECLS
+
 
 #endif /* __G_UTILS_H__ */

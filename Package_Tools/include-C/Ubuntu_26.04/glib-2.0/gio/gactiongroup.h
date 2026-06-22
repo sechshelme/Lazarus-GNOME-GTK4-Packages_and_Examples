@@ -28,7 +28,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 
 #define G_TYPE_ACTION_GROUP                                 (g_action_group_get_type ())
@@ -97,7 +97,7 @@ struct _GActionGroupInterface
 };
 
 GIO_AVAILABLE_IN_ALL
-GType                   g_action_group_get_type                         (void) G_GNUC_CONST;
+GType                   g_action_group_get_type                         (void) ;
 
 GIO_AVAILABLE_IN_ALL
 gboolean                g_action_group_has_action                       (GActionGroup *action_group,
@@ -156,8 +156,8 @@ gboolean                g_action_group_query_action                     (GAction
                                                                          const GVariantType **parameter_type,
                                                                          const GVariantType **state_type,
                                                                          GVariant           **state_hint,
-                                                                         GVariant           **state) G_GNUC_WARN_UNUSED_RESULT;
+                                                                         GVariant           **state) ;
 
-G_END_DECLS
+
 
 #endif /* __G_ACTION_GROUP_H__ */

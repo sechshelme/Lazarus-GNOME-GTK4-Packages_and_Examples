@@ -31,7 +31,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_PROXY		(g_proxy_get_type ())
 #define G_PROXY(o)		(G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_PROXY, GProxy))
@@ -90,7 +90,7 @@ struct _GProxyInterface
 };
 
 GIO_AVAILABLE_IN_ALL
-GType      g_proxy_get_type                 (void) G_GNUC_CONST;
+GType      g_proxy_get_type                 (void) ;
 
 GIO_AVAILABLE_IN_ALL
 GProxy    *g_proxy_get_default_for_protocol (const gchar *protocol);
@@ -118,6 +118,6 @@ GIOStream *g_proxy_connect_finish    (GProxy               *proxy,
 GIO_AVAILABLE_IN_ALL
 gboolean   g_proxy_supports_hostname (GProxy               *proxy);
 
-G_END_DECLS
+
 
 #endif /* __G_PROXY_H__ */

@@ -29,14 +29,14 @@
 #include <gio/giotypes.h>
 #include <gio/gioenums.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_NOTIFICATION         (g_notification_get_type ())
 #define G_NOTIFICATION(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_NOTIFICATION, GNotification))
 #define G_IS_NOTIFICATION(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), G_TYPE_NOTIFICATION))
 
 GIO_AVAILABLE_IN_2_40
-GType                   g_notification_get_type                         (void) G_GNUC_CONST;
+GType                   g_notification_get_type                         (void) ;
 
 GIO_AVAILABLE_IN_2_40
 GNotification *         g_notification_new                              (const gchar *title);
@@ -98,6 +98,6 @@ void                 g_notification_set_default_action_and_target_value (GNotifi
                                                                          const gchar   *action,
                                                                          GVariant      *target);
 
-G_END_DECLS
+
 
 #endif

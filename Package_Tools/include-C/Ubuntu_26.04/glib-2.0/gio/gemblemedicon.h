@@ -31,7 +31,7 @@
 #include <gio/gicon.h>
 #include <gio/gemblem.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_EMBLEMED_ICON         (g_emblemed_icon_get_type ())
 #define G_EMBLEMED_ICON(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_EMBLEMED_ICON, GEmblemedIcon))
@@ -58,7 +58,7 @@ struct _GEmblemedIconClass
 };
 
 GIO_AVAILABLE_IN_ALL
-GType  g_emblemed_icon_get_type    (void) G_GNUC_CONST;
+GType  g_emblemed_icon_get_type    (void) ;
 
 GIO_AVAILABLE_IN_ALL
 GIcon *g_emblemed_icon_new         (GIcon         *icon,
@@ -73,6 +73,6 @@ void   g_emblemed_icon_add_emblem  (GEmblemedIcon *emblemed,
 GIO_AVAILABLE_IN_ALL
 void   g_emblemed_icon_clear_emblems  (GEmblemedIcon *emblemed);
 
-G_END_DECLS
+
 
 #endif /* __G_EMBLEMED_ICON_H__ */

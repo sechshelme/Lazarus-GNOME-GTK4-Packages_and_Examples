@@ -29,7 +29,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TLS_DATABASE_PURPOSE_AUTHENTICATE_SERVER "1.3.6.1.5.5.7.3.1"
 #define G_TLS_DATABASE_PURPOSE_AUTHENTICATE_CLIENT "1.3.6.1.5.5.7.3.2"
@@ -146,7 +146,7 @@ struct _GTlsDatabaseClass
 };
 
 GIO_AVAILABLE_IN_ALL
-GType                g_tls_database_get_type                              (void) G_GNUC_CONST;
+GType                g_tls_database_get_type                              (void) ;
 
 GIO_AVAILABLE_IN_ALL
 GTlsCertificateFlags g_tls_database_verify_chain                          (GTlsDatabase            *self,
@@ -244,6 +244,6 @@ GList*               g_tls_database_lookup_certificates_issued_by_finish   (GTls
                                                                             GAsyncResult            *result,
                                                                             GError                 **error);
 
-G_END_DECLS
+
 
 #endif /* __G_TLS_DATABASE_H__ */

@@ -27,7 +27,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_TASK         (g_task_get_type ())
 #define G_TASK(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_TASK, GTask))
@@ -39,7 +39,7 @@ G_BEGIN_DECLS
 typedef struct _GTaskClass   GTaskClass;
 
 GIO_AVAILABLE_IN_2_36
-GType         g_task_get_type              (void) G_GNUC_CONST;
+GType         g_task_get_type              (void) ;
 
 GIO_AVAILABLE_IN_2_36
 GTask        *g_task_new                   (gpointer             source_object,
@@ -61,7 +61,7 @@ void          g_task_report_new_error      (gpointer             source_object,
                                             GQuark               domain,
                                             gint                 code,
                                             const char          *format,
-                                            ...) G_GNUC_PRINTF(7, 8);
+                                            ...) ;(7, 8);
 
 GIO_AVAILABLE_IN_2_36
 void          g_task_set_task_data         (GTask               *task,
@@ -167,14 +167,14 @@ GIO_AVAILABLE_IN_2_80
 void          g_task_return_prefixed_error     (GTask           *task,
                                                 GError          *error,
                                                 const char      *format,
-                                                ...) G_GNUC_PRINTF (3, 4);
+                                                ...) ; (3, 4);
 
 GIO_AVAILABLE_IN_2_36
 void          g_task_return_new_error          (GTask           *task,
                                                 GQuark           domain,
                                                 gint             code,
                                                 const char      *format,
-                                                ...) G_GNUC_PRINTF (4, 5);
+                                                ...) ; (4, 5);
 
 GIO_AVAILABLE_IN_2_80
 void          g_task_return_new_error_literal  (GTask           *task,
@@ -214,6 +214,6 @@ void g_task_print_alive_tasks (void);
 #endif /* !__GI_SCANNER__ */
 #endif  /* !__GTK_DOC_IGNORE__ */
 
-G_END_DECLS
+
 
 #endif /* __G_TASK_H__ */

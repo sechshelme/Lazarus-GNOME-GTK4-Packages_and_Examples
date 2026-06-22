@@ -30,7 +30,7 @@
 #include <gio/giotypes.h>
 #include <gmodule.h>
 
-G_BEGIN_DECLS
+
 
 typedef struct _GIOModuleScope GIOModuleScope;
 
@@ -52,7 +52,7 @@ void               g_io_module_scope_block   (GIOModuleScope      *scope,
 typedef struct _GIOModuleClass GIOModuleClass;
 
 GIO_AVAILABLE_IN_ALL
-GType              g_io_module_get_type                       (void) G_GNUC_CONST;
+GType              g_io_module_get_type                       (void) ;
 GIO_AVAILABLE_IN_ALL
 GIOModule         *g_io_module_new                            (const gchar       *filename);
 
@@ -189,6 +189,6 @@ void   g_io_module_unload (GIOModule *module);
 G_MODULE_EXPORT
 char **g_io_module_query (void);
 
-G_END_DECLS
+
 
 #endif /* __G_IO_MODULE_H__ */

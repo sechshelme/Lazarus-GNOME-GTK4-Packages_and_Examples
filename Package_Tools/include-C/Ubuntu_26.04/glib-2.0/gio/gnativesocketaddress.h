@@ -30,7 +30,7 @@
 
 #include <gio/gsocketaddress.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_NATIVE_SOCKET_ADDRESS         (g_native_socket_address_get_type ())
 #define G_NATIVE_SOCKET_ADDRESS(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_NATIVE_SOCKET_ADDRESS, GNativeSocketAddress))
@@ -56,12 +56,12 @@ struct _GNativeSocketAddressClass
 };
 
 GIO_AVAILABLE_IN_2_46
-GType           g_native_socket_address_get_type        (void) G_GNUC_CONST;
+GType           g_native_socket_address_get_type        (void) ;
 
 GIO_AVAILABLE_IN_2_46
 GSocketAddress *g_native_socket_address_new            (gpointer        native,
                                                         gsize           len);
 
-G_END_DECLS
+
 
 #endif /* __G_NATIVE_SOCKET_ADDRESS_H__ */

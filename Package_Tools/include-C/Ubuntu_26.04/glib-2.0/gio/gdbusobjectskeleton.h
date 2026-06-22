@@ -25,7 +25,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_DBUS_OBJECT_SKELETON         (g_dbus_object_skeleton_get_type ())
 #define G_DBUS_OBJECT_SKELETON(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_DBUS_OBJECT_SKELETON, GDBusObjectSkeleton))
@@ -67,7 +67,7 @@ struct _GDBusObjectSkeletonClass
 };
 
 GIO_AVAILABLE_IN_ALL
-GType                g_dbus_object_skeleton_get_type                  (void) G_GNUC_CONST;
+GType                g_dbus_object_skeleton_get_type                  (void) ;
 GIO_AVAILABLE_IN_ALL
 GDBusObjectSkeleton *g_dbus_object_skeleton_new                       (const gchar            *object_path);
 GIO_AVAILABLE_IN_ALL
@@ -85,6 +85,6 @@ GIO_AVAILABLE_IN_ALL
 void                 g_dbus_object_skeleton_set_object_path           (GDBusObjectSkeleton    *object,
                                                                        const gchar            *object_path);
 
-G_END_DECLS
+
 
 #endif /* __G_DBUS_OBJECT_SKELETON_H */

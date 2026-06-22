@@ -30,7 +30,7 @@
 #include <glib.h>
 #include <gmodule/gmodule-visibility.h>
 
-G_BEGIN_DECLS
+
 
 /* exporting and importing functions, this is special cased
  * to feature Windows dll stubs.
@@ -65,7 +65,7 @@ typedef enum
   G_MODULE_BIND_LAZY	= 1 << 0,
   G_MODULE_BIND_LOCAL	= 1 << 1,
   G_MODULE_BIND_MASK	= 0x03
-} G_GNUC_FLAG_ENUM GModuleFlags;
+}  GModuleFlags;
 
 typedef	struct _GModule			 GModule;
 typedef const gchar* (*GModuleCheckInit) (GModule	*module);
@@ -93,7 +93,7 @@ GMODULE_AVAILABLE_ENUMERATOR_IN_2_70;
 
 /* return TRUE if dynamic module loading is supported */
 GMODULE_AVAILABLE_IN_ALL
-gboolean	g_module_supported	   (void) G_GNUC_CONST;
+gboolean	g_module_supported	   (void) ;
 
 /* open a module 'file_name' and return handle, which is NULL on error */
 GMODULE_AVAILABLE_IN_ALL
@@ -142,6 +142,6 @@ GMODULE_DEPRECATED_IN_2_76
 gchar*                g_module_build_path    (const gchar  *directory,
 					      const gchar  *module_name);
 
-G_END_DECLS
+
 
 #endif /* __GMODULE_H__ */

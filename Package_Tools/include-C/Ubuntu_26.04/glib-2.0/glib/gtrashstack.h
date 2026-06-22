@@ -33,9 +33,9 @@
 
 #include <glib/gutils.h>
 
-G_BEGIN_DECLS
 
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+
+
 
 typedef struct _GTrashStack GTrashStack GLIB_DEPRECATED_TYPE_IN_2_48;
 struct _GTrashStack
@@ -43,18 +43,18 @@ struct _GTrashStack
   GTrashStack *next;
 } GLIB_DEPRECATED_TYPE_IN_2_48;
 
-GLIB_DEPRECATED_IN_2_48
+extern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxGLIB_DEPRECATED_IN_2_48
 void      g_trash_stack_push   (GTrashStack **stack_p,
                                 gpointer      data_p);
-GLIB_DEPRECATED_IN_2_48
+extern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxGLIB_DEPRECATED_IN_2_48
 gpointer  g_trash_stack_pop    (GTrashStack **stack_p);
-GLIB_DEPRECATED_IN_2_48
+extern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxGLIB_DEPRECATED_IN_2_48
 gpointer  g_trash_stack_peek   (GTrashStack **stack_p);
-GLIB_DEPRECATED_IN_2_48
+extern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxGLIB_DEPRECATED_IN_2_48
 guint     g_trash_stack_height (GTrashStack **stack_p);
 
-G_GNUC_END_IGNORE_DEPRECATIONS
 
-G_END_DECLS
+
+
 
 #endif /* __G_TRASH_STACK_H_ */

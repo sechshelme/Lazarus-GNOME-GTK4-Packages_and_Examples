@@ -25,7 +25,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_DBUS_OBJECT_PROXY         (g_dbus_object_proxy_get_type ())
 #define G_DBUS_OBJECT_PROXY(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_DBUS_OBJECT_PROXY, GDBusObjectProxy))
@@ -61,13 +61,13 @@ struct _GDBusObjectProxyClass
 };
 
 GIO_AVAILABLE_IN_ALL
-GType             g_dbus_object_proxy_get_type       (void) G_GNUC_CONST;
+GType             g_dbus_object_proxy_get_type       (void) ;
 GIO_AVAILABLE_IN_ALL
 GDBusObjectProxy *g_dbus_object_proxy_new            (GDBusConnection   *connection,
                                                       const gchar       *object_path);
 GIO_AVAILABLE_IN_ALL
 GDBusConnection  *g_dbus_object_proxy_get_connection (GDBusObjectProxy  *proxy);
 
-G_END_DECLS
+
 
 #endif /* __G_DBUS_OBJECT_PROXY_H */

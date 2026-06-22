@@ -25,7 +25,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_DBUS_OBJECT         (g_dbus_object_get_type())
 #define G_DBUS_OBJECT(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_DBUS_OBJECT, GDBusObject))
@@ -66,7 +66,7 @@ struct _GDBusObjectIface
 };
 
 GIO_AVAILABLE_IN_ALL
-GType            g_dbus_object_get_type        (void) G_GNUC_CONST;
+GType            g_dbus_object_get_type        (void) ;
 GIO_AVAILABLE_IN_ALL
 const gchar     *g_dbus_object_get_object_path (GDBusObject  *object);
 GIO_AVAILABLE_IN_ALL
@@ -75,6 +75,6 @@ GIO_AVAILABLE_IN_ALL
 GDBusInterface  *g_dbus_object_get_interface   (GDBusObject  *object,
                                                 const gchar  *interface_name);
 
-G_END_DECLS
+
 
 #endif /* __G_DBUS_OBJECT_H__ */

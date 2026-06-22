@@ -29,7 +29,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_APP_INFO            (g_app_info_get_type ())
 #define G_APP_INFO(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), G_TYPE_APP_INFO, GAppInfo))
@@ -155,7 +155,7 @@ struct _GAppInfoIface
 };
 
 GIO_AVAILABLE_IN_ALL
-GType       g_app_info_get_type                     (void) G_GNUC_CONST;
+GType       g_app_info_get_type                     (void) ;
 GIO_AVAILABLE_IN_ALL
 GAppInfo *  g_app_info_create_from_commandline      (const char           *commandline,
                                                      const char           *application_name,
@@ -332,7 +332,7 @@ struct _GAppLaunchContextClass
 };
 
 GIO_AVAILABLE_IN_ALL
-GType              g_app_launch_context_get_type              (void) G_GNUC_CONST;
+GType              g_app_launch_context_get_type              (void) ;
 GIO_AVAILABLE_IN_ALL
 GAppLaunchContext *g_app_launch_context_new                   (void);
 
@@ -372,6 +372,6 @@ GType                   g_app_info_monitor_get_type                     (void);
 GIO_AVAILABLE_IN_2_40
 GAppInfoMonitor *       g_app_info_monitor_get                          (void);
 
-G_END_DECLS
+
 
 #endif /* __G_APP_INFO_H__ */

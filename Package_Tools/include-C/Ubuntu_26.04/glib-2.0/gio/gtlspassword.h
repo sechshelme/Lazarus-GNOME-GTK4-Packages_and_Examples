@@ -29,7 +29,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_TLS_PASSWORD         (g_tls_password_get_type ())
 #define G_TLS_PASSWORD(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_TLS_PASSWORD, GTlsPassword))
@@ -79,7 +79,7 @@ struct _GTlsPasswordClass
 };
 
 GIO_AVAILABLE_IN_ALL
-GType             g_tls_password_get_type            (void) G_GNUC_CONST;
+GType             g_tls_password_get_type            (void) ;
 
 GIO_AVAILABLE_IN_ALL
 GTlsPassword *    g_tls_password_new                 (GTlsPasswordFlags  flags,
@@ -116,6 +116,6 @@ GIO_AVAILABLE_IN_ALL
 void              g_tls_password_set_warning         (GTlsPassword      *password,
                                                       const gchar       *warning);
 
-G_END_DECLS
+
 
 #endif /* __G_TLS_PASSWORD_H__ */

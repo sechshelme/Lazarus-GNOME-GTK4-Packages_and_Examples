@@ -33,7 +33,7 @@
 
 #include <glib/glist.h>
 
-G_BEGIN_DECLS
+
 
 typedef struct _GCache          GCache GLIB_DEPRECATED_TYPE_IN_2_26_FOR(GHashTable);
 
@@ -41,7 +41,7 @@ typedef gpointer        (*GCacheNewFunc)        (gpointer       key) GLIB_DEPREC
 typedef gpointer        (*GCacheDupFunc)        (gpointer       value) GLIB_DEPRECATED_TYPE_IN_2_26;
 typedef void            (*GCacheDestroyFunc)    (gpointer       value) GLIB_DEPRECATED_TYPE_IN_2_26;
 
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+
 
 /* Caches
  */
@@ -70,8 +70,8 @@ void     g_cache_value_foreach (GCache            *cache,
                                 GHFunc             func,
                                 gpointer           user_data);
 
-G_GNUC_END_IGNORE_DEPRECATIONS
 
-G_END_DECLS
+
+
 
 #endif /* __G_CACHE_H__ */

@@ -29,7 +29,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GBusNameAppearedCallback:
@@ -99,6 +99,6 @@ guint g_bus_watch_name_on_connection_with_closures (
 GIO_AVAILABLE_IN_ALL
 void  g_bus_unwatch_name             (guint                     watcher_id);
 
-G_END_DECLS
+
 
 #endif /* __G_DBUS_NAME_WATCHING_H__ */

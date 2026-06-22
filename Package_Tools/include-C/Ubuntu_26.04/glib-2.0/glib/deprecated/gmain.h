@@ -33,7 +33,7 @@
 
 #include <glib/gmain.h>
 
-G_BEGIN_DECLS
+
 
 /* ============== Compat main loop stuff ================== */
 
@@ -132,6 +132,6 @@ G_BEGIN_DECLS
  */
 #define g_main_set_poll_func(func)  g_main_context_set_poll_func (NULL, func) GLIB_DEPRECATED_MACRO_IN_2_26_FOR(g_main_context_set_poll_func)
 
-G_END_DECLS
+
 
 #endif /* __G_DEPRECATED_MAIN_H__ */

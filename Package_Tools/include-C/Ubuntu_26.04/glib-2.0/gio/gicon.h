@@ -29,7 +29,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_ICON            (g_icon_get_type ())
 #define G_ICON(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), G_TYPE_ICON, GIcon))
@@ -105,7 +105,7 @@ struct _GIconIface
 };
 
 GIO_AVAILABLE_IN_ALL
-GType    g_icon_get_type  (void) G_GNUC_CONST;
+GType    g_icon_get_type  (void) ;
 
 GIO_AVAILABLE_IN_ALL
 guint    g_icon_hash            (gconstpointer  icon);
@@ -123,6 +123,6 @@ GVariant * g_icon_serialize     (GIcon         *icon);
 GIO_AVAILABLE_IN_2_38
 GIcon *    g_icon_deserialize   (GVariant      *value);
 
-G_END_DECLS
+
 
 #endif /* __G_ICON_H__ */

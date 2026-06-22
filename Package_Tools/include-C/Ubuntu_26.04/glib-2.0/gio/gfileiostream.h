@@ -29,7 +29,7 @@
 
 #include <gio/giostream.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_FILE_IO_STREAM         (g_file_io_stream_get_type ())
 #define G_FILE_IO_STREAM(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_FILE_IO_STREAM, GFileIOStream))
@@ -89,7 +89,7 @@ struct _GFileIOStreamClass
 };
 
 GIO_AVAILABLE_IN_ALL
-GType      g_file_io_stream_get_type          (void) G_GNUC_CONST;
+GType      g_file_io_stream_get_type          (void) ;
 
 GIO_AVAILABLE_IN_ALL
 GFileInfo *g_file_io_stream_query_info        (GFileIOStream    *stream,
@@ -110,6 +110,6 @@ GFileInfo *g_file_io_stream_query_info_finish (GFileIOStream    *stream,
 GIO_AVAILABLE_IN_ALL
 char *     g_file_io_stream_get_etag          (GFileIOStream    *stream);
 
-G_END_DECLS
+
 
 #endif /* __G_FILE_FILE_IO_STREAM_H__ */

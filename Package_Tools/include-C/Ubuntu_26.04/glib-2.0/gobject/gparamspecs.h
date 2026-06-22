@@ -30,7 +30,7 @@
 #include        <gobject/gboxed.h>
 #include        <gobject/gobject.h>
 
-G_BEGIN_DECLS
+
 
 /* --- type macros --- */
 /**
@@ -1146,6 +1146,6 @@ GParamSpec*	g_param_spec_variant	 (const gchar        *name,
 
 GOBJECT_VAR GType *g_param_spec_types;
 
-G_END_DECLS
+
 
 #endif /* __G_PARAMSPECS_H__ */

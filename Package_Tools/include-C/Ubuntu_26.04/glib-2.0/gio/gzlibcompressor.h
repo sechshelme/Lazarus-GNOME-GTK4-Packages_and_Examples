@@ -30,7 +30,7 @@
 #include <gio/gconverter.h>
 #include <gio/gfileinfo.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_ZLIB_COMPRESSOR         (g_zlib_compressor_get_type ())
 #define G_ZLIB_COMPRESSOR(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_ZLIB_COMPRESSOR, GZlibCompressor))
@@ -47,7 +47,7 @@ struct _GZlibCompressorClass
 };
 
 GIO_AVAILABLE_IN_ALL
-GType            g_zlib_compressor_get_type (void) G_GNUC_CONST;
+GType            g_zlib_compressor_get_type (void) ;
 
 GIO_AVAILABLE_IN_ALL
 GZlibCompressor *g_zlib_compressor_new (GZlibCompressorFormat format,
@@ -65,6 +65,6 @@ GIO_AVAILABLE_IN_2_86
 void             g_zlib_compressor_set_os        (GZlibCompressor *compressor,
                                                   int              os);
 
-G_END_DECLS
+
 
 #endif /* __G_ZLIB_COMPRESSOR_H__ */

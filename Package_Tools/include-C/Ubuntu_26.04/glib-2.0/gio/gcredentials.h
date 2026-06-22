@@ -35,7 +35,7 @@
 #include <sys/types.h>
 #endif
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_CREDENTIALS         (g_credentials_get_type ())
 #define G_CREDENTIALS(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_CREDENTIALS, GCredentials))
@@ -47,7 +47,7 @@ G_BEGIN_DECLS
 typedef struct _GCredentialsClass   GCredentialsClass;
 
 GIO_AVAILABLE_IN_ALL
-GType            g_credentials_get_type           (void) G_GNUC_CONST;
+GType            g_credentials_get_type           (void) ;
 
 GIO_AVAILABLE_IN_ALL
 GCredentials    *g_credentials_new                (void);
@@ -82,6 +82,6 @@ gboolean         g_credentials_set_unix_user      (GCredentials    *credentials,
                                                    GError         **error);
 #endif
 
-G_END_DECLS
+
 
 #endif /* __G_CREDENTIALS_H__ */

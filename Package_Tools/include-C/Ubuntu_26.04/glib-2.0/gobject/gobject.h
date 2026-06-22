@@ -30,7 +30,7 @@
 #include        <gobject/gsignal.h>
 #include        <gobject/gboxed.h>
 
-G_BEGIN_DECLS
+
 
 /* --- type macros --- */
 /**
@@ -427,7 +427,7 @@ GParamSpec**g_object_interface_list_properties  (gpointer     g_iface,
 						 guint       *n_properties_p);
 
 GOBJECT_AVAILABLE_IN_ALL
-GType       g_object_get_type                 (void) G_GNUC_CONST;
+GType       g_object_get_type                 (void) ;
 GOBJECT_AVAILABLE_IN_ALL
 gpointer    g_object_new                      (GType           object_type,
 					       const gchar    *first_property_name,
@@ -438,14 +438,14 @@ GObject*    g_object_new_with_properties      (GType           object_type,
                                                const char     *names[],
                                                const GValue    values[]);
 
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+
 
 GOBJECT_DEPRECATED_IN_2_54_FOR(g_object_new_with_properties)
 gpointer    g_object_newv		      (GType           object_type,
 					       guint	       n_parameters,
 					       GParameter     *parameters);
 
-G_GNUC_END_IGNORE_DEPRECATIONS
+
 
 GOBJECT_AVAILABLE_IN_ALL
 GObject*    g_object_new_valist               (GType           object_type,
@@ -454,19 +454,19 @@ GObject*    g_object_new_valist               (GType           object_type,
 GOBJECT_AVAILABLE_IN_ALL
 void	    g_object_set                      (gpointer	       object,
 					       const gchar    *first_property_name,
-					       ...) G_GNUC_NULL_TERMINATED;
+					       ...) ;
 GOBJECT_AVAILABLE_IN_ALL
 void        g_object_get                      (gpointer        object,
 					       const gchar    *first_property_name,
-					       ...) G_GNUC_NULL_TERMINATED;
+					       ...) ;
 GOBJECT_AVAILABLE_IN_ALL
 gpointer    g_object_connect                  (gpointer	       object,
 					       const gchar    *signal_spec,
-					       ...) G_GNUC_NULL_TERMINATED;
+					       ...) ;
 GOBJECT_AVAILABLE_IN_ALL
 void	    g_object_disconnect               (gpointer	       object,
 					       const gchar    *signal_spec,
-					       ...) G_GNUC_NULL_TERMINATED;
+					       ...) ;
 GOBJECT_AVAILABLE_IN_2_54
 void        g_object_setv                     (GObject        *object,
                                                guint           n_properties,
@@ -933,6 +933,6 @@ GOBJECT_AVAILABLE_IN_ALL
 void     g_weak_ref_set        (GWeakRef *weak_ref,
                                 gpointer  object);
 
-G_END_DECLS
+
 
 #endif /* __G_OBJECT_H__ */

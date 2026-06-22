@@ -35,10 +35,10 @@
 #include <glib/gerror.h>
 #include <glib/gutils.h>
 
-G_BEGIN_DECLS
+
 
 #define G_THREAD_ERROR g_thread_error_quark ()
-GLIB_AVAILABLE_IN_ALL
+extern
 GQuark g_thread_error_quark (void);
 
 typedef enum
@@ -104,8 +104,8 @@ typedef enum
 #define G_ONCE_INIT { G_ONCE_STATUS_NOTCALLED, NULL }
 struct _GOnce
 {
-  volatile GOnceStatus status;
-  volatile gpointer retval;
+   GOnceStatus status;
+   gpointer retval;
 };
 
 #define G_LOCK_NAME(name)             g__ ## name ## _lock
@@ -143,108 +143,108 @@ struct _GOnce
 #define G_AUTO_LOCK(name) G_MUTEX_AUTO_LOCK (&G_LOCK_NAME (name), g__##name##_locker)
 #endif /* g_autoptr */
 
-GLIB_AVAILABLE_IN_2_32
+extern
 GThread *       g_thread_ref                    (GThread        *thread);
-GLIB_AVAILABLE_IN_2_32
+extern
 void            g_thread_unref                  (GThread        *thread);
-GLIB_AVAILABLE_IN_2_32
+extern
 GThread *       g_thread_new                    (const gchar    *name,
                                                  GThreadFunc     func,
                                                  gpointer        data);
-GLIB_AVAILABLE_IN_2_32
+extern
 GThread *       g_thread_try_new                (const gchar    *name,
                                                  GThreadFunc     func,
                                                  gpointer        data,
                                                  GError        **error);
-GLIB_AVAILABLE_IN_ALL
+extern
 GThread *       g_thread_self                   (void);
-G_NORETURN GLIB_AVAILABLE_IN_ALL
+G_NORETURN extern
 void            g_thread_exit                   (gpointer        retval);
-GLIB_AVAILABLE_IN_ALL
+extern
 gpointer        g_thread_join                   (GThread        *thread);
-GLIB_AVAILABLE_IN_ALL
+extern
 void            g_thread_yield                  (void);
 
-GLIB_AVAILABLE_IN_2_84
+extern
 const char *    g_thread_get_name               (GThread        *thread);
 
-GLIB_AVAILABLE_IN_2_32
+extern
 void            g_mutex_init                    (GMutex         *mutex);
-GLIB_AVAILABLE_IN_2_32
+extern
 void            g_mutex_clear                   (GMutex         *mutex);
-GLIB_AVAILABLE_IN_ALL
+extern
 void            g_mutex_lock                    (GMutex         *mutex);
-GLIB_AVAILABLE_IN_ALL
+extern
 gboolean        g_mutex_trylock                 (GMutex         *mutex);
-GLIB_AVAILABLE_IN_ALL
+extern
 void            g_mutex_unlock                  (GMutex         *mutex);
 
-GLIB_AVAILABLE_IN_2_32
+extern
 void            g_rw_lock_init                  (GRWLock        *rw_lock);
-GLIB_AVAILABLE_IN_2_32
+extern
 void            g_rw_lock_clear                 (GRWLock        *rw_lock);
-GLIB_AVAILABLE_IN_2_32
+extern
 void            g_rw_lock_writer_lock           (GRWLock        *rw_lock);
-GLIB_AVAILABLE_IN_2_32
+extern
 gboolean        g_rw_lock_writer_trylock        (GRWLock        *rw_lock);
-GLIB_AVAILABLE_IN_2_32
+extern
 void            g_rw_lock_writer_unlock         (GRWLock        *rw_lock);
-GLIB_AVAILABLE_IN_2_32
+extern
 void            g_rw_lock_reader_lock           (GRWLock        *rw_lock);
-GLIB_AVAILABLE_IN_2_32
+extern
 gboolean        g_rw_lock_reader_trylock        (GRWLock        *rw_lock);
-GLIB_AVAILABLE_IN_2_32
+extern
 void            g_rw_lock_reader_unlock         (GRWLock        *rw_lock);
 
-GLIB_AVAILABLE_IN_2_32
+extern
 void            g_rec_mutex_init                (GRecMutex      *rec_mutex);
-GLIB_AVAILABLE_IN_2_32
+extern
 void            g_rec_mutex_clear               (GRecMutex      *rec_mutex);
-GLIB_AVAILABLE_IN_2_32
+extern
 void            g_rec_mutex_lock                (GRecMutex      *rec_mutex);
-GLIB_AVAILABLE_IN_2_32
+extern
 gboolean        g_rec_mutex_trylock             (GRecMutex      *rec_mutex);
-GLIB_AVAILABLE_IN_2_32
+extern
 void            g_rec_mutex_unlock              (GRecMutex      *rec_mutex);
 
-GLIB_AVAILABLE_IN_2_32
+extern
 void            g_cond_init                     (GCond          *cond);
-GLIB_AVAILABLE_IN_2_32
+extern
 void            g_cond_clear                    (GCond          *cond);
-GLIB_AVAILABLE_IN_ALL
+extern
 void            g_cond_wait                     (GCond          *cond,
                                                  GMutex         *mutex);
-GLIB_AVAILABLE_IN_ALL
+extern
 void            g_cond_signal                   (GCond          *cond);
-GLIB_AVAILABLE_IN_ALL
+extern
 void            g_cond_broadcast                (GCond          *cond);
-GLIB_AVAILABLE_IN_2_32
+extern
 gboolean        g_cond_wait_until               (GCond          *cond,
                                                  GMutex         *mutex,
                                                  gint64          end_time);
 
-GLIB_AVAILABLE_IN_ALL
+extern
 gpointer        g_private_get                   (GPrivate       *key);
-GLIB_AVAILABLE_IN_ALL
+extern
 void            g_private_set                   (GPrivate       *key,
                                                  gpointer        value);
-GLIB_AVAILABLE_IN_2_32
+extern
 void            g_private_replace               (GPrivate       *key,
                                                  gpointer        value);
 
-GLIB_AVAILABLE_IN_ALL
+extern
 gpointer        g_once_impl                     (GOnce          *once,
                                                  GThreadFunc     func,
                                                  gpointer        arg);
-GLIB_AVAILABLE_IN_ALL
-gboolean        g_once_init_enter               (volatile void  *location);
-GLIB_AVAILABLE_IN_ALL
-void            g_once_init_leave               (volatile void  *location,
+extern
+gboolean        g_once_init_enter               ( void  *location);
+extern
+void            g_once_init_leave               ( void  *location,
                                                  gsize           result);
 
-GLIB_AVAILABLE_IN_2_80
+extern
 gboolean g_once_init_enter_pointer              (void *location);
-GLIB_AVAILABLE_IN_2_80
+extern
 void g_once_init_leave_pointer                  (void *location,
                                                  gpointer result);
 
@@ -306,7 +306,7 @@ void g_once_init_leave_pointer                  (void *location,
   GLIB_AVAILABLE_MACRO_IN_2_80
 #endif
 
-GLIB_AVAILABLE_IN_2_36
+extern
 guint          g_get_num_processors (void);
 
 /**
@@ -485,7 +485,7 @@ typedef void GRecMutexLocker;
  * Returns: a #GRecMutexLocker
  * Since: 2.60
  */
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+
 GLIB_AVAILABLE_STATIC_INLINE_IN_2_60
 static inline GRecMutexLocker *
 g_rec_mutex_locker_new (GRecMutex *rec_mutex)
@@ -493,7 +493,7 @@ g_rec_mutex_locker_new (GRecMutex *rec_mutex)
   g_rec_mutex_lock (rec_mutex);
   return (GRecMutexLocker *) rec_mutex;
 }
-G_GNUC_END_IGNORE_DEPRECATIONS
+
 
 /**
  * g_rec_mutex_locker_free:
@@ -505,14 +505,14 @@ G_GNUC_END_IGNORE_DEPRECATIONS
  *
  * Since: 2.60
  */
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+
 GLIB_AVAILABLE_STATIC_INLINE_IN_2_60
 static inline void
 g_rec_mutex_locker_free (GRecMutexLocker *locker)
 {
   g_rec_mutex_unlock ((GRecMutex *) locker);
 }
-G_GNUC_END_IGNORE_DEPRECATIONS
+
 
 /**
  * G_REC_MUTEX_AUTO_LOCK:
@@ -642,7 +642,7 @@ typedef void GRWLockWriterLocker;
  * Returns: a #GRWLockWriterLocker
  * Since: 2.62
  */
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+
 GLIB_AVAILABLE_STATIC_INLINE_IN_2_62
 static inline GRWLockWriterLocker *
 g_rw_lock_writer_locker_new (GRWLock *rw_lock)
@@ -650,7 +650,7 @@ g_rw_lock_writer_locker_new (GRWLock *rw_lock)
   g_rw_lock_writer_lock (rw_lock);
   return (GRWLockWriterLocker *) rw_lock;
 }
-G_GNUC_END_IGNORE_DEPRECATIONS
+
 
 /**
  * g_rw_lock_writer_locker_free:
@@ -663,14 +663,14 @@ G_GNUC_END_IGNORE_DEPRECATIONS
  *
  * Since: 2.62
  */
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+
 GLIB_AVAILABLE_STATIC_INLINE_IN_2_62
 static inline void
 g_rw_lock_writer_locker_free (GRWLockWriterLocker *locker)
 {
   g_rw_lock_writer_unlock ((GRWLock *) locker);
 }
-G_GNUC_END_IGNORE_DEPRECATIONS
+
 
 /**
  * G_RW_LOCK_WRITER_AUTO_LOCK:
@@ -740,7 +740,7 @@ typedef void GRWLockReaderLocker;
  * Returns: a #GRWLockReaderLocker
  * Since: 2.62
  */
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+
 GLIB_AVAILABLE_STATIC_INLINE_IN_2_62
 static inline GRWLockReaderLocker *
 g_rw_lock_reader_locker_new (GRWLock *rw_lock)
@@ -748,7 +748,7 @@ g_rw_lock_reader_locker_new (GRWLock *rw_lock)
   g_rw_lock_reader_lock (rw_lock);
   return (GRWLockReaderLocker *) rw_lock;
 }
-G_GNUC_END_IGNORE_DEPRECATIONS
+
 
 /**
  * g_rw_lock_reader_locker_free:
@@ -761,14 +761,14 @@ G_GNUC_END_IGNORE_DEPRECATIONS
  *
  * Since: 2.62
  */
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+
 GLIB_AVAILABLE_STATIC_INLINE_IN_2_62
 static inline void
 g_rw_lock_reader_locker_free (GRWLockReaderLocker *locker)
 {
   g_rw_lock_reader_unlock ((GRWLock *) locker);
 }
-G_GNUC_END_IGNORE_DEPRECATIONS
+
 
 /**
  * G_RW_LOCK_READER_AUTO_LOCK:
@@ -813,6 +813,6 @@ G_GNUC_END_IGNORE_DEPRECATIONS
   G_GNUC_UNUSED var = g_rw_lock_reader_locker_new (mutex)
 #endif /* g_autoptr */
 
-G_END_DECLS
+
 
 #endif /* __G_THREAD_H__ */

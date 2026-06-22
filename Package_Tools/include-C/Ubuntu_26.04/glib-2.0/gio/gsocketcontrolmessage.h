@@ -29,7 +29,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_SOCKET_CONTROL_MESSAGE                       (g_socket_control_message_get_type ())
 #define G_SOCKET_CONTROL_MESSAGE(inst)                      (G_TYPE_CHECK_INSTANCE_CAST ((inst),                     \
@@ -93,7 +93,7 @@ struct _GSocketControlMessage
 };
 
 GIO_AVAILABLE_IN_ALL
-GType                  g_socket_control_message_get_type     (void) G_GNUC_CONST;
+GType                  g_socket_control_message_get_type     (void) ;
 GIO_AVAILABLE_IN_ALL
 gsize                  g_socket_control_message_get_size     (GSocketControlMessage *message);
 GIO_AVAILABLE_IN_ALL
@@ -110,6 +110,6 @@ GSocketControlMessage *g_socket_control_message_deserialize  (int               
 							      gpointer               data);
 
 
-G_END_DECLS
+
 
 #endif /* __G_SOCKET_CONTROL_MESSAGE_H__ */

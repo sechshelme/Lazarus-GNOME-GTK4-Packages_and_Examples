@@ -24,7 +24,7 @@
 
 #include <glib-object.h>
 
-G_BEGIN_DECLS
+
 
 /* we may want to add aggregate types here some day, if requested
  * by users. the basic C types are covered already, everything
@@ -275,6 +275,6 @@ G_STMT_START {										\
  */
 #define	G_VALUE_COLLECT_FORMAT_MAX_LENGTH	(8)
 
-G_END_DECLS
+
 
 #endif /* __G_VALUE_COLLECTOR_H__ */

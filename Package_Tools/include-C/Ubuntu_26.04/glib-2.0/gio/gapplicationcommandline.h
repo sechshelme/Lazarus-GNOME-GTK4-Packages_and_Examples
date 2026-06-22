@@ -29,7 +29,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_APPLICATION_COMMAND_LINE                     (g_application_command_line_get_type ())
 #define G_APPLICATION_COMMAND_LINE(inst)                    (G_TYPE_CHECK_INSTANCE_CAST ((inst),                     \
@@ -73,7 +73,7 @@ struct _GApplicationCommandLineClass
 };
 
 GIO_AVAILABLE_IN_ALL
-GType                   g_application_command_line_get_type             (void) G_GNUC_CONST;
+GType                   g_application_command_line_get_type             (void) ;
 
 GIO_AVAILABLE_IN_ALL
 gchar **                g_application_command_line_get_arguments        (GApplicationCommandLine   *cmdline,
@@ -108,11 +108,11 @@ void                    g_application_command_line_printerr_literal     (GApplic
 GIO_AVAILABLE_IN_ALL
 void                    g_application_command_line_print                (GApplicationCommandLine   *cmdline,
                                                                          const gchar               *format,
-                                                                         ...) G_GNUC_PRINTF(2, 3);
+                                                                         ...) ;(2, 3);
 GIO_AVAILABLE_IN_ALL
 void                    g_application_command_line_printerr             (GApplicationCommandLine   *cmdline,
                                                                          const gchar               *format,
-                                                                         ...) G_GNUC_PRINTF(2, 3);
+                                                                         ...) ;(2, 3);
 
 GIO_AVAILABLE_IN_ALL
 int                     g_application_command_line_get_exit_status      (GApplicationCommandLine   *cmdline);
@@ -130,6 +130,6 @@ GFile *                 g_application_command_line_create_file_for_arg  (GApplic
 GIO_AVAILABLE_IN_2_80
 void                    g_application_command_line_done                 (GApplicationCommandLine   *cmdline);
 
-G_END_DECLS
+
 
 #endif /* __G_APPLICATION_COMMAND_LINE_H__ */

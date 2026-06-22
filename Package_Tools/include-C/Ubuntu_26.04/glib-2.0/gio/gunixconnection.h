@@ -25,7 +25,7 @@
 
 #include <gio/gio.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_UNIX_CONNECTION                              (g_unix_connection_get_type ())
 #define G_UNIX_CONNECTION(inst)                             (G_TYPE_CHECK_INSTANCE_CAST ((inst),                     \
@@ -97,6 +97,6 @@ GCredentials           *g_unix_connection_receive_credentials_finish    (GUnixCo
                                                                          GAsyncResult         *result,
                                                                          GError              **error);
 
-G_END_DECLS
+
 
 #endif /* __G_UNIX_CONNECTION_H__ */

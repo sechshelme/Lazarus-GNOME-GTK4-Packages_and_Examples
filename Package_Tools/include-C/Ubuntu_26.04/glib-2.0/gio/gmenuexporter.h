@@ -25,7 +25,7 @@
 #include <gio/gdbusconnection.h>
 #include <gio/gmenumodel.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * G_MENU_EXPORTER_MAX_SECTION_SIZE:
@@ -50,6 +50,6 @@ GIO_AVAILABLE_IN_2_32
 void                    g_dbus_connection_unexport_menu_model           (GDBusConnection  *connection,
                                                                          guint             export_id);
 
-G_END_DECLS
+
 
 #endif /* __G_MENU_EXPORTER_H__ */

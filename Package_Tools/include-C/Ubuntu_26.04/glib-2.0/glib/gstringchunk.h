@@ -33,27 +33,27 @@
 
 #include <glib/gtypes.h>
 
-G_BEGIN_DECLS
+
 
 typedef struct _GStringChunk GStringChunk;
 
-GLIB_AVAILABLE_IN_ALL
+extern
 GStringChunk* g_string_chunk_new          (gsize size);
-GLIB_AVAILABLE_IN_ALL
+extern
 void          g_string_chunk_free         (GStringChunk *chunk);
-GLIB_AVAILABLE_IN_ALL
+extern
 void          g_string_chunk_clear        (GStringChunk *chunk);
-GLIB_AVAILABLE_IN_ALL
+extern
 gchar*        g_string_chunk_insert       (GStringChunk *chunk,
                                            const gchar  *string);
-GLIB_AVAILABLE_IN_ALL
+extern
 gchar*        g_string_chunk_insert_len   (GStringChunk *chunk,
                                            const gchar  *string,
                                            gssize        len);
-GLIB_AVAILABLE_IN_ALL
+extern
 gchar*        g_string_chunk_insert_const (GStringChunk *chunk,
                                            const gchar  *string);
 
-G_END_DECLS
+
 
 #endif /* __G_STRING_H__ */

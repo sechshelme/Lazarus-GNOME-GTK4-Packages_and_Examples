@@ -29,7 +29,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_FILENAME_COMPLETER         (g_filename_completer_get_type ())
 #define G_FILENAME_COMPLETER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_FILENAME_COMPLETER, GFilenameCompleter))
@@ -56,7 +56,7 @@ struct _GFilenameCompleterClass
 };
 
 GIO_AVAILABLE_IN_ALL
-GType               g_filename_completer_get_type              (void) G_GNUC_CONST;
+GType               g_filename_completer_get_type              (void) ;
 
 GIO_AVAILABLE_IN_ALL
 GFilenameCompleter *g_filename_completer_new                   (void);
@@ -71,6 +71,6 @@ GIO_AVAILABLE_IN_ALL
 void                g_filename_completer_set_dirs_only         (GFilenameCompleter *completer,
                                                                 gboolean dirs_only);
 
-G_END_DECLS
+
 
 #endif /* __G_FILENAME_COMPLETER_H__ */

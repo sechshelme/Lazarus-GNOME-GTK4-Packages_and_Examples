@@ -75,11 +75,11 @@
 
 #endif  /* !__GI_SCANNER__ */
 
-G_BEGIN_DECLS
+
 
 GIO_AVAILABLE_IN_2_36
 void g_networking_init (void);
 
-G_END_DECLS
+
 
 #endif /* __G_NETWORKING_H__ */

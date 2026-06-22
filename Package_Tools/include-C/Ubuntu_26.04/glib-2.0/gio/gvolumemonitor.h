@@ -32,7 +32,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_VOLUME_MONITOR         (g_volume_monitor_get_type ())
 #define G_VOLUME_MONITOR(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_VOLUME_MONITOR, GVolumeMonitor))
@@ -126,7 +126,7 @@ struct _GVolumeMonitorClass
 };
 
 GIO_AVAILABLE_IN_ALL
-GType           g_volume_monitor_get_type             (void) G_GNUC_CONST;
+GType           g_volume_monitor_get_type             (void) ;
 
 GIO_AVAILABLE_IN_ALL
 GVolumeMonitor *g_volume_monitor_get                  (void);
@@ -146,6 +146,6 @@ GMount *        g_volume_monitor_get_mount_for_uuid   (GVolumeMonitor *volume_mo
 GIO_DEPRECATED
 GVolume *       g_volume_monitor_adopt_orphan_mount   (GMount         *mount);
 
-G_END_DECLS
+
 
 #endif /* __G_VOLUME_MONITOR_H__ */

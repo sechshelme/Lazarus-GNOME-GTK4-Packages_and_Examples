@@ -31,7 +31,7 @@
 
 #include <gio/gsocketservice.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_THREADED_SOCKET_SERVICE                      (g_threaded_socket_service_get_type ())
 #define G_THREADED_SOCKET_SERVICE(inst)                     (G_TYPE_CHECK_INSTANCE_CAST ((inst),                     \
@@ -78,6 +78,6 @@ GType                   g_threaded_socket_service_get_type              (void);
 GIO_AVAILABLE_IN_ALL
 GSocketService *        g_threaded_socket_service_new                   (int max_threads);
 
-G_END_DECLS
+
 
 #endif /* __G_THREADED_SOCKET_SERVICE_H__ */

@@ -25,7 +25,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_DBUS_OBJECT_MANAGER_SERVER         (g_dbus_object_manager_server_get_type ())
 #define G_DBUS_OBJECT_MANAGER_SERVER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_DBUS_OBJECT_MANAGER_SERVER, GDBusObjectManagerServer))
@@ -61,7 +61,7 @@ struct _GDBusObjectManagerServerClass
 };
 
 GIO_AVAILABLE_IN_ALL
-GType                     g_dbus_object_manager_server_get_type            (void) G_GNUC_CONST;
+GType                     g_dbus_object_manager_server_get_type            (void) ;
 GIO_AVAILABLE_IN_ALL
 GDBusObjectManagerServer *g_dbus_object_manager_server_new                 (const gchar               *object_path);
 GIO_AVAILABLE_IN_ALL
@@ -82,6 +82,6 @@ GIO_AVAILABLE_IN_ALL
 gboolean                  g_dbus_object_manager_server_unexport            (GDBusObjectManagerServer  *manager,
                                                                             const gchar               *object_path);
 
-G_END_DECLS
+
 
 #endif /* __G_DBUS_OBJECT_MANAGER_SERVER_H */

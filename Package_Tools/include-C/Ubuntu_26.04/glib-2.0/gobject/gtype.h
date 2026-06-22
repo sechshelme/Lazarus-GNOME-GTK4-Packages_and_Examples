@@ -26,7 +26,7 @@
 #include  <glib.h>
 #include <gobject/gobject-visibility.h>
 
-G_BEGIN_DECLS
+
 
 /* Basic Type Macros
  */
@@ -728,16 +728,16 @@ typedef enum	/*< skip >*/
   G_TYPE_DEBUG_SIGNALS	= 1 << 1,
   G_TYPE_DEBUG_INSTANCE_COUNT = 1 << 2,
   G_TYPE_DEBUG_MASK	= 0x07
-} G_GNUC_FLAG_ENUM GTypeDebugFlags GOBJECT_DEPRECATED_TYPE_IN_2_36;
+}  GTypeDebugFlags GOBJECT_DEPRECATED_TYPE_IN_2_36;
 
 
 /* --- prototypes --- */
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+
 GOBJECT_DEPRECATED_IN_2_36
 void                  g_type_init                    (void);
 GOBJECT_DEPRECATED_IN_2_36
 void                  g_type_init_with_debug_flags   (GTypeDebugFlags  debug_flags);
-G_GNUC_END_IGNORE_DEPRECATIONS
+
 
 GOBJECT_AVAILABLE_IN_ALL
 const gchar *         g_type_name                    (GType            type);
@@ -1067,7 +1067,7 @@ typedef enum    /*< skip >*/
   G_TYPE_FLAG_INSTANTIATABLE    = (1 << 1),
   G_TYPE_FLAG_DERIVABLE         = (1 << 2),
   G_TYPE_FLAG_DEEP_DERIVABLE    = (1 << 3)
-} G_GNUC_FLAG_ENUM GTypeFundamentalFlags;
+}  GTypeFundamentalFlags;
 /**
  * GTypeFlags:
  * @G_TYPE_FLAG_NONE: No special flags. Since: 2.74
@@ -1091,7 +1091,7 @@ typedef enum    /*< skip >*/
   G_TYPE_FLAG_VALUE_ABSTRACT = (1 << 5),
   G_TYPE_FLAG_FINAL GOBJECT_AVAILABLE_ENUMERATOR_IN_2_70 = (1 << 6),
   G_TYPE_FLAG_DEPRECATED GOBJECT_AVAILABLE_ENUMERATOR_IN_2_76 = (1 << 7)
-} G_GNUC_FLAG_ENUM GTypeFlags;
+}  GTypeFlags;
 /**
  * GTypeInfo:
  * @class_size: Size of the class structure (required for interface, classed and instantiatable types)
@@ -1441,7 +1441,7 @@ typedef gchar * (* GTypeValueLCopyFunc) (const GValue *value,
  * The #GTypeValueTable provides the functions required by the #GValue
  * implementation, to serve as a container for values of a type.
  */
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+
 struct _GTypeValueTable
 {
   GTypeValueInitFunc value_init;
@@ -1455,7 +1455,7 @@ struct _GTypeValueTable
   const gchar *lcopy_format;
   GTypeValueLCopyFunc lcopy_value;
 };
-G_GNUC_END_IGNORE_DEPRECATIONS
+
 
 GOBJECT_AVAILABLE_IN_ALL
 GType g_type_register_static		(GType			     parent_type,
@@ -1607,7 +1607,7 @@ guint     g_type_get_type_registration_serial (void);
  **/
 #define G_DECLARE_FINAL_TYPE(ModuleObjName, module_obj_name, MODULE, OBJ_NAME, ParentName) \
   GType module_obj_name##_get_type (void);                                                               \
-  G_GNUC_BEGIN_IGNORE_DEPRECATIONS                                                                       \
+                                                                         \
   typedef struct _##ModuleObjName ModuleObjName;                                                         \
   typedef struct { ParentName##Class parent_class; } ModuleObjName##Class;                               \
                                                                                                          \
@@ -1618,7 +1618,7 @@ guint     g_type_get_type_registration_serial (void);
     return G_TYPE_CHECK_INSTANCE_CAST (ptr, module_obj_name##_get_type (), ModuleObjName); }             \
   G_GNUC_UNUSED static inline gboolean MODULE##_IS_##OBJ_NAME (gpointer ptr) {                           \
     return G_TYPE_CHECK_INSTANCE_TYPE (ptr, module_obj_name##_get_type ()); }                            \
-  G_GNUC_END_IGNORE_DEPRECATIONS
+  
 
 /**
  * G_DECLARE_DERIVABLE_TYPE:
@@ -1710,7 +1710,7 @@ guint     g_type_get_type_registration_serial (void);
  **/
 #define G_DECLARE_DERIVABLE_TYPE(ModuleObjName, module_obj_name, MODULE, OBJ_NAME, ParentName) \
   GType module_obj_name##_get_type (void);                                                               \
-  G_GNUC_BEGIN_IGNORE_DEPRECATIONS                                                                       \
+                                                                         \
   typedef struct _##ModuleObjName ModuleObjName;                                                         \
   typedef struct _##ModuleObjName##Class ModuleObjName##Class;                                           \
   struct _##ModuleObjName { ParentName parent_instance; };                                               \
@@ -1728,7 +1728,7 @@ guint     g_type_get_type_registration_serial (void);
     return G_TYPE_CHECK_CLASS_TYPE (ptr, module_obj_name##_get_type ()); }                               \
   G_GNUC_UNUSED static inline ModuleObjName##Class * MODULE##_##OBJ_NAME##_GET_CLASS (gpointer ptr) {    \
     return G_TYPE_INSTANCE_GET_CLASS (ptr, module_obj_name##_get_type (), ModuleObjName##Class); }       \
-  G_GNUC_END_IGNORE_DEPRECATIONS
+  
 
 /**
  * G_DECLARE_INTERFACE:
@@ -1802,7 +1802,7 @@ guint     g_type_get_type_registration_serial (void);
  **/
 #define G_DECLARE_INTERFACE(ModuleObjName, module_obj_name, MODULE, OBJ_NAME, PrerequisiteName) \
   GType module_obj_name##_get_type (void);                                                                 \
-  G_GNUC_BEGIN_IGNORE_DEPRECATIONS                                                                         \
+                                                                           \
   typedef struct _##ModuleObjName ModuleObjName;                                                           \
   typedef struct _##ModuleObjName##Interface ModuleObjName##Interface;                                     \
                                                                                                            \
@@ -1814,7 +1814,7 @@ guint     g_type_get_type_registration_serial (void);
     return G_TYPE_CHECK_INSTANCE_TYPE (ptr, module_obj_name##_get_type ()); }                              \
   G_GNUC_UNUSED static inline ModuleObjName##Interface * MODULE##_##OBJ_NAME##_GET_IFACE (gpointer ptr) {  \
     return G_TYPE_INSTANCE_GET_INTERFACE (ptr, module_obj_name##_get_type (), ModuleObjName##Interface); } \
-  G_GNUC_END_IGNORE_DEPRECATIONS
+  
 
 /**
  * G_DEFINE_TYPE:
@@ -2393,7 +2393,7 @@ type_name##_get_type (void) \
  *
  * |[<!-- language="C" -->
  * #define MY_TYPE_STRUCT my_struct_get_type ()
- * GType my_struct_get_type (void) G_GNUC_CONST;
+ * GType my_struct_get_type (void) ;
  *
  * MyStruct *    my_struct_new (void);
  * void          my_struct_free (MyStruct *self);
@@ -2639,7 +2639,7 @@ GOBJECT_AVAILABLE_IN_ALL
 gboolean         g_type_check_class_is_a        (GTypeClass         *g_class,
 						 GType               is_a_type) G_GNUC_PURE;
 GOBJECT_AVAILABLE_IN_ALL
-gboolean	 g_type_check_is_value_type     (GType		     type) G_GNUC_CONST;
+gboolean	 g_type_check_is_value_type     (GType		     type) ;
 GOBJECT_AVAILABLE_IN_ALL
 gboolean	 g_type_check_value             (const GValue       *value) G_GNUC_PURE;
 GOBJECT_AVAILABLE_IN_ALL
@@ -2647,7 +2647,7 @@ gboolean	 g_type_check_value_holds	(const GValue	    *value,
 						 GType		     type) G_GNUC_PURE;
 GOBJECT_AVAILABLE_IN_ALL
 gboolean         g_type_test_flags              (GType               type,
-						 guint               flags) G_GNUC_CONST;
+						 guint               flags) ;
 
 
 /* --- debugging functions --- */
@@ -2737,6 +2737,6 @@ const gchar *    g_type_name_from_class         (GTypeClass	*g_class);
  */
 #define GTYPE_TO_POINTER(t) ((gpointer) (guintptr) (t)) GOBJECT_AVAILABLE_MACRO_IN_2_80
 
-G_END_DECLS
+
 
 #endif /* __G_TYPE_H__ */

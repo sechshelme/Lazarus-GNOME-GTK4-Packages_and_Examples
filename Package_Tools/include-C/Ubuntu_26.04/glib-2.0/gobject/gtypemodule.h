@@ -26,7 +26,7 @@
 #include <gobject/gobject.h>
 #include <gobject/genums.h>
 
-G_BEGIN_DECLS
+
 
 typedef struct _GTypeModule      GTypeModule;
 typedef struct _GTypeModuleClass GTypeModuleClass;
@@ -262,7 +262,7 @@ type_name##_register_type (GTypeModule *type_module) \
 }
 
 GOBJECT_AVAILABLE_IN_ALL
-GType    g_type_module_get_type       (void) G_GNUC_CONST;
+GType    g_type_module_get_type       (void) ;
 GOBJECT_AVAILABLE_IN_ALL
 gboolean g_type_module_use            (GTypeModule          *module);
 GOBJECT_AVAILABLE_IN_ALL
@@ -290,6 +290,6 @@ GType    g_type_module_register_flags (GTypeModule          *module,
                                        const gchar          *name,
                                        const GFlagsValue    *const_static_values);
 
-G_END_DECLS
+
 
 #endif /* __G_TYPE_MODULE_H__ */

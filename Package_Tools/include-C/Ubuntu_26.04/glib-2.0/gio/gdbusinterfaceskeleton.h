@@ -26,7 +26,7 @@
 #include <gio/gdbusconnection.h>
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_DBUS_INTERFACE_SKELETON         (g_dbus_interface_skeleton_get_type ())
 #define G_DBUS_INTERFACE_SKELETON(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_DBUS_INTERFACE_SKELETON, GDBusInterfaceSkeleton))
@@ -87,7 +87,7 @@ struct _GDBusInterfaceSkeletonClass
 };
 
 GIO_AVAILABLE_IN_ALL
-GType                        g_dbus_interface_skeleton_get_type        (void) G_GNUC_CONST;
+GType                        g_dbus_interface_skeleton_get_type        (void) ;
 GIO_AVAILABLE_IN_ALL
 GDBusInterfaceSkeletonFlags  g_dbus_interface_skeleton_get_flags       (GDBusInterfaceSkeleton      *interface_);
 GIO_AVAILABLE_IN_ALL
@@ -123,6 +123,6 @@ gboolean                     g_dbus_interface_skeleton_has_connection  (GDBusInt
 GIO_AVAILABLE_IN_ALL
 const gchar                 *g_dbus_interface_skeleton_get_object_path (GDBusInterfaceSkeleton      *interface_);
 
-G_END_DECLS
+
 
 #endif /* __G_DBUS_INTERFACE_SKELETON_H */

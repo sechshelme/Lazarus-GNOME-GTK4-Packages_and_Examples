@@ -27,7 +27,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_INET_ADDRESS_MASK         (g_inet_address_mask_get_type ())
 #define G_INET_ADDRESS_MASK(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_INET_ADDRESS_MASK, GInetAddressMask))
@@ -54,7 +54,7 @@ struct _GInetAddressMaskClass
 };
 
 GIO_AVAILABLE_IN_2_32
-GType g_inet_address_mask_get_type (void) G_GNUC_CONST;
+GType g_inet_address_mask_get_type (void) ;
 
 GIO_AVAILABLE_IN_2_32
 GInetAddressMask *g_inet_address_mask_new             (GInetAddress      *addr,
@@ -81,6 +81,6 @@ GIO_AVAILABLE_IN_2_32
 gboolean          g_inet_address_mask_equal           (GInetAddressMask  *mask,
 						       GInetAddressMask  *mask2);
 
-G_END_DECLS
+
 
 #endif /* __G_INET_ADDRESS_MASK_H__ */

@@ -31,7 +31,7 @@
 #include <gio/gioenums.h>
 #include <glib/gfileutils.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * G_IO_ERROR:
@@ -53,6 +53,6 @@ GIO_AVAILABLE_IN_ALL
 GIOErrorEnum g_io_error_from_win32_error (gint error_code);
 #endif
 
-G_END_DECLS
+
 
 #endif /* __G_IO_ERROR_H__ */

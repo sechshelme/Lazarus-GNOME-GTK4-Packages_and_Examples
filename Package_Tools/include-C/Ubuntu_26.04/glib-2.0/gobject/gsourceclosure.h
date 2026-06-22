@@ -26,7 +26,7 @@
 #include <gobject/gclosure.h>
 #include <gobject/glib-types.h>
 
-G_BEGIN_DECLS
+
 
 GOBJECT_AVAILABLE_IN_ALL
 void g_source_set_closure        (GSource  *source,
@@ -35,6 +35,6 @@ void g_source_set_closure        (GSource  *source,
 GOBJECT_AVAILABLE_IN_ALL
 void g_source_set_dummy_callback (GSource  *source);
 
-G_END_DECLS
+
 
 #endif /* __G_SOURCECLOSURE_H__ */

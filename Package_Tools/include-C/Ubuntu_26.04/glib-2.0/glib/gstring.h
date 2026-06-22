@@ -38,7 +38,7 @@
 #include <glib/gutils.h>  /* for G_CAN_INLINE */
 #include <string.h>
 
-G_BEGIN_DECLS
+
 
 typedef struct _GString         GString;
 
@@ -49,22 +49,22 @@ struct _GString
   gsize allocated_len;
 };
 
-GLIB_AVAILABLE_IN_ALL
+extern
 GString*     g_string_new               (const gchar     *init);
-GLIB_AVAILABLE_IN_2_78
+extern
 GString*     g_string_new_take          (gchar           *init);
-GLIB_AVAILABLE_IN_ALL
+extern
 GString*     g_string_new_len           (const gchar     *init,
                                          gssize           len);
-GLIB_AVAILABLE_IN_ALL
+extern
 GString*     g_string_sized_new         (gsize            dfl_size);
-GLIB_AVAILABLE_IN_2_86
+extern
 GString     *g_string_copy              (GString         *string);
-GLIB_AVAILABLE_IN_ALL
+extern
 gchar*      (g_string_free)             (GString         *string,
                                          gboolean         free_segment);
-GLIB_AVAILABLE_IN_2_76
-gchar*       g_string_free_and_steal    (GString         *string) G_GNUC_WARN_UNUSED_RESULT;
+extern
+gchar*       g_string_free_and_steal    (GString         *string) ;
 
 #if G_GNUC_CHECK_VERSION (2, 0) && (GLIB_VERSION_MIN_REQUIRED >= GLIB_VERSION_2_76)
 
@@ -82,106 +82,106 @@ gchar*       g_string_free_and_steal    (GString         *string) G_GNUC_WARN_UN
 
 #endif /* G_GNUC_CHECK_VERSION (2, 0) && (GLIB_VERSION_MIN_REQUIRED >= GLIB_VERSION_2_76) */
 
-GLIB_AVAILABLE_IN_2_34
+extern
 GBytes*      g_string_free_to_bytes     (GString         *string);
-GLIB_AVAILABLE_IN_ALL
+extern
 gboolean     g_string_equal             (const GString   *v,
                                          const GString   *v2);
-GLIB_AVAILABLE_IN_ALL
+extern
 guint        g_string_hash              (const GString   *str);
-GLIB_AVAILABLE_IN_ALL
+extern
 GString*     g_string_assign            (GString         *string,
                                          const gchar     *rval);
-GLIB_AVAILABLE_IN_ALL
+extern
 GString*     g_string_truncate          (GString         *string,
                                          gsize            len);
-GLIB_AVAILABLE_IN_ALL
+extern
 GString*     g_string_set_size          (GString         *string,
                                          gsize            len);
-GLIB_AVAILABLE_IN_ALL
+extern
 GString*     g_string_insert_len        (GString         *string,
                                          gssize           pos,
                                          const gchar     *val,
                                          gssize           len);
-GLIB_AVAILABLE_IN_ALL
+extern
 GString*     g_string_append            (GString         *string,
                                          const gchar     *val);
-GLIB_AVAILABLE_IN_ALL
+extern
 GString*     g_string_append_len        (GString         *string,
                                          const gchar     *val,
                                          gssize           len);
-GLIB_AVAILABLE_IN_ALL
+extern
 GString*     g_string_append_c          (GString         *string,
                                          gchar            c);
-GLIB_AVAILABLE_IN_ALL
+extern
 GString*     g_string_append_unichar    (GString         *string,
                                          gunichar         wc);
-GLIB_AVAILABLE_IN_ALL
+extern
 GString*     g_string_prepend           (GString         *string,
                                          const gchar     *val);
-GLIB_AVAILABLE_IN_ALL
+extern
 GString*     g_string_prepend_c         (GString         *string,
                                          gchar            c);
-GLIB_AVAILABLE_IN_ALL
+extern
 GString*     g_string_prepend_unichar   (GString         *string,
                                          gunichar         wc);
-GLIB_AVAILABLE_IN_ALL
+extern
 GString*     g_string_prepend_len       (GString         *string,
                                          const gchar     *val,
                                          gssize           len);
-GLIB_AVAILABLE_IN_ALL
+extern
 GString*     g_string_insert            (GString         *string,
                                          gssize           pos,
                                          const gchar     *val);
-GLIB_AVAILABLE_IN_ALL
+extern
 GString*     g_string_insert_c          (GString         *string,
                                          gssize           pos,
                                          gchar            c);
-GLIB_AVAILABLE_IN_ALL
+extern
 GString*     g_string_insert_unichar    (GString         *string,
                                          gssize           pos,
                                          gunichar         wc);
-GLIB_AVAILABLE_IN_ALL
+extern
 GString*     g_string_overwrite         (GString         *string,
                                          gsize            pos,
                                          const gchar     *val);
-GLIB_AVAILABLE_IN_ALL
+extern
 GString*     g_string_overwrite_len     (GString         *string,
                                          gsize            pos,
                                          const gchar     *val,
                                          gssize           len);
-GLIB_AVAILABLE_IN_ALL
+extern
 GString*     g_string_erase             (GString         *string,
                                          gssize           pos,
                                          gssize           len);
-GLIB_AVAILABLE_IN_2_68
+extern
 guint         g_string_replace          (GString         *string,
                                          const gchar     *find,
                                          const gchar     *replace,
                                          guint            limit);
-GLIB_AVAILABLE_IN_ALL
+extern
 GString*     g_string_ascii_down        (GString         *string);
-GLIB_AVAILABLE_IN_ALL
+extern
 GString*     g_string_ascii_up          (GString         *string);
-GLIB_AVAILABLE_IN_ALL
+extern
 void         g_string_vprintf           (GString         *string,
                                          const gchar     *format,
                                          va_list          args)
-                                         G_GNUC_PRINTF(2, 0);
-GLIB_AVAILABLE_IN_ALL
+                                         ;(2, 0);
+extern
 void         g_string_printf            (GString         *string,
                                          const gchar     *format,
-                                         ...) G_GNUC_PRINTF (2, 3);
-GLIB_AVAILABLE_IN_ALL
+                                         ...) ; (2, 3);
+extern
 void         g_string_append_vprintf    (GString         *string,
                                          const gchar     *format,
                                          va_list          args)
-                                         G_GNUC_PRINTF(2, 0);
-GLIB_AVAILABLE_IN_ALL
+                                         ;(2, 0);
+extern
 void         g_string_append_printf     (GString         *string,
                                          const gchar     *format,
-                                         ...) G_GNUC_PRINTF (2, 3);
-GLIB_AVAILABLE_IN_ALL
+                                         ...) ; (2, 3);
+extern
 GString*     g_string_append_uri_escaped (GString         *string,
                                           const gchar     *unescaped,
                                           const gchar     *reserved_chars_allowed,
@@ -297,6 +297,6 @@ GString *g_string_up   (GString *string);
 #define  g_string_sprintf  g_string_printf GLIB_DEPRECATED_MACRO_IN_2_26_FOR(g_string_printf)
 #define  g_string_sprintfa g_string_append_printf GLIB_DEPRECATED_MACRO_IN_2_26_FOR(g_string_append_printf)
 
-G_END_DECLS
+
 
 #endif /* __G_STRING_H__ */

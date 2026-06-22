@@ -29,7 +29,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_SEEKABLE            (g_seekable_get_type ())
 #define G_SEEKABLE(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), G_TYPE_SEEKABLE, GSeekable))
@@ -74,7 +74,7 @@ struct _GSeekableIface
 };
 
 GIO_AVAILABLE_IN_ALL
-GType    g_seekable_get_type     (void) G_GNUC_CONST;
+GType    g_seekable_get_type     (void) ;
 
 GIO_AVAILABLE_IN_ALL
 goffset  g_seekable_tell         (GSeekable     *seekable);
@@ -94,7 +94,7 @@ gboolean g_seekable_truncate     (GSeekable     *seekable,
 				  GCancellable  *cancellable,
 				  GError       **error);
 
-G_END_DECLS
+
 
 
 #endif /* __G_SEEKABLE_H__ */

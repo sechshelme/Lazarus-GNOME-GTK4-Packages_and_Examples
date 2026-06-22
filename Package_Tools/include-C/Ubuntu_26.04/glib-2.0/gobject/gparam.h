@@ -27,7 +27,7 @@
 
 #include	<gobject/gvalue.h>
 
-G_BEGIN_DECLS
+
 
 /* --- standard type macros --- */
 /**
@@ -169,7 +169,7 @@ typedef enum
   G_PARAM_EXPLICIT_NOTIFY     = 1 << 30,
   /* Avoid warning with -Wpedantic for gcc6 */
   G_PARAM_DEPRECATED          = (gint)(1u << 31)
-} G_GNUC_FLAG_ENUM GParamFlags;
+}  GParamFlags;
 
 /**
  * G_PARAM_STATIC_STRINGS:
@@ -464,6 +464,6 @@ void            g_param_spec_pool_free          (GParamSpecPool *pool);
  *	(+1) if value1 > value2, and (0) otherwise (equality)
  */
 
-G_END_DECLS
+
 
 #endif /* __G_PARAM_H__ */

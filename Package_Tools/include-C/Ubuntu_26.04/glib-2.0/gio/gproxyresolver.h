@@ -29,7 +29,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_PROXY_RESOLVER         (g_proxy_resolver_get_type ())
 #define G_PROXY_RESOLVER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_PROXY_RESOLVER, GProxyResolver))
@@ -69,7 +69,7 @@ struct _GProxyResolverInterface {
 };
 
 GIO_AVAILABLE_IN_ALL
-GType		g_proxy_resolver_get_type       (void) G_GNUC_CONST;
+GType		g_proxy_resolver_get_type       (void) ;
 GIO_AVAILABLE_IN_ALL
 GProxyResolver *g_proxy_resolver_get_default    (void);
 
@@ -92,6 +92,6 @@ gchar	      **g_proxy_resolver_lookup_finish  (GProxyResolver       *resolver,
 						 GError              **error);
 
 
-G_END_DECLS
+
 
 #endif /* __G_PROXY_RESOLVER_H__ */

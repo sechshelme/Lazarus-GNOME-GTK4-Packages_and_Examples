@@ -27,7 +27,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_NETWORK_SERVICE         (g_network_service_get_type ())
 #define G_NETWORK_SERVICE(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_NETWORK_SERVICE, GNetworkService))
@@ -54,7 +54,7 @@ struct _GNetworkServiceClass
 };
 
 GIO_AVAILABLE_IN_ALL
-GType                g_network_service_get_type      (void) G_GNUC_CONST;
+GType                g_network_service_get_type      (void) ;
 
 GIO_AVAILABLE_IN_ALL
 GSocketConnectable  *g_network_service_new           (const gchar     *service,
@@ -72,6 +72,6 @@ const gchar         *g_network_service_get_scheme    (GNetworkService *srv);
 GIO_AVAILABLE_IN_ALL
 void                 g_network_service_set_scheme    (GNetworkService *srv, const gchar *scheme);
 
-G_END_DECLS
+
 
 #endif /* __G_NETWORK_SERVICE_H__ */

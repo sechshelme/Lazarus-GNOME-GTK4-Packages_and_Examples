@@ -28,7 +28,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_ACTION                                       (g_action_get_type ())
 #define G_ACTION(inst)                                      (G_TYPE_CHECK_INSTANCE_CAST ((inst),                     \
@@ -59,7 +59,7 @@ struct _GActionInterface
 };
 
 GIO_AVAILABLE_IN_2_30
-GType                   g_action_get_type                               (void) G_GNUC_CONST;
+GType                   g_action_get_type                               (void) ;
 
 GIO_AVAILABLE_IN_ALL
 const gchar *           g_action_get_name                               (GAction            *action);
@@ -95,6 +95,6 @@ GIO_AVAILABLE_IN_2_38
 gchar *                 g_action_print_detailed_name                    (const gchar        *action_name,
                                                                          GVariant           *target_value);
 
-G_END_DECLS
+
 
 #endif /* __G_ACTION_H__ */

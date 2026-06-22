@@ -29,7 +29,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_LOADABLE_ICON            (g_loadable_icon_get_type ())
 #define G_LOADABLE_ICON(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), G_TYPE_LOADABLE_ICON, GLoadableIcon))
@@ -70,7 +70,7 @@ struct _GLoadableIconIface
 };
 
 GIO_AVAILABLE_IN_ALL
-GType         g_loadable_icon_get_type    (void) G_GNUC_CONST;
+GType         g_loadable_icon_get_type    (void) ;
 
 GIO_AVAILABLE_IN_ALL
 GInputStream *g_loadable_icon_load        (GLoadableIcon        *icon,
@@ -90,6 +90,6 @@ GInputStream *g_loadable_icon_load_finish (GLoadableIcon        *icon,
 					   char                **type,
 					   GError              **error);
 
-G_END_DECLS
+
 
 #endif /* __G_LOADABLE_ICON_H__ */

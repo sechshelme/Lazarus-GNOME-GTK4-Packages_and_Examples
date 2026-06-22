@@ -29,7 +29,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 
 GIO_DEPRECATED_IN_2_36_FOR ("GThreadPool or g_task_run_in_thread")
@@ -51,6 +51,6 @@ void     g_io_scheduler_job_send_to_mainloop_async (GIOSchedulerJob     *job,
 						    gpointer             user_data,
 						    GDestroyNotify       notify);
 
-G_END_DECLS
+
 
 #endif /* __G_IO_SCHEDULER_H__ */

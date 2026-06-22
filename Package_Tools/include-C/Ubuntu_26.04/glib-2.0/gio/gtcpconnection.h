@@ -29,7 +29,7 @@
 
 #include <gio/gsocketconnection.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_TCP_CONNECTION                               (g_tcp_connection_get_type ())
 #define G_TCP_CONNECTION(inst)                              (G_TYPE_CHECK_INSTANCE_CAST ((inst),                     \
@@ -58,7 +58,7 @@ struct _GTcpConnection
 };
 
 GIO_AVAILABLE_IN_ALL
-GType    g_tcp_connection_get_type                (void) G_GNUC_CONST;
+GType    g_tcp_connection_get_type                (void) ;
 
 GIO_AVAILABLE_IN_ALL
 void     g_tcp_connection_set_graceful_disconnect (GTcpConnection *connection,
@@ -66,6 +66,6 @@ void     g_tcp_connection_set_graceful_disconnect (GTcpConnection *connection,
 GIO_AVAILABLE_IN_ALL
 gboolean g_tcp_connection_get_graceful_disconnect (GTcpConnection *connection);
 
-G_END_DECLS
+
 
 #endif /* __G_TCP_CONNECTION_H__ */

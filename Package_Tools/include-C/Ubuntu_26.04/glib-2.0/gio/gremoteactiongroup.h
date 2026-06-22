@@ -28,7 +28,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 
 #define G_TYPE_REMOTE_ACTION_GROUP                          (g_remote_action_group_get_type ())
@@ -58,7 +58,7 @@ struct _GRemoteActionGroupInterface
 };
 
 GIO_AVAILABLE_IN_2_32
-GType                   g_remote_action_group_get_type                  (void) G_GNUC_CONST;
+GType                   g_remote_action_group_get_type                  (void) ;
 
 GIO_AVAILABLE_IN_2_32
 void                    g_remote_action_group_activate_action_full      (GRemoteActionGroup *remote,
@@ -72,6 +72,6 @@ void                    g_remote_action_group_change_action_state_full  (GRemote
                                                                          GVariant           *value,
                                                                          GVariant           *platform_data);
 
-G_END_DECLS
+
 
 #endif /* __G_REMOTE_ACTION_GROUP_H__ */

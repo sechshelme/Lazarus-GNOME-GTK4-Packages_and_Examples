@@ -29,7 +29,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_FILE_ENUMERATOR         (g_file_enumerator_get_type ())
 #define G_FILE_ENUMERATOR(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_FILE_ENUMERATOR, GFileEnumerator))
@@ -92,7 +92,7 @@ struct _GFileEnumeratorClass
 };
 
 GIO_AVAILABLE_IN_ALL
-GType      g_file_enumerator_get_type          (void) G_GNUC_CONST;
+GType      g_file_enumerator_get_type          (void) ;
 
 GIO_AVAILABLE_IN_ALL
 GFileInfo *g_file_enumerator_next_file         (GFileEnumerator      *enumerator,
@@ -144,6 +144,6 @@ gboolean   g_file_enumerator_iterate           (GFileEnumerator  *direnum,
                                                 GError          **error);
 
 
-G_END_DECLS
+
 
 #endif /* __G_FILE_ENUMERATOR_H__ */

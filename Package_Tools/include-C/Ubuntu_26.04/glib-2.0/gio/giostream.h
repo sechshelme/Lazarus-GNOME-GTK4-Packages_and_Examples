@@ -28,7 +28,7 @@
 #include <gio/gcancellable.h>
 #include <gio/gioerror.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_IO_STREAM         (g_io_stream_get_type ())
 #define G_IO_STREAM(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_IO_STREAM, GIOStream))
@@ -81,7 +81,7 @@ struct _GIOStreamClass
 };
 
 GIO_AVAILABLE_IN_ALL
-GType          g_io_stream_get_type          (void)  G_GNUC_CONST;
+GType          g_io_stream_get_type          (void)  ;
 
 GIO_AVAILABLE_IN_ALL
 GInputStream * g_io_stream_get_input_stream  (GIOStream            *stream);
@@ -127,6 +127,6 @@ gboolean       g_io_stream_set_pending       (GIOStream            *stream,
 GIO_AVAILABLE_IN_ALL
 void           g_io_stream_clear_pending     (GIOStream            *stream);
 
-G_END_DECLS
+
 
 #endif /* __G_IO_STREAM_H__ */

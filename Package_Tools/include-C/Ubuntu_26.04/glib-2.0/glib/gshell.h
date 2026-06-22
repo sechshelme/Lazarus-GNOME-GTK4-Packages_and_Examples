@@ -27,7 +27,7 @@
 
 #include <glib/gerror.h>
 
-G_BEGIN_DECLS
+
 
 #define G_SHELL_ERROR g_shell_error_quark ()
 
@@ -40,20 +40,20 @@ typedef enum
   G_SHELL_ERROR_FAILED
 } GShellError;
 
-GLIB_AVAILABLE_IN_ALL
+extern
 GQuark g_shell_error_quark (void);
 
-GLIB_AVAILABLE_IN_ALL
+extern
 gchar*   g_shell_quote      (const gchar   *unquoted_string);
-GLIB_AVAILABLE_IN_ALL
+extern
 gchar*   g_shell_unquote    (const gchar   *quoted_string,
                              GError       **error);
-GLIB_AVAILABLE_IN_ALL
+extern
 gboolean g_shell_parse_argv (const gchar   *command_line,
                              gint          *argcp,
                              gchar       ***argvp,
                              GError       **error);
 
-G_END_DECLS
+
 
 #endif /* __G_SHELL_H__ */

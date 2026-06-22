@@ -33,15 +33,15 @@
 
 #include <glib/gtypes.h>
 
-G_BEGIN_DECLS
 
-GLIB_VAR const guint glib_major_version;
-GLIB_VAR const guint glib_minor_version;
-GLIB_VAR const guint glib_micro_version;
-GLIB_VAR const guint glib_interface_age;
-GLIB_VAR const guint glib_binary_age;
 
-GLIB_AVAILABLE_IN_ALL
+extern const guint glib_major_version;
+extern const guint glib_minor_version;
+extern const guint glib_micro_version;
+extern const guint glib_interface_age;
+extern const guint glib_binary_age;
+
+extern
 const gchar * glib_check_version (guint required_major,
                                   guint required_minor,
                                   guint required_micro);
@@ -52,6 +52,6 @@ const gchar * glib_check_version (guint required_major,
      (GLIB_MAJOR_VERSION == (major) && GLIB_MINOR_VERSION == (minor) && \
       GLIB_MICRO_VERSION >= (micro)))
 
-G_END_DECLS
+
 
 #endif /*  __G_VERSION_H__ */

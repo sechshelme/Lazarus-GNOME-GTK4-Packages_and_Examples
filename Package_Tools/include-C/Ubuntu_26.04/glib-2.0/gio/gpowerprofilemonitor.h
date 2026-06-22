@@ -28,7 +28,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * G_POWER_PROFILE_MONITOR_EXTENSION_POINT_NAME:
@@ -60,6 +60,6 @@ GPowerProfileMonitor      *g_power_profile_monitor_dup_default              (voi
 GIO_AVAILABLE_IN_2_70
 gboolean                   g_power_profile_monitor_get_power_saver_enabled  (GPowerProfileMonitor *monitor);
 
-G_END_DECLS
+
 
 #endif /* __G_POWER_PROFILE_MONITOR_H__ */

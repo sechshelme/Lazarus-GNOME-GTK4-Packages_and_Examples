@@ -23,7 +23,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_TLS_FILE_DATABASE                (g_tls_file_database_get_type ())
 #define G_TLS_FILE_DATABASE(inst)               (G_TYPE_CHECK_INSTANCE_CAST ((inst), G_TYPE_TLS_FILE_DATABASE, GTlsFileDatabase))
@@ -49,12 +49,12 @@ struct _GTlsFileDatabaseInterface
 };
 
 GIO_AVAILABLE_IN_ALL
-GType                        g_tls_file_database_get_type              (void) G_GNUC_CONST;
+GType                        g_tls_file_database_get_type              (void) ;
 
 GIO_AVAILABLE_IN_ALL
 GTlsDatabase*                g_tls_file_database_new                   (const gchar  *anchors,
                                                                         GError      **error);
 
-G_END_DECLS
+
 
 #endif /* __G_TLS_FILE_DATABASE_H___ */

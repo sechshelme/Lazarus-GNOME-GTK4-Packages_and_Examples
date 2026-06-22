@@ -29,7 +29,7 @@
 #include "gactiongroup.h"
 #include "gactionmap.h"
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_SIMPLE_ACTION_GROUP                          (g_simple_action_group_get_type ())
 #define G_SIMPLE_ACTION_GROUP(inst)                         (G_TYPE_CHECK_INSTANCE_CAST ((inst),                     \
@@ -64,7 +64,7 @@ struct _GSimpleActionGroupClass
 };
 
 GIO_AVAILABLE_IN_ALL
-GType                   g_simple_action_group_get_type                  (void) G_GNUC_CONST;
+GType                   g_simple_action_group_get_type                  (void) ;
 
 GIO_AVAILABLE_IN_ALL
 GSimpleActionGroup *    g_simple_action_group_new                       (void);
@@ -87,6 +87,6 @@ void                    g_simple_action_group_add_entries               (GSimple
                                                                          gint                n_entries,
                                                                          gpointer            user_data);
 
-G_END_DECLS
+
 
 #endif /* __G_SIMPLE_ACTION_GROUP_H__ */

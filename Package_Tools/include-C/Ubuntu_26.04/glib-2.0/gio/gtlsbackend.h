@@ -28,7 +28,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * G_TLS_BACKEND_EXTENSION_POINT_NAME:
@@ -80,7 +80,7 @@ struct _GTlsBackendInterface
 };
 
 GIO_AVAILABLE_IN_ALL
-GType          g_tls_backend_get_type                   (void) G_GNUC_CONST;
+GType          g_tls_backend_get_type                   (void) ;
 
 GIO_AVAILABLE_IN_ALL
 GTlsBackend *  g_tls_backend_get_default                (void);
@@ -110,6 +110,6 @@ GType          g_tls_backend_get_dtls_client_connection_type (GTlsBackend *backe
 GIO_AVAILABLE_IN_2_48
 GType          g_tls_backend_get_dtls_server_connection_type (GTlsBackend *backend);
 
-G_END_DECLS
+
 
 #endif /* __G_TLS_BACKEND_H__ */

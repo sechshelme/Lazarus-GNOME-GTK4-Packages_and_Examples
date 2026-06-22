@@ -30,7 +30,7 @@
 #include <gio/giotypes.h>
 #include <gio/ginitable.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_ASYNC_INITABLE            (g_async_initable_get_type ())
 #define G_ASYNC_INITABLE(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), G_TYPE_ASYNC_INITABLE, GAsyncInitable))
@@ -68,7 +68,7 @@ struct _GAsyncInitableIface
 };
 
 GIO_AVAILABLE_IN_ALL
-GType    g_async_initable_get_type    (void) G_GNUC_CONST;
+GType    g_async_initable_get_type    (void) ;
 
 
 GIO_AVAILABLE_IN_ALL
@@ -91,7 +91,7 @@ void     g_async_initable_new_async        (GType                 object_type,
 					    const gchar          *first_property_name,
 					    ...);
 
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+
 
 GIO_DEPRECATED_IN_2_54_FOR(g_object_new_with_properties and g_async_initable_init_async)
 void     g_async_initable_newv_async       (GType                 object_type,
@@ -102,7 +102,7 @@ void     g_async_initable_newv_async       (GType                 object_type,
 					    GAsyncReadyCallback   callback,
 					    gpointer              user_data);
 
-G_GNUC_END_IGNORE_DEPRECATIONS
+
 
 GIO_AVAILABLE_IN_ALL
 void     g_async_initable_new_valist_async (GType                 object_type,
@@ -119,7 +119,7 @@ GObject *g_async_initable_new_finish       (GAsyncInitable       *initable,
 
 
 
-G_END_DECLS
+
 
 
 #endif /* __G_ASYNC_INITABLE_H__ */

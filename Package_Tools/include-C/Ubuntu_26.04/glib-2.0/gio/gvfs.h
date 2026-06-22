@@ -29,7 +29,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_VFS         (g_vfs_get_type ())
 #define G_VFS(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_VFS, GVfs))
@@ -124,7 +124,7 @@ struct _GVfsClass
 };
 
 GIO_AVAILABLE_IN_ALL
-GType                 g_vfs_get_type                  (void) G_GNUC_CONST;
+GType                 g_vfs_get_type                  (void) ;
 
 GIO_AVAILABLE_IN_ALL
 gboolean              g_vfs_is_active                 (GVfs       *vfs);
@@ -160,6 +160,6 @@ gboolean              g_vfs_unregister_uri_scheme     (GVfs               *vfs,
                                                        const char         *scheme);
 
 
-G_END_DECLS
+
 
 #endif /* __G_VFS_H__ */

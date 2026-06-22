@@ -28,7 +28,7 @@
 
 #include <gio/gdtlsconnection.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_DTLS_CLIENT_CONNECTION                (g_dtls_client_connection_get_type ())
 #define G_DTLS_CLIENT_CONNECTION(inst)               (G_TYPE_CHECK_INSTANCE_CAST ((inst), G_TYPE_DTLS_CLIENT_CONNECTION, GDtlsClientConnection))
@@ -51,7 +51,7 @@ struct _GDtlsClientConnectionInterface
 };
 
 GIO_AVAILABLE_IN_2_48
-GType                g_dtls_client_connection_get_type             (void) G_GNUC_CONST;
+GType                g_dtls_client_connection_get_type             (void) ;
 
 GIO_AVAILABLE_IN_2_48
 GDatagramBased      *g_dtls_client_connection_new                  (GDatagramBased         *base_socket,
@@ -72,6 +72,6 @@ GIO_AVAILABLE_IN_2_48
 GList *              g_dtls_client_connection_get_accepted_cas     (GDtlsClientConnection  *conn);
 
 
-G_END_DECLS
+
 
 #endif /* __G_DTLS_CLIENT_CONNECTION_H__ */

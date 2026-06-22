@@ -29,14 +29,14 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_SUBPROCESS         (g_subprocess_get_type ())
 #define G_SUBPROCESS(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_SUBPROCESS, GSubprocess))
 #define G_IS_SUBPROCESS(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), G_TYPE_SUBPROCESS))
 
 GIO_AVAILABLE_IN_2_40
-GType            g_subprocess_get_type                  (void) G_GNUC_CONST;
+GType            g_subprocess_get_type                  (void) ;
 
 /**** Core API ****/
 
@@ -44,7 +44,7 @@ GIO_AVAILABLE_IN_2_40
 GSubprocess *    g_subprocess_new                       (GSubprocessFlags        flags,
                                                          GError                **error,
                                                          const gchar            *argv0,
-                                                         ...) G_GNUC_NULL_TERMINATED;
+                                                         ...) ;
 GIO_AVAILABLE_IN_2_40
 GSubprocess *    g_subprocess_newv                      (const gchar * const  *argv,
                                                          GSubprocessFlags      flags,
@@ -164,6 +164,6 @@ gboolean        g_subprocess_communicate_utf8_finish    (GSubprocess          *s
                                                          char                **stderr_buf,
                                                          GError              **error);
 
-G_END_DECLS
+
 
 #endif /* __G_SUBPROCESS_H__ */

@@ -28,7 +28,7 @@
 #include	<gobject/gparam.h>
 #include	<gobject/gmarshal.h>
 
-G_BEGIN_DECLS
+
 
 /* --- typedefs --- */
 typedef struct _GSignalQuery		 GSignalQuery;
@@ -140,7 +140,7 @@ typedef enum
   G_SIGNAL_DEPRECATED   = 1 << 8,
   /* normal signal flags until 1 << 16 */
   G_SIGNAL_ACCUMULATOR_FIRST_RUN    = 1 << 17,
-} G_GNUC_FLAG_ENUM GSignalFlags;
+}  GSignalFlags;
 
 /**
  * G_SIGNAL_MUST_COLLECT:
@@ -197,7 +197,7 @@ typedef enum
   G_CONNECT_DEFAULT GOBJECT_AVAILABLE_ENUMERATOR_IN_2_74 = 0,
   G_CONNECT_AFTER	= 1 << 0,
   G_CONNECT_SWAPPED	= 1 << 1
-} G_GNUC_FLAG_ENUM GConnectFlags;
+}  GConnectFlags;
 /**
  * GSignalMatchType:
  * @G_SIGNAL_MATCH_ID: The signal id must be equal.
@@ -219,7 +219,7 @@ typedef enum
   G_SIGNAL_MATCH_FUNC	   = 1 << 3,
   G_SIGNAL_MATCH_DATA	   = 1 << 4,
   G_SIGNAL_MATCH_UNBLOCKED = 1 << 5
-} G_GNUC_FLAG_ENUM GSignalMatchType;
+}  GSignalMatchType;
 /**
  * G_SIGNAL_MATCH_MASK:
  * 
@@ -692,6 +692,6 @@ GOBJECT_AVAILABLE_IN_ALL
 void	 g_signal_handlers_destroy	      (gpointer		  instance);
 void	 _g_signals_destroy		      (GType		  itype);
 
-G_END_DECLS
+
 
 #endif /* __G_SIGNAL_H__ */

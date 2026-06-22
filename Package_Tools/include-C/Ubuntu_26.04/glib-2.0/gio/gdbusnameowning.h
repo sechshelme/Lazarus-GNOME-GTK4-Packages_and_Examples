@@ -29,7 +29,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GBusAcquiredCallback:
@@ -114,6 +114,6 @@ guint g_bus_own_name_on_connection_with_closures (
 GIO_AVAILABLE_IN_ALL
 void  g_bus_unown_name               (guint                     owner_id);
 
-G_END_DECLS
+
 
 #endif /* __G_DBUS_NAME_OWNING_H__ */

@@ -33,9 +33,9 @@
 
 #include <glib/gthread.h>
 
-G_BEGIN_DECLS
 
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+
+
 
 typedef enum
 {
@@ -93,18 +93,18 @@ struct _GThreadFunctions
                                    gpointer              thread2);
 } GLIB_DEPRECATED_TYPE_IN_2_32;
 
-GLIB_VAR GThreadFunctions       g_thread_functions_for_glib_use;
-GLIB_VAR gboolean               g_thread_use_default_impl;
+extern GThreadFunctions       g_thread_functions_for_glib_use;
+extern gboolean               g_thread_use_default_impl;
 
-GLIB_VAR guint64   (*g_thread_gettime) (void);
+extern guint64   (*g_thread_gettime) (void);
 
-GLIB_DEPRECATED_IN_2_32_FOR(g_thread_new)
+extern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxGLIB_DEPRECATED_IN_2_32_FOR(g_thread_new)
 GThread *g_thread_create       (GThreadFunc       func,
                                 gpointer          data,
                                 gboolean          joinable,
                                 GError          **error);
 
-GLIB_DEPRECATED_IN_2_32_FOR(g_thread_new)
+extern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxGLIB_DEPRECATED_IN_2_32_FOR(g_thread_new)
 GThread *g_thread_create_full  (GThreadFunc       func,
                                 gpointer          data,
                                 gulong            stack_size,
@@ -113,11 +113,11 @@ GThread *g_thread_create_full  (GThreadFunc       func,
                                 GThreadPriority   priority,
                                 GError          **error);
 
-GLIB_DEPRECATED_IN_2_32
+extern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxGLIB_DEPRECATED_IN_2_32
 void     g_thread_set_priority (GThread          *thread,
                                 GThreadPriority   priority);
 
-GLIB_DEPRECATED_IN_2_32
+extern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxGLIB_DEPRECATED_IN_2_32
 void     g_thread_foreach      (GFunc             thread_func,
                                 gpointer          user_data);
 
@@ -150,11 +150,11 @@ typedef struct
 #define g_static_mutex_unlock(mutex) \
     g_mutex_unlock (g_static_mutex_get_mutex (mutex)) GLIB_DEPRECATED_MACRO_IN_2_32_FOR(g_mutex_unlock)
 
-GLIB_DEPRECATED_IN_2_32_FOR(g_mutex_init)
+extern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxGLIB_DEPRECATED_IN_2_32_FOR(g_mutex_init)
 void    g_static_mutex_init           (GStaticMutex *mutex);
-GLIB_DEPRECATED_IN_2_32_FOR(g_mutex_clear)
+extern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxGLIB_DEPRECATED_IN_2_32_FOR(g_mutex_clear)
 void    g_static_mutex_free           (GStaticMutex *mutex);
-GLIB_DEPRECATED_IN_2_32_FOR(GMutex)
+extern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxGLIB_DEPRECATED_IN_2_32_FOR(GMutex)
 GMutex *g_static_mutex_get_mutex_impl (GStaticMutex *mutex);
 
 typedef struct _GStaticRecMutex GStaticRecMutex GLIB_DEPRECATED_TYPE_IN_2_32_FOR(GRecMutex);
@@ -178,26 +178,26 @@ struct _GStaticRecMutex
 } GLIB_DEPRECATED_TYPE_IN_2_32_FOR(GRecMutex);
 
 #define G_STATIC_REC_MUTEX_INIT { G_STATIC_MUTEX_INIT, 0, { 0 } } GLIB_DEPRECATED_MACRO_IN_2_32_FOR(g_rec_mutex_init)
-GLIB_DEPRECATED_IN_2_32_FOR(g_rec_mutex_init)
+extern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxGLIB_DEPRECATED_IN_2_32_FOR(g_rec_mutex_init)
 void     g_static_rec_mutex_init        (GStaticRecMutex *mutex);
 
-GLIB_DEPRECATED_IN_2_32_FOR(g_rec_mutex_lock)
+extern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxGLIB_DEPRECATED_IN_2_32_FOR(g_rec_mutex_lock)
 void     g_static_rec_mutex_lock        (GStaticRecMutex *mutex);
 
-GLIB_DEPRECATED_IN_2_32_FOR(g_rec_mutex_try_lock)
+extern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxGLIB_DEPRECATED_IN_2_32_FOR(g_rec_mutex_try_lock)
 gboolean g_static_rec_mutex_trylock     (GStaticRecMutex *mutex);
 
-GLIB_DEPRECATED_IN_2_32_FOR(g_rec_mutex_unlock)
+extern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxGLIB_DEPRECATED_IN_2_32_FOR(g_rec_mutex_unlock)
 void     g_static_rec_mutex_unlock      (GStaticRecMutex *mutex);
 
-GLIB_DEPRECATED_IN_2_32
+extern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxGLIB_DEPRECATED_IN_2_32
 void     g_static_rec_mutex_lock_full   (GStaticRecMutex *mutex,
                                          guint            depth);
 
-GLIB_DEPRECATED_IN_2_32
+extern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxGLIB_DEPRECATED_IN_2_32
 guint    g_static_rec_mutex_unlock_full (GStaticRecMutex *mutex);
 
-GLIB_DEPRECATED_IN_2_32_FOR(g_rec_mutex_free)
+extern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxGLIB_DEPRECATED_IN_2_32_FOR(g_rec_mutex_free)
 void     g_static_rec_mutex_free        (GStaticRecMutex *mutex);
 
 typedef struct _GStaticRWLock GStaticRWLock GLIB_DEPRECATED_TYPE_IN_2_32_FOR(GRWLock);
@@ -215,31 +215,31 @@ struct _GStaticRWLock
 
 #define G_STATIC_RW_LOCK_INIT { G_STATIC_MUTEX_INIT, NULL, NULL, 0, FALSE, 0, 0 } GLIB_DEPRECATED_MACRO_IN_2_32_FOR(g_rw_lock_init)
 
-GLIB_DEPRECATED_IN_2_32_FOR(g_rw_lock_init)
+extern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxGLIB_DEPRECATED_IN_2_32_FOR(g_rw_lock_init)
 void      g_static_rw_lock_init           (GStaticRWLock *lock);
 
-GLIB_DEPRECATED_IN_2_32_FOR(g_rw_lock_reader_lock)
+extern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxGLIB_DEPRECATED_IN_2_32_FOR(g_rw_lock_reader_lock)
 void      g_static_rw_lock_reader_lock    (GStaticRWLock *lock);
 
-GLIB_DEPRECATED_IN_2_32_FOR(g_rw_lock_reader_trylock)
+extern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxGLIB_DEPRECATED_IN_2_32_FOR(g_rw_lock_reader_trylock)
 gboolean  g_static_rw_lock_reader_trylock (GStaticRWLock *lock);
 
-GLIB_DEPRECATED_IN_2_32_FOR(g_rw_lock_reader_unlock)
+extern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxGLIB_DEPRECATED_IN_2_32_FOR(g_rw_lock_reader_unlock)
 void      g_static_rw_lock_reader_unlock  (GStaticRWLock *lock);
 
-GLIB_DEPRECATED_IN_2_32_FOR(g_rw_lock_writer_lock)
+extern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxGLIB_DEPRECATED_IN_2_32_FOR(g_rw_lock_writer_lock)
 void      g_static_rw_lock_writer_lock    (GStaticRWLock *lock);
 
-GLIB_DEPRECATED_IN_2_32_FOR(g_rw_lock_writer_trylock)
+extern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxGLIB_DEPRECATED_IN_2_32_FOR(g_rw_lock_writer_trylock)
 gboolean  g_static_rw_lock_writer_trylock (GStaticRWLock *lock);
 
-GLIB_DEPRECATED_IN_2_32_FOR(g_rw_lock_writer_unlock)
+extern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxGLIB_DEPRECATED_IN_2_32_FOR(g_rw_lock_writer_unlock)
 void      g_static_rw_lock_writer_unlock  (GStaticRWLock *lock);
 
-GLIB_DEPRECATED_IN_2_32_FOR(g_rw_lock_free)
+extern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxGLIB_DEPRECATED_IN_2_32_FOR(g_rw_lock_free)
 void      g_static_rw_lock_free           (GStaticRWLock *lock);
 
-GLIB_DEPRECATED_IN_2_32
+extern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxGLIB_DEPRECATED_IN_2_32
 GPrivate *      g_private_new             (GDestroyNotify notify);
 
 typedef struct _GStaticPrivate  GStaticPrivate GLIB_DEPRECATED_TYPE_IN_2_32_FOR(GPrivate);
@@ -250,50 +250,50 @@ struct _GStaticPrivate
 } GLIB_DEPRECATED_TYPE_IN_2_32_FOR(GPrivate);
 
 #define G_STATIC_PRIVATE_INIT { 0 } GLIB_DEPRECATED_MACRO_IN_2_32_FOR(G_PRIVATE_INIT)
-GLIB_DEPRECATED_IN_2_32
+extern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxGLIB_DEPRECATED_IN_2_32
 void     g_static_private_init           (GStaticPrivate *private_key);
 
-GLIB_DEPRECATED_IN_2_32_FOR(g_private_get)
+extern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxGLIB_DEPRECATED_IN_2_32_FOR(g_private_get)
 gpointer g_static_private_get            (GStaticPrivate *private_key);
 
-GLIB_DEPRECATED_IN_2_32_FOR(g_private_set)
+extern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxGLIB_DEPRECATED_IN_2_32_FOR(g_private_set)
 void     g_static_private_set            (GStaticPrivate *private_key,
                                           gpointer        data,
                                           GDestroyNotify  notify);
 
-GLIB_DEPRECATED_IN_2_32
+extern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxGLIB_DEPRECATED_IN_2_32
 void     g_static_private_free           (GStaticPrivate *private_key);
 
-GLIB_DEPRECATED_IN_2_32
-gboolean g_once_init_enter_impl          (volatile gsize *location);
+extern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxGLIB_DEPRECATED_IN_2_32
+gboolean g_once_init_enter_impl          ( gsize *location);
 
-GLIB_DEPRECATED_IN_2_32
+extern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxGLIB_DEPRECATED_IN_2_32
 void     g_thread_init                   (gpointer vtable);
-GLIB_DEPRECATED_IN_2_32
+extern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxGLIB_DEPRECATED_IN_2_32
 void    g_thread_init_with_errorcheck_mutexes (gpointer vtable);
 
-GLIB_DEPRECATED_IN_2_32
+extern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxGLIB_DEPRECATED_IN_2_32
 gboolean g_thread_get_initialized        (void);
 
-GLIB_VAR gboolean g_threads_got_initialized;
+extern gboolean g_threads_got_initialized;
 
 #define g_thread_supported()     (1) GLIB_DEPRECATED_MACRO_IN_2_32
 
-GLIB_DEPRECATED_IN_2_32
+extern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxGLIB_DEPRECATED_IN_2_32
 GMutex *        g_mutex_new             (void);
-GLIB_DEPRECATED_IN_2_32
+extern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxGLIB_DEPRECATED_IN_2_32
 void            g_mutex_free            (GMutex *mutex);
-GLIB_DEPRECATED_IN_2_32
+extern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxGLIB_DEPRECATED_IN_2_32
 GCond *         g_cond_new              (void);
-GLIB_DEPRECATED_IN_2_32
+extern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxGLIB_DEPRECATED_IN_2_32
 void            g_cond_free             (GCond  *cond);
-GLIB_DEPRECATED_IN_2_32
+extern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxextern //xxxxxGLIB_DEPRECATED_IN_2_32
 gboolean        g_cond_timed_wait       (GCond          *cond,
                                          GMutex         *mutex,
                                          GTimeVal       *abs_time);
 
-G_GNUC_END_IGNORE_DEPRECATIONS
 
-G_END_DECLS
+
+
 
 #endif /* __G_DEPRECATED_THREAD_H__ */

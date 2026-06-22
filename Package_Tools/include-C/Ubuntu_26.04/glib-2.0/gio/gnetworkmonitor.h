@@ -27,7 +27,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * G_NETWORK_MONITOR_EXTENSION_POINT_NAME:
@@ -67,7 +67,7 @@ struct _GNetworkMonitorInterface {
 };
 
 GIO_AVAILABLE_IN_2_32
-GType                 g_network_monitor_get_type              (void) G_GNUC_CONST;
+GType                 g_network_monitor_get_type              (void) ;
 GIO_AVAILABLE_IN_2_32
 GNetworkMonitor      *g_network_monitor_get_default           (void);
 
@@ -96,6 +96,6 @@ gboolean              g_network_monitor_can_reach_finish      (GNetworkMonitor  
                                                                GAsyncResult        *result,
                                                                GError             **error);
 
-G_END_DECLS
+
 
 #endif /* __G_NETWORK_MONITOR_H__ */

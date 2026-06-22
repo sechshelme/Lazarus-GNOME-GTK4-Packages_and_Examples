@@ -29,14 +29,14 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_DBUS_MESSAGE         (g_dbus_message_get_type ())
 #define G_DBUS_MESSAGE(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_DBUS_MESSAGE, GDBusMessage))
 #define G_IS_DBUS_MESSAGE(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), G_TYPE_DBUS_MESSAGE))
 
 GIO_AVAILABLE_IN_ALL
-GType                     g_dbus_message_get_type           (void) G_GNUC_CONST;
+GType                     g_dbus_message_get_type           (void) ;
 GIO_AVAILABLE_IN_ALL
 GDBusMessage             *g_dbus_message_new                (void);
 GIO_AVAILABLE_IN_ALL
@@ -54,7 +54,7 @@ GIO_AVAILABLE_IN_ALL
 GDBusMessage             *g_dbus_message_new_method_error   (GDBusMessage             *method_call_message,
                                                              const gchar              *error_name,
                                                              const gchar              *error_message_format,
-                                                             ...) G_GNUC_PRINTF(3, 4);
+                                                             ...) ;(3, 4);
 GIO_AVAILABLE_IN_ALL
 GDBusMessage             *g_dbus_message_new_method_error_valist (GDBusMessage             *method_call_message,
                                                                   const gchar              *error_name,
@@ -200,6 +200,6 @@ GIO_AVAILABLE_IN_ALL
 gboolean                  g_dbus_message_to_gerror          (GDBusMessage             *message,
                                                              GError                  **error);
 
-G_END_DECLS
+
 
 #endif /* __G_DBUS_MESSAGE_H__ */

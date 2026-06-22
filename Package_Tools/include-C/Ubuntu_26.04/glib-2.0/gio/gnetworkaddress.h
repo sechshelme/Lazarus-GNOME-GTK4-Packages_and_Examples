@@ -27,7 +27,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_NETWORK_ADDRESS         (g_network_address_get_type ())
 #define G_NETWORK_ADDRESS(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_NETWORK_ADDRESS, GNetworkAddress))
@@ -54,7 +54,7 @@ struct _GNetworkAddressClass
 };
 
 GIO_AVAILABLE_IN_ALL
-GType               g_network_address_get_type     (void) G_GNUC_CONST;
+GType               g_network_address_get_type     (void) ;
 
 GIO_AVAILABLE_IN_ALL
 GSocketConnectable *g_network_address_new          (const gchar      *hostname,
@@ -77,6 +77,6 @@ GIO_AVAILABLE_IN_ALL
 const gchar        *g_network_address_get_scheme   (GNetworkAddress  *addr);
 
 
-G_END_DECLS
+
 
 #endif /* __G_NETWORK_ADDRESS_H__ */

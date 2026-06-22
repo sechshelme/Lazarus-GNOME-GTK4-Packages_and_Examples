@@ -29,14 +29,14 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_DBUS_CONNECTION         (g_dbus_connection_get_type ())
 #define G_DBUS_CONNECTION(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_DBUS_CONNECTION, GDBusConnection))
 #define G_IS_DBUS_CONNECTION(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), G_TYPE_DBUS_CONNECTION))
 
 GIO_AVAILABLE_IN_ALL
-GType            g_dbus_connection_get_type                   (void) G_GNUC_CONST;
+GType            g_dbus_connection_get_type                   (void) ;
 
 /* ---------------------------------------------------------------------------------------------------- */
 
@@ -157,14 +157,14 @@ GIO_AVAILABLE_IN_ALL
 gboolean         g_dbus_connection_send_message                   (GDBusConnection     *connection,
                                                                    GDBusMessage        *message,
                                                                    GDBusSendMessageFlags flags,
-                                                                   volatile guint32    *out_serial,
+                                                                    guint32    *out_serial,
                                                                    GError             **error);
 GIO_AVAILABLE_IN_ALL
 void             g_dbus_connection_send_message_with_reply        (GDBusConnection     *connection,
                                                                    GDBusMessage        *message,
                                                                    GDBusSendMessageFlags flags,
                                                                    gint                 timeout_msec,
-                                                                   volatile guint32    *out_serial,
+                                                                    guint32    *out_serial,
                                                                    GCancellable        *cancellable,
                                                                    GAsyncReadyCallback  callback,
                                                                    gpointer             user_data);
@@ -177,7 +177,7 @@ GDBusMessage    *g_dbus_connection_send_message_with_reply_sync   (GDBusConnecti
                                                                    GDBusMessage        *message,
                                                                    GDBusSendMessageFlags flags,
                                                                    gint                 timeout_msec,
-                                                                   volatile guint32    *out_serial,
+                                                                    guint32    *out_serial,
                                                                    GCancellable        *cancellable,
                                                                    GError             **error);
 
@@ -644,9 +644,9 @@ g_clear_dbus_signal_subscription (guint           *subscription_id_pointer,
   guint subscription_id;
 
   /* Suppress "Not available before" warning */
-  G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+  
   subscription_id = g_steal_handle_id (subscription_id_pointer);
-  G_GNUC_END_IGNORE_DEPRECATIONS
+  
 
   if (subscription_id > 0)
     g_dbus_connection_signal_unsubscribe (connection, subscription_id);
@@ -746,6 +746,6 @@ void  g_dbus_connection_remove_filter (GDBusConnection    *connection,
 /* ---------------------------------------------------------------------------------------------------- */
 
 
-G_END_DECLS
+
 
 #endif /* __G_DBUS_CONNECTION_H__ */

@@ -29,7 +29,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_FILE_MONITOR         (g_file_monitor_get_type ())
 #define G_FILE_MONITOR(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_FILE_MONITOR, GFileMonitor))
@@ -72,7 +72,7 @@ struct _GFileMonitorClass
 };
 
 GIO_AVAILABLE_IN_ALL
-GType    g_file_monitor_get_type       (void) G_GNUC_CONST;
+GType    g_file_monitor_get_type       (void) ;
 
 GIO_AVAILABLE_IN_ALL
 gboolean g_file_monitor_cancel         (GFileMonitor      *monitor);
@@ -90,6 +90,6 @@ void     g_file_monitor_emit_event     (GFileMonitor      *monitor,
                                         GFile             *other_file,
                                         GFileMonitorEvent  event_type);
 
-G_END_DECLS
+
 
 #endif /* __G_FILE_MONITOR_H__ */

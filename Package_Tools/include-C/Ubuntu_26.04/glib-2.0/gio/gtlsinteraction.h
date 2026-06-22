@@ -29,7 +29,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_TLS_INTERACTION         (g_tls_interaction_get_type ())
 #define G_TLS_INTERACTION(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_TLS_INTERACTION, GTlsInteraction))
@@ -92,7 +92,7 @@ struct _GTlsInteractionClass
 };
 
 GIO_AVAILABLE_IN_ALL
-GType                  g_tls_interaction_get_type            (void) G_GNUC_CONST;
+GType                  g_tls_interaction_get_type            (void) ;
 
 GIO_AVAILABLE_IN_ALL
 GTlsInteractionResult  g_tls_interaction_invoke_ask_password (GTlsInteraction    *interaction,
@@ -145,6 +145,6 @@ GTlsInteractionResult  g_tls_interaction_request_certificate_finish (GTlsInterac
                                                                      GAsyncResult                 *result,
                                                                      GError                      **error);
 
-G_END_DECLS
+
 
 #endif /* __G_TLS_INTERACTION_H__ */

@@ -28,7 +28,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_RESOLVER         (g_resolver_get_type ())
 #define G_RESOLVER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_RESOLVER, GResolver))
@@ -60,7 +60,7 @@ typedef enum {
   G_RESOLVER_NAME_LOOKUP_FLAGS_DEFAULT = 0,
   G_RESOLVER_NAME_LOOKUP_FLAGS_IPV4_ONLY = 1 << 0,
   G_RESOLVER_NAME_LOOKUP_FLAGS_IPV6_ONLY = 1 << 1,
-} G_GNUC_FLAG_ENUM GResolverNameLookupFlags;
+}  GResolverNameLookupFlags;
 
 struct _GResolverClass {
   GObjectClass parent_class;
@@ -184,7 +184,7 @@ struct _GResolverClass {
 };
 
 GIO_AVAILABLE_IN_ALL
-GType      g_resolver_get_type                         (void) G_GNUC_CONST;
+GType      g_resolver_get_type                         (void) ;
 GIO_AVAILABLE_IN_ALL
 GResolver *g_resolver_get_default                      (void);
 GIO_AVAILABLE_IN_ALL
@@ -294,6 +294,6 @@ void       g_resolver_set_timeout                      (GResolver               
 GIO_AVAILABLE_IN_ALL
 GQuark g_resolver_error_quark (void);
 
-G_END_DECLS
+
 
 #endif /* __G_RESOLVER_H__ */

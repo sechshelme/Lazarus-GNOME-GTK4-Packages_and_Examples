@@ -29,7 +29,7 @@
 #include        <gobject/glib-types.h>
 #endif
 
-G_BEGIN_DECLS
+
 
 /* --- type macros --- */
 #define G_TYPE_IS_BOXED(type)      (G_TYPE_FUNDAMENTAL (type) == G_TYPE_BOXED)
@@ -115,10 +115,10 @@ GType    g_boxed_type_register_static     (const gchar   *name,
 #define G_TYPE_VALUE (g_value_get_type ())
 
 GOBJECT_AVAILABLE_IN_ALL
-GType   g_closure_get_type         (void) G_GNUC_CONST;
+GType   g_closure_get_type         (void) ;
 GOBJECT_AVAILABLE_IN_ALL
-GType   g_value_get_type           (void) G_GNUC_CONST;
+GType   g_value_get_type           (void) ;
 
-G_END_DECLS
+
 
 #endif  /* __G_BOXED_H__ */

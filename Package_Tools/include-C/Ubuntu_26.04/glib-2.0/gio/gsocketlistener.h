@@ -34,7 +34,7 @@
 
 #include <gio/giotypes.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_SOCKET_LISTENER                              (g_socket_listener_get_type ())
 #define G_SOCKET_LISTENER(inst)                             (G_TYPE_CHECK_INSTANCE_CAST ((inst),                     \
@@ -82,7 +82,7 @@ struct _GSocketListener
 };
 
 GIO_AVAILABLE_IN_ALL
-GType                   g_socket_listener_get_type                      (void) G_GNUC_CONST;
+GType                   g_socket_listener_get_type                      (void) ;
 
 GIO_AVAILABLE_IN_ALL
 GSocketListener *       g_socket_listener_new                           (void);
@@ -152,6 +152,6 @@ GSocketConnection *     g_socket_listener_accept_finish                 (GSocket
 GIO_AVAILABLE_IN_ALL
 void                    g_socket_listener_close                         (GSocketListener      *listener);
 
-G_END_DECLS
+
 
 #endif /* __G_SOCKET_LISTENER_H__ */

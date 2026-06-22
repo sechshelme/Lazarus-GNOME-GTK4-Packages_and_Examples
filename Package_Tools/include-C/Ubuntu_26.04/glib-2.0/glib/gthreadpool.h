@@ -33,7 +33,7 @@
 
 #include <glib/gthread.h>
 
-G_BEGIN_DECLS
+
 
 typedef struct _GThreadPool GThreadPool;
 
@@ -47,59 +47,59 @@ struct _GThreadPool
   gboolean exclusive;
 };
 
-GLIB_AVAILABLE_IN_ALL
+extern
 GThreadPool *   g_thread_pool_new               (GFunc            func,
                                                  gpointer         user_data,
                                                  gint             max_threads,
                                                  gboolean         exclusive,
                                                  GError         **error);
-GLIB_AVAILABLE_IN_2_70
+extern
 GThreadPool *   g_thread_pool_new_full          (GFunc            func,
                                                  gpointer         user_data,
                                                  GDestroyNotify   item_free_func,
                                                  gint             max_threads,
                                                  gboolean         exclusive,
                                                  GError         **error);
-GLIB_AVAILABLE_IN_ALL
+extern
 void            g_thread_pool_free              (GThreadPool     *pool,
                                                  gboolean         immediate,
                                                  gboolean         wait_);
-GLIB_AVAILABLE_IN_ALL
+extern
 gboolean        g_thread_pool_push              (GThreadPool     *pool,
                                                  gpointer         data,
                                                  GError         **error);
-GLIB_AVAILABLE_IN_ALL
+extern
 guint           g_thread_pool_unprocessed       (GThreadPool     *pool);
-GLIB_AVAILABLE_IN_ALL
+extern
 void            g_thread_pool_set_sort_function (GThreadPool      *pool,
                                                  GCompareDataFunc  func,
                                                  gpointer          user_data);
-GLIB_AVAILABLE_IN_2_46
+extern
 gboolean        g_thread_pool_move_to_front     (GThreadPool      *pool,
                                                  gpointer          data);
 
-GLIB_AVAILABLE_IN_ALL
+extern
 gboolean        g_thread_pool_set_max_threads   (GThreadPool     *pool,
                                                  gint             max_threads,
                                                  GError         **error);
-GLIB_AVAILABLE_IN_ALL
+extern
 gint            g_thread_pool_get_max_threads   (GThreadPool     *pool);
-GLIB_AVAILABLE_IN_ALL
+extern
 guint           g_thread_pool_get_num_threads   (GThreadPool     *pool);
 
-GLIB_AVAILABLE_IN_ALL
+extern
 void            g_thread_pool_set_max_unused_threads (gint  max_threads);
-GLIB_AVAILABLE_IN_ALL
+extern
 gint            g_thread_pool_get_max_unused_threads (void);
-GLIB_AVAILABLE_IN_ALL
+extern
 guint           g_thread_pool_get_num_unused_threads (void);
-GLIB_AVAILABLE_IN_ALL
+extern
 void            g_thread_pool_stop_unused_threads    (void);
-GLIB_AVAILABLE_IN_ALL
+extern
 void            g_thread_pool_set_max_idle_time      (guint interval);
-GLIB_AVAILABLE_IN_ALL
+extern
 guint           g_thread_pool_get_max_idle_time      (void);
 
-G_END_DECLS
+
 
 #endif /* __G_THREADPOOL_H__ */

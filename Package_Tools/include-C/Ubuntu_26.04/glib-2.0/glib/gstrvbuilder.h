@@ -28,41 +28,41 @@
 #include <glib/gstrfuncs.h>
 #include <glib/gtypes.h>
 
-G_BEGIN_DECLS
+
 
 typedef struct _GStrvBuilder GStrvBuilder;
 
-GLIB_AVAILABLE_IN_2_68
+extern
 GStrvBuilder *g_strv_builder_new (void);
 
-GLIB_AVAILABLE_IN_2_68
+extern
 void g_strv_builder_unref (GStrvBuilder *builder);
 
-GLIB_AVAILABLE_IN_2_82
+extern
 GStrv g_strv_builder_unref_to_strv (GStrvBuilder *builder);
 
-GLIB_AVAILABLE_IN_2_68
+extern
 GStrvBuilder *g_strv_builder_ref (GStrvBuilder *builder);
 
-GLIB_AVAILABLE_IN_2_68
+extern
 void g_strv_builder_add (GStrvBuilder *builder,
                          const char *value);
 
-GLIB_AVAILABLE_IN_2_70
+extern
 void g_strv_builder_addv (GStrvBuilder *builder,
                           const char **value);
 
-GLIB_AVAILABLE_IN_2_70
+extern
 void g_strv_builder_add_many (GStrvBuilder *builder,
-                              ...) G_GNUC_NULL_TERMINATED;
+                              ...) ;
 
-GLIB_AVAILABLE_IN_2_80
+extern
 void g_strv_builder_take (GStrvBuilder *builder,
                           char *value);
 
-GLIB_AVAILABLE_IN_2_68
+extern
 GStrv g_strv_builder_end (GStrvBuilder *builder);
 
-G_END_DECLS
+
 
 #endif /* __G_STRVBUILDER_H__ */

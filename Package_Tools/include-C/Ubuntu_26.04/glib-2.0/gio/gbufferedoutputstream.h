@@ -29,7 +29,7 @@
 
 #include <gio/gfilteroutputstream.h>
 
-G_BEGIN_DECLS
+
 
 #define G_TYPE_BUFFERED_OUTPUT_STREAM         (g_buffered_output_stream_get_type ())
 #define G_BUFFERED_OUTPUT_STREAM(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_BUFFERED_OUTPUT_STREAM, GBufferedOutputStream))
@@ -61,7 +61,7 @@ struct _GBufferedOutputStreamClass
 
 
 GIO_AVAILABLE_IN_ALL
-GType          g_buffered_output_stream_get_type        (void) G_GNUC_CONST;
+GType          g_buffered_output_stream_get_type        (void) ;
 GIO_AVAILABLE_IN_ALL
 GOutputStream* g_buffered_output_stream_new             (GOutputStream         *base_stream);
 GIO_AVAILABLE_IN_ALL
@@ -78,6 +78,6 @@ GIO_AVAILABLE_IN_ALL
 void           g_buffered_output_stream_set_auto_grow   (GBufferedOutputStream *stream,
 							 gboolean               auto_grow);
 
-G_END_DECLS
+
 
 #endif /* __G_BUFFERED_OUTPUT_STREAM_H__ */
