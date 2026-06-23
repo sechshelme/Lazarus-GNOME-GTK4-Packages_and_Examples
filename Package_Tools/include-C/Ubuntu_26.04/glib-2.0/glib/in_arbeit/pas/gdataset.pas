@@ -3,151 +3,60 @@ unit gdataset;
 interface
 
 uses
-  common_GLIB, gtypes;
+  common_GLIB, gtypes, gquark;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
-
-{ GLIB - Library of useful routines for C programming
- * Copyright (C) 1995-1997  Peter Mattis, Spencer Kimball and Josh MacDonald
- *
- * SPDX-License-Identifier: LGPL-2.1-or-later
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	 See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, see <http://www.gnu.org/licenses/>.
-  }
-{
- * Modified by the GLib Team and others 1997-2000.  See the AUTHORS
- * file for a list of people on the GLib Team.  See the ChangeLog
- * files for a list of changes.  These files are distributed with
- * GLib at ftp://ftp.gtk.org/pub/gtk/.
-  }
-{$ifndef __G_DATASET_H__}
-{$define __G_DATASET_H__}
-{$if !defined (__GLIB_H_INSIDE__) && !defined (GLIB_COMPILATION)}
-{$error "Only <glib.h> can be included directly."}
-{$endif}
-{$include <glib/gquark.h>}
 type
+  TGDataForeachFunc = procedure(key_id: TGQuark; Data: Tgpointer; user_data: Tgpointer); cdecl;
 
-  TGDataForeachFunc = procedure (key_id:TGQuark; data:Tgpointer; user_data:Tgpointer);cdecl;
-{ Keyed Data List
-  }
+  PPGData = ^PGData;
+  PGData = type Pointer;
 
-procedure g_datalist_init(datalist:PPGData);cdecl;external libglib2;
-procedure g_datalist_clear(datalist:PPGData);cdecl;external libglib2;
-function g_datalist_id_get_data(datalist:PPGData; key_id:TGQuark):Tgpointer;cdecl;external libglib2;
-procedure g_datalist_id_set_data_full(datalist:PPGData; key_id:TGQuark; data:Tgpointer; destroy_func:TGDestroyNotify);cdecl;external libglib2;
-procedure g_datalist_id_remove_multiple(datalist:PPGData; keys:PGQuark; n_keys:Tgsize);cdecl;external libglib2;
+procedure g_datalist_init(datalist: PPGData); cdecl; external libglib2;
+procedure g_datalist_clear(datalist: PPGData); cdecl; external libglib2;
+function g_datalist_id_get_data(datalist: PPGData; key_id: TGQuark): Tgpointer; cdecl; external libglib2;
+procedure g_datalist_id_set_data_full(datalist: PPGData; key_id: TGQuark; Data: Tgpointer; destroy_func: TGDestroyNotify); cdecl; external libglib2;
+procedure g_datalist_id_remove_multiple(datalist: PPGData; keys: PGQuark; n_keys: Tgsize); cdecl; external libglib2;
+
 type
+  TGDuplicateFunc = function(Data: Tgpointer; user_data: Tgpointer): Tgpointer; cdecl;
 
-  TGDuplicateFunc = function (data:Tgpointer; user_data:Tgpointer):Tgpointer;cdecl;
+function g_datalist_id_dup_data(datalist: PPGData; key_id: TGQuark; dup_func: TGDuplicateFunc; user_data: Tgpointer): Tgpointer; cdecl; external libglib2;
+function g_datalist_id_replace_data(datalist: PPGData; key_id: TGQuark; oldval: Tgpointer; newval: Tgpointer; Destroy: TGDestroyNotify;
+  old_destroy: PGDestroyNotify): Tgboolean; cdecl; external libglib2;
+function g_datalist_id_remove_no_notify(datalist: PPGData; key_id: TGQuark): Tgpointer; cdecl; external libglib2;
+procedure g_datalist_foreach(datalist: PPGData; func: TGDataForeachFunc; user_data: Tgpointer); cdecl; external libglib2;
 
-function g_datalist_id_dup_data(datalist:PPGData; key_id:TGQuark; dup_func:TGDuplicateFunc; user_data:Tgpointer):Tgpointer;cdecl;external libglib2;
-function g_datalist_id_replace_data(datalist:PPGData; key_id:TGQuark; oldval:Tgpointer; newval:Tgpointer; destroy:TGDestroyNotify; 
-           old_destroy:PGDestroyNotify):Tgboolean;cdecl;external libglib2;
-function g_datalist_id_remove_no_notify(datalist:PPGData; key_id:TGQuark):Tgpointer;cdecl;external libglib2;
-procedure g_datalist_foreach(datalist:PPGData; func:TGDataForeachFunc; user_data:Tgpointer);cdecl;external libglib2;
-{*
- * G_DATALIST_FLAGS_MASK:
- *
- * A bitmask that restricts the possible flags passed to
- * g_datalist_set_flags(). Passing a flags value where
- * flags & ~G_DATALIST_FLAGS_MASK != 0 is an error.
-  }
 const
-  G_DATALIST_FLAGS_MASK = $3;  
+  G_DATALIST_FLAGS_MASK = $3;
 
-procedure g_datalist_set_flags(datalist:PPGData; flags:Tguint);cdecl;external libglib2;
-procedure g_datalist_unset_flags(datalist:PPGData; flags:Tguint);cdecl;external libglib2;
-function g_datalist_get_flags(datalist:PPGData):Tguint;cdecl;external libglib2;
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function g_datalist_id_set_data(dl,q,d : longint) : longint;
+procedure g_datalist_set_flags(datalist: PPGData; flags: Tguint); cdecl; external libglib2;
+procedure g_datalist_unset_flags(datalist: PPGData; flags: Tguint); cdecl; external libglib2;
+function g_datalist_get_flags(datalist: PPGData): Tguint; cdecl; external libglib2;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function g_datalist_id_remove_data(dl,q : longint) : longint;
+procedure g_dataset_destroy(dataset_location: Tgconstpointer); cdecl; external libglib2;
+function g_dataset_id_get_data(dataset_location: Tgconstpointer; key_id: TGQuark): Tgpointer; cdecl; external libglib2;
+function g_datalist_get_data(datalist: PPGData; key: Pgchar): Tgpointer; cdecl; external libglib2;
+procedure g_dataset_id_set_data_full(dataset_location: Tgconstpointer; key_id: TGQuark; Data: Tgpointer; destroy_func: TGDestroyNotify); cdecl; external libglib2;
+function g_dataset_id_remove_no_notify(dataset_location: Tgconstpointer; key_id: TGQuark): Tgpointer; cdecl; external libglib2;
+procedure g_dataset_foreach(dataset_location: Tgconstpointer; func: TGDataForeachFunc; user_data: Tgpointer); cdecl; external libglib2;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function g_datalist_set_data_full(dl,k,d,f : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function g_datalist_remove_no_notify(dl,k : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function g_datalist_set_data(dl,k,d : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function g_datalist_remove_data(dl,k : longint) : longint;
-
-{ Location Associated Keyed Data
-  }
-procedure g_dataset_destroy(dataset_location:Tgconstpointer);cdecl;external libglib2;
-function g_dataset_id_get_data(dataset_location:Tgconstpointer; key_id:TGQuark):Tgpointer;cdecl;external libglib2;
-function g_datalist_get_data(datalist:PPGData; key:Pgchar):Tgpointer;cdecl;external libglib2;
-procedure g_dataset_id_set_data_full(dataset_location:Tgconstpointer; key_id:TGQuark; data:Tgpointer; destroy_func:TGDestroyNotify);cdecl;external libglib2;
-function g_dataset_id_remove_no_notify(dataset_location:Tgconstpointer; key_id:TGQuark):Tgpointer;cdecl;external libglib2;
-procedure g_dataset_foreach(dataset_location:Tgconstpointer; func:TGDataForeachFunc; user_data:Tgpointer);cdecl;external libglib2;
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function g_dataset_id_set_data(l,k,d : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function g_dataset_id_remove_data(l,k : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function g_dataset_get_data(l,k : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function g_dataset_set_data_full(l,k,d,f : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function g_dataset_remove_no_notify(l,k : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function g_dataset_set_data(l,k,d : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function g_dataset_remove_data(l,k : longint) : longint;
-
-{$endif}
-{ __G_DATASET_H__  }
+procedure g_datalist_id_set_data(datalist: PPGData; key_id: TGQuark; Data: Tgpointer);
+procedure g_datalist_id_remove_data(datalist: PPGData; key_id: TGQuark);
+procedure g_datalist_set_data_full(datalist: PPGData; key_str: PGChar; Data: Tgpointer; destroy_func: TGDestroyNotify);
+procedure g_datalist_set_data(datalist: PPGData; key_str: PGChar; Data: Tgpointer);
+procedure g_datalist_remove_no_notify(datalist: PPGData; key_str: PGChar);
+procedure g_datalist_remove_data(datalist: PPGData; key_str: PGChar);
+procedure g_dataset_id_set_data(location: Tgconstpointer; key_id: TGQuark; Data: Tgpointer);
+procedure g_dataset_id_remove_data(location: Tgconstpointer; key_id: TGQuark);
+function g_dataset_get_data(location: Tgconstpointer; key_str: PGChar): Tgpointer;
+procedure g_dataset_set_data_full(location: Tgconstpointer; key_str: PGChar; Data: Tgpointer; destroy_func: TGDestroyNotify);
+procedure g_dataset_remove_no_notify(location: Tgconstpointer; key_str: PGChar);
+procedure g_dataset_set_data(location: Tgconstpointer; key_str: PGChar; Data: Tgpointer);
+procedure g_dataset_remove_data(location: Tgconstpointer; key_str: PGChar);
 
 // === Konventiert am: 22-6-26 16:17:11 ===
 
@@ -155,108 +64,69 @@ function g_dataset_remove_data(l,k : longint) : longint;
 implementation
 
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function g_datalist_id_set_data(dl,q,d : longint) : longint;
+procedure g_datalist_id_set_data(datalist: PPGData; key_id: TGQuark; Data: Tgpointer);
 begin
-  g_datalist_id_set_data:=g_datalist_id_set_data_full(dl,q,d,NULL);
+  g_datalist_id_set_data_full(datalist, key_id, Data, nil);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function g_datalist_id_remove_data(dl,q : longint) : longint;
+procedure g_datalist_id_remove_data(datalist: PPGData; key_id: TGQuark);
 begin
-  g_datalist_id_remove_data:=g_datalist_id_set_data(dl,q,NULL);
+  g_datalist_id_set_data(datalist, key_id, nil);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function g_datalist_set_data_full(dl,k,d,f : longint) : longint;
+procedure g_datalist_set_data_full(datalist: PPGData; key_str: PGChar; Data: Tgpointer; destroy_func: TGDestroyNotify);
 begin
-  g_datalist_set_data_full:=g_datalist_id_set_data_full(dl,g_quark_from_string(k),d,f);
+  g_datalist_id_set_data_full(datalist, g_quark_from_string(key_str), Data, destroy_func);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function g_datalist_remove_no_notify(dl,k : longint) : longint;
+procedure g_datalist_set_data(datalist: PPGData; key_str: PGChar; Data: Tgpointer);
 begin
-  g_datalist_remove_no_notify:=g_datalist_id_remove_no_notify(dl,g_quark_try_string(k));
+  g_datalist_set_data_full(datalist, key_str, Data, nil);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function g_datalist_set_data(dl,k,d : longint) : longint;
+procedure g_datalist_remove_no_notify(datalist: PPGData; key_str: PGChar);
 begin
-  g_datalist_set_data:=g_datalist_set_data_full(dl,k,d,NULL);
+  g_datalist_id_remove_no_notify(datalist, g_quark_try_string(key_str));
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function g_datalist_remove_data(dl,k : longint) : longint;
+procedure g_datalist_remove_data(datalist: PPGData; key_str: PGChar);
 begin
-  g_datalist_remove_data:=g_datalist_id_set_data(dl,g_quark_try_string(k),NULL);
+  g_datalist_id_set_data(datalist, g_quark_try_string(key_str), nil);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function g_dataset_id_set_data(l,k,d : longint) : longint;
+procedure g_dataset_id_set_data(location: Tgconstpointer; key_id: TGQuark; Data: Tgpointer);
 begin
-  g_dataset_id_set_data:=g_dataset_id_set_data_full(l,k,d,NULL);
+  g_dataset_id_set_data_full(location, key_id, Data, nil);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function g_dataset_id_remove_data(l,k : longint) : longint;
+procedure g_dataset_id_remove_data(location: Tgconstpointer; key_id: TGQuark);
 begin
-  g_dataset_id_remove_data:=g_dataset_id_set_data(l,k,NULL);
+  g_dataset_id_set_data(location, key_id, nil);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function g_dataset_get_data(l,k : longint) : longint;
+function g_dataset_get_data(location: Tgconstpointer; key_str: PGChar): Tgpointer;
 begin
-  g_dataset_get_data:=g_dataset_id_get_data(l,g_quark_try_string(k));
+  g_dataset_get_data := g_dataset_id_get_data(location, g_quark_try_string(key_str));
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function g_dataset_set_data_full(l,k,d,f : longint) : longint;
+procedure g_dataset_set_data_full(location: Tgconstpointer; key_str: PGChar; Data: Tgpointer; destroy_func: TGDestroyNotify);
 begin
-  g_dataset_set_data_full:=g_dataset_id_set_data_full(l,g_quark_from_string(k),d,f);
+  g_dataset_id_set_data_full(location, g_quark_from_string(key_str), Data, destroy_func);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function g_dataset_remove_no_notify(l,k : longint) : longint;
+procedure g_dataset_remove_no_notify(location: Tgconstpointer; key_str: PGChar);
 begin
-  g_dataset_remove_no_notify:=g_dataset_id_remove_no_notify(l,g_quark_try_string(k));
+  g_dataset_id_remove_no_notify(location, g_quark_try_string(key_str));
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function g_dataset_set_data(l,k,d : longint) : longint;
+procedure g_dataset_set_data(location: Tgconstpointer; key_str: PGChar; Data: Tgpointer);
 begin
-  g_dataset_set_data:=g_dataset_set_data_full(l,k,d,NULL);
+  g_dataset_set_data_full(location, key_str, Data, nil);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function g_dataset_remove_data(l,k : longint) : longint;
+procedure g_dataset_remove_data(location: Tgconstpointer; key_str: PGChar);
 begin
-  g_dataset_remove_data:=g_dataset_id_set_data(l,g_quark_try_string(k),NULL);
+  g_dataset_id_set_data(location, g_quark_try_string(key_str), nil);
 end;
 
 

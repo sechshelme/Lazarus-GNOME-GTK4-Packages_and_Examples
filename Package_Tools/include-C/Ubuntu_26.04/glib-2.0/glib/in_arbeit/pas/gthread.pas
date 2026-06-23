@@ -3,64 +3,26 @@ unit gthread;
 interface
 
 uses
-  common_GLIB, gtypes;
+  common_GLIB, gtypes, gquark,gerror;
 
 {$IFDEF FPC}
 {$PACKRECORDS C}
 {$ENDIF}
 
 
-{ GLIB - Library of useful routines for C programming
- * Copyright (C) 1995-1997  Peter Mattis, Spencer Kimball and Josh MacDonald
- *
- * SPDX-License-Identifier: LGPL-2.1-or-later
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, see <http://www.gnu.org/licenses/>.
-  }
-{
- * Modified by the GLib Team and others 1997-2000.  See the AUTHORS
- * file for a list of people on the GLib Team.  See the ChangeLog
- * files for a list of changes.  These files are distributed with
- * GLib at ftp://ftp.gtk.org/pub/gtk/.
-  }
-{$ifndef __G_THREAD_H__}
-{$define __G_THREAD_H__}
-{$if !defined (__GLIB_H_INSIDE__) && !defined (GLIB_COMPILATION)}
-{$error "Only <glib.h> can be included directly."}
-{$endif}
-{$include <glib/gatomic.h>}
-{$include <glib/gerror.h>}
-{$include <glib/gutils.h>}
-
-{ was #define dname def_expr }
-function G_THREAD_ERROR : longint; { return type might be wrong }
-
 function g_thread_error_quark:TGQuark;cdecl;external libglib2;
-{ Resource temporarily unavailable  }
+
 type
   PGThreadError = ^TGThreadError;
   TGThreadError =  Longint;
   Const
     G_THREAD_ERROR_AGAIN = 0;
-;
-type
 
+type
   TGThreadFunc = function (data:Tgpointer):Tgpointer;cdecl;
 
-  PGMutex = ^TGMutex;
-  TGMutex = TGMutex;
-{< private > }
+  PGThread=type Pointer;
+
   PGMutex = ^TGMutex;
   TGMutex = record
       case longint of
@@ -68,21 +30,18 @@ type
         1 : ( i : array[0..1] of Tguint );
       end;
 
-{< private > }
   PGRWLock = ^TGRWLock;
   TGRWLock = record
       p : Tgpointer;
       i : array[0..1] of Tguint;
     end;
 
-{< private > }
   PGCond = ^TGCond;
   TGCond = record
       p : Tgpointer;
       i : array[0..1] of Tguint;
     end;
 
-{< private > }
   PGRecMutex = ^TGRecMutex;
   TGRecMutex = record
       p : Tgpointer;
@@ -90,7 +49,6 @@ type
     end;
 
 {xxxxxxx #define G_PRIVATE_INIT(notify)  NULL, (notify),  NULL, NULL   }
-{< private > }
   PGPrivate = ^TGPrivate;
   TGPrivate = record
       p : Tgpointer;
@@ -98,14 +56,14 @@ type
       future : array[0..1] of Tgpointer;
     end;
 
-
+type
   PGOnceStatus = ^TGOnceStatus;
   TGOnceStatus =  Longint;
   Const
     G_ONCE_STATUS_NOTCALLED = 0;
     G_ONCE_STATUS_PROGRESS = 1;
     G_ONCE_STATUS_READY = 2;
-;
+
 { xxxxxxxxxx#define G_ONCE_INIT  G_ONCE_STATUS_NOTCALLED, NULL  }
 type
   PGOnce = ^TGOnce;
@@ -113,7 +71,6 @@ type
       status : TGOnceStatus;
       retval : Tgpointer;
     end;
-
 
 function g_thread_ref(thread:PGThread):PGThread;cdecl;external libglib2;
 procedure g_thread_unref(thread:PGThread);cdecl;external libglib2;
@@ -204,7 +161,6 @@ g_rec_mutex_locker_free (GRecMutexLocker *locker)
 
 
   }
-{$ifdef g_autoptr}
 {*
  * GRWLockWriterLocker:
  *
@@ -243,6 +199,13 @@ g_rw_lock_reader_locker_free (GRWLockReaderLocker *locker)
   g_rw_lock_reader_unlock ((GRWLock *) locker);
 
 _  }
+
+
+
+{ was #define dname def_expr }
+function G_THREAD_ERROR : longint; { return type might be wrong }
+
+
 
 // === Konventiert am: 22-6-26 19:40:21 ===
 

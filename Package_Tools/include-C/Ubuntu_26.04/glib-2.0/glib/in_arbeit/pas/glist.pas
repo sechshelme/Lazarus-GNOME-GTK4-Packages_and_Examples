@@ -10,47 +10,14 @@ uses
 {$ENDIF}
 
 
-{ GLIB - Library of useful routines for C programming
- * Copyright (C) 1995-1997  Peter Mattis, Spencer Kimball and Josh MacDonald
- *
- * SPDX-License-Identifier: LGPL-2.1-or-later
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	 See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, see <http://www.gnu.org/licenses/>.
-  }
-{
- * Modified by the GLib Team and others 1997-2000.  See the AUTHORS
- * file for a list of people on the GLib Team.  See the ChangeLog
- * files for a list of changes.  These files are distributed with
- * GLib at ftp://ftp.gtk.org/pub/gtk/.
-  }
-{$ifndef __G_LIST_H__}
-{$define __G_LIST_H__}
-{$if !defined (__GLIB_H_INSIDE__) && !defined (GLIB_COMPILATION)}
-{$error "Only <glib.h> can be included directly."}
-{$endif}
-{$include <glib/gmem.h>}
-{$include <glib/gnode.h>}
 type
+  PPGList = ^PGList;
   PGList = ^TGList;
   TGList = record
       data : Tgpointer;
       next : PGList;
       prev : PGList;
     end;
-
-{ Doubly linked lists
-  }
 
 function g_list_alloc:PGList;cdecl;external libglib2;
 procedure g_list_free(list:PGList);cdecl;external libglib2;
@@ -85,36 +52,9 @@ function g_list_sort(list:PGList; compare_func:TGCompareFunc):PGList;cdecl;exter
 function g_list_sort_with_data(list:PGList; compare_func:TGCompareDataFunc; user_data:Tgpointer):PGList;cdecl;external libglib2;
 function g_list_nth_data(list:PGList; n:Tguint):Tgpointer;cdecl;external libglib2;
 procedure g_clear_list(list_ptr:PPGList; destroy:TGDestroyNotify);cdecl;external libglib2;
-{xxxxxxxxx
-#define  g_clear_list(list_ptr, destroy)       \
-  G_STMT_START                                \
-    GList *_list;                              \
-                                               \
-    _list = *(list_ptr);                       \
-    if (_list)                                 \
-                                              \
-        *list_ptr = NULL;                      \
-                                               \
-        if ((destroy) != NULL)                 \
-          g_list_free_full (_list, (destroy)); \
-        else                                   \
-          g_list_free (_list);                 \
-                                              \
-   G_STMT_END                                 \
-  GLIB_AVAILABLE_MACRO_IN_2_64
- }
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function g_list_previous(list : longint) : longint;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function g_list_next(list : longint) : longint;
-
-{$endif}
-{ __G_LIST_H__  }
+function g_list_previous(list: PGList): PGList;
+function g_list_next(list: PGList): PGList;
 
 // === Konventiert am: 22-6-26 17:10:34 ===
 
@@ -122,35 +62,28 @@ function g_list_next(list : longint) : longint;
 implementation
 
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function g_list_previous(list : longint) : longint;
+function g_list_previous(list: PGList): PGList;
 var
-   if_local1 : longint;
-(* result types are not known *)
+  if_local1: PGList;
 begin
-  if list then
-    if_local1:=(PGList(list))^.prev
-  else
-    if_local1:=NULL;
-  g_list_previous:=if_local1;
+  if list <> nil then begin
+    if_local1 := (PGList(list))^.prev;
+  end else begin
+    if_local1 := nil;
+  end;
+  g_list_previous := if_local1;
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function g_list_next(list : longint) : longint;
+function g_list_next(list: PGList): PGList;
 var
-   if_local1 : longint;
-(* result types are not known *)
+  if_local1: PGList;
 begin
-  if list then
-    if_local1:=(PGList(list))^.next
-  else
-    if_local1:=NULL;
-  g_list_next:=if_local1;
+  if list <> nil then begin
+    if_local1 := (PGList(list))^.Next;
+  end else begin
+    if_local1 := nil;
+  end;
+  g_list_next := if_local1;
 end;
-
 
 end.
