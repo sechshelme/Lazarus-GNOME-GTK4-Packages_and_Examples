@@ -19,7 +19,7 @@ const
   G_IO_PRI = GLIB_SYSDEF_POLLPRI;
   G_IO_ERR = GLIB_SYSDEF_POLLERR;
   G_IO_HUP = GLIB_SYSDEF_POLLHUP;
-  //  G_IO_NVAL  =GLIB_SYSDEF_POLLNVA;
+  G_IO_NVAL = GLIB_SYSDEF_POLLNVAL;
 
 type
   PGMainContextFlags = ^TGMainContextFlags;
@@ -38,8 +38,6 @@ type
   PGSourceFunc = ^TGSourceFunc;
   TGSourceFunc = function(user_data: Tgpointer): Tgboolean; cdecl;
   TGSourceOnceFunc = procedure(user_data: Tgpointer); cdecl;
-
-  {xxxxxxxxxxxxxx#define G_SOURCE_FUNC(f) ((GSourceFunc) (void (*)(void)) (f)) GLIB_AVAILABLE_MACRO_IN_2_58 }
 
   TGChildWatchFunc = procedure(pid: TGPid; wait_status: Tgint; user_data: Tgpointer); cdecl;
   TGSourceDisposeFunc = procedure(source: PGSource); cdecl;
@@ -129,32 +127,7 @@ function g_main_context_ref_thread_default: PGMainContext; cdecl; external libgl
 type
   PGMainContextPusher = ^TGMainContextPusher;
   TGMainContextPusher = pointer;
-{*xxxxxxxxxxxxx
 
-GLIB_AVAILABLE_STATIC_INLINE_IN_2_64
-static inline GMainContextPusher *g_main_context_pusher_new (GMainContext *main_context);
-
-GLIB_AVAILABLE_STATIC_INLINE_IN_2_64
-static inline GMainContextPusher *
-g_main_context_pusher_new (GMainContext *main_context)
-
-  g_main_context_push_thread_default (main_context);
-  return (GMainContextPusher *) main_context;
-
-
-
-
-GLIB_AVAILABLE_STATIC_INLINE_IN_2_64
-static inline void g_main_context_pusher_free (GMainContextPusher *pusher);
-
-GLIB_AVAILABLE_STATIC_INLINE_IN_2_64
-static inline void
-g_main_context_pusher_free (GMainContextPusher *pusher)
-
-  g_main_context_pop_thread_default ((GMainContext *) pusher);
-
-
-  }
 function g_main_loop_new(context: PGMainContext; is_running: Tgboolean): PGMainLoop; cdecl; external libglib2;
 procedure g_main_loop_run(loop: PGMainLoop); cdecl; external libglib2;
 procedure g_main_loop_quit(loop: PGMainLoop); cdecl; external libglib2;
@@ -217,22 +190,7 @@ type
   TGClearHandleFunc = procedure(handle_id: Tguint); cdecl;
 
 procedure g_clear_handle_id(tag_ptr: Pguint; clear_func: TGClearHandleFunc); cdecl; external libglib2;
-{* xxxxxxxxxxx
-GLIB_AVAILABLE_STATIC_INLINE_IN_2_84
-static inline unsigned int g_steal_handle_id (unsigned int *handle_pointer);
 
-GLIB_AVAILABLE_STATIC_INLINE_IN_2_84
-static inline unsigned int
-g_steal_handle_id (unsigned int *handle_pointer)
-
-  unsigned int handle;
-
-  handle = *handle_pointer;
-  *handle_pointer = 0;
-
-  return handle;
-
-  }
 function g_timeout_add_full(priority: Tgint; interval: Tguint; _function: TGSourceFunc; data: Tgpointer; notify: TGDestroyNotify): Tguint; cdecl; external libglib2;
 function g_timeout_add(interval: Tguint; _function: TGSourceFunc; data: Tgpointer): Tguint; cdecl; external libglib2;
 function g_timeout_add_once(interval: Tguint; _function: TGSourceOnceFunc; data: Tgpointer): Tguint; cdecl; external libglib2;
@@ -247,19 +205,7 @@ function g_idle_add_once(_function: TGSourceOnceFunc; data: Tgpointer): Tguint; 
 function g_idle_remove_by_data(data: Tgpointer): Tgboolean; cdecl; external libglib2;
 procedure g_main_context_invoke_full(context: PGMainContext; priority: Tgint; _function: TGSourceFunc; data: Tgpointer; notify: TGDestroyNotify); cdecl; external libglib2;
 procedure g_main_context_invoke(context: PGMainContext; _function: TGSourceFunc; data: Tgpointer); cdecl; external libglib2;
-{*xxxxxxxxxxxxxxxxxx
-GLIB_AVAILABLE_STATIC_INLINE_IN_2_70
-static inline int g_steal_fd (int *fd_ptr);
 
-GLIB_AVAILABLE_STATIC_INLINE_IN_2_70
-static inline int
-g_steal_fd (int *fd_ptr)
-
-  int fd = *fd_ptr;
-  *fd_ptr = -1;
-  return fd;
-
-  }
 var
   g_timeout_funcs: TGSourceFuncs; cvar;external libglib2;
   g_child_watch_funcs: TGSourceFuncs; cvar;external libglib2;
@@ -269,11 +215,50 @@ var
   g_unix_fd_source_funcs: TGSourceFuncs; cvar;external libglib2;
   {$endif}
 
-  // === Konventiert am: 22-6-26 17:10:43 ===
+function G_SOURCE_FUNC(f: Pointer): TGSourceFunc; inline;
+
+function g_main_context_pusher_new(main_context: PGMainContext): PGMainContextPusher; inline;
+procedure g_main_context_pusher_free(pusher: PGMainContextPusher); inline;
+function g_steal_handle_id(handle_pointer: PCardinal): cardinal; inline;
+function g_steal_fd(fd_ptr: PLongInt): longint; inline;
+
+// === Konventiert am: 22-6-26 17:10:43 ===
 
 
 implementation
 
+function G_SOURCE_FUNC(f: Pointer): TGSourceFunc; inline;
+begin
+  Result := TGSourceFunc(f);
+end;
 
+function g_main_context_pusher_new(main_context: PGMainContext): PGMainContextPusher; inline;
+begin
+  g_main_context_push_thread_default(main_context);
+  Result := PGMainContextPusher(main_context);
+end;
+
+procedure g_main_context_pusher_free(pusher: PGMainContextPusher); inline;
+begin
+  g_main_context_pop_thread_default(PGMainContext(pusher));
+end;
+
+function g_steal_handle_id(handle_pointer: PCardinal): cardinal;
+var
+  handle: cardinal;
+begin
+  handle := handle_pointer^;
+  handle_pointer^ := 0;
+  Result := handle;
+end;
+
+function g_steal_fd(fd_ptr: PLongInt): longint;
+var
+  fd: longint;
+begin
+  fd := fd_ptr^;
+  fd_ptr^ := -1;
+  Result := fd;
+end;
 
 end.

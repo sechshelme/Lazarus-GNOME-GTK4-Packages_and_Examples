@@ -9,40 +9,7 @@ uses
 {$PACKRECORDS C}
 {$ENDIF}
 
-
-{ GLIB - Library of useful routines for C programming
- * Copyright (C) 1995-1997  Peter Mattis, Spencer Kimball and Josh MacDonald
- *
- * SPDX-License-Identifier: LGPL-2.1-or-later
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	 See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, see <http://www.gnu.org/licenses/>.
-  }
-{
- * Modified by the GLib Team and others 1997-2000.  See the AUTHORS
- * file for a list of people on the GLib Team.  See the ChangeLog
- * files for a list of changes.  These files are distributed with
- * GLib at ftp://ftp.gtk.org/pub/gtk/.
-  }
-{$ifndef __G_NODE_H__}
-{$define __G_NODE_H__}
-{$if !defined (__GLIB_H_INSIDE__) && !defined (GLIB_COMPILATION)}
-{$error "Only <glib.h> can be included directly."}
-{$endif}
-{$include <glib/gmem.h>}
 type
-{ Tree traverse flags  }
-
   PGTraverseFlags = ^TGTraverseFlags;
   TGTraverseFlags =  Longint;
   Const
@@ -52,9 +19,8 @@ type
     G_TRAVERSE_MASK = $03;
     G_TRAVERSE_LEAFS = G_TRAVERSE_LEAVES;
     G_TRAVERSE_NON_LEAFS = G_TRAVERSE_NON_LEAVES;
-;
-{ Tree traverse orders  }
-type
+
+  type
   PGTraverseType = ^TGTraverseType;
   TGTraverseType =  Longint;
   Const
@@ -62,14 +28,11 @@ type
     G_PRE_ORDER = 1;
     G_POST_ORDER = 2;
     G_LEVEL_ORDER = 3;
-;
+
 type
-
   TGNodeTraverseFunc = function (node:PGNode; data:Tgpointer):Tgboolean;cdecl;
-
   TGNodeForeachFunc = procedure (node:PGNode; data:Tgpointer);cdecl;
-{ N-way tree implementation
-  }
+
   PGNode = ^TGNode;
   TGNode = record
       data : Tgpointer;cdecl;

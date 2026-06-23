@@ -3,6 +3,9 @@ program project1;
 // diff /usr/include/glib-2.0/glib/gtypes.h /home/tux/include_neu/glib-2.0/glib/gtypes.h > test.diff
 // diff /usr/include/glib-2.0/glib/gdatetime.h /home/tux/include_neu/glib-2.0/glib/gdatetime.h > test.diff
 // diff /usr/include/glib-2.0/glib/gdataset.h /home/tux/include_neu/glib-2.0/glib/gdataset.h > test.diff
+// diff /usr/include/glib-2.0/glib/gmem.h /home/tux/include_neu/glib-2.0/glib/gmem.h > test.diff
+// diff /usr/include/glib-2.0/glib/gvarianttype.h /home/tux/include_neu/glib-2.0/glib/gvarianttype.h > test.diff
+
 
 uses
 gtypes,       // Alte gtypes.inc übernommen,   ckd_add, etc überürüfen
@@ -11,7 +14,6 @@ garray,
 gbytes,
 glist,
 gslist,
-
 gasyncqueue,
 gatomic,
 gbacktrace,
@@ -38,16 +40,16 @@ ghostutils,
 gunicode,
 gstring,
 gpoll,
-
-gthread,            // makros
-gmain,               // enum
+gthread,
+gmain,
 giochannel,
-
-//gkeyfile,
-//gmappedfile,
-//gmarkup,
-//gmem,
-//gmessages,
+gkeyfile,
+gmappedfile,
+gmarkup,
+gmem,
+gvarianttype,
+gvariant,
+gmessages,
 //gnode,
 //goption,
 //gpathbuf,
@@ -78,8 +80,6 @@ giochannel,
 //guri,
 //gutils,
 //guuid,
-//gvariant,
-//gvarianttype,
 //gversion,
 //gversionmacros,
 
