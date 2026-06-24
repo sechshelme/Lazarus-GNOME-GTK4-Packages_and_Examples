@@ -42,7 +42,8 @@ end;
 
 const
   availables: array of string = (
-    'GLIB_AVAILABLE_IN_2_');
+  'GLIB_AVAILABLE_IN_2_',
+  'GOBJECT_AVAILABLE_IN_2_');
   //'CHAFA_AVAILABLE_IN_1',
   //'GDK_PIXBUF_AVAILABLE_IN_2',
   //'GDK_AVAILABLE_IN_4',
@@ -111,15 +112,15 @@ begin
       slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_CONST', '', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_NULL_TERMINATED', '', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_WARN_UNUSED_RESULT', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'GLIB_DEPRECATED_FOR', 'extern //xxxxxGLIB_DEPRECATED_FOR', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'GLIB_DEPRECATED_IN', 'extern //xxxxxGLIB_DEPRECATED_IN', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'GOBJECT_DEPRECATED_FOR', 'extern //xxxxxGLIB_DEPRECATED_FOR', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'GOBJECT_DEPRECATED_IN', 'extern //xxxxxGLIB_DEPRECATED_IN', [rfReplaceAll]);
 
       slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_BEGIN_IGNORE_DEPRECATIONS', '', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_END_IGNORE_DEPRECATIONS', '', [rfReplaceAll]);
 
 
       slHeader[j] := StringReplace(slHeader[j], 'GLIB_VAR', 'extern', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'GLIB_AVAILABLE_IN_ALL', 'extern', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'GOBJECT_AVAILABLE_IN_ALL', 'extern', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_PRINTF', ';//', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_FORMAT', ';//', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_ALLOC_SIZE', ';//', [rfReplaceAll]);

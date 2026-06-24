@@ -51,44 +51,44 @@ struct _GValueArray
 };
 
 /* --- prototypes --- */
-GOBJECT_DEPRECATED_IN_2_32_FOR(GArray)
+extern //xxxxxGLIB_DEPRECATED_IN_2_32_FOR(GArray)
 GType           g_value_array_get_type       (void) ;
 
-GOBJECT_DEPRECATED_IN_2_32_FOR(GArray)
+extern //xxxxxGLIB_DEPRECATED_IN_2_32_FOR(GArray)
 GValue*		g_value_array_get_nth	     (GValueArray	*value_array,
 					      guint		 index_);
 
-GOBJECT_DEPRECATED_IN_2_32_FOR(GArray)
+extern //xxxxxGLIB_DEPRECATED_IN_2_32_FOR(GArray)
 GValueArray*	g_value_array_new	     (guint		 n_prealloced);
 
-GOBJECT_DEPRECATED_IN_2_32_FOR(GArray)
+extern //xxxxxGLIB_DEPRECATED_IN_2_32_FOR(GArray)
 void		g_value_array_free	     (GValueArray	*value_array);
 
-GOBJECT_DEPRECATED_IN_2_32_FOR(GArray)
+extern //xxxxxGLIB_DEPRECATED_IN_2_32_FOR(GArray)
 GValueArray*	g_value_array_copy	     (const GValueArray *value_array);
 
-GOBJECT_DEPRECATED_IN_2_32_FOR(GArray)
+extern //xxxxxGLIB_DEPRECATED_IN_2_32_FOR(GArray)
 GValueArray*	g_value_array_prepend	     (GValueArray	*value_array,
 					      const GValue	*value);
 
-GOBJECT_DEPRECATED_IN_2_32_FOR(GArray)
+extern //xxxxxGLIB_DEPRECATED_IN_2_32_FOR(GArray)
 GValueArray*	g_value_array_append	     (GValueArray	*value_array,
 					      const GValue	*value);
 
-GOBJECT_DEPRECATED_IN_2_32_FOR(GArray)
+extern //xxxxxGLIB_DEPRECATED_IN_2_32_FOR(GArray)
 GValueArray*	g_value_array_insert	     (GValueArray	*value_array,
 					      guint		 index_,
 					      const GValue	*value);
 
-GOBJECT_DEPRECATED_IN_2_32_FOR(GArray)
+extern //xxxxxGLIB_DEPRECATED_IN_2_32_FOR(GArray)
 GValueArray*	g_value_array_remove	     (GValueArray	*value_array,
 					      guint		 index_);
 
-GOBJECT_DEPRECATED_IN_2_32_FOR(GArray)
+extern //xxxxxGLIB_DEPRECATED_IN_2_32_FOR(GArray)
 GValueArray*	g_value_array_sort	     (GValueArray	*value_array,
 					      GCompareFunc	 compare_func);
 
-GOBJECT_DEPRECATED_IN_2_32_FOR(GArray)
+extern //xxxxxGLIB_DEPRECATED_IN_2_32_FOR(GArray)
 GValueArray*	g_value_array_sort_with_data (GValueArray	*value_array,
 					      GCompareDataFunc	 compare_func,
 					      gpointer		 user_data);

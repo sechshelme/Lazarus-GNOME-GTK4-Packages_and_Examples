@@ -149,42 +149,42 @@ struct _GValue
 
 
 /* --- prototypes --- */
-GOBJECT_AVAILABLE_IN_ALL
+extern
 GValue*         g_value_init	   	(GValue       *value,
 					 GType         g_type);
-GOBJECT_AVAILABLE_IN_ALL
+extern
 void            g_value_copy    	(const GValue *src_value,
 					 GValue       *dest_value);
-GOBJECT_AVAILABLE_IN_ALL
+extern
 GValue*         g_value_reset   	(GValue       *value);
-GOBJECT_AVAILABLE_IN_ALL
+extern
 void            g_value_unset   	(GValue       *value);
-GOBJECT_AVAILABLE_IN_ALL
+extern
 void		g_value_set_instance	(GValue	      *value,
 					 gpointer      instance);
-GOBJECT_AVAILABLE_IN_2_42
+extern
 void            g_value_init_from_instance   (GValue       *value,
                                               gpointer      instance);
 
 
 /* --- private --- */
-GOBJECT_AVAILABLE_IN_ALL
+extern
 gboolean	g_value_fits_pointer	(const GValue *value);
-GOBJECT_AVAILABLE_IN_ALL
+extern
 gpointer	g_value_peek_pointer	(const GValue *value);
 
 
 /* --- implementation details --- */
-GOBJECT_AVAILABLE_IN_ALL
+extern
 gboolean g_value_type_compatible	(GType		 src_type,
 					 GType		 dest_type);
-GOBJECT_AVAILABLE_IN_ALL
+extern
 gboolean g_value_type_transformable	(GType           src_type,
 					 GType           dest_type);
-GOBJECT_AVAILABLE_IN_ALL
+extern
 gboolean g_value_transform		(const GValue   *src_value,
 					 GValue         *dest_value);
-GOBJECT_AVAILABLE_IN_ALL
+extern
 void	g_value_register_transform_func	(GType		 src_type,
 					 GType		 dest_type,
 					 GValueTransform transform_func);

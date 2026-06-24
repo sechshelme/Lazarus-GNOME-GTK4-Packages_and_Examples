@@ -1,0 +1,83 @@
+
+{$include glib/gtypes.inc}      // Alte gtypes.inc übernommen,   ckd_add, etc überürüfen
+{$include glib/garray.inc}
+{$include glib/gbytes.inc}
+{$include glib/glist.inc}
+{$include glib/gslist.inc}
+{$include glib/gasyncqueue.inc}
+{$include glib/gatomic.inc}
+{$include glib/gbacktrace.inc}
+{$include glib/gbase64.inc}
+{$include glib/gbitlock.inc}
+{$include glib/gquark.inc}
+{$include glib/gerror.inc}
+{$include glib/gtimezone.inc}
+{$include glib/gdatetime.inc}
+{$include glib/gbookmarkfile.inc}
+{$include glib/gcharset.inc}
+{$include glib/gchecksum.inc}
+{$include glib/gconvert.inc}
+{$include glib/gdataset.inc}
+{$include glib/gdate.inc}
+{$include glib/gdir.inc}
+{$include glib/genviron.inc}
+{$include glib/gfileutils.inc}
+{$include glib/ggettext.inc}
+{$include glib/ghash.inc}
+{$include glib/ghmac.inc}
+{$include glib/ghook.inc}
+{$include glib/ghostutils.inc}
+{$include glib/gunicode.inc}
+{$include glib/gstring.inc}
+{$include glib/gpoll.inc}
+{$include glib/gthread.inc}
+{$include glib/gmain.inc}
+{$include glib/giochannel.inc}
+{$include glib/gkeyfile.inc}
+{$include glib/gmappedfile.inc}
+{$include glib/gmarkup.inc}
+{$include glib/gmem.inc}
+{$include glib/gvarianttype.inc}
+{$include glib/gvariant.inc}
+{$include glib/gmessages.inc}
+{$include glib/gnode.inc}
+{$include glib/goption.inc}
+{$include glib/gpathbuf.inc}
+{$include glib/gpattern.inc}
+{$include glib/gprimes.inc}
+{$include glib/gprintf.inc}
+{$include glib/gqsort.inc}
+{$include glib/gqueue.inc}
+{$include glib/grand.inc}
+{$include glib/grcbox.inc}
+{$include glib/grefcount.inc}
+{$include glib/grefstring.inc}
+{$include glib/gregex.inc}
+{$include glib/gscanner.inc}
+{$include glib/gsequence.inc}
+{$include glib/gshell.inc}
+{$include glib/gslice.inc}
+{$include glib/gspawn.inc}
+{$include glib/gstdio.inc}
+{$include glib/gtestutils.inc}
+{$include glib/gstrfuncs.inc}             // g_test_queue_unref ???
+{$include glib/gstringchunk.inc}
+{$include glib/gstrvbuilder.inc}
+{$include glib/gthreadpool.inc}
+{$include glib/gtimer.inc}
+{$include glib/gtrashstack.inc}
+{$include glib/gtree.inc}
+{$include glib/guri.inc}
+{$include glib/gutils.inc}
+{$include glib/guuid.inc}
+{$include glib/gversion.inc}
+{$include glib/gversionmacros.inc}
+
+{$include glib/deprecated/gallocator.inc}
+{$include glib/deprecated/gcache.inc}
+{$include glib/deprecated/gcompletion.inc}
+{$include glib/deprecated/grel.inc}
+{$include glib/deprecated/gthread_deprecated.inc}
+
+
+

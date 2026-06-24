@@ -733,80 +733,80 @@ typedef enum	/*< skip >*/
 
 /* --- prototypes --- */
 
-GOBJECT_DEPRECATED_IN_2_36
+extern //xxxxxGLIB_DEPRECATED_IN_2_36
 void                  g_type_init                    (void);
-GOBJECT_DEPRECATED_IN_2_36
+extern //xxxxxGLIB_DEPRECATED_IN_2_36
 void                  g_type_init_with_debug_flags   (GTypeDebugFlags  debug_flags);
 
 
-GOBJECT_AVAILABLE_IN_ALL
+extern
 const gchar *         g_type_name                    (GType            type);
-GOBJECT_AVAILABLE_IN_ALL
+extern
 GQuark                g_type_qname                   (GType            type);
-GOBJECT_AVAILABLE_IN_ALL
+extern
 GType                 g_type_from_name               (const gchar     *name);
-GOBJECT_AVAILABLE_IN_ALL
+extern
 GType                 g_type_parent                  (GType            type);
-GOBJECT_AVAILABLE_IN_ALL
+extern
 guint                 g_type_depth                   (GType            type);
-GOBJECT_AVAILABLE_IN_ALL
+extern
 GType                 g_type_next_base               (GType            leaf_type,
 						      GType            root_type);
-GOBJECT_AVAILABLE_IN_ALL
+extern
 gboolean              g_type_is_a                    (GType            type,
 						      GType            is_a_type);
 
 /* Hoist exact GType comparisons into the caller */
 #define g_type_is_a(a,b) ((a) == (b) || (g_type_is_a) ((a), (b)))
 
-GOBJECT_AVAILABLE_IN_2_84
+extern
 gpointer              g_type_class_get               (GType            type);
-GOBJECT_AVAILABLE_IN_ALL
+extern
 gpointer              g_type_class_ref               (GType            type);
-GOBJECT_AVAILABLE_IN_ALL
+extern
 gpointer              g_type_class_peek              (GType            type);
-GOBJECT_AVAILABLE_IN_ALL
+extern
 gpointer              g_type_class_peek_static       (GType            type);
-GOBJECT_AVAILABLE_IN_ALL
+extern
 void                  g_type_class_unref             (gpointer         g_class);
-GOBJECT_AVAILABLE_IN_ALL
+extern
 gpointer              g_type_class_peek_parent       (gpointer         g_class);
-GOBJECT_AVAILABLE_IN_ALL
+extern
 gpointer              g_type_interface_peek          (gpointer         instance_class,
 						      GType            iface_type);
-GOBJECT_AVAILABLE_IN_ALL
+extern
 gpointer              g_type_interface_peek_parent   (gpointer         g_iface);
 
-GOBJECT_AVAILABLE_IN_2_84
+extern
 gpointer              g_type_default_interface_get   (GType            g_type);
-GOBJECT_AVAILABLE_IN_ALL
+extern
 gpointer              g_type_default_interface_ref   (GType            g_type);
-GOBJECT_AVAILABLE_IN_ALL
+extern
 gpointer              g_type_default_interface_peek  (GType            g_type);
-GOBJECT_AVAILABLE_IN_ALL
+extern
 void                  g_type_default_interface_unref (gpointer         g_iface);
 
 /* g_free() the returned arrays */
-GOBJECT_AVAILABLE_IN_ALL
+extern
 GType*                g_type_children                (GType            type,
 						      guint           *n_children);
-GOBJECT_AVAILABLE_IN_ALL
+extern
 GType*                g_type_interfaces              (GType            type,
 						      guint           *n_interfaces);
 
 /* per-type _static_ data */
-GOBJECT_AVAILABLE_IN_ALL
+extern
 void                  g_type_set_qdata               (GType            type,
 						      GQuark           quark,
 						      gpointer         data);
-GOBJECT_AVAILABLE_IN_ALL
+extern
 gpointer              g_type_get_qdata               (GType            type,
 						      GQuark           quark);
-GOBJECT_AVAILABLE_IN_ALL
+extern
 void		      g_type_query		     (GType	       type,
 						      GTypeQuery      *query);
 
-GOBJECT_AVAILABLE_IN_2_44
+extern
 int                   g_type_get_instance_count      (GType            type);
 
 /* --- type registration --- */
@@ -1457,12 +1457,12 @@ struct _GTypeValueTable
 };
 
 
-GOBJECT_AVAILABLE_IN_ALL
+extern
 GType g_type_register_static		(GType			     parent_type,
 					 const gchar		    *type_name,
 					 const GTypeInfo	    *info,
 					 GTypeFlags		     flags);
-GOBJECT_AVAILABLE_IN_ALL
+extern
 GType g_type_register_static_simple     (GType                       parent_type,
 					 const gchar                *type_name,
 					 guint                       class_size,
@@ -1471,59 +1471,59 @@ GType g_type_register_static_simple     (GType                       parent_type
 					 GInstanceInitFunc           instance_init,
 					 GTypeFlags	             flags);
   
-GOBJECT_AVAILABLE_IN_ALL
+extern
 GType g_type_register_dynamic		(GType			     parent_type,
 					 const gchar		    *type_name,
 					 GTypePlugin		    *plugin,
 					 GTypeFlags		     flags);
-GOBJECT_AVAILABLE_IN_ALL
+extern
 GType g_type_register_fundamental	(GType			     type_id,
 					 const gchar		    *type_name,
 					 const GTypeInfo	    *info,
 					 const GTypeFundamentalInfo *finfo,
 					 GTypeFlags		     flags);
-GOBJECT_AVAILABLE_IN_ALL
+extern
 void  g_type_add_interface_static	(GType			     instance_type,
 					 GType			     interface_type,
 					 const GInterfaceInfo	    *info);
-GOBJECT_AVAILABLE_IN_ALL
+extern
 void  g_type_add_interface_dynamic	(GType			     instance_type,
 					 GType			     interface_type,
 					 GTypePlugin		    *plugin);
-GOBJECT_AVAILABLE_IN_ALL
+extern
 void  g_type_interface_add_prerequisite (GType			     interface_type,
 					 GType			     prerequisite_type);
-GOBJECT_AVAILABLE_IN_ALL
+extern
 GType*g_type_interface_prerequisites    (GType                       interface_type,
 					 guint                      *n_prerequisites);
-GOBJECT_AVAILABLE_IN_2_68
+extern
 GType g_type_interface_instantiatable_prerequisite
                                         (GType                       interface_type);
-GOBJECT_DEPRECATED_IN_2_58
+extern //xxxxxGLIB_DEPRECATED_IN_2_58
 void     g_type_class_add_private       (gpointer                    g_class,
                                          gsize                       private_size);
-GOBJECT_AVAILABLE_IN_2_38
+extern
 gint     g_type_add_instance_private    (GType                       class_type,
                                          gsize                       private_size);
-GOBJECT_AVAILABLE_IN_ALL
+extern
 gpointer g_type_instance_get_private    (GTypeInstance              *instance,
                                          GType                       private_type);
-GOBJECT_AVAILABLE_IN_2_38
+extern
 void     g_type_class_adjust_private_offset (gpointer                g_class,
                                              gint                   *private_size_or_offset);
 
-GOBJECT_AVAILABLE_IN_ALL
+extern
 void      g_type_add_class_private      (GType    		     class_type,
 					 gsize    		     private_size);
-GOBJECT_AVAILABLE_IN_ALL
+extern
 gpointer  g_type_class_get_private      (GTypeClass 		    *klass,
 					 GType			     private_type);
-GOBJECT_AVAILABLE_IN_2_38
+extern
 gint      g_type_class_get_instance_private_offset (gpointer         g_class);
 
-GOBJECT_AVAILABLE_IN_2_34
+extern
 void      g_type_ensure                 (GType                       type);
-GOBJECT_AVAILABLE_IN_2_36
+extern
 guint     g_type_get_type_registration_serial (void);
 
 
@@ -2586,74 +2586,74 @@ type_name##_get_type_once (void) \
   { /* custom code follows */
 
 /* --- protected (for fundamental type implementations) --- */
-GOBJECT_AVAILABLE_IN_ALL
+extern
 GTypePlugin*	 g_type_get_plugin		(GType		     type);
-GOBJECT_AVAILABLE_IN_ALL
+extern
 GTypePlugin*	 g_type_interface_get_plugin	(GType		     instance_type,
 						 GType               interface_type);
-GOBJECT_AVAILABLE_IN_ALL
+extern
 GType		 g_type_fundamental_next	(void);
-GOBJECT_AVAILABLE_IN_ALL
+extern
 GType		 g_type_fundamental		(GType		     type_id);
-GOBJECT_AVAILABLE_IN_ALL
+extern
 GTypeInstance*   g_type_create_instance         (GType               type);
-GOBJECT_AVAILABLE_IN_ALL
+extern
 void             g_type_free_instance           (GTypeInstance      *instance);
 
-GOBJECT_AVAILABLE_IN_ALL
+extern
 void		 g_type_add_class_cache_func    (gpointer	     cache_data,
 						 GTypeClassCacheFunc cache_func);
-GOBJECT_AVAILABLE_IN_ALL
+extern
 void		 g_type_remove_class_cache_func (gpointer	     cache_data,
 						 GTypeClassCacheFunc cache_func);
-GOBJECT_AVAILABLE_IN_ALL
+extern
 void             g_type_class_unref_uncached    (gpointer            g_class);
 
-GOBJECT_AVAILABLE_IN_ALL
+extern
 void             g_type_add_interface_check     (gpointer	         check_data,
 						 GTypeInterfaceCheckFunc check_func);
-GOBJECT_AVAILABLE_IN_ALL
+extern
 void             g_type_remove_interface_check  (gpointer	         check_data,
 						 GTypeInterfaceCheckFunc check_func);
 
-GOBJECT_AVAILABLE_IN_ALL
+extern
 GTypeValueTable* g_type_value_table_peek        (GType		     type);
 
 
 /*< private >*/
-GOBJECT_AVAILABLE_IN_ALL
+extern
 gboolean	 g_type_check_instance          (GTypeInstance      *instance) G_GNUC_PURE;
-GOBJECT_AVAILABLE_IN_ALL
+extern
 GTypeInstance*   g_type_check_instance_cast     (GTypeInstance      *instance,
 						 GType               iface_type);
-GOBJECT_AVAILABLE_IN_ALL
+extern
 gboolean         g_type_check_instance_is_a	(GTypeInstance      *instance,
 						 GType               iface_type) G_GNUC_PURE;
-GOBJECT_AVAILABLE_IN_2_42
+extern
 gboolean         g_type_check_instance_is_fundamentally_a (GTypeInstance *instance,
                                                            GType          fundamental_type) G_GNUC_PURE;
-GOBJECT_AVAILABLE_IN_ALL
+extern
 GTypeClass*      g_type_check_class_cast        (GTypeClass         *g_class,
 						 GType               is_a_type);
-GOBJECT_AVAILABLE_IN_ALL
+extern
 gboolean         g_type_check_class_is_a        (GTypeClass         *g_class,
 						 GType               is_a_type) G_GNUC_PURE;
-GOBJECT_AVAILABLE_IN_ALL
+extern
 gboolean	 g_type_check_is_value_type     (GType		     type) ;
-GOBJECT_AVAILABLE_IN_ALL
+extern
 gboolean	 g_type_check_value             (const GValue       *value) G_GNUC_PURE;
-GOBJECT_AVAILABLE_IN_ALL
+extern
 gboolean	 g_type_check_value_holds	(const GValue	    *value,
 						 GType		     type) G_GNUC_PURE;
-GOBJECT_AVAILABLE_IN_ALL
+extern
 gboolean         g_type_test_flags              (GType               type,
 						 guint               flags) ;
 
 
 /* --- debugging functions --- */
-GOBJECT_AVAILABLE_IN_ALL
+extern
 const gchar *    g_type_name_from_instance      (GTypeInstance	*instance);
-GOBJECT_AVAILABLE_IN_ALL
+extern
 const gchar *    g_type_name_from_class         (GTypeClass	*g_class);
 
 

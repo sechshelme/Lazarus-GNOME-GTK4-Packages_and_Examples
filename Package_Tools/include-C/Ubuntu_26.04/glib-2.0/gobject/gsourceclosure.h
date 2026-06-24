@@ -28,11 +28,11 @@
 
 
 
-GOBJECT_AVAILABLE_IN_ALL
+extern
 void g_source_set_closure        (GSource  *source,
 				  GClosure *closure);
 
-GOBJECT_AVAILABLE_IN_ALL
+extern
 void g_source_set_dummy_callback (GSource  *source);
 
 

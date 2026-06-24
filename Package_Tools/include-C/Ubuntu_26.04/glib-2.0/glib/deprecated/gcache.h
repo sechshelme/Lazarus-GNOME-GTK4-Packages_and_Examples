@@ -35,17 +35,17 @@
 
 
 
-typedef struct _GCache          GCache GLIB_DEPRECATED_TYPE_IN_2_26_FOR(GHashTable);
+typedef struct _GCache          GCache ;
 
-typedef gpointer        (*GCacheNewFunc)        (gpointer       key) GLIB_DEPRECATED_TYPE_IN_2_26;
-typedef gpointer        (*GCacheDupFunc)        (gpointer       value) GLIB_DEPRECATED_TYPE_IN_2_26;
-typedef void            (*GCacheDestroyFunc)    (gpointer       value) GLIB_DEPRECATED_TYPE_IN_2_26;
+typedef gpointer        (*GCacheNewFunc)        (gpointer       key) ;
+typedef gpointer        (*GCacheDupFunc)        (gpointer       value);
+typedef void            (*GCacheDestroyFunc)    (gpointer       value);
 
 
 
 /* Caches
  */
-GLIB_DEPRECATED
+extern
 GCache*  g_cache_new           (GCacheNewFunc      value_new_func,
                                 GCacheDestroyFunc  value_destroy_func,
                                 GCacheDupFunc      key_dup_func,
@@ -53,19 +53,19 @@ GCache*  g_cache_new           (GCacheNewFunc      value_new_func,
                                 GHashFunc          hash_key_func,
                                 GHashFunc          hash_value_func,
                                 GEqualFunc         key_equal_func);
-GLIB_DEPRECATED
+extern
 void     g_cache_destroy       (GCache            *cache);
-GLIB_DEPRECATED
+extern
 gpointer g_cache_insert        (GCache            *cache,
                                 gpointer           key);
-GLIB_DEPRECATED
+extern
 void     g_cache_remove        (GCache            *cache,
                                 gconstpointer      value);
-GLIB_DEPRECATED
+extern
 void     g_cache_key_foreach   (GCache            *cache,
                                 GHFunc             func,
                                 gpointer           user_data);
-GLIB_DEPRECATED
+extern
 void     g_cache_value_foreach (GCache            *cache,
                                 GHFunc             func,
                                 gpointer           user_data);
