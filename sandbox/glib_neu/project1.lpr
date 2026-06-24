@@ -5,6 +5,12 @@ program project1;
 // diff /usr/include/glib-2.0/glib/gdataset.h /home/tux/include_neu/glib-2.0/glib/gdataset.h > test.diff
 // diff /usr/include/glib-2.0/glib/gmem.h /home/tux/include_neu/glib-2.0/glib/gmem.h > test.diff
 // diff /usr/include/glib-2.0/glib/gvarianttype.h /home/tux/include_neu/glib-2.0/glib/gvarianttype.h > test.diff
+// diff /usr/include/glib-2.0/glib/gstrfuncs.h /home/tux/include_neu/glib-2.0/glib/gstrfuncs.h > test.diff
+// diff /usr/include/glib-2.0/glib/gtestutils.h /home/tux/include_neu/glib-2.0/glib/gtestutils.h > test.diff
+
+
+
+
 
 
 uses
@@ -50,29 +56,29 @@ gmem,
 gvarianttype,
 gvariant,
 gmessages,
-//gnode,
-//goption,
-//gpathbuf,
-//gpattern,
-//gprimes,
-//gprintf,
-//gqsort,
-//gqueue,
-//grand,
-//grcbox,
-//grefcount,
-//grefstring,
-//gregex,
-//gscanner,
-//gsequence,
-//gshell,
-//gslice,
-//gspawn,
-//gstdio,
-//gstrfuncs,
-//gstringchunk,
+gnode,
+goption,
+gpathbuf,
+gpattern,
+gprimes,
+gprintf,
+gqsort,
+gqueue,
+grand,
+grcbox,
+grefcount,
+grefstring,
+gregex,
+gscanner,
+gsequence,
+gshell,
+gslice,
+gspawn,
+gstdio,
+gtestutils,
+gstrfuncs,             // g_test_queue_unref ???
+gstringchunk,
 //gstrvbuilder,
-//gtestutils,
 //gthreadpool,
 //gtimer,
 //gtrashstack,
