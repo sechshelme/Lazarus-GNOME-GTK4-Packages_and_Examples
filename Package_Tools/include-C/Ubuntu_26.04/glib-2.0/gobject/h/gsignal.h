@@ -194,7 +194,7 @@ typedef enum
  */
 typedef enum
 {
-  G_CONNECT_DEFAULT GOBJECT_AVAILABLE_ENUMERATOR_IN_2_74 = 0,
+  G_CONNECT_DEFAULT  = 0,
   G_CONNECT_AFTER	= 1 << 0,
   G_CONNECT_SWAPPED	= 1 << 1
 }  GConnectFlags;
@@ -486,19 +486,6 @@ extern
 void	 g_clear_signal_handler		      (gulong            *handler_id_ptr,
 					       gpointer           instance);
 
-#define  g_clear_signal_handler(handler_id_ptr, instance)           \
-  G_STMT_START {                                                    \
-    gpointer const _instance      = (instance);                     \
-    gulong *const _handler_id_ptr = (handler_id_ptr);               \
-    const gulong _handler_id      = *_handler_id_ptr;               \
-                                                                    \
-    if (_handler_id > 0)                                            \
-      {                                                             \
-        *_handler_id_ptr = 0;                                       \
-        g_signal_handler_disconnect (_instance, _handler_id);       \
-      }                                                             \
-  } G_STMT_END                                                      \
-  GOBJECT_AVAILABLE_MACRO_IN_2_62
 
 /* --- overriding and chaining --- */
 extern

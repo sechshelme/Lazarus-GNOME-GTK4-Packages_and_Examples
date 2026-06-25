@@ -1,0 +1,673 @@
+unit gtype;
+
+interface
+
+uses
+  fp_glib2;
+
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+
+function G_TYPE_FUNDAMENTAL(_type : longint) : longint;
+
+const
+  G_TYPE_FUNDAMENTAL_SHIFT = 2;  
+  G_TYPE_FUNDAMENTAL_MAX = 255 shl G_TYPE_FUNDAMENTAL_SHIFT;
+
+function G_TYPE_INVALID : longint;
+function G_TYPE_NONE : longint;
+function G_TYPE_INTERFACE : longint;
+function G_TYPE_CHAR : longint;
+function G_TYPE_UCHAR : longint;
+function G_TYPE_BOOLEAN : longint;
+function G_TYPE_INT : longint;
+function G_TYPE_UINT : longint;
+function G_TYPE_LONG : longint;
+function G_TYPE_ULONG : longint;
+function G_TYPE_INT64 : longint;
+function G_TYPE_UINT64 : longint;
+function G_TYPE_ENUM : longint;
+function G_TYPE_FLAGS : longint;
+function G_TYPE_FLOAT : longint;
+function G_TYPE_DOUBLE : longint;
+function G_TYPE_STRING : longint;
+function G_TYPE_POINTER : longint;
+function G_TYPE_BOXED : longint;
+function G_TYPE_PARAM : longint;
+function G_TYPE_OBJECT : longint;
+function G_TYPE_VARIANT : longint;
+function G_TYPE_MAKE_FUNDAMENTAL(x : longint) : TGType;
+
+const
+  G_TYPE_RESERVED_GLIB_FIRST = 22;  
+  G_TYPE_RESERVED_GLIB_LAST = 31;
+  G_TYPE_RESERVED_BSE_FIRST = 32;
+  G_TYPE_RESERVED_BSE_LAST = 48;
+  G_TYPE_RESERVED_USER_FIRST = 49;
+
+function G_TYPE_IS_FUNDAMENTAL(_type : longint) : longint;
+function G_TYPE_IS_DERIVED(_type : longint) : longint;
+function G_TYPE_IS_INTERFACE(_type : longint) : longint;
+function G_TYPE_IS_CLASSED(_type : longint) : longint;
+function G_TYPE_IS_INSTANTIATABLE(_type : longint) : longint;
+function G_TYPE_IS_DERIVABLE(_type : longint) : longint;
+function G_TYPE_IS_DEEP_DERIVABLE(_type : longint) : longint;
+function G_TYPE_IS_ABSTRACT(_type : longint) : longint;
+function G_TYPE_IS_VALUE_ABSTRACT(_type : longint) : longint;
+function G_TYPE_IS_VALUE_TYPE(_type : longint) : longint;
+function G_TYPE_HAS_VALUE_TABLE(_type : longint) : longint;
+function G_TYPE_IS_FINAL(_type : longint) : longint;
+function G_TYPE_IS_DEPRECATED(_type : longint) : longint;
+
+type
+  PGType = ^TGType;
+  TGType = Tgsize;
+type
+
+  PGTypeCValue = ^TGTypeCValue;
+  TGTypeCValue = TGTypeCValue;
+
+  PGTypeClass = ^TGTypeClass;
+  TGTypeClass = record
+      g_type : TGType;
+    end;
+
+  PGTypeInstance = ^TGTypeInstance;
+  TGTypeInstance = record
+      g_class : PGTypeClass;
+    end;
+
+  PGTypeInterface = ^TGTypeInterface;
+  TGTypeInterface = record
+      g_type : TGType;
+      g_instance_type : TGType;
+    end;
+
+  PGTypeQuery = ^TGTypeQuery;
+  TGTypeQuery = record
+      _type : TGType;
+      type_name : Pgchar;
+      class_size : Tguint;
+      instance_size : Tguint;
+    end;
+
+function G_TYPE_CHECK_INSTANCE(instance : longint) : longint;
+function G_TYPE_CHECK_INSTANCE_CAST(instance,g_type,c_type : longint) : longint;
+function G_TYPE_CHECK_INSTANCE_TYPE(instance,g_type : longint) : longint;
+function G_TYPE_CHECK_INSTANCE_FUNDAMENTAL_TYPE(instance,g_type : longint) : longint;
+function G_TYPE_INSTANCE_GET_CLASS(instance,g_type,c_type : longint) : longint;
+function G_TYPE_INSTANCE_GET_INTERFACE(instance,g_type,c_type : longint) : longint;
+function G_TYPE_CHECK_CLASS_CAST(g_class,g_type,c_type : longint) : longint;
+function G_TYPE_CHECK_CLASS_TYPE(g_class,g_type : longint) : longint;
+function G_TYPE_CHECK_VALUE(value : longint) : longint;
+function G_TYPE_CHECK_VALUE_TYPE(value,g_type : longint) : longint;
+function G_TYPE_FROM_INSTANCE(instance : longint) : longint;
+function G_TYPE_FROM_CLASS(g_class : longint) : longint;
+function G_TYPE_FROM_INTERFACE(g_iface : longint) : longint;
+function G_TYPE_INSTANCE_GET_PRIVATE(instance,g_type,c_type : longint) : Pc_type;
+function G_TYPE_CLASS_GET_PRIVATE(klass,g_type,c_type : longint) : Pc_type;
+
+type
+  PGTypeDebugFlags = ^TGTypeDebugFlags;
+  TGTypeDebugFlags =  Longint;
+  Const
+    G_TYPE_DEBUG_NONE = 0;
+    G_TYPE_DEBUG_OBJECTS = 1 shl 0;
+    G_TYPE_DEBUG_SIGNALS = 1 shl 1;
+    G_TYPE_DEBUG_INSTANCE_COUNT = 1 shl 2;
+    G_TYPE_DEBUG_MASK = $07;
+
+procedure g_type_init;cdecl;external libgobject2_0;deprecated;
+procedure g_type_init_with_debug_flags(debug_flags:TGTypeDebugFlags);cdecl;external libgobject2_0;deprecated;
+function g_type_name(_type:TGType):Pgchar;cdecl;external libgobject2_0;
+function g_type_qname(_type:TGType):TGQuark;cdecl;external libgobject2_0;
+function g_type_from_name(name:Pgchar):TGType;cdecl;external libgobject2_0;
+function g_type_parent(_type:TGType):TGType;cdecl;external libgobject2_0;
+function g_type_depth(_type:TGType):Tguint;cdecl;external libgobject2_0;
+function g_type_next_base(leaf_type:TGType; root_type:TGType):TGType;cdecl;external libgobject2_0;
+function g_type_is_a(_type:TGType; is_a_type:TGType):Tgboolean;cdecl;external libgobject2_0;
+function g_type_class_get(_type:TGType):Tgpointer;cdecl;external libgobject2_0;
+function g_type_class_ref(_type:TGType):Tgpointer;cdecl;external libgobject2_0;
+function g_type_class_peek(_type:TGType):Tgpointer;cdecl;external libgobject2_0;
+function g_type_class_peek_static(_type:TGType):Tgpointer;cdecl;external libgobject2_0;
+procedure g_type_class_unref(g_class:Tgpointer);cdecl;external libgobject2_0;
+function g_type_class_peek_parent(g_class:Tgpointer):Tgpointer;cdecl;external libgobject2_0;
+function g_type_interface_peek(instance_class:Tgpointer; iface_type:TGType):Tgpointer;cdecl;external libgobject2_0;
+function g_type_interface_peek_parent(g_iface:Tgpointer):Tgpointer;cdecl;external libgobject2_0;
+function g_type_default_interface_get(g_type:TGType):Tgpointer;cdecl;external libgobject2_0;
+function g_type_default_interface_ref(g_type:TGType):Tgpointer;cdecl;external libgobject2_0;
+function g_type_default_interface_peek(g_type:TGType):Tgpointer;cdecl;external libgobject2_0;
+procedure g_type_default_interface_unref(g_iface:Tgpointer);cdecl;external libgobject2_0;
+function g_type_children(_type:TGType; n_children:Pguint):PGType;cdecl;external libgobject2_0;
+function g_type_interfaces(_type:TGType; n_interfaces:Pguint):PGType;cdecl;external libgobject2_0;
+procedure g_type_set_qdata(_type:TGType; quark:TGQuark; data:Tgpointer);cdecl;external libgobject2_0;
+function g_type_get_qdata(_type:TGType; quark:TGQuark):Tgpointer;cdecl;external libgobject2_0;
+procedure g_type_query(_type:TGType; query:PGTypeQuery);cdecl;external libgobject2_0;
+function g_type_get_instance_count(_type:TGType):longint;cdecl;external libgobject2_0;
+type
+  TGBaseInitFunc = procedure (g_class:Tgpointer);cdecl;
+  TGBaseFinalizeFunc = procedure (g_class:Tgpointer);cdecl;
+  TGClassInitFunc = procedure (g_class:Tgpointer; class_data:Tgpointer);cdecl;
+  TGClassFinalizeFunc = procedure (g_class:Tgpointer; class_data:Tgpointer);cdecl;
+  TGInstanceInitFunc = procedure (instance:PGTypeInstance; g_class:Tgpointer);cdecl;
+  TGInterfaceInitFunc = procedure (g_iface:Tgpointer; iface_data:Tgpointer);cdecl;
+  TGInterfaceFinalizeFunc = procedure (g_iface:Tgpointer; iface_data:Tgpointer);cdecl;
+  TGTypeClassCacheFunc = function (cache_data:Tgpointer; g_class:PGTypeClass):Tgboolean;cdecl;
+  TGTypeInterfaceCheckFunc = procedure (check_data:Tgpointer; g_iface:Tgpointer);cdecl;
+
+  type
+  PGTypeFundamentalFlags = ^TGTypeFundamentalFlags;
+  TGTypeFundamentalFlags =  Longint;
+  Const
+    G_TYPE_FLAG_CLASSED = 1 shl 0;
+    G_TYPE_FLAG_INSTANTIATABLE = 1 shl 1;
+    G_TYPE_FLAG_DERIVABLE = 1 shl 2;
+    G_TYPE_FLAG_DEEP_DERIVABLE = 1 shl 3;
+
+  type
+  PGTypeFlags = ^TGTypeFlags;
+  TGTypeFlags =  Longint;
+  Const
+    G_TYPE_FLAG_NONE = 0;
+    G_TYPE_FLAG_ABSTRACT = 1 shl 4;
+    G_TYPE_FLAG_VALUE_ABSTRACT = 1 shl 5;
+    G_TYPE_FLAG_FINAL = 1 shl 6;
+    G_TYPE_FLAG_DEPRECATED = 1 shl 7;
+
+  type
+  PGTypeInfo = ^TGTypeInfo;
+  TGTypeInfo = record
+      class_size : Tguint16;
+      base_init : TGBaseInitFunc;
+      base_finalize : TGBaseFinalizeFunc;
+      class_init : TGClassInitFunc;
+      class_finalize : TGClassFinalizeFunc;
+      class_data : Tgconstpointer;
+      instance_size : Tguint16;
+      n_preallocs : Tguint16;
+      instance_init : TGInstanceInitFunc;
+      value_table : PGTypeValueTable;
+    end;
+
+  PGTypeFundamentalInfo = ^TGTypeFundamentalInfo;
+  TGTypeFundamentalInfo = record
+      type_flags : TGTypeFundamentalFlags;
+    end;
+
+  PGInterfaceInfo = ^TGInterfaceInfo;
+  TGInterfaceInfo = record
+      interface_init : TGInterfaceInitFunc;
+      interface_finalize : TGInterfaceFinalizeFunc;
+      interface_data : Tgpointer;
+    end;
+
+  TGTypeValueInitFunc = procedure (value:PGValue);cdecl;
+  TGTypeValueFreeFunc = procedure (value:PGValue);cdecl;
+  TGTypeValueCopyFunc = procedure (src_value:PGValue; dest_value:PGValue);cdecl;
+  TGTypeValuePeekPointerFunc = function (value:PGValue):Tgpointer;cdecl;
+  TGTypeValueCollectFunc = function (value:PGValue; n_collect_values:Tguint; collect_values:PGTypeCValue; collect_flags:Tguint):Pgchar;cdecl;
+  TGTypeValueLCopyFunc = function (value:PGValue; n_collect_values:Tguint; collect_values:PGTypeCValue; collect_flags:Tguint):Pgchar;cdecl;
+
+  PGTypeValueTable = ^TGTypeValueTable;
+  TGTypeValueTable = record
+      value_init : TGTypeValueInitFunc;
+      value_free : TGTypeValueFreeFunc;
+      value_copy : TGTypeValueCopyFunc;
+      value_peek_pointer : TGTypeValuePeekPointerFunc;
+      collect_format : Pgchar;
+      collect_value : TGTypeValueCollectFunc;
+      lcopy_format : Pgchar;
+      lcopy_value : TGTypeValueLCopyFunc;
+    end;
+
+function g_type_register_static(parent_type:TGType; type_name:Pgchar; info:PGTypeInfo; flags:TGTypeFlags):TGType;cdecl;external libgobject2_0;
+function g_type_register_static_simple(parent_type:TGType; type_name:Pgchar; class_size:Tguint; class_init:TGClassInitFunc; instance_size:Tguint;            instance_init:TGInstanceInitFunc; flags:TGTypeFlags):TGType;cdecl;external libgobject2_0;
+function g_type_register_dynamic(parent_type:TGType; type_name:Pgchar; plugin:PGTypePlugin; flags:TGTypeFlags):TGType;cdecl;external libgobject2_0;
+function g_type_register_fundamental(type_id:TGType; type_name:Pgchar; info:PGTypeInfo; finfo:PGTypeFundamentalInfo; flags:TGTypeFlags):TGType;cdecl;external libgobject2_0;
+procedure g_type_add_interface_static(instance_type:TGType; interface_type:TGType; info:PGInterfaceInfo);cdecl;external libgobject2_0;
+procedure g_type_add_interface_dynamic(instance_type:TGType; interface_type:TGType; plugin:PGTypePlugin);cdecl;external libgobject2_0;
+procedure g_type_interface_add_prerequisite(interface_type:TGType; prerequisite_type:TGType);cdecl;external libgobject2_0;
+function g_type_interface_prerequisites(interface_type:TGType; n_prerequisites:Pguint):PGType;cdecl;external libgobject2_0;
+function g_type_interface_instantiatable_prerequisite(interface_type:TGType):TGType;cdecl;external libgobject2_0;
+procedure g_type_class_add_private(g_class:Tgpointer; private_size:Tgsize);cdecl;external libgobject2_0;de
+function g_type_add_instance_private(class_type:TGType; private_size:Tgsize):Tgint;cdecl;external libgobject2_0;
+function g_type_instance_get_private(instance:PGTypeInstance; private_type:TGType):Tgpointer;cdecl;external libgobject2_0;
+procedure g_type_class_adjust_private_offset(g_class:Tgpointer; private_size_or_offset:Pgint);cdecl;external libgobject2_0;
+procedure g_type_add_class_private(class_type:TGType; private_size:Tgsize);cdecl;external libgobject2_0;
+function g_type_class_get_private(klass:PGTypeClass; private_type:TGType):Tgpointer;cdecl;external libgobject2_0;
+function g_type_class_get_instance_private_offset(g_class:Tgpointer):Tgint;cdecl;external libgobject2_0;
+procedure g_type_ensure(_type:TGType);cdecl;external libgobject2_0;
+function g_type_get_type_registration_serial:Tguint;cdecl;external libgobject2_0;
+
+function g_type_get_plugin(_type:TGType):PGTypePlugin;cdecl;external libgobject2_0;
+function g_type_interface_get_plugin(instance_type:TGType; interface_type:TGType):PGTypePlugin;cdecl;external libgobject2_0;
+function g_type_fundamental_next:TGType;cdecl;external libgobject2_0;
+function g_type_fundamental(type_id:TGType):TGType;cdecl;external libgobject2_0;
+function g_type_create_instance(_type:TGType):PGTypeInstance;cdecl;external libgobject2_0;
+procedure g_type_free_instance(instance:PGTypeInstance);cdecl;external libgobject2_0;
+procedure g_type_add_class_cache_func(cache_data:Tgpointer; cache_func:TGTypeClassCacheFunc);cdecl;external libgobject2_0;
+procedure g_type_remove_class_cache_func(cache_data:Tgpointer; cache_func:TGTypeClassCacheFunc);cdecl;external libgobject2_0;
+procedure g_type_class_unref_uncached(g_class:Tgpointer);cdecl;external libgobject2_0;
+procedure g_type_add_interface_check(check_data:Tgpointer; check_func:TGTypeInterfaceCheckFunc);cdecl;external libgobject2_0;
+procedure g_type_remove_interface_check(check_data:Tgpointer; check_func:TGTypeInterfaceCheckFunc);cdecl;external libgobject2_0;
+function g_type_value_table_peek(_type:TGType):PGTypeValueTable;cdecl;external libgobject2_0;
+
+function g_type_check_instance(instance:PGTypeInstance):Tgboolean;cdecl;external libgobject2_0;
+function g_type_check_instance_cast(instance:PGTypeInstance; iface_type:TGType):PGTypeInstance;cdecl;external libgobject2_0;
+function g_type_check_instance_is_a(instance:PGTypeInstance; iface_type:TGType):Tgboolean;cdecl;external libgobject2_0;
+function g_type_check_instance_is_fundamentally_a(instance:PGTypeInstance; fundamental_type:TGType):Tgboolean;cdecl;external libgobject2_0;
+function g_type_check_class_cast(g_class:PGTypeClass; is_a_type:TGType):PGTypeClass;cdecl;external libgobject2_0;
+function g_type_check_class_is_a(g_class:PGTypeClass; is_a_type:TGType):Tgboolean;cdecl;external libgobject2_0;
+function g_type_check_is_value_type(_type:TGType):Tgboolean;cdecl;external libgobject2_0;
+function g_type_check_value(value:PGValue):Tgboolean;cdecl;external libgobject2_0;
+function g_type_check_value_holds(value:PGValue; _type:TGType):Tgboolean;cdecl;external libgobject2_0;
+function g_type_test_flags(_type:TGType; flags:Tguint):Tgboolean;cdecl;external libgobject2_0;
+
+function g_type_name_from_instance(instance:PGTypeInstance):Pgchar;cdecl;external libgobject2_0;
+function g_type_name_from_class(g_class:PGTypeClass):Pgchar;cdecl;external libgobject2_0;
+
+function G_TYPE_FLAG_RESERVED_ID_BIT : TGType;
+function GPOINTER_TO_TYPE(p : longint) : TGType;
+function GTYPE_TO_POINTER(t : longint) : Tgpointer;
+
+
+// === Konventiert am: 25-6-26 15:16:21 ===
+
+
+implementation
+
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+
+function G_TYPE_FUNDAMENTAL(_type : longint) : longint;
+begin
+  G_TYPE_FUNDAMENTAL:=g_type_fundamental(_type);
+end;
+
+{ was #define dname def_expr }
+function G_TYPE_INVALID : longint;
+  begin
+    G_TYPE_INVALID:=G_TYPE_MAKE_FUNDAMENTAL(0);
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_NONE : longint;
+  begin
+    G_TYPE_NONE:=G_TYPE_MAKE_FUNDAMENTAL(1);
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_INTERFACE : longint;
+  begin
+    G_TYPE_INTERFACE:=G_TYPE_MAKE_FUNDAMENTAL(2);
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_CHAR : longint;
+  begin
+    G_TYPE_CHAR:=G_TYPE_MAKE_FUNDAMENTAL(3);
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_UCHAR : longint;
+  begin
+    G_TYPE_UCHAR:=G_TYPE_MAKE_FUNDAMENTAL(4);
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_BOOLEAN : longint;
+  begin
+    G_TYPE_BOOLEAN:=G_TYPE_MAKE_FUNDAMENTAL(5);
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_INT : longint;
+  begin
+    G_TYPE_INT:=G_TYPE_MAKE_FUNDAMENTAL(6);
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_UINT : longint;
+  begin
+    G_TYPE_UINT:=G_TYPE_MAKE_FUNDAMENTAL(7);
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_LONG : longint;
+  begin
+    G_TYPE_LONG:=G_TYPE_MAKE_FUNDAMENTAL(8);
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_ULONG : longint;
+  begin
+    G_TYPE_ULONG:=G_TYPE_MAKE_FUNDAMENTAL(9);
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_INT64 : longint;
+  begin
+    G_TYPE_INT64:=G_TYPE_MAKE_FUNDAMENTAL(10);
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_UINT64 : longint;
+  begin
+    G_TYPE_UINT64:=G_TYPE_MAKE_FUNDAMENTAL(11);
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_ENUM : longint;
+  begin
+    G_TYPE_ENUM:=G_TYPE_MAKE_FUNDAMENTAL(12);
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_FLAGS : longint;
+  begin
+    G_TYPE_FLAGS:=G_TYPE_MAKE_FUNDAMENTAL(13);
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_FLOAT : longint;
+  begin
+    G_TYPE_FLOAT:=G_TYPE_MAKE_FUNDAMENTAL(14);
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_DOUBLE : longint;
+  begin
+    G_TYPE_DOUBLE:=G_TYPE_MAKE_FUNDAMENTAL(15);
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_STRING : longint;
+  begin
+    G_TYPE_STRING:=G_TYPE_MAKE_FUNDAMENTAL(16);
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_POINTER : longint;
+  begin
+    G_TYPE_POINTER:=G_TYPE_MAKE_FUNDAMENTAL(17);
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_BOXED : longint;
+  begin
+    G_TYPE_BOXED:=G_TYPE_MAKE_FUNDAMENTAL(18);
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_PARAM : longint;
+  begin
+    G_TYPE_PARAM:=G_TYPE_MAKE_FUNDAMENTAL(19);
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_OBJECT : longint;
+  begin
+    G_TYPE_OBJECT:=G_TYPE_MAKE_FUNDAMENTAL(20);
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_VARIANT : longint;
+  begin
+    G_TYPE_VARIANT:=G_TYPE_MAKE_FUNDAMENTAL(21);
+  end;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+function G_TYPE_MAKE_FUNDAMENTAL(x : longint) : TGType;
+begin
+  G_TYPE_MAKE_FUNDAMENTAL:=TGType(x shl G_TYPE_FUNDAMENTAL_SHIFT);
+end;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+
+function G_TYPE_IS_FUNDAMENTAL(_type : longint) : longint;
+begin
+  G_TYPE_IS_FUNDAMENTAL:=_type<=G_TYPE_FUNDAMENTAL_MAX;
+end;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+
+function G_TYPE_IS_DERIVED(_type : longint) : longint;
+begin
+  G_TYPE_IS_DERIVED:=_type>G_TYPE_FUNDAMENTAL_MAX;
+end;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+
+function G_TYPE_IS_INTERFACE(_type : longint) : longint;
+begin
+  G_TYPE_IS_INTERFACE:=(G_TYPE_FUNDAMENTAL(_type))=G_TYPE_INTERFACE;
+end;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+
+function G_TYPE_IS_CLASSED(_type : longint) : longint;
+begin
+  G_TYPE_IS_CLASSED:=g_type_test_flags(_type,G_TYPE_FLAG_CLASSED);
+end;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+
+function G_TYPE_IS_INSTANTIATABLE(_type : longint) : longint;
+begin
+  G_TYPE_IS_INSTANTIATABLE:=g_type_test_flags(_type,G_TYPE_FLAG_INSTANTIATABLE);
+end;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+
+function G_TYPE_IS_DERIVABLE(_type : longint) : longint;
+begin
+  G_TYPE_IS_DERIVABLE:=g_type_test_flags(_type,G_TYPE_FLAG_DERIVABLE);
+end;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+
+function G_TYPE_IS_DEEP_DERIVABLE(_type : longint) : longint;
+begin
+  G_TYPE_IS_DEEP_DERIVABLE:=g_type_test_flags(_type,G_TYPE_FLAG_DEEP_DERIVABLE);
+end;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+
+function G_TYPE_IS_ABSTRACT(_type : longint) : longint;
+begin
+  G_TYPE_IS_ABSTRACT:=g_type_test_flags(_type,G_TYPE_FLAG_ABSTRACT);
+end;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+
+function G_TYPE_IS_VALUE_ABSTRACT(_type : longint) : longint;
+begin
+  G_TYPE_IS_VALUE_ABSTRACT:=g_type_test_flags(_type,G_TYPE_FLAG_VALUE_ABSTRACT);
+end;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+
+function G_TYPE_IS_VALUE_TYPE(_type : longint) : longint;
+begin
+  G_TYPE_IS_VALUE_TYPE:=g_type_check_is_value_type(_type);
+end;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+
+function G_TYPE_HAS_VALUE_TABLE(_type : longint) : longint;
+begin
+  G_TYPE_HAS_VALUE_TABLE:=(g_type_value_table_peek(_type))<>NULL;
+end;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+
+function G_TYPE_IS_FINAL(_type : longint) : longint;
+begin
+  G_TYPE_IS_FINAL:=g_type_test_flags(_type,G_TYPE_FLAG_FINAL);
+end;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+
+function G_TYPE_IS_DEPRECATED(_type : longint) : longint;
+begin
+  G_TYPE_IS_DEPRECATED:=g_type_test_flags(_type,G_TYPE_FLAG_DEPRECATED);
+end;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+
+function G_TYPE_CHECK_INSTANCE(instance : longint) : longint;
+begin
+  G_TYPE_CHECK_INSTANCE:=_G_TYPE_CHI(PGTypeInstance(instance));
+end;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+
+function G_TYPE_CHECK_INSTANCE_CAST(instance,g_type,c_type : longint) : longint;
+begin
+  G_TYPE_CHECK_INSTANCE_CAST:=_G_TYPE_CIC(instance,g_type,c_type);
+end;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+
+function G_TYPE_CHECK_INSTANCE_TYPE(instance,g_type : longint) : longint;
+begin
+  G_TYPE_CHECK_INSTANCE_TYPE:=_G_TYPE_CIT(instance,g_type);
+end;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+
+function G_TYPE_CHECK_INSTANCE_FUNDAMENTAL_TYPE(instance,g_type : longint) : longint;
+begin
+  G_TYPE_CHECK_INSTANCE_FUNDAMENTAL_TYPE:=_G_TYPE_CIFT(instance,g_type);
+end;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+
+function G_TYPE_INSTANCE_GET_CLASS(instance,g_type,c_type : longint) : longint;
+begin
+  G_TYPE_INSTANCE_GET_CLASS:=_G_TYPE_IGC(instance,g_type,c_type);
+end;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+
+function G_TYPE_INSTANCE_GET_INTERFACE(instance,g_type,c_type : longint) : longint;
+begin
+  G_TYPE_INSTANCE_GET_INTERFACE:=_G_TYPE_IGI(instance,g_type,c_type);
+end;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+
+function G_TYPE_CHECK_CLASS_CAST(g_class,g_type,c_type : longint) : longint;
+begin
+  G_TYPE_CHECK_CLASS_CAST:=_G_TYPE_CCC(g_class,g_type,c_type);
+end;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+
+function G_TYPE_CHECK_CLASS_TYPE(g_class,g_type : longint) : longint;
+begin
+  G_TYPE_CHECK_CLASS_TYPE:=_G_TYPE_CCT(g_class,g_type);
+end;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+
+function G_TYPE_CHECK_VALUE(value : longint) : longint;
+begin
+  G_TYPE_CHECK_VALUE:=_G_TYPE_CHV(value);
+end;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+
+function G_TYPE_CHECK_VALUE_TYPE(value,g_type : longint) : longint;
+begin
+  G_TYPE_CHECK_VALUE_TYPE:=_G_TYPE_CVH(value,g_type);
+end;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+
+function G_TYPE_FROM_INSTANCE(instance : longint) : longint;
+begin
+  G_TYPE_FROM_INSTANCE:=G_TYPE_FROM_CLASS((PGTypeInstance(instance))^.g_class);
+end;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+
+function G_TYPE_FROM_CLASS(g_class : longint) : longint;
+begin
+  G_TYPE_FROM_CLASS:=(PGTypeClass(g_class))^.g_type;
+end;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+
+function G_TYPE_FROM_INTERFACE(g_iface : longint) : longint;
+begin
+  G_TYPE_FROM_INTERFACE:=(PGTypeInterface(g_iface))^.g_type;
+end;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+function G_TYPE_INSTANCE_GET_PRIVATE(instance,g_type,c_type : longint) : Pc_type;
+begin
+  G_TYPE_INSTANCE_GET_PRIVATE:=Pc_type(g_type_instance_get_private(PGTypeInstance(instance),g_type));
+end;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+function G_TYPE_CLASS_GET_PRIVATE(klass,g_type,c_type : longint) : Pc_type;
+begin
+  G_TYPE_CLASS_GET_PRIVATE:=Pc_type(g_type_class_get_private(PGTypeClass(klass),g_type));
+end;
+
+{ was #define dname def_expr }
+function G_TYPE_FLAG_RESERVED_ID_BIT : TGType;
+  begin
+    G_TYPE_FLAG_RESERVED_ID_BIT:=TGType(1 shl 0);
+  end;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+function GPOINTER_TO_TYPE(p : longint) : TGType;
+begin
+  GPOINTER_TO_TYPE:=TGType(Tguintptr(p));
+end;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+function GTYPE_TO_POINTER(t : longint) : Tgpointer;
+begin
+  GTYPE_TO_POINTER:=Tgpointer(Tguintptr(t));
+end;
+
+
+end.

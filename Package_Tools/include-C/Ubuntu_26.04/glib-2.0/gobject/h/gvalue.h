@@ -221,7 +221,7 @@ void	g_value_register_transform_func	(GType		 src_type,
  *
  * Since: 2.66
  */
-#define G_VALUE_INTERNED_STRING (1 << 28) GOBJECT_AVAILABLE_MACRO_IN_2_66
+#define G_VALUE_INTERNED_STRING (1 << 28)
 
 /**
  * G_VALUE_INIT:
@@ -247,7 +247,7 @@ void	g_value_register_transform_func	(GType		 src_type,
  *
  * Since: 2.30
  */
-#define G_VALUE_INIT  { 0, { { 0 } } }
+// xxxxxxxxxxxx #define G_VALUE_INIT  { 0, { { 0 } } }
 
 
 

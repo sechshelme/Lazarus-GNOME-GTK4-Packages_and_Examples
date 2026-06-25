@@ -1,0 +1,684 @@
+unit glib_types;
+
+interface
+
+uses
+  fp_glib;
+
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{ GObject - GLib Type, Object, Parameter and Signal Library
+ * Copyright (C) 2000-2001 Red Hat, Inc.
+ *
+ * SPDX-License-Identifier: LGPL-2.1-or-later
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General
+ * Public License along with this library; if not, see <http://www.gnu.org/licenses/>.
+  }
+{$ifndef __GLIB_TYPES_H__}
+{$define __GLIB_TYPES_H__}
+{$if !defined (__GLIB_GOBJECT_H_INSIDE__) && !defined (GOBJECT_COMPILATION) && !defined(GLIB_COMPILATION)}
+{$error "Only <glib-object.h> can be included directly."}
+{$endif}
+{$include <glib.h>}
+{$include <gobject/gobject-visibility.h>}
+{ A hack necessary to preprocess this file with g-ir-scanner  }
+{$ifdef __GI_SCANNER__}
+type
+  PGType = ^TGType;
+  TGType = Tgsize;
+{$endif}
+{ --- GLib boxed types ---  }
+{*
+ * G_TYPE_DATE:
+ *
+ * The #GType for #GDate.
+  }
+
+{ was #define dname def_expr }
+function G_TYPE_DATE : longint; { return type might be wrong }
+
+{*
+ * G_TYPE_STRV:
+ *
+ * The #GType for a boxed type holding a %NULL-terminated array of strings.
+ *
+ * The code fragments in the following example show the use of a property of
+ * type %G_TYPE_STRV with g_object_class_install_property(), g_object_set()
+ * and g_object_get().
+ *
+ * |[
+ * g_object_class_install_property (object_class,
+ *                                  PROP_AUTHORS,
+ *                                  g_param_spec_boxed ("authors",
+ *                                                      _("Authors"),
+ *                                                      _("List of authors"),
+ *                                                      G_TYPE_STRV,
+ *                                                      G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
+ *
+ * gchar *authors[] =  "Owen", "Tim", NULL ;
+ * g_object_set (obj, "authors", authors, NULL);
+ *
+ * gchar *writers[];
+ * g_object_get (obj, "authors", &writers, NULL);
+ * /&ast; do something with writers &ast;/
+ * g_strfreev (writers);
+ * ]|
+ *
+ * Since: 2.4
+  }
+{ was #define dname def_expr }
+function G_TYPE_STRV : longint; { return type might be wrong }
+
+{*
+ * G_TYPE_GSTRING:
+ *
+ * The #GType for #GString.
+  }
+{ was #define dname def_expr }
+function G_TYPE_GSTRING : longint; { return type might be wrong }
+
+{*
+ * G_TYPE_HASH_TABLE:
+ *
+ * The #GType for a boxed type holding a #GHashTable reference.
+ *
+ * Since: 2.10
+  }
+{ was #define dname def_expr }
+function G_TYPE_HASH_TABLE : longint; { return type might be wrong }
+
+{*
+ * G_TYPE_REGEX:
+ *
+ * The #GType for a boxed type holding a #GRegex reference.
+ *
+ * Since: 2.14
+  }
+{ was #define dname def_expr }
+function G_TYPE_REGEX : longint; { return type might be wrong }
+
+{*
+ * G_TYPE_MATCH_INFO:
+ *
+ * The #GType for a boxed type holding a #GMatchInfo reference.
+ *
+ * Since: 2.30
+  }
+{ was #define dname def_expr }
+function G_TYPE_MATCH_INFO : longint; { return type might be wrong }
+
+{*
+ * G_TYPE_ARRAY:
+ *
+ * The #GType for a boxed type holding a #GArray reference.
+ *
+ * Since: 2.22
+  }
+{ was #define dname def_expr }
+function G_TYPE_ARRAY : longint; { return type might be wrong }
+
+{*
+ * G_TYPE_BYTE_ARRAY:
+ *
+ * The #GType for a boxed type holding a #GByteArray reference.
+ *
+ * Since: 2.22
+  }
+{ was #define dname def_expr }
+function G_TYPE_BYTE_ARRAY : longint; { return type might be wrong }
+
+{*
+ * G_TYPE_PTR_ARRAY:
+ *
+ * The #GType for a boxed type holding a #GPtrArray reference.
+ *
+ * Since: 2.22
+  }
+{ was #define dname def_expr }
+function G_TYPE_PTR_ARRAY : longint; { return type might be wrong }
+
+{*
+ * G_TYPE_BYTES:
+ *
+ * The #GType for #GBytes.
+ *
+ * Since: 2.32
+  }
+{ was #define dname def_expr }
+function G_TYPE_BYTES : longint; { return type might be wrong }
+
+{*
+ * G_TYPE_VARIANT_TYPE:
+ *
+ * The #GType for a boxed type holding a #GVariantType.
+ *
+ * Since: 2.24
+  }
+{ was #define dname def_expr }
+function G_TYPE_VARIANT_TYPE : longint; { return type might be wrong }
+
+{*
+ * G_TYPE_ERROR:
+ *
+ * The #GType for a boxed type holding a #GError.
+ *
+ * Since: 2.26
+  }
+{ was #define dname def_expr }
+function G_TYPE_ERROR : longint; { return type might be wrong }
+
+{*
+ * G_TYPE_DATE_TIME:
+ *
+ * The #GType for a boxed type holding a #GDateTime.
+ *
+ * Since: 2.26
+  }
+{ was #define dname def_expr }
+function G_TYPE_DATE_TIME : longint; { return type might be wrong }
+
+{*
+ * G_TYPE_TIME_ZONE:
+ *
+ * The #GType for a boxed type holding a #GTimeZone.
+ *
+ * Since: 2.34
+  }
+{ was #define dname def_expr }
+function G_TYPE_TIME_ZONE : longint; { return type might be wrong }
+
+{*
+ * G_TYPE_IO_CHANNEL:
+ *
+ * The #GType for #GIOChannel.
+  }
+{ was #define dname def_expr }
+function G_TYPE_IO_CHANNEL : longint; { return type might be wrong }
+
+{*
+ * G_TYPE_IO_CONDITION:
+ *
+ * The #GType for #GIOCondition.
+  }
+{ was #define dname def_expr }
+function G_TYPE_IO_CONDITION : longint; { return type might be wrong }
+
+{*
+ * G_TYPE_VARIANT_BUILDER:
+ *
+ * The #GType for a boxed type holding a #GVariantBuilder.
+ *
+ * Since: 2.30
+  }
+{ was #define dname def_expr }
+function G_TYPE_VARIANT_BUILDER : longint; { return type might be wrong }
+
+{*
+ * G_TYPE_VARIANT_DICT:
+ *
+ * The #GType for a boxed type holding a #GVariantDict.
+ *
+ * Since: 2.40
+  }
+{ was #define dname def_expr }
+function G_TYPE_VARIANT_DICT : longint; { return type might be wrong }
+
+{*
+ * G_TYPE_MAIN_LOOP:
+ *
+ * The #GType for a boxed type holding a #GMainLoop.
+ *
+ * Since: 2.30
+  }
+{ was #define dname def_expr }
+function G_TYPE_MAIN_LOOP : longint; { return type might be wrong }
+
+{*
+ * G_TYPE_MAIN_CONTEXT:
+ *
+ * The #GType for a boxed type holding a #GMainContext.
+ *
+ * Since: 2.30
+  }
+{ was #define dname def_expr }
+function G_TYPE_MAIN_CONTEXT : longint; { return type might be wrong }
+
+{*
+ * G_TYPE_SOURCE:
+ *
+ * The #GType for a boxed type holding a #GSource.
+ *
+ * Since: 2.30
+  }
+{ was #define dname def_expr }
+function G_TYPE_SOURCE : longint; { return type might be wrong }
+
+{*
+ * G_TYPE_POLLFD:
+ *
+ * The #GType for a boxed type holding a #GPollFD.
+ *
+ * Since: 2.36
+  }
+{ was #define dname def_expr }
+function G_TYPE_POLLFD : longint; { return type might be wrong }
+
+{*
+ * G_TYPE_MARKUP_PARSE_CONTEXT:
+ *
+ * The #GType for a boxed type holding a #GMarkupParseContext.
+ *
+ * Since: 2.36
+  }
+{ was #define dname def_expr }
+function G_TYPE_MARKUP_PARSE_CONTEXT : longint; { return type might be wrong }
+
+{*
+ * G_TYPE_KEY_FILE:
+ *
+ * The #GType for a boxed type holding a #GKeyFile.
+ *
+ * Since: 2.32
+  }
+{ was #define dname def_expr }
+function G_TYPE_KEY_FILE : longint; { return type might be wrong }
+
+{*
+ * G_TYPE_MAPPED_FILE:
+ *
+ * The #GType for a boxed type holding a #GMappedFile.
+ *
+ * Since: 2.40
+  }
+{ was #define dname def_expr }
+function G_TYPE_MAPPED_FILE : longint; { return type might be wrong }
+
+{*
+ * G_TYPE_THREAD:
+ *
+ * The #GType for a boxed type holding a #GThread.
+ *
+ * Since: 2.36
+  }
+{ was #define dname def_expr }
+function G_TYPE_THREAD : longint; { return type might be wrong }
+
+{*
+ * G_TYPE_CHECKSUM:
+ *
+ * The #GType for a boxed type holding a #GChecksum.
+ *
+ * Since: 2.36
+  }
+{ was #define dname def_expr }
+function G_TYPE_CHECKSUM : longint; { return type might be wrong }
+
+{*
+ * G_TYPE_OPTION_GROUP:
+ *
+ * The #GType for a boxed type holding a #GOptionGroup.
+ *
+ * Since: 2.44
+  }
+{ was #define dname def_expr }
+function G_TYPE_OPTION_GROUP : longint; { return type might be wrong }
+
+{*
+ * G_TYPE_URI:
+ *
+ * The #GType for a boxed type holding a #GUri.
+ *
+ * Since: 2.66
+  }
+{ was #define dname def_expr }
+function G_TYPE_URI : longint; { return type might be wrong }
+
+{*
+ * G_TYPE_TREE:
+ *
+ * The #GType for #GTree.
+ *
+ * Since: 2.68
+  }
+{ was #define dname def_expr }
+function G_TYPE_TREE : longint; { return type might be wrong }
+
+{*
+ * G_TYPE_PATTERN_SPEC:
+ *
+ * The #GType for #GPatternSpec.
+ *
+ * Since: 2.70
+  }
+{ was #define dname def_expr }
+function G_TYPE_PATTERN_SPEC : longint; { return type might be wrong }
+
+{*
+ * G_TYPE_BOOKMARK_FILE:
+ *
+ * The #GType for a boxed type holding a #GBookmarkFile.
+ *
+ * Since: 2.76
+  }
+{ was #define dname def_expr }
+function G_TYPE_BOOKMARK_FILE : longint; { return type might be wrong }
+
+{*
+ * G_TYPE_HMAC:
+ *
+ * The #GType for a boxed type holding a #GHmac.
+ *
+ * Since: 2.80
+  }
+{ was #define dname def_expr }
+function G_TYPE_HMAC : longint; { return type might be wrong }
+
+{*
+ * G_TYPE_DIR:
+ *
+ * The #GType for a boxed type holding a #GDir.
+ *
+ * Since: 2.80
+  }
+{ was #define dname def_expr }
+function G_TYPE_DIR : longint; { return type might be wrong }
+
+{*
+ * G_TYPE_RAND:
+ *
+ * The #GType for a boxed type holding a #GRand.
+ *
+ * Since: 2.80
+  }
+{ was #define dname def_expr }
+function G_TYPE_RAND : longint; { return type might be wrong }
+
+{*
+ * G_TYPE_STRV_BUILDER:
+ *
+ * The #GType for a boxed type holding a #GStrvBuilder.
+ *
+ * Since: 2.80
+  }
+{ was #define dname def_expr }
+function G_TYPE_STRV_BUILDER : longint; { return type might be wrong }
+
+function g_date_get_type:TGType;cdecl;external libgobject2_0;
+function g_strv_get_type:TGType;cdecl;external libgobject2_0;
+function g_gstring_get_type:TGType;cdecl;external libgobject2_0;
+function g_hash_table_get_type:TGType;cdecl;external libgobject2_0;
+function g_array_get_type:TGType;cdecl;external libgobject2_0;
+function g_byte_array_get_type:TGType;cdecl;external libgobject2_0;
+function g_ptr_array_get_type:TGType;cdecl;external libgobject2_0;
+function g_bytes_get_type:TGType;cdecl;external libgobject2_0;
+function g_variant_type_get_gtype:TGType;cdecl;external libgobject2_0;
+function g_regex_get_type:TGType;cdecl;external libgobject2_0;
+function g_match_info_get_type:TGType;cdecl;external libgobject2_0;
+function g_error_get_type:TGType;cdecl;external libgobject2_0;
+function g_date_time_get_type:TGType;cdecl;external libgobject2_0;
+function g_time_zone_get_type:TGType;cdecl;external libgobject2_0;
+function g_io_channel_get_type:TGType;cdecl;external libgobject2_0;
+function g_io_condition_get_type:TGType;cdecl;external libgobject2_0;
+function g_variant_builder_get_type:TGType;cdecl;external libgobject2_0;
+function g_variant_dict_get_type:TGType;cdecl;external libgobject2_0;
+function g_key_file_get_type:TGType;cdecl;external libgobject2_0;
+function g_main_loop_get_type:TGType;cdecl;external libgobject2_0;
+function g_main_context_get_type:TGType;cdecl;external libgobject2_0;
+function g_source_get_type:TGType;cdecl;external libgobject2_0;
+function g_pollfd_get_type:TGType;cdecl;external libgobject2_0;
+function g_thread_get_type:TGType;cdecl;external libgobject2_0;
+function g_checksum_get_type:TGType;cdecl;external libgobject2_0;
+function g_markup_parse_context_get_type:TGType;cdecl;external libgobject2_0;
+function g_mapped_file_get_type:TGType;cdecl;external libgobject2_0;
+function g_option_group_get_type:TGType;cdecl;external libgobject2_0;
+function g_uri_get_type:TGType;cdecl;external libgobject2_0;
+function g_tree_get_type:TGType;cdecl;external libgobject2_0;
+function g_pattern_spec_get_type:TGType;cdecl;external libgobject2_0;
+function g_bookmark_file_get_type:TGType;cdecl;external libgobject2_0;
+function g_hmac_get_type:TGType;cdecl;external libgobject2_0;
+function g_dir_get_type:TGType;cdecl;external libgobject2_0;
+function g_rand_get_type:TGType;cdecl;external libgobject2_0;
+function g_strv_builder_get_type:TGType;cdecl;external libgobject2_0;
+{xxxxxGLIB_DEPRECATED_FOR('G_TYPE_VARIANT') }
+function g_variant_get_gtype:TGType;cdecl;external libgobject2_0;
+{$endif}
+{ __GLIB_TYPES_H__  }
+
+// === Konventiert am: 25-6-26 15:19:29 ===
+
+
+implementation
+
+
+{ was #define dname def_expr }
+function G_TYPE_DATE : longint; { return type might be wrong }
+  begin
+    G_TYPE_DATE:=g_date_get_type;
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_STRV : longint; { return type might be wrong }
+  begin
+    G_TYPE_STRV:=g_strv_get_type;
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_GSTRING : longint; { return type might be wrong }
+  begin
+    G_TYPE_GSTRING:=g_gstring_get_type;
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_HASH_TABLE : longint; { return type might be wrong }
+  begin
+    G_TYPE_HASH_TABLE:=g_hash_table_get_type;
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_REGEX : longint; { return type might be wrong }
+  begin
+    G_TYPE_REGEX:=g_regex_get_type;
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_MATCH_INFO : longint; { return type might be wrong }
+  begin
+    G_TYPE_MATCH_INFO:=g_match_info_get_type;
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_ARRAY : longint; { return type might be wrong }
+  begin
+    G_TYPE_ARRAY:=g_array_get_type;
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_BYTE_ARRAY : longint; { return type might be wrong }
+  begin
+    G_TYPE_BYTE_ARRAY:=g_byte_array_get_type;
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_PTR_ARRAY : longint; { return type might be wrong }
+  begin
+    G_TYPE_PTR_ARRAY:=g_ptr_array_get_type;
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_BYTES : longint; { return type might be wrong }
+  begin
+    G_TYPE_BYTES:=g_bytes_get_type;
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_VARIANT_TYPE : longint; { return type might be wrong }
+  begin
+    G_TYPE_VARIANT_TYPE:=g_variant_type_get_gtype;
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_ERROR : longint; { return type might be wrong }
+  begin
+    G_TYPE_ERROR:=g_error_get_type;
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_DATE_TIME : longint; { return type might be wrong }
+  begin
+    G_TYPE_DATE_TIME:=g_date_time_get_type;
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_TIME_ZONE : longint; { return type might be wrong }
+  begin
+    G_TYPE_TIME_ZONE:=g_time_zone_get_type;
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_IO_CHANNEL : longint; { return type might be wrong }
+  begin
+    G_TYPE_IO_CHANNEL:=g_io_channel_get_type;
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_IO_CONDITION : longint; { return type might be wrong }
+  begin
+    G_TYPE_IO_CONDITION:=g_io_condition_get_type;
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_VARIANT_BUILDER : longint; { return type might be wrong }
+  begin
+    G_TYPE_VARIANT_BUILDER:=g_variant_builder_get_type;
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_VARIANT_DICT : longint; { return type might be wrong }
+  begin
+    G_TYPE_VARIANT_DICT:=g_variant_dict_get_type;
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_MAIN_LOOP : longint; { return type might be wrong }
+  begin
+    G_TYPE_MAIN_LOOP:=g_main_loop_get_type;
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_MAIN_CONTEXT : longint; { return type might be wrong }
+  begin
+    G_TYPE_MAIN_CONTEXT:=g_main_context_get_type;
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_SOURCE : longint; { return type might be wrong }
+  begin
+    G_TYPE_SOURCE:=g_source_get_type;
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_POLLFD : longint; { return type might be wrong }
+  begin
+    G_TYPE_POLLFD:=g_pollfd_get_type;
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_MARKUP_PARSE_CONTEXT : longint; { return type might be wrong }
+  begin
+    G_TYPE_MARKUP_PARSE_CONTEXT:=g_markup_parse_context_get_type;
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_KEY_FILE : longint; { return type might be wrong }
+  begin
+    G_TYPE_KEY_FILE:=g_key_file_get_type;
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_MAPPED_FILE : longint; { return type might be wrong }
+  begin
+    G_TYPE_MAPPED_FILE:=g_mapped_file_get_type;
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_THREAD : longint; { return type might be wrong }
+  begin
+    G_TYPE_THREAD:=g_thread_get_type;
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_CHECKSUM : longint; { return type might be wrong }
+  begin
+    G_TYPE_CHECKSUM:=g_checksum_get_type;
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_OPTION_GROUP : longint; { return type might be wrong }
+  begin
+    G_TYPE_OPTION_GROUP:=g_option_group_get_type;
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_URI : longint; { return type might be wrong }
+  begin
+    G_TYPE_URI:=g_uri_get_type;
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_TREE : longint; { return type might be wrong }
+  begin
+    G_TYPE_TREE:=g_tree_get_type;
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_PATTERN_SPEC : longint; { return type might be wrong }
+  begin
+    G_TYPE_PATTERN_SPEC:=g_pattern_spec_get_type;
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_BOOKMARK_FILE : longint; { return type might be wrong }
+  begin
+    G_TYPE_BOOKMARK_FILE:=g_bookmark_file_get_type;
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_HMAC : longint; { return type might be wrong }
+  begin
+    G_TYPE_HMAC:=g_hmac_get_type;
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_DIR : longint; { return type might be wrong }
+  begin
+    G_TYPE_DIR:=g_dir_get_type;
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_RAND : longint; { return type might be wrong }
+  begin
+    G_TYPE_RAND:=g_rand_get_type;
+  end;
+
+{ was #define dname def_expr }
+function G_TYPE_STRV_BUILDER : longint; { return type might be wrong }
+  begin
+    G_TYPE_STRV_BUILDER:=g_strv_builder_get_type;
+  end;
+
+
+end.

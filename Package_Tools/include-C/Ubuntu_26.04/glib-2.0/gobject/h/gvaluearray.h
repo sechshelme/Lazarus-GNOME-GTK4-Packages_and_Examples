@@ -37,7 +37,7 @@
  *
  * Deprecated: 2.32: Use #GArray instead of #GValueArray
  */
-#define G_TYPE_VALUE_ARRAY (g_value_array_get_type ()) GOBJECT_DEPRECATED_MACRO_IN_2_32_FOR(G_TYPE_ARRAY)
+#define G_TYPE_VALUE_ARRAY (g_value_array_get_type ())
 
 /* --- typedefs & structs --- */
 typedef struct _GValueArray GValueArray;

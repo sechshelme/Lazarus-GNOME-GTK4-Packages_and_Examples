@@ -335,9 +335,9 @@ const
     (libs: 'libgweather'; units: 'fp_gweather'),
     (libs: 'libhistedit'; units: 'fp_glib'),
 
-    (libs: 'libglib2'; units: 'common_GLIB, gtypes'),
-//    (libs: 'libgobject2_0'; units: 'common_GLIB, gtypes'),
-//    (libs: 'libgio2'; units: 'common_GLIB, gtypes, gerror, gtype, giotypes, gobject, gioenums'),
+    (libs: 'libglib2'; units: 'fp_glib, gtypes'),
+    (libs: 'libgobject2_0'; units: 'fp_glib'),
+//    (libs: 'libgio2'; units: 'fp_glib'),
 //    (libs: 'libgtk4'; units: 'glib2, common_GTK'),
 
 

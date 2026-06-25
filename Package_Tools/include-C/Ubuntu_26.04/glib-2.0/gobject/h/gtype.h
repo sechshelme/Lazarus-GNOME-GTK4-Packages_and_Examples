@@ -397,7 +397,7 @@
  *
  * Since: 2.70
  */
-#define G_TYPE_IS_FINAL(type)                   (g_type_test_flags ((type), G_TYPE_FLAG_FINAL)) GOBJECT_AVAILABLE_MACRO_IN_2_70
+#define G_TYPE_IS_FINAL(type)                   (g_type_test_flags ((type), G_TYPE_FLAG_FINAL)) 
 
 /**
  * G_TYPE_IS_DEPRECATED:
@@ -410,7 +410,7 @@
  *
  * Since: 2.76
  */
-#define G_TYPE_IS_DEPRECATED(type)                   (g_type_test_flags ((type), G_TYPE_FLAG_DEPRECATED)) GOBJECT_AVAILABLE_MACRO_IN_2_76
+#define G_TYPE_IS_DEPRECATED(type)                   (g_type_test_flags ((type), G_TYPE_FLAG_DEPRECATED)) 
 
 
 /* Typedefs
@@ -685,7 +685,7 @@ struct _GTypeQuery
  *   `your_type_get_instance_private()` function instead
  * Returns: (not nullable): a pointer to the private data structure
  */
-#define G_TYPE_INSTANCE_GET_PRIVATE(instance, g_type, c_type)   ((c_type*) g_type_instance_get_private ((GTypeInstance*) (instance), (g_type))) GOBJECT_DEPRECATED_MACRO_IN_2_58_FOR(G_ADD_PRIVATE)
+#define G_TYPE_INSTANCE_GET_PRIVATE(instance, g_type, c_type)   ((c_type*) g_type_instance_get_private ((GTypeInstance*) (instance), (g_type))) 
 
 /**
  * G_TYPE_CLASS_GET_PRIVATE:
@@ -728,7 +728,7 @@ typedef enum	/*< skip >*/
   G_TYPE_DEBUG_SIGNALS	= 1 << 1,
   G_TYPE_DEBUG_INSTANCE_COUNT = 1 << 2,
   G_TYPE_DEBUG_MASK	= 0x07
-}  GTypeDebugFlags GOBJECT_DEPRECATED_TYPE_IN_2_36;
+}  GTypeDebugFlags;
 
 
 /* --- prototypes --- */
@@ -755,9 +755,6 @@ GType                 g_type_next_base               (GType            leaf_type
 extern
 gboolean              g_type_is_a                    (GType            type,
 						      GType            is_a_type);
-
-/* Hoist exact GType comparisons into the caller */
-#define g_type_is_a(a,b) ((a) == (b) || (g_type_is_a) ((a), (b)))
 
 extern
 gpointer              g_type_class_get               (GType            type);
@@ -1086,11 +1083,11 @@ typedef enum    /*< skip >*/
  */
 typedef enum    /*< skip >*/
 {
-  G_TYPE_FLAG_NONE GOBJECT_AVAILABLE_ENUMERATOR_IN_2_74 = 0,
+  G_TYPE_FLAG_NONE  = 0,
   G_TYPE_FLAG_ABSTRACT = (1 << 4),
   G_TYPE_FLAG_VALUE_ABSTRACT = (1 << 5),
-  G_TYPE_FLAG_FINAL GOBJECT_AVAILABLE_ENUMERATOR_IN_2_70 = (1 << 6),
-  G_TYPE_FLAG_DEPRECATED GOBJECT_AVAILABLE_ENUMERATOR_IN_2_76 = (1 << 7)
+  G_TYPE_FLAG_FINAL  = (1 << 6),
+  G_TYPE_FLAG_DEPRECATED  = (1 << 7)
 }  GTypeFlags;
 /**
  * GTypeInfo:
@@ -1189,7 +1186,7 @@ struct _GInterfaceInfo
  *
  * Since: 2.78
  */
-GOBJECT_AVAILABLE_TYPE_IN_2_78
+
 typedef void (* GTypeValueInitFunc) (GValue *value);
 
 /**
@@ -1210,7 +1207,7 @@ typedef void (* GTypeValueInitFunc) (GValue *value);
  *
  * Since: 2.78
  */
-GOBJECT_AVAILABLE_TYPE_IN_2_78
+
 typedef void (* GTypeValueFreeFunc) (GValue *value);
 
 /**
@@ -1233,7 +1230,6 @@ typedef void (* GTypeValueFreeFunc) (GValue *value);
  *
  * Since: 2.78
  */
-GOBJECT_AVAILABLE_TYPE_IN_2_78
 typedef void (* GTypeValueCopyFunc) (const GValue *src_value,
                                      GValue       *dest_value);
 
@@ -1254,7 +1250,6 @@ typedef void (* GTypeValueCopyFunc) (const GValue *src_value,
  *
  * Since: 2.78
  */
-GOBJECT_AVAILABLE_TYPE_IN_2_78
 typedef gpointer (* GTypeValuePeekPointerFunc) (const GValue *value);
 
 /**
@@ -1341,7 +1336,6 @@ typedef gpointer (* GTypeValuePeekPointerFunc) (const GValue *value);
  *
  * Since: 2.78
  */
-GOBJECT_AVAILABLE_TYPE_IN_2_78
 typedef gchar * (* GTypeValueCollectFunc) (GValue      *value,
                                            guint        n_collect_values,
                                            GTypeCValue *collect_values,
@@ -1403,7 +1397,6 @@ typedef gchar * (* GTypeValueCollectFunc) (GValue      *value,
  *
  * Since: 2.78
  */
-GOBJECT_AVAILABLE_TYPE_IN_2_78
 typedef gchar * (* GTypeValueLCopyFunc) (const GValue *value,
                                          guint         n_collect_values,
                                          GTypeCValue  *collect_values,
@@ -1527,1063 +1520,21 @@ extern
 guint     g_type_get_type_registration_serial (void);
 
 
-/* --- GType boilerplate --- */
-/**
- * G_DECLARE_FINAL_TYPE:
- * @ModuleObjName: The name of the new type, in camel case (like `GtkWidget`)
- * @module_obj_name: The name of the new type in lowercase, with words
- *  separated by `_` (like `gtk_widget`)
- * @MODULE: The name of the module, in all caps (like `GTK`)
- * @OBJ_NAME: The bare name of the type, in all caps (like `WIDGET`)
- * @ParentName: the name of the parent type, in camel case (like `GtkWidget`)
- *
- * A convenience macro for emitting the usual declarations in the header file
- * for a type which is not (at the present time) intended to be subclassed.
- *
- * You might use it in a header as follows:
- *
- * |[<!-- language="C" -->
- * #ifndef _myapp_window_h_
- * #define _myapp_window_h_
- *
- * #include <gtk/gtk.h>
- *
- * #define MY_APP_TYPE_WINDOW my_app_window_get_type ()
- * G_DECLARE_FINAL_TYPE (MyAppWindow, my_app_window, MY_APP, WINDOW, GtkWindow)
- *
- * MyAppWindow *    my_app_window_new    (void);
- *
- * ...
- *
- * #endif
- * ]|
- *
- * And use it as follow in your C file:
- *
- * |[<!-- language="C" -->
- * struct _MyAppWindow
- * {
- *  GtkWindow parent;
- *  ...
- * };
- * G_DEFINE_TYPE (MyAppWindow, my_app_window, GTK_TYPE_WINDOW)
- * ]|
- *
- * This results in the following things happening:
- *
- * - the usual `my_app_window_get_type()` function is declared with a return type of #GType
- *
- * - the `MyAppWindow` type is defined as a `typedef` of `struct _MyAppWindow`.  The struct itself is not
- *   defined and should be defined from the .c file before G_DEFINE_TYPE() is used.
- *
- * - the `MY_APP_WINDOW()` cast is emitted as `static inline` function along with the `MY_APP_IS_WINDOW()` type
- *   checking function
- *
- * - the `MyAppWindowClass` type is defined as a struct containing `GtkWindowClass`.  This is done for the
- *   convenience of the person defining the type and should not be considered to be part of the ABI.  In
- *   particular, without a firm declaration of the instance structure, it is not possible to subclass the type
- *   and therefore the fact that the size of the class structure is exposed is not a concern and it can be
- *   freely changed at any point in the future.
- *
- * - g_autoptr() support being added for your type, based on the type of your parent class
- *
- * You can only use this function if your parent type also supports g_autoptr().
- *
- * Because the type macro (`MY_APP_TYPE_WINDOW` in the above example) is not a callable, you must continue to
- * manually define this as a macro for yourself.
- *
- * The declaration of the `_get_type()` function is the first thing emitted by the macro.  This allows this macro
- * to be used in the usual way with export control and API versioning macros.
- *
- * If you want to declare your own class structure, use G_DECLARE_DERIVABLE_TYPE().
- *
- * If you are writing a library, it is important to note that it is possible to convert a type from using
- * G_DECLARE_FINAL_TYPE() to G_DECLARE_DERIVABLE_TYPE() without breaking API or ABI.  As a precaution, you
- * should therefore use G_DECLARE_FINAL_TYPE() until you are sure that it makes sense for your class to be
- * subclassed.  Once a class structure has been exposed it is not possible to change its size or remove or
- * reorder items without breaking the API and/or ABI.
- *
- * Since: 2.44
- **/
-#define G_DECLARE_FINAL_TYPE(ModuleObjName, module_obj_name, MODULE, OBJ_NAME, ParentName) \
-  GType module_obj_name##_get_type (void);                                                               \
-                                                                         \
-  typedef struct _##ModuleObjName ModuleObjName;                                                         \
-  typedef struct { ParentName##Class parent_class; } ModuleObjName##Class;                               \
-                                                                                                         \
-  _GLIB_DEFINE_AUTOPTR_CHAINUP (ModuleObjName, ParentName)                                               \
-  G_DEFINE_AUTOPTR_CLEANUP_FUNC (ModuleObjName##Class, g_type_class_unref)                               \
-                                                                                                         \
-  G_GNUC_UNUSED static inline ModuleObjName * MODULE##_##OBJ_NAME (gpointer ptr) {                       \
-    return G_TYPE_CHECK_INSTANCE_CAST (ptr, module_obj_name##_get_type (), ModuleObjName); }             \
-  G_GNUC_UNUSED static inline gboolean MODULE##_IS_##OBJ_NAME (gpointer ptr) {                           \
-    return G_TYPE_CHECK_INSTANCE_TYPE (ptr, module_obj_name##_get_type ()); }                            \
-  
-
-/**
- * G_DECLARE_DERIVABLE_TYPE:
- * @ModuleObjName: The name of the new type, in camel case (like `GtkWidget`)
- * @module_obj_name: The name of the new type in lowercase, with words
- *  separated by `_` (like `gtk_widget`)
- * @MODULE: The name of the module, in all caps (like `GTK`)
- * @OBJ_NAME: The bare name of the type, in all caps (like `WIDGET`)
- * @ParentName: the name of the parent type, in camel case (like `GtkWidget`)
- *
- * A convenience macro for emitting the usual declarations in the
- * header file for a type which is intended to be subclassed.
- *
- * You might use it in a header as follows:
- *
- * |[<!-- language="C" -->
- * #ifndef _gtk_frobber_h_
- * #define _gtk_frobber_h_
- *
- * #define GTK_TYPE_FROBBER gtk_frobber_get_type ()
- * GDK_AVAILABLE_IN_3_12
- * G_DECLARE_DERIVABLE_TYPE (GtkFrobber, gtk_frobber, GTK, FROBBER, GtkWidget)
- *
- * struct _GtkFrobberClass
- * {
- *   GtkWidgetClass parent_class;
- *
- *   void (* handle_frob)  (GtkFrobber *frobber,
- *                          guint       n_frobs);
- *
- *   gpointer padding[12];
- * };
- *
- * GtkWidget *    gtk_frobber_new   (void);
- *
- * ...
- *
- * #endif
- * ]|
- *
- * Since the instance structure is public it is often needed to declare a
- * private struct as follow in your C file:
- *
- * |[<!-- language="C" -->
- * typedef struct _GtkFrobberPrivate GtkFrobberPrivate;
- * struct _GtkFrobberPrivate
- * {
- *   ...
- * };
- * G_DEFINE_TYPE_WITH_PRIVATE (GtkFrobber, gtk_frobber, GTK_TYPE_WIDGET)
- * ]|
- *
- * This results in the following things happening:
- *
- * - the usual `gtk_frobber_get_type()` function is declared with a return type of #GType
- *
- * - the `GtkFrobber` struct is created with `GtkWidget` as the first and only item.  You are expected to use
- *   a private structure from your .c file to store your instance variables.
- *
- * - the `GtkFrobberClass` type is defined as a typedef to `struct _GtkFrobberClass`, which is left undefined.
- *   You should do this from the header file directly after you use the macro.
- *
- * - the `GTK_FROBBER()` and `GTK_FROBBER_CLASS()` casts are emitted as `static inline` functions along with
- *   the `GTK_IS_FROBBER()` and `GTK_IS_FROBBER_CLASS()` type checking functions and `GTK_FROBBER_GET_CLASS()`
- *   function.
- *
- * - g_autoptr() support being added for your type, based on the type of your parent class
- *
- * You can only use this function if your parent type also supports g_autoptr().
- *
- * Because the type macro (`GTK_TYPE_FROBBER` in the above example) is not a callable, you must continue to
- * manually define this as a macro for yourself.
- *
- * The declaration of the `_get_type()` function is the first thing emitted by the macro.  This allows this macro
- * to be used in the usual way with export control and API versioning macros.
- *
- * If you are writing a library, it is important to note that it is possible to convert a type from using
- * G_DECLARE_FINAL_TYPE() to G_DECLARE_DERIVABLE_TYPE() without breaking API or ABI.  As a precaution, you
- * should therefore use G_DECLARE_FINAL_TYPE() until you are sure that it makes sense for your class to be
- * subclassed.  Once a class structure has been exposed it is not possible to change its size or remove or
- * reorder items without breaking the API and/or ABI.  If you want to declare your own class structure, use
- * G_DECLARE_DERIVABLE_TYPE().  If you want to declare a class without exposing the class or instance
- * structures, use G_DECLARE_FINAL_TYPE().
- *
- * If you must use G_DECLARE_DERIVABLE_TYPE() you should be sure to include some padding at the bottom of your
- * class structure to leave space for the addition of future virtual functions.
- *
- * Since: 2.44
- **/
-#define G_DECLARE_DERIVABLE_TYPE(ModuleObjName, module_obj_name, MODULE, OBJ_NAME, ParentName) \
-  GType module_obj_name##_get_type (void);                                                               \
-                                                                         \
-  typedef struct _##ModuleObjName ModuleObjName;                                                         \
-  typedef struct _##ModuleObjName##Class ModuleObjName##Class;                                           \
-  struct _##ModuleObjName { ParentName parent_instance; };                                               \
-                                                                                                         \
-  _GLIB_DEFINE_AUTOPTR_CHAINUP (ModuleObjName, ParentName)                                               \
-  G_DEFINE_AUTOPTR_CLEANUP_FUNC (ModuleObjName##Class, g_type_class_unref)                               \
-                                                                                                         \
-  G_GNUC_UNUSED static inline ModuleObjName * MODULE##_##OBJ_NAME (gpointer ptr) {                       \
-    return G_TYPE_CHECK_INSTANCE_CAST (ptr, module_obj_name##_get_type (), ModuleObjName); }             \
-  G_GNUC_UNUSED static inline ModuleObjName##Class * MODULE##_##OBJ_NAME##_CLASS (gpointer ptr) {        \
-    return G_TYPE_CHECK_CLASS_CAST (ptr, module_obj_name##_get_type (), ModuleObjName##Class); }         \
-  G_GNUC_UNUSED static inline gboolean MODULE##_IS_##OBJ_NAME (gpointer ptr) {                           \
-    return G_TYPE_CHECK_INSTANCE_TYPE (ptr, module_obj_name##_get_type ()); }                            \
-  G_GNUC_UNUSED static inline gboolean MODULE##_IS_##OBJ_NAME##_CLASS (gpointer ptr) {                   \
-    return G_TYPE_CHECK_CLASS_TYPE (ptr, module_obj_name##_get_type ()); }                               \
-  G_GNUC_UNUSED static inline ModuleObjName##Class * MODULE##_##OBJ_NAME##_GET_CLASS (gpointer ptr) {    \
-    return G_TYPE_INSTANCE_GET_CLASS (ptr, module_obj_name##_get_type (), ModuleObjName##Class); }       \
-  
-
-/**
- * G_DECLARE_INTERFACE:
- * @ModuleObjName: The name of the new type, in camel case (like `GtkWidget`)
- * @module_obj_name: The name of the new type in lowercase, with words
- *  separated by `_` (like `gtk_widget`)
- * @MODULE: The name of the module, in all caps (like `GTK`)
- * @OBJ_NAME: The bare name of the type, in all caps (like `WIDGET`)
- * @PrerequisiteName: the name of the prerequisite type, in camel case (like `GtkWidget`)
- *
- * A convenience macro for emitting the usual declarations in the header file for a #GInterface type.
- *
- * You might use it in a header as follows:
- *
- * |[<!-- language="C" -->
- * #ifndef _my_model_h_
- * #define _my_model_h_
- *
- * #define MY_TYPE_MODEL my_model_get_type ()
- * GDK_AVAILABLE_IN_3_12
- * G_DECLARE_INTERFACE (MyModel, my_model, MY, MODEL, GObject)
- *
- * struct _MyModelInterface
- * {
- *   GTypeInterface g_iface;
- *
- *   gpointer (* get_item)  (MyModel *model);
- * };
- *
- * gpointer my_model_get_item (MyModel *model);
- *
- * ...
- *
- * #endif
- * ]|
- *
- * And use it as follow in your C file:
- *
- * |[<!-- language="C" -->
- * G_DEFINE_INTERFACE (MyModel, my_model, G_TYPE_OBJECT);
- *
- * static void
- * my_model_default_init (MyModelInterface *iface)
- * {
- *   ...
- * }
- * ]|
- *
- * This results in the following things happening:
- *
- * - the usual `my_model_get_type()` function is declared with a return type of #GType
- *
- * - the `MyModelInterface` type is defined as a typedef to `struct _MyModelInterface`,
- *   which is left undefined. You should do this from the header file directly after
- *   you use the macro.
- *
- * - the `MY_MODEL()` cast is emitted as `static inline` functions along with
- *   the `MY_IS_MODEL()` type checking function and `MY_MODEL_GET_IFACE()` function.
- *
- * - g_autoptr() support being added for your type, based on your prerequisite type.
- *
- * You can only use this function if your prerequisite type also supports g_autoptr().
- *
- * Because the type macro (`MY_TYPE_MODEL` in the above example) is not a callable, you must continue to
- * manually define this as a macro for yourself.
- *
- * The declaration of the `_get_type()` function is the first thing emitted by the macro.  This allows this macro
- * to be used in the usual way with export control and API versioning macros.
- *
- * Since: 2.44
- **/
-#define G_DECLARE_INTERFACE(ModuleObjName, module_obj_name, MODULE, OBJ_NAME, PrerequisiteName) \
-  GType module_obj_name##_get_type (void);                                                                 \
-                                                                           \
-  typedef struct _##ModuleObjName ModuleObjName;                                                           \
-  typedef struct _##ModuleObjName##Interface ModuleObjName##Interface;                                     \
-                                                                                                           \
-  _GLIB_DEFINE_AUTOPTR_CHAINUP (ModuleObjName, PrerequisiteName)                                           \
-                                                                                                           \
-  G_GNUC_UNUSED static inline ModuleObjName * MODULE##_##OBJ_NAME (gpointer ptr) {                         \
-    return G_TYPE_CHECK_INSTANCE_CAST (ptr, module_obj_name##_get_type (), ModuleObjName); }               \
-  G_GNUC_UNUSED static inline gboolean MODULE##_IS_##OBJ_NAME (gpointer ptr) {                             \
-    return G_TYPE_CHECK_INSTANCE_TYPE (ptr, module_obj_name##_get_type ()); }                              \
-  G_GNUC_UNUSED static inline ModuleObjName##Interface * MODULE##_##OBJ_NAME##_GET_IFACE (gpointer ptr) {  \
-    return G_TYPE_INSTANCE_GET_INTERFACE (ptr, module_obj_name##_get_type (), ModuleObjName##Interface); } \
-  
-
-/**
- * G_DEFINE_TYPE:
- * @TN: The name of the new type, in Camel case.
- * @t_n: The name of the new type, in lowercase, with words 
- *  separated by `_`.
- * @T_P: The #GType of the parent type.
- * 
- * A convenience macro for type implementations, which declares a class
- * initialization function, an instance initialization function (see #GTypeInfo
- * for information about these) and a static variable named `t_n_parent_class`
- * pointing to the parent class. Furthermore, it defines a `*_get_type()` function.
- * See G_DEFINE_TYPE_EXTENDED() for an example.
- * 
- * Since: 2.4
- */
-#define G_DEFINE_TYPE(TN, t_n, T_P)			    G_DEFINE_TYPE_EXTENDED (TN, t_n, T_P, 0, {})
-/**
- * G_DEFINE_TYPE_WITH_CODE:
- * @TN: The name of the new type, in Camel case.
- * @t_n: The name of the new type in lowercase, with words separated by `_`.
- * @T_P: The #GType of the parent type.
- * @_C_: Custom code that gets inserted in the `*_get_type()` function.
- * 
- * A convenience macro for type implementations.
- *
- * Similar to G_DEFINE_TYPE(), but allows you to insert custom code into the
- * `*_get_type()` function, e.g. interface implementations via G_IMPLEMENT_INTERFACE().
- * See G_DEFINE_TYPE_EXTENDED() for an example.
- * 
- * Since: 2.4
- */
-#define G_DEFINE_TYPE_WITH_CODE(TN, t_n, T_P, _C_)	    _G_DEFINE_TYPE_EXTENDED_BEGIN (TN, t_n, T_P, 0) {_C_;} _G_DEFINE_TYPE_EXTENDED_END()
-/**
- * G_DEFINE_TYPE_WITH_PRIVATE:
- * @TN: The name of the new type, in Camel case.
- * @t_n: The name of the new type, in lowercase, with words 
- *  separated by `_`.
- * @T_P: The #GType of the parent type.
- * 
- * A convenience macro for type implementations, which declares a class
- * initialization function, an instance initialization function (see #GTypeInfo
- * for information about these), a static variable named `t_n_parent_class`
- * pointing to the parent class, and adds private instance data to the type.
- *
- * Furthermore, it defines a `*_get_type()` function. See G_DEFINE_TYPE_EXTENDED()
- * for an example.
- * 
- * Note that private structs added with this macros must have a struct
- * name of the form `TN ## Private`.
- *
- * The private instance data can be retrieved using the automatically generated
- * getter function `t_n_get_instance_private()`.
- *
- * See also: G_ADD_PRIVATE()
- *
- * Since: 2.38
- */
-#define G_DEFINE_TYPE_WITH_PRIVATE(TN, t_n, T_P)            G_DEFINE_TYPE_EXTENDED (TN, t_n, T_P, 0, G_ADD_PRIVATE (TN))
-/**
- * G_DEFINE_ABSTRACT_TYPE:
- * @TN: The name of the new type, in Camel case.
- * @t_n: The name of the new type, in lowercase, with words 
- *  separated by `_`.
- * @T_P: The #GType of the parent type.
- * 
- * A convenience macro for type implementations.
- *
- * Similar to G_DEFINE_TYPE(), but defines an abstract type.
- * See G_DEFINE_TYPE_EXTENDED() for an example.
- * 
- * Since: 2.4
- */
-#define G_DEFINE_ABSTRACT_TYPE(TN, t_n, T_P)		    G_DEFINE_TYPE_EXTENDED (TN, t_n, T_P, G_TYPE_FLAG_ABSTRACT, {})
-/**
- * G_DEFINE_ABSTRACT_TYPE_WITH_CODE:
- * @TN: The name of the new type, in Camel case.
- * @t_n: The name of the new type, in lowercase, with words 
- *  separated by `_`.
- * @T_P: The #GType of the parent type.
- * @_C_: Custom code that gets inserted in the `type_name_get_type()` function.
- * 
- * A convenience macro for type implementations.
- *
- * Similar to G_DEFINE_TYPE_WITH_CODE(), but defines an abstract type and
- * allows you to insert custom code into the `*_get_type()` function, e.g.
- * interface implementations via G_IMPLEMENT_INTERFACE().
- *
- * See G_DEFINE_TYPE_EXTENDED() for an example.
- * 
- * Since: 2.4
- */
-#define G_DEFINE_ABSTRACT_TYPE_WITH_CODE(TN, t_n, T_P, _C_) _G_DEFINE_TYPE_EXTENDED_BEGIN (TN, t_n, T_P, G_TYPE_FLAG_ABSTRACT) {_C_;} _G_DEFINE_TYPE_EXTENDED_END()
-/**
- * G_DEFINE_ABSTRACT_TYPE_WITH_PRIVATE:
- * @TN: The name of the new type, in Camel case.
- * @t_n: The name of the new type, in lowercase, with words 
- *  separated by `_`.
- * @T_P: The #GType of the parent type.
- *
- * Similar to G_DEFINE_TYPE_WITH_PRIVATE(), but defines an abstract type.
- *
- * See G_DEFINE_TYPE_EXTENDED() for an example.
- * 
- * Since: 2.38
- */
-#define G_DEFINE_ABSTRACT_TYPE_WITH_PRIVATE(TN, t_n, T_P)   G_DEFINE_TYPE_EXTENDED (TN, t_n, T_P, G_TYPE_FLAG_ABSTRACT, G_ADD_PRIVATE (TN))
-/**
- * G_DEFINE_FINAL_TYPE:
- * @TN: the name of the new type, in Camel case
- * @t_n: the name of the new type, in lower case, with words
- *   separated by `_` (snake case)
- * @T_P: the #GType of the parent type
- *
- * A convenience macro for type implementations.
- *
- * Similar to G_DEFINE_TYPE(), but defines a final type.
- *
- * See G_DEFINE_TYPE_EXTENDED() for an example.
- *
- * Since: 2.70
- */
-#define G_DEFINE_FINAL_TYPE(TN, t_n, T_P)                      G_DEFINE_TYPE_EXTENDED (TN, t_n, T_P, G_TYPE_FLAG_FINAL, {}) GOBJECT_AVAILABLE_MACRO_IN_2_70
-/**
- * G_DEFINE_FINAL_TYPE_WITH_CODE:
- * @TN: the name of the new type, in Camel case
- * @t_n: the name of the new type, in lower case, with words
- *   separated by `_` (snake case)
- * @T_P: the #GType of the parent type
- * @_C_: Custom code that gets inserted in the `type_name_get_type()` function.
- *
- * A convenience macro for type implementations.
- *
- * Similar to G_DEFINE_TYPE_WITH_CODE(), but defines a final type and
- * allows you to insert custom code into the `*_get_type()` function, e.g.
- * interface implementations via G_IMPLEMENT_INTERFACE().
- *
- * See G_DEFINE_TYPE_EXTENDED() for an example.
- *
- * Since: 2.70
- */
-#define G_DEFINE_FINAL_TYPE_WITH_CODE(TN, t_n, T_P, _C_)       _G_DEFINE_TYPE_EXTENDED_BEGIN (TN, t_n, T_P, G_TYPE_FLAG_FINAL) {_C_;} _G_DEFINE_TYPE_EXTENDED_END() GOBJECT_AVAILABLE_MACRO_IN_2_70
-/**
- * G_DEFINE_FINAL_TYPE_WITH_PRIVATE:
- * @TN: the name of the new type, in Camel case
- * @t_n: the name of the new type, in lower case, with words
- *   separated by `_` (snake case)
- * @T_P: the #GType of the parent type
- *
- * A convenience macro for type implementations.
- *
- * Similar to G_DEFINE_TYPE_WITH_PRIVATE(), but defines a final type.
- *
- * See G_DEFINE_TYPE_EXTENDED() for an example.
- *
- * Since: 2.70
- */
-#define G_DEFINE_FINAL_TYPE_WITH_PRIVATE(TN, t_n, T_P)         G_DEFINE_TYPE_EXTENDED (TN, t_n, T_P, G_TYPE_FLAG_FINAL, G_ADD_PRIVATE (TN)) GOBJECT_AVAILABLE_MACRO_IN_2_70
-/**
- * G_DEFINE_TYPE_EXTENDED:
- * @TN: The name of the new type, in Camel case.
- * @t_n: The name of the new type, in lowercase, with words
- *    separated by `_`.
- * @T_P: The #GType of the parent type.
- * @_f_: #GTypeFlags to pass to g_type_register_static()
- * @_C_: Custom code that gets inserted in the `*_get_type()` function.
- *
- * The most general convenience macro for type implementations, on which
- * G_DEFINE_TYPE(), etc are based.
- *
- * |[<!-- language="C" -->
- * G_DEFINE_TYPE_EXTENDED (GtkGadget,
- *                         gtk_gadget,
- *                         GTK_TYPE_WIDGET,
- *                         0,
- *                         G_ADD_PRIVATE (GtkGadget)
- *                         G_IMPLEMENT_INTERFACE (TYPE_GIZMO,
- *                                                gtk_gadget_gizmo_init));
- * ]|
- *
- * expands to
- *
- * |[<!-- language="C" -->
- * static void     gtk_gadget_init       (GtkGadget      *self);
- * static void     gtk_gadget_class_init (GtkGadgetClass *klass);
- * static gpointer gtk_gadget_parent_class = NULL;
- * static gint     GtkGadget_private_offset;
- * static void     gtk_gadget_class_intern_init (gpointer klass)
- * {
- *   gtk_gadget_parent_class = g_type_class_peek_parent (klass);
- *   if (GtkGadget_private_offset != 0)
- *     g_type_class_adjust_private_offset (klass, &GtkGadget_private_offset);
- *   gtk_gadget_class_init ((GtkGadgetClass*) klass);
- * }
- * static inline gpointer gtk_gadget_get_instance_private (GtkGadget *self)
- * {
- *   return (G_STRUCT_MEMBER_P (self, GtkGadget_private_offset));
- * }
- *
- * GType
- * gtk_gadget_get_type (void)
- * {
- *   static GType static_g_define_type_id = 0;
- *   if (g_once_init_enter_pointer (&static_g_define_type_id))
- *     {
- *       GType g_define_type_id =
- *         g_type_register_static_simple (GTK_TYPE_WIDGET,
- *                                        g_intern_static_string ("GtkGadget"),
- *                                        sizeof (GtkGadgetClass),
- *                                        (GClassInitFunc) gtk_gadget_class_intern_init,
- *                                        sizeof (GtkGadget),
- *                                        (GInstanceInitFunc) gtk_gadget_init,
- *                                        0);
- *       {
- *         GtkGadget_private_offset =
- *           g_type_add_instance_private (g_define_type_id, sizeof (GtkGadgetPrivate));
- *       }
- *       {
- *         const GInterfaceInfo g_implement_interface_info = {
- *           (GInterfaceInitFunc) gtk_gadget_gizmo_init
- *         };
- *         g_type_add_interface_static (g_define_type_id, TYPE_GIZMO, &g_implement_interface_info);
- *       }
- *       g_once_init_leave_pointer (&static_g_define_type_id, g_define_type_id);
- *     }
- *   return static_g_define_type_id;
- * }
- * ]|
- *
- * The only pieces which have to be manually provided are the definitions of
- * the instance and class structure and the definitions of the instance and
- * class init functions.
- *
- * Since: 2.4
- */
-#define G_DEFINE_TYPE_EXTENDED(TN, t_n, T_P, _f_, _C_)	    _G_DEFINE_TYPE_EXTENDED_BEGIN (TN, t_n, T_P, _f_) {_C_;} _G_DEFINE_TYPE_EXTENDED_END()
-
-/**
- * G_DEFINE_INTERFACE:
- * @TN: The name of the new type, in Camel case.
- * @t_n: The name of the new type, in lowercase, with words separated by `_`.
- * @T_P: The #GType of the prerequisite type for the interface, or %G_TYPE_INVALID
- * for no prerequisite type.
- *
- * A convenience macro for #GTypeInterface definitions, which declares
- * a default vtable initialization function and defines a `*_get_type()`
- * function.
- *
- * The macro expects the interface initialization function to have the
- * name `t_n ## _default_init`, and the interface structure to have the
- * name `TN ## Interface`.
- *
- * The initialization function has signature
- * `static void t_n ## _default_init (TypeName##Interface *klass);`, rather than
- * the full #GInterfaceInitFunc signature, for brevity and convenience. If you
- * need to use an initialization function with an `iface_data` argument, you
- * must write the #GTypeInterface definitions manually.
- *
- * Since: 2.24
- */
-#define G_DEFINE_INTERFACE(TN, t_n, T_P)		    G_DEFINE_INTERFACE_WITH_CODE(TN, t_n, T_P, ;)
-
-/**
- * G_DEFINE_INTERFACE_WITH_CODE:
- * @TN: The name of the new type, in Camel case.
- * @t_n: The name of the new type, in lowercase, with words separated by `_`.
- * @T_P: The #GType of the prerequisite type for the interface, or %G_TYPE_INVALID
- * for no prerequisite type.
- * @_C_: Custom code that gets inserted in the `*_get_type()` function.
- *
- * A convenience macro for #GTypeInterface definitions.
- *
- * Similar to G_DEFINE_INTERFACE(), but allows you to insert custom code
- * into the `*_get_type()` function, e.g. additional interface implementations
- * via G_IMPLEMENT_INTERFACE(), or additional prerequisite types.
- *
- * See G_DEFINE_TYPE_EXTENDED() for a similar example using
- * G_DEFINE_TYPE_WITH_CODE().
- *
- * Since: 2.24
- */
-#define G_DEFINE_INTERFACE_WITH_CODE(TN, t_n, T_P, _C_)     _G_DEFINE_INTERFACE_EXTENDED_BEGIN(TN, t_n, T_P) {_C_;} _G_DEFINE_INTERFACE_EXTENDED_END()
-
-/**
- * G_IMPLEMENT_INTERFACE:
- * @TYPE_IFACE: The #GType of the interface to add
- * @iface_init: (type GInterfaceInitFunc): The interface init function, of type #GInterfaceInitFunc
- *
- * A convenience macro to ease interface addition in the `_C_` section
- * of G_DEFINE_TYPE_WITH_CODE() or G_DEFINE_ABSTRACT_TYPE_WITH_CODE().
- * See G_DEFINE_TYPE_EXTENDED() for an example.
- *
- * Note that this macro can only be used together with the `G_DEFINE_TYPE_*`
- * macros, since it depends on variable names from those macros.
- *
- * Since: 2.4
- */
-#define G_IMPLEMENT_INTERFACE(TYPE_IFACE, iface_init)       { \
-  const GInterfaceInfo g_implement_interface_info = { \
-    (GInterfaceInitFunc)(void (*)(void)) iface_init, NULL, NULL \
-  }; \
-  g_type_add_interface_static (g_define_type_id, TYPE_IFACE, &g_implement_interface_info); \
-}
-
-/**
- * G_ADD_PRIVATE:
- * @TypeName: the name of the type in CamelCase
- *
- * A convenience macro to ease adding private data to instances of a new type
- * in the @_C_ section of G_DEFINE_TYPE_WITH_CODE() or
- * G_DEFINE_ABSTRACT_TYPE_WITH_CODE().
- *
- * For instance:
- *
- * |[<!-- language="C" -->
- *   typedef struct _MyObject MyObject;
- *   typedef struct _MyObjectClass MyObjectClass;
- *
- *   typedef struct {
- *     gint foo;
- *     gint bar;
- *   } MyObjectPrivate;
- *
- *   G_DEFINE_TYPE_WITH_CODE (MyObject, my_object, G_TYPE_OBJECT,
- *                            G_ADD_PRIVATE (MyObject))
- * ]|
- *
- * Will add `MyObjectPrivate` as the private data to any instance of the
- * `MyObject` type.
- *
- * `G_DEFINE_TYPE_*` macros will automatically create a private function
- * based on the arguments to this macro, which can be used to safely
- * retrieve the private data from an instance of the type; for instance:
- *
- * |[<!-- language="C" -->
- *   gint
- *   my_object_get_foo (MyObject *obj)
- *   {
- *     MyObjectPrivate *priv = my_object_get_instance_private (obj);
- *
- *     g_return_val_if_fail (MY_IS_OBJECT (obj), 0);
- *
- *     return priv->foo;
- *   }
- *
- *   void
- *   my_object_set_bar (MyObject *obj,
- *                      gint      bar)
- *   {
- *     MyObjectPrivate *priv = my_object_get_instance_private (obj);
- *
- *     g_return_if_fail (MY_IS_OBJECT (obj));
- *
- *     if (priv->bar != bar)
- *       priv->bar = bar;
- *   }
- * ]|
- *
- * Since GLib 2.72, the returned `MyObjectPrivate` pointer is guaranteed to be
- * aligned to at least the alignment of the largest basic GLib type (typically
- * this is #guint64 or #gdouble). If you need larger alignment for an element in
- * the struct, you should allocate it on the heap (aligned), or arrange for your
- * `MyObjectPrivate` struct to be appropriately padded.
- *
- * Note that this macro can only be used together with the `G_DEFINE_TYPE_*`
- * macros, since it depends on variable names from those macros.
- *
- * Also note that private structs added with these macros must have a struct
- * name of the form `TypeNamePrivate`.
- *
- * It is safe to call the `_get_instance_private` function on %NULL or invalid
- * objects since it's only adding an offset to the instance pointer. In that
- * case the returned pointer must not be dereferenced.
- *
- * Since: 2.38
- */
-#define G_ADD_PRIVATE(TypeName) { \
-  TypeName##_private_offset = \
-    g_type_add_instance_private (g_define_type_id, sizeof (TypeName##Private)); \
-}
-
-/**
- * G_PRIVATE_OFFSET:
- * @TypeName: the name of the type in CamelCase
- * @field: the name of the field in the private data structure
- *
- * Evaluates to the offset of the @field inside the instance private data
- * structure for @TypeName.
- *
- * Note that this macro can only be used together with the `G_DEFINE_TYPE_*`
- * and G_ADD_PRIVATE() macros, since it depends on variable names from
- * those macros.
- *
- * Since: 2.38
- */
-#define G_PRIVATE_OFFSET(TypeName, field) \
-  (TypeName##_private_offset + (G_STRUCT_OFFSET (TypeName##Private, field)))
-
-/**
- * G_PRIVATE_FIELD_P:
- * @TypeName: the name of the type in CamelCase
- * @inst: the instance of @TypeName you wish to access
- * @field_name: the name of the field in the private data structure
- *
- * Evaluates to a pointer to the @field_name inside the @inst private data
- * structure for @TypeName.
- *
- * Note that this macro can only be used together with the `G_DEFINE_TYPE_*`
- * and G_ADD_PRIVATE() macros, since it depends on variable names from
- * those macros.
- *
- * Since: 2.38
- */
-#define G_PRIVATE_FIELD_P(TypeName, inst, field_name) \
-  G_STRUCT_MEMBER_P (inst, G_PRIVATE_OFFSET (TypeName, field_name))
-
-/**
- * G_PRIVATE_FIELD:
- * @TypeName: the name of the type in CamelCase
- * @inst: the instance of @TypeName you wish to access
- * @field_type: the type of the field in the private data structure
- * @field_name: the name of the field in the private data structure
- *
- * Evaluates to the @field_name inside the @inst private data
- * structure for @TypeName.
- *
- * Note that this macro can only be used together with the `G_DEFINE_TYPE_*`
- * and G_ADD_PRIVATE() macros, since it depends on variable names from
- * those macros.
- *
- * Since: 2.38
- */
-#define G_PRIVATE_FIELD(TypeName, inst, field_type, field_name) \
-  G_STRUCT_MEMBER (field_type, inst, G_PRIVATE_OFFSET (TypeName, field_name))
 
 /* we need to have this macro under conditional expansion, as it references
  * a function that has been added in 2.38. see bug:
  * https://bugzilla.gnome.org/show_bug.cgi?id=703191
  */
-#if GLIB_VERSION_MAX_ALLOWED >= GLIB_VERSION_2_38
-#define _G_DEFINE_TYPE_EXTENDED_CLASS_INIT(TypeName, type_name) \
-static void     type_name##_class_intern_init (gpointer klass) \
-{ \
-  type_name##_parent_class = g_type_class_peek_parent (klass); \
-  if (TypeName##_private_offset != 0) \
-    g_type_class_adjust_private_offset (klass, &TypeName##_private_offset); \
-  type_name##_class_init ((TypeName##Class*) klass); \
-}
 
-#else
-#define _G_DEFINE_TYPE_EXTENDED_CLASS_INIT(TypeName, type_name) \
-static void     type_name##_class_intern_init (gpointer klass) \
-{ \
-  type_name##_parent_class = g_type_class_peek_parent (klass); \
-  type_name##_class_init ((TypeName##Class*) klass); \
-}
-#endif /* GLIB_VERSION_MAX_ALLOWED >= GLIB_VERSION_2_38 */
-
-#if GLIB_VERSION_MAX_ALLOWED >= GLIB_VERSION_2_80
-#define _g_type_once_init_type GType
-#define _g_type_once_init_enter g_once_init_enter_pointer
-#define _g_type_once_init_leave g_once_init_leave_pointer
-#else  /* if GLIB_VERSION_MAX_ALLOWED < GLIB_VERSION_2_80 */
-#define _g_type_once_init_type gsize
-#define _g_type_once_init_enter g_once_init_enter
-#define _g_type_once_init_leave g_once_init_leave
-#endif  /* GLIB_VERSION_MAX_ALLOWED >= GLIB_VERSION_2_80 */
-
-/* Added for _G_DEFINE_TYPE_EXTENDED_WITH_PRELUDE */
-#define _G_DEFINE_TYPE_EXTENDED_BEGIN_PRE(TypeName, type_name) \
-\
-static void     type_name##_init              (TypeName        *self); \
-static void     type_name##_class_init        (TypeName##Class *klass); \
-static GType    type_name##_get_type_once     (void); \
-static gpointer type_name##_parent_class = NULL; \
-static gint     TypeName##_private_offset; \
-\
-_G_DEFINE_TYPE_EXTENDED_CLASS_INIT(TypeName, type_name) \
-\
-G_GNUC_UNUSED \
-static inline gpointer \
-type_name##_get_instance_private (TypeName *self) \
-{ \
-  return (G_STRUCT_MEMBER_P (self, TypeName##_private_offset)); \
-} \
-\
-GType \
-type_name##_get_type (void) \
-{ \
-  static _g_type_once_init_type static_g_define_type_id = 0;
-  /* Prelude goes here */
-
-/* Added for _G_DEFINE_TYPE_EXTENDED_WITH_PRELUDE */
-#define _G_DEFINE_TYPE_EXTENDED_BEGIN_REGISTER(TypeName, type_name, TYPE_PARENT, flags) \
-  if (_g_type_once_init_enter (&static_g_define_type_id)) \
-    { \
-      GType g_define_type_id = type_name##_get_type_once (); \
-      _g_type_once_init_leave (&static_g_define_type_id, g_define_type_id); \
-    }					\
-  return static_g_define_type_id; \
-} /* closes type_name##_get_type() */ \
-\
-G_NO_INLINE \
-static GType \
-type_name##_get_type_once (void) \
-{ \
-  GType g_define_type_id = \
-        g_type_register_static_simple (TYPE_PARENT, \
-                                       g_intern_static_string (#TypeName), \
-                                       sizeof (TypeName##Class), \
-                                       (GClassInitFunc)(void (*)(void)) type_name##_class_intern_init, \
-                                       sizeof (TypeName), \
-                                       (GInstanceInitFunc)(void (*)(void)) type_name##_init, \
-                                       (GTypeFlags) flags); \
-    { /* custom code follows */
-#define _G_DEFINE_TYPE_EXTENDED_END()	\
-      /* following custom code */	\
-    }					\
-  return g_define_type_id; \
-} /* closes type_name##_get_type_once() */
 
 /* This was defined before we had _G_DEFINE_TYPE_EXTENDED_WITH_PRELUDE in
  * gtype-private.h, it's simplest to keep it.
  */
-#define _G_DEFINE_TYPE_EXTENDED_BEGIN(TypeName, type_name, TYPE_PARENT, flags) \
-  _G_DEFINE_TYPE_EXTENDED_BEGIN_PRE (TypeName, type_name)                      \
-  _G_DEFINE_TYPE_EXTENDED_BEGIN_REGISTER (TypeName, type_name, TYPE_PARENT, flags)
 
-/* Intentionally using (GTypeFlags) 0 instead of G_TYPE_FLAG_NONE here,
- * to avoid deprecation warnings with older GLIB_VERSION_MAX_ALLOWED */
-#define _G_DEFINE_INTERFACE_EXTENDED_BEGIN(TypeName, type_name, TYPE_PREREQ) \
-\
-static void     type_name##_default_init        (TypeName##Interface *klass); \
-\
-GType \
-type_name##_get_type (void) \
-{ \
-  static _g_type_once_init_type static_g_define_type_id = 0; \
-  if (_g_type_once_init_enter (&static_g_define_type_id)) \
-    { \
-      GType g_define_type_id = \
-        g_type_register_static_simple (G_TYPE_INTERFACE, \
-                                       g_intern_static_string (#TypeName), \
-                                       sizeof (TypeName##Interface), \
-                                       (GClassInitFunc)(void (*)(void)) type_name##_default_init, \
-                                       0, \
-                                       (GInstanceInitFunc)NULL, \
-                                       (GTypeFlags) 0); \
-      if (TYPE_PREREQ != G_TYPE_INVALID) \
-        g_type_interface_add_prerequisite (g_define_type_id, TYPE_PREREQ); \
-      { /* custom code follows */
-#define _G_DEFINE_INTERFACE_EXTENDED_END()	\
-        /* following custom code */		\
-      }						\
-      _g_type_once_init_leave (&static_g_define_type_id, g_define_type_id); \
-    }						\
-  return static_g_define_type_id; \
-} /* closes type_name##_get_type() */
-
-/**
- * G_DEFINE_BOXED_TYPE:
- * @TypeName: The name of the new type, in Camel case
- * @type_name: The name of the new type, in lowercase, with words
- *  separated by `_`
- * @copy_func: the #GBoxedCopyFunc for the new type
- * @free_func: the #GBoxedFreeFunc for the new type
- *
- * A convenience macro for defining a new custom boxed type. 
- *
- * Using this macro is the recommended way of defining new custom boxed
- * types, over calling g_boxed_type_register_static() directly. It defines 
- * a `type_name_get_type()` function which will return the newly defined
- * #GType, enabling lazy instantiation.
- *
- * You might start by putting declarations in a header as follows:
- *
- * |[<!-- language="C" -->
- * #define MY_TYPE_STRUCT my_struct_get_type ()
- * GType my_struct_get_type (void) ;
- *
- * MyStruct *    my_struct_new (void);
- * void          my_struct_free (MyStruct *self);
- * MyStruct *    my_struct_copy (MyStruct *self);
- * ]|
- *
- * And then use this macro and define your implementation in the source file as
- * follows:
- *
- * |[<!-- language="C" --> 
- * MyStruct *
- * my_struct_new (void)
- * {
- *   // ... your code to allocate a new MyStruct ...
- * }
- *
- * void
- * my_struct_free (MyStruct *self)
- * {
- *   // ... your code to free a MyStruct ...
- * }
- *
- * MyStruct *
- * my_struct_copy (MyStruct *self)
- * {
- *   // ... your code return a newly allocated copy of a MyStruct ...
- * }
- *
- * G_DEFINE_BOXED_TYPE (MyStruct, my_struct, my_struct_copy, my_struct_free)
- *
- * void 
- * foo ()
- * {
- *   MyStruct *ms;
- *
- *   ms = my_struct_new ();
- *   // ... your code ...
- *   my_struct_free (ms);
- * }
- * ]|
- *
- * Since: 2.26
- */
-#define G_DEFINE_BOXED_TYPE(TypeName, type_name, copy_func, free_func) G_DEFINE_BOXED_TYPE_WITH_CODE (TypeName, type_name, copy_func, free_func, {})
-/**
- * G_DEFINE_BOXED_TYPE_WITH_CODE:
- * @TypeName: The name of the new type, in Camel case
- * @type_name: The name of the new type, in lowercase, with words
- *  separated by `_`
- * @copy_func: the #GBoxedCopyFunc for the new type
- * @free_func: the #GBoxedFreeFunc for the new type
- * @_C_: Custom code that gets inserted in the `*_get_type()` function
- *
- * A convenience macro for boxed type implementations.
- *
- * Similar to G_DEFINE_BOXED_TYPE(), but allows to insert custom code into the
- * `type_name_get_type()` function, e.g. to register value transformations with
- * g_value_register_transform_func(), for instance:
- *
- * |[<!-- language="C" -->
- * G_DEFINE_BOXED_TYPE_WITH_CODE (GdkRectangle, gdk_rectangle,
- *                                gdk_rectangle_copy,
- *                                gdk_rectangle_free,
- *                                register_rectangle_transform_funcs (g_define_type_id))
- * ]|
- *
- * Similarly to the `G_DEFINE_TYPE_*` family of macros, the #GType of the newly
- * defined boxed type is exposed in the `g_define_type_id` variable.
- *
- * Since: 2.26
- */
-#define G_DEFINE_BOXED_TYPE_WITH_CODE(TypeName, type_name, copy_func, free_func, _C_) _G_DEFINE_BOXED_TYPE_BEGIN (TypeName, type_name, copy_func, free_func) {_C_;} _G_DEFINE_TYPE_EXTENDED_END()
 
 /* Only use this in non-C++ on GCC >= 2.7, except for Darwin/ppc64.
  * See https://bugzilla.gnome.org/show_bug.cgi?id=647145
  */
-#if !defined (G_CXX_STD_VERSION) && (G_GNUC_CHECK_VERSION(2, 7)) && \
-    !(defined (__APPLE__) && defined (__ppc64__))
-#define _G_DEFINE_BOXED_TYPE_BEGIN(TypeName, type_name, copy_func, free_func) \
-static GType type_name##_get_type_once (void); \
-\
-GType \
-type_name##_get_type (void) \
-{ \
-  static _g_type_once_init_type static_g_define_type_id = 0; \
-  if (_g_type_once_init_enter (&static_g_define_type_id)) \
-    { \
-      GType g_define_type_id = type_name##_get_type_once (); \
-      _g_type_once_init_leave (&static_g_define_type_id, g_define_type_id); \
-    } \
-  return static_g_define_type_id; \
-} \
-\
-G_NO_INLINE \
-static GType \
-type_name##_get_type_once (void) \
-{ \
-  GType (* _g_register_boxed) \
-    (const gchar *, \
-     union \
-       { \
-         TypeName * (*do_copy_type) (TypeName *); \
-         TypeName * (*do_const_copy_type) (const TypeName *); \
-         GBoxedCopyFunc do_copy_boxed; \
-       } __attribute__((__transparent_union__)), \
-     union \
-       { \
-         void (* do_free_type) (TypeName *); \
-         GBoxedFreeFunc do_free_boxed; \
-       } __attribute__((__transparent_union__)) \
-    ) = g_boxed_type_register_static; \
-  GType g_define_type_id = \
-    _g_register_boxed (g_intern_static_string (#TypeName), copy_func, free_func); \
-  { /* custom code follows */
-#else
-#define _G_DEFINE_BOXED_TYPE_BEGIN(TypeName, type_name, copy_func, free_func) \
-static GType type_name##_get_type_once (void); \
-\
-GType \
-type_name##_get_type (void) \
-{ \
-  static _g_type_once_init_type static_g_define_type_id = 0; \
-  if (_g_type_once_init_enter (&static_g_define_type_id)) \
-    { \
-      GType g_define_type_id = type_name##_get_type_once (); \
-      _g_type_once_init_leave (&static_g_define_type_id, g_define_type_id); \
-    } \
-  return static_g_define_type_id; \
-} \
-\
-G_NO_INLINE \
-static GType \
-type_name##_get_type_once (void) \
-{ \
-  GType g_define_type_id = \
-    g_boxed_type_register_static (g_intern_static_string (#TypeName), \
-                                  (GBoxedCopyFunc) copy_func, \
-                                  (GBoxedFreeFunc) free_func); \
-  { /* custom code follows */
-#endif /* __GNUC__ */
-
-/**
- * G_DEFINE_POINTER_TYPE:
- * @TypeName: The name of the new type, in Camel case
- * @type_name: The name of the new type, in lowercase, with words
- *  separated by `_`
- *
- * A convenience macro for pointer type implementations, which defines a
- * `type_name_get_type()` function registering the pointer type.
- *
- * Since: 2.26
- */
-#define G_DEFINE_POINTER_TYPE(TypeName, type_name) G_DEFINE_POINTER_TYPE_WITH_CODE (TypeName, type_name, {})
-/**
- * G_DEFINE_POINTER_TYPE_WITH_CODE:
- * @TypeName: The name of the new type, in Camel case
- * @type_name: The name of the new type, in lowercase, with words
- *  separated by `_`
- * @_C_: Custom code that gets inserted in the `*_get_type()` function
- *
- * A convenience macro for pointer type implementations.
- * Similar to G_DEFINE_POINTER_TYPE(), but allows to insert
- * custom code into the `type_name_get_type()` function.
- *
- * Since: 2.26
- */
-#define G_DEFINE_POINTER_TYPE_WITH_CODE(TypeName, type_name, _C_) _G_DEFINE_POINTER_TYPE_BEGIN (TypeName, type_name) {_C_;} _G_DEFINE_TYPE_EXTENDED_END()
-
-#define _G_DEFINE_POINTER_TYPE_BEGIN(TypeName, type_name) \
-static GType type_name##_get_type_once (void); \
-\
-GType \
-type_name##_get_type (void) \
-{ \
-  static _g_type_once_init_type static_g_define_type_id = 0; \
-  if (_g_type_once_init_enter (&static_g_define_type_id)) \
-    { \
-      GType g_define_type_id = type_name##_get_type_once (); \
-      _g_type_once_init_leave (&static_g_define_type_id, g_define_type_id); \
-    } \
-  return static_g_define_type_id; \
-} \
-\
-G_NO_INLINE \
-static GType \
-type_name##_get_type_once (void) \
-{ \
-  GType g_define_type_id = \
-    g_pointer_type_register_static (g_intern_static_string (#TypeName)); \
-  { /* custom code follows */
 
 /* --- protected (for fundamental type implementations) --- */
 extern
@@ -2622,29 +1573,29 @@ GTypeValueTable* g_type_value_table_peek        (GType		     type);
 
 /*< private >*/
 extern
-gboolean	 g_type_check_instance          (GTypeInstance      *instance) G_GNUC_PURE;
+gboolean	 g_type_check_instance          (GTypeInstance      *instance) ;
 extern
 GTypeInstance*   g_type_check_instance_cast     (GTypeInstance      *instance,
 						 GType               iface_type);
 extern
 gboolean         g_type_check_instance_is_a	(GTypeInstance      *instance,
-						 GType               iface_type) G_GNUC_PURE;
+						 GType               iface_type) ;
 extern
 gboolean         g_type_check_instance_is_fundamentally_a (GTypeInstance *instance,
-                                                           GType          fundamental_type) G_GNUC_PURE;
+                                                           GType          fundamental_type) ;
 extern
 GTypeClass*      g_type_check_class_cast        (GTypeClass         *g_class,
 						 GType               is_a_type);
 extern
 gboolean         g_type_check_class_is_a        (GTypeClass         *g_class,
-						 GType               is_a_type) G_GNUC_PURE;
+						 GType               is_a_type) ;
 extern
 gboolean	 g_type_check_is_value_type     (GType		     type) ;
 extern
-gboolean	 g_type_check_value             (const GValue       *value) G_GNUC_PURE;
+gboolean	 g_type_check_value             (const GValue       *value) ;
 extern
 gboolean	 g_type_check_value_holds	(const GValue	    *value,
-						 GType		     type) G_GNUC_PURE;
+						 GType		     type) ;
 extern
 gboolean         g_type_test_flags              (GType               type,
 						 guint               flags) ;
@@ -2657,58 +1608,6 @@ extern
 const gchar *    g_type_name_from_class         (GTypeClass	*g_class);
 
 
-/* --- implementation bits --- */
-#if defined(G_DISABLE_CAST_CHECKS) || defined(__OPTIMIZE__)
-#  define _G_TYPE_CIC(ip, gt, ct)       ((ct*) (void *) ip)
-#  define _G_TYPE_CCC(cp, gt, ct)       ((ct*) (void *) cp)
-#else
-#  define _G_TYPE_CIC(ip, gt, ct) \
-    ((ct*) (void *) g_type_check_instance_cast ((GTypeInstance*) ip, gt))
-#  define _G_TYPE_CCC(cp, gt, ct) \
-    ((ct*) (void *) g_type_check_class_cast ((GTypeClass*) cp, gt))
-#endif
-
-#define _G_TYPE_CHI(ip)			(g_type_check_instance ((GTypeInstance*) ip))
-#define _G_TYPE_CHV(vl)			(g_type_check_value ((GValue*) vl))
-#define _G_TYPE_IGC(ip, gt, ct)         ((ct*) (((GTypeInstance*) ip)->g_class))
-#define _G_TYPE_IGI(ip, gt, ct)         ((ct*) g_type_interface_peek (((GTypeInstance*) ip)->g_class, gt))
-#define _G_TYPE_CIFT(ip, ft)            (g_type_check_instance_is_fundamentally_a ((GTypeInstance*) ip, ft))
-#ifdef	__GNUC__
-#  define _G_TYPE_CIT(ip, gt)             (G_GNUC_EXTENSION ({ \
-  GTypeInstance *__inst = (GTypeInstance*) ip; GType __t = gt; gboolean __r; \
-  if (!__inst) \
-    __r = FALSE; \
-  else if (__inst->g_class && __inst->g_class->g_type == __t) \
-    __r = TRUE; \
-  else \
-    __r = g_type_check_instance_is_a (__inst, __t); \
-  __r; \
-}))
-#  define _G_TYPE_CCT(cp, gt)             (G_GNUC_EXTENSION ({ \
-  GTypeClass *__class = (GTypeClass*) cp; GType __t = gt; gboolean __r; \
-  if (!__class) \
-    __r = FALSE; \
-  else if (__class->g_type == __t) \
-    __r = TRUE; \
-  else \
-    __r = g_type_check_class_is_a (__class, __t); \
-  __r; \
-}))
-#  define _G_TYPE_CVH(vl, gt)             (G_GNUC_EXTENSION ({ \
-  const GValue *__val = (const GValue*) vl; GType __t = gt; gboolean __r; \
-  if (!__val) \
-    __r = FALSE; \
-  else if (__val->g_type == __t)		\
-    __r = TRUE; \
-  else \
-    __r = g_type_check_value_holds (__val, __t); \
-  __r; \
-}))
-#else  /* !__GNUC__ */
-#  define _G_TYPE_CIT(ip, gt)             (g_type_check_instance_is_a ((GTypeInstance*) ip, gt))
-#  define _G_TYPE_CCT(cp, gt)             (g_type_check_class_is_a ((GTypeClass*) cp, gt))
-#  define _G_TYPE_CVH(vl, gt)             (g_type_check_value_holds ((const GValue*) vl, gt))
-#endif /* !__GNUC__ */
 /**
  * G_TYPE_FLAG_RESERVED_ID_BIT:
  * 
@@ -2725,7 +1624,7 @@ const gchar *    g_type_name_from_class         (GTypeClass	*g_class);
  *
  * Since: 2.80
  */
-#define GPOINTER_TO_TYPE(p) ((GType) (guintptr) (p)) GOBJECT_AVAILABLE_MACRO_IN_2_80
+#define GPOINTER_TO_TYPE(p) ((GType) (guintptr) (p))
 /**
  * GTYPE_TO_POINTER:
  * @t: The #GType to convert to a pointer
@@ -2735,7 +1634,7 @@ const gchar *    g_type_name_from_class         (GTypeClass	*g_class);
  *
  * Since: 2.80
  */
-#define GTYPE_TO_POINTER(t) ((gpointer) (guintptr) (t)) GOBJECT_AVAILABLE_MACRO_IN_2_80
+#define GTYPE_TO_POINTER(t) ((gpointer) (guintptr) (t)) 
 
 
 
