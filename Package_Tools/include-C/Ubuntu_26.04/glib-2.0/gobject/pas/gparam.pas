@@ -3,435 +3,134 @@ unit gparam;
 interface
 
 uses
-  fp_glib;
+  fp_glib2, gtype, gvalue;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
-{ GObject - GLib Type, Object, Parameter and Signal Library
- * Copyright (C) 1997-1999, 2000-2001 Tim Janik and Red Hat, Inc.
- *
- * SPDX-License-Identifier: LGPL-2.1-or-later
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General
- * Public License along with this library; if not, see <http://www.gnu.org/licenses/>.
- *
- * gparam.h: GParamSpec base class implementation
-  }
-{$ifndef __G_PARAM_H__}
-{$define __G_PARAM_H__}
-{$if !defined (__GLIB_GOBJECT_H_INSIDE__) && !defined (GOBJECT_COMPILATION)}
-{$error "Only <glib-object.h> can be included directly."}
-{$endif}
-{$include	<gobject/gvalue.h>}
-{ --- standard type macros ---  }
-{*
- * G_TYPE_IS_PARAM:
- * @type: a #GType ID
- * 
- * Checks whether @type "is a" %G_TYPE_PARAM.
-  }
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-
-function G_TYPE_IS_PARAM(_type : longint) : longint;
-
-{*
- * G_PARAM_SPEC:
- * @pspec: a valid #GParamSpec
- * 
- * Casts a derived #GParamSpec object (e.g. of type #GParamSpecInt) into
- * a #GParamSpec object.
-  }
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function G_PARAM_SPEC(pspec : longint) : longint;
-
-{*
- * G_IS_PARAM_SPEC:
- * @pspec: a #GParamSpec
- * 
- * Checks whether @pspec "is a" valid #GParamSpec structure of type %G_TYPE_PARAM
- * or derived.
-  }
-{$if GLIB_VERSION_MAX_ALLOWED >= GLIB_VERSION_2_42}
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-
-function G_IS_PARAM_SPEC(pspec : longint) : longint;
-
-{$else}
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-
-function G_IS_PARAM_SPEC(pspec : longint) : longint;
-
-{$endif}
-{*
- * G_PARAM_SPEC_CLASS:
- * @pclass: a valid #GParamSpecClass
- * 
- * Casts a derived #GParamSpecClass structure into a #GParamSpecClass structure.
-  }
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-
-function G_PARAM_SPEC_CLASS(klass : longint) : longint;
-
-{*
- * G_IS_PARAM_SPEC_CLASS:
- * @pclass: a #GParamSpecClass
- * 
- * Checks whether @pclass "is a" valid #GParamSpecClass structure of type 
- * %G_TYPE_PARAM or derived.
-  }
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function G_IS_PARAM_SPEC_CLASS(klass : longint) : longint;
-
-{*
- * G_PARAM_SPEC_GET_CLASS:
- * @pspec: a valid #GParamSpec
- * 
- * Retrieves the #GParamSpecClass of a #GParamSpec.
-  }
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function G_PARAM_SPEC_GET_CLASS(pspec : longint) : longint;
-
-{ --- convenience macros ---  }
-{*
- * G_PARAM_SPEC_TYPE:
- * @pspec: a valid #GParamSpec
- * 
- * Retrieves the #GType of this @pspec.
-  }
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function G_PARAM_SPEC_TYPE(pspec : longint) : longint;
-
-{*
- * G_PARAM_SPEC_TYPE_NAME:
- * @pspec: a valid #GParamSpec
- * 
- * Retrieves the #GType name of this @pspec.
-  }
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function G_PARAM_SPEC_TYPE_NAME(pspec : longint) : longint;
-
-{*
- * G_PARAM_SPEC_VALUE_TYPE:
- * @pspec: a valid #GParamSpec
- * 
- * Retrieves the #GType to initialize a #GValue for this parameter.
-  }
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function G_PARAM_SPEC_VALUE_TYPE(pspec : longint) : longint;
-
-{*
- * G_VALUE_HOLDS_PARAM:
- * @value: a valid #GValue structure
- * 
- * Checks whether the given #GValue can hold values derived from type %G_TYPE_PARAM.
- * 
- * Returns: %TRUE on success.
-  }
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function G_VALUE_HOLDS_PARAM(value : longint) : longint;
-
-{ --- flags ---  }
-{*
- * GParamFlags:
- * @G_PARAM_READABLE: the parameter is readable
- * @G_PARAM_WRITABLE: the parameter is writable
- * @G_PARAM_READWRITE: alias for %G_PARAM_READABLE | %G_PARAM_WRITABLE
- * @G_PARAM_CONSTRUCT: the parameter will be set upon object construction.
- *   See [vfunc@Object.constructed] for more details
- * @G_PARAM_CONSTRUCT_ONLY: the parameter can only be set upon object construction.
- *   See [vfunc@Object.constructed] for more details
- * @G_PARAM_LAX_VALIDATION: upon parameter conversion (see g_param_value_convert())
- *  strict validation is not required
- * @G_PARAM_STATIC_NAME: the string used as name when constructing the 
- *  parameter is guaranteed to remain valid and
- *  unmodified for the lifetime of the parameter. 
- *  Since 2.8
- * @G_PARAM_STATIC_NICK: the string used as nick when constructing the
- *  parameter is guaranteed to remain valid and
- *  unmmodified for the lifetime of the parameter.
- *  Since 2.8
- * @G_PARAM_STATIC_BLURB: the string used as blurb when constructing the 
- *  parameter is guaranteed to remain valid and 
- *  unmodified for the lifetime of the parameter. 
- *  Since 2.8
- * @G_PARAM_EXPLICIT_NOTIFY: calls to g_object_set_property() for this
- *   property will not automatically result in a "notify" signal being
- *   emitted: the implementation must call g_object_notify() themselves
- *   in case the property actually changes.  Since: 2.42.
- * @G_PARAM_PRIVATE: internal
- * @G_PARAM_DEPRECATED: the parameter is deprecated and will be removed
- *  in a future version. A warning will be generated if it is used
- *  while running with G_ENABLE_DIAGNOSTIC=1.
- *  Since 2.26
- * 
- * Through the #GParamFlags flag values, certain aspects of parameters
- * can be configured.
- *
- * See also: %G_PARAM_STATIC_STRINGS
-  }
-{ User defined flags go here  }
-{ Avoid warning with -Wpedantic for gcc6  }
 type
   PGParamFlags = ^TGParamFlags;
-  TGParamFlags =  Longint;
-  Const
-    G_PARAM_READABLE = 1 shl 0;
-    G_PARAM_WRITABLE = 1 shl 1;
-    G_PARAM_READWRITE = G_PARAM_READABLE or G_PARAM_WRITABLE;
-    G_PARAM_CONSTRUCT = 1 shl 2;
-    G_PARAM_CONSTRUCT_ONLY = 1 shl 3;
-    G_PARAM_LAX_VALIDATION = 1 shl 4;
-    G_PARAM_STATIC_NAME = 1 shl 5;
-    G_PARAM_PRIVATE = G_PARAM_STATIC_NAME;
-    G_PARAM_STATIC_NICK = 1 shl 6;
-    G_PARAM_STATIC_BLURB = 1 shl 7;
-    G_PARAM_EXPLICIT_NOTIFY = 1 shl 30;
-    G_PARAM_DEPRECATED = Tgint(1 shl 31);
-;
-{*
- * G_PARAM_STATIC_STRINGS:
- * 
- * #GParamFlags value alias for %G_PARAM_STATIC_NAME | %G_PARAM_STATIC_NICK | %G_PARAM_STATIC_BLURB.
- * 
- * It is recommended to use this for all properties by default, as it allows for
- * internal performance improvements in GObject.
- *
- * It is very rare that a property would have a dynamically constructed name,
- * nickname or blurb.
- *
- * Since 2.13.0
-  }
-  G_PARAM_STATIC_STRINGS = (G_PARAM_STATIC_NAME or G_PARAM_STATIC_NICK) or G_PARAM_STATIC_BLURB;  
-{ bits in the range 0xffffff00 are reserved for 3rd party usage  }
-{*
- * G_PARAM_MASK:
- * 
- * Mask containing the bits of #GParamSpec.flags which are reserved for GLib.
-  }
-  G_PARAM_MASK = $000000ff;  
-{*
- * G_PARAM_USER_SHIFT:
- * 
- * Minimum shift count to be used for user defined flags, to be stored in
- * #GParamSpec.flags. The maximum allowed is 10.
-  }
-  G_PARAM_USER_SHIFT = 8;  
-{ --- typedefs & structures ---  }
+  TGParamFlags = longint;
+const
+  G_PARAM_READABLE = 1 shl 0;
+  G_PARAM_WRITABLE = 1 shl 1;
+  G_PARAM_READWRITE = G_PARAM_READABLE or G_PARAM_WRITABLE;
+  G_PARAM_CONSTRUCT = 1 shl 2;
+  G_PARAM_CONSTRUCT_ONLY = 1 shl 3;
+  G_PARAM_LAX_VALIDATION = 1 shl 4;
+  G_PARAM_STATIC_NAME = 1 shl 5;
+  G_PARAM_PRIVATE = G_PARAM_STATIC_NAME;
+  G_PARAM_STATIC_NICK = 1 shl 6;
+  G_PARAM_STATIC_BLURB = 1 shl 7;
+  G_PARAM_EXPLICIT_NOTIFY = 1 shl 30;
+  G_PARAM_DEPRECATED = Tgint(1 shl 31);
+
+const
+  G_PARAM_STATIC_STRINGS = (G_PARAM_STATIC_NAME or G_PARAM_STATIC_NICK) or G_PARAM_STATIC_BLURB;
+  G_PARAM_MASK = $000000ff;
+  G_PARAM_USER_SHIFT = 8;
+
 type
-{ interned string  }
-{ class or interface using this property  }
-{< private > }
-{ sort-criteria  }
+  PGParamSpecPool = type Pointer;
+
+  PPGParamSpec = ^PGParamSpec;
   PGParamSpec = ^TGParamSpec;
   TGParamSpec = record
-      g_type_instance : TGTypeInstance;
-      name : Pgchar;
-      flags : TGParamFlags;
-      value_type : TGType;
-      owner_type : TGType;
-      _nick : Pgchar;
-      _blurb : Pgchar;
-      qdata : PGData;
-      ref_count : Tguint;
-      param_id : Tguint;
-    end;
+    g_type_instance: TGTypeInstance;
+    name: Pgchar;
+    flags: TGParamFlags;
+    value_type: TGType;
+    owner_type: TGType;
+    _nick: Pgchar;
+    _blurb: Pgchar;
+    qdata: PGData;
+    ref_count: Tguint;
+    param_id: Tguint;
+  end;
 
-{*
- * GParamSpecClass:
- * @g_type_class: the parent class
- * @value_type: the #GValue type for this parameter
- * @finalize: The instance finalization function (optional), should chain 
- *  up to the finalize method of the parent class.
- * @value_set_default: Resets a @value to the default value for this type
- *  (recommended, the default is g_value_reset()), see 
- *  g_param_value_set_default().
- * @value_validate: Ensures that the contents of @value comply with the 
- *  specifications set out by this type (optional), see 
- *  g_param_value_validate().
- * @values_cmp: Compares @value1 with @value2 according to this type
- *  (recommended, the default is memcmp()), see g_param_values_cmp().
- * @value_is_valid: Checks if contents of @value comply with the specifications
- *   set out by this type, without modifying the value. This vfunc is optional.
- *   If it isn't set, GObject will use @value_validate. Since 2.74
- *
- * The class structure for the GParamSpec type.
- * Normally, GParamSpec classes are filled by
- * g_param_type_register_static().
-  }
-{ GParam methods  }
-{< private > }
   PGParamSpecClass = ^TGParamSpecClass;
   TGParamSpecClass = record
-      g_type_class : TGTypeClass;
-      value_type : TGType;
-      finalize : procedure (pspec:PGParamSpec);cdecl;
-      value_set_default : procedure (pspec:PGParamSpec; value:PGValue);cdecl;
-      value_validate : function (pspec:PGParamSpec; value:PGValue):Tgboolean;cdecl;
-      values_cmp : function (pspec:PGParamSpec; value1:PGValue; value2:PGValue):Tgint;cdecl;
-      value_is_valid : function (pspec:PGParamSpec; value:PGValue):Tgboolean;cdecl;
-      dummy : array[0..2] of Tgpointer;
-    end;
+    g_type_class: TGTypeClass;
+    value_type: TGType;
+    finalize: procedure(pspec: PGParamSpec); cdecl;
+    value_set_default: procedure(pspec: PGParamSpec; value: PGValue); cdecl;
+    value_validate: function(pspec: PGParamSpec; value: PGValue): Tgboolean; cdecl;
+    values_cmp: function(pspec: PGParamSpec; value1: PGValue; value2: PGValue): Tgint; cdecl;
+    value_is_valid: function(pspec: PGParamSpec; value: PGValue): Tgboolean; cdecl;
+    dummy: array[0..2] of Tgpointer;
+  end;
 
-{*
- * GParameter:
- * @name: the parameter name
- * @value: the parameter value
- * 
- * The GParameter struct is an auxiliary structure used
- * to hand parameter name/value pairs to g_object_newv().
- *
- * Deprecated: 2.54: This type is not introspectable.
-  }
-{ auxiliary structure for _setv() variants  }
   PGParameter = ^TGParameter;
   TGParameter = record
-      name : Pgchar;
-      value : TGValue;
-    end;
+    name: Pgchar;
+    value: TGValue;
+  end;
 
-{ --- prototypes ---  }
+function g_param_spec_ref(pspec: PGParamSpec): PGParamSpec; cdecl; external libgobject2_0;
+procedure g_param_spec_unref(pspec: PGParamSpec); cdecl; external libgobject2_0;
+procedure g_param_spec_sink(pspec: PGParamSpec); cdecl; external libgobject2_0;
+function g_param_spec_ref_sink(pspec: PGParamSpec): PGParamSpec; cdecl; external libgobject2_0;
+function g_param_spec_get_qdata(pspec: PGParamSpec; quark: TGQuark): Tgpointer; cdecl; external libgobject2_0;
+procedure g_param_spec_set_qdata(pspec: PGParamSpec; quark: TGQuark; data: Tgpointer); cdecl; external libgobject2_0;
+procedure g_param_spec_set_qdata_full(pspec: PGParamSpec; quark: TGQuark; data: Tgpointer; destroy: TGDestroyNotify); cdecl; external libgobject2_0;
+function g_param_spec_steal_qdata(pspec: PGParamSpec; quark: TGQuark): Tgpointer; cdecl; external libgobject2_0;
+function g_param_spec_get_redirect_target(pspec: PGParamSpec): PGParamSpec; cdecl; external libgobject2_0;
+procedure g_param_value_set_default(pspec: PGParamSpec; value: PGValue); cdecl; external libgobject2_0;
+function g_param_value_defaults(pspec: PGParamSpec; value: PGValue): Tgboolean; cdecl; external libgobject2_0;
+function g_param_value_validate(pspec: PGParamSpec; value: PGValue): Tgboolean; cdecl; external libgobject2_0;
+function g_param_value_is_valid(pspec: PGParamSpec; value: PGValue): Tgboolean; cdecl; external libgobject2_0;
+function g_param_value_convert(pspec: PGParamSpec; src_value: PGValue; dest_value: PGValue; strict_validation: Tgboolean): Tgboolean; cdecl; external libgobject2_0;
+function g_param_values_cmp(pspec: PGParamSpec; value1: PGValue; value2: PGValue): Tgint; cdecl; external libgobject2_0;
+function g_param_spec_get_name(pspec: PGParamSpec): Pgchar; cdecl; external libgobject2_0;
+function g_param_spec_get_nick(pspec: PGParamSpec): Pgchar; cdecl; external libgobject2_0;
+function g_param_spec_get_blurb(pspec: PGParamSpec): Pgchar; cdecl; external libgobject2_0;
+procedure g_value_set_param(value: PGValue; param: PGParamSpec); cdecl; external libgobject2_0;
+function g_value_get_param(value: PGValue): PGParamSpec; cdecl; external libgobject2_0;
+function g_value_dup_param(value: PGValue): PGParamSpec; cdecl; external libgobject2_0;
+procedure g_value_take_param(value: PGValue; param: PGParamSpec); cdecl; external libgobject2_0;
+procedure g_value_set_param_take_ownership(value: PGValue; param: PGParamSpec); cdecl; external libgobject2_0; deprecated;
+function g_param_spec_get_default_value(pspec: PGParamSpec): PGValue; cdecl; external libgobject2_0;
+function g_param_spec_get_name_quark(pspec: PGParamSpec): TGQuark; cdecl; external libgobject2_0;
 
-function g_param_spec_ref(pspec:PGParamSpec):PGParamSpec;cdecl;external libgobject2_0;
-procedure g_param_spec_unref(pspec:PGParamSpec);cdecl;external libgobject2_0;
-procedure g_param_spec_sink(pspec:PGParamSpec);cdecl;external libgobject2_0;
-function g_param_spec_ref_sink(pspec:PGParamSpec):PGParamSpec;cdecl;external libgobject2_0;
-function g_param_spec_get_qdata(pspec:PGParamSpec; quark:TGQuark):Tgpointer;cdecl;external libgobject2_0;
-procedure g_param_spec_set_qdata(pspec:PGParamSpec; quark:TGQuark; data:Tgpointer);cdecl;external libgobject2_0;
-procedure g_param_spec_set_qdata_full(pspec:PGParamSpec; quark:TGQuark; data:Tgpointer; destroy:TGDestroyNotify);cdecl;external libgobject2_0;
-function g_param_spec_steal_qdata(pspec:PGParamSpec; quark:TGQuark):Tgpointer;cdecl;external libgobject2_0;
-function g_param_spec_get_redirect_target(pspec:PGParamSpec):PGParamSpec;cdecl;external libgobject2_0;
-procedure g_param_value_set_default(pspec:PGParamSpec; value:PGValue);cdecl;external libgobject2_0;
-function g_param_value_defaults(pspec:PGParamSpec; value:PGValue):Tgboolean;cdecl;external libgobject2_0;
-function g_param_value_validate(pspec:PGParamSpec; value:PGValue):Tgboolean;cdecl;external libgobject2_0;
-function g_param_value_is_valid(pspec:PGParamSpec; value:PGValue):Tgboolean;cdecl;external libgobject2_0;
-function g_param_value_convert(pspec:PGParamSpec; src_value:PGValue; dest_value:PGValue; strict_validation:Tgboolean):Tgboolean;cdecl;external libgobject2_0;
-function g_param_values_cmp(pspec:PGParamSpec; value1:PGValue; value2:PGValue):Tgint;cdecl;external libgobject2_0;
-function g_param_spec_get_name(pspec:PGParamSpec):Pgchar;cdecl;external libgobject2_0;
-function g_param_spec_get_nick(pspec:PGParamSpec):Pgchar;cdecl;external libgobject2_0;
-function g_param_spec_get_blurb(pspec:PGParamSpec):Pgchar;cdecl;external libgobject2_0;
-procedure g_value_set_param(value:PGValue; param:PGParamSpec);cdecl;external libgobject2_0;
-function g_value_get_param(value:PGValue):PGParamSpec;cdecl;external libgobject2_0;
-function g_value_dup_param(value:PGValue):PGParamSpec;cdecl;external libgobject2_0;
-procedure g_value_take_param(value:PGValue; param:PGParamSpec);cdecl;external libgobject2_0;
-{xxxxxGLIB_DEPRECATED_FOR(g_value_take_param) }
-procedure g_value_set_param_take_ownership(value:PGValue; param:PGParamSpec);cdecl;external libgobject2_0;
-function g_param_spec_get_default_value(pspec:PGParamSpec):PGValue;cdecl;external libgobject2_0;
-function g_param_spec_get_name_quark(pspec:PGParamSpec):TGQuark;cdecl;external libgobject2_0;
-{ --- convenience functions ---  }
 type
-{*
- * GParamSpecTypeInfo:
- * @instance_size: Size of the instance (object) structure.
- * @n_preallocs: Prior to GLib 2.10, it specified the number of pre-allocated (cached) instances to reserve memory for (0 indicates no caching). Since GLib 2.10, it is ignored, since instances are allocated with the [slice allocator][glib-Memory-Slices] now.
- * @instance_init: Location of the instance initialization function (optional).
- * @value_type: The #GType of values conforming to this #GParamSpec
- * @finalize: The instance finalization function (optional).
- * @value_set_default: Resets a @value to the default value for @pspec 
- *  (recommended, the default is g_value_reset()), see 
- *  g_param_value_set_default().
- * @value_validate: Ensures that the contents of @value comply with the 
- *  specifications set out by @pspec (optional), see 
- *  g_param_value_validate().
- * @values_cmp: Compares @value1 with @value2 according to @pspec 
- *  (recommended, the default is memcmp()), see g_param_values_cmp().
- * 
- * This structure is used to provide the type system with the information
- * required to initialize and destruct (finalize) a parameter's class and
- * instances thereof.
- *
- * The initialized structure is passed to the g_param_type_register_static() 
- * The type system will perform a deep copy of this structure, so its memory 
- * does not need to be persistent across invocation of 
- * g_param_type_register_static().
-  }
-{ type system portion  }
-{ obligatory  }
-{ optional  }
-{ optional  }
-{ class portion  }
-{ obligatory  }
-{ optional  }
-{ recommended  }
-{ optional  }
-{ recommended  }
   PGParamSpecTypeInfo = ^TGParamSpecTypeInfo;
   TGParamSpecTypeInfo = record
-      instance_size : Tguint16;
-      n_preallocs : Tguint16;
-      instance_init : procedure (pspec:PGParamSpec);cdecl;
-      value_type : TGType;
-      finalize : procedure (pspec:PGParamSpec);cdecl;
-      value_set_default : procedure (pspec:PGParamSpec; value:PGValue);cdecl;
-      value_validate : function (pspec:PGParamSpec; value:PGValue):Tgboolean;cdecl;
-      values_cmp : function (pspec:PGParamSpec; value1:PGValue; value2:PGValue):Tgint;cdecl;
-    end;
+    instance_size: Tguint16;
+    n_preallocs: Tguint16;
+    instance_init: procedure(pspec: PGParamSpec); cdecl;
+    value_type: TGType;
+    finalize: procedure(pspec: PGParamSpec); cdecl;
+    value_set_default: procedure(pspec: PGParamSpec; value: PGValue); cdecl;
+    value_validate: function(pspec: PGParamSpec; value: PGValue): Tgboolean; cdecl;
+    values_cmp: function(pspec: PGParamSpec; value1: PGValue; value2: PGValue): Tgint; cdecl;
+  end;
 
 
-function g_param_type_register_static(name:Pgchar; pspec_info:PGParamSpecTypeInfo):TGType;cdecl;external libgobject2_0;
-function g_param_spec_is_valid_name(name:Pgchar):Tgboolean;cdecl;external libgobject2_0;
-{ For registering builtin types  }
-function _g_param_type_register_static_constant(name:Pgchar; pspec_info:PGParamSpecTypeInfo; opt_type:TGType):TGType;cdecl;external libgobject2_0;
-{ --- protected ---  }
-function g_param_spec_internal(param_type:TGType; name:Pgchar; nick:Pgchar; blurb:Pgchar; flags:TGParamFlags):Tgpointer;cdecl;external libgobject2_0;
-function g_param_spec_pool_new(type_prefixing:Tgboolean):PGParamSpecPool;cdecl;external libgobject2_0;
-procedure g_param_spec_pool_insert(pool:PGParamSpecPool; pspec:PGParamSpec; owner_type:TGType);cdecl;external libgobject2_0;
-procedure g_param_spec_pool_remove(pool:PGParamSpecPool; pspec:PGParamSpec);cdecl;external libgobject2_0;
-function g_param_spec_pool_lookup(pool:PGParamSpecPool; param_name:Pgchar; owner_type:TGType; walk_ancestors:Tgboolean):PGParamSpec;cdecl;external libgobject2_0;
-function g_param_spec_pool_list_owned(pool:PGParamSpecPool; owner_type:TGType):PGList;cdecl;external libgobject2_0;
-function g_param_spec_pool_list(pool:PGParamSpecPool; owner_type:TGType; n_pspecs_p:Pguint):^PGParamSpec;cdecl;external libgobject2_0;
-procedure g_param_spec_pool_free(pool:PGParamSpecPool);cdecl;external libgobject2_0;
-{ contracts:
- *
- * gboolean value_validate (GParamSpec *pspec,
- *                          GValue     *value):
- *	modify value contents in the least destructive way, so
- *	that it complies with pspec's requirements (i.e.
- *	according to minimum/maximum ranges etc...). return
- *	whether modification was necessary.
- *
- * gint values_cmp (GParamSpec   *pspec,
- *                  const GValue *value1,
- *                  const GValue *value2):
- *	return value1 - value2, i.e. (-1) if value1 < value2,
- *	(+1) if value1 > value2, and (0) otherwise (equality)
-  }
-{$endif}
-{ __G_PARAM_H__  }
+function g_param_type_register_static(name: Pgchar; pspec_info: PGParamSpecTypeInfo): TGType; cdecl; external libgobject2_0;
+function g_param_spec_is_valid_name(name: Pgchar): Tgboolean; cdecl; external libgobject2_0;
+function _g_param_type_register_static_constant(name: Pgchar; pspec_info: PGParamSpecTypeInfo; opt_type: TGType): TGType; cdecl; external libgobject2_0;
+
+function g_param_spec_internal(param_type: TGType; name: Pgchar; nick: Pgchar; blurb: Pgchar; flags: TGParamFlags): Tgpointer; cdecl; external libgobject2_0;
+function g_param_spec_pool_new(type_prefixing: Tgboolean): PGParamSpecPool; cdecl; external libgobject2_0;
+procedure g_param_spec_pool_insert(pool: PGParamSpecPool; pspec: PGParamSpec; owner_type: TGType); cdecl; external libgobject2_0;
+procedure g_param_spec_pool_remove(pool: PGParamSpecPool; pspec: PGParamSpec); cdecl; external libgobject2_0;
+function g_param_spec_pool_lookup(pool: PGParamSpecPool; param_name: Pgchar; owner_type: TGType; walk_ancestors: Tgboolean): PGParamSpec; cdecl; external libgobject2_0;
+function g_param_spec_pool_list_owned(pool: PGParamSpecPool; owner_type: TGType): PGList; cdecl; external libgobject2_0;
+function g_param_spec_pool_list(pool: PGParamSpecPool; owner_type: TGType; n_pspecs_p: Pguint): PPGParamSpec; cdecl; external libgobject2_0;
+procedure g_param_spec_pool_free(pool: PGParamSpecPool); cdecl; external libgobject2_0;
+
+function G_TYPE_IS_PARAM(_type: TGType): Tgboolean;
+function G_PARAM_SPEC(pspec: Pointer): PGParamSpec;
+function G_IS_PARAM_SPEC(pspec: Pointer): Tgboolean;
+function G_PARAM_SPEC_CLASS(pclass: PGTypeClass): PGTypeClass;
+function G_IS_PARAM_SPEC_CLASS(pclass: PGTypeClass): Tgboolean;
+function G_PARAM_SPEC_GET_CLASS(pspec: Pointer): PGParamSpecClass;
+function G_PARAM_SPEC_TYPE(pspec: Pointer): TGType;
+function G_PARAM_SPEC_TYPE_NAME(pspec: Pointer): Pgchar;
+function G_PARAM_SPEC_VALUE_TYPE(pspec: Pointer): TGType;
+function G_VALUE_HOLDS_PARAM(value: PGValue): Tgboolean;
 
 // === Konventiert am: 25-6-26 15:18:57 ===
 
@@ -439,93 +138,54 @@ procedure g_param_spec_pool_free(pool:PGParamSpecPool);cdecl;external libgobject
 implementation
 
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function G_TYPE_IS_PARAM(_type : longint) : longint;
+function G_TYPE_IS_PARAM(_type: TGType): Tgboolean;
 begin
-  G_TYPE_IS_PARAM:=(G_TYPE_FUNDAMENTAL(_type))=G_TYPE_PARAM;
+  G_TYPE_IS_PARAM := (G_TYPE_FUNDAMENTAL(_type)) = G_TYPE_PARAM;
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function G_PARAM_SPEC(pspec : longint) : longint;
+function G_PARAM_SPEC(pspec: Pointer): PGParamSpec;
 begin
-  G_PARAM_SPEC:=G_TYPE_CHECK_INSTANCE_CAST(pspec,G_TYPE_PARAM,GParamSpec);
+  G_PARAM_SPEC := PGParamSpec(g_type_check_instance_cast(pspec, G_TYPE_PARAM));
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function G_IS_PARAM_SPEC(pspec : longint) : longint;
+function G_IS_PARAM_SPEC(pspec: Pointer): Tgboolean;
 begin
-  G_IS_PARAM_SPEC:=G_TYPE_CHECK_INSTANCE_FUNDAMENTAL_TYPE(pspec,G_TYPE_PARAM);
+  G_IS_PARAM_SPEC := g_type_check_instance_is_a(pspec, G_TYPE_PARAM);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function G_IS_PARAM_SPEC(pspec : longint) : longint;
+function G_PARAM_SPEC_CLASS(pclass: PGTypeClass): PGTypeClass;
 begin
-  G_IS_PARAM_SPEC:=G_TYPE_CHECK_INSTANCE_TYPE(pspec,G_TYPE_PARAM);
+  G_PARAM_SPEC_CLASS := G_TYPE_CHECK_CLASS_CAST(pclass, G_TYPE_PARAM);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function G_PARAM_SPEC_CLASS(klass : longint) : longint;
+function G_IS_PARAM_SPEC_CLASS(pclass: PGTypeClass): Tgboolean;
 begin
-  G_PARAM_SPEC_CLASS:=G_TYPE_CHECK_CLASS_CAST(pclass,G_TYPE_PARAM,GParamSpecClass);
+  G_IS_PARAM_SPEC_CLASS := g_type_check_class_is_a(pclass, G_TYPE_PARAM);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function G_IS_PARAM_SPEC_CLASS(klass : longint) : longint;
+function G_PARAM_SPEC_GET_CLASS(pspec: Pointer): PGParamSpecClass;
 begin
-  G_IS_PARAM_SPEC_CLASS:=G_TYPE_CHECK_CLASS_TYPE(pclass,G_TYPE_PARAM);
+  G_PARAM_SPEC_GET_CLASS := PGParamSpecClass(G_TYPE_INSTANCE_GET_CLASS(pspec, G_TYPE_PARAM));
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function G_PARAM_SPEC_GET_CLASS(pspec : longint) : longint;
+function G_PARAM_SPEC_TYPE(pspec: Pointer): TGType;
 begin
-  G_PARAM_SPEC_GET_CLASS:=G_TYPE_INSTANCE_GET_CLASS(pspec,G_TYPE_PARAM,GParamSpecClass);
+  G_PARAM_SPEC_TYPE := G_TYPE_FROM_INSTANCE(pspec);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function G_PARAM_SPEC_TYPE(pspec : longint) : longint;
+function G_PARAM_SPEC_TYPE_NAME(pspec: Pointer): Pgchar;
 begin
-  G_PARAM_SPEC_TYPE:=G_TYPE_FROM_INSTANCE(pspec);
+  G_PARAM_SPEC_TYPE_NAME := g_type_name(G_PARAM_SPEC_TYPE(pspec));
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function G_PARAM_SPEC_TYPE_NAME(pspec : longint) : longint;
+function G_PARAM_SPEC_VALUE_TYPE(pspec: Pointer): TGType;
 begin
-  G_PARAM_SPEC_TYPE_NAME:=g_type_name(G_PARAM_SPEC_TYPE(pspec));
+  G_PARAM_SPEC_VALUE_TYPE := G_PARAM_SPEC(pspec)^.value_type;
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function G_PARAM_SPEC_VALUE_TYPE(pspec : longint) : longint;
+function G_VALUE_HOLDS_PARAM(value: PGValue): Tgboolean;
 begin
-  G_PARAM_SPEC_VALUE_TYPE:=(G_PARAM_SPEC(pspec))^.value_type;
+  G_VALUE_HOLDS_PARAM := g_type_check_value_holds(value, G_TYPE_PARAM);
 end;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function G_VALUE_HOLDS_PARAM(value : longint) : longint;
-begin
-  G_VALUE_HOLDS_PARAM:=G_TYPE_CHECK_VALUE_TYPE(value,G_TYPE_PARAM);
-end;
-
 
 end.

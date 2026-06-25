@@ -146,9 +146,8 @@ struct _GParamSpecString
     cset_first: Pgchar;
     cset_nth: Pgchar;
     substitutor: Tgchar;
-    flag0: word;    // ????????
-        null_fold_if_empty : 0..1;
-          ensure_non_null : 0..1;
+    null_fold_if_empty : 0..1;
+    ensure_non_null : 0..1;
   end;
 
 

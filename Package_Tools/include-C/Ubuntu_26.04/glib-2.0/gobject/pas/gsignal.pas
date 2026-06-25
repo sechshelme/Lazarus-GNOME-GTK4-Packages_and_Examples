@@ -3,315 +3,82 @@ unit gsignal;
 interface
 
 uses
-  fp_glib;
+  fp_glib2, gtype, gvalue, gclosure;
 
 {$IFDEF FPC}
 {$PACKRECORDS C}
 {$ENDIF}
 
-
-{ GObject - GLib Type, Object, Parameter and Signal Library
- * Copyright (C) 2000-2001 Red Hat, Inc.
- *
- * SPDX-License-Identifier: LGPL-2.1-or-later
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	 See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General
- * Public License along with this library; if not, see <http://www.gnu.org/licenses/>.
-  }
-{$ifndef __G_SIGNAL_H__}
-{$define __G_SIGNAL_H__}
-{$if !defined (__GLIB_GOBJECT_H_INSIDE__) && !defined (GOBJECT_COMPILATION)}
-{$error "Only <glib-object.h> can be included directly."}
-{$endif}
-{$include	<gobject/gclosure.h>}
-{$include	<gobject/gvalue.h>}
-{$include	<gobject/gparam.h>}
-{$include	<gobject/gmarshal.h>}
-{ --- typedefs ---  }
 type
-{*
- * GSignalCMarshaller:
- * 
- * This is the signature of marshaller functions, required to marshall
- * arrays of parameter values to signal emissions into C language callback
- * invocations.
- *
- * It is merely an alias to #GClosureMarshal since the #GClosure mechanism
- * takes over responsibility of actual function invocation for the signal
- * system.
-  }
+PGSignalFlags = ^TGSignalFlags;
+TGSignalFlags =  Longint;
+Const
+  G_SIGNAL_RUN_FIRST = 1 shl 0;
+  G_SIGNAL_RUN_LAST = 1 shl 1;
+  G_SIGNAL_RUN_CLEANUP = 1 shl 2;
+  G_SIGNAL_NO_RECURSE = 1 shl 3;
+  G_SIGNAL_DETAILED = 1 shl 4;
+  G_SIGNAL_ACTION = 1 shl 5;
+  G_SIGNAL_NO_HOOKS = 1 shl 6;
+  G_SIGNAL_MUST_COLLECT = 1 shl 7;
+  G_SIGNAL_DEPRECATED = 1 shl 8;
+  G_SIGNAL_ACCUMULATOR_FIRST_RUN = 1 shl 17;
+
+  const
+  G_SIGNAL_FLAGS_MASK = $1ff;
+
+  type
+PGConnectFlags = ^TGConnectFlags;
+TGConnectFlags =  Longint;
+Const
+  G_CONNECT_DEFAULT = 0;
+  G_CONNECT_AFTER = 1 shl 0;
+  G_CONNECT_SWAPPED = 1 shl 1;
+
+type
+PGSignalMatchType = ^TGSignalMatchType;
+TGSignalMatchType =  Longint;
+Const
+  G_SIGNAL_MATCH_ID = 1 shl 0;
+  G_SIGNAL_MATCH_DETAIL = 1 shl 1;
+  G_SIGNAL_MATCH_CLOSURE = 1 shl 2;
+  G_SIGNAL_MATCH_FUNC = 1 shl 3;
+  G_SIGNAL_MATCH_DATA = 1 shl 4;
+  G_SIGNAL_MATCH_UNBLOCKED = 1 shl 5;
+
+  const
+  G_SIGNAL_MATCH_MASK = $3f;
+  G_SIGNAL_TYPE_STATIC_SCOPE : TGType = 1 shl 0;
+
+type
+PGSignalInvocationHint = ^TGSignalInvocationHint;
+TGSignalInvocationHint = record
+    signal_id : Tguint;
+    detail : TGQuark;
+    run_type : TGSignalFlags;
+  end;
+
+PGSignalQuery = ^TGSignalQuery;
+TGSignalQuery = record
+    signal_id : Tguint;
+    signal_name : Pgchar;
+    itype : TGType;
+    signal_flags : TGSignalFlags;
+    return_type : TGType;
+    n_params : Tguint;
+    param_types : PGType;
+  end;
 
   PGSignalCMarshaller = ^TGSignalCMarshaller;
   TGSignalCMarshaller = TGClosureMarshal;
-{*
- * GSignalCVaMarshaller:
- * 
- * This is the signature of va_list marshaller functions, an optional
- * marshaller that can be used in some situations to avoid
- * marshalling the signal argument into GValues.
-  }
 
   PGSignalCVaMarshaller = ^TGSignalCVaMarshaller;
   TGSignalCVaMarshaller = TGVaClosureMarshal;
-{*
- * GSignalEmissionHook:
- * @ihint: Signal invocation hint, see #GSignalInvocationHint.
- * @n_param_values: the number of parameters to the function, including
- *  the instance on which the signal was emitted.
- * @param_values: (array length=n_param_values): the instance on which
- *  the signal was emitted, followed by the parameters of the emission.
- * @data: user data associated with the hook.
- * 
- * A simple function pointer to get invoked when the signal is emitted.
- *
- * Emission hooks allow you to tie a hook to the signal type, so that it will
- * trap all emissions of that signal, from any object.
- * 
- * You may not attach these to signals created with the %G_SIGNAL_NO_HOOKS flag.
- * 
- * Returns: whether it wants to stay connected. If it returns %FALSE, the signal 
- *  hook is disconnected (and destroyed).
-  }
 
   TGSignalEmissionHook = function (ihint:PGSignalInvocationHint; n_param_values:Tguint; param_values:PGValue; data:Tgpointer):Tgboolean;cdecl;
-{*
- * GSignalAccumulator:
- * @ihint: Signal invocation hint, see #GSignalInvocationHint.
- * @return_accu: Accumulator to collect callback return values in, this
- *  is the return value of the current signal emission.
- * @handler_return: A #GValue holding the return value of the signal handler.
- * @data: Callback data that was specified when creating the signal.
- * 
- * The signal accumulator is a special callback function that can be used
- * to collect return values of the various callbacks that are called
- * during a signal emission.
- *
- * The signal accumulator is specified at signal creation time, if it is
- * left %NULL, no accumulation of callback return values is performed.
- * The return value of signal emissions is then the value returned by the
- * last callback.
- * 
- * Returns: The accumulator function returns whether the signal emission
- *  should be aborted. Returning %TRUE will continue with
- *  the signal emission. Returning %FALSE will abort the current emission.
- *  Since 2.62, returning %FALSE will skip to the CLEANUP stage. In this case,
- *  emission will occur as normal in the CLEANUP stage and the handler's
- *  return value will be accumulated.
-  }
-
   TGSignalAccumulator = function (ihint:PGSignalInvocationHint; return_accu:PGValue; handler_return:PGValue; data:Tgpointer):Tgboolean;cdecl;
-{ --- run, match and connect types ---  }
-{*
- * GSignalFlags:
- * @G_SIGNAL_RUN_FIRST: Invoke the object method handler in the first emission stage.
- * @G_SIGNAL_RUN_LAST: Invoke the object method handler in the third emission stage.
- * @G_SIGNAL_RUN_CLEANUP: Invoke the object method handler in the last emission stage.
- * @G_SIGNAL_NO_RECURSE: Signals being emitted for an object while currently being in
- *  emission for this very object will not be emitted recursively,
- *  but instead cause the first emission to be restarted.
- * @G_SIGNAL_DETAILED: This signal supports "::detail" appendices to the signal name
- *  upon handler connections and emissions.
- * @G_SIGNAL_ACTION: Action signals are signals that may freely be emitted on alive
- *  objects from user code via g_signal_emit() and friends, without
- *  the need of being embedded into extra code that performs pre or
- *  post emission adjustments on the object. They can also be thought
- *  of as object methods which can be called generically by 
- *  third-party code.
- * @G_SIGNAL_NO_HOOKS: No emissions hooks are supported for this signal.
- *
- * The signal flags are used to specify a signal's behaviour.
-  }
-{ normal signal flags until 1 << 16  }
 
-  PGSignalFlags = ^TGSignalFlags;
-  TGSignalFlags =  Longint;
-  Const
-    G_SIGNAL_RUN_FIRST = 1 shl 0;
-    G_SIGNAL_RUN_LAST = 1 shl 1;
-    G_SIGNAL_RUN_CLEANUP = 1 shl 2;
-    G_SIGNAL_NO_RECURSE = 1 shl 3;
-    G_SIGNAL_DETAILED = 1 shl 4;
-    G_SIGNAL_ACTION = 1 shl 5;
-    G_SIGNAL_NO_HOOKS = 1 shl 6;
-    G_SIGNAL_MUST_COLLECT = 1 shl 7;
-    G_SIGNAL_DEPRECATED = 1 shl 8;
-    G_SIGNAL_ACCUMULATOR_FIRST_RUN = 1 shl 17;
-;
-{*
- * G_SIGNAL_MUST_COLLECT:
- *
- * Varargs signal emission will always collect the arguments, even if there
- * are no signal handlers connected.
- *
- * Since: 2.30
-  }
-{*
- * G_SIGNAL_DEPRECATED:
- *
- * The signal is deprecated and will be removed in a future version.
- *
- * A warning will be generated if it is connected while running with
- * `G_ENABLE_DIAGNOSTIC=1`.
- *
- * Since: 2.32
-  }
-{*
- * G_SIGNAL_ACCUMULATOR_FIRST_RUN:
- *
- * The signal accumulator was invoked for the first time.
- *
- * This flag is only used in [callback@GObject.SignalAccumulator][accumulator functions]
- * for the `run_type` field of the [struct@GObject.SignalInvocationHint], to
- * mark the first call to the accumulator function for a signal emission.
- *
- * Since: 2.68
-  }
-{*
- * G_SIGNAL_FLAGS_MASK:
- * 
- * A mask for all #GSignalFlags bits.
-  }
-  G_SIGNAL_FLAGS_MASK = $1ff;  
-{*
- * GConnectFlags:
- * @G_CONNECT_DEFAULT: Default behaviour (no special flags). Since: 2.74
- * @G_CONNECT_AFTER: If set, the handler should be called after the
- *  default handler of the signal. Normally, the handler is called before
- *  the default handler.
- * @G_CONNECT_SWAPPED: If set, the instance and data should be swapped when
- *  calling the handler; see g_signal_connect_swapped() for an example.
- * 
- * The connection flags are used to specify the behaviour of a signal's 
- * connection.
-  }
-type
-  PGConnectFlags = ^TGConnectFlags;
-  TGConnectFlags =  Longint;
-  Const
-    G_CONNECT_DEFAULT = 0;
-    G_CONNECT_AFTER = 1 shl 0;
-    G_CONNECT_SWAPPED = 1 shl 1;
-;
-{*
- * GSignalMatchType:
- * @G_SIGNAL_MATCH_ID: The signal id must be equal.
- * @G_SIGNAL_MATCH_DETAIL: The signal detail must be equal.
- * @G_SIGNAL_MATCH_CLOSURE: The closure must be the same.
- * @G_SIGNAL_MATCH_FUNC: The C closure callback must be the same.
- * @G_SIGNAL_MATCH_DATA: The closure data must be the same.
- * @G_SIGNAL_MATCH_UNBLOCKED: Only unblocked signals may be matched.
- * 
- * The match types specify what g_signal_handlers_block_matched(),
- * g_signal_handlers_unblock_matched() and g_signal_handlers_disconnect_matched()
- * match signals by.
-  }
-type
-  PGSignalMatchType = ^TGSignalMatchType;
-  TGSignalMatchType =  Longint;
-  Const
-    G_SIGNAL_MATCH_ID = 1 shl 0;
-    G_SIGNAL_MATCH_DETAIL = 1 shl 1;
-    G_SIGNAL_MATCH_CLOSURE = 1 shl 2;
-    G_SIGNAL_MATCH_FUNC = 1 shl 3;
-    G_SIGNAL_MATCH_DATA = 1 shl 4;
-    G_SIGNAL_MATCH_UNBLOCKED = 1 shl 5;
-;
-{*
- * G_SIGNAL_MATCH_MASK:
- * 
- * A mask for all #GSignalMatchType bits.
-  }
-  G_SIGNAL_MATCH_MASK = $3f;  
-{*
- * G_SIGNAL_TYPE_STATIC_SCOPE:
- * 
- * This macro flags signal argument types for which the signal system may 
- * assume that instances thereof remain persistent across all signal emissions
- * they are used in. This is only useful for non ref-counted, value-copy types.
- * 
- * To flag a signal argument in this way, add `| G_SIGNAL_TYPE_STATIC_SCOPE`
- * to the corresponding argument of g_signal_new().
- * |[
- * g_signal_new ("size_request",
- *   G_TYPE_FROM_CLASS (gobject_class),
- * 	 G_SIGNAL_RUN_FIRST,
- * 	 G_STRUCT_OFFSET (GtkWidgetClass, size_request),
- * 	 NULL, NULL,
- * 	 _gtk_marshal_VOID__BOXED,
- * 	 G_TYPE_NONE, 1,
- * 	 GTK_TYPE_REQUISITION | G_SIGNAL_TYPE_STATIC_SCOPE);
- * ]|
-  }
-  G_SIGNAL_TYPE_STATIC_SCOPE = G_TYPE_FLAG_RESERVED_ID_BIT;  
-{ --- signal information ---  }
-{*
- * GSignalInvocationHint:
- * @signal_id: The signal id of the signal invoking the callback
- * @detail: The detail passed on for this emission
- * @run_type: The stage the signal emission is currently in, this
- *  field will contain one of %G_SIGNAL_RUN_FIRST,
- *  %G_SIGNAL_RUN_LAST or %G_SIGNAL_RUN_CLEANUP and %G_SIGNAL_ACCUMULATOR_FIRST_RUN.
- *  %G_SIGNAL_ACCUMULATOR_FIRST_RUN is only set for the first run of the accumulator
- *  function for a signal emission.
- * 
- * The #GSignalInvocationHint structure is used to pass on additional information
- * to callbacks during a signal emission.
-  }
-type
-  PGSignalInvocationHint = ^TGSignalInvocationHint;
-  TGSignalInvocationHint = record
-      signal_id : Tguint;
-      detail : TGQuark;
-      run_type : TGSignalFlags;
-    end;
-
-{*
- * GSignalQuery:
- * @signal_id: The signal id of the signal being queried, or 0 if the
- *  signal to be queried was unknown.
- * @signal_name: The signal name.
- * @itype: The interface/instance type that this signal can be emitted for.
- * @signal_flags: The signal flags as passed in to g_signal_new().
- * @return_type: The return type for user callbacks.
- * @n_params: The number of parameters that user callbacks take.
- * @param_types: (array length=n_params): The individual parameter types for
- *  user callbacks, note that the effective callback signature is:
- *  |[<!-- language="C" -->
- *  @return_type callback (#gpointer     data1,
- *  [param_types param_names,]
- *  gpointer     data2);
- *  ]|
- * 
- * A structure holding in-depth information for a specific signal.
- *
- * See also: g_signal_query()
-  }
-{ mangled with G_SIGNAL_TYPE_STATIC_SCOPE flag  }
-{ mangled with G_SIGNAL_TYPE_STATIC_SCOPE flag  }
-  PGSignalQuery = ^TGSignalQuery;
-  TGSignalQuery = record
-      signal_id : Tguint;
-      signal_name : Pgchar;
-      itype : TGType;
-      signal_flags : TGSignalFlags;
-      return_type : TGType;
-      n_params : Tguint;
-      param_types : PGType;
-    end;
-
-{ --- signals ---  }
-
-function g_signal_newv(signal_name:Pgchar; itype:TGType; signal_flags:TGSignalFlags; class_closure:PGClosure; accumulator:TGSignalAccumulator; 
+function g_signal_newv(signal_name:Pgchar; itype:TGType; signal_flags:TGSignalFlags; class_closure:PGClosure; accumulator:TGSignalAccumulator;
            accu_data:Tgpointer; c_marshaller:TGSignalCMarshaller; return_type:TGType; n_params:Tguint; param_types:PGType):Tguint;cdecl;external libgobject2_0;
 function g_signal_new_valist(signal_name:Pgchar; itype:TGType; signal_flags:TGSignalFlags; class_closure:PGClosure; accumulator:TGSignalAccumulator; 
            accu_data:Tgpointer; c_marshaller:TGSignalCMarshaller; return_type:TGType; n_params:Tguint; args:Tva_list):Tguint;cdecl;external libgobject2_0;
