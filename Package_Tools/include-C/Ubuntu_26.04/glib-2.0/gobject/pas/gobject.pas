@@ -3,80 +3,14 @@ unit gobject;
 interface
 
 uses
-  fp_glib;
+  fp_glib2;
 
 {$IFDEF FPC}
 {$PACKRECORDS C}
 {$ENDIF}
 
-
-{ GObject - GLib Type, Object, Parameter and Signal Library
- * Copyright (C) 1998-1999, 2000-2001 Tim Janik and Red Hat, Inc.
- *
- * SPDX-License-Identifier: LGPL-2.1-or-later
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General
- * Public License along with this library; if not, see <http://www.gnu.org/licenses/>.
-  }
-{$ifndef __G_OBJECT_H__}
-{$define __G_OBJECT_H__}
-{$if !defined (__GLIB_GOBJECT_H_INSIDE__) && !defined (GOBJECT_COMPILATION)}
-{$error "Only <glib-object.h> can be included directly."}
-{$endif}
-{$include        <gobject/gtype.h>}
-{$include        <gobject/gvalue.h>}
-{$include        <gobject/gparam.h>}
-{$include        <gobject/gclosure.h>}
-{$include        <gobject/gsignal.h>}
-{$include        <gobject/gboxed.h>}
-{ --- type macros ---  }
-{*
- * G_TYPE_IS_OBJECT:
- * @type: Type id to check
- * 
- * Check if the passed in type id is a %G_TYPE_OBJECT or derived from it.
- * 
- * Returns: %FALSE or %TRUE, indicating whether @type is a %G_TYPE_OBJECT.
-  }
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-
 function G_TYPE_IS_OBJECT(_type : longint) : longint;
-
-{*
- * G_OBJECT:
- * @object: Object which is subject to casting.
- * 
- * Casts a #GObject or derived pointer into a (GObject*) pointer.
- *
- * Depending on the current debugging level, this function may invoke
- * certain runtime checks to identify invalid casts.
-  }
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
 function G_OBJECT(obj : longint) : longint;
-
-{*
- * G_OBJECT_CLASS:
- * @class: a valid #GObjectClass
- * 
- * Casts a derived #GObjectClass structure into a #GObjectClass structure.
-  }
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
 function G_OBJECT_CLASS(klass : longint) : longint;
 
 {*

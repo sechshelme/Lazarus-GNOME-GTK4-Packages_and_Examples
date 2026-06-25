@@ -2,8 +2,10 @@ program project1;
 
 uses
   gtype,
-
+  gtypeplugin,
   gvalue,
+
+  gobject,
   gbinding,
 
   gbindinggroup,
@@ -13,14 +15,12 @@ uses
   glib_enumtypes,
   glib_types,
   gmarshal,
-  gobject,
   gparam,
   gparamspecs,
   gsignal,
   gsignalgroup,
   gsourceclosure,
   gtypemodule,
-  gtypeplugin,
   gvaluearray,
   gvaluecollector,
   gvaluetypes,
