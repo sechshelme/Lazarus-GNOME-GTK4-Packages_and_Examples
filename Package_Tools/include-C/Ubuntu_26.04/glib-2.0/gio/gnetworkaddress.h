@@ -53,27 +53,27 @@ struct _GNetworkAddressClass
 
 };
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType               g_network_address_get_type     (void) ;
 
-GIO_AVAILABLE_IN_ALL
+extern
 GSocketConnectable *g_network_address_new          (const gchar      *hostname,
 						    guint16           port);
-GIO_AVAILABLE_IN_2_44
+extern
 GSocketConnectable *g_network_address_new_loopback (guint16           port);
-GIO_AVAILABLE_IN_ALL
+extern
 GSocketConnectable *g_network_address_parse        (const gchar      *host_and_port,
 						    guint16           default_port,
 						    GError          **error);
-GIO_AVAILABLE_IN_ALL
+extern
 GSocketConnectable *g_network_address_parse_uri    (const gchar      *uri,
     						    guint16           default_port,
 						    GError          **error);
-GIO_AVAILABLE_IN_ALL
+extern
 const gchar        *g_network_address_get_hostname (GNetworkAddress  *addr);
-GIO_AVAILABLE_IN_ALL
+extern
 guint16             g_network_address_get_port     (GNetworkAddress  *addr);
-GIO_AVAILABLE_IN_ALL
+extern
 const gchar        *g_network_address_get_scheme   (GNetworkAddress  *addr);
 
 

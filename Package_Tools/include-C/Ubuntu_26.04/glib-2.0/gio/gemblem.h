@@ -40,17 +40,17 @@
 typedef struct _GEmblem        GEmblem;
 typedef struct _GEmblemClass   GEmblemClass;
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType          g_emblem_get_type        (void) ;
 
-GIO_AVAILABLE_IN_ALL
+extern
 GEmblem       *g_emblem_new             (GIcon         *icon);
-GIO_AVAILABLE_IN_ALL
+extern
 GEmblem       *g_emblem_new_with_origin (GIcon         *icon,
                                          GEmblemOrigin  origin);
-GIO_AVAILABLE_IN_ALL
+extern
 GIcon         *g_emblem_get_icon        (GEmblem       *emblem);
-GIO_AVAILABLE_IN_ALL
+extern
 GEmblemOrigin  g_emblem_get_origin      (GEmblem       *emblem);
 
 

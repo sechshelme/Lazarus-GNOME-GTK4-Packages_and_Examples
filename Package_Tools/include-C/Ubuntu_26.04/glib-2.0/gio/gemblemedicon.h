@@ -57,20 +57,20 @@ struct _GEmblemedIconClass
   GObjectClass parent_class;
 };
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType  g_emblemed_icon_get_type    (void) ;
 
-GIO_AVAILABLE_IN_ALL
+extern
 GIcon *g_emblemed_icon_new         (GIcon         *icon,
                                     GEmblem       *emblem);
-GIO_AVAILABLE_IN_ALL
+extern
 GIcon *g_emblemed_icon_get_icon    (GEmblemedIcon *emblemed);
-GIO_AVAILABLE_IN_ALL
+extern
 GList *g_emblemed_icon_get_emblems (GEmblemedIcon *emblemed);
-GIO_AVAILABLE_IN_ALL
+extern
 void   g_emblemed_icon_add_emblem  (GEmblemedIcon *emblemed,
                                     GEmblem       *emblem);
-GIO_AVAILABLE_IN_ALL
+extern
 void   g_emblemed_icon_clear_emblems  (GEmblemedIcon *emblemed);
 
 

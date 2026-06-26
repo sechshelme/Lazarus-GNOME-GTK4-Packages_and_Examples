@@ -64,16 +64,16 @@ struct _GUnixCredentialsMessage
   GUnixCredentialsMessagePrivate *priv;
 };
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType                  g_unix_credentials_message_get_type             (void) ;
-GIO_AVAILABLE_IN_ALL
+extern
 GSocketControlMessage *g_unix_credentials_message_new                  (void);
-GIO_AVAILABLE_IN_ALL
+extern
 GSocketControlMessage *g_unix_credentials_message_new_with_credentials (GCredentials *credentials);
-GIO_AVAILABLE_IN_ALL
+extern
 GCredentials          *g_unix_credentials_message_get_credentials      (GUnixCredentialsMessage *message);
 
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean               g_unix_credentials_message_is_supported         (void);
 
 

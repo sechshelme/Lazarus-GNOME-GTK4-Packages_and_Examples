@@ -46,22 +46,22 @@ struct _GZlibCompressorClass
   GObjectClass parent_class;
 };
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType            g_zlib_compressor_get_type (void) ;
 
-GIO_AVAILABLE_IN_ALL
+extern
 GZlibCompressor *g_zlib_compressor_new (GZlibCompressorFormat format,
 					int level);
 
-GIO_AVAILABLE_IN_ALL
+extern
 GFileInfo       *g_zlib_compressor_get_file_info (GZlibCompressor *compressor);
-GIO_AVAILABLE_IN_ALL
+extern
 void             g_zlib_compressor_set_file_info (GZlibCompressor *compressor,
                                                   GFileInfo       *file_info);
 
-GIO_AVAILABLE_IN_2_86
+extern
 int              g_zlib_compressor_get_os        (GZlibCompressor *compressor);
-GIO_AVAILABLE_IN_2_86
+extern
 void             g_zlib_compressor_set_os        (GZlibCompressor *compressor,
                                                   int              os);
 

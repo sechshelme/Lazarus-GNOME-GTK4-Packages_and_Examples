@@ -73,20 +73,20 @@ struct _GSocketAddressEnumeratorClass
 				    GError                   **error);
 };
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType           g_socket_address_enumerator_get_type        (void) ;
 
-GIO_AVAILABLE_IN_ALL
+extern
 GSocketAddress *g_socket_address_enumerator_next        (GSocketAddressEnumerator  *enumerator,
 							 GCancellable              *cancellable,
 							 GError                   **error);
 
-GIO_AVAILABLE_IN_ALL
+extern
 void            g_socket_address_enumerator_next_async  (GSocketAddressEnumerator  *enumerator,
 							 GCancellable              *cancellable,
 							 GAsyncReadyCallback        callback,
 							 gpointer                   user_data);
-GIO_AVAILABLE_IN_ALL
+extern
 GSocketAddress *g_socket_address_enumerator_next_finish (GSocketAddressEnumerator  *enumerator,
 							 GAsyncResult              *result,
 							 GError                   **error);

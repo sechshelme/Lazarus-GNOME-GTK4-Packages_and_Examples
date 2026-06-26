@@ -96,7 +96,7 @@ struct _GTlsConnectionClass
   gpointer padding[6];
 };
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType                 g_tls_connection_get_type                    (void) ;
 
 GIO_DEPRECATED
@@ -105,78 +105,78 @@ void                  g_tls_connection_set_use_system_certdb       (GTlsConnecti
 GIO_DEPRECATED
 gboolean              g_tls_connection_get_use_system_certdb       (GTlsConnection       *conn);
 
-GIO_AVAILABLE_IN_ALL
+extern
 void                  g_tls_connection_set_database                (GTlsConnection       *conn,
 								    GTlsDatabase         *database);
-GIO_AVAILABLE_IN_ALL
+extern
 GTlsDatabase *        g_tls_connection_get_database                (GTlsConnection       *conn);
 
-GIO_AVAILABLE_IN_ALL
+extern
 void                  g_tls_connection_set_certificate             (GTlsConnection       *conn,
                                                                     GTlsCertificate      *certificate);
-GIO_AVAILABLE_IN_ALL
+extern
 GTlsCertificate      *g_tls_connection_get_certificate             (GTlsConnection       *conn);
 
-GIO_AVAILABLE_IN_ALL
+extern
 void                  g_tls_connection_set_interaction             (GTlsConnection       *conn,
                                                                     GTlsInteraction      *interaction);
-GIO_AVAILABLE_IN_ALL
+extern
 GTlsInteraction *     g_tls_connection_get_interaction             (GTlsConnection       *conn);
 
-GIO_AVAILABLE_IN_ALL
+extern
 GTlsCertificate      *g_tls_connection_get_peer_certificate        (GTlsConnection       *conn);
-GIO_AVAILABLE_IN_ALL
+extern
 GTlsCertificateFlags  g_tls_connection_get_peer_certificate_errors (GTlsConnection       *conn);
 
-GIO_AVAILABLE_IN_ALL
+extern
 void                  g_tls_connection_set_require_close_notify    (GTlsConnection       *conn,
 								    gboolean              require_close_notify);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean              g_tls_connection_get_require_close_notify    (GTlsConnection       *conn);
 
 
-GIO_DEPRECATED_IN_2_60
+extern //xxxxxGLIB_DEPRECATED_IN_2_60
 void                  g_tls_connection_set_rehandshake_mode        (GTlsConnection       *conn,
 								    GTlsRehandshakeMode   mode);
-GIO_DEPRECATED_IN_2_60
+extern //xxxxxGLIB_DEPRECATED_IN_2_60
 GTlsRehandshakeMode   g_tls_connection_get_rehandshake_mode        (GTlsConnection       *conn);
 
 
-GIO_AVAILABLE_IN_2_60
+extern
 void                  g_tls_connection_set_advertised_protocols    (GTlsConnection       *conn,
                                                                     const gchar * const  *protocols);
 
-GIO_AVAILABLE_IN_2_60
+extern
 const gchar *         g_tls_connection_get_negotiated_protocol     (GTlsConnection       *conn);
 
 
-GIO_AVAILABLE_IN_2_66
+extern
 gboolean              g_tls_connection_get_channel_binding_data    (GTlsConnection          *conn,
                                                                     GTlsChannelBindingType   type,
                                                                     GByteArray              *data,
                                                                     GError                 **error);
 
 
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean              g_tls_connection_handshake                   (GTlsConnection       *conn,
 								    GCancellable         *cancellable,
 								    GError              **error);
 
-GIO_AVAILABLE_IN_ALL
+extern
 void                  g_tls_connection_handshake_async             (GTlsConnection       *conn,
 								    int                   io_priority,
 								    GCancellable         *cancellable,
 								    GAsyncReadyCallback   callback,
 								    gpointer              user_data);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean              g_tls_connection_handshake_finish            (GTlsConnection       *conn,
 								    GAsyncResult         *result,
 								    GError              **error);
 
-GIO_AVAILABLE_IN_2_70
+extern
 GTlsProtocolVersion   g_tls_connection_get_protocol_version        (GTlsConnection       *conn);
 
-GIO_AVAILABLE_IN_2_70
+extern
 gchar *               g_tls_connection_get_ciphersuite_name        (GTlsConnection       *conn);
 
 /**
@@ -187,7 +187,7 @@ gchar *               g_tls_connection_get_ciphersuite_name        (GTlsConnecti
  * domains.
  */
 #define G_TLS_ERROR (g_tls_error_quark ())
-GIO_AVAILABLE_IN_ALL
+extern
 GQuark g_tls_error_quark (void);
 
 /**
@@ -200,11 +200,11 @@ GQuark g_tls_error_quark (void);
  * Since: 2.66
  */
 #define G_TLS_CHANNEL_BINDING_ERROR (g_tls_channel_binding_error_quark ())
-GIO_AVAILABLE_IN_2_66
+extern
 GQuark g_tls_channel_binding_error_quark (void);
 
 /*< protected >*/
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean              g_tls_connection_emit_accept_certificate     (GTlsConnection       *conn,
 								    GTlsCertificate      *peer_cert,
 								    GTlsCertificateFlags  errors);

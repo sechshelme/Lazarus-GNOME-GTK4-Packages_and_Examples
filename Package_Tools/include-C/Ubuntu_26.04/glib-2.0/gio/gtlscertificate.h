@@ -58,66 +58,66 @@ struct _GTlsCertificateClass
   gpointer padding[8];
 };
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType                 g_tls_certificate_get_type           (void) ;
 
-GIO_AVAILABLE_IN_ALL
+extern
 GTlsCertificate      *g_tls_certificate_new_from_pem       (const gchar         *data,
 							    gssize               length,
 							    GError             **error);
-GIO_AVAILABLE_IN_2_72
+extern
 GTlsCertificate      *g_tls_certificate_new_from_pkcs12      (const guint8      *data,
                                                               gsize              length,
                                                               const gchar       *password,
                                                               GError           **error);
-GIO_AVAILABLE_IN_2_72
+extern
 GTlsCertificate      *g_tls_certificate_new_from_file_with_password (const gchar  *file,
                                                                      const gchar  *password,
                                                                      GError      **error);
-GIO_AVAILABLE_IN_ALL
+extern
 GTlsCertificate      *g_tls_certificate_new_from_file      (const gchar         *file,
 							    GError             **error);
-GIO_AVAILABLE_IN_ALL
+extern
 GTlsCertificate      *g_tls_certificate_new_from_files     (const gchar         *cert_file,
 							    const gchar         *key_file,
 							    GError             **error);
-GIO_AVAILABLE_IN_2_68
+extern
 GTlsCertificate      *g_tls_certificate_new_from_pkcs11_uris (const gchar       *pkcs11_uri,
                                                               const gchar       *private_key_pkcs11_uri,
                                                               GError           **error);
 
-GIO_AVAILABLE_IN_ALL
+extern
 GList                *g_tls_certificate_list_new_from_file (const gchar         *file,
 							    GError             **error);
 
-GIO_AVAILABLE_IN_ALL
+extern
 GTlsCertificate      *g_tls_certificate_get_issuer         (GTlsCertificate     *cert);
 
-GIO_AVAILABLE_IN_ALL
+extern
 GTlsCertificateFlags  g_tls_certificate_verify             (GTlsCertificate     *cert,
 							    GSocketConnectable  *identity,
 							    GTlsCertificate     *trusted_ca);
 
-GIO_AVAILABLE_IN_2_34
+extern
 gboolean              g_tls_certificate_is_same            (GTlsCertificate     *cert_one,
                                                             GTlsCertificate     *cert_two);
 
-GIO_AVAILABLE_IN_2_70
+extern
 GDateTime            *g_tls_certificate_get_not_valid_before (GTlsCertificate     *cert);
 
-GIO_AVAILABLE_IN_2_70
+extern
 GDateTime            *g_tls_certificate_get_not_valid_after  (GTlsCertificate     *cert);
 
-GIO_AVAILABLE_IN_2_70
+extern
 gchar                *g_tls_certificate_get_subject_name     (GTlsCertificate     *cert);
 
-GIO_AVAILABLE_IN_2_70
+extern
 gchar                *g_tls_certificate_get_issuer_name      (GTlsCertificate     *cert);
 
-GIO_AVAILABLE_IN_2_70
+extern
 GPtrArray            *g_tls_certificate_get_dns_names        (GTlsCertificate     *cert);
 
-GIO_AVAILABLE_IN_2_70
+extern
 GPtrArray            *g_tls_certificate_get_ip_addresses     (GTlsCertificate     *cert);
 
 

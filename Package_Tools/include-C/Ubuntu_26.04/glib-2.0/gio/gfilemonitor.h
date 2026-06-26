@@ -71,20 +71,20 @@ struct _GFileMonitorClass
   void (*_g_reserved5) (void);
 };
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType    g_file_monitor_get_type       (void) ;
 
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean g_file_monitor_cancel         (GFileMonitor      *monitor);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean g_file_monitor_is_cancelled   (GFileMonitor      *monitor);
-GIO_AVAILABLE_IN_ALL
+extern
 void     g_file_monitor_set_rate_limit (GFileMonitor      *monitor,
                                         gint               limit_msecs);
 
 
 /* For implementations */
-GIO_AVAILABLE_IN_ALL
+extern
 void     g_file_monitor_emit_event     (GFileMonitor      *monitor,
                                         GFile             *child,
                                         GFile             *other_file,

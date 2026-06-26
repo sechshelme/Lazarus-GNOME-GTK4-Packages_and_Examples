@@ -41,7 +41,7 @@
 #define G_POWER_PROFILE_MONITOR_EXTENSION_POINT_NAME "gio-power-profile-monitor"
 
 #define G_TYPE_POWER_PROFILE_MONITOR             (g_power_profile_monitor_get_type ())
-GIO_AVAILABLE_IN_2_70
+extern
 G_DECLARE_INTERFACE (GPowerProfileMonitor, g_power_profile_monitor, g, power_profile_monitor, GObject)
 
 #define G_POWER_PROFILE_MONITOR(o)               (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_POWER_PROFILE_MONITOR, GPowerProfileMonitor))
@@ -54,10 +54,10 @@ struct _GPowerProfileMonitorInterface
   GTypeInterface g_iface;
 };
 
-GIO_AVAILABLE_IN_2_70
+extern
 GPowerProfileMonitor      *g_power_profile_monitor_dup_default              (void);
 
-GIO_AVAILABLE_IN_2_70
+extern
 gboolean                   g_power_profile_monitor_get_power_saver_enabled  (GPowerProfileMonitor *monitor);
 
 

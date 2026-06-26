@@ -69,157 +69,157 @@ struct _GSettings
 };
 
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType                   g_settings_get_type                             (void);
 
-GIO_DEPRECATED_IN_2_40_FOR(g_settings_schema_source_list_schemas)
+extern //xxxxxGLIB_DEPRECATED_IN_2_40_FOR(g_settings_schema_source_list_schemas)
 const gchar * const *   g_settings_list_schemas                         (void);
-GIO_DEPRECATED_IN_2_40_FOR(g_settings_schema_source_list_schemas)
+extern //xxxxxGLIB_DEPRECATED_IN_2_40_FOR(g_settings_schema_source_list_schemas)
 const gchar * const *   g_settings_list_relocatable_schemas             (void);
-GIO_AVAILABLE_IN_ALL
+extern
 GSettings *             g_settings_new                                  (const gchar        *schema_id);
-GIO_AVAILABLE_IN_ALL
+extern
 GSettings *             g_settings_new_with_path                        (const gchar        *schema_id,
                                                                          const gchar        *path);
-GIO_AVAILABLE_IN_ALL
+extern
 GSettings *             g_settings_new_with_backend                     (const gchar        *schema_id,
                                                                          GSettingsBackend   *backend);
-GIO_AVAILABLE_IN_ALL
+extern
 GSettings *             g_settings_new_with_backend_and_path            (const gchar        *schema_id,
                                                                          GSettingsBackend   *backend,
                                                                          const gchar        *path);
-GIO_AVAILABLE_IN_2_32
+extern
 GSettings *             g_settings_new_full                             (GSettingsSchema    *schema,
                                                                          GSettingsBackend   *backend,
                                                                          const gchar        *path);
-GIO_AVAILABLE_IN_ALL
+extern
 gchar **                g_settings_list_children                        (GSettings          *settings);
-GIO_DEPRECATED_IN_2_46_FOR(g_settings_schema_list_keys)
+extern //xxxxxGLIB_DEPRECATED_IN_2_46_FOR(g_settings_schema_list_keys)
 gchar **                g_settings_list_keys                            (GSettings          *settings);
-GIO_DEPRECATED_IN_2_40_FOR(g_settings_schema_key_get_range)
+extern //xxxxxGLIB_DEPRECATED_IN_2_40_FOR(g_settings_schema_key_get_range)
 GVariant *              g_settings_get_range                            (GSettings          *settings,
                                                                          const gchar        *key);
-GIO_DEPRECATED_IN_2_40_FOR(g_settings_schema_key_range_check)
+extern //xxxxxGLIB_DEPRECATED_IN_2_40_FOR(g_settings_schema_key_range_check)
 gboolean                g_settings_range_check                          (GSettings          *settings,
                                                                          const gchar        *key,
                                                                          GVariant           *value);
 
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean                g_settings_set_value                            (GSettings          *settings,
                                                                          const gchar        *key,
                                                                          GVariant           *value);
-GIO_AVAILABLE_IN_ALL
+extern
 GVariant *              g_settings_get_value                            (GSettings          *settings,
                                                                          const gchar        *key);
 
-GIO_AVAILABLE_IN_2_40
+extern
 GVariant *              g_settings_get_user_value                       (GSettings          *settings,
                                                                          const gchar        *key);
-GIO_AVAILABLE_IN_2_40
+extern
 GVariant *              g_settings_get_default_value                    (GSettings          *settings,
                                                                          const gchar        *key);
 
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean                g_settings_set                                  (GSettings          *settings,
                                                                          const gchar        *key,
                                                                          const gchar        *format,
                                                                          ...);
-GIO_AVAILABLE_IN_ALL
+extern
 void                    g_settings_get                                  (GSettings          *settings,
                                                                          const gchar        *key,
                                                                          const gchar        *format,
                                                                          ...);
-GIO_AVAILABLE_IN_ALL
+extern
 void                    g_settings_reset                                (GSettings          *settings,
                                                                          const gchar        *key);
 
-GIO_AVAILABLE_IN_ALL
+extern
 gint                    g_settings_get_int                              (GSettings          *settings,
                                                                          const gchar        *key);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean                g_settings_set_int                              (GSettings          *settings,
                                                                          const gchar        *key,
                                                                          gint                value);
-GIO_AVAILABLE_IN_2_50
+extern
 gint64                  g_settings_get_int64                            (GSettings          *settings,
                                                                          const gchar        *key);
-GIO_AVAILABLE_IN_2_50
+extern
 gboolean                g_settings_set_int64                            (GSettings          *settings,
                                                                          const gchar        *key,
                                                                          gint64              value);
-GIO_AVAILABLE_IN_2_32
+extern
 guint                   g_settings_get_uint                             (GSettings          *settings,
                                                                          const gchar        *key);
-GIO_AVAILABLE_IN_2_32
+extern
 gboolean                g_settings_set_uint                             (GSettings          *settings,
                                                                          const gchar        *key,
                                                                          guint               value);
-GIO_AVAILABLE_IN_2_50
+extern
 guint64                 g_settings_get_uint64                           (GSettings          *settings,
                                                                          const gchar        *key);
-GIO_AVAILABLE_IN_2_50
+extern
 gboolean                g_settings_set_uint64                           (GSettings          *settings,
                                                                          const gchar        *key,
                                                                          guint64             value);
-GIO_AVAILABLE_IN_ALL
+extern
 gchar *                 g_settings_get_string                           (GSettings          *settings,
                                                                          const gchar        *key);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean                g_settings_set_string                           (GSettings          *settings,
                                                                          const gchar        *key,
                                                                          const gchar        *value);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean                g_settings_get_boolean                          (GSettings          *settings,
                                                                          const gchar        *key);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean                g_settings_set_boolean                          (GSettings          *settings,
                                                                          const gchar        *key,
                                                                          gboolean            value);
-GIO_AVAILABLE_IN_ALL
+extern
 gdouble                 g_settings_get_double                           (GSettings          *settings,
                                                                          const gchar        *key);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean                g_settings_set_double                           (GSettings          *settings,
                                                                          const gchar        *key,
                                                                          gdouble             value);
-GIO_AVAILABLE_IN_ALL
+extern
 gchar **                g_settings_get_strv                             (GSettings          *settings,
                                                                          const gchar        *key);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean                g_settings_set_strv                             (GSettings          *settings,
                                                                          const gchar        *key,
                                                                          const gchar *const *value);
-GIO_AVAILABLE_IN_ALL
+extern
 gint                    g_settings_get_enum                             (GSettings          *settings,
                                                                          const gchar        *key);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean                g_settings_set_enum                             (GSettings          *settings,
                                                                          const gchar        *key,
                                                                          gint                value);
-GIO_AVAILABLE_IN_ALL
+extern
 guint                   g_settings_get_flags                            (GSettings          *settings,
                                                                          const gchar        *key);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean                g_settings_set_flags                            (GSettings          *settings,
                                                                          const gchar        *key,
                                                                          guint               value);
-GIO_AVAILABLE_IN_ALL
+extern
 GSettings *             g_settings_get_child                            (GSettings          *settings,
                                                                          const gchar        *name);
 
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean                g_settings_is_writable                          (GSettings          *settings,
                                                                          const gchar        *name);
 
-GIO_AVAILABLE_IN_ALL
+extern
 void                    g_settings_delay                                (GSettings          *settings);
-GIO_AVAILABLE_IN_ALL
+extern
 void                    g_settings_apply                                (GSettings          *settings);
-GIO_AVAILABLE_IN_ALL
+extern
 void                    g_settings_revert                               (GSettings          *settings);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean                g_settings_get_has_unapplied                    (GSettings          *settings);
-GIO_AVAILABLE_IN_ALL
+extern
 void                    g_settings_sync                                 (void);
 
 /**
@@ -310,13 +310,13 @@ typedef enum
   G_SETTINGS_BIND_INVERT_BOOLEAN = (1<<4)
 }  GSettingsBindFlags;
 
-GIO_AVAILABLE_IN_ALL
+extern
 void                    g_settings_bind                                 (GSettings               *settings,
                                                                          const gchar             *key,
                                                                          gpointer                 object,
                                                                          const gchar             *property,
                                                                          GSettingsBindFlags       flags);
-GIO_AVAILABLE_IN_ALL
+extern
 void                    g_settings_bind_with_mapping                    (GSettings               *settings,
                                                                          const gchar             *key,
                                                                          gpointer                 object,
@@ -326,7 +326,7 @@ void                    g_settings_bind_with_mapping                    (GSettin
                                                                          GSettingsBindSetMapping  set_mapping,
                                                                          gpointer                 user_data,
                                                                          GDestroyNotify           destroy);
-GIO_AVAILABLE_IN_2_82
+extern
 void g_settings_bind_with_mapping_closures (GSettings *settings,
                                             const char *key,
                                             GObject *object,
@@ -334,21 +334,21 @@ void g_settings_bind_with_mapping_closures (GSettings *settings,
                                             GSettingsBindFlags flags,
                                             GClosure *get_mapping,
                                             GClosure *set_mapping);
-GIO_AVAILABLE_IN_ALL
+extern
 void                    g_settings_bind_writable                        (GSettings               *settings,
                                                                          const gchar             *key,
                                                                          gpointer                 object,
                                                                          const gchar             *property,
                                                                          gboolean                 inverted);
-GIO_AVAILABLE_IN_ALL
+extern
 void                    g_settings_unbind                               (gpointer                 object,
                                                                          const gchar             *property);
 
-GIO_AVAILABLE_IN_2_32
+extern
 GAction *               g_settings_create_action                        (GSettings               *settings,
                                                                          const gchar             *key);
 
-GIO_AVAILABLE_IN_ALL
+extern
 gpointer                g_settings_get_mapped                           (GSettings               *settings,
                                                                          const gchar             *key,
                                                                          GSettingsGetMapping      mapping,

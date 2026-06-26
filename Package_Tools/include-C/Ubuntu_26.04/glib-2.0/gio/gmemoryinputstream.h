@@ -62,23 +62,23 @@ struct _GMemoryInputStreamClass
 };
 
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType          g_memory_input_stream_get_type      (void) ;
-GIO_AVAILABLE_IN_ALL
+extern
 GInputStream * g_memory_input_stream_new           (void);
-GIO_AVAILABLE_IN_ALL
+extern
 GInputStream * g_memory_input_stream_new_from_data (const void         *data,
                                                     gssize              len,
                                                     GDestroyNotify      destroy);
-GIO_AVAILABLE_IN_2_34
+extern
 GInputStream * g_memory_input_stream_new_from_bytes (GBytes            *bytes);
 
-GIO_AVAILABLE_IN_ALL
+extern
 void           g_memory_input_stream_add_data      (GMemoryInputStream *stream,
                                                     const void         *data,
                                                     gssize              len,
                                                     GDestroyNotify      destroy);
-GIO_AVAILABLE_IN_2_34
+extern
 void           g_memory_input_stream_add_bytes     (GMemoryInputStream     *stream,
 						    GBytes                 *bytes);
 

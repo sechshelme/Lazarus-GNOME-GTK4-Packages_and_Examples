@@ -53,23 +53,23 @@ struct _GNetworkServiceClass
 
 };
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType                g_network_service_get_type      (void) ;
 
-GIO_AVAILABLE_IN_ALL
+extern
 GSocketConnectable  *g_network_service_new           (const gchar     *service,
 						      const gchar     *protocol,
 						      const gchar     *domain);
 
-GIO_AVAILABLE_IN_ALL
+extern
 const gchar         *g_network_service_get_service   (GNetworkService *srv);
-GIO_AVAILABLE_IN_ALL
+extern
 const gchar         *g_network_service_get_protocol  (GNetworkService *srv);
-GIO_AVAILABLE_IN_ALL
+extern
 const gchar         *g_network_service_get_domain    (GNetworkService *srv);
-GIO_AVAILABLE_IN_ALL
+extern
 const gchar         *g_network_service_get_scheme    (GNetworkService *srv);
-GIO_AVAILABLE_IN_ALL
+extern
 void                 g_network_service_set_scheme    (GNetworkService *srv, const gchar *scheme);
 
 

@@ -104,23 +104,23 @@ struct _GIconIface
   GVariant *  (* serialize)   (GIcon   *icon);
 };
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType    g_icon_get_type  (void) ;
 
-GIO_AVAILABLE_IN_ALL
+extern
 guint    g_icon_hash            (gconstpointer  icon);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean g_icon_equal           (GIcon         *icon1,
                                  GIcon         *icon2);
-GIO_AVAILABLE_IN_ALL
+extern
 gchar   *g_icon_to_string       (GIcon         *icon);
-GIO_AVAILABLE_IN_ALL
+extern
 GIcon   *g_icon_new_for_string  (const gchar   *str,
                                  GError       **error);
 
-GIO_AVAILABLE_IN_2_38
+extern
 GVariant * g_icon_serialize     (GIcon         *icon);
-GIO_AVAILABLE_IN_2_38
+extern
 GIcon *    g_icon_deserialize   (GVariant      *value);
 
 

@@ -50,10 +50,10 @@ struct _GTlsServerConnectionInterface
 
 };
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType                 g_tls_server_connection_get_type                 (void) ;
 
-GIO_AVAILABLE_IN_ALL
+extern
 GIOStream *           g_tls_server_connection_new                      (GIOStream        *base_io_stream,
 									GTlsCertificate  *certificate,
 									GError          **error);

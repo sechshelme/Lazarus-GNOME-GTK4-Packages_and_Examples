@@ -63,32 +63,32 @@ struct _GUnixFDList
   GUnixFDListPrivate *priv;
 };
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType                   g_unix_fd_list_get_type                         (void) ;
-GIO_AVAILABLE_IN_ALL
+extern
 GUnixFDList *           g_unix_fd_list_new                              (void);
-GIO_AVAILABLE_IN_ALL
+extern
 GUnixFDList *           g_unix_fd_list_new_from_array                   (const gint   *fds,
                                                                          gint          n_fds);
 
-GIO_AVAILABLE_IN_ALL
+extern
 gint                    g_unix_fd_list_append                           (GUnixFDList  *list,
                                                                          gint          fd,
                                                                          GError      **error);
 
-GIO_AVAILABLE_IN_ALL
+extern
 gint                    g_unix_fd_list_get_length                       (GUnixFDList  *list);
 
-GIO_AVAILABLE_IN_ALL
+extern
 gint                    g_unix_fd_list_get                              (GUnixFDList  *list,
                                                                          gint          index_,
                                                                          GError      **error);
 
-GIO_AVAILABLE_IN_ALL
+extern
 const gint *            g_unix_fd_list_peek_fds                         (GUnixFDList  *list,
                                                                          gint         *length);
 
-GIO_AVAILABLE_IN_ALL
+extern
 gint *                  g_unix_fd_list_steal_fds                        (GUnixFDList  *list,
                                                                          gint         *length);
 

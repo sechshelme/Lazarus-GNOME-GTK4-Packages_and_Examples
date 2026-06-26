@@ -73,9 +73,9 @@ struct _GThreadedSocketService
   GThreadedSocketServicePrivate *priv;
 };
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType                   g_threaded_socket_service_get_type              (void);
-GIO_AVAILABLE_IN_ALL
+extern
 GSocketService *        g_threaded_socket_service_new                   (int max_threads);
 
 

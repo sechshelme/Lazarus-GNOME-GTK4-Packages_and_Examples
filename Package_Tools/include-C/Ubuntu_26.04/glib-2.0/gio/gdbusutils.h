@@ -31,33 +31,33 @@
 
 
 
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean g_dbus_is_guid (const gchar *string);
-GIO_AVAILABLE_IN_ALL
+extern
 gchar *g_dbus_generate_guid (void);
 
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean g_dbus_is_name (const gchar *string);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean g_dbus_is_unique_name (const gchar *string);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean g_dbus_is_member_name (const gchar *string);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean g_dbus_is_interface_name (const gchar *string);
-GIO_AVAILABLE_IN_2_70
+extern
 gboolean g_dbus_is_error_name (const gchar *string);
 
-GIO_AVAILABLE_IN_ALL
+extern
 void g_dbus_gvariant_to_gvalue (GVariant  *value,
                                 GValue    *out_gvalue);
-GIO_AVAILABLE_IN_ALL
+extern
 GVariant *g_dbus_gvalue_to_gvariant (const GValue         *gvalue,
                                      const GVariantType   *type);
-GIO_AVAILABLE_IN_2_68
+extern
 gchar *g_dbus_escape_object_path_bytestring (const guint8 *bytes);
-GIO_AVAILABLE_IN_2_68
+extern
 gchar *g_dbus_escape_object_path (const gchar *s);
-GIO_AVAILABLE_IN_2_68
+extern
 guint8 *g_dbus_unescape_object_path (const gchar *s);
 
 

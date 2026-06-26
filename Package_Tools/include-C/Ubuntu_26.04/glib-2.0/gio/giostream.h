@@ -80,15 +80,15 @@ struct _GIOStreamClass
   void (*_g_reserved10) (void);
 };
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType          g_io_stream_get_type          (void)  ;
 
-GIO_AVAILABLE_IN_ALL
+extern
 GInputStream * g_io_stream_get_input_stream  (GIOStream            *stream);
-GIO_AVAILABLE_IN_ALL
+extern
 GOutputStream *g_io_stream_get_output_stream (GIOStream            *stream);
 
-GIO_AVAILABLE_IN_ALL
+extern
 void           g_io_stream_splice_async      (GIOStream            *stream1,
 					      GIOStream            *stream2,
 					      GIOStreamSpliceFlags  flags,
@@ -97,34 +97,34 @@ void           g_io_stream_splice_async      (GIOStream            *stream1,
 					      GAsyncReadyCallback   callback,
 					      gpointer              user_data);
 
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean       g_io_stream_splice_finish     (GAsyncResult         *result,
                                               GError              **error);
 
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean       g_io_stream_close             (GIOStream            *stream,
 					      GCancellable         *cancellable,
 					      GError              **error);
 
-GIO_AVAILABLE_IN_ALL
+extern
 void           g_io_stream_close_async       (GIOStream            *stream,
 					      int                   io_priority,
 					      GCancellable         *cancellable,
 					      GAsyncReadyCallback   callback,
 					      gpointer              user_data);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean       g_io_stream_close_finish      (GIOStream            *stream,
 					      GAsyncResult         *result,
 					      GError              **error);
 
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean       g_io_stream_is_closed         (GIOStream            *stream);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean       g_io_stream_has_pending       (GIOStream            *stream);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean       g_io_stream_set_pending       (GIOStream            *stream,
 					      GError              **error);
-GIO_AVAILABLE_IN_ALL
+extern
 void           g_io_stream_clear_pending     (GIOStream            *stream);
 
 

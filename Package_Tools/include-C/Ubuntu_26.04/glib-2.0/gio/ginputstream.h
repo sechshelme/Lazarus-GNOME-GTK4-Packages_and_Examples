@@ -106,37 +106,37 @@ struct _GInputStreamClass
   void (*_g_reserved5) (void);
 };
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType    g_input_stream_get_type      (void) ;
 
-GIO_AVAILABLE_IN_ALL
+extern
 gssize   g_input_stream_read          (GInputStream          *stream,
 				       void                  *buffer,
 				       gsize                  count,
 				       GCancellable          *cancellable,
 				       GError               **error);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean g_input_stream_read_all      (GInputStream          *stream,
 				       void                  *buffer,
 				       gsize                  count,
 				       gsize                 *bytes_read,
 				       GCancellable          *cancellable,
 				       GError               **error);
-GIO_AVAILABLE_IN_2_34
+extern
 GBytes  *g_input_stream_read_bytes    (GInputStream          *stream,
 				       gsize                  count,
 				       GCancellable          *cancellable,
 				       GError               **error);
-GIO_AVAILABLE_IN_ALL
+extern
 gssize   g_input_stream_skip          (GInputStream          *stream,
 				       gsize                  count,
 				       GCancellable          *cancellable,
 				       GError               **error);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean g_input_stream_close         (GInputStream          *stream,
 				       GCancellable          *cancellable,
 				       GError               **error);
-GIO_AVAILABLE_IN_ALL
+extern
 void     g_input_stream_read_async    (GInputStream          *stream,
 				       void                  *buffer,
 				       gsize                  count,
@@ -144,12 +144,12 @@ void     g_input_stream_read_async    (GInputStream          *stream,
 				       GCancellable          *cancellable,
 				       GAsyncReadyCallback    callback,
 				       gpointer               user_data);
-GIO_AVAILABLE_IN_ALL
+extern
 gssize   g_input_stream_read_finish   (GInputStream          *stream,
 				       GAsyncResult          *result,
 				       GError               **error);
 
-GIO_AVAILABLE_IN_2_44
+extern
 void     g_input_stream_read_all_async    (GInputStream          *stream,
                                            void                  *buffer,
                                            gsize                  count,
@@ -157,55 +157,55 @@ void     g_input_stream_read_all_async    (GInputStream          *stream,
                                            GCancellable          *cancellable,
                                            GAsyncReadyCallback    callback,
                                            gpointer               user_data);
-GIO_AVAILABLE_IN_2_44
+extern
 gboolean g_input_stream_read_all_finish   (GInputStream          *stream,
                                            GAsyncResult          *result,
                                            gsize                 *bytes_read,
                                            GError               **error);
 
-GIO_AVAILABLE_IN_2_34
+extern
 void     g_input_stream_read_bytes_async  (GInputStream          *stream,
 					   gsize                  count,
 					   int                    io_priority,
 					   GCancellable          *cancellable,
 					   GAsyncReadyCallback    callback,
 					   gpointer               user_data);
-GIO_AVAILABLE_IN_2_34
+extern
 GBytes  *g_input_stream_read_bytes_finish (GInputStream          *stream,
 					   GAsyncResult          *result,
 					   GError               **error);
-GIO_AVAILABLE_IN_ALL
+extern
 void     g_input_stream_skip_async    (GInputStream          *stream,
 				       gsize                  count,
 				       int                    io_priority,
 				       GCancellable          *cancellable,
 				       GAsyncReadyCallback    callback,
 				       gpointer               user_data);
-GIO_AVAILABLE_IN_ALL
+extern
 gssize   g_input_stream_skip_finish   (GInputStream          *stream,
 				       GAsyncResult          *result,
 				       GError               **error);
-GIO_AVAILABLE_IN_ALL
+extern
 void     g_input_stream_close_async   (GInputStream          *stream,
 				       int                    io_priority,
 				       GCancellable          *cancellable,
 				       GAsyncReadyCallback    callback,
 				       gpointer               user_data);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean g_input_stream_close_finish  (GInputStream          *stream,
 				       GAsyncResult          *result,
 				       GError               **error);
 
 /* For implementations: */
 
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean g_input_stream_is_closed     (GInputStream          *stream);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean g_input_stream_has_pending   (GInputStream          *stream);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean g_input_stream_set_pending   (GInputStream          *stream,
 				       GError               **error);
-GIO_AVAILABLE_IN_ALL
+extern
 void     g_input_stream_clear_pending (GInputStream          *stream);
 
 

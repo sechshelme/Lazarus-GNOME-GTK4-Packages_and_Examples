@@ -66,32 +66,32 @@ struct _GNetworkMonitorInterface {
 				GError              **error);
 };
 
-GIO_AVAILABLE_IN_2_32
+extern
 GType                 g_network_monitor_get_type              (void) ;
-GIO_AVAILABLE_IN_2_32
+extern
 GNetworkMonitor      *g_network_monitor_get_default           (void);
 
-GIO_AVAILABLE_IN_2_32
+extern
 gboolean              g_network_monitor_get_network_available (GNetworkMonitor     *monitor);
 
-GIO_AVAILABLE_IN_2_46
+extern
 gboolean              g_network_monitor_get_network_metered   (GNetworkMonitor     *monitor);
 
-GIO_AVAILABLE_IN_2_44
+extern
 GNetworkConnectivity  g_network_monitor_get_connectivity      (GNetworkMonitor     *monitor);
 
-GIO_AVAILABLE_IN_2_32
+extern
 gboolean              g_network_monitor_can_reach             (GNetworkMonitor     *monitor,
                                                                GSocketConnectable  *connectable,
                                                                GCancellable        *cancellable,
                                                                GError             **error);
-GIO_AVAILABLE_IN_2_32
+extern
 void                  g_network_monitor_can_reach_async       (GNetworkMonitor     *monitor,
                                                                GSocketConnectable  *connectable,
                                                                GCancellable        *cancellable,
                                                                GAsyncReadyCallback  callback,
                                                                gpointer             user_data);
-GIO_AVAILABLE_IN_2_32
+extern
 gboolean              g_network_monitor_can_reach_finish      (GNetworkMonitor     *monitor,
                                                                GAsyncResult        *result,
                                                                GError             **error);

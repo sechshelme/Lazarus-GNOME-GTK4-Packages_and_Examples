@@ -57,13 +57,13 @@ struct _GTcpWrapperConnection
   GTcpWrapperConnectionPrivate *priv;
 };
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType              g_tcp_wrapper_connection_get_type (void) ;
 
-GIO_AVAILABLE_IN_ALL
+extern
 GSocketConnection *g_tcp_wrapper_connection_new                (GIOStream             *base_io_stream,
 								GSocket               *socket);
-GIO_AVAILABLE_IN_ALL
+extern
 GIOStream         *g_tcp_wrapper_connection_get_base_io_stream (GTcpWrapperConnection *conn);
 
 

@@ -40,7 +40,7 @@
 #define G_MEMORY_MONITOR_EXTENSION_POINT_NAME "gio-memory-monitor"
 
 #define G_TYPE_MEMORY_MONITOR             (g_memory_monitor_get_type ())
-GIO_AVAILABLE_IN_2_64
+extern
 G_DECLARE_INTERFACE(GMemoryMonitor, g_memory_monitor, g, memory_monitor, GObject)
 
 #define G_MEMORY_MONITOR(o)               (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_MEMORY_MONITOR, GMemoryMonitor))
@@ -56,7 +56,7 @@ struct _GMemoryMonitorInterface {
                                    GMemoryMonitorWarningLevel  level);
 };
 
-GIO_AVAILABLE_IN_2_64
+extern
 GMemoryMonitor      *g_memory_monitor_dup_default           (void);
 
 

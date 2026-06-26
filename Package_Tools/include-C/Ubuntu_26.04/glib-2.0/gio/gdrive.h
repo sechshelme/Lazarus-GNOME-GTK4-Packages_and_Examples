@@ -170,103 +170,103 @@ struct _GDriveIface
 
 };
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType    g_drive_get_type                 (void) ;
 
-GIO_AVAILABLE_IN_ALL
+extern
 char *   g_drive_get_name                 (GDrive               *drive);
-GIO_AVAILABLE_IN_ALL
+extern
 GIcon *  g_drive_get_icon                 (GDrive               *drive);
-GIO_AVAILABLE_IN_ALL
+extern
 GIcon *  g_drive_get_symbolic_icon        (GDrive               *drive);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean g_drive_has_volumes              (GDrive               *drive);
-GIO_AVAILABLE_IN_ALL
+extern
 GList *  g_drive_get_volumes              (GDrive               *drive);
-GIO_AVAILABLE_IN_2_50
+extern
 gboolean g_drive_is_removable             (GDrive               *drive);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean g_drive_is_media_removable       (GDrive               *drive);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean g_drive_has_media                (GDrive               *drive);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean g_drive_is_media_check_automatic (GDrive               *drive);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean g_drive_can_poll_for_media       (GDrive               *drive);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean g_drive_can_eject                (GDrive               *drive);
-GIO_DEPRECATED_FOR(g_drive_eject_with_operation)
+extern //xxxxxGLIB_DEPRECATED_FOR(g_drive_eject_with_operation)
 void     g_drive_eject                    (GDrive               *drive,
                                            GMountUnmountFlags    flags,
                                            GCancellable         *cancellable,
                                            GAsyncReadyCallback   callback,
                                            gpointer              user_data);
 
-GIO_DEPRECATED_FOR(g_drive_eject_with_operation_finish)
+extern //xxxxxGLIB_DEPRECATED_FOR(g_drive_eject_with_operation_finish)
 gboolean g_drive_eject_finish             (GDrive               *drive,
                                            GAsyncResult         *result,
                                            GError              **error);
-GIO_AVAILABLE_IN_ALL
+extern
 void     g_drive_poll_for_media           (GDrive               *drive,
                                            GCancellable         *cancellable,
                                            GAsyncReadyCallback   callback,
                                            gpointer              user_data);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean g_drive_poll_for_media_finish    (GDrive               *drive,
                                            GAsyncResult         *result,
                                            GError              **error);
-GIO_AVAILABLE_IN_ALL
+extern
 char *   g_drive_get_identifier           (GDrive              *drive,
                                            const char          *kind);
-GIO_AVAILABLE_IN_ALL
+extern
 char **  g_drive_enumerate_identifiers    (GDrive              *drive);
 
-GIO_AVAILABLE_IN_ALL
+extern
 GDriveStartStopType g_drive_get_start_stop_type (GDrive        *drive);
 
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean g_drive_can_start                (GDrive              *drive);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean g_drive_can_start_degraded       (GDrive              *drive);
-GIO_AVAILABLE_IN_ALL
+extern
 void     g_drive_start                    (GDrive              *drive,
                                            GDriveStartFlags     flags,
                                            GMountOperation     *mount_operation,
                                            GCancellable        *cancellable,
                                            GAsyncReadyCallback  callback,
                                            gpointer             user_data);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean g_drive_start_finish             (GDrive               *drive,
                                            GAsyncResult         *result,
                                            GError              **error);
 
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean g_drive_can_stop                 (GDrive               *drive);
-GIO_AVAILABLE_IN_ALL
+extern
 void     g_drive_stop                     (GDrive               *drive,
                                            GMountUnmountFlags    flags,
                                            GMountOperation      *mount_operation,
                                            GCancellable         *cancellable,
                                            GAsyncReadyCallback   callback,
                                            gpointer              user_data);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean g_drive_stop_finish              (GDrive               *drive,
                                            GAsyncResult         *result,
                                            GError              **error);
 
-GIO_AVAILABLE_IN_ALL
+extern
 void        g_drive_eject_with_operation      (GDrive              *drive,
                                                GMountUnmountFlags   flags,
                                                GMountOperation     *mount_operation,
                                                GCancellable        *cancellable,
                                                GAsyncReadyCallback  callback,
                                                gpointer             user_data);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean    g_drive_eject_with_operation_finish (GDrive            *drive,
                                                GAsyncResult        *result,
                                                GError             **error);
 
-GIO_AVAILABLE_IN_2_32
+extern
 const gchar *g_drive_get_sort_key         (GDrive               *drive);
 
 

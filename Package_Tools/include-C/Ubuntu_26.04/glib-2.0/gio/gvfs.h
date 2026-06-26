@@ -123,30 +123,30 @@ struct _GVfsClass
   void (*_g_reserved6) (void);
 };
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType                 g_vfs_get_type                  (void) ;
 
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean              g_vfs_is_active                 (GVfs       *vfs);
-GIO_AVAILABLE_IN_ALL
+extern
 GFile *               g_vfs_get_file_for_path         (GVfs       *vfs,
                                                        const char *path);
-GIO_AVAILABLE_IN_ALL
+extern
 GFile *               g_vfs_get_file_for_uri          (GVfs       *vfs,
                                                        const char *uri);
-GIO_AVAILABLE_IN_ALL
+extern
 const gchar* const * g_vfs_get_supported_uri_schemes  (GVfs       *vfs);
 
-GIO_AVAILABLE_IN_ALL
+extern
 GFile *               g_vfs_parse_name                (GVfs       *vfs,
                                                        const char *parse_name);
 
-GIO_AVAILABLE_IN_ALL
+extern
 GVfs *                g_vfs_get_default               (void);
-GIO_AVAILABLE_IN_ALL
+extern
 GVfs *                g_vfs_get_local                 (void);
 
-GIO_AVAILABLE_IN_2_50
+extern
 gboolean              g_vfs_register_uri_scheme       (GVfs               *vfs,
                                                        const char         *scheme,
                                                        GVfsFileLookupFunc  uri_func,
@@ -155,7 +155,7 @@ gboolean              g_vfs_register_uri_scheme       (GVfs               *vfs,
                                                        GVfsFileLookupFunc  parse_name_func,
                                                        gpointer            parse_name_data,
                                                        GDestroyNotify      parse_name_destroy);
-GIO_AVAILABLE_IN_2_50
+extern
 gboolean              g_vfs_unregister_uri_scheme     (GVfs               *vfs,
                                                        const char         *scheme);
 

@@ -69,22 +69,22 @@ struct _GLoadableIconIface
                                   GError             **error);
 };
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType         g_loadable_icon_get_type    (void) ;
 
-GIO_AVAILABLE_IN_ALL
+extern
 GInputStream *g_loadable_icon_load        (GLoadableIcon        *icon,
 					   int                   size,
 					   char                **type,
 					   GCancellable         *cancellable,
 					   GError              **error);
-GIO_AVAILABLE_IN_ALL
+extern
 void          g_loadable_icon_load_async  (GLoadableIcon        *icon,
 					   int                   size,
 					   GCancellable         *cancellable,
 					   GAsyncReadyCallback   callback,
 					   gpointer              user_data);
-GIO_AVAILABLE_IN_ALL
+extern
 GInputStream *g_loadable_icon_load_finish (GLoadableIcon        *icon,
 					   GAsyncResult         *res,
 					   char                **type,

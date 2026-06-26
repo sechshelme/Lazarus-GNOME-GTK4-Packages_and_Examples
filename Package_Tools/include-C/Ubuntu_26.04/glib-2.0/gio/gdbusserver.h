@@ -35,26 +35,26 @@
 #define G_DBUS_SERVER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_DBUS_SERVER, GDBusServer))
 #define G_IS_DBUS_SERVER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), G_TYPE_DBUS_SERVER))
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType             g_dbus_server_get_type           (void) ;
-GIO_AVAILABLE_IN_ALL
+extern
 GDBusServer      *g_dbus_server_new_sync           (const gchar       *address,
                                                     GDBusServerFlags   flags,
                                                     const gchar       *guid,
                                                     GDBusAuthObserver *observer,
                                                     GCancellable      *cancellable,
                                                     GError           **error);
-GIO_AVAILABLE_IN_ALL
+extern
 const gchar      *g_dbus_server_get_client_address (GDBusServer       *server);
-GIO_AVAILABLE_IN_ALL
+extern
 const gchar      *g_dbus_server_get_guid           (GDBusServer       *server);
-GIO_AVAILABLE_IN_ALL
+extern
 GDBusServerFlags  g_dbus_server_get_flags          (GDBusServer       *server);
-GIO_AVAILABLE_IN_ALL
+extern
 void              g_dbus_server_start              (GDBusServer       *server);
-GIO_AVAILABLE_IN_ALL
+extern
 void              g_dbus_server_stop               (GDBusServer       *server);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean          g_dbus_server_is_active          (GDBusServer       *server);
 
 

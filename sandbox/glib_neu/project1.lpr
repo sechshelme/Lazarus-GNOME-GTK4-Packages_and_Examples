@@ -1,27 +1,6 @@
 program project1;
 
 uses
-  gtype,
-  gtypeplugin,
-  gvalue,
-  genums,
-  gparam,
-  gparamspecs,
-  gclosure,
-  gsignal,
-  gobject,
-  gbinding,
-  gbindinggroup,
-  gboxed,
-  glib_enumtypes,
-  glib_types,
-  gmarshal,
-  gsignalgroup,
-  gsourceclosure,
-  gtypemodule,
-  gvaluearray,
-  gvaluecollector,
-  gvaluetypes,
 
   fp_glib2;
 

@@ -73,22 +73,22 @@ struct _GSeekableIface
   /* TODO: Async seek/truncate */
 };
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType    g_seekable_get_type     (void) ;
 
-GIO_AVAILABLE_IN_ALL
+extern
 goffset  g_seekable_tell         (GSeekable     *seekable);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean g_seekable_can_seek     (GSeekable     *seekable);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean g_seekable_seek         (GSeekable     *seekable,
 				  goffset        offset,
 				  GSeekType      type,
 				  GCancellable  *cancellable,
 				  GError       **error);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean g_seekable_can_truncate (GSeekable     *seekable);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean g_seekable_truncate     (GSeekable     *seekable,
 				  goffset        offset,
 				  GCancellable  *cancellable,

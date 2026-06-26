@@ -57,16 +57,16 @@ struct _GRemoteActionGroupInterface
                                      GVariant           *platform_data);
 };
 
-GIO_AVAILABLE_IN_2_32
+extern
 GType                   g_remote_action_group_get_type                  (void) ;
 
-GIO_AVAILABLE_IN_2_32
+extern
 void                    g_remote_action_group_activate_action_full      (GRemoteActionGroup *remote,
                                                                          const gchar        *action_name,
                                                                          GVariant           *parameter,
                                                                          GVariant           *platform_data);
 
-GIO_AVAILABLE_IN_2_32
+extern
 void                    g_remote_action_group_change_action_state_full  (GRemoteActionGroup *remote,
                                                                          const gchar        *action_name,
                                                                          GVariant           *value,

@@ -77,7 +77,7 @@
 
 
 
-GIO_AVAILABLE_IN_2_36
+extern
 void g_networking_init (void);
 
 

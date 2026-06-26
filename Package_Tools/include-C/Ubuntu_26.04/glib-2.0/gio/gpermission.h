@@ -81,44 +81,44 @@ struct _GPermissionClass {
   gpointer reserved[16];
 };
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType           g_permission_get_type           (void);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean        g_permission_acquire            (GPermission          *permission,
                                                  GCancellable         *cancellable,
                                                  GError              **error);
-GIO_AVAILABLE_IN_ALL
+extern
 void            g_permission_acquire_async      (GPermission          *permission,
                                                  GCancellable         *cancellable,
                                                  GAsyncReadyCallback   callback,
                                                  gpointer              user_data);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean        g_permission_acquire_finish     (GPermission          *permission,
                                                  GAsyncResult         *result,
                                                  GError              **error);
 
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean        g_permission_release            (GPermission          *permission,
                                                  GCancellable         *cancellable,
                                                  GError              **error);
-GIO_AVAILABLE_IN_ALL
+extern
 void            g_permission_release_async      (GPermission          *permission,
                                                  GCancellable         *cancellable,
                                                  GAsyncReadyCallback   callback,
                                                  gpointer              user_data);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean        g_permission_release_finish     (GPermission          *permission,
                                                  GAsyncResult         *result,
                                                  GError              **error);
 
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean        g_permission_get_allowed        (GPermission   *permission);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean        g_permission_get_can_acquire    (GPermission   *permission);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean        g_permission_get_can_release    (GPermission   *permission);
 
-GIO_AVAILABLE_IN_ALL
+extern
 void            g_permission_impl_update        (GPermission  *permission,
                                                  gboolean      allowed,
                                                  gboolean      can_acquire,

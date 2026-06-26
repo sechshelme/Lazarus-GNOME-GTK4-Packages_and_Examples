@@ -114,57 +114,57 @@ struct _GMountOperationClass
   void (*_g_reserved9) (void);
 };
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType             g_mount_operation_get_type      (void) ;
-GIO_AVAILABLE_IN_ALL
+extern
 GMountOperation * g_mount_operation_new           (void);
 
-GIO_AVAILABLE_IN_ALL
+extern
 const char *  g_mount_operation_get_username      (GMountOperation *op);
-GIO_AVAILABLE_IN_ALL
+extern
 void          g_mount_operation_set_username      (GMountOperation *op,
 						   const char      *username);
-GIO_AVAILABLE_IN_ALL
+extern
 const char *  g_mount_operation_get_password      (GMountOperation *op);
-GIO_AVAILABLE_IN_ALL
+extern
 void          g_mount_operation_set_password      (GMountOperation *op,
 						   const char      *password);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean      g_mount_operation_get_anonymous     (GMountOperation *op);
-GIO_AVAILABLE_IN_ALL
+extern
 void          g_mount_operation_set_anonymous     (GMountOperation *op,
 						   gboolean         anonymous);
-GIO_AVAILABLE_IN_ALL
+extern
 const char *  g_mount_operation_get_domain        (GMountOperation *op);
-GIO_AVAILABLE_IN_ALL
+extern
 void          g_mount_operation_set_domain        (GMountOperation *op,
 						   const char      *domain);
-GIO_AVAILABLE_IN_ALL
+extern
 GPasswordSave g_mount_operation_get_password_save (GMountOperation *op);
-GIO_AVAILABLE_IN_ALL
+extern
 void          g_mount_operation_set_password_save (GMountOperation *op,
 						   GPasswordSave    save);
-GIO_AVAILABLE_IN_ALL
+extern
 int           g_mount_operation_get_choice        (GMountOperation *op);
-GIO_AVAILABLE_IN_ALL
+extern
 void          g_mount_operation_set_choice        (GMountOperation *op,
 						   int              choice);
-GIO_AVAILABLE_IN_ALL
+extern
 void          g_mount_operation_reply             (GMountOperation *op,
 						   GMountOperationResult result);
-GIO_AVAILABLE_IN_2_58
+extern
 gboolean      g_mount_operation_get_is_tcrypt_hidden_volume (GMountOperation *op);
-GIO_AVAILABLE_IN_2_58
+extern
 void          g_mount_operation_set_is_tcrypt_hidden_volume (GMountOperation *op,
                                                              gboolean hidden_volume);
-GIO_AVAILABLE_IN_2_58
+extern
 gboolean      g_mount_operation_get_is_tcrypt_system_volume (GMountOperation *op);
-GIO_AVAILABLE_IN_2_58
+extern
 void          g_mount_operation_set_is_tcrypt_system_volume (GMountOperation *op,
                                                              gboolean system_volume);
-GIO_AVAILABLE_IN_2_58
+extern
 guint  g_mount_operation_get_pim           (GMountOperation *op);
-GIO_AVAILABLE_IN_2_58
+extern
 void          g_mount_operation_set_pim           (GMountOperation *op,
                                                    guint pim);
 

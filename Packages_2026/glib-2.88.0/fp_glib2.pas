@@ -90,7 +90,7 @@ type
   {$DEFINE read_interface}
   {$include glibconfig.inc}        // Aussklammern rückgängig machen
   {$include fp_glib2_includes.inc}
-  //{$include fp_gobject2_includes.inc}
+  {$include fp_gobject2_includes.inc}
   //{$include fp_gio2_includes.inc}
   {$UNDEF read_interface}
 
@@ -100,7 +100,7 @@ implementation
 {$DEFINE read_implementation}
 {$include glibconfig.inc}        // Aussklammern rückgängig machen
 {$include fp_glib2_includes.inc}
-//{$include fp_gobject2_includes.inc}
+{$include fp_gobject2_includes.inc}
 //{$include fp_gio2_includes.inc}
 {$UNDEF read_implementation}
 

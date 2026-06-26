@@ -88,27 +88,27 @@ struct _GFileOutputStreamClass
   void (*_g_reserved5) (void);
 };
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType      g_file_output_stream_get_type          (void) ;
 
 
-GIO_AVAILABLE_IN_ALL
+extern
 GFileInfo *g_file_output_stream_query_info        (GFileOutputStream    *stream,
                                                    const char           *attributes,
                                                    GCancellable         *cancellable,
                                                    GError              **error);
-GIO_AVAILABLE_IN_ALL
+extern
 void       g_file_output_stream_query_info_async  (GFileOutputStream    *stream,
 						   const char           *attributes,
 						   int                   io_priority,
 						   GCancellable         *cancellable,
 						   GAsyncReadyCallback   callback,
 						   gpointer              user_data);
-GIO_AVAILABLE_IN_ALL
+extern
 GFileInfo *g_file_output_stream_query_info_finish (GFileOutputStream    *stream,
 						   GAsyncResult         *result,
 						   GError              **error);
-GIO_AVAILABLE_IN_ALL
+extern
 char *     g_file_output_stream_get_etag          (GFileOutputStream    *stream);
 
 

@@ -29,16 +29,16 @@
 
 #define G_TYPE_IPV6_TCLASS_MESSAGE (g_ipv6_tclass_message_get_type ())
 
-GIO_AVAILABLE_IN_2_88
+extern
 G_DECLARE_FINAL_TYPE (GIPv6TclassMessage, g_ipv6_tclass_message, G, IPV6_TCLASS_MESSAGE, GSocketControlMessage)
 
-GIO_AVAILABLE_IN_2_88
+extern
 GSocketControlMessage *g_ipv6_tclass_message_new (guint8 dscp, GEcnCodePoint ecn);
 
-GIO_AVAILABLE_IN_2_88
+extern
 guint8 g_ipv6_tclass_message_get_dscp (GIPv6TclassMessage *message);
 
-GIO_AVAILABLE_IN_2_88
+extern
 GEcnCodePoint g_ipv6_tclass_message_get_ecn (GIPv6TclassMessage *message);
 
 

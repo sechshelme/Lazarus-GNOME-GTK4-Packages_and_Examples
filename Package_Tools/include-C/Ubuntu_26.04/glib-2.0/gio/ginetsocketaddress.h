@@ -55,24 +55,24 @@ struct _GInetSocketAddressClass
   GSocketAddressClass parent_class;
 };
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType           g_inet_socket_address_get_type        (void) ;
 
-GIO_AVAILABLE_IN_ALL
+extern
 GSocketAddress *g_inet_socket_address_new             (GInetAddress       *address,
                                                        guint16             port);
-GIO_AVAILABLE_IN_2_40
+extern
 GSocketAddress *g_inet_socket_address_new_from_string (const char         *address,
                                                        guint               port);
 
-GIO_AVAILABLE_IN_ALL
+extern
 GInetAddress *  g_inet_socket_address_get_address     (GInetSocketAddress *address);
-GIO_AVAILABLE_IN_ALL
+extern
 guint16         g_inet_socket_address_get_port        (GInetSocketAddress *address);
 
-GIO_AVAILABLE_IN_2_32
+extern
 guint32         g_inet_socket_address_get_flowinfo    (GInetSocketAddress *address);
-GIO_AVAILABLE_IN_2_32
+extern
 guint32         g_inet_socket_address_get_scope_id    (GInetSocketAddress *address);
 
 

@@ -107,70 +107,70 @@ struct _GDtlsConnectionInterface
 
 };
 
-GIO_AVAILABLE_IN_2_48
+extern
 GType                 g_dtls_connection_get_type                    (void) ;
 
-GIO_AVAILABLE_IN_2_48
+extern
 void                  g_dtls_connection_set_database                (GDtlsConnection       *conn,
                                                                      GTlsDatabase          *database);
-GIO_AVAILABLE_IN_2_48
+extern
 GTlsDatabase         *g_dtls_connection_get_database                (GDtlsConnection       *conn);
 
-GIO_AVAILABLE_IN_2_48
+extern
 void                  g_dtls_connection_set_certificate             (GDtlsConnection       *conn,
                                                                      GTlsCertificate       *certificate);
-GIO_AVAILABLE_IN_2_48
+extern
 GTlsCertificate      *g_dtls_connection_get_certificate             (GDtlsConnection       *conn);
 
-GIO_AVAILABLE_IN_2_48
+extern
 void                  g_dtls_connection_set_interaction             (GDtlsConnection       *conn,
                                                                      GTlsInteraction       *interaction);
-GIO_AVAILABLE_IN_2_48
+extern
 GTlsInteraction      *g_dtls_connection_get_interaction             (GDtlsConnection       *conn);
 
-GIO_AVAILABLE_IN_2_48
+extern
 GTlsCertificate      *g_dtls_connection_get_peer_certificate        (GDtlsConnection       *conn);
-GIO_AVAILABLE_IN_2_48
+extern
 GTlsCertificateFlags  g_dtls_connection_get_peer_certificate_errors (GDtlsConnection       *conn);
 
-GIO_AVAILABLE_IN_2_48
+extern
 void                  g_dtls_connection_set_require_close_notify    (GDtlsConnection       *conn,
                                                                      gboolean               require_close_notify);
-GIO_AVAILABLE_IN_2_48
+extern
 gboolean              g_dtls_connection_get_require_close_notify    (GDtlsConnection       *conn);
 
 
-GIO_DEPRECATED_IN_2_60
+extern //xxxxxGLIB_DEPRECATED_IN_2_60
 void                  g_dtls_connection_set_rehandshake_mode        (GDtlsConnection       *conn,
                                                                      GTlsRehandshakeMode    mode);
-GIO_DEPRECATED_IN_2_60
+extern //xxxxxGLIB_DEPRECATED_IN_2_60
 GTlsRehandshakeMode   g_dtls_connection_get_rehandshake_mode        (GDtlsConnection       *conn);
 
 
-GIO_AVAILABLE_IN_2_48
+extern
 gboolean              g_dtls_connection_handshake                   (GDtlsConnection       *conn,
                                                                      GCancellable          *cancellable,
                                                                      GError               **error);
 
-GIO_AVAILABLE_IN_2_48
+extern
 void                  g_dtls_connection_handshake_async             (GDtlsConnection       *conn,
                                                                      int                    io_priority,
                                                                      GCancellable          *cancellable,
                                                                      GAsyncReadyCallback    callback,
                                                                      gpointer               user_data);
-GIO_AVAILABLE_IN_2_48
+extern
 gboolean              g_dtls_connection_handshake_finish            (GDtlsConnection       *conn,
                                                                      GAsyncResult          *result,
                                                                      GError               **error);
 
-GIO_AVAILABLE_IN_2_48
+extern
 gboolean              g_dtls_connection_shutdown                    (GDtlsConnection       *conn,
                                                                      gboolean               shutdown_read,
                                                                      gboolean               shutdown_write,
                                                                      GCancellable          *cancellable,
                                                                      GError               **error);
 
-GIO_AVAILABLE_IN_2_48
+extern
 void                  g_dtls_connection_shutdown_async              (GDtlsConnection       *conn,
                                                                      gboolean               shutdown_read,
                                                                      gboolean               shutdown_write,
@@ -178,51 +178,51 @@ void                  g_dtls_connection_shutdown_async              (GDtlsConnec
                                                                      GCancellable          *cancellable,
                                                                      GAsyncReadyCallback    callback,
                                                                      gpointer               user_data);
-GIO_AVAILABLE_IN_2_48
+extern
 gboolean              g_dtls_connection_shutdown_finish             (GDtlsConnection       *conn,
                                                                      GAsyncResult          *result,
                                                                      GError               **error);
 
-GIO_AVAILABLE_IN_2_48
+extern
 gboolean              g_dtls_connection_close                       (GDtlsConnection       *conn,
                                                                      GCancellable          *cancellable,
                                                                      GError               **error);
 
-GIO_AVAILABLE_IN_2_48
+extern
 void                  g_dtls_connection_close_async                 (GDtlsConnection       *conn,
                                                                      int                    io_priority,
                                                                      GCancellable          *cancellable,
                                                                      GAsyncReadyCallback    callback,
                                                                      gpointer               user_data);
-GIO_AVAILABLE_IN_2_48
+extern
 gboolean              g_dtls_connection_close_finish                (GDtlsConnection       *conn,
                                                                      GAsyncResult          *result,
                                                                      GError               **error);
 
 /*< protected >*/
-GIO_AVAILABLE_IN_2_48
+extern
 gboolean              g_dtls_connection_emit_accept_certificate     (GDtlsConnection       *conn,
                                                                      GTlsCertificate       *peer_cert,
                                                                      GTlsCertificateFlags   errors);
-GIO_AVAILABLE_IN_2_60
+extern
 void                  g_dtls_connection_set_advertised_protocols    (GDtlsConnection     *conn,
                                                                      const gchar * const *protocols);
 
-GIO_AVAILABLE_IN_2_60
+extern
 const gchar *          g_dtls_connection_get_negotiated_protocol     (GDtlsConnection    *conn);
 
 
-GIO_AVAILABLE_IN_2_66
+extern
 gboolean              g_dtls_connection_get_channel_binding_data    (GDtlsConnection         *conn,
                                                                      GTlsChannelBindingType   type,
                                                                      GByteArray              *data,
                                                                      GError                 **error);
 
 
-GIO_AVAILABLE_IN_2_70
+extern
 GTlsProtocolVersion   g_dtls_connection_get_protocol_version        (GDtlsConnection       *conn);
 
-GIO_AVAILABLE_IN_2_70
+extern
 gchar *               g_dtls_connection_get_ciphersuite_name        (GDtlsConnection       *conn);
 
 

@@ -74,19 +74,19 @@ struct _GPollableInputStreamInterface
 				    GError               **error);
 };
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType    g_pollable_input_stream_get_type         (void) ;
 
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean g_pollable_input_stream_can_poll         (GPollableInputStream  *stream);
 
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean g_pollable_input_stream_is_readable      (GPollableInputStream  *stream);
-GIO_AVAILABLE_IN_ALL
+extern
 GSource *g_pollable_input_stream_create_source    (GPollableInputStream  *stream,
 						   GCancellable          *cancellable);
 
-GIO_AVAILABLE_IN_ALL
+extern
 gssize   g_pollable_input_stream_read_nonblocking (GPollableInputStream  *stream,
 						   void                  *buffer,
 						   gsize                  count,

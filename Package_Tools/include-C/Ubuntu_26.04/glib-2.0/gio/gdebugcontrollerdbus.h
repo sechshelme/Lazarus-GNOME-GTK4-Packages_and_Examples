@@ -29,7 +29,7 @@
 
 
 #define G_TYPE_DEBUG_CONTROLLER_DBUS (g_debug_controller_dbus_get_type ())
-GIO_AVAILABLE_IN_2_72
+extern
 G_DECLARE_DERIVABLE_TYPE (GDebugControllerDBus, g_debug_controller_dbus, G, DEBUG_CONTROLLER_DBUS, GObject)
 
 /**
@@ -51,12 +51,12 @@ struct _GDebugControllerDBusClass
   gpointer padding[12];
 };
 
-GIO_AVAILABLE_IN_2_72
+extern
 GDebugControllerDBus *g_debug_controller_dbus_new (GDBusConnection  *connection,
                                                    GCancellable     *cancellable,
                                                    GError          **error);
 
-GIO_AVAILABLE_IN_2_72
+extern
 void g_debug_controller_dbus_stop (GDebugControllerDBus *self);
 
 

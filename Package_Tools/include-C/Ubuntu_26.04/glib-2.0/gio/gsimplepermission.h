@@ -37,9 +37,9 @@
 #define G_IS_SIMPLE_PERMISSION(inst)  (G_TYPE_CHECK_INSTANCE_TYPE ((inst),   \
                                        G_TYPE_SIMPLE_PERMISSION))
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType                   g_simple_permission_get_type            (void);
-GIO_AVAILABLE_IN_ALL
+extern
 GPermission *           g_simple_permission_new                 (gboolean allowed);
 
 

@@ -70,46 +70,46 @@ struct _GSocketConnection
   GSocketConnectionPrivate *priv;
 };
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType              g_socket_connection_get_type                  (void) ;
 
-GIO_AVAILABLE_IN_2_32
+extern
 gboolean           g_socket_connection_is_connected              (GSocketConnection  *connection);
-GIO_AVAILABLE_IN_2_32
+extern
 gboolean           g_socket_connection_connect                   (GSocketConnection  *connection,
 								  GSocketAddress     *address,
 								  GCancellable       *cancellable,
 								  GError            **error);
-GIO_AVAILABLE_IN_2_32
+extern
 void               g_socket_connection_connect_async             (GSocketConnection  *connection,
 								  GSocketAddress     *address,
 								  GCancellable       *cancellable,
 								  GAsyncReadyCallback callback,
 								  gpointer            user_data);
-GIO_AVAILABLE_IN_2_32
+extern
 gboolean           g_socket_connection_connect_finish            (GSocketConnection  *connection,
 								  GAsyncResult       *result,
 								  GError            **error);
 
-GIO_AVAILABLE_IN_ALL
+extern
 GSocket           *g_socket_connection_get_socket                (GSocketConnection  *connection);
-GIO_AVAILABLE_IN_ALL
+extern
 GSocketAddress    *g_socket_connection_get_local_address         (GSocketConnection  *connection,
 								  GError            **error);
-GIO_AVAILABLE_IN_ALL
+extern
 GSocketAddress    *g_socket_connection_get_remote_address        (GSocketConnection  *connection,
 								  GError            **error);
 
-GIO_AVAILABLE_IN_ALL
+extern
 void               g_socket_connection_factory_register_type     (GType               g_type,
 								  GSocketFamily       family,
 								  GSocketType         type,
 								  gint                protocol);
-GIO_AVAILABLE_IN_ALL
+extern
 GType              g_socket_connection_factory_lookup_type       (GSocketFamily       family,
 								  GSocketType         type,
 								  gint                protocol_id);
-GIO_AVAILABLE_IN_ALL
+extern
 GSocketConnection *g_socket_connection_factory_create_connection (GSocket            *socket);
 
 

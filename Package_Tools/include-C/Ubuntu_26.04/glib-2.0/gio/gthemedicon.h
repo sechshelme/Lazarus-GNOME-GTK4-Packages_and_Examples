@@ -40,24 +40,24 @@
 
 typedef struct _GThemedIconClass   GThemedIconClass;
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType  g_themed_icon_get_type                   (void) ;
 
-GIO_AVAILABLE_IN_ALL
+extern
 GIcon *g_themed_icon_new                        (const char  *iconname);
-GIO_AVAILABLE_IN_ALL
+extern
 GIcon *g_themed_icon_new_with_default_fallbacks (const char  *iconname);
-GIO_AVAILABLE_IN_ALL
+extern
 GIcon *g_themed_icon_new_from_names             (char       **iconnames,
                                                  int          len);
-GIO_AVAILABLE_IN_ALL
+extern
 void   g_themed_icon_prepend_name               (GThemedIcon *icon,
                                                  const char  *iconname);
-GIO_AVAILABLE_IN_ALL
+extern
 void   g_themed_icon_append_name                (GThemedIcon *icon,
                                                  const char  *iconname);
 
-GIO_AVAILABLE_IN_ALL
+extern
 const gchar* const * g_themed_icon_get_names     (GThemedIcon *icon);
 
 

@@ -40,13 +40,13 @@
 
 typedef struct _GFileIconClass   GFileIconClass;
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType   g_file_icon_get_type (void) ;
 
-GIO_AVAILABLE_IN_ALL
+extern
 GIcon * g_file_icon_new      (GFile     *file);
 
-GIO_AVAILABLE_IN_ALL
+extern
 GFile * g_file_icon_get_file (GFileIcon *icon);
 
 

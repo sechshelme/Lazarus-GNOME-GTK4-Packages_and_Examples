@@ -92,18 +92,18 @@ struct _GSocketControlMessage
   GSocketControlMessagePrivate *priv;
 };
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType                  g_socket_control_message_get_type     (void) ;
-GIO_AVAILABLE_IN_ALL
+extern
 gsize                  g_socket_control_message_get_size     (GSocketControlMessage *message);
-GIO_AVAILABLE_IN_ALL
+extern
 int                    g_socket_control_message_get_level    (GSocketControlMessage *message);
-GIO_AVAILABLE_IN_ALL
+extern
 int                    g_socket_control_message_get_msg_type (GSocketControlMessage *message);
-GIO_AVAILABLE_IN_ALL
+extern
 void                   g_socket_control_message_serialize    (GSocketControlMessage *message,
 							      gpointer               data);
-GIO_AVAILABLE_IN_ALL
+extern
 GSocketControlMessage *g_socket_control_message_deserialize  (int                    level,
 							      int                    type,
 							      gsize                  size,

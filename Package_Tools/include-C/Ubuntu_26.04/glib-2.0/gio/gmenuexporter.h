@@ -40,13 +40,13 @@
 #define G_MENU_EXPORTER_MAX_SECTION_SIZE 1000 \
   GIO_AVAILABLE_MACRO_IN_2_76
 
-GIO_AVAILABLE_IN_2_32
+extern
 guint                   g_dbus_connection_export_menu_model             (GDBusConnection  *connection,
                                                                          const gchar      *object_path,
                                                                          GMenuModel       *menu,
                                                                          GError          **error);
 
-GIO_AVAILABLE_IN_2_32
+extern
 void                    g_dbus_connection_unexport_menu_model           (GDBusConnection  *connection,
                                                                          guint             export_id);
 

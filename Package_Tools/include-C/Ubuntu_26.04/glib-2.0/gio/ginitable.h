@@ -61,15 +61,15 @@ struct _GInitableIface
 };
 
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType    g_initable_get_type   (void) ;
 
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean g_initable_init       (GInitable     *initable,
 				GCancellable  *cancellable,
 				GError       **error);
 
-GIO_AVAILABLE_IN_ALL
+extern
 gpointer g_initable_new        (GType          object_type,
 				GCancellable  *cancellable,
 				GError       **error,
@@ -78,7 +78,7 @@ gpointer g_initable_new        (GType          object_type,
 
 
 
-GIO_DEPRECATED_IN_2_54_FOR(g_object_new_with_properties and g_initable_init)
+extern //xxxxxGLIB_DEPRECATED_IN_2_54_FOR(g_object_new_with_properties and g_initable_init)
 gpointer g_initable_newv       (GType          object_type,
 				guint          n_parameters,
 				GParameter    *parameters,
@@ -87,7 +87,7 @@ gpointer g_initable_newv       (GType          object_type,
 
 
 
-GIO_AVAILABLE_IN_ALL
+extern
 GObject* g_initable_new_valist (GType          object_type,
 				const gchar   *first_property_name,
 				va_list        var_args,

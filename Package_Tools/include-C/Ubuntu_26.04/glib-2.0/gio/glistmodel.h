@@ -34,7 +34,7 @@
 
 
 #define G_TYPE_LIST_MODEL g_list_model_get_type ()
-GIO_AVAILABLE_IN_2_44
+extern
 G_DECLARE_INTERFACE(GListModel, g_list_model, G, LIST_MODEL, GObject)
 
 struct _GListModelInterface
@@ -49,21 +49,21 @@ struct _GListModelInterface
                                  guint       position);
 };
 
-GIO_AVAILABLE_IN_2_44
+extern
 GType                   g_list_model_get_item_type                      (GListModel *list);
 
-GIO_AVAILABLE_IN_2_44
+extern
 guint                   g_list_model_get_n_items                        (GListModel *list);
 
-GIO_AVAILABLE_IN_2_44
+extern
 gpointer                g_list_model_get_item                           (GListModel *list,
                                                                          guint       position);
 
-GIO_AVAILABLE_IN_2_44
+extern
 GObject *               g_list_model_get_object                         (GListModel *list,
                                                                          guint       position);
 
-GIO_AVAILABLE_IN_2_44
+extern
 void                    g_list_model_items_changed                      (GListModel *list,
                                                                          guint       position,
                                                                          guint       removed,

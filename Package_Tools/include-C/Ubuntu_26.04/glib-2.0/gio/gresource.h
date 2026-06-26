@@ -47,7 +47,7 @@
  * error domains.
  */
 #define G_RESOURCE_ERROR (g_resource_error_quark ())
-GIO_AVAILABLE_IN_2_32
+extern
 GQuark g_resource_error_quark (void);
 
 typedef struct _GStaticResource GStaticResource;
@@ -61,34 +61,34 @@ struct _GStaticResource {
   gpointer padding;
 };
 
-GIO_AVAILABLE_IN_2_32
+extern
 GType         g_resource_get_type            (void) ;
-GIO_AVAILABLE_IN_2_32
+extern
 GResource *   g_resource_new_from_data       (GBytes                *data,
 					      GError               **error);
-GIO_AVAILABLE_IN_2_32
+extern
 GResource *   g_resource_ref                 (GResource             *resource);
-GIO_AVAILABLE_IN_2_32
+extern
 void          g_resource_unref               (GResource             *resource);
-GIO_AVAILABLE_IN_2_32
+extern
 GResource *   g_resource_load                (const gchar           *filename,
 					      GError               **error);
-GIO_AVAILABLE_IN_2_32
+extern
 GInputStream *g_resource_open_stream         (GResource             *resource,
 					      const char            *path,
 					      GResourceLookupFlags   lookup_flags,
 					      GError               **error);
-GIO_AVAILABLE_IN_2_32
+extern
 GBytes *      g_resource_lookup_data         (GResource             *resource,
 					      const char            *path,
 					      GResourceLookupFlags   lookup_flags,
 					      GError               **error);
-GIO_AVAILABLE_IN_2_32
+extern
 char **       g_resource_enumerate_children  (GResource             *resource,
 					      const char            *path,
 					      GResourceLookupFlags   lookup_flags,
 					      GError               **error);
-GIO_AVAILABLE_IN_2_32
+extern
 gboolean      g_resource_get_info            (GResource             *resource,
 					      const char            *path,
 					      GResourceLookupFlags   lookup_flags,
@@ -96,41 +96,41 @@ gboolean      g_resource_get_info            (GResource             *resource,
 					      guint32               *flags,
 					      GError               **error);
 
-GIO_AVAILABLE_IN_2_32
+extern
 void          g_resources_register           (GResource             *resource);
-GIO_AVAILABLE_IN_2_32
+extern
 void          g_resources_unregister         (GResource             *resource);
-GIO_AVAILABLE_IN_2_32
+extern
 GInputStream *g_resources_open_stream        (const char            *path,
 					      GResourceLookupFlags   lookup_flags,
 					      GError               **error);
-GIO_AVAILABLE_IN_2_32
+extern
 GBytes *      g_resources_lookup_data        (const char            *path,
 					      GResourceLookupFlags   lookup_flags,
 					      GError               **error);
-GIO_AVAILABLE_IN_2_32
+extern
 char **       g_resources_enumerate_children (const char            *path,
 					      GResourceLookupFlags   lookup_flags,
 					      GError               **error);
-GIO_AVAILABLE_IN_2_32
+extern
 gboolean      g_resources_get_info           (const char            *path,
 					      GResourceLookupFlags   lookup_flags,
 					      gsize                 *size,
 					      guint32               *flags,
 					      GError               **error);
 
-GIO_AVAILABLE_IN_2_84
+extern
 gboolean      g_resource_has_children        (GResource             *resource,
                                               const char            *path);
-GIO_AVAILABLE_IN_2_84
+extern
 gboolean      g_resources_has_children       (const char            *path);
 
 
-GIO_AVAILABLE_IN_2_32
+extern
 void          g_static_resource_init          (GStaticResource *static_resource);
-GIO_AVAILABLE_IN_2_32
+extern
 void          g_static_resource_fini          (GStaticResource *static_resource);
-GIO_AVAILABLE_IN_2_32
+extern
 GResource    *g_static_resource_get_resource  (GStaticResource *static_resource);
 
 

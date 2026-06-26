@@ -50,10 +50,10 @@ struct _GDtlsServerConnectionInterface
   GTypeInterface g_iface;
 };
 
-GIO_AVAILABLE_IN_2_48
+extern
 GType           g_dtls_server_connection_get_type (void) ;
 
-GIO_AVAILABLE_IN_2_48
+extern
 GDatagramBased *g_dtls_server_connection_new      (GDatagramBased   *base_socket,
                                                    GTlsCertificate  *certificate,
                                                    GError          **error);

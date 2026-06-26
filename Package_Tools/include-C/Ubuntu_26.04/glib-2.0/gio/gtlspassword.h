@@ -78,41 +78,41 @@ struct _GTlsPasswordClass
   gpointer padding[4];
 };
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType             g_tls_password_get_type            (void) ;
 
-GIO_AVAILABLE_IN_ALL
+extern
 GTlsPassword *    g_tls_password_new                 (GTlsPasswordFlags  flags,
                                                       const gchar       *description);
 
-GIO_AVAILABLE_IN_ALL
+extern
 const guchar *    g_tls_password_get_value           (GTlsPassword      *password,
                                                       gsize             *length);
-GIO_AVAILABLE_IN_ALL
+extern
 void              g_tls_password_set_value           (GTlsPassword      *password,
                                                       const guchar      *value,
                                                       gssize             length);
-GIO_AVAILABLE_IN_ALL
+extern
 void              g_tls_password_set_value_full      (GTlsPassword      *password,
                                                       guchar            *value,
                                                       gssize             length,
                                                       GDestroyNotify     destroy);
 
-GIO_AVAILABLE_IN_ALL
+extern
 GTlsPasswordFlags g_tls_password_get_flags           (GTlsPassword      *password);
-GIO_AVAILABLE_IN_ALL
+extern
 void              g_tls_password_set_flags           (GTlsPassword      *password,
                                                       GTlsPasswordFlags  flags);
 
-GIO_AVAILABLE_IN_ALL
+extern
 const gchar*      g_tls_password_get_description     (GTlsPassword      *password);
-GIO_AVAILABLE_IN_ALL
+extern
 void              g_tls_password_set_description     (GTlsPassword      *password,
                                                       const gchar       *description);
 
-GIO_AVAILABLE_IN_ALL
+extern
 const gchar *     g_tls_password_get_warning         (GTlsPassword      *password);
-GIO_AVAILABLE_IN_ALL
+extern
 void              g_tls_password_set_warning         (GTlsPassword      *password,
                                                       const gchar       *warning);
 

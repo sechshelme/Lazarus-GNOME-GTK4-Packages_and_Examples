@@ -163,114 +163,114 @@ struct _GMountIface
   GIcon       * (* get_symbolic_icon)       (GMount              *mount);
 };
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType       g_mount_get_type                  (void) ;
 
-GIO_AVAILABLE_IN_ALL
+extern
 GFile     * g_mount_get_root                  (GMount              *mount);
-GIO_AVAILABLE_IN_ALL
+extern
 GFile     * g_mount_get_default_location      (GMount              *mount);
-GIO_AVAILABLE_IN_ALL
+extern
 char      * g_mount_get_name                  (GMount              *mount);
-GIO_AVAILABLE_IN_ALL
+extern
 GIcon     * g_mount_get_icon                  (GMount              *mount);
-GIO_AVAILABLE_IN_ALL
+extern
 GIcon     * g_mount_get_symbolic_icon         (GMount              *mount);
-GIO_AVAILABLE_IN_ALL
+extern
 char      * g_mount_get_uuid                  (GMount              *mount);
-GIO_AVAILABLE_IN_ALL
+extern
 GVolume   * g_mount_get_volume                (GMount              *mount);
-GIO_AVAILABLE_IN_ALL
+extern
 GDrive    * g_mount_get_drive                 (GMount              *mount);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean    g_mount_can_unmount               (GMount              *mount);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean    g_mount_can_eject                 (GMount              *mount);
 
-GIO_DEPRECATED_FOR(g_mount_unmount_with_operation)
+extern //xxxxxGLIB_DEPRECATED_FOR(g_mount_unmount_with_operation)
 void        g_mount_unmount                   (GMount              *mount,
                                                GMountUnmountFlags   flags,
                                                GCancellable        *cancellable,
                                                GAsyncReadyCallback  callback,
                                                gpointer             user_data);
 
-GIO_DEPRECATED_FOR(g_mount_unmount_with_operation_finish)
+extern //xxxxxGLIB_DEPRECATED_FOR(g_mount_unmount_with_operation_finish)
 gboolean    g_mount_unmount_finish            (GMount              *mount,
                                                GAsyncResult        *result,
                                                GError             **error);
 
-GIO_DEPRECATED_FOR(g_mount_eject_with_operation)
+extern //xxxxxGLIB_DEPRECATED_FOR(g_mount_eject_with_operation)
 void        g_mount_eject                     (GMount              *mount,
                                                GMountUnmountFlags   flags,
                                                GCancellable        *cancellable,
                                                GAsyncReadyCallback  callback,
                                                gpointer             user_data);
 
-GIO_DEPRECATED_FOR(g_mount_eject_with_operation_finish)
+extern //xxxxxGLIB_DEPRECATED_FOR(g_mount_eject_with_operation_finish)
 gboolean    g_mount_eject_finish              (GMount              *mount,
                                                GAsyncResult        *result,
                                                GError             **error);
 
-GIO_AVAILABLE_IN_ALL
+extern
 void        g_mount_remount                   (GMount              *mount,
                                                GMountMountFlags     flags,
                                                GMountOperation     *mount_operation,
                                                GCancellable        *cancellable,
                                                GAsyncReadyCallback  callback,
                                                gpointer             user_data);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean    g_mount_remount_finish            (GMount              *mount,
                                                GAsyncResult        *result,
                                                GError             **error);
 
-GIO_AVAILABLE_IN_ALL
+extern
 void        g_mount_guess_content_type        (GMount              *mount,
                                                gboolean             force_rescan,
                                                GCancellable        *cancellable,
                                                GAsyncReadyCallback  callback,
                                                gpointer             user_data);
-GIO_AVAILABLE_IN_ALL
+extern
 gchar    ** g_mount_guess_content_type_finish (GMount              *mount,
                                                GAsyncResult        *result,
                                                GError             **error);
-GIO_AVAILABLE_IN_ALL
+extern
 gchar    ** g_mount_guess_content_type_sync   (GMount              *mount,
                                                gboolean             force_rescan,
                                                GCancellable        *cancellable,
                                                GError             **error);
 
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean    g_mount_is_shadowed               (GMount              *mount);
-GIO_AVAILABLE_IN_ALL
+extern
 void        g_mount_shadow                    (GMount              *mount);
-GIO_AVAILABLE_IN_ALL
+extern
 void        g_mount_unshadow                  (GMount              *mount);
 
-GIO_AVAILABLE_IN_ALL
+extern
 void        g_mount_unmount_with_operation    (GMount              *mount,
                                                GMountUnmountFlags   flags,
                                                GMountOperation     *mount_operation,
                                                GCancellable        *cancellable,
                                                GAsyncReadyCallback  callback,
                                                gpointer             user_data);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean    g_mount_unmount_with_operation_finish (GMount          *mount,
                                                GAsyncResult        *result,
                                                GError             **error);
 
-GIO_AVAILABLE_IN_ALL
+extern
 void        g_mount_eject_with_operation      (GMount              *mount,
                                                GMountUnmountFlags   flags,
                                                GMountOperation     *mount_operation,
                                                GCancellable        *cancellable,
                                                GAsyncReadyCallback  callback,
                                                gpointer             user_data);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean    g_mount_eject_with_operation_finish (GMount            *mount,
                                                GAsyncResult        *result,
                                                GError             **error);
 
-GIO_AVAILABLE_IN_ALL
+extern
 const gchar *g_mount_get_sort_key             (GMount              *mount);
 
 

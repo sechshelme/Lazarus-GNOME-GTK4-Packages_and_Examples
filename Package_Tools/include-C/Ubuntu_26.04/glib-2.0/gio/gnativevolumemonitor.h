@@ -55,7 +55,7 @@ struct _GNativeVolumeMonitorClass
                                          GCancellable *cancellable);
 };
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType g_native_volume_monitor_get_type (void) ;
 
 

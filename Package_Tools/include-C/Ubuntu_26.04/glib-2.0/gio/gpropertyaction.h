@@ -36,10 +36,10 @@
 #define G_IS_PROPERTY_ACTION(inst)                          (G_TYPE_CHECK_INSTANCE_TYPE ((inst),                     \
                                                              G_TYPE_PROPERTY_ACTION))
 
-GIO_AVAILABLE_IN_2_38
+extern
 GType                   g_property_action_get_type                      (void) ;
 
-GIO_AVAILABLE_IN_2_38
+extern
 GPropertyAction *       g_property_action_new                           (const gchar *name,
                                                                          gpointer     object,
                                                                          const gchar *property_name);

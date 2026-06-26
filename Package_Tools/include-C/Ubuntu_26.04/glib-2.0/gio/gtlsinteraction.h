@@ -91,48 +91,48 @@ struct _GTlsInteractionClass
   gpointer padding[21];
 };
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType                  g_tls_interaction_get_type            (void) ;
 
-GIO_AVAILABLE_IN_ALL
+extern
 GTlsInteractionResult  g_tls_interaction_invoke_ask_password (GTlsInteraction    *interaction,
                                                               GTlsPassword       *password,
                                                               GCancellable       *cancellable,
                                                               GError            **error);
 
-GIO_AVAILABLE_IN_ALL
+extern
 GTlsInteractionResult  g_tls_interaction_ask_password        (GTlsInteraction    *interaction,
                                                               GTlsPassword       *password,
                                                               GCancellable       *cancellable,
                                                               GError            **error);
 
-GIO_AVAILABLE_IN_ALL
+extern
 void                   g_tls_interaction_ask_password_async  (GTlsInteraction    *interaction,
                                                               GTlsPassword       *password,
                                                               GCancellable       *cancellable,
                                                               GAsyncReadyCallback callback,
                                                               gpointer            user_data);
 
-GIO_AVAILABLE_IN_ALL
+extern
 GTlsInteractionResult  g_tls_interaction_ask_password_finish (GTlsInteraction    *interaction,
                                                               GAsyncResult       *result,
                                                               GError            **error);
 
-GIO_AVAILABLE_IN_2_40
+extern
 GTlsInteractionResult  g_tls_interaction_invoke_request_certificate (GTlsInteraction              *interaction,
                                                                      GTlsConnection               *connection,
                                                                      GTlsCertificateRequestFlags   flags,
                                                                      GCancellable                 *cancellable,
                                                                      GError                      **error);
 
-GIO_AVAILABLE_IN_2_40
+extern
 GTlsInteractionResult  g_tls_interaction_request_certificate        (GTlsInteraction              *interaction,
                                                                      GTlsConnection               *connection,
                                                                      GTlsCertificateRequestFlags   flags,
                                                                      GCancellable                 *cancellable,
                                                                      GError                      **error);
 
-GIO_AVAILABLE_IN_2_40
+extern
 void                   g_tls_interaction_request_certificate_async  (GTlsInteraction              *interaction,
                                                                      GTlsConnection               *connection,
                                                                      GTlsCertificateRequestFlags   flags,
@@ -140,7 +140,7 @@ void                   g_tls_interaction_request_certificate_async  (GTlsInterac
                                                                      GAsyncReadyCallback           callback,
                                                                      gpointer                      user_data);
 
-GIO_AVAILABLE_IN_2_40
+extern
 GTlsInteractionResult  g_tls_interaction_request_certificate_finish (GTlsInteraction              *interaction,
                                                                      GAsyncResult                 *result,
                                                                      GError                      **error);

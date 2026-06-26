@@ -77,16 +77,16 @@ struct _GSocketService
   GSocketServicePrivate *priv;
 };
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType           g_socket_service_get_type  (void);
 
-GIO_AVAILABLE_IN_ALL
+extern
 GSocketService *g_socket_service_new       (void);
-GIO_AVAILABLE_IN_ALL
+extern
 void            g_socket_service_start     (GSocketService *service);
-GIO_AVAILABLE_IN_ALL
+extern
 void            g_socket_service_stop      (GSocketService *service);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean        g_socket_service_is_active (GSocketService *service);
 
 

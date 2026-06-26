@@ -79,35 +79,35 @@ struct _GTlsBackendInterface
   GType          ( *get_dtls_server_connection_type) (void);
 };
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType          g_tls_backend_get_type                   (void) ;
 
-GIO_AVAILABLE_IN_ALL
+extern
 GTlsBackend *  g_tls_backend_get_default                (void);
 
-GIO_AVAILABLE_IN_ALL
+extern
 GTlsDatabase * g_tls_backend_get_default_database       (GTlsBackend *backend);
-GIO_AVAILABLE_IN_2_60
+extern
 void           g_tls_backend_set_default_database       (GTlsBackend  *backend,
                                                          GTlsDatabase *database);
 
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean       g_tls_backend_supports_tls               (GTlsBackend *backend);
-GIO_AVAILABLE_IN_2_48
+extern
 gboolean       g_tls_backend_supports_dtls              (GTlsBackend *backend);
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType          g_tls_backend_get_certificate_type       (GTlsBackend *backend);
-GIO_AVAILABLE_IN_ALL
+extern
 GType          g_tls_backend_get_client_connection_type (GTlsBackend *backend);
-GIO_AVAILABLE_IN_ALL
+extern
 GType          g_tls_backend_get_server_connection_type (GTlsBackend *backend);
-GIO_AVAILABLE_IN_ALL
+extern
 GType          g_tls_backend_get_file_database_type     (GTlsBackend *backend);
 
-GIO_AVAILABLE_IN_2_48
+extern
 GType          g_tls_backend_get_dtls_client_connection_type (GTlsBackend *backend);
-GIO_AVAILABLE_IN_2_48
+extern
 GType          g_tls_backend_get_dtls_server_connection_type (GTlsBackend *backend);
 
 

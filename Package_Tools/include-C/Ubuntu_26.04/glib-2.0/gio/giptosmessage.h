@@ -29,16 +29,16 @@
 
 #define G_TYPE_IP_TOS_MESSAGE (g_ip_tos_message_get_type ())
 
-GIO_AVAILABLE_IN_2_88
+extern
 G_DECLARE_FINAL_TYPE (GIPTosMessage, g_ip_tos_message, G, IP_TOS_MESSAGE, GSocketControlMessage)
 
-GIO_AVAILABLE_IN_2_88
+extern
 GSocketControlMessage *g_ip_tos_message_new (guint8 dscp, GEcnCodePoint ecn);
 
-GIO_AVAILABLE_IN_2_88
+extern
 guint8 g_ip_tos_message_get_dscp (GIPTosMessage *message);
 
-GIO_AVAILABLE_IN_2_88
+extern
 GEcnCodePoint g_ip_tos_message_get_ecn (GIPTosMessage *message);
 
 

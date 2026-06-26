@@ -34,11 +34,11 @@
 
 typedef struct _GIOModuleScope GIOModuleScope;
 
-GIO_AVAILABLE_IN_2_30
+extern
 GIOModuleScope *   g_io_module_scope_new     (GIOModuleScopeFlags  flags);
-GIO_AVAILABLE_IN_2_30
+extern
 void               g_io_module_scope_free    (GIOModuleScope      *scope);
-GIO_AVAILABLE_IN_2_30
+extern
 void               g_io_module_scope_block   (GIOModuleScope      *scope,
                                               const gchar         *basename);
 
@@ -51,57 +51,57 @@ void               g_io_module_scope_block   (GIOModuleScope      *scope,
 
 typedef struct _GIOModuleClass GIOModuleClass;
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType              g_io_module_get_type                       (void) ;
-GIO_AVAILABLE_IN_ALL
+extern
 GIOModule         *g_io_module_new                            (const gchar       *filename);
 
-GIO_AVAILABLE_IN_ALL
+extern
 void               g_io_modules_scan_all_in_directory         (const char        *dirname);
-GIO_AVAILABLE_IN_ALL
+extern
 GList             *g_io_modules_load_all_in_directory         (const gchar       *dirname);
 
-GIO_AVAILABLE_IN_2_30
+extern
 void               g_io_modules_scan_all_in_directory_with_scope   (const gchar       *dirname,
                                                                     GIOModuleScope    *scope);
-GIO_AVAILABLE_IN_2_30
+extern
 GList             *g_io_modules_load_all_in_directory_with_scope   (const gchar       *dirname,
                                                                     GIOModuleScope    *scope);
 
-GIO_AVAILABLE_IN_ALL
+extern
 GIOExtensionPoint *g_io_extension_point_register              (const char        *name);
-GIO_AVAILABLE_IN_ALL
+extern
 GIOExtensionPoint *g_io_extension_point_lookup                (const char        *name);
-GIO_AVAILABLE_IN_ALL
+extern
 void               g_io_extension_point_set_required_type     (GIOExtensionPoint *extension_point,
 							       GType              type);
-GIO_AVAILABLE_IN_ALL
+extern
 GType              g_io_extension_point_get_required_type     (GIOExtensionPoint *extension_point);
-GIO_AVAILABLE_IN_ALL
+extern
 GList             *g_io_extension_point_get_extensions        (GIOExtensionPoint *extension_point);
-GIO_AVAILABLE_IN_ALL
+extern
 GIOExtension *     g_io_extension_point_get_extension_by_name (GIOExtensionPoint *extension_point,
 							       const char        *name);
-GIO_AVAILABLE_IN_ALL
+extern
 GIOExtension *     g_io_extension_point_implement             (const char        *extension_point_name,
 							       GType              type,
 							       const char        *extension_name,
 							       gint               priority);
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType              g_io_extension_get_type                    (GIOExtension      *extension);
-GIO_AVAILABLE_IN_ALL
+extern
 const char *       g_io_extension_get_name                    (GIOExtension      *extension);
-GIO_AVAILABLE_IN_ALL
+extern
 gint               g_io_extension_get_priority                (GIOExtension      *extension);
-GIO_AVAILABLE_IN_ALL
+extern
 GTypeClass*        g_io_extension_ref_class                   (GIOExtension      *extension);
 
 
 /* API for the modules to implement.
  * Note that those functions are not implemented by libgio, they are declared
  * here to be implemented in modules, that's why it uses G_MODULE_EXPORT
- * instead of GIO_AVAILABLE_IN_ALL.
+ * instead of extern.
  */
 
 /**

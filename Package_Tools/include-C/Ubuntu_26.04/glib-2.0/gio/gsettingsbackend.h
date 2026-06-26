@@ -119,51 +119,51 @@ struct _GSettingsBackend
   GSettingsBackendPrivate *priv;
 };
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType                   g_settings_backend_get_type                     (void);
 
-GIO_AVAILABLE_IN_ALL
+extern
 void                    g_settings_backend_changed                      (GSettingsBackend    *backend,
                                                                          const gchar         *key,
                                                                          gpointer             origin_tag);
-GIO_AVAILABLE_IN_ALL
+extern
 void                    g_settings_backend_path_changed                 (GSettingsBackend    *backend,
                                                                          const gchar         *path,
                                                                          gpointer             origin_tag);
-GIO_AVAILABLE_IN_ALL
+extern
 void                    g_settings_backend_flatten_tree                 (GTree               *tree,
                                                                          gchar              **path,
                                                                          const gchar       ***keys,
                                                                          GVariant          ***values);
-GIO_AVAILABLE_IN_ALL
+extern
 void                    g_settings_backend_keys_changed                 (GSettingsBackend    *backend,
                                                                          const gchar         *path,
                                                                          gchar const * const *items,
                                                                          gpointer             origin_tag);
 
-GIO_AVAILABLE_IN_ALL
+extern
 void                    g_settings_backend_path_writable_changed        (GSettingsBackend    *backend,
                                                                          const gchar         *path);
-GIO_AVAILABLE_IN_ALL
+extern
 void                    g_settings_backend_writable_changed             (GSettingsBackend    *backend,
                                                                          const gchar         *key);
-GIO_AVAILABLE_IN_ALL
+extern
 void                    g_settings_backend_changed_tree                 (GSettingsBackend    *backend,
                                                                          GTree               *tree,
                                                                          gpointer             origin_tag);
 
-GIO_AVAILABLE_IN_ALL
+extern
 GSettingsBackend *      g_settings_backend_get_default                  (void);
 
-GIO_AVAILABLE_IN_ALL
+extern
 GSettingsBackend *      g_keyfile_settings_backend_new                  (const gchar         *filename,
                                                                          const gchar         *root_path,
                                                                          const gchar         *root_group);
 
-GIO_AVAILABLE_IN_ALL
+extern
 GSettingsBackend *      g_null_settings_backend_new                     (void);
 
-GIO_AVAILABLE_IN_ALL
+extern
 GSettingsBackend *      g_memory_settings_backend_new                   (void);
 
 

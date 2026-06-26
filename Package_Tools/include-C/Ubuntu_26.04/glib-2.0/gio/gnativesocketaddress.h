@@ -55,10 +55,10 @@ struct _GNativeSocketAddressClass
   GSocketAddressClass parent_class;
 };
 
-GIO_AVAILABLE_IN_2_46
+extern
 GType           g_native_socket_address_get_type        (void) ;
 
-GIO_AVAILABLE_IN_2_46
+extern
 GSocketAddress *g_native_socket_address_new            (gpointer        native,
                                                         gsize           len);
 

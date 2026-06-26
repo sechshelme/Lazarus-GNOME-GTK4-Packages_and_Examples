@@ -183,71 +183,71 @@ struct _GVolumeIface
   GIcon       * (* get_symbolic_icon)   (GVolume             *volume);
 };
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType    g_volume_get_type              (void) ;
 
-GIO_AVAILABLE_IN_ALL
+extern
 char *   g_volume_get_name              (GVolume              *volume);
-GIO_AVAILABLE_IN_ALL
+extern
 GIcon *  g_volume_get_icon              (GVolume              *volume);
-GIO_AVAILABLE_IN_ALL
+extern
 GIcon *  g_volume_get_symbolic_icon     (GVolume              *volume);
-GIO_AVAILABLE_IN_ALL
+extern
 char *   g_volume_get_uuid              (GVolume              *volume);
-GIO_AVAILABLE_IN_ALL
+extern
 GDrive * g_volume_get_drive             (GVolume              *volume);
-GIO_AVAILABLE_IN_ALL
+extern
 GMount * g_volume_get_mount             (GVolume              *volume);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean g_volume_can_mount             (GVolume              *volume);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean g_volume_can_eject             (GVolume              *volume);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean g_volume_should_automount      (GVolume              *volume);
-GIO_AVAILABLE_IN_ALL
+extern
 void     g_volume_mount                 (GVolume              *volume,
 					 GMountMountFlags      flags,
 					 GMountOperation      *mount_operation,
 					 GCancellable         *cancellable,
 					 GAsyncReadyCallback   callback,
 					 gpointer              user_data);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean g_volume_mount_finish          (GVolume              *volume,
 					 GAsyncResult         *result,
 					 GError              **error);
-GIO_DEPRECATED_FOR(g_volume_eject_with_operation)
+extern //xxxxxGLIB_DEPRECATED_FOR(g_volume_eject_with_operation)
 void     g_volume_eject                 (GVolume              *volume,
                                          GMountUnmountFlags    flags,
                                          GCancellable         *cancellable,
                                          GAsyncReadyCallback   callback,
                                          gpointer              user_data);
 
-GIO_DEPRECATED_FOR(g_volume_eject_with_operation_finish)
+extern //xxxxxGLIB_DEPRECATED_FOR(g_volume_eject_with_operation_finish)
 gboolean g_volume_eject_finish          (GVolume              *volume,
                                          GAsyncResult         *result,
                                          GError              **error);
-GIO_AVAILABLE_IN_ALL
+extern
 char *   g_volume_get_identifier        (GVolume              *volume,
 					 const char           *kind);
-GIO_AVAILABLE_IN_ALL
+extern
 char **  g_volume_enumerate_identifiers (GVolume              *volume);
 
-GIO_AVAILABLE_IN_ALL
+extern
 GFile *  g_volume_get_activation_root   (GVolume              *volume);
 
-GIO_AVAILABLE_IN_ALL
+extern
 void        g_volume_eject_with_operation     (GVolume             *volume,
                                                GMountUnmountFlags   flags,
                                                GMountOperation     *mount_operation,
                                                GCancellable        *cancellable,
                                                GAsyncReadyCallback  callback,
                                                gpointer             user_data);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean    g_volume_eject_with_operation_finish (GVolume          *volume,
                                                GAsyncResult        *result,
                                                GError             **error);
 
-GIO_AVAILABLE_IN_2_32
+extern
 const gchar *g_volume_get_sort_key            (GVolume              *volume);
 
 

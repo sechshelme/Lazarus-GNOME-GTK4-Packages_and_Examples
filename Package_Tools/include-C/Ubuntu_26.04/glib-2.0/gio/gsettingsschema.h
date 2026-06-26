@@ -31,83 +31,83 @@ typedef struct _GSettingsSchema                             GSettingsSchema;
 typedef struct _GSettingsSchemaKey                          GSettingsSchemaKey;
 
 #define                 G_TYPE_SETTINGS_SCHEMA_SOURCE                   (g_settings_schema_source_get_type ())
-GIO_AVAILABLE_IN_2_32
+extern
 GType                   g_settings_schema_source_get_type               (void) ;
 
-GIO_AVAILABLE_IN_2_32
+extern
 GSettingsSchemaSource * g_settings_schema_source_get_default            (void);
-GIO_AVAILABLE_IN_2_32
+extern
 GSettingsSchemaSource * g_settings_schema_source_ref                    (GSettingsSchemaSource  *source);
-GIO_AVAILABLE_IN_2_32
+extern
 void                    g_settings_schema_source_unref                  (GSettingsSchemaSource  *source);
 
-GIO_AVAILABLE_IN_2_32
+extern
 GSettingsSchemaSource * g_settings_schema_source_new_from_directory     (const gchar            *directory,
                                                                          GSettingsSchemaSource  *parent,
                                                                          gboolean                trusted,
                                                                          GError                **error);
 
-GIO_AVAILABLE_IN_2_32
+extern
 GSettingsSchema *       g_settings_schema_source_lookup                 (GSettingsSchemaSource  *source,
                                                                          const gchar            *schema_id,
                                                                          gboolean                recursive);
 
-GIO_AVAILABLE_IN_2_40
+extern
 void                    g_settings_schema_source_list_schemas           (GSettingsSchemaSource   *source,
                                                                          gboolean                 recursive,
                                                                          gchar                 ***non_relocatable,
                                                                          gchar                 ***relocatable);
 
 #define                 G_TYPE_SETTINGS_SCHEMA                          (g_settings_schema_get_type ())
-GIO_AVAILABLE_IN_2_32
+extern
 GType                   g_settings_schema_get_type                      (void) ;
 
-GIO_AVAILABLE_IN_2_32
+extern
 GSettingsSchema *       g_settings_schema_ref                           (GSettingsSchema        *schema);
-GIO_AVAILABLE_IN_2_32
+extern
 void                    g_settings_schema_unref                         (GSettingsSchema        *schema);
 
-GIO_AVAILABLE_IN_2_32
+extern
 const gchar *           g_settings_schema_get_id                        (GSettingsSchema        *schema);
-GIO_AVAILABLE_IN_2_32
+extern
 const gchar *           g_settings_schema_get_path                      (GSettingsSchema        *schema);
-GIO_AVAILABLE_IN_2_40
+extern
 GSettingsSchemaKey *    g_settings_schema_get_key                       (GSettingsSchema        *schema,
                                                                          const gchar            *name);
-GIO_AVAILABLE_IN_2_40
+extern
 gboolean                g_settings_schema_has_key                       (GSettingsSchema        *schema,
                                                                          const gchar            *name);
-GIO_AVAILABLE_IN_2_46
+extern
 gchar**                 g_settings_schema_list_keys                     (GSettingsSchema        *schema);
 
 
-GIO_AVAILABLE_IN_2_44
+extern
 gchar **                g_settings_schema_list_children                 (GSettingsSchema        *schema);
 
 #define                 G_TYPE_SETTINGS_SCHEMA_KEY                      (g_settings_schema_key_get_type ())
-GIO_AVAILABLE_IN_2_40
+extern
 GType                   g_settings_schema_key_get_type                  (void) ;
 
-GIO_AVAILABLE_IN_2_40
+extern
 GSettingsSchemaKey *    g_settings_schema_key_ref                       (GSettingsSchemaKey     *key);
-GIO_AVAILABLE_IN_2_40
+extern
 void                    g_settings_schema_key_unref                     (GSettingsSchemaKey     *key);
 
-GIO_AVAILABLE_IN_2_40
+extern
 const GVariantType *    g_settings_schema_key_get_value_type            (GSettingsSchemaKey     *key);
-GIO_AVAILABLE_IN_2_40
+extern
 GVariant *              g_settings_schema_key_get_default_value         (GSettingsSchemaKey     *key);
-GIO_AVAILABLE_IN_2_40
+extern
 GVariant *              g_settings_schema_key_get_range                 (GSettingsSchemaKey     *key);
-GIO_AVAILABLE_IN_2_40
+extern
 gboolean                g_settings_schema_key_range_check               (GSettingsSchemaKey     *key,
                                                                          GVariant               *value);
 
-GIO_AVAILABLE_IN_2_44
+extern
 const gchar *           g_settings_schema_key_get_name                  (GSettingsSchemaKey     *key);
-GIO_AVAILABLE_IN_2_40
+extern
 const gchar *           g_settings_schema_key_get_summary               (GSettingsSchemaKey     *key);
-GIO_AVAILABLE_IN_2_40
+extern
 const gchar *           g_settings_schema_key_get_description           (GSettingsSchemaKey     *key);
 
 

@@ -35,10 +35,10 @@
 #define G_SIMPLE_IO_STREAM(obj)                  (G_TYPE_CHECK_INSTANCE_CAST ((obj), G_TYPE_SIMPLE_IO_STREAM, GSimpleIOStream))
 #define G_IS_SIMPLE_IO_STREAM(obj)               (G_TYPE_CHECK_INSTANCE_TYPE ((obj), G_TYPE_SIMPLE_IO_STREAM))
 
-GIO_AVAILABLE_IN_2_44
+extern
 GType                g_simple_io_stream_get_type         (void) ;
 
-GIO_AVAILABLE_IN_2_44
+extern
 GIOStream           *g_simple_io_stream_new              (GInputStream  *input_stream,
                                                           GOutputStream *output_stream);
 

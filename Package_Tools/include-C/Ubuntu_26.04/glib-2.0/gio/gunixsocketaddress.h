@@ -54,28 +54,28 @@ struct _GUnixSocketAddressClass
   GSocketAddressClass parent_class;
 };
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType           g_unix_socket_address_get_type    (void) ;
 
-GIO_AVAILABLE_IN_ALL
+extern
 GSocketAddress *g_unix_socket_address_new             (const gchar        *path);
-GIO_DEPRECATED_FOR(g_unix_socket_address_new_with_type)
+extern //xxxxxGLIB_DEPRECATED_FOR(g_unix_socket_address_new_with_type)
 GSocketAddress *g_unix_socket_address_new_abstract    (const gchar        *path,
                                                        gint                path_len);
-GIO_AVAILABLE_IN_ALL
+extern
 GSocketAddress *g_unix_socket_address_new_with_type   (const gchar            *path,
                                                        gint                    path_len,
                                                        GUnixSocketAddressType  type);
-GIO_AVAILABLE_IN_ALL
+extern
 const char *    g_unix_socket_address_get_path        (GUnixSocketAddress *address);
-GIO_AVAILABLE_IN_ALL
+extern
 gsize           g_unix_socket_address_get_path_len    (GUnixSocketAddress *address);
-GIO_AVAILABLE_IN_ALL
+extern
 GUnixSocketAddressType g_unix_socket_address_get_address_type (GUnixSocketAddress *address);
 GIO_DEPRECATED
 gboolean        g_unix_socket_address_get_is_abstract (GUnixSocketAddress *address);
 
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean        g_unix_socket_address_abstract_names_supported (void);
 
 

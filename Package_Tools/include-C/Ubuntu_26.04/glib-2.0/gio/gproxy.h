@@ -89,20 +89,20 @@ struct _GProxyInterface
   gboolean    (* supports_hostname) (GProxy             *proxy);
 };
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType      g_proxy_get_type                 (void) ;
 
-GIO_AVAILABLE_IN_ALL
+extern
 GProxy    *g_proxy_get_default_for_protocol (const gchar *protocol);
 
-GIO_AVAILABLE_IN_ALL
+extern
 GIOStream *g_proxy_connect           (GProxy               *proxy,
 				      GIOStream            *connection,
 				      GProxyAddress        *proxy_address,
 				      GCancellable         *cancellable,
 				      GError              **error);
 
-GIO_AVAILABLE_IN_ALL
+extern
 void       g_proxy_connect_async     (GProxy               *proxy,
 				      GIOStream            *connection,
 				      GProxyAddress        *proxy_address,
@@ -110,12 +110,12 @@ void       g_proxy_connect_async     (GProxy               *proxy,
 				      GAsyncReadyCallback   callback,
 				      gpointer              user_data);
 
-GIO_AVAILABLE_IN_ALL
+extern
 GIOStream *g_proxy_connect_finish    (GProxy               *proxy,
 				      GAsyncResult         *result,
 				      GError              **error);
 
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean   g_proxy_supports_hostname (GProxy               *proxy);
 
 

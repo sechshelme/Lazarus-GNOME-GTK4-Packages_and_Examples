@@ -91,52 +91,52 @@ struct _GFileEnumeratorClass
   void (*_g_reserved7) (void);
 };
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType      g_file_enumerator_get_type          (void) ;
 
-GIO_AVAILABLE_IN_ALL
+extern
 GFileInfo *g_file_enumerator_next_file         (GFileEnumerator      *enumerator,
 						GCancellable         *cancellable,
 						GError              **error);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean   g_file_enumerator_close             (GFileEnumerator      *enumerator,
 						GCancellable         *cancellable,
 						GError              **error);
-GIO_AVAILABLE_IN_ALL
+extern
 void       g_file_enumerator_next_files_async  (GFileEnumerator      *enumerator,
 						int                   num_files,
 						int                   io_priority,
 						GCancellable         *cancellable,
 						GAsyncReadyCallback   callback,
 						gpointer              user_data);
-GIO_AVAILABLE_IN_ALL
+extern
 GList *    g_file_enumerator_next_files_finish (GFileEnumerator      *enumerator,
 						GAsyncResult         *result,
 						GError              **error);
-GIO_AVAILABLE_IN_ALL
+extern
 void       g_file_enumerator_close_async       (GFileEnumerator      *enumerator,
 						int                   io_priority,
 						GCancellable         *cancellable,
 						GAsyncReadyCallback   callback,
 						gpointer              user_data);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean   g_file_enumerator_close_finish      (GFileEnumerator      *enumerator,
 						GAsyncResult         *result,
 						GError              **error);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean   g_file_enumerator_is_closed         (GFileEnumerator      *enumerator);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean   g_file_enumerator_has_pending       (GFileEnumerator      *enumerator);
-GIO_AVAILABLE_IN_ALL
+extern
 void       g_file_enumerator_set_pending       (GFileEnumerator      *enumerator,
 						gboolean              pending);
-GIO_AVAILABLE_IN_ALL
+extern
 GFile *    g_file_enumerator_get_container     (GFileEnumerator *enumerator);
-GIO_AVAILABLE_IN_2_36
+extern
 GFile *    g_file_enumerator_get_child         (GFileEnumerator *enumerator,
                                                 GFileInfo       *info);
 
-GIO_AVAILABLE_IN_2_44
+extern
 gboolean   g_file_enumerator_iterate           (GFileEnumerator  *direnum,
                                                 GFileInfo       **out_info,
                                                 GFile           **out_child,

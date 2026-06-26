@@ -29,30 +29,30 @@
 
 
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType g_srv_target_get_type (void) ;
 #define G_TYPE_SRV_TARGET (g_srv_target_get_type ())
 
-GIO_AVAILABLE_IN_ALL
+extern
 GSrvTarget  *g_srv_target_new          (const gchar *hostname,
 				        guint16      port,
 				        guint16      priority,
 				        guint16      weight);
-GIO_AVAILABLE_IN_ALL
+extern
 GSrvTarget  *g_srv_target_copy         (GSrvTarget  *target);
-GIO_AVAILABLE_IN_ALL
+extern
 void         g_srv_target_free         (GSrvTarget  *target);
 
-GIO_AVAILABLE_IN_ALL
+extern
 const gchar *g_srv_target_get_hostname (GSrvTarget  *target);
-GIO_AVAILABLE_IN_ALL
+extern
 guint16      g_srv_target_get_port     (GSrvTarget  *target);
-GIO_AVAILABLE_IN_ALL
+extern
 guint16      g_srv_target_get_priority (GSrvTarget  *target);
-GIO_AVAILABLE_IN_ALL
+extern
 guint16      g_srv_target_get_weight   (GSrvTarget  *target);
 
-GIO_AVAILABLE_IN_ALL
+extern
 GList       *g_srv_target_list_sort    (GList       *targets);
 
 

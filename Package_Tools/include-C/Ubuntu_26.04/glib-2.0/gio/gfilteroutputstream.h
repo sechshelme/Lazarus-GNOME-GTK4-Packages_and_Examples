@@ -60,13 +60,13 @@ struct _GFilterOutputStreamClass
 };
 
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType           g_filter_output_stream_get_type              (void) ;
-GIO_AVAILABLE_IN_ALL
+extern
 GOutputStream * g_filter_output_stream_get_base_stream       (GFilterOutputStream *stream);
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean        g_filter_output_stream_get_close_base_stream (GFilterOutputStream *stream);
-GIO_AVAILABLE_IN_ALL
+extern
 void            g_filter_output_stream_set_close_base_stream (GFilterOutputStream *stream,
                                                               gboolean             close_base);
 

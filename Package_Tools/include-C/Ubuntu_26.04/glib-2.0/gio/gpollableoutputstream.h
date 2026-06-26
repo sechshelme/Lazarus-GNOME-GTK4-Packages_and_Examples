@@ -87,26 +87,26 @@ struct _GPollableOutputStreamInterface
 					 GError                **error);
 };
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType    g_pollable_output_stream_get_type          (void) ;
 
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean g_pollable_output_stream_can_poll          (GPollableOutputStream  *stream);
 
-GIO_AVAILABLE_IN_ALL
+extern
 gboolean g_pollable_output_stream_is_writable       (GPollableOutputStream  *stream);
-GIO_AVAILABLE_IN_ALL
+extern
 GSource *g_pollable_output_stream_create_source     (GPollableOutputStream  *stream,
 						     GCancellable           *cancellable);
 
-GIO_AVAILABLE_IN_ALL
+extern
 gssize   g_pollable_output_stream_write_nonblocking (GPollableOutputStream  *stream,
 						     const void             *buffer,
 						     gsize                   count,
 						     GCancellable           *cancellable,
 						     GError                **error);
 
-GIO_AVAILABLE_IN_2_60
+extern
 GPollableReturn g_pollable_output_stream_writev_nonblocking (GPollableOutputStream  *stream,
 							     const GOutputVector    *vectors,
 							     gsize                   n_vectors,

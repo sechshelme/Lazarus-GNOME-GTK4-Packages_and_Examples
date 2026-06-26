@@ -53,31 +53,31 @@ struct _GInetAddressMaskClass
 
 };
 
-GIO_AVAILABLE_IN_2_32
+extern
 GType g_inet_address_mask_get_type (void) ;
 
-GIO_AVAILABLE_IN_2_32
+extern
 GInetAddressMask *g_inet_address_mask_new             (GInetAddress      *addr,
 						       guint              length,
 						       GError           **error);
 
-GIO_AVAILABLE_IN_2_32
+extern
 GInetAddressMask *g_inet_address_mask_new_from_string (const gchar       *mask_string,
 						       GError           **error);
-GIO_AVAILABLE_IN_2_32
+extern
 gchar            *g_inet_address_mask_to_string       (GInetAddressMask  *mask);
 
-GIO_AVAILABLE_IN_2_32
+extern
 GSocketFamily     g_inet_address_mask_get_family      (GInetAddressMask  *mask);
-GIO_AVAILABLE_IN_2_32
+extern
 GInetAddress     *g_inet_address_mask_get_address     (GInetAddressMask  *mask);
-GIO_AVAILABLE_IN_2_32
+extern
 guint             g_inet_address_mask_get_length      (GInetAddressMask  *mask);
 
-GIO_AVAILABLE_IN_2_32
+extern
 gboolean          g_inet_address_mask_matches         (GInetAddressMask  *mask,
 						       GInetAddress      *address);
-GIO_AVAILABLE_IN_2_32
+extern
 gboolean          g_inet_address_mask_equal           (GInetAddressMask  *mask,
 						       GInetAddressMask  *mask2);
 

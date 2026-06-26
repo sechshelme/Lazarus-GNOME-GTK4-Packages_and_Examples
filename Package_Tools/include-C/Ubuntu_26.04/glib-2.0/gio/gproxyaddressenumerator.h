@@ -67,7 +67,7 @@ struct _GProxyAddressEnumeratorClass
   void (*_g_reserved7) (void);
 };
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType           g_proxy_address_enumerator_get_type    (void) ;
 
 

@@ -48,10 +48,10 @@ struct _GTlsFileDatabaseInterface
   gpointer padding[8];
 };
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType                        g_tls_file_database_get_type              (void) ;
 
-GIO_AVAILABLE_IN_ALL
+extern
 GTlsDatabase*                g_tls_file_database_new                   (const gchar  *anchors,
                                                                         GError      **error);
 

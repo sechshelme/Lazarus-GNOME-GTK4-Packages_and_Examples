@@ -125,21 +125,21 @@ struct _GVolumeMonitorClass
   void (*_g_reserved6) (void);
 };
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType           g_volume_monitor_get_type             (void) ;
 
-GIO_AVAILABLE_IN_ALL
+extern
 GVolumeMonitor *g_volume_monitor_get                  (void);
-GIO_AVAILABLE_IN_ALL
+extern
 GList *         g_volume_monitor_get_connected_drives (GVolumeMonitor *volume_monitor);
-GIO_AVAILABLE_IN_ALL
+extern
 GList *         g_volume_monitor_get_volumes          (GVolumeMonitor *volume_monitor);
-GIO_AVAILABLE_IN_ALL
+extern
 GList *         g_volume_monitor_get_mounts           (GVolumeMonitor *volume_monitor);
-GIO_AVAILABLE_IN_ALL
+extern
 GVolume *       g_volume_monitor_get_volume_for_uuid  (GVolumeMonitor *volume_monitor,
                                                        const char     *uuid);
-GIO_AVAILABLE_IN_ALL
+extern
 GMount *        g_volume_monitor_get_mount_for_uuid   (GVolumeMonitor *volume_monitor,
                                                        const char     *uuid);
 

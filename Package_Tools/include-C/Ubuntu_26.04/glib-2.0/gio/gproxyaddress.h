@@ -55,10 +55,10 @@ struct _GProxyAddressClass
 };
 
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType           g_proxy_address_get_type    (void) ;
 
-GIO_AVAILABLE_IN_ALL
+extern
 GSocketAddress *g_proxy_address_new         (GInetAddress *inetaddr,
 					     guint16       port,
 					     const gchar  *protocol,
@@ -67,20 +67,20 @@ GSocketAddress *g_proxy_address_new         (GInetAddress *inetaddr,
 					     const gchar  *username,
 					     const gchar  *password);
 
-GIO_AVAILABLE_IN_ALL
+extern
 const gchar    *g_proxy_address_get_protocol                (GProxyAddress *proxy);
-GIO_AVAILABLE_IN_2_34
+extern
 const gchar    *g_proxy_address_get_destination_protocol    (GProxyAddress *proxy);
-GIO_AVAILABLE_IN_ALL
+extern
 const gchar    *g_proxy_address_get_destination_hostname    (GProxyAddress *proxy);
-GIO_AVAILABLE_IN_ALL
+extern
 guint16         g_proxy_address_get_destination_port        (GProxyAddress *proxy);
-GIO_AVAILABLE_IN_ALL
+extern
 const gchar    *g_proxy_address_get_username                (GProxyAddress *proxy);
-GIO_AVAILABLE_IN_ALL
+extern
 const gchar    *g_proxy_address_get_password                (GProxyAddress *proxy);
 
-GIO_AVAILABLE_IN_2_34
+extern
 const gchar    *g_proxy_address_get_uri                     (GProxyAddress *proxy);
 
 

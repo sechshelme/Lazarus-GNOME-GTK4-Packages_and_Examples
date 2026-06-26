@@ -50,25 +50,25 @@ struct _GDtlsClientConnectionInterface
   GTypeInterface g_iface;
 };
 
-GIO_AVAILABLE_IN_2_48
+extern
 GType                g_dtls_client_connection_get_type             (void) ;
 
-GIO_AVAILABLE_IN_2_48
+extern
 GDatagramBased      *g_dtls_client_connection_new                  (GDatagramBased         *base_socket,
                                                                     GSocketConnectable     *server_identity,
                                                                     GError                **error);
 
-GIO_AVAILABLE_IN_2_48
+extern
 GTlsCertificateFlags g_dtls_client_connection_get_validation_flags (GDtlsClientConnection  *conn);
-GIO_AVAILABLE_IN_2_48
+extern
 void                 g_dtls_client_connection_set_validation_flags (GDtlsClientConnection  *conn,
                                                                     GTlsCertificateFlags    flags);
-GIO_AVAILABLE_IN_2_48
+extern
 GSocketConnectable  *g_dtls_client_connection_get_server_identity  (GDtlsClientConnection  *conn);
-GIO_AVAILABLE_IN_2_48
+extern
 void                 g_dtls_client_connection_set_server_identity  (GDtlsClientConnection  *conn,
                                                                     GSocketConnectable     *identity);
-GIO_AVAILABLE_IN_2_48
+extern
 GList *              g_dtls_client_connection_get_accepted_cas     (GDtlsClientConnection  *conn);
 
 

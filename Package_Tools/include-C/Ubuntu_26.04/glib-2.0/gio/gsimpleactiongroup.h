@@ -63,25 +63,25 @@ struct _GSimpleActionGroupClass
   gpointer padding[12];
 };
 
-GIO_AVAILABLE_IN_ALL
+extern
 GType                   g_simple_action_group_get_type                  (void) ;
 
-GIO_AVAILABLE_IN_ALL
+extern
 GSimpleActionGroup *    g_simple_action_group_new                       (void);
 
-GIO_DEPRECATED_IN_2_38_FOR (g_action_map_lookup_action)
+extern //xxxxxGLIB_DEPRECATED_IN_2_38_FOR (g_action_map_lookup_action)
 GAction *               g_simple_action_group_lookup                    (GSimpleActionGroup *simple,
                                                                          const gchar        *action_name);
 
-GIO_DEPRECATED_IN_2_38_FOR (g_action_map_add_action)
+extern //xxxxxGLIB_DEPRECATED_IN_2_38_FOR (g_action_map_add_action)
 void                    g_simple_action_group_insert                    (GSimpleActionGroup *simple,
                                                                          GAction            *action);
 
-GIO_DEPRECATED_IN_2_38_FOR (g_action_map_remove_action)
+extern //xxxxxGLIB_DEPRECATED_IN_2_38_FOR (g_action_map_remove_action)
 void                    g_simple_action_group_remove                    (GSimpleActionGroup *simple,
                                                                          const gchar        *action_name);
 
-GIO_DEPRECATED_IN_2_38_FOR (g_action_map_add_action_entries)
+extern //xxxxxGLIB_DEPRECATED_IN_2_38_FOR (g_action_map_add_action_entries)
 void                    g_simple_action_group_add_entries               (GSimpleActionGroup *simple,
                                                                          const GActionEntry *entries,
                                                                          gint                n_entries,
