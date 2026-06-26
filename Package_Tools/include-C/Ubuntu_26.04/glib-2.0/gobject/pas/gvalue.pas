@@ -11,25 +11,7 @@ uses
 
 
 type
-  PGValue = ^TGValue;
-
   TGValueTransform = procedure(src_value: PGValue; dest_value: PGValue); cdecl;
-
-  TGValue = record
-    g_type: TGType;
-    data: array[0..1] of record
-      case longint of
-        0: (v_int: Tgint);
-        1: (v_uint: Tguint);
-        2: (v_long: Tglong);
-        3: (v_ulong: Tgulong);
-        4: (v_int64: Tgint64);
-        5: (v_uint64: Tguint64);
-        6: (v_float: Tgfloat);
-        7: (v_double: Tgdouble);
-        8: (v_pointer: Tgpointer);
-      end;
-  end;
 
 function g_value_init(value: PGValue; g_type: TGType): PGValue; cdecl; external libgobject2_0;
 procedure g_value_copy(src_value: PGValue; dest_value: PGValue); cdecl; external libgobject2_0;

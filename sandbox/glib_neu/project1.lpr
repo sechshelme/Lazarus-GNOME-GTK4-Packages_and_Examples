@@ -12,7 +12,6 @@ uses
   gobject,
   gbinding,
   gbindinggroup,
-
   gboxed,
   glib_enumtypes,
   glib_types,

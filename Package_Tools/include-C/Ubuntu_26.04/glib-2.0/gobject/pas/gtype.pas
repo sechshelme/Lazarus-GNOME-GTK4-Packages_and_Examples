@@ -49,7 +49,23 @@ const
   G_TYPE_RESERVED_USER_FIRST = 49;
 
 type
-  PGValue = type Pointer;
+  PGValue = ^TGValue;
+  TGValue = record
+    g_type: TGType;
+    data: array[0..1] of record
+      case longint of
+        0: (v_int: Tgint);
+        1: (v_uint: Tguint);
+        2: (v_long: Tglong);
+        3: (v_ulong: Tgulong);
+        4: (v_int64: Tgint64);
+        5: (v_uint64: Tguint64);
+        6: (v_float: Tgfloat);
+        7: (v_double: Tgdouble);
+        8: (v_pointer: Tgpointer);
+      end;
+  end;
+
   PGTypeCValue = type Pointer;
   PGTypePlugin = type Pointer;
 
