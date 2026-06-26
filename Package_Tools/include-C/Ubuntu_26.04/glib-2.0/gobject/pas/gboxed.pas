@@ -3,7 +3,7 @@ unit gboxed;
 interface
 
 uses
-  fp_glib;
+  fp_glib2;
 
 {$IFDEF FPC}
 {$PACKRECORDS C}

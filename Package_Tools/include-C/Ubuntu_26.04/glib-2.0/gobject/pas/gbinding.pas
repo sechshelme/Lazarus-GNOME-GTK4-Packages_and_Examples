@@ -3,7 +3,7 @@ unit gbinding;
 interface
 
 uses
-  fp_glib2, gvalue, gtype;
+  fp_glib2, gvalue, gtype, gobject, gclosure;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
