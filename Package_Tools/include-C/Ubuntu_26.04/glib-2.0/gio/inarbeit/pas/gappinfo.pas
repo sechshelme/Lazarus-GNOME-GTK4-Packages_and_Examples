@@ -9,9 +9,30 @@ uses
   {$PACKRECORDS C}
   {$ENDIF}
 
+
 type
   PGAppLaunchContextPrivate = type Pointer;
 
+  PGAppLaunchContext = ^TGAppLaunchContext;
+  TGAppLaunchContext = record
+    parent_instance: TGObject;
+    priv: PGAppLaunchContextPrivate;
+  end;
+
+  PGAppLaunchContextClass = ^TGAppLaunchContextClass;
+  TGAppLaunchContextClass = record
+    parent_class: TGObjectClass;
+    get_display: function(context: PGAppLaunchContext; info: PGAppInfo; files: PGList): pchar; cdecl;
+    get_startup_notify_id: function(context: PGAppLaunchContext; info: PGAppInfo; files: PGList): pchar; cdecl;
+    launch_failed: procedure(context: PGAppLaunchContext; startup_notify_id: pchar); cdecl;
+    launched: procedure(context: PGAppLaunchContext; info: PGAppInfo; platform_data: PGVariant); cdecl;
+    launch_started: procedure(context: PGAppLaunchContext; info: PGAppInfo; platform_data: PGVariant); cdecl;
+    _g_reserved1: procedure; cdecl;
+    _g_reserved2: procedure; cdecl;
+    _g_reserved3: procedure; cdecl;
+  end;
+
+type
   PGAppInfoIface = ^TGAppInfoIface;
   TGAppInfoIface = record
     g_iface: TGTypeInterface;
@@ -85,26 +106,6 @@ function g_app_info_get_default_for_uri_scheme_finish(result: PGAsyncResult; err
 function g_app_info_launch_default_for_uri(uri: pchar; context: PGAppLaunchContext; error: PPGError): Tgboolean; cdecl; external libgio2;
 procedure g_app_info_launch_default_for_uri_async(uri: pchar; context: PGAppLaunchContext; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl; external libgio2;
 function g_app_info_launch_default_for_uri_finish(result: PGAsyncResult; error: PPGError): Tgboolean; cdecl; external libgio2;
-
-type
-  PGAppLaunchContext = ^TGAppLaunchContext;
-  TGAppLaunchContext = record
-    parent_instance: TGObject;
-    priv: PGAppLaunchContextPrivate;
-  end;
-
-  PGAppLaunchContextClass = ^TGAppLaunchContextClass;
-  TGAppLaunchContextClass = record
-    parent_class: TGObjectClass;
-    get_display: function(context: PGAppLaunchContext; info: PGAppInfo; files: PGList): pchar; cdecl;
-    get_startup_notify_id: function(context: PGAppLaunchContext; info: PGAppInfo; files: PGList): pchar; cdecl;
-    launch_failed: procedure(context: PGAppLaunchContext; startup_notify_id: pchar); cdecl;
-    launched: procedure(context: PGAppLaunchContext; info: PGAppInfo; platform_data: PGVariant); cdecl;
-    launch_started: procedure(context: PGAppLaunchContext; info: PGAppInfo; platform_data: PGVariant); cdecl;
-    _g_reserved1: procedure; cdecl;
-    _g_reserved2: procedure; cdecl;
-    _g_reserved3: procedure; cdecl;
-  end;
 
 function g_app_launch_context_get_type: TGType; cdecl; external libgio2;
 function g_app_launch_context_new: PGAppLaunchContext; cdecl; external libgio2;

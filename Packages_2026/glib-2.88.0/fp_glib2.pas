@@ -59,6 +59,9 @@ type
 type
   Ppasswd = type Pointer;
 
+type // Fehlt auch in den Original Headern !
+  PGDBusActionGroupClass=Pointer;
+
   // ==== Wayland  ( GDK4 & GST )
 type
   Pwl_surface = type Pointer;

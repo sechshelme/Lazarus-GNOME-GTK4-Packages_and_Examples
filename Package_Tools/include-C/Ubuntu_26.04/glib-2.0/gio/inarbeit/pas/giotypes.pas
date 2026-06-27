@@ -11,19 +11,19 @@ uses
 
 
 type
-  PGAppLaunchContext = type Pointer;
+//  PGAppLaunchContext = type Pointer;
   PGAppInfo = type Pointer;
   PGAsyncResult = type Pointer;
   PGAsyncInitable = type Pointer;
-  PGBufferedInputStream = type Pointer;
-  PGBufferedOutputStream = type Pointer;
-  PGCancellable = type Pointer;
+//  PGBufferedInputStream = type Pointer;
+//  PGBufferedOutputStream = type Pointer;
+  PGCancellable = type Pointer;  // ???
   PGCharsetConverter = type Pointer;
   PGConverter = type Pointer;
-  PGConverterInputStream = type Pointer;
-  PGConverterOutputStream = type Pointer;
+//  PGConverterInputStream = type Pointer;
+//  PGConverterOutputStream = type Pointer;
   PGDatagramBased = type Pointer;
-  PGDataInputStream = type Pointer;
+//  PGDataInputStream = type Pointer;
   PGSimplePermission = type Pointer;
   PGZlibCompressor = type Pointer;
   PGZlibDecompressor = type Pointer;
@@ -35,8 +35,8 @@ type
   PGPropertyAction = type Pointer;
   PGSimpleAction = type Pointer;
   PGAction = type Pointer;
-  PGApplication = type Pointer;
-  PGApplicationCommandLine = type Pointer;
+//  PGApplication = type Pointer;
+//  PGApplicationCommandLine = type Pointer;
   PGSettingsBackend = type Pointer;
   PGSettings = type Pointer;
   PGPermission = type Pointer;
@@ -45,8 +45,8 @@ type
   PGDrive = type Pointer;
   PGFileEnumerator = type Pointer;
   PGFileMonitor = type Pointer;
-  PGFilterInputStream = type Pointer;
-  PGFilterOutputStream = type Pointer;
+//  PGFilterInputStream = type Pointer;
+//  PGFilterOutputStream = type Pointer;
   PGFile = type Pointer;
   PPGFile = ^PGFile;
   PGFileInfo = type Pointer;
@@ -54,7 +54,7 @@ type
   PGFileAttributeInfo = type Pointer;
   PGFileAttributeInfoList = type Pointer;
   PGFileInputStream = type Pointer;
-  PGFileOutputStream = type Pointer;
+//  PGFileOutputStream = type Pointer;
   PGFileIOStream = type Pointer;
   PGFileIcon = type Pointer;
   PGFilenameCompleter = type Pointer;
@@ -63,7 +63,7 @@ type
   PGInetAddressMask = type Pointer;
   PGInetSocketAddress = type Pointer;
   PGNativeSocketAddress = type Pointer;
-  PGInputStream = type Pointer;
+//  PGInputStream = type Pointer;
   PGInitable = type Pointer;
   PGIOModule = type Pointer;
   PGIOExtensionPoint = type Pointer;
@@ -79,7 +79,7 @@ type
   PGNetworkAddress = type Pointer;
   PGNetworkMonitor = type Pointer;
   PGNetworkService = type Pointer;
-  PGOutputStream = type Pointer;
+//  PGOutputStream = type Pointer;
   PGIOStream = type Pointer;
   PGSimpleIOStream = type Pointer;
   PGPollableInputStream = type Pointer;
@@ -168,34 +168,36 @@ type
   PGCredentials = type Pointer;
   PGUnixCredentialsMessage = type Pointer;
   PGUnixFDList = type Pointer;
+  PPGUnixFDList=^PGUnixFDList;
   PGDBusMessage = type Pointer;
   PGDBusConnection = type Pointer;
   PGDBusProxy = type Pointer;
   PGDBusMethodInvocation = type Pointer;
   PGDBusServer = type Pointer;
   PGDBusAuthObserver = type Pointer;
-  PGDBusErrorEntry = type Pointer;
-  PGDBusInterfaceVTable = type Pointer;
-  PGDBusSubtreeVTable = type Pointer;
-  PGDBusAnnotationInfo = type Pointer;
-  PGDBusArgInfo = type Pointer;
-  PGDBusMethodInfo = type Pointer;
-  PGDBusSignalInfo = type Pointer;
-  PGDBusPropertyInfo = type Pointer;
-  PGDBusInterfaceInfo = type Pointer;
-  PGDBusNodeInfo = type Pointer;
+//  PGDBusErrorEntry = type Pointer;
+//  PGDBusInterfaceVTable = type Pointer;
+//  PGDBusSubtreeVTable = type Pointer;
+//  PGDBusAnnotationInfo = type Pointer;
+//  PGDBusArgInfo = type Pointer;
+//  PGDBusMethodInfo = type Pointer;
+//  PGDBusSignalInfo = type Pointer;
+//  PGDBusPropertyInfo = type Pointer;
+//  PGDBusInterfaceInfo = type Pointer;
+//  PPGDBusInterfaceInfo=^PGDBusInterfaceInfo;
+//  PGDBusNodeInfo = type Pointer;
 
   TGCancellableSourceFunc = function(cancellable: PGCancellable; data: Tgpointer): Tgboolean; cdecl;
   TGPollableSourceFunc = function(pollable_stream: PGObject; data: Tgpointer): Tgboolean; cdecl;
 
   PGDBusInterface = type Pointer;
-  PGDBusInterfaceSkeleton = type Pointer;
+//  PGDBusInterfaceSkeleton = type Pointer;
   PGDBusObject = type Pointer;
-  PGDBusObjectSkeleton = type Pointer;
-  PGDBusObjectProxy = type Pointer;
+//  PGDBusObjectSkeleton = type Pointer;
+//  PGDBusObjectProxy = type Pointer;
   PGDBusObjectManager = type Pointer;
-  PGDBusObjectManagerClient = type Pointer;
-  PGDBusObjectManagerServer = type Pointer;
+  PGDBusObjectManagerClient = type Pointer;  // ????
+//  PGDBusObjectManagerServer = type Pointer;
 
   TGDBusProxyTypeFunc = function(manager: PGDBusObjectManagerClient; object_path: Pgchar; interface_name: Pgchar; data: Tgpointer): TGType; cdecl;
 
