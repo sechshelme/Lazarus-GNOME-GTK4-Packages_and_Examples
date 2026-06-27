@@ -3,95 +3,65 @@ unit gactionmap;
 interface
 
 uses
-  fp_glib2;
+  fp_glib2, giotypes;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
-
-{
- * Copyright © 2010 Codethink Limited
- *
- * SPDX-License-Identifier: LGPL-2.1-or-later
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General
- * Public License along with this library; if not, see <http://www.gnu.org/licenses/>.
- *
- * Authors: Ryan Lortie <desrt@desrt.ca>
-  }
-{$ifndef __G_ACTION_MAP_H__}
-{$define __G_ACTION_MAP_H__}
-{$if !defined (__GIO_GIO_H_INSIDE__) && !defined (GIO_COMPILATION)}
-{$error "Only <gio/gio.h> can be included directly."}
-{$endif}
-{$include <gio/giotypes.h>}
 
 type
   PGActionMapInterface = ^TGActionMapInterface;
   TGActionMapInterface = record
-      g_iface : TGTypeInterface;
-      lookup_action : function (action_map:PGActionMap; action_name:Pgchar):PGAction;cdecl;
-      add_action : procedure (action_map:PGActionMap; action:PGAction);cdecl;
-      remove_action : procedure (action_map:PGActionMap; action_name:Pgchar);cdecl;
-    end;
+    g_iface: TGTypeInterface;
+    lookup_action: function(action_map: PGActionMap; action_name: Pgchar): PGAction; cdecl;
+    add_action: procedure(action_map: PGActionMap; action: PGAction); cdecl;
+    remove_action: procedure(action_map: PGActionMap; action_name: Pgchar); cdecl;
+  end;
 
-{< private > }
   PGActionEntry = ^TGActionEntry;
   TGActionEntry = record
-      name : Pgchar;
-      activate : procedure (action:PGSimpleAction; parameter:PGVariant; user_data:Tgpointer);cdecl;
-      parameter_type : Pgchar;
-      state : Pgchar;
-      change_state : procedure (action:PGSimpleAction; value:PGVariant; user_data:Tgpointer);cdecl;
-      padding : array[0..2] of Tgsize;
-    end;
+    name: Pgchar;
+    activate: procedure(action: PGSimpleAction; parameter: PGVariant; user_data: Tgpointer); cdecl;
+    parameter_type: Pgchar;
+    state: Pgchar;
+    change_state: procedure(action: PGSimpleAction; value: PGVariant; user_data: Tgpointer); cdecl;
+    padding: array[0..2] of Tgsize;
+  end;
 
 
-function g_action_map_get_type:TGType;cdecl;external libgio2;
-function g_action_map_lookup_action(action_map:PGActionMap; action_name:Pgchar):PGAction;cdecl;external libgio2;
-procedure g_action_map_add_action(action_map:PGActionMap; action:PGAction);cdecl;external libgio2;
-procedure g_action_map_remove_action(action_map:PGActionMap; action_name:Pgchar);cdecl;external libgio2;
-procedure g_action_map_add_action_entries(action_map:PGActionMap; entries:PGActionEntry; n_entries:Tgint; user_data:Tgpointer);cdecl;external libgio2;
-procedure g_action_map_remove_action_entries(action_map:PGActionMap; entries:PGActionEntry; n_entries:Tgint);cdecl;external libgio2;
-{$endif}
-{ __G_ACTION_MAP_H__  }
+function g_action_map_get_type: TGType; cdecl; external libgio2;
+function g_action_map_lookup_action(action_map: PGActionMap; action_name: Pgchar): PGAction; cdecl; external libgio2;
+procedure g_action_map_add_action(action_map: PGActionMap; action: PGAction); cdecl; external libgio2;
+procedure g_action_map_remove_action(action_map: PGActionMap; action_name: Pgchar); cdecl; external libgio2;
+procedure g_action_map_add_action_entries(action_map: PGActionMap; entries: PGActionEntry; n_entries: Tgint; user_data: Tgpointer); cdecl; external libgio2;
+procedure g_action_map_remove_action_entries(action_map: PGActionMap; entries: PGActionEntry; n_entries: Tgint); cdecl; external libgio2;
 
 // === Konventiert am: 26-6-26 16:29:00 ===
 
-function G_TYPE_ACTION_MAP : TGType;
-function G_ACTION_MAP(obj : Pointer) : PGActionMap;
-function G_IS_ACTION_MAP(obj : Pointer) : Tgboolean;
-function G_ACTION_MAP_GET_IFACE(obj : Pointer) : PGActionMapInterface;
+function G_TYPE_ACTION_MAP: TGType;
+function G_ACTION_MAP(obj: Pointer): PGActionMap;
+function G_IS_ACTION_MAP(obj: Pointer): Tgboolean;
+function G_ACTION_MAP_GET_IFACE(obj: Pointer): PGActionMapInterface;
 
 implementation
 
-function G_TYPE_ACTION_MAP : TGType;
-  begin
-    G_TYPE_ACTION_MAP:=g_action_map_get_type;
-  end;
+function G_TYPE_ACTION_MAP: TGType;
+begin
+  G_TYPE_ACTION_MAP := g_action_map_get_type;
+end;
 
-function G_ACTION_MAP(obj : Pointer) : PGActionMap;
+function G_ACTION_MAP(obj: Pointer): PGActionMap;
 begin
   Result := PGActionMap(g_type_check_instance_cast(obj, G_TYPE_ACTION_MAP));
 end;
 
-function G_IS_ACTION_MAP(obj : Pointer) : Tgboolean;
+function G_IS_ACTION_MAP(obj: Pointer): Tgboolean;
 begin
-  Result := g_type_check_instance_is_a(obj,  G_TYPE_ACTION_MAP);
+  Result := g_type_check_instance_is_a(obj, G_TYPE_ACTION_MAP);
 end;
 
-function G_ACTION_MAP_GET_IFACE(obj : Pointer) : PGActionMapInterface;
+function G_ACTION_MAP_GET_IFACE(obj: Pointer): PGActionMapInterface;
 begin
   Result := g_type_interface_peek(obj, G_TYPE_ACTION_MAP);
 end;

@@ -1,12 +1,15 @@
 program project1;
 
 uses
+  giotypes,
+  gioenums,
   gaction,
   gactiongroup,
   gactiongroupexporter,
   gactionmap,
   gappinfo,
   gapplication,
+
   gapplicationcommandline,
   gasyncinitable,
   gasyncresult,
@@ -71,13 +74,11 @@ uses
   ginetsocketaddress,
   ginitable,
   ginputstream,
-  gioenums,
   gioenumtypes,
   gioerror,
   giomodule,
   gioscheduler,
   giostream,
-  giotypes,
   giptosmessage,
   gipv6tclassmessage,
   glistmodel,
