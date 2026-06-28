@@ -24,7 +24,6 @@ type
       n_infos : longint;
     end;
 
-
 function g_file_attribute_info_list_get_type:TGType;cdecl;external libgio2;
 function g_file_attribute_info_list_new:PGFileAttributeInfoList;cdecl;external libgio2;
 function g_file_attribute_info_list_ref(list:PGFileAttributeInfoList):PGFileAttributeInfoList;cdecl;external libgio2;

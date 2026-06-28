@@ -6,6 +6,7 @@ program project1;
 uses
   giotypes,
   gioenums,
+  gioenumtypes,
   gaction,
   gactiongroup,
   gactiongroupexporter,
@@ -19,25 +20,25 @@ uses
   gfileoutputstream,
   gapplicationcommandline,
   gapplication,
-  gfilterinputstream,
-  gfilteroutputstream,
-  gbufferedinputstream,
-  gbufferedoutputstream,
+  gfilterinputstream,                 // GInputStream
+  gfilteroutputstream,                // GOutputStream
+  gbufferedinputstream,               // GFilterInputStream
+  gbufferedoutputstream,              // GFilterOutputStream
   gbytesicon,
   gcancellable,
   gcharsetconverter,
   gcontenttype,
   gconverter,
-  gconverterinputstream,
-  gconverteroutputstream,
+  gconverterinputstream,              // GFilterInputStream
+  gconverteroutputstream,             // GFilterOutputStream
   gcredentials,
   gdatagrambased,
-  gdatainputstream,
-  gdataoutputstream,
+  gdatainputstream,                   // GBufferedInputStream
+  gdataoutputstream,                  // GFilterOutputStream
   gdbusactiongroup,
   gdbusaddress,
   gdbusauthobserver,
-  gdbusintrospection,
+  gdbusintrospection,                 // diverse struct
   gdbusconnection,
   gdbuserror,
   gdbusinterface,
@@ -67,9 +68,9 @@ uses
   gfilemonitor,
   gfileattribute,
   gfileenumerator,
-  gfileinputstream,
+  gfileinputstream,                          // GInputStream
   gfile,
-  gfileiostream,
+  gfileiostream,                             // GIOStream
   gfileicon,
   gfileinfo,
   gfilenamecompleter,
@@ -77,29 +78,28 @@ uses
   ginetaddress,
   ginetaddressmask,
   gsocketaddress,
-  ginetsocketaddress,
+  ginetsocketaddress,                        // GSocketAddress
   ginitable,
-  gioenumtypes,
   gioerror,
   giomodule,
   gioscheduler,
   gsocketcontrolmessage,
   gsocket,
   gsocketaddressenumerator,
-  gsocketconnection,
+  gsocketconnection,                         // GIOStream
   gsocketclient,
   gsocketconnectable,
   gsocketlistener,
-  gsocketservice,
-  giptosmessage,
-  gipv6tclassmessage,
+  gsocketservice,                            // GSocketListener
+  giptosmessage,                             // GSocketControlMessage
+  gipv6tclassmessage,                        // GSocketControlMessage
   glistmodel,
   gliststore,
 
   gloadableicon,
-  gmemoryinputstream,
+  gmemoryinputstream,                        // TGInputStream
   gmemorymonitor,
-  gmemoryoutputstream,
+  gmemoryoutputstream,                       // TGOutputStream
   gmenu,
   gmenuexporter,
   gmenumodel,
@@ -135,8 +135,6 @@ uses
   gsimpleiostream,
   gsimplepermission,
   gsimpleproxyresolver,
-
-
   gsrvtarget,
   gsubprocess,
   gsubprocesslauncher,

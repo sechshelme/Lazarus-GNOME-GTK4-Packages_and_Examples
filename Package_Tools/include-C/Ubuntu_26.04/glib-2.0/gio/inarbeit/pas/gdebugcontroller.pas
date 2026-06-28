@@ -12,6 +12,7 @@ uses
 
 const
   G_DEBUG_CONTROLLER_EXTENSION_POINT_NAME = 'gio-debug-controller';
+
 type
   PGDebugController = type Pointer;
 

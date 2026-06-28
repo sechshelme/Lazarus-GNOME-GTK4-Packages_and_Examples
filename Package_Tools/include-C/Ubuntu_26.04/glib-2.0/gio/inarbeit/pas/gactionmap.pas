@@ -29,7 +29,6 @@ type
     padding: array[0..2] of Tgsize;
   end;
 
-
 function g_action_map_get_type: TGType; cdecl; external libgio2;
 function g_action_map_lookup_action(action_map: PGActionMap; action_name: Pgchar): PGAction; cdecl; external libgio2;
 procedure g_action_map_add_action(action_map: PGActionMap; action: PGAction); cdecl; external libgio2;
