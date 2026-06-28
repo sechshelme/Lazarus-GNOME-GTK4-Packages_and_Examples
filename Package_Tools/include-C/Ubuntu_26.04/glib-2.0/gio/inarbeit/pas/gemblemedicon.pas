@@ -3,103 +3,71 @@ unit gemblemedicon;
 interface
 
 uses
-  fp_glib2;
+  fp_glib2, giotypes, gemblem;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
-
-{ Gio - GLib Input, Output and Streaming Library
- *
- * Copyright (C) 2006-2007 Red Hat, Inc.
- *
- * SPDX-License-Identifier: LGPL-2.1-or-later
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General
- * Public License along with this library; if not, see <http://www.gnu.org/licenses/>.
- *
- * Author: Matthias Clasen <mclasen@redhat.com>
- *         Clemens N. Buss <cebuzz@gmail.com>
-  }
-{$ifndef __G_EMBLEMED_ICON_H__}
-{$define __G_EMBLEMED_ICON_H__}
-{$if !defined (__GIO_GIO_H_INSIDE__) && !defined (GIO_COMPILATION)}
-{$error "Only <gio/gio.h> can be included directly."}
-{$endif}
-{$include <gio/gicon.h>}
-{$include <gio/gemblem.h>}
 
 type
-{< private > }
+  PGEmblemedIconPrivate = type Pointer;
+
   PGEmblemedIcon = ^TGEmblemedIcon;
   TGEmblemedIcon = record
-      parent_instance : TGObject;
-      priv : PGEmblemedIconPrivate;
-    end;
+    parent_instance: TGObject;
+    priv: PGEmblemedIconPrivate;
+  end;
 
   PGEmblemedIconClass = ^TGEmblemedIconClass;
   TGEmblemedIconClass = record
-      parent_class : TGObjectClass;
-    end;
+    parent_class: TGObjectClass;
+  end;
 
-
-function g_emblemed_icon_get_type:TGType;cdecl;external libgio2;
-function g_emblemed_icon_new(icon:PGIcon; emblem:PGEmblem):PGIcon;cdecl;external libgio2;
-function g_emblemed_icon_get_icon(emblemed:PGEmblemedIcon):PGIcon;cdecl;external libgio2;
-function g_emblemed_icon_get_emblems(emblemed:PGEmblemedIcon):PGList;cdecl;external libgio2;
-procedure g_emblemed_icon_add_emblem(emblemed:PGEmblemedIcon; emblem:PGEmblem);cdecl;external libgio2;
-procedure g_emblemed_icon_clear_emblems(emblemed:PGEmblemedIcon);cdecl;external libgio2;
-{$endif}
-{ __G_EMBLEMED_ICON_H__  }
+function g_emblemed_icon_get_type: TGType; cdecl; external libgio2;
+function g_emblemed_icon_new(icon: PGIcon; emblem: PGEmblem): PGIcon; cdecl; external libgio2;
+function g_emblemed_icon_get_icon(emblemed: PGEmblemedIcon): PGIcon; cdecl; external libgio2;
+function g_emblemed_icon_get_emblems(emblemed: PGEmblemedIcon): PGList; cdecl; external libgio2;
+procedure g_emblemed_icon_add_emblem(emblemed: PGEmblemedIcon; emblem: PGEmblem); cdecl; external libgio2;
+procedure g_emblemed_icon_clear_emblems(emblemed: PGEmblemedIcon); cdecl; external libgio2;
 
 // === Konventiert am: 26-6-26 19:22:59 ===
 
-function G_TYPE_EMBLEMED_ICON : TGType;
-function G_EMBLEMED_ICON(obj : Pointer) : PGEmblemedIcon;
-function G_EMBLEMED_ICON_CLASS(klass : Pointer) : PGEmblemedIconClass;
-function G_IS_EMBLEMED_ICON(obj : Pointer) : Tgboolean;
-function G_IS_EMBLEMED_ICON_CLASS(klass : Pointer) : Tgboolean;
-function G_EMBLEMED_ICON_GET_CLASS(obj : Pointer) : PGEmblemedIconClass;
+function G_TYPE_EMBLEMED_ICON: TGType;
+function G_EMBLEMED_ICON(obj: Pointer): PGEmblemedIcon;
+function G_EMBLEMED_ICON_CLASS(klass: Pointer): PGEmblemedIconClass;
+function G_IS_EMBLEMED_ICON(obj: Pointer): Tgboolean;
+function G_IS_EMBLEMED_ICON_CLASS(klass: Pointer): Tgboolean;
+function G_EMBLEMED_ICON_GET_CLASS(obj: Pointer): PGEmblemedIconClass;
 
 implementation
 
-function G_TYPE_EMBLEMED_ICON : TGType;
-  begin
-    G_TYPE_EMBLEMED_ICON:=g_emblemed_icon_get_type;
-  end;
+function G_TYPE_EMBLEMED_ICON: TGType;
+begin
+  G_TYPE_EMBLEMED_ICON := g_emblemed_icon_get_type;
+end;
 
-function G_EMBLEMED_ICON(obj : Pointer) : PGEmblemedIcon;
+function G_EMBLEMED_ICON(obj: Pointer): PGEmblemedIcon;
 begin
   Result := PGEmblemedIcon(g_type_check_instance_cast(obj, G_TYPE_EMBLEMED_ICON));
 end;
 
-function G_EMBLEMED_ICON_CLASS(klass : Pointer) : PGEmblemedIconClass;
+function G_EMBLEMED_ICON_CLASS(klass: Pointer): PGEmblemedIconClass;
 begin
   Result := PGEmblemedIconClass(g_type_check_class_cast(klass, G_TYPE_EMBLEMED_ICON));
 end;
 
-function G_IS_EMBLEMED_ICON(obj : Pointer) : Tgboolean;
+function G_IS_EMBLEMED_ICON(obj: Pointer): Tgboolean;
 begin
-  Result := g_type_check_instance_is_a(obj,  G_TYPE_EMBLEMED_ICON);
+  Result := g_type_check_instance_is_a(obj, G_TYPE_EMBLEMED_ICON);
 end;
 
-function G_IS_EMBLEMED_ICON_CLASS(klass : Pointer) : Tgboolean;
+function G_IS_EMBLEMED_ICON_CLASS(klass: Pointer): Tgboolean;
 begin
-  Result := g_type_check_class_is_a(klass,  G_TYPE_EMBLEMED_ICON);
+  Result := g_type_check_class_is_a(klass, G_TYPE_EMBLEMED_ICON);
 end;
 
-function G_EMBLEMED_ICON_GET_CLASS(obj : Pointer) : PGEmblemedIconClass;
+function G_EMBLEMED_ICON_GET_CLASS(obj: Pointer): PGEmblemedIconClass;
 begin
   Result := PGEmblemedIconClass(PGTypeInstance(obj)^.g_class);
 end;

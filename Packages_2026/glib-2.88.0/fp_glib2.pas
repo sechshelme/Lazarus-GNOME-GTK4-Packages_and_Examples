@@ -61,6 +61,7 @@ type
 
 type // Fehlt auch in den Original Headern !
   PGDBusActionGroupClass=Pointer;
+  PGEmblemClass=Pointer;
 
   // ==== Wayland  ( GDK4 & GST )
 type

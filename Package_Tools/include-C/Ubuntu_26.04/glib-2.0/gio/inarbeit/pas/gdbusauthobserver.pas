@@ -3,7 +3,7 @@ unit gdbusauthobserver;
 interface
 
 uses
-  fp_glib2, giotypes;
+  fp_glib2, giotypes, giostream;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

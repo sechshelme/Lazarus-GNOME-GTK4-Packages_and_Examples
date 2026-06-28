@@ -3,7 +3,7 @@ unit gdbusconnection;
 interface
 
 uses
-  fp_glib2, giotypes, gioenums, gdbusintrospection;
+  fp_glib2, giotypes, gioenums, gdbusintrospection,giostream;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

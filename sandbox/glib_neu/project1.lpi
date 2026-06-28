@@ -32,10 +32,6 @@
       <Unit>
         <Filename Value="project1.lpr"/>
       </Unit>
-      <Unit>
-        <Filename Value="common_glib.pas"/>
-        <UnitName Value="common_GLIB"/>
-      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
