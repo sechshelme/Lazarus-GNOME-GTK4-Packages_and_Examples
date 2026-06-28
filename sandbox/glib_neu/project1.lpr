@@ -1,5 +1,8 @@
 program project1;
 
+// diff /usr/include/glib-2.0/gio/gioenumtypes.h /home/tux/include_neu/glib-2.0/gio/gioenumtypes.h > test.diff
+
+
 uses
   giotypes,
   gioenums,
@@ -70,20 +73,29 @@ uses
   gfileicon,
   gfileinfo,
   gfilenamecompleter,
-
   gicon,
   ginetaddress,
   ginetaddressmask,
+  gsocketaddress,
   ginetsocketaddress,
   ginitable,
   gioenumtypes,
   gioerror,
   giomodule,
   gioscheduler,
+  gsocketcontrolmessage,
+  gsocket,
+  gsocketaddressenumerator,
+  gsocketconnection,
+  gsocketclient,
+  gsocketconnectable,
+  gsocketlistener,
+  gsocketservice,
   giptosmessage,
   gipv6tclassmessage,
   glistmodel,
   gliststore,
+
   gloadableicon,
   gmemoryinputstream,
   gmemorymonitor,
@@ -123,15 +135,8 @@ uses
   gsimpleiostream,
   gsimplepermission,
   gsimpleproxyresolver,
-  gsocket,
-  gsocketaddress,
-  gsocketaddressenumerator,
-  gsocketclient,
-  gsocketconnectable,
-  gsocketconnection,
-  gsocketcontrolmessage,
-  gsocketlistener,
-  gsocketservice,
+
+
   gsrvtarget,
   gsubprocess,
   gsubprocesslauncher,
