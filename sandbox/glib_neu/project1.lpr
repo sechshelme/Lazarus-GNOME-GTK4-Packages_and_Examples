@@ -62,6 +62,15 @@ uses
   gmountoperation,
   gmount,
   gdrive,
+  gtlsbackend,
+  gtlscertificate,
+  gtlspassword,
+  gtlsconnection,                     // GIOStream
+  gtlsinteraction,
+  gtlsclientconnection,
+  gtlsdatabase,
+  gtlsfiledatabase,
+  gtlsserverconnection,
   gdtlsclientconnection,
   gdtlsconnection,
   gdtlsserverconnection,
@@ -70,9 +79,9 @@ uses
   gfilemonitor,
   gfileattribute,
   gfileenumerator,
-  gfileinputstream,                          // GInputStream
+  gfileinputstream,                   // GInputStream
   gfile,
-  gfileiostream,                             // GIOStream
+  gfileiostream,                      // GIOStream
   gfileicon,
   gfileinfo,
   gfilenamecompleter,
@@ -80,7 +89,7 @@ uses
   ginetaddress,
   ginetaddressmask,
   gsocketaddress,
-  ginetsocketaddress,                        // GSocketAddress
+  ginetsocketaddress,                 // GSocketAddress
   ginitable,
   gioerror,
   giomodule,
@@ -88,26 +97,26 @@ uses
   gsocketcontrolmessage,
   gsocket,
   gsocketaddressenumerator,
-  gsocketconnection,                         // GIOStream
+  gsocketconnection,                  // GIOStream
   gsocketclient,
   gsocketconnectable,
   gsocketlistener,
-  gsocketservice,                            // GSocketListener
-  giptosmessage,                             // GSocketControlMessage
-  gipv6tclassmessage,                        // GSocketControlMessage
+  gsocketservice,                     // GSocketListener
+  giptosmessage,                      // GSocketControlMessage
+  gipv6tclassmessage,                 // GSocketControlMessage
   glistmodel,
   gliststore,
   gloadableicon,
-  gmemoryinputstream,                        // GInputStream
+  gmemoryinputstream,                 // GInputStream
   gmemorymonitor,
-  gmemoryoutputstream,                       // GOutputStream
+  gmemoryoutputstream,                // GOutputStream
   gmenumodel,
   gmenu,
   gmenuexporter,
-  gnativesocketaddress,                      // GSocketAddress
+  gnativesocketaddress,               // GSocketAddress
   gvolume,
   gvolumemonitor,
-  gnativevolumemonitor,                      // GVolumeMonitor
+  gnativevolumemonitor,               // GVolumeMonitor
   gnetworkaddress,
   gnetworking,
   gnetworkmonitor,
@@ -120,8 +129,8 @@ uses
   gpowerprofilemonitor,
   gpropertyaction,
   gproxy,
-  gproxyaddress,                             // GInetSocketAddress
-  gproxyaddressenumerator,                   // GSocketAddressEnumerator
+  gproxyaddress,                      // GInetSocketAddress
+  gproxyaddressenumerator,            // GSocketAddressEnumerator
   gproxyresolver,
   gremoteactiongroup,
   gresolver,
@@ -140,21 +149,13 @@ uses
   gsubprocess,
   gsubprocesslauncher,
   gtask,
-  gtcpconnection,                            // TGSocketConnectionClass
-  gtcpwrapperconnection,
-
+  gtcpconnection,                     // GSocketConnectionClass
+  gtcpwrapperconnection,              // GTcpConnection
   gtestdbus,
   gthemedicon,
-  gthreadedsocketservice,
-  gtlsbackend,
-  gtlscertificate,
-  gtlsclientconnection,
-  gtlsconnection,
-  gtlsdatabase,
-  gtlsfiledatabase,
-  gtlsinteraction,
-  gtlspassword,
-  gtlsserverconnection,
+  gthreadedsocketservice,             // GSocketService
+
+
   gunixconnection,
   gunixcredentialsmessage,
   gunixfdlist,

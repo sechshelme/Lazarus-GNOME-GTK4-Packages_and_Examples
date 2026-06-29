@@ -3,7 +3,7 @@ unit gdtlsconnection;
 interface
 
 uses
-  fp_glib2, giotypes, gioenums;
+  fp_glib2, giotypes, gioenums, gtlscertificate;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
