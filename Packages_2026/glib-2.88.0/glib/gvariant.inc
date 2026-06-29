@@ -25,6 +25,7 @@ const
   G_VARIANT_CLASS_DICT_ENTRY = '{';
 
 type
+  PPPGVariant = ^PPGVariant;
   PPGVariant = ^PGVariant;
   PGVariant = type Pointer;
 

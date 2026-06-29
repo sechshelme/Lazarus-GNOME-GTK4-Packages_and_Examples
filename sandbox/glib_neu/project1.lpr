@@ -125,12 +125,11 @@ uses
   gproxyresolver,
   gremoteactiongroup,
   gresolver,
-
   gresource,
   gseekable,
-  gsettings,
   gsettingsbackend,
   gsettingsschema,
+  gsettings,
   gsimpleaction,
   gsimpleactiongroup,
   gsimpleasyncresult,
@@ -141,8 +140,9 @@ uses
   gsubprocess,
   gsubprocesslauncher,
   gtask,
-  gtcpconnection,
+  gtcpconnection,                            // TGSocketConnectionClass
   gtcpwrapperconnection,
+
   gtestdbus,
   gthemedicon,
   gthreadedsocketservice,

@@ -37,8 +37,8 @@ type
   PGAction = type Pointer;
 //  PGApplication = type Pointer;
 //  PGApplicationCommandLine = type Pointer;
-  PGSettingsBackend = type Pointer;
-  PGSettings = type Pointer;
+//  PGSettingsBackend = type Pointer;
+//  PGSettings = type Pointer;
 //  PGPermission = type Pointer;
 //  PGMenuModel = type Pointer;
   PGNotification = type Pointer;
@@ -104,8 +104,8 @@ type
   PGSocketConnectable = type Pointer;
   PGSrvTarget = type Pointer;
   PGTask = type Pointer;
-  PGTcpConnection = type Pointer;
-  PGTcpWrapperConnection = type Pointer;
+//  PGTcpConnection = type Pointer;
+//  PGTcpWrapperConnection = type Pointer;
   PGThreadedSocketService = type Pointer;
   PGDtlsConnection = type Pointer;
   PGDtlsClientConnection = type Pointer;

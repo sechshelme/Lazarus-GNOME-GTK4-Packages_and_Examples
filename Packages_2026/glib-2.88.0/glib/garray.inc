@@ -2,6 +2,7 @@
 
 type
   PGBytes = type Pointer;
+  PPGBytes = ^PGBytes;
 
   PGArray = ^TGArray;
   TGArray = record

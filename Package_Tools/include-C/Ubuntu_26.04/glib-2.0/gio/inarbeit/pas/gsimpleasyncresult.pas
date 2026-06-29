@@ -3,141 +3,80 @@ unit gsimpleasyncresult;
 interface
 
 uses
-  fp_glib2;
+  fp_glib2, giotypes;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
-
-
-{ GIO - GLib Input, Output and Streaming Library
- *
- * Copyright (C) 2006-2007 Red Hat, Inc.
- *
- * SPDX-License-Identifier: LGPL-2.1-or-later
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General
- * Public License along with this library; if not, see <http://www.gnu.org/licenses/>.
- *
- * Author: Alexander Larsson <alexl@redhat.com>
-  }
-{$ifndef __G_SIMPLE_ASYNC_RESULT_H__}
-{$define __G_SIMPLE_ASYNC_RESULT_H__}
-{$if !defined (__GIO_GIO_H_INSIDE__) && !defined (GIO_COMPILATION)}
-{$error "Only <gio/gio.h> can be included directly."}
-{$endif}
-{$include <gio/giotypes.h>}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 type
+  PGSimpleAsyncResultClass = type Pointer;
 
-function g_simple_async_result_get_type:TGType;cdecl;external libgio2;
-{xxxxxGLIB_DEPRECATED_IN_2_46_FOR(g_task_new) }
-function g_simple_async_result_new(source_object:PGObject; callback:TGAsyncReadyCallback; user_data:Tgpointer; source_tag:Tgpointer):PGSimpleAsyncResult;cdecl;external libgio2;
-{xxxxxGLIB_DEPRECATED_IN_2_46_FOR(g_task_new) }
-function g_simple_async_result_new_error(source_object:PGObject; callback:TGAsyncReadyCallback; user_data:Tgpointer; domain:TGQuark; code:Tgint; 
-           format:Pchar; args:array of const):PGSimpleAsyncResult;cdecl;external libgio2;
-function g_simple_async_result_new_error(source_object:PGObject; callback:TGAsyncReadyCallback; user_data:Tgpointer; domain:TGQuark; code:Tgint; 
-           format:Pchar):PGSimpleAsyncResult;cdecl;external libgio2;
-{xxxxxGLIB_DEPRECATED_IN_2_46_FOR(g_task_new) }
-function g_simple_async_result_new_from_error(source_object:PGObject; callback:TGAsyncReadyCallback; user_data:Tgpointer; error:PGError):PGSimpleAsyncResult;cdecl;external libgio2;
-{xxxxxGLIB_DEPRECATED_IN_2_46_FOR(g_task_new) }
-function g_simple_async_result_new_take_error(source_object:PGObject; callback:TGAsyncReadyCallback; user_data:Tgpointer; error:PGError):PGSimpleAsyncResult;cdecl;external libgio2;
-{xxxxxGLIB_DEPRECATED_IN_2_46 }
-procedure g_simple_async_result_set_op_res_gpointer(simple:PGSimpleAsyncResult; op_res:Tgpointer; destroy_op_res:TGDestroyNotify);cdecl;external libgio2;
-{xxxxxGLIB_DEPRECATED_IN_2_46 }
-function g_simple_async_result_get_op_res_gpointer(simple:PGSimpleAsyncResult):Tgpointer;cdecl;external libgio2;
-{xxxxxGLIB_DEPRECATED_IN_2_46 }
-procedure g_simple_async_result_set_op_res_gssize(simple:PGSimpleAsyncResult; op_res:Tgssize);cdecl;external libgio2;
-{xxxxxGLIB_DEPRECATED_IN_2_46 }
-function g_simple_async_result_get_op_res_gssize(simple:PGSimpleAsyncResult):Tgssize;cdecl;external libgio2;
-{xxxxxGLIB_DEPRECATED_IN_2_46 }
-procedure g_simple_async_result_set_op_res_gboolean(simple:PGSimpleAsyncResult; op_res:Tgboolean);cdecl;external libgio2;
-{xxxxxGLIB_DEPRECATED_IN_2_46 }
-function g_simple_async_result_get_op_res_gboolean(simple:PGSimpleAsyncResult):Tgboolean;cdecl;external libgio2;
-{ Also deprecated, but can't mark something both AVAILABLE and DEPRECATED  }
-procedure g_simple_async_result_set_check_cancellable(simple:PGSimpleAsyncResult; check_cancellable:PGCancellable);cdecl;external libgio2;
-{xxxxxGLIB_DEPRECATED_IN_2_46 }
-function g_simple_async_result_get_source_tag(simple:PGSimpleAsyncResult):Tgpointer;cdecl;external libgio2;
-{xxxxxGLIB_DEPRECATED_IN_2_46 }
-procedure g_simple_async_result_set_handle_cancellation(simple:PGSimpleAsyncResult; handle_cancellation:Tgboolean);cdecl;external libgio2;
-{xxxxxGLIB_DEPRECATED_IN_2_46 }
-procedure g_simple_async_result_complete(simple:PGSimpleAsyncResult);cdecl;external libgio2;
-{xxxxxGLIB_DEPRECATED_IN_2_46 }
-procedure g_simple_async_result_complete_in_idle(simple:PGSimpleAsyncResult);cdecl;external libgio2;
-{xxxxxGLIB_DEPRECATED_IN_2_46 }
-procedure g_simple_async_result_run_in_thread(simple:PGSimpleAsyncResult; func:TGSimpleAsyncThreadFunc; io_priority:longint; cancellable:PGCancellable);cdecl;external libgio2;
-{xxxxxGLIB_DEPRECATED_IN_2_46 }
-procedure g_simple_async_result_set_from_error(simple:PGSimpleAsyncResult; error:PGError);cdecl;external libgio2;
-{xxxxxGLIB_DEPRECATED_IN_2_46 }
-procedure g_simple_async_result_take_error(simple:PGSimpleAsyncResult; error:PGError);cdecl;external libgio2;
-{xxxxxGLIB_DEPRECATED_IN_2_46 }
-function g_simple_async_result_propagate_error(simple:PGSimpleAsyncResult; dest:PPGError):Tgboolean;cdecl;external libgio2;
-{xxxxxGLIB_DEPRECATED_IN_2_46 }
-procedure g_simple_async_result_set_error(simple:PGSimpleAsyncResult; domain:TGQuark; code:Tgint; format:Pchar; args:array of const);cdecl;external libgio2;
-procedure g_simple_async_result_set_error(simple:PGSimpleAsyncResult; domain:TGQuark; code:Tgint; format:Pchar);cdecl;external libgio2;
-{xxxxxGLIB_DEPRECATED_IN_2_46 }
-procedure g_simple_async_result_set_error_va(simple:PGSimpleAsyncResult; domain:TGQuark; code:Tgint; format:Pchar; args:Tva_list);cdecl;external libgio2;
-{xxxxxGLIB_DEPRECATED_IN_2_46 }
-function g_simple_async_result_is_valid(result:PGAsyncResult; source:PGObject; source_tag:Tgpointer):Tgboolean;cdecl;external libgio2;
-{xxxxxGLIB_DEPRECATED_IN_2_46_FOR(g_task_report_error) }
-procedure g_simple_async_report_error_in_idle(object:PGObject; callback:TGAsyncReadyCallback; user_data:Tgpointer; domain:TGQuark; code:Tgint; 
-            format:Pchar; args:array of const);cdecl;external libgio2;
-procedure g_simple_async_report_error_in_idle(object:PGObject; callback:TGAsyncReadyCallback; user_data:Tgpointer; domain:TGQuark; code:Tgint; 
-            format:Pchar);cdecl;external libgio2;
-{xxxxxGLIB_DEPRECATED_IN_2_46_FOR(g_task_report_error) }
-procedure g_simple_async_report_gerror_in_idle(object:PGObject; callback:TGAsyncReadyCallback; user_data:Tgpointer; error:PGError);cdecl;external libgio2;
-{xxxxxGLIB_DEPRECATED_IN_2_46_FOR(g_task_report_error) }
-procedure g_simple_async_report_take_gerror_in_idle(object:PGObject; callback:TGAsyncReadyCallback; user_data:Tgpointer; error:PGError);cdecl;external libgio2;
-{$endif}
-{ __G_SIMPLE_ASYNC_RESULT_H__  }
+function g_simple_async_result_get_type: TGType; cdecl; external libgio2; deprecated;
+function g_simple_async_result_new(source_object: PGObject; callback: TGAsyncReadyCallback; user_data: Tgpointer; source_tag: Tgpointer): PGSimpleAsyncResult; cdecl; external libgio2; deprecated;
+function g_simple_async_result_new_error(source_object: PGObject; callback: TGAsyncReadyCallback; user_data: Tgpointer; domain: TGQuark; code: Tgint; format: pchar): PGSimpleAsyncResult; cdecl; varargs; external libgio2; deprecated;
+function g_simple_async_result_new_from_error(source_object: PGObject; callback: TGAsyncReadyCallback; user_data: Tgpointer; error: PGError): PGSimpleAsyncResult; cdecl; external libgio2; deprecated;
+function g_simple_async_result_new_take_error(source_object: PGObject; callback: TGAsyncReadyCallback; user_data: Tgpointer; error: PGError): PGSimpleAsyncResult; cdecl; external libgio2; deprecated;
+procedure g_simple_async_result_set_op_res_gpointer(simple: PGSimpleAsyncResult; op_res: Tgpointer; destroy_op_res: TGDestroyNotify); cdecl; external libgio2; deprecated;
+function g_simple_async_result_get_op_res_gpointer(simple: PGSimpleAsyncResult): Tgpointer; cdecl; external libgio2; deprecated;
+procedure g_simple_async_result_set_op_res_gssize(simple: PGSimpleAsyncResult; op_res: Tgssize); cdecl; external libgio2; deprecated;
+function g_simple_async_result_get_op_res_gssize(simple: PGSimpleAsyncResult): Tgssize; cdecl; external libgio2; deprecated;
+procedure g_simple_async_result_set_op_res_gboolean(simple: PGSimpleAsyncResult; op_res: Tgboolean); cdecl; external libgio2; deprecated;
+function g_simple_async_result_get_op_res_gboolean(simple: PGSimpleAsyncResult): Tgboolean; cdecl; external libgio2; deprecated;
+procedure g_simple_async_result_set_check_cancellable(simple: PGSimpleAsyncResult; check_cancellable: PGCancellable); cdecl; external libgio2; deprecated;
+function g_simple_async_result_get_source_tag(simple: PGSimpleAsyncResult): Tgpointer; cdecl; external libgio2; deprecated;
+procedure g_simple_async_result_set_handle_cancellation(simple: PGSimpleAsyncResult; handle_cancellation: Tgboolean); cdecl; external libgio2; deprecated;
+procedure g_simple_async_result_complete(simple: PGSimpleAsyncResult); cdecl; external libgio2; deprecated;
+procedure g_simple_async_result_complete_in_idle(simple: PGSimpleAsyncResult); cdecl; external libgio2; deprecated;
+procedure g_simple_async_result_run_in_thread(simple: PGSimpleAsyncResult; func: TGSimpleAsyncThreadFunc; io_priority: longint; cancellable: PGCancellable); cdecl; external libgio2; deprecated;
+procedure g_simple_async_result_set_from_error(simple: PGSimpleAsyncResult; error: PGError); cdecl; external libgio2; deprecated;
+procedure g_simple_async_result_take_error(simple: PGSimpleAsyncResult; error: PGError); cdecl; external libgio2; deprecated;
+function g_simple_async_result_propagate_error(simple: PGSimpleAsyncResult; dest: PPGError): Tgboolean; cdecl; external libgio2; deprecated;
+procedure g_simple_async_result_set_error(simple: PGSimpleAsyncResult; domain: TGQuark; code: Tgint; format: pchar; args: array of const); cdecl; external libgio2; deprecated;
+procedure g_simple_async_result_set_error(simple: PGSimpleAsyncResult; domain: TGQuark; code: Tgint; format: pchar); cdecl; external libgio2; deprecated;
+procedure g_simple_async_result_set_error_va(simple: PGSimpleAsyncResult; domain: TGQuark; code: Tgint; format: pchar; args: Tva_list); cdecl; external libgio2; deprecated;
+function g_simple_async_result_is_valid(result: PGAsyncResult; source: PGObject; source_tag: Tgpointer): Tgboolean; cdecl; external libgio2; deprecated;
+procedure g_simple_async_report_error_in_idle(obj: PGObject; callback: TGAsyncReadyCallback; user_data: Tgpointer; domain: TGQuark; code: Tgint; format: pchar); cdecl; varargs; external libgio2; deprecated;
+procedure g_simple_async_report_gerror_in_idle(obj: PGObject; callback: TGAsyncReadyCallback; user_data: Tgpointer; error: PGError); cdecl; external libgio2; deprecated;
+procedure g_simple_async_report_take_gerror_in_idle(obj: PGObject; callback: TGAsyncReadyCallback; user_data: Tgpointer; error: PGError); cdecl; external libgio2; deprecated;
 
 // === Konventiert am: 26-6-26 19:51:54 ===
 
-function G_TYPE_SIMPLE_ASYNC_RESULT : TGType;
-function G_SIMPLE_ASYNC_RESULT(obj : Pointer) : PGSimpleAsyncResult;
-function G_SIMPLE_ASYNC_RESULT_CLASS(klass : Pointer) : PGSimpleAsyncResultClass;
-function G_IS_SIMPLE_ASYNC_RESULT(obj : Pointer) : Tgboolean;
-function G_IS_SIMPLE_ASYNC_RESULT_CLASS(klass : Pointer) : Tgboolean;
-function G_SIMPLE_ASYNC_RESULT_GET_CLASS(obj : Pointer) : PGSimpleAsyncResultClass;
+function G_TYPE_SIMPLE_ASYNC_RESULT: TGType;
+function G_SIMPLE_ASYNC_RESULT(obj: Pointer): PGSimpleAsyncResult;
+function G_SIMPLE_ASYNC_RESULT_CLASS(klass: Pointer): PGSimpleAsyncResultClass;
+function G_IS_SIMPLE_ASYNC_RESULT(obj: Pointer): Tgboolean;
+function G_IS_SIMPLE_ASYNC_RESULT_CLASS(klass: Pointer): Tgboolean;
+function G_SIMPLE_ASYNC_RESULT_GET_CLASS(obj: Pointer): PGSimpleAsyncResultClass;
 
 implementation
 
-function G_TYPE_SIMPLE_ASYNC_RESULT : TGType;
-  begin
-    G_TYPE_SIMPLE_ASYNC_RESULT:=g_simple_async_result_get_type;
-  end;
+function G_TYPE_SIMPLE_ASYNC_RESULT: TGType;
+begin
+  G_TYPE_SIMPLE_ASYNC_RESULT := g_simple_async_result_get_type;
+end;
 
-function G_SIMPLE_ASYNC_RESULT(obj : Pointer) : PGSimpleAsyncResult;
+function G_SIMPLE_ASYNC_RESULT(obj: Pointer): PGSimpleAsyncResult;
 begin
   Result := PGSimpleAsyncResult(g_type_check_instance_cast(obj, G_TYPE_SIMPLE_ASYNC_RESULT));
 end;
 
-function G_SIMPLE_ASYNC_RESULT_CLASS(klass : Pointer) : PGSimpleAsyncResultClass;
+function G_SIMPLE_ASYNC_RESULT_CLASS(klass: Pointer): PGSimpleAsyncResultClass;
 begin
   Result := PGSimpleAsyncResultClass(g_type_check_class_cast(klass, G_TYPE_SIMPLE_ASYNC_RESULT));
 end;
 
-function G_IS_SIMPLE_ASYNC_RESULT(obj : Pointer) : Tgboolean;
+function G_IS_SIMPLE_ASYNC_RESULT(obj: Pointer): Tgboolean;
 begin
-  Result := g_type_check_instance_is_a(obj,  G_TYPE_SIMPLE_ASYNC_RESULT);
+  Result := g_type_check_instance_is_a(obj, G_TYPE_SIMPLE_ASYNC_RESULT);
 end;
 
-function G_IS_SIMPLE_ASYNC_RESULT_CLASS(klass : Pointer) : Tgboolean;
+function G_IS_SIMPLE_ASYNC_RESULT_CLASS(klass: Pointer): Tgboolean;
 begin
-  Result := g_type_check_class_is_a(klass,  G_TYPE_SIMPLE_ASYNC_RESULT);
+  Result := g_type_check_class_is_a(klass, G_TYPE_SIMPLE_ASYNC_RESULT);
 end;
 
-function G_SIMPLE_ASYNC_RESULT_GET_CLASS(obj : Pointer) : PGSimpleAsyncResultClass;
+function G_SIMPLE_ASYNC_RESULT_GET_CLASS(obj: Pointer): PGSimpleAsyncResultClass;
 begin
   Result := PGSimpleAsyncResultClass(PGTypeInstance(obj)^.g_class);
 end;
