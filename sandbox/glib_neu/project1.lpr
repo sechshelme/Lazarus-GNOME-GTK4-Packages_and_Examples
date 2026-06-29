@@ -112,7 +112,6 @@ uses
   gnetworking,
   gnetworkmonitor,
   gnetworkservice,
-
   gnotification,
   gpermission,
   gpollableinputstream,
@@ -121,11 +120,12 @@ uses
   gpowerprofilemonitor,
   gpropertyaction,
   gproxy,
-  gproxyaddress,
-  gproxyaddressenumerator,
+  gproxyaddress,                             // GInetSocketAddress
+  gproxyaddressenumerator,                   // GSocketAddressEnumerator
   gproxyresolver,
   gremoteactiongroup,
   gresolver,
+
   gresource,
   gseekable,
   gsettings,

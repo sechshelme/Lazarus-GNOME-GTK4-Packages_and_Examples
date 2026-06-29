@@ -39,7 +39,7 @@ type
 //  PGApplicationCommandLine = type Pointer;
   PGSettingsBackend = type Pointer;
   PGSettings = type Pointer;
-  PGPermission = type Pointer;
+//  PGPermission = type Pointer;
 //  PGMenuModel = type Pointer;
   PGNotification = type Pointer;
   PGDrive = type Pointer;
@@ -86,7 +86,7 @@ type
   PGSimpleIOStream = type Pointer;
   PGPollableInputStream = type Pointer;
   PGPollableOutputStream = type Pointer;
-  PGResolver = type Pointer;
+//  PGResolver = type Pointer;
   PGResource = type Pointer;
   PGSeekable = type Pointer;
   PGSimpleAsyncResult = type Pointer;
