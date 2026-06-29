@@ -1,9 +1,10 @@
-{$IFDEF read_interface}
+  {$IFDEF read_interface}
 
 
 type
   TGHRFunc = function(key: Tgpointer; value: Tgpointer; user_data: Tgpointer): Tgboolean; cdecl;
 
+  PPGHashTable = ^PGHashTable;
   PGHashTable = type Pointer;
 
   PGHashTableIter = ^TGHashTableIter;

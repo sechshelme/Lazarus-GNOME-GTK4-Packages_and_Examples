@@ -3,7 +3,7 @@ unit gfile;
 interface
 
 uses
-  fp_glib2, giotypes, gioenums, gfileoutputstream, gfileenumerator, gfileinputstream, gfileiostream, gfilemonitor;
+  fp_glib2, giotypes, gioenums, gfileoutputstream, gfileenumerator, gfileinputstream, gfileiostream, gfilemonitor,gmountoperation;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

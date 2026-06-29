@@ -40,7 +40,7 @@ type
   PGSettingsBackend = type Pointer;
   PGSettings = type Pointer;
   PGPermission = type Pointer;
-  PGMenuModel = type Pointer;
+//  PGMenuModel = type Pointer;
   PGNotification = type Pointer;
   PGDrive = type Pointer;
 //  PGFileEnumerator = type Pointer;
@@ -64,7 +64,7 @@ type
 //  PGInetAddress = type Pointer;
 //  PGInetAddressMask = type Pointer;
 //  PGInetSocketAddress = type Pointer;
-  PGNativeSocketAddress = type Pointer;
+//  PGNativeSocketAddress = type Pointer;
 //  PGInputStream = type Pointer;
   PGInitable = type Pointer;
   PGIOModule = type Pointer;
@@ -77,10 +77,10 @@ type
   PGMemoryInputStream = type Pointer;
   PGMemoryOutputStream = type Pointer;
   PGMount = type Pointer;
-  PGMountOperation = type Pointer;
-  PGNetworkAddress = type Pointer;
+//  PGMountOperation = type Pointer;
+//  PGNetworkAddress = type Pointer;
   PGNetworkMonitor = type Pointer;
-  PGNetworkService = type Pointer;
+//  PGNetworkService = type Pointer;
 //  PGOutputStream = type Pointer;
 //  PGIOStream = type Pointer;
   PGSimpleIOStream = type Pointer;
@@ -125,7 +125,7 @@ type
   PGProxyAddress = type Pointer;
   PGProxyAddressEnumerator = type Pointer;
   PGVolume = type Pointer;
-  PGVolumeMonitor = type Pointer;
+//  PGVolumeMonitor = type Pointer;
 
   TGAsyncReadyCallback = procedure(source_object: PGObject; res: PGAsyncResult; data: Tgpointer); cdecl;
   TGFileProgressCallback = procedure(current_num_bytes: Tgoffset; total_num_bytes: Tgoffset; data: Tgpointer); cdecl;

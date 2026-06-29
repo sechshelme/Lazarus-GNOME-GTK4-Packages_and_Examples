@@ -3,7 +3,7 @@ unit gdrive;
 interface
 
 uses
-  fp_glib2, giotypes,gioenums;
+  fp_glib2, giotypes, gioenums, gmount, gmountoperation;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

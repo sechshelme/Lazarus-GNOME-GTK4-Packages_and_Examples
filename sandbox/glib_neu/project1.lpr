@@ -59,6 +59,8 @@ uses
   gdbusutils,
   gdebugcontrollerdbus,
   gdebugcontroller,
+  gmountoperation,
+  gmount,
   gdrive,
   gdtlsclientconnection,
   gdtlsconnection,
@@ -95,22 +97,22 @@ uses
   gipv6tclassmessage,                        // GSocketControlMessage
   glistmodel,
   gliststore,
-
   gloadableicon,
-  gmemoryinputstream,                        // TGInputStream
+  gmemoryinputstream,                        // GInputStream
   gmemorymonitor,
-  gmemoryoutputstream,                       // TGOutputStream
+  gmemoryoutputstream,                       // GOutputStream
+  gmenumodel,
   gmenu,
   gmenuexporter,
-  gmenumodel,
-  gmount,
-  gmountoperation,
-  gnativesocketaddress,
-  gnativevolumemonitor,
+  gnativesocketaddress,                      // GSocketAddress
+  gvolume,
+  gvolumemonitor,
+  gnativevolumemonitor,                      // GVolumeMonitor
   gnetworkaddress,
   gnetworking,
   gnetworkmonitor,
   gnetworkservice,
+
   gnotification,
   gpermission,
   gpollableinputstream,
@@ -158,8 +160,6 @@ uses
   gunixfdlist,
   gunixsocketaddress,
   gvfs,
-  gvolume,
-  gvolumemonitor,
   gzlibcompressor,
   gzlibdecompressor,
 
