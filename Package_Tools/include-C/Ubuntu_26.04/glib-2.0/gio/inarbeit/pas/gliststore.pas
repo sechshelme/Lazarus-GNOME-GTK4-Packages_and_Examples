@@ -1,5 +1,7 @@
 unit gliststore;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGListStore = type Pointer;
 
@@ -17,7 +20,9 @@ type
     parent_class: TGObjectClass;
   end;
   PGListStoreClass = ^TGListStoreClass;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_list_store_get_type: TGType; cdecl; external libgio2;
 function g_list_store_new(item_type: TGType): PGListStore; cdecl; external libgio2;
 procedure g_list_store_insert(store: PGListStore; position: Tguint; item: Tgpointer); cdecl; external libgio2;
@@ -36,6 +41,7 @@ function g_list_store_find_with_equal_func_full(store: PGListStore; item: Tgpoin
 function G_TYPE_LIST_STORE: TGType;
 function G_LIST_STORE(obj: Pointer): PGListStore;
 function G_IS_LIST_STORE(obj: Pointer): Tgboolean;
+{$ENDIF read_function}
 
 implementation
 

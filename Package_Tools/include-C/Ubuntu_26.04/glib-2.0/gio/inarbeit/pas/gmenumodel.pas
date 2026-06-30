@@ -1,5 +1,7 @@
 unit gmenumodel;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -9,7 +11,7 @@ uses
   {$PACKRECORDS C}
   {$ENDIF}
 
-
+  {$IFDEF read_enum}
 const
   G_MENU_ATTRIBUTE_ACTION = 'action';
   G_MENU_ATTRIBUTE_ACTION_NAMESPACE = 'action-namespace';
@@ -18,7 +20,9 @@ const
   G_MENU_ATTRIBUTE_ICON = 'icon';
   G_MENU_LINK_SUBMENU = 'submenu';
   G_MENU_LINK_SECTION = 'section';
+  {$ENDIF read_enum}
 
+  {$IFDEF read_struct}
 type
   PGMenuAttributeIter = ^TGMenuAttributeIter;
   PGMenuLinkIter = ^TGMenuLinkIter;
@@ -70,7 +74,9 @@ type
     parent_class: TGObjectClass;
     get_next: function(iter: PGMenuLinkIter; out_link: PPgchar; value: PPGMenuModel): Tgboolean; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_menu_model_get_type: TGType; cdecl; external libgio2;
 function g_menu_model_is_mutable(model: PGMenuModel): Tgboolean; cdecl; external libgio2;
 function g_menu_model_get_n_items(model: PGMenuModel): Tgint; cdecl; external libgio2;
@@ -114,6 +120,7 @@ function G_MENU_LINK_ITER_CLASS(klass: Pointer): PGMenuLinkIterClass;
 function G_IS_MENU_LINK_ITER(obj: Pointer): Tgboolean;
 function G_IS_MENU_LINK_ITER_CLASS(klass: Pointer): Tgboolean;
 function G_MENU_LINK_ITER_GET_CLASS(obj: Pointer): PGMenuLinkIterClass;
+{$ENDIF read_function}
 
 // === Konventiert am: 26-6-26 19:38:30 ===
 

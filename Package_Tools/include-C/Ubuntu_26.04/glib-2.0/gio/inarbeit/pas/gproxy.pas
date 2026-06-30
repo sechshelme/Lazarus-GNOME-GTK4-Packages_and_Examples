@@ -1,5 +1,7 @@
 unit gproxy;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,9 +12,12 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_enum}
 const
   G_PROXY_EXTENSION_POINT_NAME = 'gio-proxy';
+  {$ENDIF read_enum}
 
+  {$IFDEF read_struct}
 type
   PGProxyInterface = ^TGProxyInterface;
   TGProxyInterface = record
@@ -22,7 +27,9 @@ type
     connect_finish: function(proxy: PGProxy; result: PGAsyncResult; error: PPGError): PGIOStream; cdecl;
     supports_hostname: function(proxy: PGProxy): Tgboolean; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_proxy_get_type: TGType; cdecl; external libgio2;
 function g_proxy_get_default_for_protocol(protocol: Pgchar): PGProxy; cdecl; external libgio2;
 function g_proxy_connect(proxy: PGProxy; connection: PGIOStream; proxy_address: PGProxyAddress; cancellable: PGCancellable; error: PPGError): PGIOStream; cdecl; external libgio2;
@@ -37,6 +44,7 @@ function G_TYPE_PROXY: TGType;
 function G_PROXY(obj: Pointer): PGProxy;
 function G_IS_PROXY(obj: Pointer): Tgboolean;
 function G_PROXY_GET_IFACE(obj: Pointer): PGProxyInterface;
+{$ENDIF read_function}
 
 implementation
 

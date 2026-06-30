@@ -1,5 +1,7 @@
 unit gsimpleaction;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+{$IFDEF read_function}
 function g_simple_action_get_type: TGType; cdecl; external libgio2;
 function g_simple_action_new(name: Pgchar; parameter_type: PGVariantType): PGSimpleAction; cdecl; external libgio2;
 function g_simple_action_new_stateful(name: Pgchar; parameter_type: PGVariantType; state: PGVariant): PGSimpleAction; cdecl; external libgio2;
@@ -22,6 +25,7 @@ procedure g_simple_action_set_state_hint(simple: PGSimpleAction; state_hint: PGV
 function G_TYPE_SIMPLE_ACTION: TGType;
 function G_SIMPLE_ACTION(obj: Pointer): PGSimpleAction;
 function G_IS_SIMPLE_ACTION(obj: Pointer): Tgboolean;
+{$ENDIF read_function}
 
 implementation
 

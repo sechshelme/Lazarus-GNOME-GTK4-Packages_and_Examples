@@ -1,5 +1,7 @@
 unit gvolumemonitor;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,9 +12,12 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_enum}
 const
   G_VOLUME_MONITOR_EXTENSION_POINT_NAME = 'gio-volume-monitor';
+  {$ENDIF read_enum}
 
+  {$IFDEF read_struct}
 type
   PGVolumeMonitor = ^TGVolumeMonitor;
   TGVolumeMonitor = record
@@ -49,8 +54,9 @@ type
     _g_reserved5: procedure; cdecl;
     _g_reserved6: procedure; cdecl;
   end;
+  {$ENDIF read_struct}
 
-
+{$IFDEF read_function}
 function g_volume_monitor_get_type: TGType; cdecl; external libgio2;
 function g_volume_monitor_get: PGVolumeMonitor; cdecl; external libgio2;
 function g_volume_monitor_get_connected_drives(volume_monitor: PGVolumeMonitor): PGList; cdecl; external libgio2;
@@ -68,6 +74,7 @@ function G_VOLUME_MONITOR_CLASS(klass: Pointer): PGVolumeMonitorClass;
 function G_IS_VOLUME_MONITOR(obj: Pointer): Tgboolean;
 function G_IS_VOLUME_MONITOR_CLASS(klass: Pointer): Tgboolean;
 function G_VOLUME_MONITOR_GET_CLASS(obj: Pointer): PGVolumeMonitorClass;
+{$ENDIF read_function}
 
 implementation
 

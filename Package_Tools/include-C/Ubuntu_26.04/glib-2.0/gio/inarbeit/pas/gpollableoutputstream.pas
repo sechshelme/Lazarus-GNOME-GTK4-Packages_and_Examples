@@ -1,5 +1,7 @@
 unit gpollableoutputstream;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGPollableOutputStreamInterface = ^TGPollableOutputStreamInterface;
   TGPollableOutputStreamInterface = record
@@ -20,7 +23,9 @@ type
     write_nonblocking: function(stream: PGPollableOutputStream; buffer: pointer; count: Tgsize; error: PPGError): Tgssize; cdecl;
     writev_nonblocking: function(stream: PGPollableOutputStream; vectors: PGOutputVector; n_vectors: Tgsize; bytes_written: Pgsize; error: PPGError): TGPollableReturn; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_pollable_output_stream_get_type: TGType; cdecl; external libgio2;
 function g_pollable_output_stream_can_poll(stream: PGPollableOutputStream): Tgboolean; cdecl; external libgio2;
 function g_pollable_output_stream_is_writable(stream: PGPollableOutputStream): Tgboolean; cdecl; external libgio2;
@@ -35,6 +40,7 @@ function G_TYPE_POLLABLE_OUTPUT_STREAM: TGType;
 function G_POLLABLE_OUTPUT_STREAM(obj: Pointer): PGPollableOutputStream;
 function G_IS_POLLABLE_OUTPUT_STREAM(obj: Pointer): Tgboolean;
 function G_POLLABLE_OUTPUT_STREAM_GET_INTERFACE(obj: Pointer): PGPollableOutputStreamInterface;
+{$ENDIF read_function}
 
 implementation
 

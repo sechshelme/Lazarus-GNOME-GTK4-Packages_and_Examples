@@ -1,5 +1,7 @@
 unit gthemedicon;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -9,9 +11,12 @@ uses
   {$PACKRECORDS C}
   {$ENDIF}
 
+  {$IFDEF read_struct}
 type
   PGThemedIconClass = type Pointer;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_themed_icon_get_type: TGType; cdecl; external libgio2;
 function g_themed_icon_new(iconname: pchar): PGIcon; cdecl; external libgio2;
 function g_themed_icon_new_with_default_fallbacks(iconname: pchar): PGIcon; cdecl; external libgio2;
@@ -28,6 +33,7 @@ function G_THEMED_ICON_CLASS(klass: Pointer): PGThemedIconClass;
 function G_IS_THEMED_ICON(obj: Pointer): Tgboolean;
 function G_IS_THEMED_ICON_CLASS(klass: Pointer): Tgboolean;
 function G_THEMED_ICON_GET_CLASS(obj: Pointer): PGThemedIconClass;
+{$ENDIF read_function}
 
 implementation
 

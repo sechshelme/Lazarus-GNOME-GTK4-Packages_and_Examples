@@ -1,5 +1,7 @@
 unit gpermission;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGPermissionPrivate = type Pointer;
 
@@ -30,7 +33,9 @@ type
     release_finish: function(permission: PGPermission; result: PGAsyncResult; error: PPGError): Tgboolean; cdecl;
     reserved: array[0..15] of Tgpointer;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_permission_get_type: TGType; cdecl; external libgio2;
 function g_permission_acquire(permission: PGPermission; cancellable: PGCancellable; error: PPGError): Tgboolean; cdecl; external libgio2;
 procedure g_permission_acquire_async(permission: PGPermission; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl; external libgio2;
@@ -51,6 +56,7 @@ function G_PERMISSION_CLASS(klass: Pointer): PGPermissionClass;
 function G_IS_PERMISSION(obj: Pointer): Tgboolean;
 function G_IS_PERMISSION_CLASS(klass: Pointer): Tgboolean;
 function G_PERMISSION_GET_CLASS(obj: Pointer): PGPermissionClass;
+{$ENDIF read_function}
 
 implementation
 

@@ -1,5 +1,7 @@
 unit gunixconnection;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGUnixConnectionPrivate = type Pointer;
 
@@ -23,7 +26,9 @@ type
   TGUnixConnectionClass = record
     parent_class: TGSocketConnectionClass;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_unix_connection_get_type: TGType; cdecl; external libgio2;
 function g_unix_connection_send_fd(connection: PGUnixConnection; fd: Tgint; cancellable: PGCancellable; error: PPGError): Tgboolean; cdecl; external libgio2;
 function g_unix_connection_receive_fd(connection: PGUnixConnection; cancellable: PGCancellable; error: PPGError): Tgint; cdecl; external libgio2;
@@ -42,6 +47,7 @@ function G_UNIX_CONNECTION_CLASS(klass: Pointer): PGUnixConnectionClass;
 function G_IS_UNIX_CONNECTION(obj: Pointer): Tgboolean;
 function G_IS_UNIX_CONNECTION_CLASS(klass: Pointer): Tgboolean;
 function G_UNIX_CONNECTION_GET_CLASS(obj: Pointer): PGUnixConnectionClass;
+{$ENDIF read_function}
 
 implementation
 

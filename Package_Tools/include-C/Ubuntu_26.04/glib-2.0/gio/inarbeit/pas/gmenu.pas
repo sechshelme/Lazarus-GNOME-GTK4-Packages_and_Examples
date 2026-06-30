@@ -1,5 +1,7 @@
 unit gmenu;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,10 +12,13 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGMenu = type Pointer;
   PGMenuItem = type Pointer;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_menu_get_type: TGType; cdecl; external libgio2;
 function g_menu_new: PGMenu; cdecl; external libgio2;
 procedure g_menu_freeze(menu: PGMenu); cdecl; external libgio2;
@@ -62,6 +67,7 @@ function G_IS_MENU(obj: Pointer): Tgboolean;
 function G_TYPE_MENU_ITEM: TGType;
 function G_MENU_ITEM(obj: Pointer): PGMenuItem;
 function G_IS_MENU_ITEM(obj: Pointer): Tgboolean;
+{$ENDIF read_function}
 
 implementation
 

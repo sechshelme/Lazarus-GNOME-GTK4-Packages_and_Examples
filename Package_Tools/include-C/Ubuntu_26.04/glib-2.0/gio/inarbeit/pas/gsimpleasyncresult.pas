@@ -1,5 +1,7 @@
 unit gsimpleasyncresult;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -9,9 +11,12 @@ uses
   {$PACKRECORDS C}
   {$ENDIF}
 
+  {$IFDEF read_struct}
 type
   PGSimpleAsyncResultClass = type Pointer;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_simple_async_result_get_type: TGType; cdecl; external libgio2; deprecated;
 function g_simple_async_result_new(source_object: PGObject; callback: TGAsyncReadyCallback; user_data: Tgpointer; source_tag: Tgpointer): PGSimpleAsyncResult; cdecl; external libgio2; deprecated;
 function g_simple_async_result_new_error(source_object: PGObject; callback: TGAsyncReadyCallback; user_data: Tgpointer; domain: TGQuark; code: Tgint; format: pchar): PGSimpleAsyncResult; cdecl; varargs; external libgio2; deprecated;
@@ -48,6 +53,7 @@ function G_SIMPLE_ASYNC_RESULT_CLASS(klass: Pointer): PGSimpleAsyncResultClass;
 function G_IS_SIMPLE_ASYNC_RESULT(obj: Pointer): Tgboolean;
 function G_IS_SIMPLE_ASYNC_RESULT_CLASS(klass: Pointer): Tgboolean;
 function G_SIMPLE_ASYNC_RESULT_GET_CLASS(obj: Pointer): PGSimpleAsyncResultClass;
+{$ENDIF read_function}
 
 implementation
 

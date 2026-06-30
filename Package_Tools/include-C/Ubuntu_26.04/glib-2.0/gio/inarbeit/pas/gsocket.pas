@@ -1,5 +1,7 @@
 unit gsocket;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,7 +12,16 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
+  PGSocketPrivate = type Pointer;
+
+  PGSocket = ^TGSocket;
+  TGSocket = record
+    parent_instance: TGObject;
+    priv: PGSocketPrivate;
+  end;
+
   PGSocketClass = ^TGSocketClass;
   TGSocketClass = record
     parent_class: TGObjectClass;
@@ -25,15 +36,9 @@ type
     _g_reserved9: procedure; cdecl;
     _g_reserved10: procedure; cdecl;
   end;
+  {$ENDIF read_struct}
 
-  PGSocketPrivate = type Pointer;
-
-  PGSocket = ^TGSocket;
-  TGSocket = record
-    parent_instance: TGObject;
-    priv: PGSocketPrivate;
-  end;
-
+{$IFDEF read_function}
 function g_socket_get_type: TGType; cdecl; external libgio2;
 function g_socket_new(family: TGSocketFamily; _type: TGSocketType; protocol: TGSocketProtocol; error: PPGError): PGSocket; cdecl; external libgio2;
 function g_socket_new_from_fd(fd: Tgint; error: PPGError): PGSocket; cdecl; external libgio2;
@@ -114,6 +119,7 @@ function G_SOCKET_CLASS(klass: Pointer): PGSocketClass;
 function G_IS_SOCKET(obj: Pointer): Tgboolean;
 function G_IS_SOCKET_CLASS(klass: Pointer): Tgboolean;
 function G_SOCKET_GET_CLASS(obj: Pointer): PGSocketClass;
+{$ENDIF read_function}
 
 implementation
 

@@ -1,5 +1,7 @@
 unit gsettingsschema;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -9,11 +11,14 @@ uses
   {$PACKRECORDS C}
   {$ENDIF}
 
+  {$IFDEF read_struct}
 type
   PGSettingsSchemaSource = type Pointer;
   PGSettingsSchema = type Pointer;
   PGSettingsSchemaKey = type Pointer;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_settings_schema_source_get_type: TGType; cdecl; external libgio2;
 function g_settings_schema_source_get_default: PGSettingsSchemaSource; cdecl; external libgio2;
 function g_settings_schema_source_ref(source: PGSettingsSchemaSource): PGSettingsSchemaSource; cdecl; external libgio2;
@@ -46,6 +51,7 @@ function g_settings_schema_key_get_description(key: PGSettingsSchemaKey): Pgchar
 function G_TYPE_SETTINGS_SCHEMA_SOURCE: TGType;
 function G_TYPE_SETTINGS_SCHEMA: TGType;
 function G_TYPE_SETTINGS_SCHEMA_KEY: TGType;
+{$ENDIF read_function}
 
 
 // === Konventiert am: 26-6-26 19:52:18 ===

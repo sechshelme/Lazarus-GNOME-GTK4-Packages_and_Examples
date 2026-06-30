@@ -1,5 +1,7 @@
 unit gseekable;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGSeekableIface = ^TGSeekableIface;
   TGSeekableIface = record
@@ -20,7 +23,9 @@ type
     can_truncate: function(seekable: PGSeekable): Tgboolean; cdecl;
     truncate_fn: function(seekable: PGSeekable; offset: Tgoffset; cancellable: PGCancellable; error: PPGError): Tgboolean; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_seekable_get_type: TGType; cdecl; external libgio2;
 function g_seekable_tell(seekable: PGSeekable): Tgoffset; cdecl; external libgio2;
 function g_seekable_can_seek(seekable: PGSeekable): Tgboolean; cdecl; external libgio2;
@@ -34,6 +39,7 @@ function G_TYPE_SEEKABLE: TGType;
 function G_SEEKABLE(obj: Pointer): PGSeekable;
 function G_IS_SEEKABLE(obj: Pointer): Tgboolean;
 function G_SEEKABLE_GET_IFACE(obj: Pointer): PGSeekableIface;
+{$ENDIF read_function}
 
 implementation
 

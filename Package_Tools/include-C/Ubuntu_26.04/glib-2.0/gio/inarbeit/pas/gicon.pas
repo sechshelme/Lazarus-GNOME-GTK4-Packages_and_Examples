@@ -1,5 +1,7 @@
 unit gicon;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGIconIface = ^TGIconIface;
   TGIconIface = record
@@ -20,7 +23,9 @@ type
     from_tokens: function(tokens: PPgchar; num_tokens: Tgint; version: Tgint; error: PPGError): PGIcon; cdecl;
     serialize: function(icon: PGIcon): PGVariant; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_icon_get_type: TGType; cdecl; external libgio2;
 function g_icon_hash(icon: Tgconstpointer): Tguint; cdecl; external libgio2;
 function g_icon_equal(icon1: PGIcon; icon2: PGIcon): Tgboolean; cdecl; external libgio2;
@@ -35,6 +40,7 @@ function G_TYPE_ICON: TGType;
 function G_ICON(obj: Pointer): PGIcon;
 function G_IS_ICON(obj: Pointer): Tgboolean;
 function G_ICON_GET_IFACE(obj: Pointer): PGIconIface;
+{$ENDIF read_function}
 
 implementation
 

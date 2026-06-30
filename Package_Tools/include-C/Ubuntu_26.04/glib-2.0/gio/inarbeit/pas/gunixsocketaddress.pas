@@ -1,5 +1,7 @@
 unit gunixsocketaddress;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGUnixSocketAddressPrivate = type Pointer;
 
@@ -23,7 +26,9 @@ type
   TGUnixSocketAddressClass = record
     parent_class: TGSocketAddressClass;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_unix_socket_address_get_type: TGType; cdecl; external libgio2;
 function g_unix_socket_address_new(path: Pgchar): PGSocketAddress; cdecl; external libgio2;
 function g_unix_socket_address_new_abstract(path: Pgchar; path_len: Tgint): PGSocketAddress; cdecl; external libgio2; deprecated;
@@ -42,6 +47,7 @@ function G_UNIX_SOCKET_ADDRESS_CLASS(klass: Pointer): PGUnixSocketAddressClass;
 function G_IS_UNIX_SOCKET_ADDRESS(obj: Pointer): Tgboolean;
 function G_IS_UNIX_SOCKET_ADDRESS_CLASS(klass: Pointer): Tgboolean;
 function G_UNIX_SOCKET_ADDRESS_GET_CLASS(obj: Pointer): PGUnixSocketAddressClass;
+{$ENDIF read_function}
 
 implementation
 

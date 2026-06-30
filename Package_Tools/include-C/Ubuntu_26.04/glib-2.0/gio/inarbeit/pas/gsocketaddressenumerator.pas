@@ -1,5 +1,7 @@
 unit gsocketaddressenumerator;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -9,6 +11,7 @@ uses
   {$PACKRECORDS C}
   {$ENDIF}
 
+  {$IFDEF read_struct}
 type
   PGSocketAddressEnumerator = ^TGSocketAddressEnumerator;
   TGSocketAddressEnumerator = record
@@ -22,7 +25,9 @@ type
     next_async: procedure(enumerator: PGSocketAddressEnumerator; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl;
     next_finish: function(enumerator: PGSocketAddressEnumerator; result: PGAsyncResult; error: PPGError): PGSocketAddress; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_socket_address_enumerator_get_type: TGType; cdecl; external libgio2;
 function g_socket_address_enumerator_next(enumerator: PGSocketAddressEnumerator; cancellable: PGCancellable; error: PPGError): PGSocketAddress; cdecl; external libgio2;
 procedure g_socket_address_enumerator_next_async(enumerator: PGSocketAddressEnumerator; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl; external libgio2;
@@ -36,6 +41,7 @@ function G_SOCKET_ADDRESS_ENUMERATOR_CLASS(klass: Pointer): PGSocketAddressEnume
 function G_IS_SOCKET_ADDRESS_ENUMERATOR(obj: Pointer): Tgboolean;
 function G_IS_SOCKET_ADDRESS_ENUMERATOR_CLASS(klass: Pointer): Tgboolean;
 function G_SOCKET_ADDRESS_ENUMERATOR_GET_CLASS(obj: Pointer): PGSocketAddressEnumeratorClass;
+{$ENDIF read_function}
 
 implementation
 

@@ -1,5 +1,7 @@
 unit gmemoryinputstream;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGMemoryInputStreamPrivate = type Pointer;
 
@@ -28,8 +31,9 @@ type
     _g_reserved4: procedure; cdecl;
     _g_reserved5: procedure; cdecl;
   end;
+  {$ENDIF read_struct}
 
-
+{$IFDEF read_function}
 function g_memory_input_stream_get_type: TGType; cdecl; external libgio2;
 function g_memory_input_stream_new: PGInputStream; cdecl; external libgio2;
 function g_memory_input_stream_new_from_data(data: pointer; len: Tgssize; destroy: TGDestroyNotify): PGInputStream; cdecl; external libgio2;
@@ -45,6 +49,7 @@ function G_MEMORY_INPUT_STREAM_CLASS(klass: Pointer): PGMemoryInputStreamClass;
 function G_IS_MEMORY_INPUT_STREAM(obj: Pointer): Tgboolean;
 function G_IS_MEMORY_INPUT_STREAM_CLASS(klass: Pointer): Tgboolean;
 function G_MEMORY_INPUT_STREAM_GET_CLASS(obj: Pointer): PGMemoryInputStreamClass;
+{$ENDIF read_function}
 
 implementation
 

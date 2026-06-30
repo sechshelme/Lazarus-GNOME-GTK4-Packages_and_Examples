@@ -1,5 +1,7 @@
 unit gnetworkmonitor;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,9 +12,12 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_enum}
 const
   G_NETWORK_MONITOR_EXTENSION_POINT_NAME = 'gio-network-monitor';
+  {$ENDIF read_enum}
 
+  {$IFDEF read_struct}
 type
   PGNetworkMonitorInterface = ^TGNetworkMonitorInterface;
   TGNetworkMonitorInterface = record
@@ -22,7 +27,9 @@ type
     can_reach_async: procedure(monitor: PGNetworkMonitor; connectable: PGSocketConnectable; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl;
     can_reach_finish: function(monitor: PGNetworkMonitor; result: PGAsyncResult; error: PPGError): Tgboolean; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_network_monitor_get_type: TGType; cdecl; external libgio2;
 function g_network_monitor_get_default: PGNetworkMonitor; cdecl; external libgio2;
 function g_network_monitor_get_network_available(monitor: PGNetworkMonitor): Tgboolean; cdecl; external libgio2;
@@ -38,6 +45,7 @@ function G_TYPE_NETWORK_MONITOR: TGType;
 function G_NETWORK_MONITOR(obj: Pointer): PGNetworkMonitor;
 function G_IS_NETWORK_MONITOR(obj: Pointer): Tgboolean;
 function G_NETWORK_MONITOR_GET_INTERFACE(obj: Pointer): PGNetworkMonitorInterface;
+{$ENDIF read_function}
 
 implementation
 

@@ -1,5 +1,7 @@
 unit gsocketclient;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGSocketClientPrivate = type Pointer;
 
@@ -28,7 +31,9 @@ type
     _g_reserved3: procedure; cdecl;
     _g_reserved4: procedure; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_socket_client_get_type: TGType; cdecl; external libgio2;
 function g_socket_client_new: PGSocketClient; cdecl; external libgio2;
 function g_socket_client_get_family(client: PGSocketClient): TGSocketFamily; cdecl; external libgio2;
@@ -74,6 +79,7 @@ function G_SOCKET_CLIENT_CLASS(klass: Pointer): PGSocketClientClass;
 function G_IS_SOCKET_CLIENT(obj: Pointer): Tgboolean;
 function G_IS_SOCKET_CLIENT_CLASS(klass: Pointer): Tgboolean;
 function G_SOCKET_CLIENT_GET_CLASS(obj: Pointer): PGSocketClientClass;
+{$ENDIF read_function}
 
 implementation
 

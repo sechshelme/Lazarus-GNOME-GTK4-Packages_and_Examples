@@ -1,5 +1,7 @@
 unit gsimplepermission;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+{$IFDEF read_function}
 function g_simple_permission_get_type: TGType; cdecl; external libgio2;
 function g_simple_permission_new(allowed: Tgboolean): PGPermission; cdecl; external libgio2;
 
@@ -18,6 +21,7 @@ function g_simple_permission_new(allowed: Tgboolean): PGPermission; cdecl; exter
 function G_TYPE_SIMPLE_PERMISSION: TGType;
 function G_SIMPLE_PERMISSION(obj: Pointer): PGSimplePermission;
 function G_IS_SIMPLE_PERMISSION(obj: Pointer): Tgboolean;
+{$ENDIF read_function}
 
 implementation
 

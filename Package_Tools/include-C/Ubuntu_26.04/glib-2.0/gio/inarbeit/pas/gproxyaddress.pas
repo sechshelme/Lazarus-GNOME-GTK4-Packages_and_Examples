@@ -1,5 +1,7 @@
 unit gproxyaddress;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGProxyAddressPrivate = type Pointer;
 
@@ -23,7 +26,9 @@ type
   TGProxyAddressClass = record
     parent_class: TGInetSocketAddressClass;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_proxy_address_get_type: TGType; cdecl; external libgio2;
 function g_proxy_address_new(inetaddr: PGInetAddress; port: Tguint16; protocol: Pgchar; dest_hostname: Pgchar; dest_port: Tguint16;
   username: Pgchar; password: Pgchar): PGSocketAddress; cdecl; external libgio2;
@@ -43,6 +48,7 @@ function G_PROXY_ADDRESS_CLASS(klass: Pointer): PGProxyAddressClass;
 function G_IS_PROXY_ADDRESS(obj: Pointer): Tgboolean;
 function G_IS_PROXY_ADDRESS_CLASS(klass: Pointer): Tgboolean;
 function G_PROXY_ADDRESS_GET_CLASS(obj: Pointer): PGProxyAddressClass;
+{$ENDIF read_function}
 
 implementation
 

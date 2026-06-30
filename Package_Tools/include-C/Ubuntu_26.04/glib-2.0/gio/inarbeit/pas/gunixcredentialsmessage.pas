@@ -1,5 +1,7 @@
 unit gunixcredentialsmessage;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGUnixCredentialsMessagePrivate = type Pointer;
 
@@ -25,7 +28,9 @@ type
     _g_reserved1: procedure; cdecl;
     _g_reserved2: procedure; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_unix_credentials_message_get_type: TGType; cdecl; external libgio2;
 function g_unix_credentials_message_new: PGSocketControlMessage; cdecl; external libgio2;
 function g_unix_credentials_message_new_with_credentials(credentials: PGCredentials): PGSocketControlMessage; cdecl; external libgio2;
@@ -40,6 +45,7 @@ function G_UNIX_CREDENTIALS_MESSAGE_CLASS(klass: Pointer): PGUnixCredentialsMess
 function G_IS_UNIX_CREDENTIALS_MESSAGE(obj: Pointer): Tgboolean;
 function G_IS_UNIX_CREDENTIALS_MESSAGE_CLASS(klass: Pointer): Tgboolean;
 function G_UNIX_CREDENTIALS_MESSAGE_GET_CLASS(obj: Pointer): PGUnixCredentialsMessageClass;
+{$ENDIF read_function}
 
 implementation
 

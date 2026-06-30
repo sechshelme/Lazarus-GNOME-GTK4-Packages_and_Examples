@@ -1,5 +1,7 @@
 unit gsocketlistener;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGSocketListenerPrivate = type Pointer;
 
@@ -30,7 +33,9 @@ type
     _g_reserved5: procedure; cdecl;
     _g_reserved6: procedure; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_socket_listener_get_type: TGType; cdecl; external libgio2;
 function g_socket_listener_new: PGSocketListener; cdecl; external libgio2;
 procedure g_socket_listener_set_backlog(listener: PGSocketListener; listen_backlog: longint); cdecl; external libgio2;
@@ -55,6 +60,7 @@ function G_SOCKET_LISTENER_CLASS(klass: Pointer): PGSocketListenerClass;
 function G_IS_SOCKET_LISTENER(obj: Pointer): Tgboolean;
 function G_IS_SOCKET_LISTENER_CLASS(klass: Pointer): Tgboolean;
 function G_SOCKET_LISTENER_GET_CLASS(obj: Pointer): PGSocketListenerClass;
+{$ENDIF read_function}
 
 implementation
 

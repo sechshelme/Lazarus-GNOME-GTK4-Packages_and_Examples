@@ -1,5 +1,7 @@
 unit gtcpconnection;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGTcpConnectionPrivate = type Pointer;
 
@@ -23,7 +26,9 @@ type
   TGTcpConnectionClass = record
     parent_class: TGSocketConnectionClass;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_tcp_connection_get_type: TGType; cdecl; external libgio2;
 procedure g_tcp_connection_set_graceful_disconnect(connection: PGTcpConnection; graceful_disconnect: Tgboolean); cdecl; external libgio2;
 function g_tcp_connection_get_graceful_disconnect(connection: PGTcpConnection): Tgboolean; cdecl; external libgio2;
@@ -36,6 +41,7 @@ function G_TCP_CONNECTION_CLASS(klass: Pointer): PGTcpConnectionClass;
 function G_IS_TCP_CONNECTION(obj: Pointer): Tgboolean;
 function G_IS_TCP_CONNECTION_CLASS(klass: Pointer): Tgboolean;
 function G_TCP_CONNECTION_GET_CLASS(obj: Pointer): PGTcpConnectionClass;
+{$ENDIF read_function}
 
 implementation
 

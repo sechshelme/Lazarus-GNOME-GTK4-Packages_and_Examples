@@ -1,5 +1,7 @@
 unit gsimpleiostream;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+{$IFDEF read_function}
 function g_simple_io_stream_get_type: TGType; cdecl; external libgio2;
 function g_simple_io_stream_new(input_stream: PGInputStream; output_stream: PGOutputStream): PGIOStream; cdecl; external libgio2;
 
@@ -18,6 +21,7 @@ function g_simple_io_stream_new(input_stream: PGInputStream; output_stream: PGOu
 function G_TYPE_SIMPLE_IO_STREAM: TGType;
 function G_SIMPLE_IO_STREAM(obj: Pointer): PGSimpleIOStream;
 function G_IS_SIMPLE_IO_STREAM(obj: Pointer): Tgboolean;
+{$ENDIF read_function}
 
 implementation
 

@@ -1,5 +1,7 @@
 unit gsrvtarget;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+{$IFDEF read_function}
 function g_srv_target_get_type: TGType; cdecl; external libgio2;
 function g_srv_target_new(hostname: Pgchar; port: Tguint16; priority: Tguint16; weight: Tguint16): PGSrvTarget; cdecl; external libgio2;
 function g_srv_target_copy(target: PGSrvTarget): PGSrvTarget; cdecl; external libgio2;
@@ -19,6 +22,7 @@ function g_srv_target_get_port(target: PGSrvTarget): Tguint16; cdecl; external l
 function g_srv_target_get_priority(target: PGSrvTarget): Tguint16; cdecl; external libgio2;
 function g_srv_target_get_weight(target: PGSrvTarget): Tguint16; cdecl; external libgio2;
 function g_srv_target_list_sort(targets: PGList): PGList; cdecl; external libgio2;
+{$ENDIF read_function}
 
 // === Konventiert am: 26-6-26 20:00:19 ===
 

@@ -1,5 +1,7 @@
 unit ginetaddressmask;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGInetAddressMaskPrivate = type Pointer;
 
@@ -23,7 +26,9 @@ type
   TGInetAddressMaskClass = record
     parent_class: TGObjectClass;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_inet_address_mask_get_type: TGType; cdecl; external libgio2;
 function g_inet_address_mask_new(addr: PGInetAddress; length: Tguint; error: PPGError): PGInetAddressMask; cdecl; external libgio2;
 function g_inet_address_mask_new_from_string(mask_string: Pgchar; error: PPGError): PGInetAddressMask; cdecl; external libgio2;
@@ -42,6 +47,7 @@ function G_INET_ADDRESS_MASK_CLASS(klass: Pointer): PGInetAddressMaskClass;
 function G_IS_INET_ADDRESS_MASK(obj: Pointer): Tgboolean;
 function G_IS_INET_ADDRESS_MASK_CLASS(klass: Pointer): Tgboolean;
 function G_INET_ADDRESS_MASK_GET_CLASS(obj: Pointer): PGInetAddressMaskClass;
+{$ENDIF read_function}
 
 implementation
 

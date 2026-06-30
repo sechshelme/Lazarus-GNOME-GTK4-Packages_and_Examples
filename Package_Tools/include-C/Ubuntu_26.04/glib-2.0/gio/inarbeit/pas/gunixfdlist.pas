@@ -1,5 +1,7 @@
 unit gunixfdlist;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGUnixFDListPrivate = type Pointer;
 
@@ -28,7 +31,9 @@ type
     _g_reserved4: procedure; cdecl;
     _g_reserved5: procedure; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_unix_fd_list_get_type: TGType; cdecl; external libgio2;
 function g_unix_fd_list_new: PGUnixFDList; cdecl; external libgio2;
 function g_unix_fd_list_new_from_array(fds: Pgint; n_fds: Tgint): PGUnixFDList; cdecl; external libgio2;
@@ -46,6 +51,7 @@ function G_UNIX_FD_LIST_CLASS(klass: Pointer): PGUnixFDListClass;
 function G_IS_UNIX_FD_LIST(obj: Pointer): Tgboolean;
 function G_IS_UNIX_FD_LIST_CLASS(klass: Pointer): Tgboolean;
 function G_UNIX_FD_LIST_GET_CLASS(obj: Pointer): PGUnixFDListClass;
+{$ENDIF read_function}
 
 implementation
 

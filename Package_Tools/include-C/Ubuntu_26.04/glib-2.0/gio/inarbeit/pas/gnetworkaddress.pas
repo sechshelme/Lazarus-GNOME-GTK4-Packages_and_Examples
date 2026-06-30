@@ -1,5 +1,7 @@
 unit gnetworkaddress;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -9,6 +11,7 @@ uses
   {$PACKRECORDS C}
   {$ENDIF}
 
+  {$IFDEF read_struct}
 type
   PGNetworkAddressPrivate = type Pointer;
 
@@ -22,7 +25,9 @@ type
   TGNetworkAddressClass = record
     parent_class: TGObjectClass;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_network_address_get_type: TGType; cdecl; external libgio2;
 function g_network_address_new(hostname: Pgchar; port: Tguint16): PGSocketConnectable; cdecl; external libgio2;
 function g_network_address_new_loopback(port: Tguint16): PGSocketConnectable; cdecl; external libgio2;
@@ -40,6 +45,7 @@ function G_NETWORK_ADDRESS_CLASS(klass: Pointer): PGNetworkAddressClass;
 function G_IS_NETWORK_ADDRESS(obj: Pointer): Tgboolean;
 function G_IS_NETWORK_ADDRESS_CLASS(klass: Pointer): Tgboolean;
 function G_NETWORK_ADDRESS_GET_CLASS(obj: Pointer): PGNetworkAddressClass;
+{$ENDIF read_function}
 
 implementation
 

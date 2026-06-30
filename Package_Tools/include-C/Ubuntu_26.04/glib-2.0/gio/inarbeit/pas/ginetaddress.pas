@@ -1,5 +1,7 @@
 unit ginetaddress;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGInetAddressPrivate = type Pointer;
 
@@ -25,7 +28,9 @@ type
     to_string: function(address: PGInetAddress): Pgchar; cdecl;
     to_bytes: function(address: PGInetAddress): Pguint8; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_inet_address_get_type: TGType; cdecl; external libgio2;
 function g_inet_address_new_from_string(_string: Pgchar): PGInetAddress; cdecl; external libgio2;
 function g_inet_address_new_from_bytes(bytes: Pguint8; family: TGSocketFamily): PGInetAddress; cdecl; external libgio2;
@@ -58,6 +63,7 @@ function G_INET_ADDRESS_CLASS(klass: Pointer): PGInetAddressClass;
 function G_IS_INET_ADDRESS(obj: Pointer): Tgboolean;
 function G_IS_INET_ADDRESS_CLASS(klass: Pointer): Tgboolean;
 function G_INET_ADDRESS_GET_CLASS(obj: Pointer): PGInetAddressClass;
+{$ENDIF read_function}
 
 implementation
 

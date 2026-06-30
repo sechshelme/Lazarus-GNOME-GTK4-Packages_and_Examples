@@ -1,5 +1,7 @@
 unit gtestdbus;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+{$IFDEF read_struct}
 function g_test_dbus_get_type: TGType; cdecl; external libgio2;
 function g_test_dbus_new(flags: TGTestDBusFlags): PGTestDBus; cdecl; external libgio2;
 function g_test_dbus_get_flags(self: PGTestDBus): TGTestDBusFlags; cdecl; external libgio2;
@@ -25,6 +28,7 @@ procedure g_test_dbus_unset; cdecl; external libgio2;
 function G_TYPE_TEST_DBUS: TGType;
 function G_TEST_DBUS(obj: Pointer): PGTestDBus;
 function G_IS_TEST_DBUS(obj: Pointer): Tgboolean;
+{$ENDIF read_function}
 
 implementation
 

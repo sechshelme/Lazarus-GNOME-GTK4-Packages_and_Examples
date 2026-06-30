@@ -1,5 +1,7 @@
 unit gsubprocess;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+{$IFDEF read_function}
 function g_subprocess_get_type: TGType; cdecl; external libgio2;
 
 function g_subprocess_new(flags: TGSubprocessFlags; error: PPGError; argv0: Pgchar; args: array of const): PGSubprocess; cdecl; external libgio2;
@@ -51,6 +54,7 @@ function g_subprocess_communicate_utf8_finish(subprocess: PGSubprocess; result: 
 function G_TYPE_SUBPROCESS: TGType;
 function G_SUBPROCESS(obj: Pointer): PGSubprocess;
 function G_IS_SUBPROCESS(obj: Pointer): Tgboolean;
+{$ENDIF read_function}
 
 implementation
 

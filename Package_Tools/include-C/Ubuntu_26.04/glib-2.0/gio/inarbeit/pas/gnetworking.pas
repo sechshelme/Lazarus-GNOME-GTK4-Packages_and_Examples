@@ -1,5 +1,7 @@
 unit gnetworking;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,13 +12,15 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_enum}
 const
   T_SRV = 33;
-
-const
   _PATH_RESCONF = '/etc/resolv.conf';
+  {$ENDIF read_enum}
 
+{$IFDEF read_function}
 procedure g_networking_init; cdecl; external libgio2;
+{$ENDIF read_function}
 
 // === Konventiert am: 26-6-26 19:43:45 ===
 

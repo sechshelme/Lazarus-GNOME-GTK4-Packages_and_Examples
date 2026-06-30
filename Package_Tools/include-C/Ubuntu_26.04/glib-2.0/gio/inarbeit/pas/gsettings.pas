@@ -1,5 +1,7 @@
 unit gsettings;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGSettingsPrivate = type Pointer;
 
@@ -28,7 +31,9 @@ type
     change_event: function(settings: PGSettings; keys: PGQuark; n_keys: Tgint): Tgboolean; cdecl;
     padding: array[0..19] of Tgpointer;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_settings_get_type: TGType; cdecl; external libgio2;
 function g_settings_list_schemas: PPgchar; cdecl; external libgio2; deprecated;
 function g_settings_list_relocatable_schemas: PPgchar; cdecl; external libgio2; deprecated;
@@ -77,12 +82,16 @@ procedure g_settings_apply(settings: PGSettings); cdecl; external libgio2;
 procedure g_settings_revert(settings: PGSettings); cdecl; external libgio2;
 function g_settings_get_has_unapplied(settings: PGSettings): Tgboolean; cdecl; external libgio2;
 procedure g_settings_sync; cdecl; external libgio2;
+{$ENDIF read_function}
 
+{$IFDEF read_struct}
 type
   TGSettingsBindSetMapping = function(value: PGValue; expected_type: PGVariantType; user_data: Tgpointer): PGVariant; cdecl;
   TGSettingsBindGetMapping = function(value: PGValue; variant: PGVariant; user_data: Tgpointer): Tgboolean; cdecl;
   TGSettingsGetMapping = function(value: PGVariant; result: Pgpointer; user_data: Tgpointer): Tgboolean; cdecl;
+  {$ENDIF read_struct}
 
+  {$IFDEF read_enum}
 type
   PGSettingsBindFlags = ^TGSettingsBindFlags;
   TGSettingsBindFlags = longint;
@@ -93,7 +102,9 @@ const
   G_SETTINGS_BIND_NO_SENSITIVITY = 1 shl 2;
   G_SETTINGS_BIND_GET_NO_CHANGES = 1 shl 3;
   G_SETTINGS_BIND_INVERT_BOOLEAN = 1 shl 4;
+  {$ENDIF read_enum}
 
+{$IFDEF read_function}
 procedure g_settings_bind(settings: PGSettings; key: Pgchar; obj: Tgpointer; _property: Pgchar; flags: TGSettingsBindFlags); cdecl; external libgio2;
 procedure g_settings_bind_with_mapping(settings: PGSettings; key: Pgchar; obj: Tgpointer; _property: Pgchar; flags: TGSettingsBindFlags;
   get_mapping: TGSettingsBindGetMapping; set_mapping: TGSettingsBindSetMapping; user_data: Tgpointer; destroy: TGDestroyNotify); cdecl; external libgio2;
@@ -112,6 +123,7 @@ function G_SETTINGS_CLASS(klass: Pointer): PGSettingsClass;
 function G_IS_SETTINGS(obj: Pointer): Tgboolean;
 function G_IS_SETTINGS_CLASS(klass: Pointer): Tgboolean;
 function G_SETTINGS_GET_CLASS(obj: Pointer): PGSettingsClass;
+{$ENDIF read_function}
 
 implementation
 

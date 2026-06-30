@@ -1,5 +1,7 @@
 unit gsettingsbackend;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,9 +12,12 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_enum}
 const
   G_SETTINGS_BACKEND_EXTENSION_POINT_NAME = 'gsettings-backend';
+  {$ENDIF read_enum}
 
+  {$IFDEF read_struct}
 type
   PGSettingsBackendPrivate = type Pointer;
 
@@ -37,7 +42,9 @@ type
     read_user_value: function(backend: PGSettingsBackend; key: Pgchar; expected_type: PGVariantType): PGVariant; cdecl;
     padding: array[0..22] of Tgpointer;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_settings_backend_get_type: TGType; cdecl; external libgio2;
 procedure g_settings_backend_changed(backend: PGSettingsBackend; key: Pgchar; origin_tag: Tgpointer); cdecl; external libgio2;
 procedure g_settings_backend_path_changed(backend: PGSettingsBackend; path: Pgchar; origin_tag: Tgpointer); cdecl; external libgio2;
@@ -59,6 +66,7 @@ function G_SETTINGS_BACKEND_CLASS(klass: Pointer): PGSettingsBackendClass;
 function G_IS_SETTINGS_BACKEND(obj: Pointer): Tgboolean;
 function G_IS_SETTINGS_BACKEND_CLASS(klass: Pointer): Tgboolean;
 function G_SETTINGS_BACKEND_GET_CLASS(obj: Pointer): PGSettingsBackendClass;
+{$ENDIF read_function}
 
 implementation
 

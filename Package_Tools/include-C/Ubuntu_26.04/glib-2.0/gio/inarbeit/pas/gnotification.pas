@@ -1,5 +1,7 @@
 unit gnotification;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+{$IFDEF read_function}
 function g_notification_get_type: TGType; cdecl; external libgio2;
 function g_notification_new(title: Pgchar): PGNotification; cdecl; external libgio2;
 procedure g_notification_set_title(notification: PGNotification; title: Pgchar); cdecl; external libgio2;
@@ -32,6 +35,7 @@ procedure g_notification_set_default_action_and_target_value(notification: PGNot
 function G_TYPE_NOTIFICATION: TGType;
 function G_NOTIFICATION(obj: Pointer): PGNotification;
 function G_IS_NOTIFICATION(obj: Pointer): Tgboolean;
+{$ENDIF read_function}
 
 implementation
 

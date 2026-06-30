@@ -1,5 +1,7 @@
 unit gsubprocesslauncher;
 
+{$DEFINE read_enum}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+{$IFDEF read_function}
 function g_subprocess_launcher_get_type: TGType; cdecl; external libgio2;
 function g_subprocess_launcher_new(flags: TGSubprocessFlags): PGSubprocessLauncher; cdecl; external libgio2;
 function g_subprocess_launcher_spawn(self: PGSubprocessLauncher; error: PPGError; argv0: Pgchar; args: array of const): PGSubprocess; cdecl; external libgio2;
@@ -39,6 +42,7 @@ procedure g_subprocess_launcher_set_child_setup(self: PGSubprocessLauncher; chil
 function G_TYPE_SUBPROCESS_LAUNCHER: TGType;
 function G_SUBPROCESS_LAUNCHER(obj: Pointer): PGSubprocessLauncher;
 function G_IS_SUBPROCESS_LAUNCHER(obj: Pointer): Tgboolean;
+{$ENDIF read_function}
 
 implementation
 

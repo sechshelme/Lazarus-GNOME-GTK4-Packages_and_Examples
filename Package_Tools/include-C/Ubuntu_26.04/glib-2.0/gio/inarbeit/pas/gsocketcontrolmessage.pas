@@ -1,5 +1,7 @@
 unit gsocketcontrolmessage;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGSocketControlMessagePrivate = type Pointer;
 
@@ -33,7 +36,9 @@ type
     _g_reserved4: procedure; cdecl;
     _g_reserved5: procedure; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_socket_control_message_get_type: TGType; cdecl; external libgio2;
 function g_socket_control_message_get_size(message: PGSocketControlMessage): Tgsize; cdecl; external libgio2;
 function g_socket_control_message_get_level(message: PGSocketControlMessage): longint; cdecl; external libgio2;
@@ -49,6 +54,7 @@ function G_SOCKET_CONTROL_MESSAGE_CLASS(klass: Pointer): PGSocketControlMessageC
 function G_IS_SOCKET_CONTROL_MESSAGE(obj: Pointer): Tgboolean;
 function G_IS_SOCKET_CONTROL_MESSAGE_CLASS(klass: Pointer): Tgboolean;
 function G_SOCKET_CONTROL_MESSAGE_GET_CLASS(obj: Pointer): PGSocketControlMessageClass;
+{$ENDIF read_function}
 
 implementation
 

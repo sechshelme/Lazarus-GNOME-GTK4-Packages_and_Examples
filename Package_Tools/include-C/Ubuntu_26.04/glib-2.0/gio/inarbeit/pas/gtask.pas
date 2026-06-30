@@ -1,5 +1,7 @@
 unit gtask;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,14 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
+type
+  PGTaskClass = type Pointer;
+
+  TGTaskThreadFunc = procedure(task: PGTask; source_object: Tgpointer; task_data: Tgpointer; cancellable: PGCancellable); cdecl;
+  {$ENDIF read_struct}
+
+{$IFDEF read_function}
 function g_task_get_type: TGType; cdecl; external libgio2;
 function g_task_new(source_object: Tgpointer; cancellable: PGCancellable; callback: TGAsyncReadyCallback; callback_data: Tgpointer): PGTask; cdecl; external libgio2;
 procedure g_task_report_error(source_object: Tgpointer; callback: TGAsyncReadyCallback; callback_data: Tgpointer; source_tag: Tgpointer; error: PGError); cdecl; external libgio2;
@@ -32,11 +42,6 @@ function g_task_get_check_cancellable(task: PGTask): Tgboolean; cdecl; external 
 function g_task_get_source_tag(task: PGTask): Tgpointer; cdecl; external libgio2;
 function g_task_get_name(task: PGTask): Pgchar; cdecl; external libgio2;
 function g_task_is_valid(result: Tgpointer; source_object: Tgpointer): Tgboolean; cdecl; external libgio2;
-
-type
-  PGTaskClass = type Pointer;
-
-  TGTaskThreadFunc = procedure(task: PGTask; source_object: Tgpointer; task_data: Tgpointer; cancellable: PGCancellable); cdecl;
 
 procedure g_task_run_in_thread(task: PGTask; task_func: TGTaskThreadFunc); cdecl; external libgio2;
 procedure g_task_run_in_thread_sync(task: PGTask; task_func: TGTaskThreadFunc); cdecl; external libgio2;
@@ -70,6 +75,7 @@ function G_TASK_CLASS(klass: Pointer): PGTaskClass;
 function G_IS_TASK(obj: Pointer): Tgboolean;
 function G_IS_TASK_CLASS(klass: Pointer): Tgboolean;
 function G_TASK_GET_CLASS(obj: Pointer): PGTaskClass;
+{$ENDIF read_function}
 
 implementation
 

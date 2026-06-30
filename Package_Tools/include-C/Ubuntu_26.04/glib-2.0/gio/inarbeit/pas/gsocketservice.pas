@@ -1,5 +1,7 @@
 unit gsocketservice;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGSocketServicePrivate = type Pointer;
 
@@ -30,7 +33,9 @@ type
     _g_reserved5: procedure; cdecl;
     _g_reserved6: procedure; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_socket_service_get_type: TGType; cdecl; external libgio2;
 function g_socket_service_new: PGSocketService; cdecl; external libgio2;
 procedure g_socket_service_start(service: PGSocketService); cdecl; external libgio2;
@@ -45,6 +50,7 @@ function G_SOCKET_SERVICE_CLASS(klass: Pointer): PGSocketServiceClass;
 function G_IS_SOCKET_SERVICE(obj: Pointer): Tgboolean;
 function G_IS_SOCKET_SERVICE_CLASS(klass: Pointer): Tgboolean;
 function G_SOCKET_SERVICE_GET_CLASS(obj: Pointer): PGSocketServiceClass;
+{$ENDIF read_function}
 
 implementation
 

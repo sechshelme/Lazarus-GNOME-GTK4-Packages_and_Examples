@@ -1,5 +1,7 @@
 unit gresource;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,9 +12,7 @@ uses
   {$ENDIF}
 
 
-
-function g_resource_error_quark: TGQuark; cdecl; external libgio2;
-
+  {$IFDEF read_struct}
 type
   PGStaticResource = ^TGStaticResource;
   TGStaticResource = record
@@ -22,7 +22,10 @@ type
     next: PGStaticResource;
     padding: Tgpointer;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
+function g_resource_error_quark: TGQuark; cdecl; external libgio2;
 function g_resource_get_type: TGType; cdecl; external libgio2;
 function g_resource_new_from_data(data: PGBytes; error: PPGError): PGResource; cdecl; external libgio2;
 function g_resource_ref(resource: PGResource): PGResource; cdecl; external libgio2;
@@ -48,8 +51,8 @@ function g_static_resource_get_resource(static_resource: PGStaticResource): PGRe
 // === Konventiert am: 26-6-26 19:52:47 ===
 
 function G_RESOURCE_ERROR: TGQuark;
-
 function G_TYPE_RESOURCE: TGType;
+{$ENDIF read_function}
 
 implementation
 

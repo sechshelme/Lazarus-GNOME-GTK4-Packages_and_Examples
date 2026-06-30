@@ -1,5 +1,7 @@
 unit gnetworkservice;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGNetworkServicePrivate = type Pointer;
 
@@ -23,7 +26,9 @@ type
   TGNetworkServiceClass = record
     parent_class: TGObjectClass;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_network_service_get_type: TGType; cdecl; external libgio2;
 function g_network_service_new(service: Pgchar; protocol: Pgchar; domain: Pgchar): PGSocketConnectable; cdecl; external libgio2;
 function g_network_service_get_service(srv: PGNetworkService): Pgchar; cdecl; external libgio2;
@@ -40,6 +45,7 @@ function G_NETWORK_SERVICE_CLASS(klass: Pointer): PGNetworkServiceClass;
 function G_IS_NETWORK_SERVICE(obj: Pointer): Tgboolean;
 function G_IS_NETWORK_SERVICE_CLASS(klass: Pointer): Tgboolean;
 function G_NETWORK_SERVICE_GET_CLASS(obj: Pointer): PGNetworkServiceClass;
+{$ENDIF read_function}
 
 implementation
 

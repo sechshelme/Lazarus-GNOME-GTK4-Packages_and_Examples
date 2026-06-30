@@ -1,5 +1,7 @@
 unit gproxyresolver;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,9 +12,12 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_enum}
 const
   G_PROXY_RESOLVER_EXTENSION_POINT_NAME = 'gio-proxy-resolver';
+  {$ENDIF read_enum}
 
+  {$IFDEF read_struct}
 type
   PGProxyResolverInterface = ^TGProxyResolverInterface;
   TGProxyResolverInterface = record
@@ -22,7 +27,9 @@ type
     lookup_async: procedure(resolver: PGProxyResolver; uri: Pgchar; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl;
     lookup_finish: function(resolver: PGProxyResolver; result: PGAsyncResult; error: PPGError): PPgchar; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_proxy_resolver_get_type: TGType; cdecl; external libgio2;
 function g_proxy_resolver_get_default: PGProxyResolver; cdecl; external libgio2;
 function g_proxy_resolver_is_supported(resolver: PGProxyResolver): Tgboolean; cdecl; external libgio2;
@@ -36,6 +43,7 @@ function G_TYPE_PROXY_RESOLVER: TGType;
 function G_PROXY_RESOLVER(obj: Pointer): PGProxyResolver;
 function G_IS_PROXY_RESOLVER(obj: Pointer): Tgboolean;
 function G_PROXY_RESOLVER_GET_IFACE(obj: Pointer): PGProxyResolverInterface;
+{$ENDIF read_function}
 
 implementation
 

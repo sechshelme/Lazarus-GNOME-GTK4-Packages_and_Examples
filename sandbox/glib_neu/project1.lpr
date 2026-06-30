@@ -85,7 +85,6 @@ uses
   gfileicon,
   gfileinfo,
   gfilenamecompleter,
-
   gicon,
   ginetaddress,
   ginetaddressmask,

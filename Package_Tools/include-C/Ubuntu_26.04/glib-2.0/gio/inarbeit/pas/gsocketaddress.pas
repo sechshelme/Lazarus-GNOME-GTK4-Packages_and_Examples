@@ -1,73 +1,79 @@
 unit gsocketaddress;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
   fp_glib2, gioenums;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PPGSocketAddress = ^PGSocketAddress;
   PGSocketAddress = ^TGSocketAddress;
   TGSocketAddress = record
-      parent_instance : TGObject;
-    end;
+    parent_instance: TGObject;
+  end;
 
   PGSocketAddressClass = ^TGSocketAddressClass;
   TGSocketAddressClass = record
-      parent_class : TGObjectClass;
-      get_family : function (address:PGSocketAddress):TGSocketFamily;cdecl;
-      get_native_size : function (address:PGSocketAddress):Tgssize;cdecl;
-      to_native : function (address:PGSocketAddress; dest:Tgpointer; destlen:Tgsize; error:PPGError):Tgboolean;cdecl;
-    end;
+    parent_class: TGObjectClass;
+    get_family: function(address: PGSocketAddress): TGSocketFamily; cdecl;
+    get_native_size: function(address: PGSocketAddress): Tgssize; cdecl;
+    to_native: function(address: PGSocketAddress; dest: Tgpointer; destlen: Tgsize; error: PPGError): Tgboolean; cdecl;
+  end;
+  {$ENDIF read_struct}
 
-function g_socket_address_get_type:TGType;cdecl;external libgio2;
-function g_socket_address_get_family(address:PGSocketAddress):TGSocketFamily;cdecl;external libgio2;
-function g_socket_address_new_from_native(native:Tgpointer; len:Tgsize):PGSocketAddress;cdecl;external libgio2;
-function g_socket_address_to_native(address:PGSocketAddress; dest:Tgpointer; destlen:Tgsize; error:PPGError):Tgboolean;cdecl;external libgio2;
-function g_socket_address_get_native_size(address:PGSocketAddress):Tgssize;cdecl;external libgio2;
+{$IFDEF read_function}
+function g_socket_address_get_type: TGType; cdecl; external libgio2;
+function g_socket_address_get_family(address: PGSocketAddress): TGSocketFamily; cdecl; external libgio2;
+function g_socket_address_new_from_native(native: Tgpointer; len: Tgsize): PGSocketAddress; cdecl; external libgio2;
+function g_socket_address_to_native(address: PGSocketAddress; dest: Tgpointer; destlen: Tgsize; error: PPGError): Tgboolean; cdecl; external libgio2;
+function g_socket_address_get_native_size(address: PGSocketAddress): Tgssize; cdecl; external libgio2;
 
 // === Konventiert am: 26-6-26 19:55:48 ===
 
-function G_TYPE_SOCKET_ADDRESS : TGType;
-function G_SOCKET_ADDRESS(obj : Pointer) : PGSocketAddress;
-function G_SOCKET_ADDRESS_CLASS(klass : Pointer) : PGSocketAddressClass;
-function G_IS_SOCKET_ADDRESS(obj : Pointer) : Tgboolean;
-function G_IS_SOCKET_ADDRESS_CLASS(klass : Pointer) : Tgboolean;
-function G_SOCKET_ADDRESS_GET_CLASS(obj : Pointer) : PGSocketAddressClass;
+function G_TYPE_SOCKET_ADDRESS: TGType;
+function G_SOCKET_ADDRESS(obj: Pointer): PGSocketAddress;
+function G_SOCKET_ADDRESS_CLASS(klass: Pointer): PGSocketAddressClass;
+function G_IS_SOCKET_ADDRESS(obj: Pointer): Tgboolean;
+function G_IS_SOCKET_ADDRESS_CLASS(klass: Pointer): Tgboolean;
+function G_SOCKET_ADDRESS_GET_CLASS(obj: Pointer): PGSocketAddressClass;
+{$ENDIF read_function}
 
 implementation
 
-function G_TYPE_SOCKET_ADDRESS : TGType;
-  begin
-    G_TYPE_SOCKET_ADDRESS:=g_socket_address_get_type;
-  end;
+function G_TYPE_SOCKET_ADDRESS: TGType;
+begin
+  G_TYPE_SOCKET_ADDRESS := g_socket_address_get_type;
+end;
 
-function G_SOCKET_ADDRESS(obj : Pointer) : PGSocketAddress;
+function G_SOCKET_ADDRESS(obj: Pointer): PGSocketAddress;
 begin
   Result := PGSocketAddress(g_type_check_instance_cast(obj, G_TYPE_SOCKET_ADDRESS));
 end;
 
-function G_SOCKET_ADDRESS_CLASS(klass : Pointer) : PGSocketAddressClass;
+function G_SOCKET_ADDRESS_CLASS(klass: Pointer): PGSocketAddressClass;
 begin
   Result := PGSocketAddressClass(g_type_check_class_cast(klass, G_TYPE_SOCKET_ADDRESS));
 end;
 
-function G_IS_SOCKET_ADDRESS(obj : Pointer) : Tgboolean;
+function G_IS_SOCKET_ADDRESS(obj: Pointer): Tgboolean;
 begin
-  Result := g_type_check_instance_is_a(obj,  G_TYPE_SOCKET_ADDRESS);
+  Result := g_type_check_instance_is_a(obj, G_TYPE_SOCKET_ADDRESS);
 end;
 
-function G_IS_SOCKET_ADDRESS_CLASS(klass : Pointer) : Tgboolean;
+function G_IS_SOCKET_ADDRESS_CLASS(klass: Pointer): Tgboolean;
 begin
-  Result := g_type_check_class_is_a(klass,  G_TYPE_SOCKET_ADDRESS);
+  Result := g_type_check_class_is_a(klass, G_TYPE_SOCKET_ADDRESS);
 end;
 
-function G_SOCKET_ADDRESS_GET_CLASS(obj : Pointer) : PGSocketAddressClass;
+function G_SOCKET_ADDRESS_GET_CLASS(obj: Pointer): PGSocketAddressClass;
 begin
   Result := PGSocketAddressClass(PGTypeInstance(obj)^.g_class);
 end;

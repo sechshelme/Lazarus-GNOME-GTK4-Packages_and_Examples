@@ -1,5 +1,7 @@
 unit ginitable;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,13 +12,16 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGInitableIface = ^TGInitableIface;
   TGInitableIface = record
     g_iface: TGTypeInterface;
     init: function(initable: PGInitable; cancellable: PGCancellable; error: PPGError): Tgboolean; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_initable_get_type: TGType; cdecl; external libgio2;
 function g_initable_init(initable: PGInitable; cancellable: PGCancellable; error: PPGError): Tgboolean; cdecl; external libgio2;
 function g_initable_new(object_type: TGType; cancellable: PGCancellable; error: PPGError; first_property_name: Pgchar; args: array of const): Tgpointer; cdecl; external libgio2;
@@ -32,6 +37,7 @@ function G_TYPE_INITABLE: TGType;
 function G_INITABLE(obj: Pointer): PGInitable;
 function G_IS_INITABLE(obj: Pointer): Tgboolean;
 function G_INITABLE_GET_IFACE(obj: Pointer): PGInitableIface;
+{$ENDIF read_function}
 
 implementation
 

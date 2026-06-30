@@ -1,5 +1,7 @@
 unit gipv6tclassmessage;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGIPv6TclassMessage = type Pointer;
 
@@ -17,7 +20,9 @@ type
     parent_class: TGSocketControlMessageClass;
   end;
   PGIPv6TclassMessageClass = ^TGIPv6TclassMessageClass;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_ipv6_tclass_message_get_type: TGType; cdecl; external libgio2;
 function g_ipv6_tclass_message_new(dscp: Tguint8; ecn: TGEcnCodePoint): PGSocketControlMessage; cdecl; external libgio2;
 function g_ipv6_tclass_message_get_dscp(message: PGIPv6TclassMessage): Tguint8; cdecl; external libgio2;
@@ -28,6 +33,7 @@ function g_ipv6_tclass_message_get_ecn(message: PGIPv6TclassMessage): TGEcnCodeP
 function G_TYPE_IPV6_TCLASS_MESSAGE: TGType;
 function G_IPV6_TCLASS_MESSAGE(obj: Pointer): PGIPv6TclassMessage;
 function G_IS_IPV6_TCLASS_MESSAGE(obj: Pointer): Tgboolean;
+{$ENDIF read_function}
 
 implementation
 

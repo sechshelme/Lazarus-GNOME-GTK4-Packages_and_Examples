@@ -1,5 +1,7 @@
 unit gvolume;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -9,7 +11,7 @@ uses
   {$PACKRECORDS C}
   {$ENDIF}
 
-
+  {$IFDEF read_enum}
 const
   G_VOLUME_IDENTIFIER_KIND_HAL_UDI = 'hal-udi';
   G_VOLUME_IDENTIFIER_KIND_UNIX_DEVICE = 'unix-device';
@@ -17,7 +19,9 @@ const
   G_VOLUME_IDENTIFIER_KIND_UUID = 'uuid';
   G_VOLUME_IDENTIFIER_KIND_NFS_MOUNT = 'nfs-mount';
   G_VOLUME_IDENTIFIER_KIND_CLASS = 'class';
+  {$ENDIF read_enum}
 
+  {$IFDEF read_struct}
 type
   PGVolumeIface = ^TGVolumeIface;
   TGVolumeIface = record
@@ -44,7 +48,9 @@ type
     get_sort_key: function(volume: PGVolume): Pgchar; cdecl;
     get_symbolic_icon: function(volume: PGVolume): PGIcon; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_volume_get_type: TGType; cdecl; external libgio2;
 function g_volume_get_name(volume: PGVolume): pchar; cdecl; external libgio2;
 function g_volume_get_icon(volume: PGVolume): PGIcon; cdecl; external libgio2;
@@ -74,6 +80,7 @@ function G_TYPE_VOLUME: TGType;
 function G_VOLUME(obj: Pointer): PGVolume;
 function G_IS_VOLUME(obj: Pointer): Tgboolean;
 function G_VOLUME_GET_IFACE(obj: Pointer): PGVolumeIface;
+{$ENDIF read_function}
 
 implementation
 

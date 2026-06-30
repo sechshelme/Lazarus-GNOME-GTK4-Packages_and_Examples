@@ -1,5 +1,7 @@
 unit gsocketconnectable;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGSocketConnectableIface = ^TGSocketConnectableIface;
   TGSocketConnectableIface = record
@@ -18,7 +21,9 @@ type
     proxy_enumerate: function(connectable: PGSocketConnectable): PGSocketAddressEnumerator; cdecl;
     to_string: function(connectable: PGSocketConnectable): Pgchar; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_socket_connectable_get_type: TGType; cdecl; external libgio2;
 function g_socket_connectable_enumerate(connectable: PGSocketConnectable): PGSocketAddressEnumerator; cdecl; external libgio2;
 function g_socket_connectable_proxy_enumerate(connectable: PGSocketConnectable): PGSocketAddressEnumerator; cdecl; external libgio2;
@@ -30,6 +35,7 @@ function G_TYPE_SOCKET_CONNECTABLE: TGType;
 function G_SOCKET_CONNECTABLE(obj: Pointer): PGSocketConnectable;
 function G_IS_SOCKET_CONNECTABLE(obj: Pointer): Tgboolean;
 function G_SOCKET_CONNECTABLE_GET_IFACE(obj: Pointer): PGSocketConnectableIface;
+{$ENDIF read_function}
 
 implementation
 

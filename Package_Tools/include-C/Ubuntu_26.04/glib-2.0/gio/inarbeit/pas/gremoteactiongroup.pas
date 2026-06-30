@@ -1,5 +1,7 @@
 unit gremoteactiongroup;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGRemoteActionGroupInterface = ^TGRemoteActionGroupInterface;
   TGRemoteActionGroupInterface = record
@@ -17,7 +20,9 @@ type
     activate_action_full: procedure(remote: PGRemoteActionGroup; action_name: Pgchar; parameter: PGVariant; platform_data: PGVariant); cdecl;
     change_action_state_full: procedure(remote: PGRemoteActionGroup; action_name: Pgchar; value: PGVariant; platform_data: PGVariant); cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_remote_action_group_get_type: TGType; cdecl; external libgio2;
 procedure g_remote_action_group_activate_action_full(remote: PGRemoteActionGroup; action_name: Pgchar; parameter: PGVariant; platform_data: PGVariant); cdecl; external libgio2;
 procedure g_remote_action_group_change_action_state_full(remote: PGRemoteActionGroup; action_name: Pgchar; value: PGVariant; platform_data: PGVariant); cdecl; external libgio2;
@@ -28,6 +33,7 @@ function G_TYPE_REMOTE_ACTION_GROUP: TGType;
 function G_REMOTE_ACTION_GROUP(obj: Pointer): PGRemoteActionGroup;
 function G_IS_REMOTE_ACTION_GROUP(obj: Pointer): Tgboolean;
 function G_REMOTE_ACTION_GROUP_GET_IFACE(obj: Pointer): PGRemoteActionGroupInterface;
+{$ENDIF read_function}
 
 implementation
 

@@ -1,5 +1,7 @@
 unit gmemorymonitor;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,9 +12,12 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_enum}
 const
   G_MEMORY_MONITOR_EXTENSION_POINT_NAME = 'gio-memory-monitor';
+  {$ENDIF read_enum}
 
+  {$IFDEF read_struct}
 type
   PGMemoryMonitor = type Pointer;
 
@@ -21,7 +26,9 @@ type
     g_iface: TGTypeInterface;
     low_memory_warning: procedure(monitor: PGMemoryMonitor; level: TGMemoryMonitorWarningLevel); cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_memory_monitor_get_type: TGType; cdecl; external libgio2;
 function g_memory_monitor_dup_default: PGMemoryMonitor; cdecl; external libgio2;
 
@@ -31,6 +38,7 @@ function g_TYPE_memory_monitor: TGType;
 function g_memory_monitor(obj: Pointer): PGMemoryMonitor;
 function g_IS_memory_monitor(obj: Pointer): Tgboolean;
 function g_memory_monitor_GET_IFACE(obj: Pointer): PGMemoryMonitorInterface;
+{$ENDIF read_function}
 
 implementation
 

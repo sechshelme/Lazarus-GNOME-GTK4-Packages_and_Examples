@@ -1,5 +1,7 @@
 unit gproxyaddressenumerator;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGProxyAddressEnumeratorPrivate = type Pointer;
 
@@ -30,7 +33,9 @@ type
     _g_reserved6: procedure; cdecl;
     _g_reserved7: procedure; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_proxy_address_enumerator_get_type: TGType; cdecl; external libgio2;
 
 // === Konventiert am: 26-6-26 19:48:06 ===
@@ -41,6 +46,7 @@ function G_PROXY_ADDRESS_ENUMERATOR_CLASS(klass: Pointer): PGProxyAddressEnumera
 function G_IS_PROXY_ADDRESS_ENUMERATOR(obj: Pointer): Tgboolean;
 function G_IS_PROXY_ADDRESS_ENUMERATOR_CLASS(klass: Pointer): Tgboolean;
 function G_PROXY_ADDRESS_ENUMERATOR_GET_CLASS(obj: Pointer): PGProxyAddressEnumeratorClass;
+{$ENDIF read_function}
 
 implementation
 

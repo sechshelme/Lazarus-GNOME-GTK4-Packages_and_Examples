@@ -1,5 +1,7 @@
 unit gmemoryoutputstream;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGMemoryOutputStreamPrivate = type Pointer;
 
@@ -30,7 +33,9 @@ type
   end;
 
   TGReallocFunc = function(data: Tgpointer; size: Tgsize): Tgpointer; cdecl;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_memory_output_stream_get_type: TGType; cdecl; external libgio2;
 function g_memory_output_stream_new(data: Tgpointer; size: Tgsize; realloc_function: TGReallocFunc; destroy_function: TGDestroyNotify): PGOutputStream; cdecl; external libgio2;
 function g_memory_output_stream_new_resizable: PGOutputStream; cdecl; external libgio2;
@@ -48,6 +53,7 @@ function G_MEMORY_OUTPUT_STREAM_CLASS(klass: Pointer): PGMemoryOutputStreamClass
 function G_IS_MEMORY_OUTPUT_STREAM(obj: Pointer): Tgboolean;
 function G_IS_MEMORY_OUTPUT_STREAM_CLASS(klass: Pointer): Tgboolean;
 function G_MEMORY_OUTPUT_STREAM_GET_CLASS(obj: Pointer): PGMemoryOutputStreamClass;
+{$ENDIF read_function}
 
 implementation
 

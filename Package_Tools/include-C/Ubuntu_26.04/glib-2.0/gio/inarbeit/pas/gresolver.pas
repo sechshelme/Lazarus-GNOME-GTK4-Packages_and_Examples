@@ -1,5 +1,7 @@
 unit gresolver;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_enum}
 type
   PGResolverNameLookupFlags = ^TGResolverNameLookupFlags;
   TGResolverNameLookupFlags = longint;
@@ -17,7 +20,9 @@ const
   G_RESOLVER_NAME_LOOKUP_FLAGS_DEFAULT = 0;
   G_RESOLVER_NAME_LOOKUP_FLAGS_IPV4_ONLY = 1 shl 0;
   G_RESOLVER_NAME_LOOKUP_FLAGS_IPV6_ONLY = 1 shl 1;
+  {$ENDIF read_enum}
 
+  {$IFDEF read_struct}
 type
   PGResolverPrivate = type Pointer;
 
@@ -50,7 +55,9 @@ type
     lookup_by_name_with_flags_finish: function(resolver: PGResolver; result: PGAsyncResult; error: PPGError): PGList; cdecl;
     lookup_by_name_with_flags: function(resolver: PGResolver; hostname: Pgchar; flags: TGResolverNameLookupFlags; cancellable: PGCancellable; error: PPGError): PGList; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_resolver_get_type: TGType; cdecl; external libgio2;
 function g_resolver_get_default: PGResolver; cdecl; external libgio2;
 procedure g_resolver_set_default(resolver: PGResolver); cdecl; external libgio2;
@@ -90,6 +97,7 @@ function G_RESOLVER_CLASS(klass: Pointer): PGResolverClass;
 function G_IS_RESOLVER(obj: Pointer): Tgboolean;
 function G_IS_RESOLVER_CLASS(klass: Pointer): Tgboolean;
 function G_RESOLVER_GET_CLASS(obj: Pointer): PGResolverClass;
+{$ENDIF read_function}
 
 implementation
 

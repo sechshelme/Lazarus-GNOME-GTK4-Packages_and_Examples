@@ -1,5 +1,7 @@
 unit gvfs;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,9 +12,12 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_enum}
 const
   G_VFS_EXTENSION_POINT_NAME = 'gio-vfs';
+  {$ENDIF read_enum}
 
+  {$IFDEF read_struct}
 type
   PGVfs = ^TGVfs;
   TGVfs = record
@@ -45,7 +50,9 @@ type
     _g_reserved5: procedure; cdecl;
     _g_reserved6: procedure; cdecl;
   end;
+  {$ENDIF read_function}
 
+{$IFDEF read_function}
 function g_vfs_get_type: TGType; cdecl; external libgio2;
 function g_vfs_is_active(vfs: PGVfs): Tgboolean; cdecl; external libgio2;
 function g_vfs_get_file_for_path(vfs: PGVfs; path: pchar): PGFile; cdecl; external libgio2;
@@ -66,6 +73,7 @@ function G_VFS_CLASS(klass: Pointer): PGVfsClass;
 function G_IS_VFS(obj: Pointer): Tgboolean;
 function G_IS_VFS_CLASS(klass: Pointer): Tgboolean;
 function G_VFS_GET_CLASS(obj: Pointer): PGVfsClass;
+{$ENDIF read_function}
 
 implementation
 

@@ -1,5 +1,7 @@
 unit gnativevolumemonitor;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,9 +12,12 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_enum}
 const
   G_NATIVE_VOLUME_MONITOR_EXTENSION_POINT_NAME = 'gio-native-volume-monitor';
+  {$ENDIF read_enum}
 
+  {$IFDEF read_struct}
 type
   PGNativeVolumeMonitor = ^TGNativeVolumeMonitor;
   TGNativeVolumeMonitor = record
@@ -24,7 +29,9 @@ type
     parent_class: TGVolumeMonitorClass;
     get_mount_for_mount_path: function(mount_path: pchar; cancellable: PGCancellable): PGMount; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_native_volume_monitor_get_type: TGType; cdecl; external libgio2;
 
 // === Konventiert am: 26-6-26 19:44:21 ===
@@ -34,6 +41,7 @@ function G_NATIVE_VOLUME_MONITOR(obj: Pointer): PGNativeVolumeMonitor;
 function G_NATIVE_VOLUME_MONITOR_CLASS(klass: Pointer): PGNativeVolumeMonitorClass;
 function G_IS_NATIVE_VOLUME_MONITOR(obj: Pointer): Tgboolean;
 function G_IS_NATIVE_VOLUME_MONITOR_CLASS(klass: Pointer): Tgboolean;
+{$ENDIF read_struct}
 
 implementation
 

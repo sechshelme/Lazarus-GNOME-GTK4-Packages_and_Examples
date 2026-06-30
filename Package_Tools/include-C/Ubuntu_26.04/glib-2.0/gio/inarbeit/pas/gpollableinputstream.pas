@@ -1,5 +1,7 @@
 unit gpollableinputstream;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGPollableInputStreamInterface = ^TGPollableInputStreamInterface;
   TGPollableInputStreamInterface = record
@@ -19,7 +22,9 @@ type
     create_source: function(stream: PGPollableInputStream; cancellable: PGCancellable): PGSource; cdecl;
     read_nonblocking: function(stream: PGPollableInputStream; buffer: pointer; count: Tgsize; error: PPGError): Tgssize; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_pollable_input_stream_get_type: TGType; cdecl; external libgio2;
 function g_pollable_input_stream_can_poll(stream: PGPollableInputStream): Tgboolean; cdecl; external libgio2;
 function g_pollable_input_stream_is_readable(stream: PGPollableInputStream): Tgboolean; cdecl; external libgio2;
@@ -32,6 +37,7 @@ function G_TYPE_POLLABLE_INPUT_STREAM: TGType;
 function G_POLLABLE_INPUT_STREAM(obj: Pointer): PGPollableInputStream;
 function G_IS_POLLABLE_INPUT_STREAM(obj: Pointer): Tgboolean;
 function G_POLLABLE_INPUT_STREAM_GET_INTERFACE(obj: Pointer): PGPollableInputStreamInterface;
+{$ENDIF read_function}
 
 implementation
 

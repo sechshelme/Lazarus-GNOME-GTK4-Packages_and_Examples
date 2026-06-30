@@ -1,5 +1,7 @@
 unit giomodule;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -9,10 +11,13 @@ uses
   {$PACKRECORDS C}
   {$ENDIF}
 
+  {$IFDEF read_struct}
 type
   PGIOModuleScope = type Pointer;
   PGIOModuleClass = type Pointer;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_io_module_scope_new(flags: TGIOModuleScopeFlags): PGIOModuleScope; cdecl; external libgio2;
 procedure g_io_module_scope_free(scope: PGIOModuleScope); cdecl; external libgio2;
 procedure g_io_module_scope_block(scope: PGIOModuleScope; basename: Pgchar); cdecl; external libgio2;
@@ -47,6 +52,7 @@ function G_IO_MODULE_CLASS(klass: Pointer): PGIOModuleClass;
 function G_IO_IS_MODULE(obj: Pointer): Tgboolean;
 function G_IO_IS_MODULE_CLASS(klass: Pointer): Tgboolean;
 function G_IO_MODULE_GET_CLASS(obj: Pointer): PGIOModuleClass;
+{$ENDIF read_function}
 
 implementation
 

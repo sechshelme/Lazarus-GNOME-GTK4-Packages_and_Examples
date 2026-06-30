@@ -1,5 +1,7 @@
 unit glistmodel;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGListModel = type Pointer;
 
@@ -20,7 +23,9 @@ type
     get_n_items: function(list: PGListModel): Tguint; cdecl;
     get_item: function(list: PGListModel; position: Tguint): Tgpointer; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_list_model_get_type: TGType; cdecl; external libgio2;
 function g_list_model_get_item_type(list: PGListModel): TGType; cdecl; external libgio2;
 function g_list_model_get_n_items(list: PGListModel): Tguint; cdecl; external libgio2;
@@ -34,6 +39,7 @@ function G_TYPE_LIST_MODEL: TGType;
 function G_LIST_MODEL(obj: Pointer): PGListModel;
 function G_IS_LIST_MODEL(obj: Pointer): Tgboolean;
 function G_LIST_MODEL_GET_IFACE(obj: Pointer): PGListModelInterface;
+{$ENDIF read_function}
 
 implementation
 

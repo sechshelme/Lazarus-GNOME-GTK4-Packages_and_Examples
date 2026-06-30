@@ -1,5 +1,7 @@
 unit gzlibdecompressor;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,12 +12,15 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGZlibDecompressorClass = ^TGZlibDecompressorClass;
   TGZlibDecompressorClass = record
     parent_class: TGObjectClass;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_zlib_decompressor_get_type: TGType; cdecl; external libgio2;
 function g_zlib_decompressor_new(format: TGZlibCompressorFormat): PGZlibDecompressor; cdecl; external libgio2;
 function g_zlib_decompressor_get_file_info(decompressor: PGZlibDecompressor): PGFileInfo; cdecl; external libgio2;
@@ -28,6 +33,7 @@ function G_ZLIB_DECOMPRESSOR_CLASS(klass: Pointer): PGZlibDecompressorClass;
 function G_IS_ZLIB_DECOMPRESSOR(obj: Pointer): Tgboolean;
 function G_IS_ZLIB_DECOMPRESSOR_CLASS(klass: Pointer): Tgboolean;
 function G_ZLIB_DECOMPRESSOR_GET_CLASS(obj: Pointer): PGZlibDecompressorClass;
+{$ENDIF read_function}
 
 implementation
 

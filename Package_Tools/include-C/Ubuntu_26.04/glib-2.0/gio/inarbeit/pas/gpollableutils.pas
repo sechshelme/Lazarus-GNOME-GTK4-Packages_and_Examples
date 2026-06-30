@@ -1,5 +1,7 @@
 unit gpollableutils;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+{$IFDEF read_function}
 function g_pollable_source_new(pollable_stream: PGObject): PGSource; cdecl; external libgio2;
 function g_pollable_source_new_full(pollable_stream: Tgpointer; child_source: PGSource; cancellable: PGCancellable): PGSource; cdecl; external libgio2;
 function g_pollable_stream_read(stream: PGInputStream; buffer: pointer; count: Tgsize; blocking: Tgboolean; cancellable: PGCancellable;
@@ -18,6 +21,7 @@ function g_pollable_stream_write(stream: PGOutputStream; buffer: pointer; count:
   error: PPGError): Tgssize; cdecl; external libgio2;
 function g_pollable_stream_write_all(stream: PGOutputStream; buffer: pointer; count: Tgsize; blocking: Tgboolean; bytes_written: Pgsize;
   cancellable: PGCancellable; error: PPGError): Tgboolean; cdecl; external libgio2;
+{$ENDIF read_function}
 
 // === Konventiert am: 26-6-26 19:48:44 ===
 

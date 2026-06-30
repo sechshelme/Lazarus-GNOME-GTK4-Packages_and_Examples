@@ -1,5 +1,7 @@
 unit giptosmessage;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGIPTosMessage = type Pointer;
 
@@ -17,7 +20,9 @@ type
     parent_class: TGSocketControlMessageClass;
   end;
   PGIPTosMessageClass = ^TGIPTosMessageClass;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_ip_tos_message_get_type: TGType; cdecl; external libgio2;
 function g_ip_tos_message_new(dscp: Tguint8; ecn: TGEcnCodePoint): PGSocketControlMessage; cdecl; external libgio2;
 function g_ip_tos_message_get_dscp(message: PGIPTosMessage): Tguint8; cdecl; external libgio2;
@@ -28,6 +33,7 @@ function g_ip_tos_message_get_ecn(message: PGIPTosMessage): TGEcnCodePoint; cdec
 function G_TYPE_IP_TOS_MESSAGE: TGType;
 function G_IP_TOS_MESSAGE(obj: Pointer): PGIPTosMessage;
 function G_IS_IP_TOS_MESSAGE(obj: Pointer): Tgboolean;
+{$ENDIF read_function}
 
 implementation
 

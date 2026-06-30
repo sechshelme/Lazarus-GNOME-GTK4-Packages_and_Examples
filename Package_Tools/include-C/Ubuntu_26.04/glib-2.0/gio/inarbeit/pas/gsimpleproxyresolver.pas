@@ -1,5 +1,7 @@
 unit gsimpleproxyresolver;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGSimpleProxyResolverPrivate = type Pointer;
 
@@ -28,7 +31,9 @@ type
     _g_reserved4: procedure; cdecl;
     _g_reserved5: procedure; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_simple_proxy_resolver_get_type: TGType; cdecl; external libgio2;
 function g_simple_proxy_resolver_new(default_proxy: Pgchar; ignore_hosts: PPgchar): PGProxyResolver; cdecl; external libgio2;
 procedure g_simple_proxy_resolver_set_default_proxy(resolver: PGSimpleProxyResolver; default_proxy: Pgchar); cdecl; external libgio2;
@@ -43,6 +48,7 @@ function G_SIMPLE_PROXY_RESOLVER_CLASS(klass: Pointer): PGSimpleProxyResolverCla
 function G_IS_SIMPLE_PROXY_RESOLVER(obj: Pointer): Tgboolean;
 function G_IS_SIMPLE_PROXY_RESOLVER_CLASS(klass: Pointer): Tgboolean;
 function G_SIMPLE_PROXY_RESOLVER_GET_CLASS(obj: Pointer): PGSimpleProxyResolverClass;
+{$ENDIF read_function}
 
 implementation
 

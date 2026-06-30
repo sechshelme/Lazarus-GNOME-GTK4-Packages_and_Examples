@@ -1,5 +1,7 @@
 unit gthreadedsocketservice;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGThreadedSocketServicePrivate = type Pointer;
 
@@ -29,8 +32,9 @@ type
     _g_reserved4: procedure; cdecl;
     _g_reserved5: procedure; cdecl;
   end;
+  {$ENDIF read_struct}
 
-
+{$IFDEF read_function}
 function g_threaded_socket_service_get_type: TGType; cdecl; external libgio2;
 function g_threaded_socket_service_new(max_threads: longint): PGSocketService; cdecl; external libgio2;
 
@@ -42,6 +46,7 @@ function G_THREADED_SOCKET_SERVICE_CLASS(klass: Pointer): PGThreadedSocketServic
 function G_IS_THREADED_SOCKET_SERVICE(obj: Pointer): Tgboolean;
 function G_IS_THREADED_SOCKET_SERVICE_CLASS(klass: Pointer): Tgboolean;
 function G_THREADED_SOCKET_SERVICE_GET_CLASS(obj: Pointer): PGThreadedSocketServiceClass;
+{$ENDIF read_struct}
 
 implementation
 

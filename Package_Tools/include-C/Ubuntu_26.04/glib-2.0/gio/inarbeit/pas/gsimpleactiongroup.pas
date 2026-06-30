@@ -1,5 +1,7 @@
 unit gsimpleactiongroup;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGSimpleActionGroupPrivate = type Pointer;
 
@@ -24,7 +27,9 @@ type
     parent_class: TGObjectClass;
     padding: array[0..11] of Tgpointer;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_simple_action_group_get_type: TGType; cdecl; external libgio2;
 function g_simple_action_group_new: PGSimpleActionGroup; cdecl; external libgio2;
 function g_simple_action_group_lookup(simple: PGSimpleActionGroup; action_name: Pgchar): PGAction; cdecl; external libgio2; deprecated;
@@ -40,6 +45,7 @@ function G_SIMPLE_ACTION_GROUP_CLASS(klass: Pointer): PGSimpleActionGroupClass;
 function G_IS_SIMPLE_ACTION_GROUP(obj: Pointer): Tgboolean;
 function G_IS_SIMPLE_ACTION_GROUP_CLASS(klass: Pointer): Tgboolean;
 function G_SIMPLE_ACTION_GROUP_GET_CLASS(obj: Pointer): PGSimpleActionGroupClass;
+{$ENDIF read_function}
 
 implementation
 

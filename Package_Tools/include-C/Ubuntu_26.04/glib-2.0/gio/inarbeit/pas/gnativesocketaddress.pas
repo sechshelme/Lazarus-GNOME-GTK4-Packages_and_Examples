@@ -1,5 +1,7 @@
 unit gnativesocketaddress;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGNativeSocketAddressPrivate = type Pointer;
 
@@ -23,7 +26,9 @@ type
   TGNativeSocketAddressClass = record
     parent_class: TGSocketAddressClass;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_native_socket_address_get_type: TGType; cdecl; external libgio2;
 function g_native_socket_address_new(native: Tgpointer; len: Tgsize): PGSocketAddress; cdecl; external libgio2;
 
@@ -35,6 +40,7 @@ function G_NATIVE_SOCKET_ADDRESS_CLASS(klass: Pointer): PGNativeSocketAddressCla
 function G_IS_NATIVE_SOCKET_ADDRESS(obj: Pointer): Tgboolean;
 function G_IS_NATIVE_SOCKET_ADDRESS_CLASS(klass: Pointer): Tgboolean;
 function G_NATIVE_SOCKET_ADDRESS_GET_CLASS(obj: Pointer): PGNativeSocketAddressClass;
+{$ENDIF read_function}
 
 implementation
 
