@@ -1,5 +1,7 @@
 unit gfilteroutputstream;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGFilterOutputStream = ^TGFilterOutputStream;
   TGFilterOutputStream = record
@@ -24,7 +27,9 @@ type
     _g_reserved2: procedure; cdecl;
     _g_reserved3: procedure; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_filter_output_stream_get_type: TGType; cdecl; external libgio2;
 function g_filter_output_stream_get_base_stream(stream: PGFilterOutputStream): PGOutputStream; cdecl; external libgio2;
 function g_filter_output_stream_get_close_base_stream(stream: PGFilterOutputStream): Tgboolean; cdecl; external libgio2;
@@ -38,6 +43,7 @@ function G_FILTER_OUTPUT_STREAM_CLASS(klass: Pointer): PGFilterOutputStreamClass
 function G_IS_FILTER_OUTPUT_STREAM(obj: Pointer): Tgboolean;
 function G_IS_FILTER_OUTPUT_STREAM_CLASS(klass: Pointer): Tgboolean;
 function G_FILTER_OUTPUT_STREAM_GET_CLASS(obj: Pointer): PGFilterOutputStreamClass;
+{$ENDIF read_function}
 
 implementation
 

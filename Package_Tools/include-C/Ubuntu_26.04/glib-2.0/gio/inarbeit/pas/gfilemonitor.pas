@@ -1,5 +1,7 @@
 unit gfilemonitor;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -9,6 +11,7 @@ uses
   {$PACKRECORDS C}
   {$ENDIF}
 
+  {$IFDEF read_struct}
 type
   PGFileMonitorPrivate = type Pointer;
 
@@ -29,7 +32,9 @@ type
     _g_reserved4: procedure; cdecl;
     _g_reserved5: procedure; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_file_monitor_get_type: TGType; cdecl; external libgio2;
 function g_file_monitor_cancel(monitor: PGFileMonitor): Tgboolean; cdecl; external libgio2;
 function g_file_monitor_is_cancelled(monitor: PGFileMonitor): Tgboolean; cdecl; external libgio2;
@@ -44,6 +49,7 @@ function G_FILE_MONITOR_CLASS(klass: Pointer): PGFileMonitorClass;
 function G_IS_FILE_MONITOR(obj: Pointer): Tgboolean;
 function G_IS_FILE_MONITOR_CLASS(klass: Pointer): Tgboolean;
 function G_FILE_MONITOR_GET_CLASS(obj: Pointer): PGFileMonitorClass;
+{$ENDIF read_function}
 
 implementation
 

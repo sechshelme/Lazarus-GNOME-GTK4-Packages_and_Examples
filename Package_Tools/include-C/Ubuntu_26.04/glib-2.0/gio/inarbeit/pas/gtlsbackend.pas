@@ -1,5 +1,7 @@
 unit gtlsbackend;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,9 +12,12 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_enum}
 const
   G_TLS_BACKEND_EXTENSION_POINT_NAME = 'gio-tls-backend';
+  {$ENDIF read_enum}
 
+  {$IFDEF read_struct}
 type
   PGTlsBackend = type Pointer;
 
@@ -29,7 +34,9 @@ type
     get_dtls_client_connection_type: function: TGType; cdecl;
     get_dtls_server_connection_type: function: TGType; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_tls_backend_get_type: TGType; cdecl; external libgio2;
 function g_tls_backend_get_default: PGTlsBackend; cdecl; external libgio2;
 function g_tls_backend_get_default_database(backend: PGTlsBackend): PGTlsDatabase; cdecl; external libgio2;
@@ -49,6 +56,7 @@ function G_TYPE_TLS_BACKEND: TGType;
 function G_TLS_BACKEND(obj: Pointer): PGTlsBackend;
 function G_IS_TLS_BACKEND(obj: Pointer): Tgboolean;
 function G_TLS_BACKEND_GET_INTERFACE(obj: Pointer): PGTlsBackendInterface;
+{$ENDIF read_struct}
 
 implementation
 

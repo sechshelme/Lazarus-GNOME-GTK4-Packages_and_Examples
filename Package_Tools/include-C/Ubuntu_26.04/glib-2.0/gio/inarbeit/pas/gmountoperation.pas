@@ -1,5 +1,7 @@
 unit gmountoperation;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGMountOperationPrivate = type Pointer;
 
@@ -38,7 +41,9 @@ type
     _g_reserved8: procedure; cdecl;
     _g_reserved9: procedure; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_mount_operation_get_type: TGType; cdecl; external libgio2;
 function g_mount_operation_new: PGMountOperation; cdecl; external libgio2;
 function g_mount_operation_get_username(op: PGMountOperation): pchar; cdecl; external libgio2;
@@ -69,6 +74,7 @@ function G_MOUNT_OPERATION_CLASS(klass: Pointer): PGMountOperationClass;
 function G_IS_MOUNT_OPERATION(obj: Pointer): Tgboolean;
 function G_IS_MOUNT_OPERATION_CLASS(klass: Pointer): Tgboolean;
 function G_MOUNT_OPERATION_GET_CLASS(obj: Pointer): PGMountOperationClass;
+{$ENDIF read_function}
 
 implementation
 

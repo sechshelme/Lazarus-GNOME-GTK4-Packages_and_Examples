@@ -1,5 +1,7 @@
 unit gcancellable;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGCancellablePrivate = type Pointer;
 
@@ -29,7 +32,9 @@ type
     _g_reserved4: procedure; cdecl;
     _g_reserved5: procedure; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_cancellable_get_type: TGType; cdecl; external libgio2;
 function g_cancellable_new: PGCancellable; cdecl; external libgio2;
 function g_cancellable_is_cancelled(cancellable: PGCancellable): Tgboolean; cdecl; external libgio2;
@@ -54,6 +59,7 @@ function G_CANCELLABLE_CLASS(klass: Pointer): PGCancellableClass;
 function G_IS_CANCELLABLE(obj: Pointer): Tgboolean;
 function G_IS_CANCELLABLE_CLASS(klass: Pointer): Tgboolean;
 function G_CANCELLABLE_GET_CLASS(obj: Pointer): PGCancellableClass;
+{$ENDIF read_function}
 
 implementation
 

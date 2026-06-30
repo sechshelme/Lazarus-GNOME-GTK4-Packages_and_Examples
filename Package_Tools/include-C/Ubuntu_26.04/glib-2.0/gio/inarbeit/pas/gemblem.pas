@@ -1,5 +1,7 @@
 unit gemblem;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,9 +12,12 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGEmblem = type Pointer;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_emblem_get_type: TGType; cdecl; external libgio2;
 function g_emblem_new(icon: PGIcon): PGEmblem; cdecl; external libgio2;
 function g_emblem_new_with_origin(icon: PGIcon; origin: TGEmblemOrigin): PGEmblem; cdecl; external libgio2;
@@ -27,6 +32,7 @@ function G_EMBLEM_CLASS(klass: Pointer): PGEmblemClass;
 function G_IS_EMBLEM(obj: Pointer): Tgboolean;
 function G_IS_EMBLEM_CLASS(klass: Pointer): Tgboolean;
 function G_EMBLEM_GET_CLASS(obj: Pointer): PGEmblemClass;
+{$ENDIF read_function}
 
 implementation
 

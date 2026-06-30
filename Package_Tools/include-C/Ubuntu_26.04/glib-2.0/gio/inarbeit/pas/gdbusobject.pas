@@ -1,5 +1,7 @@
 unit gdbusobject;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGDBusObjectIface = ^TGDBusObjectIface;
   TGDBusObjectIface = record
@@ -20,7 +23,9 @@ type
     interface_added: procedure(obj: PGDBusObject; interface_: PGDBusInterface); cdecl;
     interface_removed: procedure(obj: PGDBusObject; interface_: PGDBusInterface); cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_dbus_object_get_type: TGType; cdecl; external libgio2;
 function g_dbus_object_get_object_path(obj: PGDBusObject): Pgchar; cdecl; external libgio2;
 function g_dbus_object_get_interfaces(obj: PGDBusObject): PGList; cdecl; external libgio2;
@@ -32,6 +37,7 @@ function G_TYPE_DBUS_OBJECT: TGType;
 function G_DBUS_OBJECT(obj: Pointer): PGDBusObject;
 function G_IS_DBUS_OBJECT(obj: Pointer): Tgboolean;
 function G_DBUS_OBJECT_GET_IFACE(obj: Pointer): PGDBusObjectIface;
+{$ENDIF read_function}
 
 implementation
 

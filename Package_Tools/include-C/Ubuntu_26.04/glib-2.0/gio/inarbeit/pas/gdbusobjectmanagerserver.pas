@@ -1,5 +1,7 @@
 unit gdbusobjectmanagerserver;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGDBusObjectManagerServerPrivate = type Pointer;
 
@@ -24,7 +27,9 @@ type
     parent_class: TGObjectClass;
     padding: array[0..7] of Tgpointer;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_dbus_object_manager_server_get_type: TGType; cdecl; external libgio2;
 function g_dbus_object_manager_server_new(object_path: Pgchar): PGDBusObjectManagerServer; cdecl; external libgio2;
 function g_dbus_object_manager_server_get_connection(manager: PGDBusObjectManagerServer): PGDBusConnection; cdecl; external libgio2;
@@ -42,6 +47,7 @@ function G_DBUS_OBJECT_MANAGER_SERVER_CLASS(klass: Pointer): PGDBusObjectManager
 function G_IS_DBUS_OBJECT_MANAGER_SERVER(obj: Pointer): Tgboolean;
 function G_IS_DBUS_OBJECT_MANAGER_SERVER_CLASS(klass: Pointer): Tgboolean;
 function G_DBUS_OBJECT_MANAGER_SERVER_GET_CLASS(obj: Pointer): PGDBusObjectManagerServerClass;
+{$ENDIF read_function}
 
 implementation
 

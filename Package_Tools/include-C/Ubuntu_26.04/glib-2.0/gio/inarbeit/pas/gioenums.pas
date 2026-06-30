@@ -1,5 +1,7 @@
 unit gioenums;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -9,7 +11,7 @@ uses
   {$PACKRECORDS C}
   {$ENDIF}
 
-
+  {$IFDEF read_enum}
 type
   PGAppInfoCreateFlags = ^TGAppInfoCreateFlags;
   TGAppInfoCreateFlags = longint;
@@ -843,6 +845,7 @@ const
   G_ECN_ECT_1 = $1;
   G_ECN_ECT_0 = $2;
   G_ECN_ECT_CE = $3;
+  {$ENDIF read_enum}
 
   // === Konventiert am: 26-6-26 19:34:21 ===
 

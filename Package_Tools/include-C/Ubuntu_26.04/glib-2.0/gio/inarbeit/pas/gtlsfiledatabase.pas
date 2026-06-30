@@ -1,5 +1,7 @@
 unit gtlsfiledatabase;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,13 +12,16 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGTlsFileDatabaseInterface = ^TGTlsFileDatabaseInterface;
   TGTlsFileDatabaseInterface = record
     g_iface: TGTypeInterface;
     padding: array[0..7] of Tgpointer;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_tls_file_database_get_type: TGType; cdecl; external libgio2;
 function g_tls_file_database_new(anchors: Pgchar; error: PPGError): PGTlsDatabase; cdecl; external libgio2;
 
@@ -26,6 +31,7 @@ function G_TYPE_TLS_FILE_DATABASE: TGType;
 function G_TLS_FILE_DATABASE(obj: Pointer): PGTlsFileDatabase;
 function G_IS_TLS_FILE_DATABASE(obj: Pointer): Tgboolean;
 function G_TLS_FILE_DATABASE_GET_INTERFACE(obj: Pointer): PGTlsFileDatabaseInterface;
+{$ENDIF read_function}
 
 implementation
 

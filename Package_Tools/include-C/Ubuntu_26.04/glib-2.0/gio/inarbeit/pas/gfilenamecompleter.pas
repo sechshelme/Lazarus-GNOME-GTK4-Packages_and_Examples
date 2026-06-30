@@ -1,5 +1,7 @@
 unit gfilenamecompleter;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -9,7 +11,7 @@ uses
   {$PACKRECORDS C}
   {$ENDIF}
 
-
+  {$IFDEF read_struct}
 type
   PGFilenameCompleterClass = ^TGFilenameCompleterClass;
   TGFilenameCompleterClass = record
@@ -19,7 +21,9 @@ type
     _g_reserved2: procedure; cdecl;
     _g_reserved3: procedure; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_filename_completer_get_type: TGType; cdecl; external libgio2;
 function g_filename_completer_new: PGFilenameCompleter; cdecl; external libgio2;
 function g_filename_completer_get_completion_suffix(completer: PGFilenameCompleter; initial_text: pchar): pchar; cdecl; external libgio2;
@@ -34,6 +38,7 @@ function G_FILENAME_COMPLETER_CLASS(klass: Pointer): PGFilenameCompleterClass;
 function G_IS_FILENAME_COMPLETER(obj: Pointer): Tgboolean;
 function G_IS_FILENAME_COMPLETER_CLASS(klass: Pointer): Tgboolean;
 function G_FILENAME_COMPLETER_GET_CLASS(obj: Pointer): PGFilenameCompleterClass;
+{$ENDIF read_function}
 
 implementation
 

@@ -1,5 +1,7 @@
 unit gasyncinitable;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGAsyncInitableIface = ^TGAsyncInitableIface;
   TGAsyncInitableIface = record
@@ -17,7 +20,9 @@ type
     init_async: procedure(initable: PGAsyncInitable; io_priority: longint; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl;
     init_finish: function(initable: PGAsyncInitable; res: PGAsyncResult; error: PPGError): Tgboolean; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_async_initable_get_type: TGType; cdecl; external libgio2;
 procedure g_async_initable_init_async(initable: PGAsyncInitable; io_priority: longint; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl; external libgio2;
 function g_async_initable_init_finish(initable: PGAsyncInitable; res: PGAsyncResult; error: PPGError): Tgboolean; cdecl; external libgio2;
@@ -39,6 +44,7 @@ function G_TYPE_ASYNC_INITABLE: TGType;
 function G_ASYNC_INITABLE(obj: Pointer): PGAsyncInitable;
 function G_IS_ASYNC_INITABLE(obj: Pointer): Tgboolean;
 function G_ASYNC_INITABLE_GET_IFACE(obj: Pointer): PGAsyncInitableIface;
+{$ENDIF read_function}
 
 implementation
 

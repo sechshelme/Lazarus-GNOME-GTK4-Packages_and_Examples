@@ -1,5 +1,7 @@
 unit gtlscertificate;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGTlsCertificatePrivate = type Pointer;
 
@@ -25,7 +28,9 @@ type
     verify: function(cert: PGTlsCertificate; identity: PGSocketConnectable; trusted_ca: PGTlsCertificate): TGTlsCertificateFlags; cdecl;
     padding: array[0..7] of Tgpointer;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_tls_certificate_get_type: TGType; cdecl; external libgio2;
 function g_tls_certificate_new_from_pem(data: Pgchar; length: Tgssize; error: PPGError): PGTlsCertificate; cdecl; external libgio2;
 function g_tls_certificate_new_from_pkcs12(data: Pguint8; length: Tgsize; password: Pgchar; error: PPGError): PGTlsCertificate; cdecl; external libgio2;
@@ -52,6 +57,7 @@ function G_TLS_CERTIFICATE_CLASS(klass: Pointer): PGTlsCertificateClass;
 function G_IS_TLS_CERTIFICATE(obj: Pointer): Tgboolean;
 function G_IS_TLS_CERTIFICATE_CLASS(klass: Pointer): Tgboolean;
 function G_TLS_CERTIFICATE_GET_CLASS(obj: Pointer): PGTlsCertificateClass;
+{$ENDIF read_function}
 
 implementation
 

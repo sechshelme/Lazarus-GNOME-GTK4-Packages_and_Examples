@@ -1,5 +1,7 @@
 unit gemblemedicon;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGEmblemedIconPrivate = type Pointer;
 
@@ -23,7 +26,9 @@ type
   TGEmblemedIconClass = record
     parent_class: TGObjectClass;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_emblemed_icon_get_type: TGType; cdecl; external libgio2;
 function g_emblemed_icon_new(icon: PGIcon; emblem: PGEmblem): PGIcon; cdecl; external libgio2;
 function g_emblemed_icon_get_icon(emblemed: PGEmblemedIcon): PGIcon; cdecl; external libgio2;
@@ -39,6 +44,7 @@ function G_EMBLEMED_ICON_CLASS(klass: Pointer): PGEmblemedIconClass;
 function G_IS_EMBLEMED_ICON(obj: Pointer): Tgboolean;
 function G_IS_EMBLEMED_ICON_CLASS(klass: Pointer): Tgboolean;
 function G_EMBLEMED_ICON_GET_CLASS(obj: Pointer): PGEmblemedIconClass;
+{$ENDIF read_function}
 
 implementation
 

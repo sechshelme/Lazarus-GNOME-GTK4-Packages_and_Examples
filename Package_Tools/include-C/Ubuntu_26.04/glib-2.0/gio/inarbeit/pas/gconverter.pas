@@ -1,5 +1,7 @@
 unit gconverter;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGConverterIface = ^TGConverterIface;
   TGConverterIface = record
@@ -17,7 +20,9 @@ type
     convert: function(converter: PGConverter; inbuf: pointer; inbuf_size: Tgsize; outbuf: pointer; outbuf_size: Tgsize; flags: TGConverterFlags; bytes_read: Pgsize; bytes_written: Pgsize; error: PPGError): TGConverterResult; cdecl;
     reset: procedure(converter: PGConverter); cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_converter_get_type: TGType; cdecl; external libgio2;
 function g_converter_convert(converter: PGConverter; inbuf: pointer; inbuf_size: Tgsize; outbuf: pointer; outbuf_size: Tgsize;
   flags: TGConverterFlags; bytes_read: Pgsize; bytes_written: Pgsize; error: PPGError): TGConverterResult; cdecl; external libgio2;
@@ -30,6 +35,7 @@ function G_TYPE_CONVERTER: TGType;
 function G_CONVERTER(obj: Pointer): PGConverter;
 function G_IS_CONVERTER(obj: Pointer): Tgboolean;
 function G_CONVERTER_GET_IFACE(obj: Pointer): PGConverterIface;
+{$ENDIF read_function}
 
 implementation
 

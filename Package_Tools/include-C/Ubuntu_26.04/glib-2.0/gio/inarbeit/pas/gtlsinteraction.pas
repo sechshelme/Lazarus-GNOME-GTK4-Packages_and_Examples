@@ -1,5 +1,7 @@
 unit gtlsinteraction;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGTlsInteractionPrivate = type Pointer;
 
@@ -31,7 +34,9 @@ type
     request_certificate_finish: function(interaction: PGTlsInteraction; result: PGAsyncResult; error: PPGError): TGTlsInteractionResult; cdecl;
     padding: array[0..20] of Tgpointer;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_tls_interaction_get_type: TGType; cdecl; external libgio2;
 function g_tls_interaction_invoke_ask_password(interaction: PGTlsInteraction; password: PGTlsPassword; cancellable: PGCancellable; error: PPGError): TGTlsInteractionResult; cdecl; external libgio2;
 function g_tls_interaction_ask_password(interaction: PGTlsInteraction; password: PGTlsPassword; cancellable: PGCancellable; error: PPGError): TGTlsInteractionResult; cdecl; external libgio2;
@@ -51,6 +56,7 @@ function G_TLS_INTERACTION_CLASS(klass: Pointer): PGTlsInteractionClass;
 function G_IS_TLS_INTERACTION(obj: Pointer): Tgboolean;
 function G_IS_TLS_INTERACTION_CLASS(klass: Pointer): Tgboolean;
 function G_TLS_INTERACTION_GET_CLASS(obj: Pointer): PGTlsInteractionClass;
+{$ENDIF read_function}
 
 implementation
 

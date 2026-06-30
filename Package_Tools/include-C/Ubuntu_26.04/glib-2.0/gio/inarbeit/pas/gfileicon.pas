@@ -1,5 +1,7 @@
 unit gfileicon;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -9,9 +11,12 @@ uses
   {$PACKRECORDS C}
   {$ENDIF}
 
+  {$IFDEF read_struct}
 type
   PGFileIconClass = type Pointer;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_file_icon_get_type: TGType; cdecl; external libgio2;
 function g_file_icon_new(file_: PGFile): PGIcon; cdecl; external libgio2;
 function g_file_icon_get_file(icon: PGFileIcon): PGFile; cdecl; external libgio2;
@@ -24,6 +29,7 @@ function G_FILE_ICON_CLASS(klass: Pointer): PGFileIconClass;
 function G_IS_FILE_ICON(obj: Pointer): Tgboolean;
 function G_IS_FILE_ICON_CLASS(klass: Pointer): Tgboolean;
 function G_FILE_ICON_GET_CLASS(obj: Pointer): PGFileIconClass;
+{$ENDIF read_function}
 
 implementation
 

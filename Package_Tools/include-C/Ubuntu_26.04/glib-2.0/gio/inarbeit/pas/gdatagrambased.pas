@@ -1,5 +1,7 @@
 unit gdatagrambased;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGDatagramBasedInterface = ^TGDatagramBasedInterface;
   TGDatagramBasedInterface = record
@@ -20,7 +23,9 @@ type
     condition_check: function(datagram_based: PGDatagramBased; condition: TGIOCondition): TGIOCondition; cdecl;
     condition_wait: function(datagram_based: PGDatagramBased; condition: TGIOCondition; timeout: Tgint64; cancellable: PGCancellable; error: PPGError): Tgboolean; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_datagram_based_get_type: TGType; cdecl; external libgio2;
 function g_datagram_based_receive_messages(datagram_based: PGDatagramBased; messages: PGInputMessage; num_messages: Tguint; flags: Tgint; timeout: Tgint64;
   cancellable: PGCancellable; error: PPGError): Tgint; cdecl; external libgio2;
@@ -38,6 +43,7 @@ function G_TYPE_DATAGRAM_BASED: TGType;
 function G_DATAGRAM_BASED(obj: Pointer): PGDatagramBased;
 function G_IS_DATAGRAM_BASED(obj: Pointer): Tgboolean;
 function G_DATAGRAM_BASED_GET_IFACE(obj: Pointer): PGDatagramBasedInterface;
+{$ENDIF read_function}
 
 implementation
 

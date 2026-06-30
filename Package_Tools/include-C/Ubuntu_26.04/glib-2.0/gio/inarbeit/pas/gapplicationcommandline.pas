@@ -1,5 +1,7 @@
 unit gapplicationcommandline;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -9,6 +11,7 @@ uses
   {$PACKRECORDS C}
   {$ENDIF}
 
+  {$IFDEF read_struct}
 type
   PGApplicationCommandLinePrivate = type Pointer;
 
@@ -27,7 +30,9 @@ type
     done: procedure(cmdline: PGApplicationCommandLine); cdecl;
     padding: array[0..9] of Tgpointer;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_application_command_line_get_type: TGType; cdecl; external libgio2;
 function g_application_command_line_get_arguments(cmdline: PGApplicationCommandLine; argc: Plongint): PPgchar; cdecl; external libgio2;
 function g_application_command_line_get_options_dict(cmdline: PGApplicationCommandLine): PGVariantDict; cdecl; external libgio2;
@@ -56,6 +61,7 @@ function G_APPLICATION_COMMAND_LINE_CLASS(klass: Pointer): PGApplicationCommandL
 function G_IS_APPLICATION_COMMAND_LINE(obj: Pointer): Tgboolean;
 function G_IS_APPLICATION_COMMAND_LINE_CLASS(klass: Pointer): Tgboolean;
 function G_APPLICATION_COMMAND_LINE_GET_CLASS(obj: Pointer): PGApplicationCommandLineClass;
+{$ENDIF read_function}
 
 implementation
 

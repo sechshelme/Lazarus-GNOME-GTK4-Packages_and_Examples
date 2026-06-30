@@ -1,15 +1,18 @@
 unit gdbusinterfaceskeleton;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
-  fp_glib2, giotypes, gioenums, gdbusconnection,gdbusintrospection;
+  fp_glib2, giotypes, gioenums, gdbusconnection, gdbusintrospection;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGDBusInterfaceSkeletonPrivate = type Pointer;
 
@@ -31,7 +34,9 @@ type
     g_authorize_method: function(interface_: PGDBusInterfaceSkeleton; invocation: PGDBusMethodInvocation): Tgboolean; cdecl;
     signal_padding: array[0..7] of Tgpointer;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_dbus_interface_skeleton_get_type: TGType; cdecl; external libgio2;
 function g_dbus_interface_skeleton_get_flags(interface_: PGDBusInterfaceSkeleton): TGDBusInterfaceSkeletonFlags; cdecl; external libgio2;
 procedure g_dbus_interface_skeleton_set_flags(interface_: PGDBusInterfaceSkeleton; flags: TGDBusInterfaceSkeletonFlags); cdecl; external libgio2;
@@ -55,6 +60,7 @@ function G_DBUS_INTERFACE_SKELETON_CLASS(klass: Pointer): PGDBusInterfaceSkeleto
 function G_IS_DBUS_INTERFACE_SKELETON(obj: Pointer): Tgboolean;
 function G_IS_DBUS_INTERFACE_SKELETON_CLASS(klass: Pointer): Tgboolean;
 function G_DBUS_INTERFACE_SKELETON_GET_CLASS(obj: Pointer): PGDBusInterfaceSkeletonClass;
+{$ENDIF read_function}
 
 implementation
 

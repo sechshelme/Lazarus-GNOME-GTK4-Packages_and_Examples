@@ -1,5 +1,7 @@
 unit gcharsetconverter;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,12 +12,15 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGCharsetConverterClass = ^TGCharsetConverterClass;
   TGCharsetConverterClass = record
     parent_class: TGObjectClass;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_charset_converter_get_type: TGType; cdecl; external libgio2;
 function g_charset_converter_new(to_charset: Pgchar; from_charset: Pgchar; error: PPGError): PGCharsetConverter; cdecl; external libgio2;
 procedure g_charset_converter_set_use_fallback(converter: PGCharsetConverter; use_fallback: Tgboolean); cdecl; external libgio2;
@@ -30,6 +35,7 @@ function G_CHARSET_CONVERTER_CLASS(klass: Pointer): PGCharsetConverterClass;
 function G_IS_CHARSET_CONVERTER(obj: Pointer): Tgboolean;
 function G_IS_CHARSET_CONVERTER_CLASS(klass: Pointer): Tgboolean;
 function G_CHARSET_CONVERTER_GET_CLASS(obj: Pointer): PGCharsetConverterClass;
+{$ENDIF read_function}
 
 implementation
 

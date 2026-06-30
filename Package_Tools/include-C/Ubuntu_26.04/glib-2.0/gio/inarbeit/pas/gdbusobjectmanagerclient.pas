@@ -1,15 +1,18 @@
 unit gdbusobjectmanagerclient;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
-  fp_glib2, giotypes,gioenums,gdbusproxy, gdbusobjectproxy;
+  fp_glib2, giotypes, gioenums, gdbusproxy, gdbusobjectproxy;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGDBusObjectManagerClientPrivate = type Pointer;
 
@@ -26,7 +29,9 @@ type
     interface_proxy_properties_changed: procedure(manager: PGDBusObjectManagerClient; object_proxy: PGDBusObjectProxy; interface_proxy: PGDBusProxy; changed_properties: PGVariant; invalidated_properties: PPgchar); cdecl;
     padding: array[0..7] of Tgpointer;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_dbus_object_manager_client_get_type: TGType; cdecl; external libgio2;
 procedure g_dbus_object_manager_client_new(connection: PGDBusConnection; flags: TGDBusObjectManagerClientFlags; name: Pgchar; object_path: Pgchar; get_proxy_type_func: TGDBusProxyTypeFunc;
   get_proxy_type_user_data: Tgpointer; get_proxy_type_destroy_notify: TGDestroyNotify; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl; external libgio2;
@@ -51,6 +56,7 @@ function G_DBUS_OBJECT_MANAGER_CLIENT_CLASS(klass: Pointer): PGDBusObjectManager
 function G_IS_DBUS_OBJECT_MANAGER_CLIENT(obj: Pointer): Tgboolean;
 function G_IS_DBUS_OBJECT_MANAGER_CLIENT_CLASS(klass: Pointer): Tgboolean;
 function G_DBUS_OBJECT_MANAGER_CLIENT_GET_CLASS(obj: Pointer): PGDBusObjectManagerClientClass;
+{$ENDIF read_function}
 
 implementation
 

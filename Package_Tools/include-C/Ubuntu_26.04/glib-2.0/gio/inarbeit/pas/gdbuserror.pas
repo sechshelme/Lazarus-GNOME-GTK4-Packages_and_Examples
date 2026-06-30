@@ -1,5 +1,7 @@
 unit gdbuserror;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,18 +12,23 @@ uses
   {$ENDIF}
 
 
+{$IFDEF read_function}
 function g_dbus_error_quark: TGQuark; cdecl; external libgio2;
 function g_dbus_error_is_remote_error(error: PGError): Tgboolean; cdecl; external libgio2;
 function g_dbus_error_get_remote_error(error: PGError): Pgchar; cdecl; external libgio2;
 function g_dbus_error_strip_remote_error(error: PGError): Tgboolean; cdecl; external libgio2;
+{$ENDIF read_function}
 
+{$IFDEF read_struct}
 type
   PGDBusErrorEntry = ^TGDBusErrorEntry;
   TGDBusErrorEntry = record
     error_code: Tgint;
     dbus_error_name: Pgchar;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_dbus_error_register_error(error_domain: TGQuark; error_code: Tgint; dbus_error_name: Pgchar): Tgboolean; cdecl; external libgio2;
 function g_dbus_error_unregister_error(error_domain: TGQuark; error_code: Tgint; dbus_error_name: Pgchar): Tgboolean; cdecl; external libgio2;
 procedure g_dbus_error_register_error_domain(error_domain_quark_name: Pgchar; quark_volatile: Pgsize; entries: PGDBusErrorEntry; num_entries: Tguint); cdecl; external libgio2;
@@ -30,6 +37,7 @@ procedure g_dbus_error_set_dbus_error(error: PPGError; dbus_error_name: Pgchar; 
 procedure g_dbus_error_set_dbus_error(error: PPGError; dbus_error_name: Pgchar; dbus_error_message: Pgchar; format: Pgchar); cdecl; external libgio2;
 procedure g_dbus_error_set_dbus_error_valist(error: PPGError; dbus_error_name: Pgchar; dbus_error_message: Pgchar; format: Pgchar; var_args: Tva_list); cdecl; external libgio2;
 function g_dbus_error_encode_gerror(error: PGError): Pgchar; cdecl; external libgio2;
+{$ENDIF read_function}
 
 function G_DBUS_ERROR: TGQuark;
 

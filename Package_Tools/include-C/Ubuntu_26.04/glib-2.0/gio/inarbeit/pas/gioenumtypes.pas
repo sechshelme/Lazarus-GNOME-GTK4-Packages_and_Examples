@@ -1,5 +1,7 @@
 unit gioenumtypes;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+{$IFDEF read_function}
 function g_app_info_create_flags_get_type: TGType; cdecl; external libgio2;
 function G_TYPE_APP_INFO_CREATE_FLAGS: TGType;
 
@@ -258,6 +261,7 @@ function G_TYPE_RESOLVER_NAME_LOOKUP_FLAGS: TGType;
 
 function g_settings_bind_flags_get_type: TGType; cdecl; external libgio2;
 function G_TYPE_SETTINGS_BIND_FLAGS: TGType;
+{$ENDIF read_function}
 
 // === Konventiert am: 26-6-26 19:34:33 ===
 

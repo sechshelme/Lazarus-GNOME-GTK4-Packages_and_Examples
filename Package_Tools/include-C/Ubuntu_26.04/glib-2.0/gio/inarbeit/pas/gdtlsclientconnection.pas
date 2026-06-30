@@ -1,5 +1,7 @@
 unit gdtlsclientconnection;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,12 +12,15 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGDtlsClientConnectionInterface = ^TGDtlsClientConnectionInterface;
   TGDtlsClientConnectionInterface = record
     g_iface: TGTypeInterface;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_dtls_client_connection_get_type: TGType; cdecl; external libgio2;
 function g_dtls_client_connection_new(base_socket: PGDatagramBased; server_identity: PGSocketConnectable; error: PPGError): PGDatagramBased; cdecl; external libgio2;
 function g_dtls_client_connection_get_validation_flags(conn: PGDtlsClientConnection): TGTlsCertificateFlags; cdecl; external libgio2;
@@ -30,6 +35,7 @@ function G_TYPE_DTLS_CLIENT_CONNECTION: TGType;
 function G_DTLS_CLIENT_CONNECTION(obj: Pointer): PGDtlsClientConnection;
 function G_IS_DTLS_CLIENT_CONNECTION(obj: Pointer): Tgboolean;
 function G_DTLS_CLIENT_CONNECTION_GET_INTERFACE(obj: Pointer): PGDtlsClientConnectionInterface;
+{$ENDIF read_function}
 
 implementation
 

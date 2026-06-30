@@ -1,5 +1,7 @@
 unit gbufferedoutputstream;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGBufferedOutputStreamPrivate = type Pointer;
 
@@ -25,7 +28,9 @@ type
     _g_reserved1: procedure; cdecl;
     _g_reserved2: procedure; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_buffered_output_stream_get_type: TGType; cdecl; external libgio2;
 function g_buffered_output_stream_new(base_stream: PGOutputStream): PGOutputStream; cdecl; external libgio2;
 function g_buffered_output_stream_new_sized(base_stream: PGOutputStream; size: Tgsize): PGOutputStream; cdecl; external libgio2;
@@ -42,6 +47,7 @@ function G_BUFFERED_OUTPUT_STREAM_CLASS(klass: Pointer): PGBufferedOutputStreamC
 function G_IS_BUFFERED_OUTPUT_STREAM(obj: Pointer): Tgboolean;
 function G_IS_BUFFERED_OUTPUT_STREAM_CLASS(klass: Pointer): Tgboolean;
 function G_BUFFERED_OUTPUT_STREAM_GET_CLASS(obj: Pointer): PGBufferedOutputStreamClass;
+{$ENDIF read_function}
 
 implementation
 

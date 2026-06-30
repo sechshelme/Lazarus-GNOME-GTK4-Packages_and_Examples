@@ -1,15 +1,18 @@
 unit gdbusmessage;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
-  fp_glib2,giotypes,gioenums;
+  fp_glib2, giotypes, gioenums;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}
 
 
+{$IFDEF read_function}
 function g_dbus_message_get_type: TGType; cdecl; external libgio2;
 function g_dbus_message_new: PGDBusMessage; cdecl; external libgio2;
 function g_dbus_message_new_signal(path: Pgchar; interface_: Pgchar; signal: Pgchar): PGDBusMessage; cdecl; external libgio2;
@@ -72,6 +75,7 @@ function g_dbus_message_to_gerror(message: PGDBusMessage; error: PPGError): Tgbo
 function G_TYPE_DBUS_MESSAGE: TGType;
 function G_DBUS_MESSAGE(obj: Pointer): PGDBusMessage;
 function G_IS_DBUS_MESSAGE(obj: Pointer): Tgboolean;
+{$ENDIF read_function}
 
 implementation
 

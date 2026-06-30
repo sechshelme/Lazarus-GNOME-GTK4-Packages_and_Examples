@@ -1,5 +1,7 @@
 unit gdebugcontrollerdbus;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   TGDebugControllerDBus = record
     parent_instance: TGObject;
@@ -22,7 +25,9 @@ type
     authorize: function(controller: PGDebugControllerDBus; invocation: PGDBusMethodInvocation): Tgboolean; cdecl;
     padding: array[0..11] of Tgpointer;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_debug_controller_dbus_get_type: TGType; cdecl; external libgio2;
 function g_debug_controller_dbus_new(connection: PGDBusConnection; cancellable: PGCancellable; error: PPGError): PGDebugControllerDBus; cdecl; external libgio2;
 procedure g_debug_controller_dbus_stop(self: PGDebugControllerDBus); cdecl; external libgio2;
@@ -35,6 +40,7 @@ function G_IS_DEBUG_CONTROLLER_DBUS(obj: Pointer): Tgboolean;
 function G_DEBUG_CONTROLLER_DBUS_CLASS(klass: Pointer): PGDebugControllerDBusClass;
 function G_IS_DEBUG_CONTROLLER_DBUS_CLASS(klass: Pointer): Tgboolean;
 function G_DEBUG_CONTROLLER_DBUS_GET_CLASS(obj: Pointer): PGDebugControllerDBusClass;
+{$ENDIF read_function}
 
 implementation
 

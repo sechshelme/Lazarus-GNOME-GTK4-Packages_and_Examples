@@ -1,5 +1,7 @@
 unit gbytesicon;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+{$IFDEF read_function}
 function g_bytes_icon_get_type: TGType; cdecl; external libgio2;
 function g_bytes_icon_new(bytes: PGBytes): PGIcon; cdecl; external libgio2;
 function g_bytes_icon_get_bytes(icon: PGBytesIcon): PGBytes; cdecl; external libgio2;
@@ -19,6 +22,7 @@ function g_bytes_icon_get_bytes(icon: PGBytesIcon): PGBytes; cdecl; external lib
 function G_TYPE_BYTES_ICON: TGType;
 function G_BYTES_ICON(obj: Pointer): PGBytesIcon;
 function G_IS_BYTES_ICON(obj: Pointer): Tgboolean;
+{$ENDIF read_function}
 
 implementation
 

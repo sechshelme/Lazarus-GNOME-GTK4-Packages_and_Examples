@@ -1,5 +1,7 @@
 unit gtlsclientconnection;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,13 +12,16 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGTlsClientConnectionInterface = ^TGTlsClientConnectionInterface;
   TGTlsClientConnectionInterface = record
     g_iface: TGTypeInterface;
     copy_session_state: procedure(conn: PGTlsClientConnection; source: PGTlsClientConnection); cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_tls_client_connection_get_type: TGType; cdecl; external libgio2;
 function g_tls_client_connection_new(base_io_stream: PGIOStream; server_identity: PGSocketConnectable; error: PPGError): PGIOStream; cdecl; external libgio2;
 function g_tls_client_connection_get_validation_flags(conn: PGTlsClientConnection): TGTlsCertificateFlags; cdecl; external libgio2; deprecated;
@@ -27,6 +32,7 @@ function g_tls_client_connection_get_use_ssl3(conn: PGTlsClientConnection): Tgbo
 procedure g_tls_client_connection_set_use_ssl3(conn: PGTlsClientConnection; use_ssl3: Tgboolean); cdecl; external libgio2; deprecated;
 function g_tls_client_connection_get_accepted_cas(conn: PGTlsClientConnection): PGList; cdecl; external libgio2;
 procedure g_tls_client_connection_copy_session_state(conn: PGTlsClientConnection; source: PGTlsClientConnection); cdecl; external libgio2;
+{$ENDIF read_function}
 
 // === Konventiert am: 26-6-26 20:04:23 ===
 

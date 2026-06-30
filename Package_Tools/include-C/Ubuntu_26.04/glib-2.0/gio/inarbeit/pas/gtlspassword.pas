@@ -1,5 +1,7 @@
 unit gtlspassword;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGTlsPasswordPrivate = type Pointer;
 
@@ -27,7 +30,9 @@ type
     get_default_warning: function(password: PGTlsPassword): Pgchar; cdecl;
     padding: array[0..3] of Tgpointer;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_tls_password_get_type: TGType; cdecl; external libgio2;
 function g_tls_password_new(flags: TGTlsPasswordFlags; description: Pgchar): PGTlsPassword; cdecl; external libgio2;
 function g_tls_password_get_value(password: PGTlsPassword; length: Pgsize): Pguchar; cdecl; external libgio2;
@@ -48,6 +53,7 @@ function G_TLS_PASSWORD_CLASS(klass: Pointer): PGTlsPasswordClass;
 function G_IS_TLS_PASSWORD(obj: Pointer): Tgboolean;
 function G_IS_TLS_PASSWORD_CLASS(klass: Pointer): Tgboolean;
 function G_TLS_PASSWORD_GET_CLASS(obj: Pointer): PGTlsPasswordClass;
+{$ENDIF read_function}
 
 implementation
 

@@ -1,5 +1,7 @@
 unit gaction;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGActionInterface = ^TGActionInterface;
   TGActionInterface = record
@@ -23,7 +26,9 @@ type
     change_state: procedure(action: PGAction; value: PGVariant); cdecl;
     activate: procedure(action: PGAction; parameter: PGVariant); cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_action_get_type: TGType; cdecl; external libgio2;
 function g_action_get_name(action: PGAction): Pgchar; cdecl; external libgio2;
 function g_action_get_parameter_type(action: PGAction): PGVariantType; cdecl; external libgio2;
@@ -43,6 +48,7 @@ function G_TYPE_ACTION: TGType;
 function G_ACTION(obj: Pointer): PGAction;
 function G_IS_ACTION(obj: Pointer): Tgboolean;
 function G_ACTION_GET_IFACE(obj: Pointer): PGActionInterface;
+{$ENDIF read_function}
 
 implementation
 

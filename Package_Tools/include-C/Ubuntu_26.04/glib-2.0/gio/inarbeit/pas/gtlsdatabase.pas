@@ -1,5 +1,7 @@
 unit gtlsdatabase;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,10 +12,13 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_enum}
 const
   G_TLS_DATABASE_PURPOSE_AUTHENTICATE_SERVER = '1.3.6.1.5.5.7.3.1';
   G_TLS_DATABASE_PURPOSE_AUTHENTICATE_CLIENT = '1.3.6.1.5.5.7.3.2';
+  {$ENDIF read_enum}
 
+  {$IFDEF read_struct}
 type
   PGTlsDatabasePrivate = type Pointer;
 
@@ -49,8 +54,9 @@ type
     lookup_certificates_issued_by_finish: function(self: PGTlsDatabase; result: PGAsyncResult; error: PPGError): PGList; cdecl;
     padding: array[0..15] of Tgpointer;
   end;
+  {$ENDIF read_struct}
 
-
+{$IFDEF read_function}
 function g_tls_database_get_type: TGType; cdecl; external libgio2;
 function g_tls_database_verify_chain(self: PGTlsDatabase; chain: PGTlsCertificate; purpose: Pgchar; identity: PGSocketConnectable; interaction: PGTlsInteraction;
   flags: TGTlsDatabaseVerifyFlags; cancellable: PGCancellable; error: PPGError): TGTlsCertificateFlags; cdecl; external libgio2;
@@ -82,6 +88,7 @@ function G_TLS_DATABASE_CLASS(klass: Pointer): PGTlsDatabaseClass;
 function G_IS_TLS_DATABASE(obj: Pointer): Tgboolean;
 function G_IS_TLS_DATABASE_CLASS(klass: Pointer): Tgboolean;
 function G_TLS_DATABASE_GET_CLASS(obj: Pointer): PGTlsDatabaseClass;
+{$ENDIF read_struct}
 
 implementation
 

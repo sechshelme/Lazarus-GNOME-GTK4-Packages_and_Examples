@@ -1,5 +1,7 @@
 unit gconverterinputstream;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGConverterInputStreamPrivate = type Pointer;
 
@@ -28,7 +31,9 @@ type
     _g_reserved4: procedure; cdecl;
     _g_reserved5: procedure; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_converter_input_stream_get_type: TGType; cdecl; external libgio2;
 function g_converter_input_stream_new(base_stream: PGInputStream; converter: PGConverter): PGInputStream; cdecl; external libgio2;
 function g_converter_input_stream_get_converter(converter_stream: PGConverterInputStream): PGConverter; cdecl; external libgio2;
@@ -41,6 +46,7 @@ function G_CONVERTER_INPUT_STREAM_CLASS(klass: Pointer): PGConverterInputStreamC
 function G_IS_CONVERTER_INPUT_STREAM(obj: Pointer): Tgboolean;
 function G_IS_CONVERTER_INPUT_STREAM_CLASS(klass: Pointer): Tgboolean;
 function G_CONVERTER_INPUT_STREAM_GET_CLASS(obj: Pointer): PGConverterInputStreamClass;
+{$ENDIF read_function}
 
 implementation
 

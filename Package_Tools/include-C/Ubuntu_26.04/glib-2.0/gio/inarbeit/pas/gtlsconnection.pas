@@ -1,5 +1,7 @@
 unit gtlsconnection;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGTlsConnectionPrivate = type Pointer;
 
@@ -30,7 +33,9 @@ type
     get_negotiated_protocol: function(conn: PGTlsConnection): Pgchar; cdecl;
     padding: array[0..5] of Tgpointer;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_tls_connection_get_type: TGType; cdecl; external libgio2;
 procedure g_tls_connection_set_use_system_certdb(conn: PGTlsConnection; use_system_certdb: Tgboolean); cdecl; external libgio2;
 function g_tls_connection_get_use_system_certdb(conn: PGTlsConnection): Tgboolean; cdecl; external libgio2;
@@ -55,7 +60,6 @@ function g_tls_connection_handshake_finish(conn: PGTlsConnection; result: PGAsyn
 function g_tls_connection_get_protocol_version(conn: PGTlsConnection): TGTlsProtocolVersion; cdecl; external libgio2;
 function g_tls_connection_get_ciphersuite_name(conn: PGTlsConnection): Pgchar; cdecl; external libgio2;
 
-
 function g_tls_error_quark: TGQuark; cdecl; external libgio2;
 
 function g_tls_channel_binding_error_quark: TGQuark; cdecl; external libgio2;
@@ -72,6 +76,7 @@ function G_TLS_CONNECTION_CLASS(klass: Pointer): PGTlsConnectionClass;
 function G_IS_TLS_CONNECTION(obj: Pointer): Tgboolean;
 function G_IS_TLS_CONNECTION_CLASS(klass: Pointer): Tgboolean;
 function G_TLS_CONNECTION_GET_CLASS(obj: Pointer): PGTlsConnectionClass;
+{$ENDIF read_function}
 
 implementation
 

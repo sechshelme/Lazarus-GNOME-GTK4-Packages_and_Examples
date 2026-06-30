@@ -1,5 +1,7 @@
 unit gappinfo;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGAppLaunchContextPrivate = type Pointer;
 
@@ -33,6 +36,8 @@ type
   end;
 
 type
+  PGAppInfoMonitor = type Pointer;
+
   PGAppInfoIface = ^TGAppInfoIface;
   TGAppInfoIface = record
     g_iface: TGTypeInterface;
@@ -63,7 +68,9 @@ type
       user_data: Tgpointer); cdecl;
     launch_uris_finish: function(appinfo: PGAppInfo; result: PGAsyncResult; error: PPGError): Tgboolean; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_app_info_get_type: TGType; cdecl; external libgio2;
 function g_app_info_create_from_commandline(commandline: pchar; application_name: pchar; flags: TGAppInfoCreateFlags; error: PPGError): PGAppInfo; cdecl; external libgio2;
 function g_app_info_dup(appinfo: PGAppInfo): PGAppInfo; cdecl; external libgio2;
@@ -116,9 +123,6 @@ function g_app_launch_context_get_display(context: PGAppLaunchContext; info: PGA
 function g_app_launch_context_get_startup_notify_id(context: PGAppLaunchContext; info: PGAppInfo; files: PGList): pchar; cdecl; external libgio2;
 procedure g_app_launch_context_launch_failed(context: PGAppLaunchContext; startup_notify_id: pchar); cdecl; external libgio2;
 
-type
-  PGAppInfoMonitor = type Pointer;
-
 function g_app_info_monitor_get_type: TGType; cdecl; external libgio2;
 function g_app_info_monitor_get: PGAppInfoMonitor; cdecl; external libgio2;
 
@@ -139,6 +143,7 @@ function G_TYPE_APP_INFO: TGType;
 function G_APP_INFO(obj: Pointer): PGAppInfo;
 function G_IS_APP_INFO(obj: Pointer): Tgboolean;
 function G_APP_INFO_GET_IFACE(obj: Pointer): PGAppInfoIface;
+{$ENDIF read_struct}
 
 
 implementation

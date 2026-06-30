@@ -1,5 +1,7 @@
 unit gdtlsconnection;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -9,7 +11,7 @@ uses
   {$PACKRECORDS C}
   {$ENDIF}
 
-
+  {$IFDEF read_struct}
 type
   PGDtlsConnectionInterface = ^TGDtlsConnectionInterface;
   TGDtlsConnectionInterface = record
@@ -26,7 +28,9 @@ type
     get_negotiated_protocol: function(conn: PGDtlsConnection): Pgchar; cdecl;
     get_binding_data: function(conn: PGDtlsConnection; _type: TGTlsChannelBindingType; data: PGByteArray; error: PPGError): Tgboolean; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_dtls_connection_get_type: TGType; cdecl; external libgio2;
 procedure g_dtls_connection_set_database(conn: PGDtlsConnection; database: PGTlsDatabase); cdecl; external libgio2;
 function g_dtls_connection_get_database(conn: PGDtlsConnection): PGTlsDatabase; cdecl; external libgio2;
@@ -64,6 +68,7 @@ function G_TYPE_DTLS_CONNECTION: TGType;
 function G_DTLS_CONNECTION(obj: Pointer): PGDtlsConnection;
 function G_IS_DTLS_CONNECTION(obj: Pointer): Tgboolean;
 function G_DTLS_CONNECTION_GET_INTERFACE(obj: Pointer): PGDtlsConnectionInterface;
+{$ENDIF read_function}
 
 implementation
 

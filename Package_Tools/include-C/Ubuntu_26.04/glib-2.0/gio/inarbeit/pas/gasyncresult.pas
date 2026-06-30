@@ -1,5 +1,7 @@
 unit gasyncresult;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -9,6 +11,8 @@ uses
   {$PACKRECORDS C}
   {$ENDIF}
 
+
+  {$IFDEF read_struct}
 type
   PGAsyncResultIface = ^TGAsyncResultIface;
   TGAsyncResultIface = record
@@ -17,7 +21,9 @@ type
     get_source_object: function(res: PGAsyncResult): PGObject; cdecl;
     is_tagged: function(res: PGAsyncResult; source_tag: Tgpointer): Tgboolean; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_async_result_get_type: TGType; cdecl; external libgio2;
 function g_async_result_get_user_data(res: PGAsyncResult): Tgpointer; cdecl; external libgio2;
 function g_async_result_get_source_object(res: PGAsyncResult): PGObject; cdecl; external libgio2;
@@ -30,6 +36,7 @@ function G_TYPE_ASYNC_RESULT: TGType;
 function G_ASYNC_RESULT(obj: Pointer): PGAsyncResult;
 function G_IS_ASYNC_RESULT(obj: Pointer): Tgboolean;
 function G_ASYNC_RESULT_GET_IFACE(obj: Pointer): PGAsyncResultIface;
+{$ENDIF read_function}
 
 implementation
 

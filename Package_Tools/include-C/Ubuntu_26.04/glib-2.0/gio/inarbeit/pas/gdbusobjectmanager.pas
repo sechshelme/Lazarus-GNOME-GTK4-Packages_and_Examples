@@ -1,15 +1,18 @@
 unit gdbusobjectmanager;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
-  fp_glib2,giotypes;
+  fp_glib2, giotypes;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGDBusObjectManagerIface = ^TGDBusObjectManagerIface;
   TGDBusObjectManagerIface = record
@@ -23,7 +26,9 @@ type
     interface_added: procedure(manager: PGDBusObjectManager; obj: PGDBusObject; interface_: PGDBusInterface); cdecl;
     interface_removed: procedure(manager: PGDBusObjectManager; obj: PGDBusObject; interface_: PGDBusInterface); cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_dbus_object_manager_get_type: TGType; cdecl; external libgio2;
 function g_dbus_object_manager_get_object_path(manager: PGDBusObjectManager): Pgchar; cdecl; external libgio2;
 function g_dbus_object_manager_get_objects(manager: PGDBusObjectManager): PGList; cdecl; external libgio2;
@@ -36,6 +41,7 @@ function G_TYPE_DBUS_OBJECT_MANAGER: TGType;
 function G_DBUS_OBJECT_MANAGER(obj: Pointer): PGDBusObjectManager;
 function G_IS_DBUS_OBJECT_MANAGER(obj: Pointer): Tgboolean;
 function G_DBUS_OBJECT_MANAGER_GET_IFACE(obj: Pointer): PGDBusObjectManagerIface;
+{$ENDIF read_function}
 
 implementation
 

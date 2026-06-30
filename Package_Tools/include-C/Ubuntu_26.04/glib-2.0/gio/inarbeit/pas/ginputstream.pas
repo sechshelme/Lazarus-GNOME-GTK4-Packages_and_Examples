@@ -1,5 +1,7 @@
 unit ginputstream;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -9,6 +11,7 @@ uses
   {$PACKRECORDS C}
   {$ENDIF}
 
+  {$IFDEF read_struct}
 type
   PGInputStreamPrivate = type Pointer;
 
@@ -38,7 +41,9 @@ type
     _g_reserved4: procedure; cdecl;
     _g_reserved5: procedure; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_input_stream_get_type: TGType; cdecl; external libgio2;
 function g_input_stream_read(stream: PGInputStream; buffer: pointer; count: Tgsize; cancellable: PGCancellable; error: PPGError): Tgssize; cdecl; external libgio2;
 function g_input_stream_read_all(stream: PGInputStream; buffer: pointer; count: Tgsize; bytes_read: Pgsize; cancellable: PGCancellable;
@@ -74,6 +79,7 @@ function G_INPUT_STREAM_CLASS(klass: Pointer): PGInputStreamClass;
 function G_IS_INPUT_STREAM(obj: Pointer): Tgboolean;
 function G_IS_INPUT_STREAM_CLASS(klass: Pointer): Tgboolean;
 function G_INPUT_STREAM_GET_CLASS(obj: Pointer): PGInputStreamClass;
+{$ENDIF read_function}
 
 implementation
 

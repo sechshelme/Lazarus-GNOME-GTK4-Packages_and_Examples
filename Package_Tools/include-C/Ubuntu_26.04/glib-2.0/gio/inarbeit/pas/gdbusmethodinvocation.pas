@@ -1,5 +1,7 @@
 unit gdbusmethodinvocation;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,9 +12,12 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_enum}
 const
   G_DBUS_METHOD_INVOCATION_UNHANDLED = False;
+  {$ENDIF read_enum}
 
+{$IFDEF read_function}
 function g_dbus_method_invocation_get_type: TGType; cdecl; external libgio2;
 function g_dbus_method_invocation_get_sender(invocation: PGDBusMethodInvocation): Pgchar; cdecl; external libgio2;
 function g_dbus_method_invocation_get_object_path(invocation: PGDBusMethodInvocation): Pgchar; cdecl; external libgio2;
@@ -43,6 +48,7 @@ procedure g_dbus_method_invocation_return_dbus_error(invocation: PGDBusMethodInv
 function G_TYPE_DBUS_METHOD_INVOCATION: TGType;
 function G_DBUS_METHOD_INVOCATION(obj: Pointer): PGDBusMethodInvocation;
 function G_IS_DBUS_METHOD_INVOCATION(obj: Pointer): Tgboolean;
+{$ENDIF read_function}
 
 implementation
 

@@ -1,5 +1,7 @@
 unit gapplication;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGApplicationPrivate = type Pointer;
 
@@ -39,7 +42,9 @@ type
     name_lost: function(application: PGApplication): Tgboolean; cdecl;
     padding: array[0..6] of Tgpointer;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_application_get_type: TGType; cdecl; external libgio2;
 function g_application_id_is_valid(application_id: Pgchar): Tgboolean; cdecl; external libgio2;
 function g_application_new(application_id: Pgchar; flags: TGApplicationFlags): PGApplication; cdecl; external libgio2;
@@ -90,6 +95,7 @@ function G_APPLICATION_CLASS(klass: Pointer): PGApplicationClass;
 function G_IS_APPLICATION(obj: Pointer): Tgboolean;
 function G_IS_APPLICATION_CLASS(klass: Pointer): Tgboolean;
 function G_APPLICATION_GET_CLASS(obj: Pointer): PGApplicationClass;
+{$ENDIF read_function}
 
 implementation
 

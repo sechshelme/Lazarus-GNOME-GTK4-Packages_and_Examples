@@ -1,5 +1,7 @@
 unit gdbusmenumodel;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,9 +12,12 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGDBusMenuModel = type Pointer;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_dbus_menu_model_get_type: TGType; cdecl; external libgio2;
 function g_dbus_menu_model_get(connection: PGDBusConnection; bus_name: Pgchar; object_path: Pgchar): PGDBusMenuModel; cdecl; external libgio2;
 
@@ -21,6 +26,7 @@ function g_dbus_menu_model_get(connection: PGDBusConnection; bus_name: Pgchar; o
 function G_TYPE_DBUS_MENU_MODEL: TGType;
 function G_DBUS_MENU_MODEL(obj: Pointer): PGDBusMenuModel;
 function G_IS_DBUS_MENU_MODEL(obj: Pointer): Tgboolean;
+{$ENDIF read_function}
 
 implementation
 

@@ -1,5 +1,7 @@
 unit gactionmap;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGActionMapInterface = ^TGActionMapInterface;
   TGActionMapInterface = record
@@ -28,7 +31,9 @@ type
     change_state: procedure(action: PGSimpleAction; value: PGVariant; user_data: Tgpointer); cdecl;
     padding: array[0..2] of Tgsize;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_action_map_get_type: TGType; cdecl; external libgio2;
 function g_action_map_lookup_action(action_map: PGActionMap; action_name: Pgchar): PGAction; cdecl; external libgio2;
 procedure g_action_map_add_action(action_map: PGActionMap; action: PGAction); cdecl; external libgio2;
@@ -42,6 +47,7 @@ function G_TYPE_ACTION_MAP: TGType;
 function G_ACTION_MAP(obj: Pointer): PGActionMap;
 function G_IS_ACTION_MAP(obj: Pointer): Tgboolean;
 function G_ACTION_MAP_GET_IFACE(obj: Pointer): PGActionMapInterface;
+{$ENDIF read_function}
 
 implementation
 

@@ -1,15 +1,18 @@
 unit gdbusactiongroup;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
-  fp_glib2,giotypes;
+  fp_glib2, giotypes;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}
 
 
+{$IFDEF read_function}
 function g_dbus_action_group_get_type: TGType; cdecl; external libgio2;
 function g_dbus_action_group_get(connection: PGDBusConnection; bus_name: Pgchar; object_path: Pgchar): PGDBusActionGroup; cdecl; external libgio2;
 
@@ -21,6 +24,7 @@ function G_DBUS_ACTION_GROUP_CLASS(klass: Pointer): PGDBusActionGroupClass;
 function G_IS_DBUS_ACTION_GROUP(obj: Pointer): Tgboolean;
 function G_IS_DBUS_ACTION_GROUP_CLASS(klass: Pointer): Tgboolean;
 function G_DBUS_ACTION_GROUP_GET_CLASS(obj: Pointer): PGDBusActionGroupClass;
+{$ENDIF read_function}
 
 implementation
 

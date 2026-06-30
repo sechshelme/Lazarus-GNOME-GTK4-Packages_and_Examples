@@ -1,5 +1,7 @@
 unit gdataoutputstream;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGDataOutputStreamPrivate = type Pointer;
 
@@ -28,7 +31,9 @@ type
     _g_reserved4: procedure; cdecl;
     _g_reserved5: procedure; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_data_output_stream_get_type: TGType; cdecl; external libgio2;
 function g_data_output_stream_new(base_stream: PGOutputStream): PGDataOutputStream; cdecl; external libgio2;
 procedure g_data_output_stream_set_byte_order(stream: PGDataOutputStream; order: TGDataStreamByteOrder); cdecl; external libgio2;
@@ -50,6 +55,7 @@ function G_DATA_OUTPUT_STREAM_CLASS(klass: Pointer): PGDataOutputStreamClass;
 function G_IS_DATA_OUTPUT_STREAM(obj: Pointer): Tgboolean;
 function G_IS_DATA_OUTPUT_STREAM_CLASS(klass: Pointer): Tgboolean;
 function G_DATA_OUTPUT_STREAM_GET_CLASS(obj: Pointer): PGDataOutputStreamClass;
+{$ENDIF read_function}
 
 implementation
 

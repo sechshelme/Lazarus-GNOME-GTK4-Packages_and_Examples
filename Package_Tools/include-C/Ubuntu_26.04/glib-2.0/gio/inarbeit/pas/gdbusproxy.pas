@@ -1,5 +1,7 @@
 unit gdbusproxy;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGDBusProxyPrivate = type Pointer;
 
@@ -26,7 +29,9 @@ type
     g_signal: procedure(proxy: PGDBusProxy; sender_name: Pgchar; signal_name: Pgchar; parameters: PGVariant); cdecl;
     padding: array[0..31] of Tgpointer;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_struct}
 function g_dbus_proxy_get_type: TGType; cdecl; external libgio2;
 procedure g_dbus_proxy_new(connection: PGDBusConnection; flags: TGDBusProxyFlags; info: PGDBusInterfaceInfo; name: Pgchar; object_path: Pgchar;
   interface_name: Pgchar; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl; external libgio2;
@@ -73,6 +78,7 @@ function G_DBUS_PROXY_CLASS(klass: Pointer): PGDBusProxyClass;
 function G_IS_DBUS_PROXY(obj: Pointer): Tgboolean;
 function G_IS_DBUS_PROXY_CLASS(klass: Pointer): Tgboolean;
 function G_DBUS_PROXY_GET_CLASS(obj: Pointer): PGDBusProxyClass;
+{$ENDIF read_function}
 
 implementation
 

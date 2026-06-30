@@ -1,5 +1,7 @@
 unit giostream;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGIOStreamPrivate = type Pointer;
 
@@ -38,7 +41,9 @@ type
     _g_reserved9: procedure; cdecl;
     _g_reserved10: procedure; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_io_stream_get_type: TGType; cdecl; external libgio2;
 function g_io_stream_get_input_stream(stream: PGIOStream): PGInputStream; cdecl; external libgio2;
 function g_io_stream_get_output_stream(stream: PGIOStream): PGOutputStream; cdecl; external libgio2;
@@ -61,6 +66,7 @@ function G_IO_STREAM_CLASS(klass: Pointer): PGIOStreamClass;
 function G_IS_IO_STREAM(obj: Pointer): Tgboolean;
 function G_IS_IO_STREAM_CLASS(klass: Pointer): Tgboolean;
 function G_IO_STREAM_GET_CLASS(obj: Pointer): PGIOStreamClass;
+{$ENDIF read_function}
 
 implementation
 

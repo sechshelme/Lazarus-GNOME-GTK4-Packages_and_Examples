@@ -1,21 +1,26 @@
 unit gdtlsserverconnection;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
-  fp_glib2,  giotypes, gtlscertificate;
+  fp_glib2, giotypes, gtlscertificate;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGDtlsServerConnectionInterface = ^TGDtlsServerConnectionInterface;
   TGDtlsServerConnectionInterface = record
     g_iface: TGTypeInterface;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_dtls_server_connection_get_type: TGType; cdecl; external libgio2;
 function g_dtls_server_connection_new(base_socket: PGDatagramBased; certificate: PGTlsCertificate; error: PPGError): PGDatagramBased; cdecl; external libgio2;
 
@@ -25,6 +30,7 @@ function G_TYPE_DTLS_SERVER_CONNECTION: TGType;
 function G_DTLS_SERVER_CONNECTION(obj: Pointer): PGDtlsServerConnection;
 function G_IS_DTLS_SERVER_CONNECTION(obj: Pointer): Tgboolean;
 function G_DTLS_SERVER_CONNECTION_GET_INTERFACE(obj: Pointer): PGDtlsServerConnectionInterface;
+{$ENDIF read_function}
 
 implementation
 

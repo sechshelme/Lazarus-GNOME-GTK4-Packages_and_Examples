@@ -1,15 +1,18 @@
 unit gfile;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
-  fp_glib2, giotypes, gioenums, gfileoutputstream, gfileenumerator, gfileinputstream, gfileiostream, gfilemonitor,gmountoperation;
+  fp_glib2, giotypes, gioenums, gfileoutputstream, gfileenumerator, gfileinputstream, gfileiostream, gfilemonitor, gmountoperation;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGFileIface = ^TGFileIface;
   TGFileIface = record
@@ -118,7 +121,9 @@ type
     measure_disk_usage_finish: function(file_: PGFile; result: PGAsyncResult; disk_usage: Pguint64; num_dirs: Pguint64; num_files: Pguint64; error: PPGError): Tgboolean; cdecl;
     query_exists: function(file_: PGFile; cancellable: PGCancellable): Tgboolean; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_file_get_type: TGType; cdecl; external libgio2;
 function g_file_new_for_path(path: pchar): PGFile; cdecl; external libgio2;
 function g_file_new_for_uri(uri: pchar): PGFile; cdecl; external libgio2;
@@ -313,6 +318,7 @@ function G_TYPE_FILE: TGType;
 function G_FILE(obj: Pointer): PGFile;
 function G_IS_FILE(obj: Pointer): Tgboolean;
 function G_FILE_GET_IFACE(obj: Pointer): PGFileIface;
+{$ENDIF read_function}
 
 implementation
 

@@ -1,5 +1,7 @@
 unit gmount;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGMountIface = ^TGMountIface;
   TGMountIface = record
@@ -45,7 +48,9 @@ type
     get_sort_key: function(mount: PGMount): Pgchar; cdecl;
     get_symbolic_icon: function(mount: PGMount): PGIcon; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_mount_get_type: TGType; cdecl; external libgio2;
 function g_mount_get_root(mount: PGMount): PGFile; cdecl; external libgio2;
 function g_mount_get_default_location(mount: PGMount): PGFile; cdecl; external libgio2;
@@ -84,6 +89,7 @@ function G_TYPE_MOUNT: TGType;
 function G_MOUNT(obj: Pointer): PGMount;
 function G_IS_MOUNT(obj: Pointer): Tgboolean;
 function G_MOUNT_GET_IFACE(obj: Pointer): PGMountIface;
+{$ENDIF read_function}
 
 implementation
 

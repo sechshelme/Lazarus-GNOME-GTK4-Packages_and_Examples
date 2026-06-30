@@ -1,38 +1,43 @@
 unit gdbusobjectskeleton;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
   fp_glib2, giotypes, gdbusinterfaceskeleton;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
-  PGDBusObjectSkeletonPrivate=type Pointer;
+  PGDBusObjectSkeletonPrivate = type Pointer;
 
   PGDBusObjectSkeleton = ^TGDBusObjectSkeleton;
   TGDBusObjectSkeleton = record
-      parent_instance : TGObject;
-      priv : PGDBusObjectSkeletonPrivate;
-    end;
+    parent_instance: TGObject;
+    priv: PGDBusObjectSkeletonPrivate;
+  end;
 
   PGDBusObjectSkeletonClass = ^TGDBusObjectSkeletonClass;
   TGDBusObjectSkeletonClass = record
-      parent_class : TGObjectClass;
-      authorize_method : function (obj:PGDBusObjectSkeleton; interface_:PGDBusInterfaceSkeleton; invocation:PGDBusMethodInvocation):Tgboolean;cdecl;
-      padding : array[0..7] of Tgpointer;
-    end;
+    parent_class: TGObjectClass;
+    authorize_method: function(obj: PGDBusObjectSkeleton; interface_: PGDBusInterfaceSkeleton; invocation: PGDBusMethodInvocation): Tgboolean; cdecl;
+    padding: array[0..7] of Tgpointer;
+  end;
+  {$ENDIF read_struct}
 
-function g_dbus_object_skeleton_get_type:TGType;cdecl;external libgio2;
-function g_dbus_object_skeleton_new(object_path:Pgchar):PGDBusObjectSkeleton;cdecl;external libgio2;
-procedure g_dbus_object_skeleton_flush(obj:PGDBusObjectSkeleton);cdecl;external libgio2;
-procedure g_dbus_object_skeleton_add_interface(obj:PGDBusObjectSkeleton; interface_:PGDBusInterfaceSkeleton);cdecl;external libgio2;
-procedure g_dbus_object_skeleton_remove_interface(obj:PGDBusObjectSkeleton; interface_:PGDBusInterfaceSkeleton);cdecl;external libgio2;
-procedure g_dbus_object_skeleton_remove_interface_by_name(obj:PGDBusObjectSkeleton; interface_name:Pgchar);cdecl;external libgio2;
-procedure g_dbus_object_skeleton_set_object_path(obj:PGDBusObjectSkeleton; object_path:Pgchar);cdecl;external libgio2;
+{$IFDEF read_function}
+function g_dbus_object_skeleton_get_type: TGType; cdecl; external libgio2;
+function g_dbus_object_skeleton_new(object_path: Pgchar): PGDBusObjectSkeleton; cdecl; external libgio2;
+procedure g_dbus_object_skeleton_flush(obj: PGDBusObjectSkeleton); cdecl; external libgio2;
+procedure g_dbus_object_skeleton_add_interface(obj: PGDBusObjectSkeleton; interface_: PGDBusInterfaceSkeleton); cdecl; external libgio2;
+procedure g_dbus_object_skeleton_remove_interface(obj: PGDBusObjectSkeleton; interface_: PGDBusInterfaceSkeleton); cdecl; external libgio2;
+procedure g_dbus_object_skeleton_remove_interface_by_name(obj: PGDBusObjectSkeleton; interface_name: Pgchar); cdecl; external libgio2;
+procedure g_dbus_object_skeleton_set_object_path(obj: PGDBusObjectSkeleton; object_path: Pgchar); cdecl; external libgio2;
 
 // === Konventiert am: 26-6-26 19:18:53 ===
 
@@ -42,6 +47,7 @@ function G_DBUS_OBJECT_SKELETON_CLASS(klass: Pointer): PGDBusObjectSkeletonClass
 function G_IS_DBUS_OBJECT_SKELETON(obj: Pointer): Tgboolean;
 function G_IS_DBUS_OBJECT_SKELETON_CLASS(klass: Pointer): Tgboolean;
 function G_DBUS_OBJECT_SKELETON_GET_CLASS(obj: Pointer): PGDBusObjectSkeletonClass;
+{$ENDIF read_function}
 
 implementation
 

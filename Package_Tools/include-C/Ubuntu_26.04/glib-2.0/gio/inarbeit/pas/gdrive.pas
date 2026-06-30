@@ -1,5 +1,7 @@
 unit gdrive;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,9 +12,12 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_enum}
 const
   G_DRIVE_IDENTIFIER_KIND_UNIX_DEVICE = 'unix-device';
+  {$ENDIF read_enum}
 
+  {$IFDEF read_struct}
 type
   PGDriveIface = ^TGDriveIface;
   TGDriveIface = record
@@ -53,7 +58,9 @@ type
     get_symbolic_icon: function(drive: PGDrive): PGIcon; cdecl;
     is_removable: function(drive: PGDrive): Tgboolean; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_drive_get_type: TGType; cdecl; external libgio2;
 function g_drive_get_name(drive: PGDrive): pchar; cdecl; external libgio2;
 function g_drive_get_icon(drive: PGDrive): PGIcon; cdecl; external libgio2;
@@ -93,6 +100,7 @@ function G_TYPE_DRIVE: TGType;
 function G_DRIVE(obj: Pointer): PGDrive;
 function G_IS_DRIVE(obj: Pointer): Tgboolean;
 function G_DRIVE_GET_IFACE(obj: Pointer): PGDriveIface;
+{$ENDIF read_function}
 
 implementation
 

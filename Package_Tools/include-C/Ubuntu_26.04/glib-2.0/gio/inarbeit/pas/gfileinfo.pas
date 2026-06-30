@@ -1,5 +1,7 @@
 unit gfileinfo;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -9,9 +11,12 @@ uses
   {$PACKRECORDS C}
   {$ENDIF}
 
+  {$IFDEF read_struct}
 type
   PGFileInfoClass = type Pointer;
+  {$ENDIF read_struct}
 
+  {$IFDEF read_enum}
 const
   G_FILE_ATTRIBUTE_STANDARD_TYPE = 'standard::type';
   G_FILE_ATTRIBUTE_STANDARD_IS_HIDDEN = 'standard::is-hidden';
@@ -112,7 +117,9 @@ const
   G_FILE_ATTRIBUTE_TRASH_ORIG_PATH = 'trash::orig-path';
   G_FILE_ATTRIBUTE_TRASH_DELETION_DATE = 'trash::deletion-date';
   G_FILE_ATTRIBUTE_RECENT_MODIFIED = 'recent::modified';
+  {$ENDIF read_enum}
 
+{$IFDEF read_function}
 function g_file_info_get_type: TGType; cdecl; external libgio2;
 function g_file_info_new: PGFileInfo; cdecl; external libgio2;
 function g_file_info_dup(other: PGFileInfo): PGFileInfo; cdecl; external libgio2;
@@ -212,6 +219,7 @@ function G_FILE_INFO_CLASS(klass: Pointer): PGFileInfoClass;
 function G_IS_FILE_INFO(obj: Pointer): Tgboolean;
 function G_IS_FILE_INFO_CLASS(klass: Pointer): Tgboolean;
 function G_FILE_INFO_GET_CLASS(obj: Pointer): PGFileInfoClass;
+{$ENDIF read_function}
 
 implementation
 

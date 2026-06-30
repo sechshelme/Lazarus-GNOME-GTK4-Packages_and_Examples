@@ -85,6 +85,7 @@ uses
   gfileicon,
   gfileinfo,
   gfilenamecompleter,
+
   gicon,
   ginetaddress,
   ginetaddressmask,
@@ -154,12 +155,10 @@ uses
   gtestdbus,
   gthemedicon,
   gthreadedsocketservice,             // GSocketService
-
-
-  gunixconnection,
-  gunixcredentialsmessage,
+  gunixconnection,                    // GSocketConnection
+  gunixcredentialsmessage,            // GSocketControlMessage
   gunixfdlist,
-  gunixsocketaddress,
+  gunixsocketaddress,                 // GSocketAddress
   gvfs,
   gzlibcompressor,
   gzlibdecompressor,

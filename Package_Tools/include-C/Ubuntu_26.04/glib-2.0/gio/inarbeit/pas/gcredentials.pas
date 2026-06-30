@@ -1,5 +1,7 @@
 unit gcredentials;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,9 +12,12 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGCredentialsClass = type Pointer;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_credentials_get_type: TGType; cdecl; external libgio2;
 function g_credentials_new: PGCredentials; cdecl; external libgio2;
 function g_credentials_to_string(credentials: PGCredentials): Pgchar; cdecl; external libgio2;
@@ -34,6 +39,7 @@ function G_CREDENTIALS_CLASS(klass: Pointer): PGCredentialsClass;
 function G_IS_CREDENTIALS(obj: Pointer): Tgboolean;
 function G_IS_CREDENTIALS_CLASS(klass: Pointer): Tgboolean;
 function G_CREDENTIALS_GET_CLASS(obj: Pointer): PGCredentialsClass;
+{$ENDIF read_function}
 
 implementation
 

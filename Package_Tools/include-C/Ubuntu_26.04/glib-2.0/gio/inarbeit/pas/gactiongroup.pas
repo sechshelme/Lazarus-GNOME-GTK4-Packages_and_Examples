@@ -1,5 +1,7 @@
 unit gactiongroup;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGActionGroupInterface = ^TGActionGroupInterface;
   TGActionGroupInterface = record
@@ -30,7 +33,9 @@ type
     query_action: function(action_group: PGActionGroup; action_name: Pgchar; enabled: Pgboolean; parameter_type: PPGVariantType; state_type: PPGVariantType;
       state_hint: PPGVariant; state: PPGVariant): Tgboolean; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_action_group_get_type: TGType; cdecl; external libgio2;
 function g_action_group_has_action(action_group: PGActionGroup; action_name: Pgchar): Tgboolean; cdecl; external libgio2;
 function g_action_group_list_actions(action_group: PGActionGroup): PPgchar; cdecl; external libgio2;
@@ -55,6 +60,7 @@ function G_TYPE_ACTION_GROUP: TGType;
 function G_ACTION_GROUP(obj: Pointer): PGActionGroup;
 function G_IS_ACTION_GROUP(obj: Pointer): Tgboolean;
 function G_ACTION_GROUP_GET_IFACE(obj: Pointer): PGActionGroupInterface;
+{$ENDIF read_function}
 
 implementation
 

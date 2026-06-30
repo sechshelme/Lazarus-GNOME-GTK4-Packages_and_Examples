@@ -1,5 +1,7 @@
 unit gcontenttype;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+{$IFDEF read_function}
 function g_content_type_equals(type1: Pgchar; type2: Pgchar): Tgboolean; cdecl; external libgio2;
 function g_content_type_is_a(_type: Pgchar; supertype: Pgchar): Tgboolean; cdecl; external libgio2;
 function g_content_type_is_mime_type(_type: Pgchar; mime_type: Pgchar): Tgboolean; cdecl; external libgio2;
@@ -27,6 +30,7 @@ function g_content_types_get_registered: PGList; cdecl; external libgio2;
 
 function g_content_type_get_mime_dirs: PPgchar; cdecl; external libgio2;
 procedure g_content_type_set_mime_dirs(dirs: PPgchar); cdecl; external libgio2;
+{$ENDIF read_function}
 
 // === Konventiert am: 26-6-26 16:35:59 ===
 

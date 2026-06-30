@@ -1,15 +1,18 @@
 unit gdbusserver;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
-  fp_glib2,gioenums,giotypes;
+  fp_glib2, gioenums, giotypes;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}
 
 
+{$IFDEF read_function}
 function g_dbus_server_get_type: TGType; cdecl; external libgio2;
 function g_dbus_server_new_sync(address: Pgchar; flags: TGDBusServerFlags; guid: Pgchar; observer: PGDBusAuthObserver; cancellable: PGCancellable;
   error: PPGError): PGDBusServer; cdecl; external libgio2;
@@ -25,6 +28,7 @@ function g_dbus_server_is_active(server: PGDBusServer): Tgboolean; cdecl; extern
 function G_TYPE_DBUS_SERVER: TGType;
 function G_DBUS_SERVER(obj: Pointer): PGDBusServer;
 function G_IS_DBUS_SERVER(obj: Pointer): Tgboolean;
+{$ENDIF read_function}
 
 implementation
 

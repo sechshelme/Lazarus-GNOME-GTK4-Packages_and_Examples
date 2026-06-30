@@ -1,15 +1,18 @@
 unit gdbusinterface;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
-  fp_glib2, giotypes,gdbusintrospection;
+  fp_glib2, giotypes, gdbusintrospection;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGDBusInterfaceIface = ^TGDBusInterfaceIface;
   TGDBusInterfaceIface = record
@@ -19,7 +22,9 @@ type
     set_object: procedure(interface_: PGDBusInterface; obj: PGDBusObject); cdecl;
     dup_object: function(interface_: PGDBusInterface): PGDBusObject; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function g_dbus_interface_get_type: TGType; cdecl; external libgio2;
 function g_dbus_interface_get_info(interface_: PGDBusInterface): PGDBusInterfaceInfo; cdecl; external libgio2;
 function g_dbus_interface_get_object(interface_: PGDBusInterface): PGDBusObject; cdecl; external libgio2;
@@ -32,6 +37,7 @@ function G_TYPE_DBUS_INTERFACE: TGType;
 function G_DBUS_INTERFACE(obj: Pointer): PGDBusInterface;
 function G_IS_DBUS_INTERFACE(obj: Pointer): Tgboolean;
 function G_DBUS_INTERFACE_GET_IFACE(obj: Pointer): PGDBusInterfaceIface;
+{$ENDIF read_function}
 
 implementation
 
