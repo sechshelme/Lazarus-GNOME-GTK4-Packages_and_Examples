@@ -23,6 +23,10 @@
         <Filename Value="fp_gio_unix_2.pas"/>
         <UnitName Value="fp_gio_unix_2"/>
       </Item>
+      <Item>
+        <Filename Value="fp_gmodule.pas"/>
+        <UnitName Value="fp_gmodule"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>

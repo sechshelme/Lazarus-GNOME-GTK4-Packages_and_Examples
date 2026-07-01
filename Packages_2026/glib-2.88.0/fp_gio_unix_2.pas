@@ -9,16 +9,23 @@ uses
   {$PACKRECORDS C}
   {$ENDIF}
 
-{$DEFINE read_interface}
-{$include gio-unix-2.0/gio/gdesktopappinfo.inc}
-{$include gio-unix-2.0/gio/gfiledescriptorbased.inc}
-{$include gio-unix-2.0/gio/gunixfdmessage.inc}
-{$include gio-unix-2.0/gio/gunixinputstream.inc}
-{$include gio-unix-2.0/gio/gunixmounts.inc}
-{$include gio-unix-2.0/gio/gunixoutputstream.inc}
-{$UNDEF read_interface}
+  {$IFDEF unix}
+
+  {$DEFINE read_interface}
+  {$include gio-unix-2.0/gio/gdesktopappinfo.inc}
+  {$include gio-unix-2.0/gio/gfiledescriptorbased.inc}
+  {$include gio-unix-2.0/gio/gunixfdmessage.inc}
+  {$include gio-unix-2.0/gio/gunixinputstream.inc}
+  {$include gio-unix-2.0/gio/gunixmounts.inc}
+  {$include gio-unix-2.0/gio/gunixoutputstream.inc}
+  {$UNDEF read_interface}
+
+  {$ENDIF}
+
 
 implementation
+
+{$IFDEF unix}
 
 {$DEFINE read_implementation}
 {$include gio-unix-2.0/gio/gdesktopappinfo.inc}
@@ -28,5 +35,7 @@ implementation
 {$include gio-unix-2.0/gio/gunixmounts.inc}
 {$include gio-unix-2.0/gio/gunixoutputstream.inc}
 {$UNDEF read_implementation}
+
+{$ENDIF}
 
 end.

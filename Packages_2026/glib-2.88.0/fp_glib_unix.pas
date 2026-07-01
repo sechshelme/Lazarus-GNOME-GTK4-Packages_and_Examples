@@ -9,7 +9,7 @@ uses
   {$PACKRECORDS C}
   {$ENDIF}
 
-{$IFDEF linux}
+  {$IFDEF unix}
 function g_unix_error_quark: TGQuark; cdecl; external libglib2;
 function g_unix_open_pipe(fds: Pgint; flags: Tgint; error: PPGError): Tgboolean; cdecl; external libglib2;
 function g_unix_set_fd_nonblocking(fd: Tgint; nonblock: Tgboolean; error: PPGError): Tgboolean; cdecl; external libglib2;
@@ -27,21 +27,21 @@ function g_unix_fd_add(fd: Tgint; condition: TGIOCondition; _function: TGUnixFDS
 function g_unix_get_passwd_entry(user_name: Pgchar; error: PPGError): Ppasswd; cdecl; external libglib2;
 
 type
+  PGUnixPipe = ^TGUnixPipe;
   TGUnixPipe = record
     fds: array[0..1] of longint;
   end;
-  PGUnixPipe = ^TGUnixPipe;
 
+type
   PGUnixPipeEnd = ^TGUnixPipeEnd;
   TGUnixPipeEnd = longint;
-
 const
   G_UNIX_PIPE_END_READ = 0;
   G_UNIX_PIPE_END_WRITE = 1;
 
 function g_closefrom(lowfd: longint): longint; cdecl; external libglib2;
 function g_fdwalk_set_cloexec(lowfd: longint): longint; cdecl; external libglib2;
-
+function g_unix_fd_query_path(fd: longint; error: PPGError): pchar; cdecl; external libglib2;
 
 function g_unix_pipe_open(pipe: PGUnixPipe; flags: integer; error: PPGError): Tgboolean;
 function g_unix_pipe_get(pipe: PGUnixPipe; end_: TGUnixPipeEnd): integer;
@@ -58,7 +58,7 @@ function G_UNIX_ERROR: longint;
 
 implementation
 
-{$IFDEF linux}
+{$IFDEF unix}
 function g_unix_pipe_open(pipe: PGUnixPipe; flags: integer; error: PPGError): Tgboolean;
 begin
   Result := g_unix_open_pipe(pipe^.fds, flags, error);

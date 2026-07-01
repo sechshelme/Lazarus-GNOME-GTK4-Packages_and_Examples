@@ -8,7 +8,7 @@ unit fp_glib2_neu_package;
 interface
 
 uses
-  fp_glib2, fp_glib_unix, fp_gio_unix_2, LazarusPackageIntf;
+  fp_glib2, fp_glib_unix, fp_gio_unix_2, fp_gmodule, LazarusPackageIntf;
 
 implementation
 
