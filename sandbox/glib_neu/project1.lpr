@@ -2,165 +2,12 @@ program project1;
 
 // diff /usr/include/glib-2.0/gio/gioenumtypes.h /home/tux/include_neu/glib-2.0/gio/gioenumtypes.h > test.diff
 
+// diff -U 1 -r /n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Packages_2024/glib-2.80.0/C-include/gio-unix-2.80.0 /n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Packages_2026/glib-2.88.0/C-include/gio-unix-2.0 > test.diff
+
 
 uses
-  giotypes,
-  gioenums,
-  gioenumtypes,
-  gaction,
-  gactiongroup,
-  gactiongroupexporter,
-  gactionmap,
-  gappinfo,
-  gasyncinitable,
-  gasyncresult,
-  ginputstream,
-  goutputstream,
-  giostream,
-  gfileoutputstream,
-  gapplicationcommandline,
-  gapplication,
-  gfilterinputstream,                 // GInputStream
-  gfilteroutputstream,                // GOutputStream
-  gbufferedinputstream,               // GFilterInputStream
-  gbufferedoutputstream,              // GFilterOutputStream
-  gbytesicon,
-  gcancellable,
-  gcharsetconverter,
-  gcontenttype,
-  gconverter,
-  gconverterinputstream,              // GFilterInputStream
-  gconverteroutputstream,             // GFilterOutputStream
-  gcredentials,
-  gdatagrambased,
-  gdatainputstream,                   // GBufferedInputStream
-  gdataoutputstream,                  // GFilterOutputStream
-  gdbusactiongroup,
-  gdbusaddress,
-  gdbusauthobserver,
-  gdbusintrospection,                 // diverse struct
-  gdbusconnection,
-  gdbuserror,
-  gdbusinterface,
-  gdbusinterfaceskeleton,
-  gdbusmenumodel,
-  gdbusmessage,
-  gdbusmethodinvocation,
-  gdbusnameowning,
-  gdbusnamewatching,
-  gdbusproxy,
-  gdbusobject,
-  gdbusobjectproxy,
-  gdbusobjectmanager,
-  gdbusobjectmanagerclient,
-  gdbusobjectmanagerserver,
-  gdbusobjectskeleton,
-  gdbusserver,
-  gdbusutils,
-  gdebugcontrollerdbus,
-  gdebugcontroller,
-  gmountoperation,
-  gmount,
-  gdrive,
-  gtlsbackend,
-  gtlscertificate,
-  gtlspassword,
-  gtlsconnection,                     // GIOStream
-  gtlsinteraction,
-  gtlsclientconnection,
-  gtlsdatabase,
-  gtlsfiledatabase,
-  gtlsserverconnection,
-  gdtlsclientconnection,
-  gdtlsconnection,
-  gdtlsserverconnection,
-  gemblem,
-  gemblemedicon,
-  gfilemonitor,
-  gfileattribute,
-  gfileenumerator,
-  gfileinputstream,                   // GInputStream
-  gfile,
-  gfileiostream,                      // GIOStream
-  gfileicon,
-  gfileinfo,
-  gfilenamecompleter,
-  gicon,
-  ginetaddress,
-  ginetaddressmask,
-  gsocketaddress,
-  ginetsocketaddress,                 // GSocketAddress
-  ginitable,
-  gioerror,
-  giomodule,
-  gioscheduler,
-  gsocketcontrolmessage,
-  gsocket,
-  gsocketaddressenumerator,
-  gsocketconnection,                  // GIOStream
-  gsocketclient,
-  gsocketconnectable,
-  gsocketlistener,
-  gsocketservice,                     // GSocketListener
-  giptosmessage,                      // GSocketControlMessage
-  gipv6tclassmessage,                 // GSocketControlMessage
-  glistmodel,
-  gliststore,
-  gloadableicon,
-  gmemoryinputstream,                 // GInputStream
-  gmemorymonitor,
-  gmemoryoutputstream,                // GOutputStream
-  gmenumodel,
-  gmenu,
-  gmenuexporter,
-  gnativesocketaddress,               // GSocketAddress
-  gvolume,
-  gvolumemonitor,
-  gnativevolumemonitor,               // GVolumeMonitor
-  gnetworkaddress,
-  gnetworking,
-  gnetworkmonitor,
-  gnetworkservice,
-  gnotification,
-  gpermission,
-  gpollableinputstream,
-  gpollableoutputstream,
-  gpollableutils,
-  gpowerprofilemonitor,
-  gpropertyaction,
-  gproxy,
-  gproxyaddress,                      // GInetSocketAddress
-  gproxyaddressenumerator,            // GSocketAddressEnumerator
-  gproxyresolver,
-  gremoteactiongroup,
-  gresolver,
-  gresource,
-  gseekable,
-  gsettingsbackend,
-  gsettingsschema,
-  gsettings,
-  gsimpleaction,
-  gsimpleactiongroup,
-  gsimpleasyncresult,
-  gsimpleiostream,
-  gsimplepermission,
-  gsimpleproxyresolver,
-  gsrvtarget,
-  gsubprocess,
-  gsubprocesslauncher,
-  gtask,
-  gtcpconnection,                     // GSocketConnectionClass
-  gtcpwrapperconnection,              // GTcpConnection
-  gtestdbus,
-  gthemedicon,
-  gthreadedsocketservice,             // GSocketService
-  gunixconnection,                    // GSocketConnection
-  gunixcredentialsmessage,            // GSocketControlMessage
-  gunixfdlist,
-  gunixsocketaddress,                 // GSocketAddress
-  gvfs,
-  gzlibcompressor,
-  gzlibdecompressor,
+  fp_glib_unix, // ???
+  fp_gio_unix_2,
 
   fp_glib2;
 
@@ -182,5 +29,6 @@ uses
   end;
 
 begin
+  g_ecn_code_point_get_type;
   main;
 end.

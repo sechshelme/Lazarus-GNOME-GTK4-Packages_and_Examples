@@ -95,8 +95,20 @@ type
   {$include glibconfig.inc}        // Aussklammern rückgängig machen
   {$include fp_glib2_includes.inc}
   {$include fp_gobject2_includes.inc}
-  //{$include fp_gio2_includes.inc}
   {$UNDEF read_interface}
+
+
+  {$DEFINE read_enum}
+  {$include fp_gio2_includes.inc}
+  {$UNDEF read_enum}
+
+  {$DEFINE read_struct}
+  {$include fp_gio2_includes.inc}
+  {$UNDEF read_struct}
+
+  {$DEFINE read_function}
+  {$include fp_gio2_includes.inc}
+  {$UNDEF read_function}
 
 
 implementation
@@ -105,7 +117,7 @@ implementation
 {$include glibconfig.inc}        // Aussklammern rückgängig machen
 {$include fp_glib2_includes.inc}
 {$include fp_gobject2_includes.inc}
-//{$include fp_gio2_includes.inc}
+{$include fp_gio2_includes.inc}
 {$UNDEF read_implementation}
 
 // wegen "division_by_zero" in den clibs

@@ -1,0 +1,58 @@
+
+
+  {$IFDEF read_struct}
+type
+  PGPollableOutputStreamInterface = ^TGPollableOutputStreamInterface;
+  TGPollableOutputStreamInterface = record
+    g_iface: TGTypeInterface;
+    can_poll: function(stream: PGPollableOutputStream): Tgboolean; cdecl;
+    is_writable: function(stream: PGPollableOutputStream): Tgboolean; cdecl;
+    create_source: function(stream: PGPollableOutputStream; cancellable: PGCancellable): PGSource; cdecl;
+    write_nonblocking: function(stream: PGPollableOutputStream; buffer: pointer; count: Tgsize; error: PPGError): Tgssize; cdecl;
+    writev_nonblocking: function(stream: PGPollableOutputStream; vectors: PGOutputVector; n_vectors: Tgsize; bytes_written: Pgsize; error: PPGError): TGPollableReturn; cdecl;
+  end;
+  {$ENDIF read_struct}
+
+{$IFDEF read_function}
+function g_pollable_output_stream_get_type: TGType; cdecl; external libgio2;
+function g_pollable_output_stream_can_poll(stream: PGPollableOutputStream): Tgboolean; cdecl; external libgio2;
+function g_pollable_output_stream_is_writable(stream: PGPollableOutputStream): Tgboolean; cdecl; external libgio2;
+function g_pollable_output_stream_create_source(stream: PGPollableOutputStream; cancellable: PGCancellable): PGSource; cdecl; external libgio2;
+function g_pollable_output_stream_write_nonblocking(stream: PGPollableOutputStream; buffer: pointer; count: Tgsize; cancellable: PGCancellable; error: PPGError): Tgssize; cdecl; external libgio2;
+function g_pollable_output_stream_writev_nonblocking(stream: PGPollableOutputStream; vectors: PGOutputVector; n_vectors: Tgsize; bytes_written: Pgsize; cancellable: PGCancellable;
+  error: PPGError): TGPollableReturn; cdecl; external libgio2;
+
+// === Konventiert am: 26-6-26 19:48:55 ===
+
+function G_TYPE_POLLABLE_OUTPUT_STREAM: TGType;
+function G_POLLABLE_OUTPUT_STREAM(obj: Pointer): PGPollableOutputStream;
+function G_IS_POLLABLE_OUTPUT_STREAM(obj: Pointer): Tgboolean;
+function G_POLLABLE_OUTPUT_STREAM_GET_INTERFACE(obj: Pointer): PGPollableOutputStreamInterface;
+{$ENDIF read_function}
+
+
+{$IFDEF read_implementation}
+
+function G_TYPE_POLLABLE_OUTPUT_STREAM: TGType;
+begin
+  G_TYPE_POLLABLE_OUTPUT_STREAM := g_pollable_output_stream_get_type;
+end;
+
+function G_POLLABLE_OUTPUT_STREAM(obj: Pointer): PGPollableOutputStream;
+begin
+  Result := PGPollableOutputStream(g_type_check_instance_cast(obj, G_TYPE_POLLABLE_OUTPUT_STREAM));
+end;
+
+function G_IS_POLLABLE_OUTPUT_STREAM(obj: Pointer): Tgboolean;
+begin
+  Result := g_type_check_instance_is_a(obj, G_TYPE_POLLABLE_OUTPUT_STREAM);
+end;
+
+function G_POLLABLE_OUTPUT_STREAM_GET_INTERFACE(obj: Pointer): PGPollableOutputStreamInterface;
+begin
+  Result := g_type_interface_peek(obj, G_TYPE_POLLABLE_OUTPUT_STREAM);
+end;
+
+
+
+{$ENDIF read_implementation}

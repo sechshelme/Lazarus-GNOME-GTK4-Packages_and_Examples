@@ -2,21 +2,10 @@
 {$IFDEF read_interface}
 
 type
-  TGUnixMountEntry = record
-  end;
-  PGUnixMountEntry = ^TGUnixMountEntry;
-
-  TGUnixMountPoint = record
-  end;
-  PGUnixMountPoint = ^TGUnixMountPoint;
-
-  TGUnixMountMonitor = record
-  end;
-  PGUnixMountMonitor = ^TGUnixMountMonitor;
-
-  TGUnixMountMonitorClass = record
-  end;
-  PGUnixMountMonitorClass = ^TGUnixMountMonitorClass;
+  PGUnixMountEntry = type Pointer;
+  PGUnixMountPoint = type Pointer;
+  PGUnixMountMonitor = type Pointer;
+  PGUnixMountMonitorClass = type Pointer;
 
 function g_unix_mount_entry_get_type: TGType; cdecl; external libgio2;
 function g_unix_mount_point_get_type: TGType; cdecl; external libgio2;
