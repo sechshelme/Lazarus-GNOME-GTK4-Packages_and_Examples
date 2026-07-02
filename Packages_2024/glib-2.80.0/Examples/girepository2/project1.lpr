@@ -37,7 +37,6 @@ uses
         for  m := 0 to n_methods - 1 do begin
           method := gi_object_info_get_method(obj_info, m);
           g_printf('    Methode: %s'#10, gi_base_info_get_name(PGIBaseInfo(method)));
-
         end;
       end;
       gi_base_info_unref(info);

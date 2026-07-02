@@ -7,7 +7,8 @@ program project1;
 
 
 uses
-  fp_glib_unix, // ???
+  fp_girepository_2,
+  fp_glib_unix,
   fp_gio_unix_2,
 
   fp_glib2;

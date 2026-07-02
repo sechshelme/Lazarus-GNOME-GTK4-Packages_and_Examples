@@ -30,13 +30,17 @@ type
   Tgushort = uint16;
   Pgushort = ^Tgushort;
 
-  {$IFDEF Linux}
-  Tglong = int64;
-  Tgulong = int64;
-  {$ENDIF}
-  {$IFDEF Windows}
-  Tglong = int32;
-  Tgulong = int32;
+  {$IFDEF CPU64}
+    {$IFDEF Windows}
+      Tglong = int32;
+      Tgulong = int32;
+    {$ELSE}
+      Tglong = int64;
+      Tgulong = int64;
+    {$ENDIF}
+  {$ELSE}
+    Tglong = int32;
+    Tgulong = int32;
   {$ENDIF}
   Pglong = ^Tglong;
   Pgulong = ^Tgulong;
@@ -67,36 +71,35 @@ type
 
 
 
-//const
-//  G_MINFLOAT = FLT_MIN;
-//  G_MAXFLOAT = FLT_MAX;
-//  G_MINDOUBLE = DBL_MIN;
-//  G_MAXDOUBLE = DBL_MAX;
-//  G_MINSHORT = SHRT_MIN;
-//  G_MAXSHORT = SHRT_MAX;
-//  G_MAXUSHORT = USHRT_MAX;
-//  G_MININT = INT_MIN;
-//  G_MAXINT = INT_MAX;
-//  G_MAXUINT = UINT_MAX;
-//  G_MINLONG = LONG_MIN;
-//  G_MAXLONG = LONG_MAX;
-//  G_MAXULONG = ULONG_MAX;
-
 const
-  G_MINFLOAT = 5.0e-324;
-  G_MAXFLOAT = 1.7e308;
-  G_MINDOUBLE = G_MINFLOAT;
-  G_MAXDOUBLE = G_MAXFLOAT;
+  G_MINFLOAT = 1.1754943508222875e-38;
+  G_MAXFLOAT = 3.4028234663852886e+38;
+  G_MINDOUBLE = 2.2250738585072014e-308;
+  G_MAXDOUBLE = 1.7976931348623157e+308;
+
   G_MAXSHORT = 32767;
   G_MINSHORT = -G_MAXSHORT - 1;
   G_MAXUSHORT = 2 * G_MAXSHORT + 1;
+
   G_MAXINT = 2147483647;
   G_MININT = -G_MAXINT - 1;
   G_MAXUINT = 4294967295;
+
+  {$IFDEF CPU64}
+  {$IFDEF Windows}
   G_MINLONG = G_MININT;
   G_MAXLONG = G_MAXINT;
   G_MAXULONG = G_MAXUINT;
-
+  {$ELSE}
+  G_MAXLONG = $7FFFFFFFFFFFFFFF;
+  G_MINLONG = -G_MAXLONG - 1;
+  G_MAXULONG = $FFFFFFFFFFFFFFFF;
+  {$ENDIF}
+  {$ELSE}
+  G_MINLONG = G_MININT;
+  G_MAXLONG = G_MAXINT;
+  G_MAXULONG = G_MAXUINT;
+  {$ENDIF}
 
 type
   Tgint8 = int8;
@@ -141,25 +144,24 @@ type
 
 const
   {$IFDEF Linux}
+  {$IFDEF CPU64}
   G_GINT64_MODIFIER = 'l';
   G_GINT64_FORMAT = 'li';
   G_GUINT64_FORMAT = 'lu';
-
-  GLIB_SIZEOF_VOID_P = 8;
-  GLIB_SIZEOF_LONG = 8;
-  GLIB_SIZEOF_SIZE_T = 8;
-  GLIB_SIZEOF_SSIZE_T = 8;
-  {$ENDIF}
-  {$IFDEF Windows}
+  {$ELSE}
   G_GINT64_MODIFIER = 'll';
   G_GINT64_FORMAT = 'lli';
   G_GUINT64_FORMAT = 'llu';
-
-  GLIB_SIZEOF_VOID_P = 8;
-  GLIB_SIZEOF_LONG = 4;
-  GLIB_SIZEOF_SIZE_T = 8;
-  GLIB_SIZEOF_SSIZE_T = 8;
   {$ENDIF}
+  {$ENDIF}{$IFDEF Windows}
+  G_GINT64_MODIFIER = 'll';
+  G_GINT64_FORMAT = 'lli';
+  G_GUINT64_FORMAT = 'llu';
+  {$ENDIF}
+  GLIB_SIZEOF_LONG = SizeOf(Tglong);
+  GLIB_SIZEOF_SIZE_T = SizeOf(SizeUInt);
+  GLIB_SIZEOF_SSIZE_T = SizeOf(SizeInt);
+  GLIB_SIZEOF_VOID_P = SizeOf(PtrUInt);
 
 type
   Tgssize = SizeInt;
@@ -277,8 +279,12 @@ const
   {$ENDIF}
 
 type
-  TGPid = Int32;
-  PGPid = ^TGPid;
+  {$IFDEF Windows}
+    TGPid = Pointer;
+  {$ELSE}
+    TGPid = int32;
+  {$ENDIF}
+   PGPid = ^TGPid;
 
 const
   {$IFDEF Linux}
@@ -313,10 +319,10 @@ const
   function G_GUINT64_CONSTANT(val: Tguint64): Tguint64;
   function G_GOFFSET_CONSTANT(val: Tgint64): Tgint64;
 
-  function GPOINTER_TO_INT(p: Tgpointer): Tgint64;
-  function GPOINTER_TO_UINT(p: Tgpointer): Tguint64;
-  function GINT_TO_POINTER(i: Tgint64): Tgpointer;
-  function GUINT_TO_POINTER(u: Tguint64): Tgpointer;
+  function GPOINTER_TO_INT(p: Tgpointer): Tgint;
+  function GPOINTER_TO_UINT(p: Tgpointer): Tguint;
+  function GINT_TO_POINTER(i: Tgint): Tgpointer;
+  function GUINT_TO_POINTER(u: Tguint): Tgpointer;
 
   function GINT16_TO_LE(val: Tgint16): Tgint16;
   function GUINT16_TO_LE(val: Tguint16): Tguint16;
@@ -344,9 +350,9 @@ const
   function GUINT_TO_BE(val: Tguint): Tguint;
 
   function GSIZE_TO_LE(val: Tgsize): Tgsize;
-  function GSSIZE_TO_LE(val: Tgsize): Tgssize;
+  function GSSIZE_TO_LE(val: Tgssize): Tgssize;
   function GSIZE_TO_BE(val: Tgsize): Tgsize;
-  function GSSIZE_TO_BE(val: Tgsize): Tgssize;
+  function GSSIZE_TO_BE(val: Tgssize): Tgssize;
 
 {$ENDIF read_interface}
 
@@ -365,147 +371,243 @@ end;
 
 function G_GOFFSET_CONSTANT(val: Tgint64): Tgint64;
 begin
-  G_GOFFSET_CONSTANT := G_GINT64_CONSTANT(val);
+  Result := val;
 end;
 
-function GPOINTER_TO_INT(p: Tgpointer): Tgint64;
+function GPOINTER_TO_INT(p: Tgpointer): Tgint;
 begin
-  GPOINTER_TO_INT := Tgint64(p);
+  Result := Tgint(PtrInt(p));
 end;
 
-function GPOINTER_TO_UINT(p: Tgpointer): Tguint64;
+function GPOINTER_TO_UINT(p: Tgpointer): Tguint;
 begin
-  GPOINTER_TO_UINT := Tguint64(p);
+  Result := Tguint(PtrUInt(p));
 end;
 
-function GINT_TO_POINTER(i: Tgint64): Tgpointer;
+function GINT_TO_POINTER(i: Tgint): Tgpointer;
 begin
-  GINT_TO_POINTER := Tgpointer(i);
+  Result := Tgpointer(PtrInt(i));
 end;
 
-function GUINT_TO_POINTER(u: Tguint64): Tgpointer;
+function GUINT_TO_POINTER(u: Tguint): Tgpointer;
 begin
-  GUINT_TO_POINTER := Tgpointer(u);
+  Result := Tgpointer(PtrUInt(u));
 end;
 
 function GINT16_TO_LE(val: Tgint16): Tgint16;
 begin
-  GINT16_TO_LE := Tgint16(val);
+  {$IFDEF ENDIAN_LITTLE}
+  Result := val;
+  {$ELSE}
+  Result := SwapEndian(val);
+  {$ENDIF}
 end;
 
 function GUINT16_TO_LE(val: Tguint16): Tguint16;
 begin
-  GUINT16_TO_LE := Tguint16(val);
+  {$IFDEF ENDIAN_LITTLE}
+  Result := val;
+  {$ELSE}
+  Result := SwapEndian(val);
+  {$ENDIF}
 end;
 
 function GINT16_TO_BE(val: Tgint16): Tgint16;
 begin
-//  GINT16_TO_BE := Tgint16(GUINT16_SWAP_LE_BE(val));
+  {$IFDEF ENDIAN_LITTLE}
+  Result := SwapEndian(val);
+  {$ELSE}
+  Result := val;
+  {$ENDIF}
 end;
 
 function GUINT16_TO_BE(val: Tguint16): Tguint16;
 begin
-//  GUINT16_TO_BE := GUINT16_SWAP_LE_BE(val);
+  {$IFDEF ENDIAN_LITTLE}
+  Result := SwapEndian(val);
+  {$ELSE}
+  Result := val;
+  {$ENDIF}
 end;
 
 function GINT32_TO_LE(val: Tgint32): Tgint32;
 begin
-  GINT32_TO_LE := Tgint32(val);
+  {$IFDEF ENDIAN_LITTLE}
+  Result := val;
+  {$ELSE}
+  Result := SwapEndian(val);
+  {$ENDIF}
 end;
 
 function GUINT32_TO_LE(val: Tguint32): Tguint32;
 begin
-  GUINT32_TO_LE := Tguint32(val);
+  {$IFDEF ENDIAN_LITTLE}
+  Result := val;
+  {$ELSE}
+  Result := SwapEndian(val);
+  {$ENDIF}
 end;
 
 function GINT32_TO_BE(val: Tgint32): Tgint32;
 begin
-//  GINT32_TO_BE := Tgint32(GUINT32_SWAP_LE_BE(val));
+  {$IFDEF ENDIAN_LITTLE}
+  Result := SwapEndian(val);
+  {$ELSE}
+  Result := val;
+  {$ENDIF}
 end;
 
 function GUINT32_TO_BE(val: Tguint32): Tguint32;
 begin
-//  GUINT32_TO_BE := GUINT32_SWAP_LE_BE(val);
+  {$IFDEF ENDIAN_LITTLE}
+  Result := SwapEndian(val);
+  {$ELSE}
+  Result := val;
+  {$ENDIF}
 end;
 
 function GINT64_TO_LE(val: Tgint64): Tgint64;
 begin
-  GINT64_TO_LE := Tgint64(val);
+  {$IFDEF ENDIAN_LITTLE}
+  Result := val;
+  {$ELSE}
+  Result := SwapEndian(val);
+  {$ENDIF}
 end;
 
 function GUINT64_TO_LE(val: Tguint64): Tguint64;
 begin
-  GUINT64_TO_LE := Tguint64(val);
+  {$IFDEF ENDIAN_LITTLE}
+  Result := val;
+  {$ELSE}
+  Result := SwapEndian(val);
+  {$ENDIF}
 end;
 
 function GINT64_TO_BE(val: Tgint64): Tgint64;
 begin
-//  GINT64_TO_BE := Tgint64(GUINT64_SWAP_LE_BE(val));
+  {$IFDEF ENDIAN_LITTLE}
+  Result := SwapEndian(val);
+  {$ELSE}
+  Result := val;
+  {$ENDIF}
 end;
 
 function GUINT64_TO_BE(val: Tguint64): Tguint64;
 begin
-//  GUINT64_TO_BE := GUINT64_SWAP_LE_BE(val);
+  {$IFDEF ENDIAN_LITTLE}
+  Result := SwapEndian(val);
+  {$ELSE}
+  Result := val;
+  {$ENDIF}
 end;
 
 function GLONG_TO_LE(val: Tglong): Tglong;
 begin
-  GLONG_TO_LE := Tglong(GINT64_TO_LE(val));
+  {$IFDEF ENDIAN_LITTLE}
+  Result := val;
+  {$ELSE}
+  Result := SwapEndian(val);
+  {$ENDIF}
 end;
 
 function GULONG_TO_LE(val: Tgulong): Tgulong;
 begin
-  GULONG_TO_LE := Tgulong(GUINT64_TO_LE(val));
+  {$IFDEF ENDIAN_LITTLE}
+  Result := val;
+  {$ELSE}
+  Result := SwapEndian(val);
+  {$ENDIF}
 end;
 
 function GLONG_TO_BE(val: Tglong): Tglong;
 begin
-  GLONG_TO_BE := Tglong(GINT64_TO_BE(val));
+  {$IFDEF ENDIAN_LITTLE}
+  Result := SwapEndian(val);
+  {$ELSE}
+  Result := val;
+  {$ENDIF}
 end;
 
 function GULONG_TO_BE(val: Tgulong): Tgulong;
 begin
-  GULONG_TO_BE := Tgulong(GUINT64_TO_BE(val));
+  {$IFDEF ENDIAN_LITTLE}
+  Result := SwapEndian(val);
+  {$ELSE}
+  Result := val;
+  {$ENDIF}
 end;
 
 function GINT_TO_LE(val: Tgint): Tgint;
 begin
-  GINT_TO_LE := Tgint(GINT32_TO_LE(val));
+  {$IFDEF ENDIAN_LITTLE}
+  Result := val;
+  {$ELSE}
+  Result := SwapEndian(val);
+  {$ENDIF}
 end;
 
 function GUINT_TO_LE(val: Tguint): Tguint;
 begin
-  GUINT_TO_LE := Tguint(GUINT32_TO_LE(val));
+  {$IFDEF ENDIAN_LITTLE}
+  Result := val;
+  {$ELSE}
+  Result := SwapEndian(val);
+  {$ENDIF}
 end;
 
 function GINT_TO_BE(val: Tgint): Tgint;
 begin
-  GINT_TO_BE := Tgint(GINT32_TO_BE(val));
+  {$IFDEF ENDIAN_LITTLE}
+  Result := SwapEndian(val);
+  {$ELSE}
+  Result := val;
+  {$ENDIF}
 end;
 
 function GUINT_TO_BE(val: Tguint): Tguint;
 begin
-  GUINT_TO_BE := Tguint(GUINT32_TO_BE(val));
+  {$IFDEF ENDIAN_LITTLE}
+  Result := SwapEndian(val);
+  {$ELSE}
+  Result := val;
+  {$ENDIF}
 end;
 
 function GSIZE_TO_LE(val: Tgsize): Tgsize;
 begin
-  GSIZE_TO_LE := Tgsize(GUINT64_TO_LE(val));
+  {$IFDEF ENDIAN_LITTLE}
+  Result := val;
+  {$ELSE}
+  Result := SwapEndian(val);
+  {$ENDIF}
 end;
 
-function GSSIZE_TO_LE(val: Tgsize): Tgssize;
+function GSSIZE_TO_LE(val: Tgssize): Tgssize;
 begin
-  GSSIZE_TO_LE := Tgssize(GINT64_TO_LE(val));
+  {$IFDEF ENDIAN_LITTLE}
+  Result := val;
+  {$ELSE}
+  Result := SwapEndian(val);
+  {$ENDIF}
 end;
 
 function GSIZE_TO_BE(val: Tgsize): Tgsize;
 begin
-  GSIZE_TO_BE := Tgsize(GUINT64_TO_BE(val));
+  {$IFDEF ENDIAN_LITTLE}
+  Result := SwapEndian(val);
+  {$ELSE}
+  Result := val;
+  {$ENDIF}
 end;
 
-function GSSIZE_TO_BE(val: Tgsize): Tgssize;
+function GSSIZE_TO_BE(val: Tgssize): Tgssize;
 begin
-  GSSIZE_TO_BE := Tgssize(GINT64_TO_BE(val));
+  {$IFDEF ENDIAN_LITTLE}
+  Result := SwapEndian(val);
+  {$ELSE}
+  Result := val;
+  {$ENDIF}
 end;
 
 

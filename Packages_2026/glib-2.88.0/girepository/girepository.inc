@@ -61,6 +61,7 @@ function GI_REPOSITORY_ERROR: TGQuark;
 function gi_repository_error_quark: TGQuark; cdecl; external libgirepository2;
 procedure gi_cclosure_marshal_generic(closure: PGClosure; return_gvalue: PGValue; n_param_values: dword; param_values: PGValue; invocation_hint: pointer;
   marshal_data: pointer); cdecl; external libgirepository2;
+function gi_repository_dup_default: PGIRepository; cdecl; external libgirepository2;
 
 // === Konventiert am: 21-10-25 13:35:54 ===
 

@@ -27,6 +27,14 @@
         <Filename Value="fp_gmodule.pas"/>
         <UnitName Value="fp_gmodule"/>
       </Item>
+      <Item>
+        <Filename Value="fp_girepository_2.pas"/>
+        <UnitName Value="fp_girepository_2"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_glibtools.pas"/>
+        <UnitName Value="fp_GLIBTools"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>
