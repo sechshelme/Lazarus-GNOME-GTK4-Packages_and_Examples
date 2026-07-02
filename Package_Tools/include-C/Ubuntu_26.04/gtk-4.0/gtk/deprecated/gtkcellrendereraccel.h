@@ -52,6 +52,6 @@ GType            gtk_cell_renderer_accel_get_type        (void) ;
 extern //xxxxxGLIB_DEPRECATED_IN_4_10
 GtkCellRenderer *gtk_cell_renderer_accel_new             (void);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkCellRendererAccel, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkCellRendererAccel, g_object_unref)
 
 

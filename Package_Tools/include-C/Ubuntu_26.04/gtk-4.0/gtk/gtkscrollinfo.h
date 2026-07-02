@@ -55,7 +55,7 @@ extern
 gboolean                gtk_scroll_info_get_enable_vertical     (GtkScrollInfo           *self);
 
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkScrollInfo, gtk_scroll_info_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkScrollInfo, gtk_scroll_info_unref)
 
 
 

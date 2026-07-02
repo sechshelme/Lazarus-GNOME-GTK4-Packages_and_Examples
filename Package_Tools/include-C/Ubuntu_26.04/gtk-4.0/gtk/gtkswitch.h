@@ -58,7 +58,7 @@ void            gtk_switch_set_state   (GtkSwitch *self,
 extern
 gboolean        gtk_switch_get_state   (GtkSwitch *self);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkSwitch, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkSwitch, g_object_unref)
 
 
 

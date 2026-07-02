@@ -85,7 +85,7 @@ gboolean             gtk_print_unix_dialog_get_embed_page_setup    (GtkPrintUnix
 extern
 gboolean             gtk_print_unix_dialog_get_page_setup_set      (GtkPrintUnixDialog *dialog);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkPrintUnixDialog, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkPrintUnixDialog, g_object_unref)
 
 
 

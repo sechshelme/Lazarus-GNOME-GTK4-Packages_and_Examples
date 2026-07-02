@@ -42,7 +42,7 @@ GtkWidget *gtk_file_chooser_dialog_new              (const char           *title
 						     const char           *first_button_text,
 						     ...) ;
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkFileChooserDialog, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkFileChooserDialog, g_object_unref)
 
 
 

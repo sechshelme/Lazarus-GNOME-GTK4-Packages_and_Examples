@@ -109,7 +109,7 @@ gboolean                gdk_content_provider_get_value                  (GdkCont
                                                                          GValue                 *value,
                                                                          GError                **error);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GdkContentProvider, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GdkContentProvider, g_object_unref)
 
 
 

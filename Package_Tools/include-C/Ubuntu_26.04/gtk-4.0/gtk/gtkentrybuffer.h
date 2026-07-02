@@ -136,7 +136,7 @@ void                      gtk_entry_buffer_emit_deleted_text      (GtkEntryBuffe
                                                                    guint            position,
                                                                    guint            n_chars);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkEntryBuffer, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkEntryBuffer, g_object_unref)
 
 
 

@@ -90,7 +90,7 @@ extern
 GskTransform *  gtk_fixed_get_child_transform   (GtkFixed     *fixed,
                                                  GtkWidget    *widget);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkFixed, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkFixed, g_object_unref)
 
 
 

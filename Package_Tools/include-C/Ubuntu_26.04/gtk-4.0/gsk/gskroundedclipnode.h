@@ -36,9 +36,9 @@ extern
 GskRenderNode *         gsk_rounded_clip_node_new               (GskRenderNode            *child,
                                                                  const GskRoundedRect     *clip);
 extern
-GskRenderNode *         gsk_rounded_clip_node_get_child         (const GskRenderNode      *node) G_GNUC_PURE;
+GskRenderNode *         gsk_rounded_clip_node_get_child         (const GskRenderNode      *node) ;
 extern
-const GskRoundedRect *  gsk_rounded_clip_node_get_clip          (const GskRenderNode      *node) G_GNUC_PURE;
+const GskRoundedRect *  gsk_rounded_clip_node_get_clip          (const GskRenderNode      *node) ;
 
 
 

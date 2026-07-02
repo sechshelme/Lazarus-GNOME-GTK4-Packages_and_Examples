@@ -103,7 +103,7 @@ extern
 void             gtk_scale_button_set_has_frame    (GtkScaleButton  *button,
                                                     gboolean         has_frame);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkScaleButton, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkScaleButton, g_object_unref)
 
 
 

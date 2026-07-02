@@ -116,7 +116,7 @@ extern
 void                    gdk_clipboard_set_texture       (GdkClipboard          *clipboard,
                                                          GdkTexture            *texture);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GdkClipboard, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GdkClipboard, g_object_unref)
 
 
 

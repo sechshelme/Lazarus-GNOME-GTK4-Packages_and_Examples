@@ -47,7 +47,7 @@ GtkGesture * gtk_gesture_rotate_new             (void);
 extern
 double       gtk_gesture_rotate_get_angle_delta (GtkGestureRotate *gesture);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkGestureRotate, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkGestureRotate, g_object_unref)
 
 
 

@@ -66,7 +66,7 @@ void                    gsk_renderer_render                     (GskRenderer    
                                                                  GskRenderNode           *root,
                                                                  const cairo_region_t    *region);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GskRenderer, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GskRenderer, g_object_unref)
 
 
 

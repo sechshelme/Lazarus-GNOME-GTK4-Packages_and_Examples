@@ -104,7 +104,7 @@ void           gtk_info_bar_set_revealed           (GtkInfoBar     *info_bar,
 extern //xxxxxGLIB_DEPRECATED_IN_4_10
 gboolean       gtk_info_bar_get_revealed           (GtkInfoBar     *info_bar);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkInfoBar, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkInfoBar, g_object_unref)
 
 
 

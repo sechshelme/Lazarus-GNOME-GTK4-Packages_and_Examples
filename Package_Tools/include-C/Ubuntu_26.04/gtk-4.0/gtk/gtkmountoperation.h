@@ -83,7 +83,7 @@ void             gtk_mount_operation_set_display(GtkMountOperation *op,
 extern
 GdkDisplay *     gtk_mount_operation_get_display(GtkMountOperation *op);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkMountOperation, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkMountOperation, g_object_unref)
 
 
 

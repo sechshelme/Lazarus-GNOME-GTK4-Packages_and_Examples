@@ -188,7 +188,7 @@ void                  gtk_about_dialog_add_credit_section      (GtkAboutDialog  
                                                                 const char      *section_name,
                                                                 const char     **people);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkAboutDialog, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkAboutDialog, g_object_unref)
 
 
 

@@ -187,6 +187,6 @@ void                    gsk_path_builder_rel_html_arc_to        (GskPathBuilder 
 extern
 void                    gsk_path_builder_close                  (GskPathBuilder         *self);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GskPathBuilder, gsk_path_builder_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GskPathBuilder, gsk_path_builder_unref)
 
 

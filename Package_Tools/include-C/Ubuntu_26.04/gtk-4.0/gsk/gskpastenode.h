@@ -36,7 +36,7 @@ extern
 GskRenderNode *         gsk_paste_node_new                      (const graphene_rect_t    *bounds,
                                                                  gsize                     depth);
 extern
-gsize                   gsk_paste_node_get_depth                (const GskRenderNode      *node) G_GNUC_PURE;
+gsize                   gsk_paste_node_get_depth                (const GskRenderNode      *node) ;
 
 
 

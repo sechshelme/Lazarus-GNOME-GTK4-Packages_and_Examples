@@ -518,7 +518,7 @@ extern
 void            gtk_text_buffer_remove_commit_notify      (GtkTextBuffer             *buffer,
                                                            guint                      commit_notify_handler);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkTextBuffer, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkTextBuffer, g_object_unref)
 
 
 

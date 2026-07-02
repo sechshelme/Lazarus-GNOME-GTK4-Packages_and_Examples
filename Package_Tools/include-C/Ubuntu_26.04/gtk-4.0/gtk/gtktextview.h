@@ -435,7 +435,7 @@ PangoContext    *gtk_text_view_get_rtl_context        (GtkTextView      *text_vi
 extern
 PangoContext    *gtk_text_view_get_ltr_context        (GtkTextView      *text_view);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkTextView, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkTextView, g_object_unref)
 
 
 

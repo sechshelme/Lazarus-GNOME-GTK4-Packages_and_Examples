@@ -37,9 +37,9 @@ GskRenderNode *         gsk_isolation_node_new                  (GskRenderNode  
                                                                  GskIsolation              isolations);
 
 extern
-GskRenderNode *         gsk_isolation_node_get_child            (const GskRenderNode      *node) G_GNUC_PURE;
+GskRenderNode *         gsk_isolation_node_get_child            (const GskRenderNode      *node) ;
 extern
-GskIsolation            gsk_isolation_node_get_isolations       (const GskRenderNode      *node) G_GNUC_PURE;
+GskIsolation            gsk_isolation_node_get_isolations       (const GskRenderNode      *node) ;
 
 
 

@@ -87,7 +87,7 @@ typedef struct _GtkStyleProvider GtkStyleProvider; /* dummy typedef */
 extern
 GType gtk_style_provider_get_type (void) ;
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkStyleProvider, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkStyleProvider, g_object_unref)
 
 extern
 void gtk_style_context_add_provider_for_display    (GdkDisplay       *display,

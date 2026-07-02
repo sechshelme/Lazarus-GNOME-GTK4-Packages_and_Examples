@@ -61,7 +61,7 @@ extern //xxxxxGLIB_DEPRECATED_IN_4_10
 void       gtk_statusbar_remove_all    	(GtkStatusbar *statusbar,
 					 guint	       context_id);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkStatusbar, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkStatusbar, g_object_unref)
 
 
 

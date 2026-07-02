@@ -549,7 +549,7 @@ void          gtk_tree_view_set_tooltip_column (GtkTreeView       *tree_view,
 extern //xxxxxGLIB_DEPRECATED_IN_4_10_FOR(GtkListView)
 int           gtk_tree_view_get_tooltip_column (GtkTreeView       *tree_view);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkTreeView, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkTreeView, g_object_unref)
 
 
 

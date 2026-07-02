@@ -320,8 +320,8 @@ extern
 void     gtk_window_set_gravity              (GtkWindow        *window,
                                               GtkWindowGravity  gravity);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkWindow, g_object_unref)
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkWindowGroup, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkWindow, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkWindowGroup, g_object_unref)
 
 
 

@@ -153,7 +153,7 @@ void          gtk_combo_box_set_child            (GtkComboBox *combo_box,
 extern //xxxxxGLIB_DEPRECATED_IN_4_10_FOR(GtkDropDown)
 GtkWidget *   gtk_combo_box_get_child            (GtkComboBox *combo_box);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkComboBox, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkComboBox, g_object_unref)
 
 
 

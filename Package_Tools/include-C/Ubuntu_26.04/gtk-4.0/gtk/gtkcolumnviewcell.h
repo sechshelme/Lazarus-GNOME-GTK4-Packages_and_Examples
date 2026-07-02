@@ -35,11 +35,11 @@ GDK_DECLARE_INTERNAL_TYPE(GtkColumnViewCell, gtk_column_view_cell, GTK, COLUMN_V
 extern
 gpointer        gtk_column_view_cell_get_item                   (GtkColumnViewCell      *self);
 extern
-guint           gtk_column_view_cell_get_position               (GtkColumnViewCell      *self) G_GNUC_PURE;
+guint           gtk_column_view_cell_get_position               (GtkColumnViewCell      *self) ;
 extern
-gboolean        gtk_column_view_cell_get_selected               (GtkColumnViewCell      *self) G_GNUC_PURE;
+gboolean        gtk_column_view_cell_get_selected               (GtkColumnViewCell      *self) ;
 extern
-gboolean        gtk_column_view_cell_get_focusable              (GtkColumnViewCell      *self) G_GNUC_PURE;
+gboolean        gtk_column_view_cell_get_focusable              (GtkColumnViewCell      *self) ;
 extern
 void            gtk_column_view_cell_set_focusable              (GtkColumnViewCell      *self,
                                                                  gboolean                focusable);

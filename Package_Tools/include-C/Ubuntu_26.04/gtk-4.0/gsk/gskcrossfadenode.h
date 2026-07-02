@@ -37,11 +37,11 @@ GskRenderNode *         gsk_cross_fade_node_new                 (GskRenderNode  
                                                                  GskRenderNode            *end,
                                                                  float                     progress);
 extern
-GskRenderNode *         gsk_cross_fade_node_get_start_child     (const GskRenderNode      *node) G_GNUC_PURE;
+GskRenderNode *         gsk_cross_fade_node_get_start_child     (const GskRenderNode      *node) ;
 extern
-GskRenderNode *         gsk_cross_fade_node_get_end_child       (const GskRenderNode      *node) G_GNUC_PURE;
+GskRenderNode *         gsk_cross_fade_node_get_end_child       (const GskRenderNode      *node) ;
 extern
-float                   gsk_cross_fade_node_get_progress        (const GskRenderNode      *node) G_GNUC_PURE;
+float                   gsk_cross_fade_node_get_progress        (const GskRenderNode      *node) ;
 
 
 

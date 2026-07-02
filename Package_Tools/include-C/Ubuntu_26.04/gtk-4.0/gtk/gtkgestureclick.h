@@ -43,7 +43,7 @@ GType        gtk_gesture_click_get_type (void) ;
 extern
 GtkGesture * gtk_gesture_click_new      (void);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkGestureClick, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkGestureClick, g_object_unref)
 
 
 

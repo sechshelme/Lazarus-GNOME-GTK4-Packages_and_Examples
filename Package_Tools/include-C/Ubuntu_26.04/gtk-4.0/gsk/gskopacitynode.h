@@ -38,8 +38,8 @@ extern
 GskRenderNode *         gsk_opacity_node_new                    (GskRenderNode            *child,
                                                                  float                     opacity);
 extern
-GskRenderNode *         gsk_opacity_node_get_child              (const GskRenderNode      *node) G_GNUC_PURE;
+GskRenderNode *         gsk_opacity_node_get_child              (const GskRenderNode      *node) ;
 extern
-float                   gsk_opacity_node_get_opacity            (const GskRenderNode      *node) G_GNUC_PURE;
+float                   gsk_opacity_node_get_opacity            (const GskRenderNode      *node) ;
 
 

@@ -67,7 +67,7 @@ void             gtk_text_tag_table_foreach  (GtkTextTagTable        *table,
 extern
 int              gtk_text_tag_table_get_size (GtkTextTagTable        *table);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkTextTagTable, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkTextTagTable, g_object_unref)
 
 
 

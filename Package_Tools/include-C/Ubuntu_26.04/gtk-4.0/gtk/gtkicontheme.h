@@ -143,7 +143,7 @@ GtkIconPaintable *gtk_icon_theme_lookup_by_gicon     (GtkIconTheme              
 extern
 char **               gtk_icon_theme_get_icon_names  (GtkIconTheme                *self);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkIconTheme, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkIconTheme, g_object_unref)
 
 
 

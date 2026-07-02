@@ -34,21 +34,21 @@ GDK_DECLARE_INTERNAL_TYPE (GtkListItem, gtk_list_item, GTK, LIST_ITEM, GObject)
 extern
 gpointer        gtk_list_item_get_item                          (GtkListItem            *self);
 extern
-guint           gtk_list_item_get_position                      (GtkListItem            *self) G_GNUC_PURE;
+guint           gtk_list_item_get_position                      (GtkListItem            *self) ;
 extern
-gboolean        gtk_list_item_get_selected                      (GtkListItem            *self) G_GNUC_PURE;
+gboolean        gtk_list_item_get_selected                      (GtkListItem            *self) ;
 extern
-gboolean        gtk_list_item_get_selectable                    (GtkListItem            *self) G_GNUC_PURE;
+gboolean        gtk_list_item_get_selectable                    (GtkListItem            *self) ;
 extern
 void            gtk_list_item_set_selectable                    (GtkListItem            *self,
                                                                  gboolean                selectable);
 extern
-gboolean        gtk_list_item_get_activatable                   (GtkListItem            *self) G_GNUC_PURE;
+gboolean        gtk_list_item_get_activatable                   (GtkListItem            *self) ;
 extern
 void            gtk_list_item_set_activatable                   (GtkListItem            *self,
                                                                  gboolean                activatable);
 extern
-gboolean        gtk_list_item_get_focusable                     (GtkListItem            *self) G_GNUC_PURE;
+gboolean        gtk_list_item_get_focusable                     (GtkListItem            *self) ;
 extern
 void            gtk_list_item_set_focusable                     (GtkListItem            *self,
                                                                  gboolean                focusable);

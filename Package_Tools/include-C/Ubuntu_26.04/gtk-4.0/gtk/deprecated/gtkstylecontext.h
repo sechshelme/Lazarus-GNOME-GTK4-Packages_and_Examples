@@ -132,7 +132,7 @@ extern //xxxxxGLIB_DEPRECATED_IN_4_10
 char * gtk_style_context_to_string (GtkStyleContext           *context,
                                     GtkStyleContextPrintFlags  flags);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkStyleContext, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkStyleContext, g_object_unref)
 
 
 

@@ -185,7 +185,7 @@ PangoTabArray * gtk_label_get_tabs  (GtkLabel      *self);
 
 
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkLabel, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkLabel, g_object_unref)
 
 
 

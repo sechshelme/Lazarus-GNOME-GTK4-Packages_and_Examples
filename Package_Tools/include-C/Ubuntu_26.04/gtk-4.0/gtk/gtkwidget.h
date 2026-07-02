@@ -917,7 +917,7 @@ void                    gtk_widget_snapshot_child       (GtkWidget   *widget,
 extern
 gboolean                gtk_widget_should_layout        (GtkWidget   *widget);
 extern
-const char *            gtk_widget_get_css_name         (GtkWidget   *self) G_GNUC_PURE;
+const char *            gtk_widget_get_css_name         (GtkWidget   *self) ;
 extern
 void                    gtk_widget_add_css_class        (GtkWidget   *widget,
                                                          const char  *css_class);
@@ -992,8 +992,8 @@ gboolean                gtk_widget_get_limit_events             (GtkWidget      
 
 
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkWidget, g_object_unref)
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkRequisition, gtk_requisition_free)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkWidget, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkRequisition, gtk_requisition_free)
 
 
 

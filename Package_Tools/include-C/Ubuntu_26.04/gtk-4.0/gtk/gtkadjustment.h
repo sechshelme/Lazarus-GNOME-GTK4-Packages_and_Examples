@@ -120,7 +120,7 @@ void       gtk_adjustment_configure             (GtkAdjustment   *adjustment,
 extern
 double     gtk_adjustment_get_minimum_increment (GtkAdjustment   *adjustment);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkAdjustment, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkAdjustment, g_object_unref)
 
 
 

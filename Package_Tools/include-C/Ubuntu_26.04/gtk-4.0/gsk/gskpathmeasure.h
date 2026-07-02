@@ -45,9 +45,9 @@ extern
 void                    gsk_path_measure_unref                  (GskPathMeasure         *self);
 
 extern
-GskPath *               gsk_path_measure_get_path               (GskPathMeasure         *self) G_GNUC_PURE;
+GskPath *               gsk_path_measure_get_path               (GskPathMeasure         *self) ;
 extern
-float                   gsk_path_measure_get_tolerance          (GskPathMeasure         *self) G_GNUC_PURE;
+float                   gsk_path_measure_get_tolerance          (GskPathMeasure         *self) ;
 
 extern
 float                   gsk_path_measure_get_length             (GskPathMeasure         *self);
@@ -57,6 +57,6 @@ gboolean                gsk_path_measure_get_point              (GskPathMeasure 
                                                                  float                   distance,
                                                                  GskPathPoint           *result);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GskPathMeasure, gsk_path_measure_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GskPathMeasure, gsk_path_measure_unref)
 
 

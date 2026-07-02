@@ -76,7 +76,7 @@ extern //xxxxxGLIB_DEPRECATED_IN_4_10
 void     gtk_app_chooser_button_set_modal             (GtkAppChooserButton *self,
                                                        gboolean             modal);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkAppChooserButton, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkAppChooserButton, g_object_unref)
 
 
 

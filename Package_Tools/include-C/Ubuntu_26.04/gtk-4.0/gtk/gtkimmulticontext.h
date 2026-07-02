@@ -68,7 +68,7 @@ extern
 void          gtk_im_multicontext_set_context_id   (GtkIMMulticontext *context,
                                                     const char        *context_id);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkIMMulticontext, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkIMMulticontext, g_object_unref)
 
 
 

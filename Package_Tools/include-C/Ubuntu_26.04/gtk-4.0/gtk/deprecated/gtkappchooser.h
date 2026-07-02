@@ -47,7 +47,7 @@ char *    gtk_app_chooser_get_content_type (GtkAppChooser *self);
 extern //xxxxxGLIB_DEPRECATED_IN_4_10
 void       gtk_app_chooser_refresh          (GtkAppChooser *self);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkAppChooser, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkAppChooser, g_object_unref)
 
 
 

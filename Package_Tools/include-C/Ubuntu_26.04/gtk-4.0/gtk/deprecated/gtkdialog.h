@@ -177,7 +177,7 @@ GtkWidget * gtk_dialog_get_content_area (GtkDialog *dialog);
 extern //xxxxxGLIB_DEPRECATED_IN_4_10
 GtkWidget * gtk_dialog_get_header_bar   (GtkDialog *dialog);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkDialog, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkDialog, g_object_unref)
 
 
 

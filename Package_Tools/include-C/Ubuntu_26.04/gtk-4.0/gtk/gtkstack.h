@@ -178,8 +178,8 @@ gboolean               gtk_stack_get_interpolate_size    (GtkStack *stack);
 extern
 GtkSelectionModel *    gtk_stack_get_pages               (GtkStack *stack);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkStack, g_object_unref)
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkStackPage, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkStack, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkStackPage, g_object_unref)
 
 
 

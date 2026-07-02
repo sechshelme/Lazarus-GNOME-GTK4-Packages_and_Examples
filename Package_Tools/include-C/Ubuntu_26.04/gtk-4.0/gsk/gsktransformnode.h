@@ -37,9 +37,9 @@ extern
 GskRenderNode *         gsk_transform_node_new                  (GskRenderNode            *child,
                                                                  GskTransform             *transform);
 extern
-GskRenderNode *         gsk_transform_node_get_child            (const GskRenderNode      *node) G_GNUC_PURE;
+GskRenderNode *         gsk_transform_node_get_child            (const GskRenderNode      *node) ;
 extern
-GskTransform *          gsk_transform_node_get_transform        (const GskRenderNode      *node) G_GNUC_PURE;
+GskTransform *          gsk_transform_node_get_transform        (const GskRenderNode      *node) ;
 
 
 

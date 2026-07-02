@@ -37,11 +37,11 @@ GskRenderNode *         gsk_composite_node_new                  (GskRenderNode  
                                                                  GskRenderNode            *mask,
                                                                  GskPorterDuff             op);
 extern
-GskRenderNode *         gsk_composite_node_get_child            (const GskRenderNode      *node) G_GNUC_PURE;
+GskRenderNode *         gsk_composite_node_get_child            (const GskRenderNode      *node) ;
 extern
-GskRenderNode *         gsk_composite_node_get_mask             (const GskRenderNode      *node) G_GNUC_PURE;
+GskRenderNode *         gsk_composite_node_get_mask             (const GskRenderNode      *node) ;
 extern
-GskPorterDuff           gsk_composite_node_get_operator         (const GskRenderNode      *node) G_GNUC_PURE;
+GskPorterDuff           gsk_composite_node_get_operator         (const GskRenderNode      *node) ;
 
 
 

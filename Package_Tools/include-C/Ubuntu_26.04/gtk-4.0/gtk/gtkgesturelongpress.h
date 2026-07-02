@@ -50,7 +50,7 @@ void         gtk_gesture_long_press_set_delay_factor (GtkGestureLongPress *gestu
 extern
 double       gtk_gesture_long_press_get_delay_factor (GtkGestureLongPress *gesture);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkGestureLongPress, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkGestureLongPress, g_object_unref)
 
 
 

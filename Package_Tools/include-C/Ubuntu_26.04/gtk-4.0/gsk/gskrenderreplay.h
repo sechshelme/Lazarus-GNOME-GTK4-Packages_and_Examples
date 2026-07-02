@@ -133,7 +133,7 @@ extern
 PangoFont *             gsk_render_replay_filter_font           (GskRenderReplay                *self,
                                                                  PangoFont                      *font);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GskRenderReplay, gsk_render_replay_free)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GskRenderReplay, gsk_render_replay_free)
 
 
 

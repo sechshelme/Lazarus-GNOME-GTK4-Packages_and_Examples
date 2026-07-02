@@ -52,7 +52,7 @@ void           gtk_orientable_set_orientation (GtkOrientable  *orientable,
 extern
 GtkOrientation gtk_orientable_get_orientation (GtkOrientable  *orientable);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkOrientable, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkOrientable, g_object_unref)
 
 
 

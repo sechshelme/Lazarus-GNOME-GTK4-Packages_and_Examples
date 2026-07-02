@@ -249,6 +249,6 @@ GtkWidget              *gtk_tree_view_column_get_tree_view       (GtkTreeViewCol
 extern //xxxxxGLIB_DEPRECATED_IN_4_10_FOR(GtkColumnView and GtkColumnViewColumn)
 GtkWidget              *gtk_tree_view_column_get_button          (GtkTreeViewColumn       *tree_column);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkTreeViewColumn, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkTreeViewColumn, g_object_unref)
 
 

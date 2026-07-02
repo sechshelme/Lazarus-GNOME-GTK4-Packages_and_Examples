@@ -109,7 +109,7 @@ extern
 gboolean   gtk_calendar_get_day_is_marked      (GtkCalendar    *calendar,
                                                 guint           day);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkCalendar, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkCalendar, g_object_unref)
 
 
 

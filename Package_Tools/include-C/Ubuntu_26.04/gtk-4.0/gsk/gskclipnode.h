@@ -36,9 +36,9 @@ extern
 GskRenderNode *         gsk_clip_node_new                       (GskRenderNode            *child,
                                                                  const graphene_rect_t    *clip);
 extern
-GskRenderNode *         gsk_clip_node_get_child                 (const GskRenderNode      *node) G_GNUC_PURE;
+GskRenderNode *         gsk_clip_node_get_child                 (const GskRenderNode      *node) ;
 extern
-const graphene_rect_t * gsk_clip_node_get_clip                  (const GskRenderNode      *node) G_GNUC_PURE;
+const graphene_rect_t * gsk_clip_node_get_clip                  (const GskRenderNode      *node) ;
 
 
 

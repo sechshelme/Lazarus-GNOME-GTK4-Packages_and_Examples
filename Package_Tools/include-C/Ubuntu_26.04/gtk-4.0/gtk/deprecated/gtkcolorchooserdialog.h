@@ -38,7 +38,7 @@ extern //xxxxxGLIB_DEPRECATED_IN_4_10
 GtkWidget * gtk_color_chooser_dialog_new      (const char *title,
                                                GtkWindow   *parent);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkColorChooserDialog, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkColorChooserDialog, g_object_unref)
 
 
 

@@ -168,7 +168,7 @@ GtkPaperSize *gtk_paper_size_new_from_gvariant (GVariant     *variant);
 extern
 GVariant     *gtk_paper_size_to_gvariant       (GtkPaperSize *paper_size);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkPaperSize, gtk_paper_size_free)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkPaperSize, gtk_paper_size_free)
 
 
 

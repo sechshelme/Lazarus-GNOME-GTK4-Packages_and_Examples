@@ -202,7 +202,7 @@ gboolean  gtk_builder_extend_with_template  (GtkBuilder    *builder,
                                              gssize         length,
                                              GError       **error);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkBuilder, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkBuilder, g_object_unref)
 
 
 

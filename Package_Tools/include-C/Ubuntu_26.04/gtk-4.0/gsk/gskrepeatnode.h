@@ -37,9 +37,9 @@ GskRenderNode *         gsk_repeat_node_new                     (const graphene_
                                                                  GskRenderNode            *child,
                                                                  const graphene_rect_t    *child_bounds);
 extern
-GskRenderNode *         gsk_repeat_node_get_child               (const GskRenderNode      *node) G_GNUC_PURE;
+GskRenderNode *         gsk_repeat_node_get_child               (const GskRenderNode      *node) ;
 extern
-const graphene_rect_t * gsk_repeat_node_get_child_bounds        (const GskRenderNode      *node) G_GNUC_PURE;
+const graphene_rect_t * gsk_repeat_node_get_child_bounds        (const GskRenderNode      *node) ;
 
 
 

@@ -130,7 +130,7 @@ void            gtk_gl_area_set_error                   (GtkGLArea    *area,
 extern
 GError *        gtk_gl_area_get_error                   (GtkGLArea    *area);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkGLArea, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkGLArea, g_object_unref)
 
 
 

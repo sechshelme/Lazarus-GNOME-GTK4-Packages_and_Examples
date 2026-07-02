@@ -84,7 +84,7 @@ extern //xxxxxGLIB_DEPRECATED_IN_4_10_FOR(GtkFilterListModel)
 gboolean      gtk_tree_model_sort_iter_is_valid              (GtkTreeModelSort *tree_model_sort,
                                                               GtkTreeIter      *iter);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkTreeModelSort, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkTreeModelSort, g_object_unref)
 
 
 

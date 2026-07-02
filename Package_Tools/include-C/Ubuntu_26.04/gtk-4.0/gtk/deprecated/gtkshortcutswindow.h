@@ -40,7 +40,7 @@ extern //xxxxxGLIB_DEPRECATED_IN_4_18
 void gtk_shortcuts_window_add_section (GtkShortcutsWindow  *self,
                                        GtkShortcutsSection *section);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkShortcutsWindow, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkShortcutsWindow, g_object_unref)
 
 
 

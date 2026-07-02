@@ -56,12 +56,12 @@ GskRenderNode *         gsk_shadow_node_new                     (GskRenderNode  
                                                                  const GskShadow          *shadows,
                                                                  gsize                     n_shadows);
 extern
-GskRenderNode *         gsk_shadow_node_get_child               (const GskRenderNode      *node) G_GNUC_PURE;
+GskRenderNode *         gsk_shadow_node_get_child               (const GskRenderNode      *node) ;
 extern
 const GskShadow *       gsk_shadow_node_get_shadow              (const GskRenderNode      *node,
-                                                                 gsize                     i) G_GNUC_PURE;
+                                                                 gsize                     i) ;
 extern
-gsize                   gsk_shadow_node_get_n_shadows           (const GskRenderNode      *node) G_GNUC_PURE;
+gsize                   gsk_shadow_node_get_n_shadows           (const GskRenderNode      *node) ;
 
 
 

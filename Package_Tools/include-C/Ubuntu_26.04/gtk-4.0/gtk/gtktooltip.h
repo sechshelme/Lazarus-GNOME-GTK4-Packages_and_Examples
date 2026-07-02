@@ -57,7 +57,7 @@ extern
 void gtk_tooltip_set_tip_area            (GtkTooltip         *tooltip,
                                           const GdkRectangle *rect);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkTooltip, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkTooltip, g_object_unref)
 
 
 

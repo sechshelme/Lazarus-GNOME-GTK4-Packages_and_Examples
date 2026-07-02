@@ -110,7 +110,7 @@ void       gtk_message_dialog_format_secondary_markup (GtkMessageDialog *message
 extern //xxxxxGLIB_DEPRECATED_IN_4_10
 GtkWidget *gtk_message_dialog_get_message_area (GtkMessageDialog *message_dialog);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkMessageDialog, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkMessageDialog, g_object_unref)
 
 
 

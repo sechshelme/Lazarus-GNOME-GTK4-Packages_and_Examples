@@ -38,17 +38,17 @@ extern                                            GskRenderNode *         gsk_te
                                                                  const GdkRGBA            *color,
                                                                  const graphene_point_t   *offset);
 extern
-PangoFont *             gsk_text_node_get_font                  (const GskRenderNode      *node) G_GNUC_PURE;                   extern
-gboolean                gsk_text_node_has_color_glyphs          (const GskRenderNode      *node) G_GNUC_PURE;
+PangoFont *             gsk_text_node_get_font                  (const GskRenderNode      *node) ;                   extern
+gboolean                gsk_text_node_has_color_glyphs          (const GskRenderNode      *node) ;
 extern
-guint                   gsk_text_node_get_num_glyphs            (const GskRenderNode      *node) G_GNUC_PURE;
+guint                   gsk_text_node_get_num_glyphs            (const GskRenderNode      *node) ;
 extern
 const PangoGlyphInfo   *gsk_text_node_get_glyphs                (const GskRenderNode      *node,
                                                                  guint                    *n_glyphs);
 extern
-const GdkRGBA *         gsk_text_node_get_color                 (const GskRenderNode      *node) G_GNUC_PURE;
+const GdkRGBA *         gsk_text_node_get_color                 (const GskRenderNode      *node) ;
 extern
-const graphene_point_t *gsk_text_node_get_offset                (const GskRenderNode      *node) G_GNUC_PURE;
+const graphene_point_t *gsk_text_node_get_offset                (const GskRenderNode      *node) ;
 
 
 

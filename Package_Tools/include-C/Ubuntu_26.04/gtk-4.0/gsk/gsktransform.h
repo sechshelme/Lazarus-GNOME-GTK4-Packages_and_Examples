@@ -79,10 +79,10 @@ void                    gsk_transform_to_translate              (GskTransform   
                                                                  float                          *out_dy);
 
 extern
-GskTransformCategory    gsk_transform_get_category              (GskTransform                   *self) G_GNUC_PURE;
+GskTransformCategory    gsk_transform_get_category              (GskTransform                   *self) ;
 extern
 gboolean                gsk_transform_equal                     (GskTransform                   *first,
-                                                                 GskTransform                   *second) G_GNUC_PURE;
+                                                                 GskTransform                   *second) ;
 
 extern
 GskTransform *          gsk_transform_new                       (void);
@@ -142,7 +142,7 @@ void                    gsk_transform_transform_point           (GskTransform   
                                                                  const graphene_point_t          *point,
                                                                  graphene_point_t                *out_point);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GskTransform, gsk_transform_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GskTransform, gsk_transform_unref)
 
 
 

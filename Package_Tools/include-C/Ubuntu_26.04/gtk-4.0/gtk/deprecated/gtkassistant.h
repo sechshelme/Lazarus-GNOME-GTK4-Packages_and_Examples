@@ -181,7 +181,7 @@ GtkWidget *           gtk_assistant_page_get_child (GtkAssistantPage *page);
 extern //xxxxxGLIB_DEPRECATED_IN_4_10
 GListModel *          gtk_assistant_get_pages (GtkAssistant *assistant);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkAssistant, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkAssistant, g_object_unref)
 
 
 

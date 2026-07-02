@@ -176,7 +176,7 @@ extern
 gboolean gtk_im_context_activate_osk (GtkIMContext *context,
                                       GdkEvent     *event);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkIMContext, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkIMContext, g_object_unref)
 
 
 

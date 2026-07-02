@@ -139,7 +139,7 @@ extern
 gboolean      gtk_menu_button_get_can_shrink  (GtkMenuButton *menu_button);
 
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkMenuButton, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkMenuButton, g_object_unref)
 
 
 

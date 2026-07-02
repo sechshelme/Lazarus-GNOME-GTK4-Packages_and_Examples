@@ -46,6 +46,6 @@ GType                   gsk_vulkan_renderer_get_type            (void) ;
 extern
 GskRenderer *           gsk_vulkan_renderer_new                 (void);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GskVulkanRenderer, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GskVulkanRenderer, g_object_unref)
 
 

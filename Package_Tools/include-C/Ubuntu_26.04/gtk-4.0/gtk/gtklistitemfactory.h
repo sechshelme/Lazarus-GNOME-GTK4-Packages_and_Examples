@@ -41,7 +41,7 @@ typedef struct _GtkListItemFactoryClass GtkListItemFactoryClass;
 extern
 GType        gtk_list_item_factory_get_type       (void) ;
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkListItemFactory, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkListItemFactory, g_object_unref)
 
 
 

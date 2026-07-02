@@ -134,7 +134,7 @@ void              gtk_scale_set_format_value_func (GtkScale                *scal
                                                    gpointer                 user_data,
                                                    GDestroyNotify           destroy_notify);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkScale, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkScale, g_object_unref)
 
 
 

@@ -82,7 +82,7 @@ GtkShortcutsWindow *
             gtk_application_window_get_help_overlay (GtkApplicationWindow *window);
 
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkApplicationWindow, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkApplicationWindow, g_object_unref)
 
 
 

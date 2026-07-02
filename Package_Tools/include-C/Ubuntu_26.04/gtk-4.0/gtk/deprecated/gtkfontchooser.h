@@ -164,7 +164,7 @@ extern //xxxxxGLIB_DEPRECATED_IN_4_10
 void             gtk_font_chooser_set_language             (GtkFontChooser   *fontchooser,
                                                             const char       *language);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkFontChooser, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkFontChooser, g_object_unref)
 
 
 

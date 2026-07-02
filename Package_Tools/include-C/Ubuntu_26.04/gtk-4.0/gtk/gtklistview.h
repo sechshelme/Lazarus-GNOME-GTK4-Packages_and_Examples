@@ -95,7 +95,7 @@ void            gtk_list_view_scroll_to                         (GtkListView    
                                                                  GtkListScrollFlags      flags,
                                                                  GtkScrollInfo          *scroll);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkListView, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkListView, g_object_unref)
 
 
 

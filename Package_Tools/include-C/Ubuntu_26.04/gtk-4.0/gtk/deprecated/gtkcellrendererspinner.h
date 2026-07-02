@@ -39,7 +39,7 @@ GType            gtk_cell_renderer_spinner_get_type (void) ;
 extern //xxxxxGLIB_DEPRECATED_IN_4_10
 GtkCellRenderer *gtk_cell_renderer_spinner_new      (void);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkCellRendererSpinner, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkCellRendererSpinner, g_object_unref)
 
 
 

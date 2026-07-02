@@ -59,7 +59,7 @@ void          gtk_app_chooser_dialog_set_heading          (GtkAppChooserDialog *
 extern //xxxxxGLIB_DEPRECATED_IN_4_10
 const char * gtk_app_chooser_dialog_get_heading          (GtkAppChooserDialog *self);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkAppChooserDialog, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkAppChooserDialog, g_object_unref)
 
 
 

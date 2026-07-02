@@ -36,9 +36,9 @@ extern
 GskRenderNode *         gsk_blur_node_new                       (GskRenderNode            *child,
                                                                  float                     radius);
 extern
-GskRenderNode *         gsk_blur_node_get_child                 (const GskRenderNode      *node) G_GNUC_PURE;
+GskRenderNode *         gsk_blur_node_get_child                 (const GskRenderNode      *node) ;
 extern
-float                   gsk_blur_node_get_radius                (const GskRenderNode      *node) G_GNUC_PURE;
+float                   gsk_blur_node_get_radius                (const GskRenderNode      *node) ;
 
 
 

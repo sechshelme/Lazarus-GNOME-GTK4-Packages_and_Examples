@@ -42,7 +42,7 @@ typedef struct _GtkSnapshotClass       GtkSnapshotClass;
 #define GTK_SNAPSHOT(obj)               (G_TYPE_CHECK_INSTANCE_CAST ((obj), GTK_TYPE_SNAPSHOT, GtkSnapshot))
 #define GTK_IS_SNAPSHOT(obj)            (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GTK_TYPE_SNAPSHOT))
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkSnapshot, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkSnapshot, g_object_unref)
 
 
 

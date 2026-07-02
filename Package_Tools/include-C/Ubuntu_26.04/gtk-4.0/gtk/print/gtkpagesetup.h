@@ -131,7 +131,7 @@ GVariant          *gtk_page_setup_to_gvariant       (GtkPageSetup        *setup)
 extern
 GtkPageSetup      *gtk_page_setup_new_from_gvariant (GVariant            *variant);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkPageSetup, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkPageSetup, g_object_unref)
 
 
 

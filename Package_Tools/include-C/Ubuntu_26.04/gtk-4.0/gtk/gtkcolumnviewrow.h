@@ -34,21 +34,21 @@ GDK_DECLARE_INTERNAL_TYPE(GtkColumnViewRow, gtk_column_view_row, GTK, COLUMN_VIE
 extern
 gpointer        gtk_column_view_row_get_item                    (GtkColumnViewRow       *self);
 extern
-guint           gtk_column_view_row_get_position                (GtkColumnViewRow       *self) G_GNUC_PURE;
+guint           gtk_column_view_row_get_position                (GtkColumnViewRow       *self) ;
 extern
-gboolean        gtk_column_view_row_get_selected                (GtkColumnViewRow       *self) G_GNUC_PURE;
+gboolean        gtk_column_view_row_get_selected                (GtkColumnViewRow       *self) ;
 extern
-gboolean        gtk_column_view_row_get_selectable              (GtkColumnViewRow       *self) G_GNUC_PURE;
+gboolean        gtk_column_view_row_get_selectable              (GtkColumnViewRow       *self) ;
 extern
 void            gtk_column_view_row_set_selectable              (GtkColumnViewRow       *self,
                                                                  gboolean                selectable);
 extern
-gboolean        gtk_column_view_row_get_activatable             (GtkColumnViewRow       *self) G_GNUC_PURE;
+gboolean        gtk_column_view_row_get_activatable             (GtkColumnViewRow       *self) ;
 extern
 void            gtk_column_view_row_set_activatable             (GtkColumnViewRow       *self,
                                                                  gboolean                activatable);
 extern
-gboolean        gtk_column_view_row_get_focusable               (GtkColumnViewRow       *self) G_GNUC_PURE;
+gboolean        gtk_column_view_row_get_focusable               (GtkColumnViewRow       *self) ;
 extern
 void            gtk_column_view_row_set_focusable               (GtkColumnViewRow       *self,
                                                                  gboolean                focusable);

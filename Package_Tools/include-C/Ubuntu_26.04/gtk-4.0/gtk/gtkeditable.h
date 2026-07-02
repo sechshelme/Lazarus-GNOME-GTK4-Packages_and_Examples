@@ -197,7 +197,7 @@ extern
 gboolean gtk_editable_delegate_get_accessible_platform_state (GtkEditable                *editable,
                                                               GtkAccessiblePlatformState  state);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkEditable, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkEditable, g_object_unref)
 
 
 

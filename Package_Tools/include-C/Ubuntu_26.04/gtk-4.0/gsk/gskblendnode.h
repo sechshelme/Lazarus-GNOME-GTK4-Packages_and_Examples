@@ -37,11 +37,11 @@ GskRenderNode *         gsk_blend_node_new                      (GskRenderNode  
                                                                  GskRenderNode            *top,
                                                                  GskBlendMode              blend_mode);
 extern
-GskRenderNode *         gsk_blend_node_get_bottom_child         (const GskRenderNode      *node) G_GNUC_PURE;
+GskRenderNode *         gsk_blend_node_get_bottom_child         (const GskRenderNode      *node) ;
 extern
-GskRenderNode *         gsk_blend_node_get_top_child            (const GskRenderNode      *node) G_GNUC_PURE;
+GskRenderNode *         gsk_blend_node_get_top_child            (const GskRenderNode      *node) ;
 extern
-GskBlendMode            gsk_blend_node_get_blend_mode           (const GskRenderNode      *node) G_GNUC_PURE;
+GskBlendMode            gsk_blend_node_get_blend_mode           (const GskRenderNode      *node) ;
 
 
 

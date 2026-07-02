@@ -109,7 +109,7 @@ void                       gtk_revealer_set_child               (GtkRevealer    
 extern
 GtkWidget *                gtk_revealer_get_child               (GtkRevealer               *revealer);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkRevealer, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkRevealer, g_object_unref)
 
 
 

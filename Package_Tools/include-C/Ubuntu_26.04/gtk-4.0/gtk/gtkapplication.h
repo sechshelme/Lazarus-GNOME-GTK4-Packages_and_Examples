@@ -134,7 +134,7 @@ extern
 GMenu *          gtk_application_get_menu_by_id                  (GtkApplication       *application,
                                                                   const char           *id);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkApplication, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkApplication, g_object_unref)
 
 
 

@@ -536,7 +536,7 @@ GVariant             *gtk_print_settings_to_gvariant           (GtkPrintSettings
 extern
 GtkPrintSettings     *gtk_print_settings_new_from_gvariant     (GVariant           *variant);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkPrintSettings, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkPrintSettings, g_object_unref)
 
 
 

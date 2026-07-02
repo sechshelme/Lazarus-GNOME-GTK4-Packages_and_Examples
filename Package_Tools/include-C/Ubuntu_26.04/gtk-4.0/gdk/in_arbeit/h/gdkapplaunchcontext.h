@@ -52,7 +52,7 @@ extern
 void                 gdk_app_launch_context_set_icon_name (GdkAppLaunchContext *context,
                                                            const char          *icon_name);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GdkAppLaunchContext, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GdkAppLaunchContext, g_object_unref)
 
 
 

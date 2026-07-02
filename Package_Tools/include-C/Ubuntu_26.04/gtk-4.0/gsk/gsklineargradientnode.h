@@ -42,11 +42,11 @@ GskRenderNode *         gsk_linear_gradient_node_new                (const graph
                                                                      const GskColorStop       *color_stops,
                                                                      gsize                     n_color_stops);
 extern
-const graphene_point_t * gsk_linear_gradient_node_get_start         (const GskRenderNode      *node) G_GNUC_PURE;
+const graphene_point_t * gsk_linear_gradient_node_get_start         (const GskRenderNode      *node) ;
 extern
-const graphene_point_t * gsk_linear_gradient_node_get_end           (const GskRenderNode      *node) G_GNUC_PURE;
+const graphene_point_t * gsk_linear_gradient_node_get_end           (const GskRenderNode      *node) ;
 extern
-gsize                    gsk_linear_gradient_node_get_n_color_stops (const GskRenderNode      *node) G_GNUC_PURE;
+gsize                    gsk_linear_gradient_node_get_n_color_stops (const GskRenderNode      *node) ;
 extern
 const GskColorStop *     gsk_linear_gradient_node_get_color_stops   (const GskRenderNode      *node,
                                                                      gsize                    *n_stops);

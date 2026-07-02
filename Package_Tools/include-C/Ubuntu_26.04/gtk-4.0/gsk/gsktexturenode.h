@@ -36,7 +36,7 @@ extern
 GskRenderNode *         gsk_texture_node_new                    (GdkTexture               *texture,
                                                                  const graphene_rect_t    *bounds);
 extern
-GdkTexture *            gsk_texture_node_get_texture            (const GskRenderNode      *node) G_GNUC_PURE;
+GdkTexture *            gsk_texture_node_get_texture            (const GskRenderNode      *node) ;
 
 
 

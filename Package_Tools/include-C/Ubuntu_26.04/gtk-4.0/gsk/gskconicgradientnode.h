@@ -40,13 +40,13 @@ GskRenderNode *         gsk_conic_gradient_node_new                 (const graph
                                                                      const GskColorStop       *color_stops,
                                                                      gsize                     n_color_stops);
 extern
-const graphene_point_t * gsk_conic_gradient_node_get_center         (const GskRenderNode      *node) G_GNUC_PURE;
+const graphene_point_t * gsk_conic_gradient_node_get_center         (const GskRenderNode      *node) ;
 extern
-float                    gsk_conic_gradient_node_get_rotation       (const GskRenderNode      *node) G_GNUC_PURE;
+float                    gsk_conic_gradient_node_get_rotation       (const GskRenderNode      *node) ;
 extern
-float                    gsk_conic_gradient_node_get_angle          (const GskRenderNode      *node) G_GNUC_PURE;
+float                    gsk_conic_gradient_node_get_angle          (const GskRenderNode      *node) ;
 extern
-gsize                    gsk_conic_gradient_node_get_n_color_stops  (const GskRenderNode      *node) G_GNUC_PURE;
+gsize                    gsk_conic_gradient_node_get_n_color_stops  (const GskRenderNode      *node) ;
 extern
 const GskColorStop *     gsk_conic_gradient_node_get_color_stops    (const GskRenderNode      *node,
                                                                      gsize                    *n_stops);

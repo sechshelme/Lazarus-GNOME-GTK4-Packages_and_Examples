@@ -331,7 +331,7 @@ void                    gtk_print_run_page_setup_dialog_async      (GtkWindow   
                                                                     GtkPageSetupDoneFunc  done_cb,
                                                                     gpointer              data);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkPrintOperation, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkPrintOperation, g_object_unref)
 
 
 

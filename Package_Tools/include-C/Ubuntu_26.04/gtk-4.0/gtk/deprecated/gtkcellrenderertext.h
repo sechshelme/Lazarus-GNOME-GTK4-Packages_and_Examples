@@ -65,7 +65,7 @@ extern //xxxxxGLIB_DEPRECATED_IN_4_10
 void             gtk_cell_renderer_text_set_fixed_height_from_font (GtkCellRendererText *renderer,
 								    int                  number_of_rows);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkCellRendererText, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkCellRendererText, g_object_unref)
 
 
 

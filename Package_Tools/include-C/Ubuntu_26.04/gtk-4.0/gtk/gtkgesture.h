@@ -101,7 +101,7 @@ extern
 gboolean    gtk_gesture_is_grouped_with      (GtkGesture       *gesture,
                                               GtkGesture       *other);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkGesture, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkGesture, g_object_unref)
 
 
 

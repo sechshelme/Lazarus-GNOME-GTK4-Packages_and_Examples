@@ -92,7 +92,7 @@ void            gtk_grid_view_scroll_to                         (GtkGridView    
                                                                  GtkScrollInfo          *scroll);
 
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkGridView, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkGridView, g_object_unref)
 
 
 

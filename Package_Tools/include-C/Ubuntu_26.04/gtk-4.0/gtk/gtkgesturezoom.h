@@ -47,7 +47,7 @@ GtkGesture * gtk_gesture_zoom_new             (void);
 extern
 double       gtk_gesture_zoom_get_scale_delta (GtkGestureZoom *gesture);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkGestureZoom, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkGestureZoom, g_object_unref)
 
 
 

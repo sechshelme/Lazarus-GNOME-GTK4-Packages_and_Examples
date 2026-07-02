@@ -86,7 +86,7 @@ GtkWidget **gtk_text_child_anchor_get_widgets (GtkTextChildAnchor *anchor,
 extern
 gboolean gtk_text_child_anchor_get_deleted (GtkTextChildAnchor *anchor);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkTextChildAnchor, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkTextChildAnchor, g_object_unref)
 
 
 

@@ -68,7 +68,7 @@ extern //xxxxxGLIB_DEPRECATED_IN_4_10
 void                  gtk_font_button_set_use_size   (GtkFontButton *font_button,
                                                       gboolean       use_size);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkFontButton, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkFontButton, g_object_unref)
 
 
 

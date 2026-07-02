@@ -69,7 +69,7 @@ extern
 GdkEventSequence * gtk_gesture_single_get_current_sequence
                                               (GtkGestureSingle *gesture);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkGestureSingle, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkGestureSingle, g_object_unref)
 
 
 

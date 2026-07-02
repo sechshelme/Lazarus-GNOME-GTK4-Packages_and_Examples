@@ -78,7 +78,7 @@ void       gtk_aspect_frame_set_child  (GtkAspectFrame *self,
 extern
 GtkWidget *gtk_aspect_frame_get_child  (GtkAspectFrame *self);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkAspectFrame, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkAspectFrame, g_object_unref)
 
 
 

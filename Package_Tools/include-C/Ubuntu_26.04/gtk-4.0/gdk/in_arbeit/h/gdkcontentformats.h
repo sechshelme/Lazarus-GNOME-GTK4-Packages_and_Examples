@@ -107,7 +107,7 @@ void                    gdk_content_formats_builder_add_gtype   (GdkContentForma
                                                                  GType                           type);
 
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GdkContentFormats, gdk_content_formats_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GdkContentFormats, gdk_content_formats_unref)
 
 /* dunno where else to put this */
 #define GDK_TYPE_FILE_LIST (gdk_file_list_get_type ())

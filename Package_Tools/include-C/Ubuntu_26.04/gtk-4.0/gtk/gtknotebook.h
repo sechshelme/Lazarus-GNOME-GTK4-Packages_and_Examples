@@ -242,7 +242,7 @@ GtkWidget *gtk_notebook_page_get_child (GtkNotebookPage *page);
 extern
 GListModel *gtk_notebook_get_pages (GtkNotebook *notebook);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkNotebook, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkNotebook, g_object_unref)
 
 
 

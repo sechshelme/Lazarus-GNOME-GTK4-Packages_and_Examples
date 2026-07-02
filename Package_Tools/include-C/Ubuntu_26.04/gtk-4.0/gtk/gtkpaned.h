@@ -89,7 +89,7 @@ void        gtk_paned_set_wide_handle (GtkPaned    *paned,
 extern
 gboolean    gtk_paned_get_wide_handle (GtkPaned    *paned);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkPaned, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkPaned, g_object_unref)
 
 
 

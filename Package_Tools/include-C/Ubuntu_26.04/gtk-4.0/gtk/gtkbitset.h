@@ -37,7 +37,7 @@ extern
 GtkBitset *             gtk_bitset_ref                          (GtkBitset              *self);
 extern
 void                    gtk_bitset_unref                        (GtkBitset              *self);
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkBitset, gtk_bitset_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkBitset, gtk_bitset_unref)
 
 extern
 gboolean                gtk_bitset_contains                     (const GtkBitset        *self,

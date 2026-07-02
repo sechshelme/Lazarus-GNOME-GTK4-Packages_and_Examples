@@ -72,7 +72,7 @@ extern
 gboolean             gtk_scrollable_get_border             (GtkScrollable       *scrollable,
                                                             GtkBorder           *border);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkScrollable, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkScrollable, g_object_unref)
 
 
 

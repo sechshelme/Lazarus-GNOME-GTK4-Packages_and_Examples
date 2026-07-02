@@ -62,7 +62,7 @@ extern
 gboolean    gtk_popover_menu_remove_child (GtkPopoverMenu *popover,
                                            GtkWidget      *child);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkPopoverMenu, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkPopoverMenu, g_object_unref)
 
 
 

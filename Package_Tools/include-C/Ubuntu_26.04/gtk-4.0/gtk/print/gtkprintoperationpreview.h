@@ -77,7 +77,7 @@ extern
 gboolean gtk_print_operation_preview_is_selected (GtkPrintOperationPreview *preview,
 						  int                       page_nr);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkPrintOperationPreview, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkPrintOperationPreview, g_object_unref)
 
 
 

@@ -49,7 +49,7 @@ extern
 GtkExpression *         gtk_expression_ref                      (GtkExpression                  *self);
 extern
 void                    gtk_expression_unref                    (GtkExpression                  *self);
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkExpression, gtk_expression_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkExpression, gtk_expression_unref)
 
 extern
 GType                   gtk_expression_get_value_type           (GtkExpression                  *self);

@@ -65,7 +65,7 @@ GtkBorder *gtk_border_copy     (const GtkBorder *border_);
 extern
 void       gtk_border_free     (GtkBorder       *border_);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkBorder, gtk_border_free)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkBorder, gtk_border_free)
 
 
 

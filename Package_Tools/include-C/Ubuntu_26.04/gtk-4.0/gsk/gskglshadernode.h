@@ -43,14 +43,14 @@ GskRenderNode *         gsk_gl_shader_node_new                  (GskGLShader    
                                                                  GskRenderNode           **children,
                                                                  guint                     n_children);
 extern //xxxxxGLIB_DEPRECATED_IN_4_16_FOR(GtkGLArea)
-guint                   gsk_gl_shader_node_get_n_children       (const GskRenderNode      *node) G_GNUC_PURE;
+guint                   gsk_gl_shader_node_get_n_children       (const GskRenderNode      *node) ;
 extern //xxxxxGLIB_DEPRECATED_IN_4_16_FOR(GtkGLArea)
 GskRenderNode *         gsk_gl_shader_node_get_child            (const GskRenderNode      *node,
-                                                                 guint                     idx) G_GNUC_PURE;
+                                                                 guint                     idx) ;
 extern //xxxxxGLIB_DEPRECATED_IN_4_16_FOR(GtkGLArea)
-GBytes *                gsk_gl_shader_node_get_args             (const GskRenderNode      *node) G_GNUC_PURE;
+GBytes *                gsk_gl_shader_node_get_args             (const GskRenderNode      *node) ;
 extern //xxxxxGLIB_DEPRECATED_IN_4_16_FOR(GtkGLArea)
-GskGLShader *           gsk_gl_shader_node_get_shader           (const GskRenderNode      *node) G_GNUC_PURE;
+GskGLShader *           gsk_gl_shader_node_get_shader           (const GskRenderNode      *node) ;
 
 
 

@@ -82,7 +82,7 @@ void     gtk_color_chooser_add_palette    (GtkColorChooser *chooser,
                                            int              n_colors,
                                            GdkRGBA         *colors);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkColorChooser, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkColorChooser, g_object_unref)
 
 
 

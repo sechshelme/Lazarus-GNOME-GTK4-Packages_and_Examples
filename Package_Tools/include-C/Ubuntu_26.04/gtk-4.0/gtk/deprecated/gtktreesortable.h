@@ -162,7 +162,7 @@ void     gtk_tree_sortable_set_default_sort_func (GtkTreeSortable        *sortab
 extern //xxxxxGLIB_DEPRECATED_IN_4_10
 gboolean gtk_tree_sortable_has_default_sort_func (GtkTreeSortable        *sortable);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkTreeSortable, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkTreeSortable, g_object_unref)
 
 
 

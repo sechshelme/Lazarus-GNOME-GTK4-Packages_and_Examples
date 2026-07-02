@@ -103,7 +103,7 @@ extern
 void         gtk_text_tag_changed      (GtkTextTag        *tag,
                                         gboolean           size_changed);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkTextTag, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkTextTag, g_object_unref)
 
 
 

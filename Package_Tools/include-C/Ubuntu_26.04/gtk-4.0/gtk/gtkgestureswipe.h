@@ -49,7 +49,7 @@ gboolean        gtk_gesture_swipe_get_velocity  (GtkGestureSwipe *gesture,
                                                  double          *velocity_x,
                                                  double          *velocity_y);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkGestureSwipe, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkGestureSwipe, g_object_unref)
 
 
 

@@ -77,7 +77,7 @@ void            gtk_search_entry_set_input_hints (GtkSearchEntry *entry,
 extern
 GtkInputHints   gtk_search_entry_get_input_hints (GtkSearchEntry *entry);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkSearchEntry, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkSearchEntry, g_object_unref)
 
 
 

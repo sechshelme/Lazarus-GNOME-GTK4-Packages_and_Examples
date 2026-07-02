@@ -40,17 +40,17 @@ GskRenderNode *         gsk_inset_shadow_node_new               (const GskRounde
                                                                  float                     spread,
                                                                  float                     blur_radius);
 extern
-const GskRoundedRect *  gsk_inset_shadow_node_get_outline       (const GskRenderNode      *node) G_GNUC_PURE;
+const GskRoundedRect *  gsk_inset_shadow_node_get_outline       (const GskRenderNode      *node) ;
 extern
-const GdkRGBA *         gsk_inset_shadow_node_get_color         (const GskRenderNode      *node) G_GNUC_PURE;
+const GdkRGBA *         gsk_inset_shadow_node_get_color         (const GskRenderNode      *node) ;
 extern
-float                   gsk_inset_shadow_node_get_dx            (const GskRenderNode      *node) G_GNUC_PURE;
+float                   gsk_inset_shadow_node_get_dx            (const GskRenderNode      *node) ;
 extern
-float                   gsk_inset_shadow_node_get_dy            (const GskRenderNode      *node) G_GNUC_PURE;
+float                   gsk_inset_shadow_node_get_dy            (const GskRenderNode      *node) ;
 extern
-float                   gsk_inset_shadow_node_get_spread        (const GskRenderNode      *node) G_GNUC_PURE;
+float                   gsk_inset_shadow_node_get_spread        (const GskRenderNode      *node) ;
 extern
-float                   gsk_inset_shadow_node_get_blur_radius   (const GskRenderNode      *node) G_GNUC_PURE;
+float                   gsk_inset_shadow_node_get_blur_radius   (const GskRenderNode      *node) ;
 
 
 

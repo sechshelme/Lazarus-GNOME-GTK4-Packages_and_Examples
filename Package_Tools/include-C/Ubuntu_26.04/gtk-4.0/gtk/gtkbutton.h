@@ -118,7 +118,7 @@ void                  gtk_button_set_can_shrink     (GtkButton      *button,
 extern
 gboolean              gtk_button_get_can_shrink     (GtkButton      *button);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkButton, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkButton, g_object_unref)
 
 
 

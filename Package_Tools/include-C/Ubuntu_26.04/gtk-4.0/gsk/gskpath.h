@@ -207,6 +207,6 @@ gboolean                gsk_path_foreach_intersection           (GskPath        
                                                                  GskPathIntersectionFunc func,
                                                                  gpointer                user_data);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GskPath, gsk_path_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GskPath, gsk_path_unref)
 
 

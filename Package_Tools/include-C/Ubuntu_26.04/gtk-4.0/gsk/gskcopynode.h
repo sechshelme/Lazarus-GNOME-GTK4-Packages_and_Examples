@@ -36,7 +36,7 @@ extern
 GskRenderNode *         gsk_copy_node_new                       (GskRenderNode            *child);
 
 extern
-GskRenderNode *         gsk_copy_node_get_child                 (const GskRenderNode      *node) G_GNUC_PURE;
+GskRenderNode *         gsk_copy_node_get_child                 (const GskRenderNode      *node) ;
 
 
 

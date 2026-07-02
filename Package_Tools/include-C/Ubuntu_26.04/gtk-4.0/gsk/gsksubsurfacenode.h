@@ -36,7 +36,7 @@ extern
 GskRenderNode *         gsk_subsurface_node_new                 (GskRenderNode            *child,
                                                                  gpointer                  subsurface);
 extern
-GskRenderNode *         gsk_subsurface_node_get_child           (const GskRenderNode      *node) G_GNUC_PURE;
+GskRenderNode *         gsk_subsurface_node_get_child           (const GskRenderNode      *node) ;
 extern
 gpointer                gsk_subsurface_node_get_subsurface      (const GskRenderNode      *node);
 

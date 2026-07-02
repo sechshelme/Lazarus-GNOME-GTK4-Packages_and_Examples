@@ -38,11 +38,11 @@ GskRenderNode *         gsk_color_matrix_node_new               (GskRenderNode  
                                                                  const graphene_matrix_t  *color_matrix,
                                                                  const graphene_vec4_t    *color_offset);
 extern
-GskRenderNode *         gsk_color_matrix_node_get_child         (const GskRenderNode      *node) G_GNUC_PURE;
+GskRenderNode *         gsk_color_matrix_node_get_child         (const GskRenderNode      *node) ;
 extern
 const graphene_matrix_t *
-                        gsk_color_matrix_node_get_color_matrix  (const GskRenderNode      *node) G_GNUC_PURE;
+                        gsk_color_matrix_node_get_color_matrix  (const GskRenderNode      *node) ;
 extern
-const graphene_vec4_t * gsk_color_matrix_node_get_color_offset  (const GskRenderNode      *node) G_GNUC_PURE;
+const graphene_vec4_t * gsk_color_matrix_node_get_color_offset  (const GskRenderNode      *node) ;
 
 

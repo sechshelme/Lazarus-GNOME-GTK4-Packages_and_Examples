@@ -38,7 +38,7 @@ GType            gtk_cell_renderer_pixbuf_get_type (void) ;
 extern //xxxxxGLIB_DEPRECATED_IN_4_10
 GtkCellRenderer *gtk_cell_renderer_pixbuf_new      (void);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkCellRendererPixbuf, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkCellRendererPixbuf, g_object_unref)
 
 
 

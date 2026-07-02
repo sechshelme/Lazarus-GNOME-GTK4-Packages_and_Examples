@@ -131,7 +131,7 @@ void                gtk_entry_completion_set_text_column        (GtkEntryComplet
 extern //xxxxxGLIB_DEPRECATED_IN_4_10
 int                 gtk_entry_completion_get_text_column        (GtkEntryCompletion          *completion);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkEntryCompletion, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkEntryCompletion, g_object_unref)
 
 
 

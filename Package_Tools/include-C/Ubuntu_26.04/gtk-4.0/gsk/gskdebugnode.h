@@ -36,9 +36,9 @@ extern
 GskRenderNode *         gsk_debug_node_new                      (GskRenderNode            *child,
                                                                  char                     *message);
 extern
-GskRenderNode *         gsk_debug_node_get_child                (const GskRenderNode      *node) G_GNUC_PURE;
+GskRenderNode *         gsk_debug_node_get_child                (const GskRenderNode      *node) ;
 extern
-const char *            gsk_debug_node_get_message              (const GskRenderNode      *node) G_GNUC_PURE;
+const char *            gsk_debug_node_get_message              (const GskRenderNode      *node) ;
 
 
 

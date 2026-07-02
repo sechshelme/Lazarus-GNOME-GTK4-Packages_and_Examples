@@ -57,11 +57,11 @@ void                    gsk_path_point_free            (GskPathPoint       *poin
 
 extern
 gboolean                gsk_path_point_equal           (const GskPathPoint *point1,
-                                                        const GskPathPoint *point2) G_GNUC_PURE;
+                                                        const GskPathPoint *point2) ;
 
 extern
 int                     gsk_path_point_compare         (const GskPathPoint *point1,
-                                                        const GskPathPoint *point2) G_GNUC_PURE;
+                                                        const GskPathPoint *point2) ;
 
 extern
 void                    gsk_path_point_get_position    (const GskPathPoint *point,

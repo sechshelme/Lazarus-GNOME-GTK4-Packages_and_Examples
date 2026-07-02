@@ -152,7 +152,7 @@ void          gtk_tree_model_filter_refilter                   (GtkTreeModelFilt
 extern //xxxxxGLIB_DEPRECATED_IN_4_10_FOR(GtkFilterListModel)
 void          gtk_tree_model_filter_clear_cache                (GtkTreeModelFilter           *filter);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkTreeModelFilter, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkTreeModelFilter, g_object_unref)
 
 
 

@@ -1,0 +1,215 @@
+unit MyWidget;
+
+interface
+
+uses
+  fp_glib2, fp_GTK4,
+  IndexButton;
+
+type
+  TMyWidget = record
+    parent_instance: TGtkBox;
+    cols, rows: Tguint;
+  end;
+  PMyWidget = ^TMyWidget;
+
+  TMyWidgetClass = record
+    parent_class: TGtkBoxClass;
+  end;
+  PMyWidgetClass = ^TMyWidgetClass;
+
+function my_widget_get_type: TGType;
+function my_widget_new(c, r: Tguint): PGtkWidget;
+procedure my_widget_set_coords(self: PMyWidget; c, r: Tguint);
+
+function MY_TYPE_WIDGET: TGType;
+function MY_WIDGET(obj: Pointer): PMyWidget;
+function MY_WIDGET_CLASS(klass: Pointer): PMyWidgetClass;
+function MY_IS_WIDGET(obj: Pointer): Tgboolean;
+function MY_IS_WIDGET_CLASS(klass: Pointer): Tgboolean;
+function MY_WIDGET_GET_CLASS(obj: Pointer): PMyWidgetClass;
+
+implementation
+
+// ==== private
+
+var
+  parent_class: PMyWidgetClass = nil;
+  signal_id: Tguint = 0;
+
+procedure init(instance: PGTypeInstance; g_class: Tgpointer); cdecl;
+begin
+end;
+
+procedure set_property(obj: PGObject; property_id: Tguint; Value: PGValue; pspec: PGParamSpec); cdecl;
+var
+  self: PMyWidget absolute obj;
+begin
+  case property_id of
+    1: begin
+      if self^.cols <> g_value_get_uint(Value) then begin
+        self^.cols := g_value_get_uint(Value);
+        my_widget_set_coords(MY_WIDGET(obj), self^.cols, self^.rows);
+      end;
+    end;
+    2: begin
+      if self^.rows <> g_value_get_uint(Value) then begin
+        self^.rows := g_value_get_uint(Value);
+        my_widget_set_coords(MY_WIDGET(obj), self^.cols, self^.rows);
+      end;
+    end;
+    else begin
+      G_OBJECT_WARN_INVALID_PROPERTY_ID(obj, property_id, pspec);
+    end;
+  end;
+end;
+
+procedure get_property(obj: PGObject; property_id: Tguint; Value: PGValue; pspec: PGParamSpec); cdecl;
+var
+  self: PMyWidget absolute obj;
+begin
+  case property_id of
+    1: begin
+      g_value_set_uint(Value, self^.cols);
+    end;
+    2: begin
+      g_value_set_uint(Value, self^.rows);
+    end;
+    else begin
+      G_OBJECT_WARN_INVALID_PROPERTY_ID(obj, property_id, pspec);
+    end;
+  end;
+end;
+
+procedure constructed(obj: PGObject); cdecl;
+var
+  self: PMyWidget absolute obj;
+begin
+  G_OBJECT_CLASS(parent_class)^.constructed(obj);
+  my_widget_set_coords(MY_WIDGET(obj), self^.cols, self^.rows);
+end;
+
+procedure class_init(g_class: Tgpointer; class_data: Tgpointer); cdecl;
+var
+  object_class: PGObjectClass;
+  spec: PGParamSpec;
+begin
+  object_class := G_OBJECT_CLASS(g_class);
+  object_class^.set_property := @set_property;
+  object_class^.get_property := @get_property;
+
+  object_class^.constructed := @constructed;
+  parent_class := g_type_class_peek_parent(g_class);
+
+  spec := g_param_spec_uint('columns', 'Columns', 'Columns of the MyWidget', 1, G_MAXUINT, 3, G_PARAM_READWRITE or G_PARAM_CONSTRUCT);
+  g_object_class_install_property(object_class, 1, spec);
+  spec := g_param_spec_uint('rows', 'Rows', 'Rows of the MyWidget', 1, G_MAXUINT, 3, G_PARAM_READWRITE or G_PARAM_CONSTRUCT);
+  g_object_class_install_property(object_class, 2, spec);
+
+  signal_id := g_signal_new('clicked', G_TYPE_FROM_CLASS(g_class), G_SIGNAL_RUN_LAST or G_SIGNAL_DETAILED, 0, nil, nil, nil, G_TYPE_NONE, 1, G_TYPE_INT);
+end;
+
+procedure click_cp(widget: PGtkWidget; user_data: Tgpointer); cdecl;
+var
+  self: PMyWidget absolute user_data;
+  nr: PtrInt;
+  q: Pgchar;
+  detail: TGQuark;
+begin
+  nr := index_button_get_index(widget);
+  q := g_strdup_printf('%d', nr);
+  detail := g_quark_from_string(q);
+  g_signal_emit(self, signal_id, detail, nr);
+  g_free(q);
+end;
+
+
+// ==== public
+
+function my_widget_get_type: TGType;
+const
+  type_id: TGType = 0;
+var
+  id: TGType;
+begin
+  if g_once_init_enter(@type_id) then begin
+    id := g_type_register_static_simple(GTK_TYPE_BOX, 'MyWidget', SizeOf(TMyWidgetClass), @class_init, SizeOf(TMyWidget), @init, 0);
+    g_once_init_leave(@type_id, id);
+  end;
+  Result := type_id;
+end;
+
+function my_widget_new(c, r: Tguint): PGtkWidget;
+begin
+  Result := GTK_WIDGET(g_object_new(MY_TYPE_WIDGET, 'orientation', GTK_ORIENTATION_VERTICAL, 'columns', c, 'rows', r, nil));
+end;
+
+procedure my_widget_set_coords(self: PMyWidget; c, r: Tguint);
+var
+  grid, button, old_grid: PGtkWidget;
+  i: integer;
+  lab: Pgchar;
+  cnt: Tguint;
+begin
+  self^.cols := c;
+  self^.rows := r;
+
+  g_object_notify(G_OBJECT(self), 'columns');
+  g_object_notify(G_OBJECT(self), 'rows');
+
+  old_grid := gtk_widget_get_first_child(GTK_WIDGET(self));
+  if old_grid <> nil then begin
+    gtk_box_remove(GTK_BOX(self), old_grid);
+  end;
+
+  grid := gtk_grid_new;
+  gtk_grid_set_column_spacing(GTK_GRID(grid), 5);
+  gtk_grid_set_row_spacing(GTK_GRID(grid), 5);
+  gtk_box_append(GTK_BOX(self), grid);
+
+  cnt := c * r;
+
+  for i := 0 to cnt - 1 do begin
+    lab := g_strdup_printf('%d', i);
+    button := index_button_new(lab, i);
+    g_free(lab);
+
+    gtk_grid_attach(GTK_GRID(grid), button, i mod c, i div c, 1, 1);
+    g_signal_connect(button, 'clicked', G_CALLBACK(@click_cp), self);
+  end;
+end;
+
+// ====
+
+function MY_TYPE_WIDGET: TGType;
+begin
+  Result := my_widget_get_type;
+end;
+
+function MY_WIDGET(obj: Pointer): PMyWidget;
+begin
+  Result := PMyWidget(g_type_check_instance_cast(obj, MY_TYPE_WIDGET));
+end;
+
+function MY_WIDGET_CLASS(klass: Pointer): PMyWidgetClass;
+begin
+  Result := PMyWidgetClass(g_type_check_class_cast(klass, MY_TYPE_WIDGET));
+end;
+
+function MY_IS_WIDGET(obj: Pointer): Tgboolean;
+begin
+  Result := g_type_check_instance_is_a(obj, MY_TYPE_WIDGET);
+end;
+
+function MY_IS_WIDGET_CLASS(klass: Pointer): Tgboolean;
+begin
+  Result := g_type_check_class_is_a(klass, MY_TYPE_WIDGET);
+end;
+
+function MY_WIDGET_GET_CLASS(obj: Pointer): PMyWidgetClass;
+begin
+  Result := PMyWidgetClass(PGTypeInstance(obj)^.g_class);
+end;
+
+
+end.

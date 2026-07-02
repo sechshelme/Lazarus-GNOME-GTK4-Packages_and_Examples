@@ -69,7 +69,7 @@ extern //xxxxxGLIB_DEPRECATED_IN_4_10
 void              gtk_cell_view_set_fit_model           (GtkCellView     *cell_view,
                                                          gboolean         fit_model);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkCellView, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkCellView, g_object_unref)
 
 
 

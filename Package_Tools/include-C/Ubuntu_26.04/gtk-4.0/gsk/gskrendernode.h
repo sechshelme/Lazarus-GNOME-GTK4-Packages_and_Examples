@@ -144,6 +144,6 @@ GskRenderNode *         gsk_value_get_render_node               (const GValue   
 extern
 GskRenderNode *         gsk_value_dup_render_node               (const GValue             *value);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GskRenderNode, gsk_render_node_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GskRenderNode, gsk_render_node_unref)
 
 

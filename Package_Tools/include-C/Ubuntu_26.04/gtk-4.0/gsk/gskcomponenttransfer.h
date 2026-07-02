@@ -57,6 +57,6 @@ extern
 gboolean                gsk_component_transfer_equal            (gconstpointer self,
                                                                  gconstpointer other);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GskComponentTransfer, gsk_component_transfer_free)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GskComponentTransfer, gsk_component_transfer_free)
 
 

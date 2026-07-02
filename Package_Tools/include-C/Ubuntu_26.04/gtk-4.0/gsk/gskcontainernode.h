@@ -36,10 +36,10 @@ extern
 GskRenderNode *         gsk_container_node_new                  (GskRenderNode           **children,
                                                                  guint                     n_children);
 extern
-guint                   gsk_container_node_get_n_children       (const GskRenderNode      *node) G_GNUC_PURE;
+guint                   gsk_container_node_get_n_children       (const GskRenderNode      *node) ;
 extern
 GskRenderNode *         gsk_container_node_get_child            (const GskRenderNode      *node,
-                                                                 guint                     idx) G_GNUC_PURE;
+                                                                 guint                     idx) ;
 
 
 

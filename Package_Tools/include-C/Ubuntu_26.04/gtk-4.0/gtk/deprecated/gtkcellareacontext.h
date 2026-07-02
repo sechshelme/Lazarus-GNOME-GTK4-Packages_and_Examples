@@ -133,7 +133,7 @@ void         gtk_cell_area_context_push_preferred_height (GtkCellAreaContext *co
                                                           int                 minimum_height,
                                                           int                 natural_height);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkCellAreaContext, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkCellAreaContext, g_object_unref)
 
 
 

@@ -56,7 +56,7 @@ void             gtk_size_group_remove_widget (GtkSizeGroup     *size_group,
 extern
 GSList *         gtk_size_group_get_widgets   (GtkSizeGroup     *size_group);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkSizeGroup, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkSizeGroup, g_object_unref)
 
 
 

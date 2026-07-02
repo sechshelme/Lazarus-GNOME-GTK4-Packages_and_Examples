@@ -37,11 +37,11 @@ GskRenderNode *         gsk_border_node_new                     (const GskRounde
                                                                  const float               border_width[4],
                                                                  const GdkRGBA             border_color[4]);
 extern
-const GskRoundedRect *  gsk_border_node_get_outline             (const GskRenderNode      *node) G_GNUC_PURE;
+const GskRoundedRect *  gsk_border_node_get_outline             (const GskRenderNode      *node) ;
 extern
-const float *           gsk_border_node_get_widths              (const GskRenderNode      *node) G_GNUC_PURE;
+const float *           gsk_border_node_get_widths              (const GskRenderNode      *node) ;
 extern
-const GdkRGBA *         gsk_border_node_get_colors              (const GskRenderNode      *node) G_GNUC_PURE;
+const GdkRGBA *         gsk_border_node_get_colors              (const GskRenderNode      *node) ;
 
 
 

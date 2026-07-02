@@ -73,7 +73,7 @@ extern
 void         gtk_header_bar_set_use_native_controls (GtkHeaderBar *bar,
                                                      gboolean      setting);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkHeaderBar, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkHeaderBar, g_object_unref)
 
 
 

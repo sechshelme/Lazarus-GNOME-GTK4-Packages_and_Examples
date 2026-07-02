@@ -125,7 +125,7 @@ int        gtk_image_get_pixel_size (GtkImage             *image);
 extern
 GtkIconSize gtk_image_get_icon_size (GtkImage             *image);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkImage, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkImage, g_object_unref)
 
 
 

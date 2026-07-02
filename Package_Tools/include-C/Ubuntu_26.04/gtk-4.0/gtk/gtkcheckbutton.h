@@ -100,7 +100,7 @@ extern
 void            gtk_check_button_set_child          (GtkCheckButton *button,
                                                      GtkWidget *child);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkCheckButton, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkCheckButton, g_object_unref)
 
 
 

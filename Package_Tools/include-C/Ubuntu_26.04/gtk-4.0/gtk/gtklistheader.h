@@ -34,11 +34,11 @@ GDK_DECLARE_INTERNAL_TYPE (GtkListHeader, gtk_list_header, GTK, LIST_HEADER, GOb
 extern
 gpointer        gtk_list_header_get_item                        (GtkListHeader          *self);
 extern
-guint           gtk_list_header_get_start                       (GtkListHeader          *self) G_GNUC_PURE;
+guint           gtk_list_header_get_start                       (GtkListHeader          *self) ;
 extern
-guint           gtk_list_header_get_end                         (GtkListHeader          *self) G_GNUC_PURE;
+guint           gtk_list_header_get_end                         (GtkListHeader          *self) ;
 extern
-guint           gtk_list_header_get_n_items                     (GtkListHeader          *self) G_GNUC_PURE;
+guint           gtk_list_header_get_n_items                     (GtkListHeader          *self) ;
 
 extern
 void            gtk_list_header_set_child                       (GtkListHeader          *self,

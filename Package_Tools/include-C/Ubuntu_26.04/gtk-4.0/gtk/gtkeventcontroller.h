@@ -80,7 +80,7 @@ GdkDevice *         gtk_event_controller_get_current_event_device (GtkEventContr
 extern
 GdkModifierType     gtk_event_controller_get_current_event_state (GtkEventController *controller);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkEventController, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkEventController, g_object_unref)
 
 
 

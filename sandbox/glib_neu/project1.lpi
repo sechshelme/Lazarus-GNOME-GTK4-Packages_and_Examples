@@ -25,6 +25,18 @@
     </RunParams>
     <RequiredPackages>
       <Item>
+        <PackageName Value="fp_gdk_pixbuf2_package"/>
+      </Item>
+      <Item>
+        <PackageName Value="fp_cairo_package"/>
+      </Item>
+      <Item>
+        <PackageName Value="fp_pango_package"/>
+      </Item>
+      <Item>
+        <PackageName Value="fp_graphene_package"/>
+      </Item>
+      <Item>
         <PackageName Value="fp_glib2_neu_package"/>
       </Item>
     </RequiredPackages>
@@ -41,6 +53,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
+      <OtherUnitFiles Value="/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/Ubuntu_26.04/gtk-4.0/gdk/in_arbeit/pas/"/>
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Linking>

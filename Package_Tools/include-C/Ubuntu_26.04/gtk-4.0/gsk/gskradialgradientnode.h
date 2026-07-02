@@ -47,20 +47,20 @@ GskRenderNode *         gsk_radial_gradient_node_new      (const graphene_rect_t
                                                            const GskColorStop       *color_stops,
                                                            gsize                     n_color_stops);
 extern
-gsize                   gsk_radial_gradient_node_get_n_color_stops (const GskRenderNode *node) G_GNUC_PURE;
+gsize                   gsk_radial_gradient_node_get_n_color_stops (const GskRenderNode *node) ;
 extern
 const GskColorStop *    gsk_radial_gradient_node_get_color_stops   (const GskRenderNode *node,
                                                                     gsize               *n_stops);
 extern
-const graphene_point_t *gsk_radial_gradient_node_get_center        (const GskRenderNode *node) G_GNUC_PURE;
+const graphene_point_t *gsk_radial_gradient_node_get_center        (const GskRenderNode *node) ;
 extern
-float                   gsk_radial_gradient_node_get_hradius       (const GskRenderNode *node) G_GNUC_PURE;
+float                   gsk_radial_gradient_node_get_hradius       (const GskRenderNode *node) ;
 extern
-float                   gsk_radial_gradient_node_get_vradius       (const GskRenderNode *node) G_GNUC_PURE;
+float                   gsk_radial_gradient_node_get_vradius       (const GskRenderNode *node) ;
 extern
-float                   gsk_radial_gradient_node_get_start         (const GskRenderNode *node) G_GNUC_PURE;
+float                   gsk_radial_gradient_node_get_start         (const GskRenderNode *node) ;
 extern
-float                   gsk_radial_gradient_node_get_end           (const GskRenderNode *node) G_GNUC_PURE;
+float                   gsk_radial_gradient_node_get_end           (const GskRenderNode *node) ;
 
 extern
 GType                   gsk_repeating_radial_gradient_node_get_type (void) ;

@@ -36,7 +36,7 @@ extern
 GskRenderNode *         gsk_color_node_new                      (const GdkRGBA            *rgba,
                                                                  const graphene_rect_t    *bounds);
 extern
-const GdkRGBA *         gsk_color_node_get_color                (const GskRenderNode      *node) G_GNUC_PURE;
+const GdkRGBA *         gsk_color_node_get_color                (const GskRenderNode      *node) ;
 
 
 

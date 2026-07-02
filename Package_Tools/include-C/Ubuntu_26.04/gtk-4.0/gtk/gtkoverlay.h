@@ -66,7 +66,7 @@ void       gtk_overlay_set_clip_overlay    (GtkOverlay *overlay,
                                             GtkWidget  *widget,
                                             gboolean    clip_overlay);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkOverlay, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkOverlay, g_object_unref)
 
 
 

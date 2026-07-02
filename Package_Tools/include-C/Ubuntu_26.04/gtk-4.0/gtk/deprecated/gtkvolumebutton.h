@@ -51,7 +51,7 @@ GType		gtk_volume_button_get_type	(void) ;
 extern //xxxxxGLIB_DEPRECATED_IN_4_10
 GtkWidget*	gtk_volume_button_new		(void);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkVolumeButton, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkVolumeButton, g_object_unref)
 
 
 

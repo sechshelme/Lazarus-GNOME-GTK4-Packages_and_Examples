@@ -309,7 +309,7 @@ GtkStateFlags   gtk_cell_renderer_get_state       (GtkCellRenderer      *cell,
                                                    GtkWidget            *widget,
                                                    GtkCellRendererState  cell_state);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkCellRenderer, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkCellRenderer, g_object_unref)
 
 
 

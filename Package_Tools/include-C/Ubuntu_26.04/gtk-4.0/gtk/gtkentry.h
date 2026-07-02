@@ -298,7 +298,7 @@ extern
 void           gtk_entry_set_menu_entry_icon_text            (GtkEntry             *entry,
                                                               GtkEntryIconPosition  icon_pos,
                                                               const gchar          *text);
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkEntry, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkEntry, g_object_unref)
 
 
 

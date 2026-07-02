@@ -40,11 +40,11 @@ GskRenderNode *         gsk_component_transfer_node_new         (GskRenderNode  
                                                                  const GskComponentTransfer *b,
                                                                  const GskComponentTransfer *a);
 extern
-GskRenderNode *         gsk_component_transfer_node_get_child   (const GskRenderNode      *node) G_GNUC_PURE;
+GskRenderNode *         gsk_component_transfer_node_get_child   (const GskRenderNode      *node) ;
 extern
 const GskComponentTransfer *
                         gsk_component_transfer_node_get_transfer (const GskRenderNode     *node,
-                                                                  GdkColorChannel          component) G_GNUC_PURE;
+                                                                  GdkColorChannel          component) ;
 
 
 

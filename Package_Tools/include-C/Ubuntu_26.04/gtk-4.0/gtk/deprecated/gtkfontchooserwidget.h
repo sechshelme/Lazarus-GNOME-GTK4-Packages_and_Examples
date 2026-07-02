@@ -37,7 +37,7 @@ GType        gtk_font_chooser_widget_get_type                 (void) ;
 extern //xxxxxGLIB_DEPRECATED_IN_4_10
 GtkWidget*   gtk_font_chooser_widget_new                      (void);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkFontChooserWidget, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkFontChooserWidget, g_object_unref)
 
 
 

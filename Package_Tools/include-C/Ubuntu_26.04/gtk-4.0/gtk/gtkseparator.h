@@ -45,7 +45,7 @@ GType       gtk_separator_get_type (void) ;
 extern
 GtkWidget * gtk_separator_new      (GtkOrientation orientation);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkSeparator, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkSeparator, g_object_unref)
 
 
 

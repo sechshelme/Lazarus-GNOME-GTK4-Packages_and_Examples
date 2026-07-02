@@ -51,7 +51,7 @@ void       gtk_spinner_set_spinning (GtkSpinner *spinner,
 extern
 gboolean   gtk_spinner_get_spinning (GtkSpinner *spinner);
 
-////G_DEFINE_AUTOPTR_CLEANUP_FUNC  (GtkSpinner, g_object_unref)
+//////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkSpinner, g_object_unref)
 
 
 

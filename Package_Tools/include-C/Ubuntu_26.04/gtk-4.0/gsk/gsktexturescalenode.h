@@ -38,9 +38,9 @@ GskRenderNode *         gsk_texture_scale_node_new              (GdkTexture     
                                                                  const graphene_rect_t    *bounds,
                                                                  GskScalingFilter          filter);
 extern
-GdkTexture *            gsk_texture_scale_node_get_texture      (const GskRenderNode      *node) G_GNUC_PURE;
+GdkTexture *            gsk_texture_scale_node_get_texture      (const GskRenderNode      *node) ;
 extern
-GskScalingFilter        gsk_texture_scale_node_get_filter       (const GskRenderNode      *node) G_GNUC_PURE;
+GskScalingFilter        gsk_texture_scale_node_get_filter       (const GskRenderNode      *node) ;
 
 
 
