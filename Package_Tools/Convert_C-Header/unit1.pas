@@ -42,7 +42,7 @@ end;
 
 const
   availables: array of string = (
-  'GIO_AVAILABLE_IN_2_');
+  'GDK_AVAILABLE_IN_4_');
   //'CHAFA_AVAILABLE_IN_1',
   //'GDK_PIXBUF_AVAILABLE_IN_2',
   //'GDK_AVAILABLE_IN_4',
@@ -57,7 +57,7 @@ var
 begin
   Result := s;
   for i := 0 to Length(availables) - 1 do begin
-    j := 88;
+    j := 22;
     repeat
       WriteStr(ss, availables[i], j);
 
@@ -74,7 +74,7 @@ var
   s: string;
 begin
   Memo1.Clear;
-  slFile := FindAllFiles('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/Ubuntu_26.04/glib-2.0', '*.h', True);
+  slFile := FindAllFiles('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/Ubuntu_26.04/gtk-4.0', '*.h', True);
   Memo1.Lines := slFile;
 
   for i := 0 to slFile.Count - 1 do begin
@@ -111,15 +111,16 @@ begin
       slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_CONST', '', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_NULL_TERMINATED', '', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_WARN_UNUSED_RESULT', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'GIO_DEPRECATED_FOR', 'extern //xxxxxGLIB_DEPRECATED_FOR', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'GIO_DEPRECATED_IN', 'extern //xxxxxGLIB_DEPRECATED_IN', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'GDK_DEPRECATED_FOR', 'extern //xxxxxGLIB_DEPRECATED_FOR', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'GDK_DEPRECATED_IN', 'extern //xxxxxGLIB_DEPRECATED_IN', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'G_DEFINE_AUTOPTR_CLEANUP_FUNC', '//G_DEFINE_AUTOPTR_CLEANUP_FUNC ', [rfReplaceAll]);
 
       slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_BEGIN_IGNORE_DEPRECATIONS', '', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_END_IGNORE_DEPRECATIONS', '', [rfReplaceAll]);
 
 
-      slHeader[j] := StringReplace(slHeader[j], 'GIO_VAR', 'extern', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'GIO_AVAILABLE_IN_ALL', 'extern', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'GDK_VAR', 'extern', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'GDK_AVAILABLE_IN_ALL', 'extern', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_PRINTF', ';//', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_FORMAT', ';//', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_ALLOC_SIZE', ';//', [rfReplaceAll]);
