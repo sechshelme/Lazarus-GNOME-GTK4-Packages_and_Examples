@@ -1,4 +1,4 @@
-Copyright (c) 2025 sechsehelme  
+Copyright (c) 2025, 2026 sechsehelme  
 Pascal binding for glib2  
 Released under the MIT License
 
