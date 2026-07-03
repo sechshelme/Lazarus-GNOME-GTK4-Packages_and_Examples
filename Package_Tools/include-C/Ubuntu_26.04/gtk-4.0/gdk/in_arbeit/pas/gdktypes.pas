@@ -18,11 +18,12 @@ type
   TGdkRectangle = Tcairo_rectangle_int_t;
 
 type
-  PGdkRGBA = type Pointer;
+//  PGdkRGBA = type Pointer;
   PGdkCicpParams = type Pointer;
   PGdkColorState = type Pointer;
   PGdkContentFormats = type Pointer;
   PGdkContentProvider = type Pointer;
+  PPGdkContentProvider=^PGdkContentProvider;
   PGdkCursor = type Pointer;
   PGdkTexture = type Pointer;
   PGdkTextureDownloader = type Pointer;
@@ -34,7 +35,7 @@ type
   PGdkDisplay = type Pointer;
   PGdkSurface = type Pointer;
   PGdkAppLaunchContext = type Pointer;
-  PGdkSeat = type Pointer;
+//  PGdkSeat = type Pointer;
   PGdkSnapshot = type Pointer;
   PGdkDrawContext = type Pointer;
   PGdkCairoContext = type Pointer;
@@ -43,6 +44,7 @@ type
   PGdkDmabufFormats = type Pointer;
   PGdkDmabufTexture = type Pointer;
 
+  PPGdkKeymapKey = ^PGdkKeymapKey;
   PGdkKeymapKey = ^TGdkKeymapKey;
   TGdkKeymapKey = record
     keycode: Tguint;

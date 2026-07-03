@@ -5,37 +5,17 @@ interface
 uses
   fp_glib2, fp_gtk4;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
-{
- * Copyright © 2020 Red Hat, Inc.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library. If not, see <http://www.gnu.org/licenses/>.
- *
- * Authors: Matthias Clasen <mclasen@redhat.com>
-  }
-(** unsupported pragma#pragma once*)
-{$if !defined(__GDK_H_INSIDE__) && !defined(GTK_COMPILATION)}
-{$error "Only <gdk/gdk.h> can be included directly."}
-{$endif}
-{$include <gdk/gdksurface.h>}
+type
+  PGdkDragSurface = type Pointer;
+  PGdkDragSurfaceInterface = type Pointer;
 
-{G_DECLARE_INTERFACE (GdkDragSurface, gdk_drag_surface, GDK, DRAG_SURFACE, GObject) }
-function gdk_drag_surface_present(drag_surface:PGdkDragSurface; width:longint; height:longint):Tgboolean;cdecl;external libgtk4;
+function gdk_drag_surface_get_type: TGType; cdecl; external libgtk4;
+function gdk_drag_surface_present(drag_surface: PGdkDragSurface; width: longint; height: longint): Tgboolean; cdecl; external libgtk4;
 
 // === Konventiert am: 2-7-26 19:17:30 ===
 
@@ -65,18 +45,5 @@ function GDK_DRAG_SURFACE_GET_IFACE(obj: Pointer): PGdkDragSurfaceInterface;
 begin
   Result := g_type_interface_peek(obj, GDK_TYPE_DRAG_SURFACE);
 end;
-
-type 
-  TGdkDragSurface = record
-  end;
-  PGdkDragSurface = ^TGdkDragSurface;
-
-  TGdkDragSurfaceInterface = record
-  end;
-  PGdkDragSurfaceInterface = ^TGdkDragSurfaceInterface;
-
-function gdk_drag_surface_get_type: TGType; cdecl; external libgxxxxxxx;
-
-
 
 end.

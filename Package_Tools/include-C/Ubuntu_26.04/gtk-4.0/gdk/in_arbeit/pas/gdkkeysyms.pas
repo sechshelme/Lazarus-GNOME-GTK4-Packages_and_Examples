@@ -1,5 +1,8 @@
 unit gdkkeysyms;
 
+{$mode macpas}
+
+
 interface
 
 uses
@@ -9,34 +12,6 @@ uses
 {$PACKRECORDS C}
 {$ENDIF}
 
-
-{ GDK - The GIMP Drawing Kit
- * Copyright (C) 1995-1997 Peter Mattis, Spencer Kimball and Josh MacDonald
- * Copyright (C) 2005, 2006, 2007, 2009 GNOME Foundation
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library. If not, see <http://www.gnu.org/licenses/>.
-  }
-{
- * File auto-generated from script at:
- * https://gitlab.gnome.org/GNOME/gtk/-/raw/main/gdk/gdk-keysyms-update.py?ref_type=heads&inline=false
- *
- * using the input files:
- *  https://gitlab.freedesktop.org/xorg/proto/xorgproto/-/raw/master/include/X11/keysymdef.h
- * and
- *  https://gitlab.freedesktop.org/xorg/proto/xorgproto/-/raw/master/include/X11/XF86keysym.h
-  }
-(** unsupported pragma#pragma once*)
 
 const
   GDK_KEY_VoidSymbol = $ffffff;  

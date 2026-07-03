@@ -3,7 +3,7 @@ unit gdkcairo;
 interface
 
 uses
-  fp_glib2, fp_cairo, gdk2pixbuf, fp_gtk4, gdktypes;
+  fp_glib2, fp_cairo, gdk2pixbuf, fp_gtk4, gdktypes, gdkrgba;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
