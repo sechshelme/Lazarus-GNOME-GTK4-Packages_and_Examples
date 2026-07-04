@@ -2,8 +2,7 @@
 {$IFDEF read_interface}
 
 type
-  PGdkWaylandPopup = ^TGdkWaylandPopup;
-  TGdkWaylandPopup = TGdkPopup;
+  PGdkWaylandPopup = PGdkPopup;
 
 function gdk_wayland_popup_get_type: TGType; cdecl; external libgtk4;
 

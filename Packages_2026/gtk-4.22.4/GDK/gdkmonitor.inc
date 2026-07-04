@@ -1,10 +1,11 @@
-
 {$IFDEF read_interface}
+
+type
+  PGdkMonitor = type Pointer;
 
 type
   PGdkSubpixelLayout = ^TGdkSubpixelLayout;
   TGdkSubpixelLayout = longint;
-
 const
   GDK_SUBPIXEL_LAYOUT_UNKNOWN = 0;
   GDK_SUBPIXEL_LAYOUT_NONE = 1;
@@ -13,27 +14,22 @@ const
   GDK_SUBPIXEL_LAYOUT_VERTICAL_RGB = 4;
   GDK_SUBPIXEL_LAYOUT_VERTICAL_BGR = 5;
 
-type
-  TGdkMonitor = record
-  end;
-  PGdkMonitor = ^TGdkMonitor;
-
 function gdk_monitor_get_type: TGType; cdecl; external libgtk4;
 function gdk_monitor_get_display(monitor: PGdkMonitor): PGdkDisplay; cdecl; external libgtk4;
 procedure gdk_monitor_get_geometry(monitor: PGdkMonitor; geometry: PGdkRectangle); cdecl; external libgtk4;
 function gdk_monitor_get_width_mm(monitor: PGdkMonitor): longint; cdecl; external libgtk4;
 function gdk_monitor_get_height_mm(monitor: PGdkMonitor): longint; cdecl; external libgtk4;
-function gdk_monitor_get_manufacturer(monitor: PGdkMonitor): PChar; cdecl; external libgtk4;
-function gdk_monitor_get_model(monitor: PGdkMonitor): PChar; cdecl; external libgtk4;
-function gdk_monitor_get_connector(monitor: PGdkMonitor): PChar; cdecl; external libgtk4;
+function gdk_monitor_get_manufacturer(monitor: PGdkMonitor): pchar; cdecl; external libgtk4;
+function gdk_monitor_get_model(monitor: PGdkMonitor): pchar; cdecl; external libgtk4;
+function gdk_monitor_get_connector(monitor: PGdkMonitor): pchar; cdecl; external libgtk4;
 function gdk_monitor_get_scale_factor(monitor: PGdkMonitor): longint; cdecl; external libgtk4;
 function gdk_monitor_get_scale(monitor: PGdkMonitor): double; cdecl; external libgtk4;
 function gdk_monitor_get_refresh_rate(monitor: PGdkMonitor): longint; cdecl; external libgtk4;
 function gdk_monitor_get_subpixel_layout(monitor: PGdkMonitor): TGdkSubpixelLayout; cdecl; external libgtk4;
 function gdk_monitor_is_valid(monitor: PGdkMonitor): Tgboolean; cdecl; external libgtk4;
-function gdk_monitor_get_description(monitor: PGdkMonitor): PChar; cdecl; external libgtk4;
+function gdk_monitor_get_description(monitor: PGdkMonitor): pchar; cdecl; external libgtk4;
 
-// === Konventiert am: 2-8-24 14:38:31 ===
+// === Konventiert am: 2-7-26 19:23:48 ===
 
 function GDK_TYPE_MONITOR: TGType;
 function GDK_MONITOR(obj: Pointer): PGdkMonitor;

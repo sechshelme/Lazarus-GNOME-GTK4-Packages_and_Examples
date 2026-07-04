@@ -3,7 +3,7 @@ unit gdkclipboard;
 interface
 
 uses
-  fp_glib2, fp_gtk4, gdktypes;
+  fp_glib2, fp_gtk4, gdktypes, gdkcontentprovider;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

@@ -1,20 +1,35 @@
-
 {$IFDEF read_interface}
 
 
 const
   GDK_PRIORITY_EVENTS = G_PRIORITY_DEFAULT;
   GDK_PRIORITY_REDRAW = G_PRIORITY_HIGH_IDLE + 20;
-  GDK_EVENT_PROPAGATE = 0;
-  GDK_EVENT_STOP = not (0);
+  GDK_EVENT_PROPAGATE = False;
+  GDK_EVENT_STOP = True;
   GDK_BUTTON_PRIMARY = 1;
   GDK_BUTTON_MIDDLE = 2;
   GDK_BUTTON_SECONDARY = 3;
 
 type
+  PGdkEventSequence = type Pointer;
+  PGdkEvent = type Pointer;
+  PGdkButtonEvent = type Pointer;
+  PGdkCrossingEvent = type Pointer;
+  PGdkDeleteEvent = type Pointer;
+  PGdkDNDEvent = type Pointer;
+  PGdkFocusEvent = type Pointer;
+  PGdkGrabBrokenEvent = type Pointer;
+  PGdkKeyEvent = type Pointer;
+  PGdkMotionEvent = type Pointer;
+  PGdkPadEvent = type Pointer;
+  PGdkProximityEvent = type Pointer;
+  PGdkScrollEvent = type Pointer;
+  PGdkTouchEvent = type Pointer;
+  PGdkTouchpadEvent = type Pointer;
+
+type
   PGdkEventType = ^TGdkEventType;
   TGdkEventType = longint;
-
 const
   GDK_DELETE = 0;
   GDK_MOTION_NOTIFY = 1;
@@ -45,12 +60,12 @@ const
   GDK_PAD_STRIP = 26;
   GDK_PAD_GROUP_MODE = 27;
   GDK_TOUCHPAD_HOLD = 28;
-  GDK_EVENT_LAST = 29;
+  GDK_PAD_DIAL = 29;
+  GDK_EVENT_LAST = 30;
 
 type
   PGdkTouchpadGesturePhase = ^TGdkTouchpadGesturePhase;
   TGdkTouchpadGesturePhase = longint;
-
 const
   GDK_TOUCHPAD_GESTURE_PHASE_BEGIN = 0;
   GDK_TOUCHPAD_GESTURE_PHASE_UPDATE = 1;
@@ -60,7 +75,6 @@ const
 type
   PGdkScrollDirection = ^TGdkScrollDirection;
   TGdkScrollDirection = longint;
-
 const
   GDK_SCROLL_UP = 0;
   GDK_SCROLL_DOWN = 1;
@@ -71,7 +85,6 @@ const
 type
   PGdkScrollUnit = ^TGdkScrollUnit;
   TGdkScrollUnit = longint;
-
 const
   GDK_SCROLL_UNIT_WHEEL = 0;
   GDK_SCROLL_UNIT_SURFACE = 1;
@@ -79,7 +92,6 @@ const
 type
   PGdkNotifyType = ^TGdkNotifyType;
   TGdkNotifyType = longint;
-
 const
   GDK_NOTIFY_ANCESTOR = 0;
   GDK_NOTIFY_VIRTUAL = 1;
@@ -91,7 +103,6 @@ const
 type
   PGdkCrossingMode = ^TGdkCrossingMode;
   TGdkCrossingMode = longint;
-
 const
   GDK_CROSSING_NORMAL = 0;
   GDK_CROSSING_GRAB = 1;
@@ -102,11 +113,6 @@ const
   GDK_CROSSING_TOUCH_BEGIN = 6;
   GDK_CROSSING_TOUCH_END = 7;
   GDK_CROSSING_DEVICE_SWITCH = 8;
-
-type
-  TGdkEventSequence = record
-  end;
-  PGdkEventSequence = ^TGdkEventSequence;
 
 function gdk_event_get_type: TGType; cdecl; external libgtk4;
 function gdk_event_sequence_get_type: TGType; cdecl; external libgtk4;
@@ -123,7 +129,7 @@ function gdk_event_get_event_sequence(event: PGdkEvent): PGdkEventSequence; cdec
 function gdk_event_get_modifier_state(event: PGdkEvent): TGdkModifierType; cdecl; external libgtk4;
 function gdk_event_get_position(event: PGdkEvent; x: Pdouble; y: Pdouble): Tgboolean; cdecl; external libgtk4;
 function gdk_event_get_axes(event: PGdkEvent; axes: PPdouble; n_axes: Pguint): Tgboolean; cdecl; external libgtk4;
-function gdk_event_get_axis(event: PGdkEvent; axis_use: TGdkAxisUse; Value: Pdouble): Tgboolean; cdecl; external libgtk4;
+function gdk_event_get_axis(event: PGdkEvent; axis_use: TGdkAxisUse; value: Pdouble): Tgboolean; cdecl; external libgtk4;
 function gdk_event_get_history(event: PGdkEvent; out_n_coords: Pguint): PGdkTimeCoord; cdecl; external libgtk4;
 function gdk_event_get_pointer_emulated(event: PGdkEvent): Tgboolean; cdecl; external libgtk4;
 function gdk_button_event_get_type: TGType; cdecl; external libgtk4;
@@ -133,6 +139,7 @@ function gdk_scroll_event_get_direction(event: PGdkEvent): TGdkScrollDirection; 
 procedure gdk_scroll_event_get_deltas(event: PGdkEvent; delta_x: Pdouble; delta_y: Pdouble); cdecl; external libgtk4;
 function gdk_scroll_event_get_unit(event: PGdkEvent): TGdkScrollUnit; cdecl; external libgtk4;
 function gdk_scroll_event_is_stop(event: PGdkEvent): Tgboolean; cdecl; external libgtk4;
+function gdk_scroll_event_get_relative_direction(event: PGdkEvent): TGdkScrollRelativeDirection; cdecl; external libgtk4;
 function gdk_key_event_get_type: TGType; cdecl; external libgtk4;
 function gdk_key_event_get_keyval(event: PGdkEvent): Tguint; cdecl; external libgtk4;
 function gdk_key_event_get_keycode(event: PGdkEvent): Tguint; cdecl; external libgtk4;
@@ -156,7 +163,7 @@ function gdk_touchpad_event_get_pinch_angle_delta(event: PGdkEvent): double; cde
 function gdk_touchpad_event_get_pinch_scale(event: PGdkEvent): double; cdecl; external libgtk4;
 function gdk_pad_event_get_type: TGType; cdecl; external libgtk4;
 function gdk_pad_event_get_button(event: PGdkEvent): Tguint; cdecl; external libgtk4;
-procedure gdk_pad_event_get_axis_value(event: PGdkEvent; index: Pguint; Value: Pdouble); cdecl; external libgtk4;
+procedure gdk_pad_event_get_axis_value(event: PGdkEvent; index: Pguint; value: Pdouble); cdecl; external libgtk4;
 procedure gdk_pad_event_get_group_mode(event: PGdkEvent; group: Pguint; mode: Pguint); cdecl; external libgtk4;
 function gdk_dnd_event_get_type: TGType; cdecl; external libgtk4;
 function gdk_dnd_event_get_drop(event: PGdkEvent): PGdkDrop; cdecl; external libgtk4;
@@ -174,12 +181,10 @@ function gdk_events_get_center(event1: PGdkEvent; event2: PGdkEvent; x: Pdouble;
 type
   PGdkKeyMatch = ^TGdkKeyMatch;
   TGdkKeyMatch = longint;
-
 const
   GDK_KEY_MATCH_NONE = 0;
   GDK_KEY_MATCH_PARTIAL = 1;
   GDK_KEY_MATCH_EXACT = 2;
-
 
 function gdk_key_event_matches(event: PGdkEvent; keyval: Tguint; modifiers: TGdkModifierType): TGdkKeyMatch; cdecl; external libgtk4;
 function gdk_key_event_get_match(event: PGdkEvent; keyval: Pguint; modifiers: PGdkModifierType): Tgboolean; cdecl; external libgtk4;
@@ -201,12 +206,12 @@ function GDK_TYPE_SCROLL_EVENT: TGType;
 function GDK_TYPE_TOUCH_EVENT: TGType;
 function GDK_TYPE_TOUCHPAD_EVENT: TGType;
 
-
-// === Konventiert am: 30-7-24 17:39:47 ===
-
 function GDK_TYPE_EVENT: TGType;
 function GDK_EVENT(obj: Pointer): PGdkEvent;
 function GDK_IS_EVENT(obj: Pointer): Tgboolean;
+
+// === Konventiert am: 2-7-26 19:18:31 ===
+
 
 {$ENDIF read_interface}
 
@@ -305,6 +310,5 @@ function GDK_TYPE_TOUCHPAD_EVENT: TGType;
 begin
   GDK_TYPE_TOUCHPAD_EVENT := gdk_touchpad_event_get_type;
 end;
-
 
 {$ENDIF read_implementation}

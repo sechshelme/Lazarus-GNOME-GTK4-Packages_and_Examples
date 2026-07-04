@@ -1,17 +1,13 @@
-
 {$IFDEF read_interface}
 
-type
-  TGdkVulkanContext = record
-  end;
-  PGdkVulkanContext = ^TGdkVulkanContext;
 
 function gdk_vulkan_error_quark: TGQuark; cdecl; external libgtk4;
 function gdk_vulkan_context_get_type: TGType; cdecl; external libgtk4;
 
+// === Konventiert am: 2-7-26 19:29:09 ===
+
 function GDK_VULKAN_ERROR: TGQuark;
 
-// === Konventiert am: 2-8-24 17:23:59 ===
 
 function GDK_TYPE_VULKAN_CONTEXT: TGType;
 function GDK_VULKAN_CONTEXT(obj: Pointer): PGdkVulkanContext;
@@ -37,7 +33,6 @@ begin
   Result := g_type_check_instance_is_a(obj, GDK_TYPE_VULKAN_CONTEXT);
 end;
 
-// =====
 
 function GDK_VULKAN_ERROR: TGQuark;
 begin

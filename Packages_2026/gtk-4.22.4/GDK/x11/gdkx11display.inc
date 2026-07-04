@@ -2,36 +2,32 @@
 {$IFDEF read_interface}
 
 type
-  PGdkX11Display = ^TGdkX11Display;
-  TGdkX11Display = TGdkDisplay;
+  PGdkX11Display = PGdkDisplay;
+  PGdkX11DisplayClass = type Pointer;
 
-  TGdkX11DisplayClass = record
-  end;
-  PGdkX11DisplayClass = ^TGdkX11DisplayClass;
-
-function gdk_x11_display_get_type: TGType; cdecl; external libgtk4;
-function gdk_x11_display_open(display_name: PChar): PGdkDisplay; cdecl; external libgtk4;
-function gdk_x11_display_get_xdisplay(display: PGdkDisplay): PDisplay; cdecl; external libgtk4;
-function gdk_x11_display_get_xscreen(display: PGdkDisplay): PScreen; cdecl; external libgtk4;
-function gdk_x11_display_get_xrootwindow(display: PGdkDisplay): TWindow; cdecl; external libgtk4;
-function gdk_x11_display_get_xcursor(display: PGdkDisplay; cursor: PGdkCursor): TCursor; cdecl; external libgtk4;
-function gdk_x11_display_get_user_time(display: PGdkDisplay): Tguint32; cdecl; external libgtk4;
-function gdk_x11_display_get_startup_notification_id(display: PGdkDisplay): PChar; cdecl; external libgtk4; deprecated 'GDK_DEPRECATED_IN_4_10';
-procedure gdk_x11_display_set_startup_notification_id(display: PGdkDisplay; startup_id: PChar); cdecl; external libgtk4; deprecated 'GDK_DEPRECATED_IN_4_10';
-procedure gdk_x11_display_set_program_class(display: PGdkDisplay; program_class: PChar); cdecl; external libgtk4;
-procedure gdk_x11_display_set_cursor_theme(display: PGdkDisplay; theme: PChar; size: longint); cdecl; external libgtk4;
-procedure gdk_x11_display_broadcast_startup_message(display: PGdkDisplay; message_type: PChar); varargs cdecl; external libgtk4;
-function gdk_x11_lookup_xdisplay(xdisplay: PDisplay): PGdkDisplay; cdecl; external libgtk4;
-function gdk_x11_display_get_screen(display: PGdkDisplay): PGdkX11Screen; cdecl; external libgtk4;
-function gdk_x11_display_get_primary_monitor(display: PGdkDisplay): PGdkMonitor; cdecl; external libgtk4;
-procedure gdk_x11_display_grab(display: PGdkDisplay); cdecl; external libgtk4;
-procedure gdk_x11_display_ungrab(display: PGdkDisplay); cdecl; external libgtk4;
-procedure gdk_x11_display_set_surface_scale(display: PGdkDisplay; scale: longint); cdecl; external libgtk4;
-procedure gdk_x11_display_error_trap_push(display: PGdkDisplay); cdecl; external libgtk4;
-function gdk_x11_display_error_trap_pop(display: PGdkDisplay): longint; cdecl; external libgtk4;
-procedure gdk_x11_display_error_trap_pop_ignored(display: PGdkDisplay); cdecl; external libgtk4;
-procedure gdk_x11_set_sm_client_id(sm_client_id: PChar); cdecl; external libgtk4;
-function gdk_x11_display_get_default_group(display: PGdkDisplay): PGdkSurface; cdecl; external libgtk4;
+function gdk_x11_display_get_type: TGType; cdecl; external libgtk4; deprecated;
+function gdk_x11_display_open(display_name: PChar): PGdkDisplay; cdecl; external libgtk4; deprecated;
+function gdk_x11_display_get_xdisplay(display: PGdkDisplay): PDisplay; cdecl; external libgtk4; deprecated;
+function gdk_x11_display_get_xscreen(display: PGdkDisplay): PScreen; cdecl; external libgtk4; deprecated;
+function gdk_x11_display_get_xrootwindow(display: PGdkDisplay): TWindow; cdecl; external libgtk4; deprecated;
+function gdk_x11_display_get_xcursor(display: PGdkDisplay; cursor: PGdkCursor): TCursor; cdecl; external libgtk4; deprecated;
+function gdk_x11_display_get_user_time(display: PGdkDisplay): Tguint32; cdecl; external libgtk4; deprecated;
+function gdk_x11_display_get_startup_notification_id(display: PGdkDisplay): PChar; cdecl; external libgtk4; deprecated;
+procedure gdk_x11_display_set_startup_notification_id(display: PGdkDisplay; startup_id: PChar); cdecl; external libgtk4; deprecated;
+procedure gdk_x11_display_set_program_class(display: PGdkDisplay; program_class: PChar); cdecl; external libgtk4; deprecated;
+procedure gdk_x11_display_set_cursor_theme(display: PGdkDisplay; theme: PChar; size: longint); cdecl; external libgtk4; deprecated;
+procedure gdk_x11_display_broadcast_startup_message(display: PGdkDisplay; message_type: PChar); varargs cdecl; external libgtk4; deprecated;
+function gdk_x11_lookup_xdisplay(xdisplay: PDisplay): PGdkDisplay; cdecl; external libgtk4; deprecated;
+function gdk_x11_display_get_screen(display: PGdkDisplay): PGdkX11Screen; cdecl; external libgtk4; deprecated;
+function gdk_x11_display_get_primary_monitor(display: PGdkDisplay): PGdkMonitor; cdecl; external libgtk4; deprecated;
+procedure gdk_x11_display_grab(display: PGdkDisplay); cdecl; external libgtk4; deprecated;
+procedure gdk_x11_display_ungrab(display: PGdkDisplay); cdecl; external libgtk4; deprecated;
+procedure gdk_x11_display_set_surface_scale(display: PGdkDisplay; scale: longint); cdecl; external libgtk4; deprecated;
+procedure gdk_x11_display_error_trap_push(display: PGdkDisplay); cdecl; external libgtk4; deprecated;
+function gdk_x11_display_error_trap_pop(display: PGdkDisplay): longint; cdecl; external libgtk4; deprecated;
+procedure gdk_x11_display_error_trap_pop_ignored(display: PGdkDisplay); cdecl; external libgtk4; deprecated;
+procedure gdk_x11_set_sm_client_id(sm_client_id: PChar); cdecl; external libgtk4; deprecated;
+function gdk_x11_display_get_default_group(display: PGdkDisplay): PGdkSurface; cdecl; external libgtk4; deprecated;
 
 function GDK_DISPLAY_XDISPLAY(display: PGdkDisplay): PDisplay;
 

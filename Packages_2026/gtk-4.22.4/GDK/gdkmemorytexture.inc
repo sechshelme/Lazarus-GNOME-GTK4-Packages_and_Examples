@@ -1,22 +1,19 @@
-
 {$IFDEF read_interface}
 
-  //{$if G_BYTE_ORDER == G_LITTLE_ENDIAN}
-const
-  GDK_MEMORY_DEFAULT = GDK_MEMORY_B8G8R8A8_PREMULTIPLIED;
-  //(*** was #elif ****){$else G_BYTE_ORDER == G_BIG_ENDIAN}
-  //
-  //  GDK_MEMORY_DEFAULT = GDK_MEMORY_A8R8G8B8_PREMULTIPLIED;
-
 type
-  TGdkMemoryTexture = record
-  end;
-  PGdkMemoryTexture = ^TGdkMemoryTexture;
+  PGdkMemoryTexture = type Pointer;
+
+const
+  {$IFDEF ENDIAN_LITTLE}
+  GDK_MEMORY_DEFAULT = GDK_MEMORY_B8G8R8A8_PREMULTIPLIED;
+  {$ELSE}
+  GDK_MEMORY_DEFAULT = GDK_MEMORY_A8R8G8B8_PREMULTIPLIED;
+  {$ENDIF}
 
 function gdk_memory_texture_get_type: TGType; cdecl; external libgtk4;
-function gdk_memory_texture_new(Width: longint; Height: longint; format: TGdkMemoryFormat; bytes: PGBytes; stride: Tgsize): PGdkTexture; cdecl; external libgtk4;
+function gdk_memory_texture_new(width: longint; height: longint; format: TGdkMemoryFormat; bytes: PGBytes; stride: Tgsize): PGdkTexture; cdecl; external libgtk4;
 
-// === Konventiert am: 2-8-24 14:38:25 ===
+// === Konventiert am: 2-7-26 19:24:19 ===
 
 function GDK_TYPE_MEMORY_TEXTURE: TGType;
 function GDK_MEMORY_TEXTURE(obj: Pointer): PGdkMemoryTexture;

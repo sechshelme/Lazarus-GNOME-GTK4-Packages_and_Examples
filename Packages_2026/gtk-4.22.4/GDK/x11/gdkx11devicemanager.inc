@@ -1,7 +1,7 @@
 
 {$IFDEF read_interface}
 
-function gdk_x11_device_manager_lookup(device_manager: PGdkX11DeviceManagerXI2; device_id: longint): PGdkDevice; cdecl; external libgtk4;
+function gdk_x11_device_manager_lookup(device_manager: PGdkX11DeviceManagerXI2; device_id: longint): PGdkDevice; cdecl; external libgtk4; deprecated;
 
 // === Konventiert am: 3-8-24 17:26:55 ===
 

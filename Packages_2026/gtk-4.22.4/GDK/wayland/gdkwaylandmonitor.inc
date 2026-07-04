@@ -4,9 +4,7 @@
 
 
 type
-  TGdkWaylandMonitor = record
-  end;
-  PGdkWaylandMonitor = ^TGdkWaylandMonitor;
+  PGdkWaylandMonitor = type Pointer;
 
 function gdk_wayland_monitor_get_type: TGType; cdecl; external libgtk4;
 function gdk_wayland_monitor_get_wl_output(monitor: PGdkMonitor): Pwl_output; cdecl; external libgtk4;

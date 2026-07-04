@@ -2,8 +2,7 @@
 {$IFDEF read_interface}
 
 type
-  PGdkWaylandToplevel = ^TGdkWaylandToplevel;
-  TGdkWaylandToplevel = TGdkToplevel;
+  PGdkWaylandToplevel = PGdkToplevel;
 
 function gdk_wayland_toplevel_get_type: TGType; cdecl; external libgtk4;
 

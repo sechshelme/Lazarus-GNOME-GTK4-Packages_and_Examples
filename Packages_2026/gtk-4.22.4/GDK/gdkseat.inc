@@ -1,11 +1,9 @@
-
 {$IFDEF read_interface}
 
 
 type
   PGdkSeatCapabilities = ^TGdkSeatCapabilities;
   TGdkSeatCapabilities = longint;
-
 const
   GDK_SEAT_CAPABILITY_NONE = 0;
   GDK_SEAT_CAPABILITY_POINTER = 1 shl 0;
@@ -18,11 +16,9 @@ const
 
 type
   PGdkSeat = ^TGdkSeat;
-
   TGdkSeat = record
     parent_instance: TGObject;
   end;
-
 
 function gdk_seat_get_type: TGType; cdecl; external libgtk4;
 function gdk_seat_get_display(seat: PGdkSeat): PGdkDisplay; cdecl; external libgtk4;
@@ -32,7 +28,7 @@ function gdk_seat_get_tools(seat: PGdkSeat): PGList; cdecl; external libgtk4;
 function gdk_seat_get_pointer(seat: PGdkSeat): PGdkDevice; cdecl; external libgtk4;
 function gdk_seat_get_keyboard(seat: PGdkSeat): PGdkDevice; cdecl; external libgtk4;
 
-// === Konventiert am: 30-7-24 17:45:50 ===
+// === Konventiert am: 2-7-26 19:26:26 ===
 
 function GDK_TYPE_SEAT: TGType;
 function GDK_SEAT(obj: Pointer): PGdkSeat;

@@ -1,14 +1,11 @@
-
 {$IFDEF read_interface}
 
 type
-  TGdkDevicePad = record
-  end;
-  PGdkDevicePad = ^TGdkDevicePad;
+  PGdkDevicePad = type Pointer;
 
+type
   PGdkDevicePadFeature = ^TGdkDevicePadFeature;
   TGdkDevicePadFeature = longint;
-
 const
   GDK_DEVICE_PAD_FEATURE_BUTTON = 0;
   GDK_DEVICE_PAD_FEATURE_RING = 1;
@@ -20,7 +17,7 @@ function gdk_device_pad_get_group_n_modes(pad: PGdkDevicePad; group_idx: longint
 function gdk_device_pad_get_n_features(pad: PGdkDevicePad; feature: TGdkDevicePadFeature): longint; cdecl; external libgtk4;
 function gdk_device_pad_get_feature_group(pad: PGdkDevicePad; feature: TGdkDevicePadFeature; feature_idx: longint): longint; cdecl; external libgtk4;
 
-// === Konventiert am: 2-8-24 15:57:57 ===
+// === Konventiert am: 2-7-26 19:12:18 ===
 
 function GDK_TYPE_DEVICE_PAD: TGType;
 function GDK_DEVICE_PAD(obj: Pointer): PGdkDevicePad;

@@ -1,21 +1,14 @@
-
 {$IFDEF read_interface}
 
 
-  {G_DECLARE_INTERFACE (GdkDragSurface, gdk_drag_surface, GDK, DRAG_SURFACE, GObject) }
 type
-  TGdkDragSurface = record
-  end;
-  PGdkDragSurface = ^TGdkDragSurface;
-
-  TGdkDragSurfaceInterface = record
-  end;
-  PGdkDragSurfaceInterface = ^TGdkDragSurfaceInterface;
+  PGdkDragSurface = type Pointer;
+  PGdkDragSurfaceInterface = type Pointer;
 
 function gdk_drag_surface_get_type: TGType; cdecl; external libgtk4;
-function gdk_drag_surface_present(drag_surface: PGdkDragSurface; Width: longint; Height: longint): Tgboolean; cdecl; external libgtk4;
+function gdk_drag_surface_present(drag_surface: PGdkDragSurface; width: longint; height: longint): Tgboolean; cdecl; external libgtk4;
 
-// === Konventiert am: 2-8-24 17:10:32 ===
+// === Konventiert am: 2-7-26 19:17:30 ===
 
 function GDK_TYPE_DRAG_SURFACE: TGType;
 function GDK_DRAG_SURFACE(obj: Pointer): PGdkDragSurface;
@@ -46,8 +39,5 @@ function GDK_DRAG_SURFACE_GET_IFACE(obj: Pointer): PGdkDragSurfaceInterface;
 begin
   Result := g_type_interface_peek(obj, GDK_TYPE_DRAG_SURFACE);
 end;
-
-
-
 
 {$ENDIF read_implementation}

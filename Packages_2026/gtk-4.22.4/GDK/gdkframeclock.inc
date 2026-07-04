@@ -1,19 +1,12 @@
-
 {$IFDEF read_interface}
 
+type
+  PGdkFrameClock = type Pointer;
+  PGdkFrameClockClass = type Pointer;
 
 type
-  TGdkFrameClock = record
-  end;
-  PGdkFrameClock = ^TGdkFrameClock;
-
-  TGdkFrameClockClass = record
-  end;
-  PGdkFrameClockClass = ^TGdkFrameClockClass;
-
   PGdkFrameClockPhase = ^TGdkFrameClockPhase;
   TGdkFrameClockPhase = longint;
-
 const
   GDK_FRAME_CLOCK_PHASE_NONE = 0;
   GDK_FRAME_CLOCK_PHASE_FLUSH_EVENTS = 1 shl 0;
@@ -36,7 +29,7 @@ function gdk_frame_clock_get_current_timings(frame_clock: PGdkFrameClock): PGdkF
 procedure gdk_frame_clock_get_refresh_info(frame_clock: PGdkFrameClock; base_time: Tgint64; refresh_interval_return: Pgint64; presentation_time_return: Pgint64); cdecl; external libgtk4;
 function gdk_frame_clock_get_fps(frame_clock: PGdkFrameClock): double; cdecl; external libgtk4;
 
-// === Konventiert am: 31-7-24 19:15:15 ===
+// === Konventiert am: 2-7-26 19:19:30 ===
 
 function GDK_TYPE_FRAME_CLOCK: TGType;
 function GDK_FRAME_CLOCK(obj: Pointer): PGdkFrameClock;

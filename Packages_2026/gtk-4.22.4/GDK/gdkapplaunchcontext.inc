@@ -1,19 +1,14 @@
-
 {$IFDEF read_interface}
 
-type
-  TGdkAppLaunchContext = record
-  end;
-  PGdkAppLaunchContext = ^TGdkAppLaunchContext;
 
 function gdk_app_launch_context_get_type: TGType; cdecl; external libgtk4;
 function gdk_app_launch_context_get_display(context: PGdkAppLaunchContext): PGdkDisplay; cdecl; external libgtk4;
 procedure gdk_app_launch_context_set_desktop(context: PGdkAppLaunchContext; desktop: longint); cdecl; external libgtk4;
 procedure gdk_app_launch_context_set_timestamp(context: PGdkAppLaunchContext; timestamp: Tguint32); cdecl; external libgtk4;
 procedure gdk_app_launch_context_set_icon(context: PGdkAppLaunchContext; icon: PGIcon); cdecl; external libgtk4;
-procedure gdk_app_launch_context_set_icon_name(context: PGdkAppLaunchContext; icon_name: PChar); cdecl; external libgtk4;
+procedure gdk_app_launch_context_set_icon_name(context: PGdkAppLaunchContext; icon_name: pchar); cdecl; external libgtk4;
 
-// === Konventiert am: 2-8-24 15:51:39 ===
+// === Konventiert am: 2-7-26 17:36:01 ===
 
 function GDK_TYPE_APP_LAUNCH_CONTEXT: TGType;
 function GDK_APP_LAUNCH_CONTEXT(obj: Pointer): PGdkAppLaunchContext;

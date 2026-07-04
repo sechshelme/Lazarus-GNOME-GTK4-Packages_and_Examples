@@ -18,9 +18,7 @@ const
   GDK_PAINTABLE_STATIC_CONTENTS = 1 shl 1;
 
 type
-  TGdkPaintable = record
-  end;
-  PGdkPaintable = ^TGdkPaintable;
+  PGdkPaintable = type Pointer;
 
   PGdkPaintableInterface = ^TGdkPaintableInterface;
   TGdkPaintableInterface = record

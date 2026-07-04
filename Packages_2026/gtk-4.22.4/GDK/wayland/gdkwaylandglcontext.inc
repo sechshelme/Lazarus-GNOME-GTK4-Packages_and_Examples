@@ -2,9 +2,7 @@
 {$IFDEF read_interface}
 
 type
-  TGdkWaylandGLContext = record
-  end;
-  PGdkWaylandGLContext = ^TGdkWaylandGLContext;
+  PGdkWaylandGLContext = type Pointer;
 
 function gdk_wayland_gl_context_get_type: TGType; cdecl; external libgtk4;
 

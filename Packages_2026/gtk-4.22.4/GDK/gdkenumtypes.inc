@@ -1,6 +1,8 @@
-
 {$IFDEF read_interface}
 
+
+function gdk_cicp_range_get_type: TGType; cdecl; external libgtk4;
+function GDK_TYPE_CICP_RANGE: TGType;
 
 function gdk_input_source_get_type: TGType; cdecl; external libgtk4;
 function GDK_TYPE_INPUT_SOURCE: TGType;
@@ -13,6 +15,9 @@ function GDK_TYPE_DEVICE_TOOL_TYPE: TGType;
 
 function gdk_drag_cancel_reason_get_type: TGType; cdecl; external libgtk4;
 function GDK_TYPE_DRAG_CANCEL_REASON: TGType;
+
+function gdk_color_channel_get_type: TGType; cdecl; external libgtk4;
+function GDK_TYPE_COLOR_CHANNEL: TGType;
 
 function gdk_gl_api_get_type: TGType; cdecl; external libgtk4;
 function GDK_TYPE_GL_API: TGType;
@@ -40,6 +45,9 @@ function GDK_TYPE_AXIS_FLAGS: TGType;
 
 function gdk_drag_action_get_type: TGType; cdecl; external libgtk4;
 function GDK_TYPE_DRAG_ACTION: TGType;
+
+function gdk_scroll_relative_direction_get_type: TGType; cdecl; external libgtk4;
+function GDK_TYPE_SCROLL_RELATIVE_DIRECTION: TGType;
 
 function gdk_memory_format_get_type: TGType; cdecl; external libgtk4;
 function GDK_TYPE_MEMORY_FORMAT: TGType;
@@ -95,7 +103,10 @@ function GDK_TYPE_TOPLEVEL_STATE: TGType;
 function gdk_titlebar_gesture_get_type: TGType; cdecl; external libgtk4;
 function GDK_TYPE_TITLEBAR_GESTURE: TGType;
 
-// === Konventiert am: 31-7-24 19:26:16 ===
+function gdk_toplevel_capabilities_get_type: TGType; cdecl; external libgtk4;
+function GDK_TYPE_TOPLEVEL_CAPABILITIES: TGType;
+
+// === Konventiert am: 2-7-26 19:18:14 ===
 
 
 {$ENDIF read_interface}
@@ -103,6 +114,11 @@ function GDK_TYPE_TITLEBAR_GESTURE: TGType;
 
 {$IFDEF read_implementation}
 
+
+function GDK_TYPE_CICP_RANGE: TGType;
+begin
+  GDK_TYPE_CICP_RANGE := gdk_cicp_range_get_type;
+end;
 
 function GDK_TYPE_INPUT_SOURCE: TGType;
 begin
@@ -122,6 +138,11 @@ end;
 function GDK_TYPE_DRAG_CANCEL_REASON: TGType;
 begin
   GDK_TYPE_DRAG_CANCEL_REASON := gdk_drag_cancel_reason_get_type;
+end;
+
+function GDK_TYPE_COLOR_CHANNEL: TGType;
+begin
+  GDK_TYPE_COLOR_CHANNEL := gdk_color_channel_get_type;
 end;
 
 function GDK_TYPE_GL_API: TGType;
@@ -167,6 +188,11 @@ end;
 function GDK_TYPE_DRAG_ACTION: TGType;
 begin
   GDK_TYPE_DRAG_ACTION := gdk_drag_action_get_type;
+end;
+
+function GDK_TYPE_SCROLL_RELATIVE_DIRECTION: TGType;
+begin
+  GDK_TYPE_SCROLL_RELATIVE_DIRECTION := gdk_scroll_relative_direction_get_type;
 end;
 
 function GDK_TYPE_MEMORY_FORMAT: TGType;
@@ -257,6 +283,12 @@ end;
 function GDK_TYPE_TITLEBAR_GESTURE: TGType;
 begin
   GDK_TYPE_TITLEBAR_GESTURE := gdk_titlebar_gesture_get_type;
+end;
+
+function GDK_TYPE_TOPLEVEL_CAPABILITIES: TGType;
+
+begin
+  GDK_TYPE_TOPLEVEL_CAPABILITIES := gdk_toplevel_capabilities_get_type;
 end;
 
 

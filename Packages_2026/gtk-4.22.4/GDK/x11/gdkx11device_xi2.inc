@@ -11,16 +11,11 @@ const
   GDK_X11_DEVICE_TYPE_FLOATING = 2;
 
 type
-  TGdkX11DeviceXI2 = record
-  end;
-  PGdkX11DeviceXI2 = ^TGdkX11DeviceXI2;
-
-  TGdkX11DeviceXI2Class = record
-  end;
-  PGdkX11DeviceXI2Class = ^TGdkX11DeviceXI2Class;
+  PGdkX11DeviceXI2 = type Pointer;
+  PGdkX11DeviceXI2Class = type Pointer;
 
 
-function gdk_x11_device_xi2_get_type: TGType; cdecl; external libgtk4;
+function gdk_x11_device_xi2_get_type: TGType; cdecl; external libgtk4; deprecated;
 
 // === Konventiert am: 3-8-24 17:29:06 ===
 

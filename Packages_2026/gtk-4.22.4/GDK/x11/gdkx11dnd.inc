@@ -2,14 +2,10 @@
 {$IFDEF read_interface}
 
 type
-  PGdkX11Drag = ^TGdkX11Drag;
-  TGdkX11Drag = TGdkDrag;
+  PGdkX11Drag = PGdkDrag;
+  PGdkX11DragClass = type Pointer;
 
-  TGdkX11DragClass = record
-  end;
-  PGdkX11DragClass = ^TGdkX11DragClass;
-
-function gdk_x11_drag_get_type: TGType; cdecl; external libgtk4;
+function gdk_x11_drag_get_type: TGType; cdecl; external libgtk4; deprecated;
 
 // === Konventiert am: 3-8-24 17:42:29 ===
 

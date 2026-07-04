@@ -1,14 +1,9 @@
-
 {$IFDEF read_interface}
 
-type
-  TGdkDrag = record
-  end;
-  PGdkDrag = ^TGdkDrag;
 
+type
   PGdkDragCancelReason = ^TGdkDragCancelReason;
   TGdkDragCancelReason = longint;
-
 const
   GDK_DRAG_CANCEL_NO_TARGET = 0;
   GDK_DRAG_CANCEL_USER_CANCELLED = 1;
@@ -29,7 +24,7 @@ procedure gdk_drag_set_hotspot(drag: PGdkDrag; hot_x: longint; hot_y: longint); 
 function gdk_drag_get_content(drag: PGdkDrag): PGdkContentProvider; cdecl; external libgtk4;
 function gdk_drag_get_surface(drag: PGdkDrag): PGdkSurface; cdecl; external libgtk4;
 
-// === Konventiert am: 31-7-24 19:30:20 ===
+// === Konventiert am: 2-7-26 19:13:02 ===
 
 function GDK_TYPE_DRAG: TGType;
 function GDK_DRAG(obj: Pointer): PGdkDrag;

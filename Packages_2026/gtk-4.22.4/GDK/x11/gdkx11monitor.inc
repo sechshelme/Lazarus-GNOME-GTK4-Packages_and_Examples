@@ -2,13 +2,11 @@
 {$IFDEF read_interface}
 
 type
-  TGdkX11Monitor = record
-  end;
-  PGdkX11Monitor = ^TGdkX11Monitor;
+  PGdkX11Monitor = type Pointer;
 
-function gdk_x11_monitor_get_type: TGType; cdecl; external libgtk4;
-function gdk_x11_monitor_get_output(monitor: PGdkMonitor): TXID; cdecl; external libgtk4;
-procedure gdk_x11_monitor_get_workarea(monitor: PGdkMonitor; workarea: PGdkRectangle); cdecl; external libgtk4;
+function gdk_x11_monitor_get_type: TGType; cdecl; external libgtk4; deprecated;
+function gdk_x11_monitor_get_output(monitor: PGdkMonitor): TXID; cdecl; external libgtk4; deprecated;
+procedure gdk_x11_monitor_get_workarea(monitor: PGdkMonitor; workarea: PGdkRectangle); cdecl; external libgtk4; deprecated;
 
 // === Konventiert am: 3-8-24 17:42:43 ===
 

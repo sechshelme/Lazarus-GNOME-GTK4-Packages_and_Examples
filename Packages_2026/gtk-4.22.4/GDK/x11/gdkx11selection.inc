@@ -2,13 +2,13 @@
 {$IFDEF read_interface}
 
 function gdk_x11_display_text_property_to_text_list(display: PGdkDisplay; encoding: PChar; format: longint; Text: Pguchar; length: longint;
-  list: PPPchar): longint; cdecl; external libgtk4;
-procedure gdk_x11_free_text_list(list: PPchar); cdecl; external libgtk4;
+  list: PPPchar): longint; cdecl; external libgtk4; deprecated;
+procedure gdk_x11_free_text_list(list: PPchar); cdecl; external libgtk4; deprecated;
 function gdk_x11_display_string_to_compound_text(display: PGdkDisplay; str: PChar; encoding: PPchar; format: Plongint; ctext: PPguchar;
-  length: Plongint): longint; cdecl; external libgtk4;
+  length: Plongint): longint; cdecl; external libgtk4; deprecated;
 function gdk_x11_display_utf8_to_compound_text(display: PGdkDisplay; str: PChar; encoding: PPchar; format: Plongint; ctext: PPguchar;
-  length: Plongint): Tgboolean; cdecl; external libgtk4;
-procedure gdk_x11_free_compound_text(ctext: Pguchar); cdecl; external libgtk4;
+  length: Plongint): Tgboolean; cdecl; external libgtk4; deprecated;
+procedure gdk_x11_free_compound_text(ctext: Pguchar); cdecl; external libgtk4; deprecated;
 
 // === Konventiert am: 3-8-24 17:50:45 ===
 

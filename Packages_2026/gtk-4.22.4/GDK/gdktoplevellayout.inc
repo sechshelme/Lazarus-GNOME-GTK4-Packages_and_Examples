@@ -1,10 +1,8 @@
-
 {$IFDEF read_interface}
 
+
 type
-  TGdkToplevelLayout = record
-  end;
-  PGdkToplevelLayout = ^TGdkToplevelLayout;
+  PGdkToplevelLayout = type Pointer;
 
 function gdk_toplevel_layout_get_type: TGType; cdecl; external libgtk4;
 function gdk_toplevel_layout_new: PGdkToplevelLayout; cdecl; external libgtk4;
@@ -20,7 +18,7 @@ function gdk_toplevel_layout_get_fullscreen_monitor(layout: PGdkToplevelLayout):
 procedure gdk_toplevel_layout_set_resizable(layout: PGdkToplevelLayout; resizable: Tgboolean); cdecl; external libgtk4;
 function gdk_toplevel_layout_get_resizable(layout: PGdkToplevelLayout): Tgboolean; cdecl; external libgtk4;
 
-// === Konventiert am: 30-7-24 19:36:03 ===
+// === Konventiert am: 2-7-26 19:29:29 ===
 
 function GDK_TYPE_TOPLEVEL_LAYOUT: TGType;
 

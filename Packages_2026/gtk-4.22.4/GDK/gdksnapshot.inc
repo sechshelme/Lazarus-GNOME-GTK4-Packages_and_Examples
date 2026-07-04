@@ -1,15 +1,9 @@
-
 {$IFDEF read_interface}
 
 
-type
-  TGdkSnapshot = record
-  end;
-  PGdkSnapshot = ^TGdkSnapshot;
-
 function gdk_snapshot_get_type: TGType; cdecl; external libgtk4;
 
-// === Konventiert am: 2-8-24 15:19:57 ===
+// === Konventiert am: 2-7-26 19:26:20 ===
 
 function GDK_TYPE_SNAPSHOT: TGType;
 function GDK_SNAPSHOT(obj: Pointer): PGdkSnapshot;

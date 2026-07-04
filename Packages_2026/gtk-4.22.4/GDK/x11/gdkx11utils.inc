@@ -1,8 +1,8 @@
 
 {$IFDEF read_interface}
 
-function GDK_XID_TO_POINTER(xid: Tguint): Tgpointer;
-function GDK_POINTER_TO_XID(p: Pointer): Tguint;
+function GDK_XID_TO_POINTER(xid: PtrUInt): Tgpointer; inline;
+function GDK_POINTER_TO_XID(p: Tgpointer): PtrUInt; inline;
 
 
 // === Konventiert am: 3-8-24 17:51:25 ===
@@ -14,14 +14,14 @@ function GDK_POINTER_TO_XID(p: Pointer): Tguint;
 {$IFDEF read_implementation}
 
 
-function GDK_XID_TO_POINTER(xid: Tguint): Tgpointer;
+function GDK_XID_TO_POINTER(xid: PtrUInt): Tgpointer; inline;
 begin
-  Result := GUINT_TO_POINTER(xid);
+  Result := Tgpointer(xid);
 end;
 
-function GDK_POINTER_TO_XID(p: Pointer): Tguint;
+function GDK_POINTER_TO_XID(p: Tgpointer): PtrUInt; inline;
 begin
-  GDK_POINTER_TO_XID := GPOINTER_TO_UINT(p);
+  Result := PtrUInt(p);
 end;
 
 

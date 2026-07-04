@@ -1,10 +1,9 @@
-
 {$IFDEF read_interface}
+
 
 type
   PGdkSurfaceEdge = ^TGdkSurfaceEdge;
   TGdkSurfaceEdge = longint;
-
 const
   GDK_SURFACE_EDGE_NORTH_WEST = 0;
   GDK_SURFACE_EDGE_NORTH = 1;
@@ -18,7 +17,6 @@ const
 type
   PGdkFullscreenMode = ^TGdkFullscreenMode;
   TGdkFullscreenMode = longint;
-
 const
   GDK_FULLSCREEN_ON_CURRENT_MONITOR = 0;
   GDK_FULLSCREEN_ON_ALL_MONITORS = 1;
@@ -26,7 +24,6 @@ const
 type
   PGdkToplevelState = ^TGdkToplevelState;
   TGdkToplevelState = longint;
-
 const
   GDK_TOPLEVEL_STATE_MINIMIZED = 1 shl 0;
   GDK_TOPLEVEL_STATE_MAXIMIZED = 1 shl 1;
@@ -49,22 +46,14 @@ const
 type
   PGdkTitlebarGesture = ^TGdkTitlebarGesture;
   TGdkTitlebarGesture = longint;
-
 const
   GDK_TITLEBAR_GESTURE_DOUBLE_CLICK = 1;
   GDK_TITLEBAR_GESTURE_RIGHT_CLICK = 2;
   GDK_TITLEBAR_GESTURE_MIDDLE_CLICK = 3;
 
-
-  {G_DECLARE_INTERFACE (GdkToplevel, gdk_toplevel, GDK, TOPLEVEL, GObject) }
 type
-  TGdkToplevel = record
-  end;
-  PGdkToplevel = ^TGdkToplevel;
-
-  TGdkToplevelInterface = record
-  end;
-  PGdkToplevelInterface = ^TGdkToplevelInterface;
+  PGdkToplevel = type Pointer;
+  PGdkToplevelInterface = type Pointer;
 
 function gdk_toplevel_get_type: TGType; cdecl; external libgtk4;
 procedure gdk_toplevel_present(toplevel: PGdkToplevel; layout: PGdkToplevelLayout); cdecl; external libgtk4;
@@ -72,8 +61,8 @@ function gdk_toplevel_minimize(toplevel: PGdkToplevel): Tgboolean; cdecl; extern
 function gdk_toplevel_lower(toplevel: PGdkToplevel): Tgboolean; cdecl; external libgtk4;
 procedure gdk_toplevel_focus(toplevel: PGdkToplevel; timestamp: Tguint32); cdecl; external libgtk4;
 function gdk_toplevel_get_state(toplevel: PGdkToplevel): TGdkToplevelState; cdecl; external libgtk4;
-procedure gdk_toplevel_set_title(toplevel: PGdkToplevel; title: PChar); cdecl; external libgtk4;
-procedure gdk_toplevel_set_startup_id(toplevel: PGdkToplevel; startup_id: PChar); cdecl; external libgtk4;
+procedure gdk_toplevel_set_title(toplevel: PGdkToplevel; title: pchar); cdecl; external libgtk4;
+procedure gdk_toplevel_set_startup_id(toplevel: PGdkToplevel; startup_id: pchar); cdecl; external libgtk4;
 procedure gdk_toplevel_set_transient_for(toplevel: PGdkToplevel; parent: PGdkSurface); cdecl; external libgtk4;
 procedure gdk_toplevel_set_modal(toplevel: PGdkToplevel; modal: Tgboolean); cdecl; external libgtk4;
 procedure gdk_toplevel_set_icon_list(toplevel: PGdkToplevel; surfaces: PGList); cdecl; external libgtk4;
@@ -89,7 +78,24 @@ procedure gdk_toplevel_begin_move(toplevel: PGdkToplevel; device: PGdkDevice; bu
   timestamp: Tguint32); cdecl; external libgtk4;
 function gdk_toplevel_titlebar_gesture(toplevel: PGdkToplevel; gesture: TGdkTitlebarGesture): Tgboolean; cdecl; external libgtk4;
 
-// === Konventiert am: 30-7-24 19:33:34 ===
+type
+  PGdkToplevelCapabilities = ^TGdkToplevelCapabilities;
+  TGdkToplevelCapabilities = longint;
+const
+  GDK_TOPLEVEL_CAPABILITIES_EDGE_CONSTRAINTS = 1 shl 0;
+  GDK_TOPLEVEL_CAPABILITIES_INHIBIT_SHORTCUTS = 1 shl 1;
+  GDK_TOPLEVEL_CAPABILITIES_TITLEBAR_GESTURES = 1 shl 2;
+  GDK_TOPLEVEL_CAPABILITIES_WINDOW_MENU = 1 shl 3;
+  GDK_TOPLEVEL_CAPABILITIES_MAXIMIZE = 1 shl 4;
+  GDK_TOPLEVEL_CAPABILITIES_FULLSCREEN = 1 shl 5;
+  GDK_TOPLEVEL_CAPABILITIES_MINIMIZE = 1 shl 6;
+  GDK_TOPLEVEL_CAPABILITIES_LOWER = 1 shl 7;
+
+function gdk_toplevel_get_capabilities(toplevel: PGdkToplevel): TGdkToplevelCapabilities; cdecl; external libgtk4;
+function gdk_toplevel_get_gravity(toplevel: PGdkToplevel): TGdkGravity; cdecl; external libgtk4;
+procedure gdk_toplevel_set_gravity(toplevel: PGdkToplevel; gravity: TGdkGravity); cdecl; external libgtk4;
+
+// === Konventiert am: 2-7-26 19:29:33 ===
 
 function GDK_TYPE_TOPLEVEL: TGType;
 function GDK_TOPLEVEL(obj: Pointer): PGdkToplevel;
@@ -120,8 +126,5 @@ function GDK_TOPLEVEL_GET_IFACE(obj: Pointer): PGdkToplevelInterface;
 begin
   Result := g_type_interface_peek(obj, GDK_TYPE_TOPLEVEL);
 end;
-
-
-
 
 {$ENDIF read_implementation}

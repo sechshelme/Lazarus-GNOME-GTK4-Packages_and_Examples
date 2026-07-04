@@ -1,17 +1,13 @@
-
 {$IFDEF read_interface}
 
-type
-  TGdkDmabufTexture = record
-  end;
-  PGdkDmabufTexture = ^TGdkDmabufTexture;
 
 function gdk_dmabuf_texture_get_type: TGType; cdecl; external libgtk4;
 function gdk_dmabuf_error_quark: TGQuark; cdecl; external libgtk4;
 
 function GDK_DMABUF_ERROR: TGQuark;
 
-// === Konventiert am: 2-8-24 17:10:17 ===
+
+// === Konventiert am: 2-7-26 19:12:46 ===
 
 function GDK_TYPE_DMABUF_TEXTURE: TGType;
 function GDK_DMABUF_TEXTURE(obj: Pointer): PGdkDmabufTexture;
@@ -37,7 +33,6 @@ begin
   Result := g_type_check_instance_is_a(obj, GDK_TYPE_DMABUF_TEXTURE);
 end;
 
-// ====
 
 function GDK_DMABUF_ERROR: TGQuark;
 begin

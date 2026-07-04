@@ -3,14 +3,12 @@
 
 
 type
-  TGdkX11GLContext = record
-  end;
-  PGdkX11GLContext = ^TGdkX11GLContext;
+  PGdkX11GLContext = type Pointer;
 
-function gdk_x11_gl_context_get_type: TGType; cdecl; external libgtk4;
-function gdk_x11_display_get_glx_version(display: PGdkDisplay; major: Plongint; minor: Plongint): Tgboolean; cdecl; external libgtk4;
-function gdk_x11_display_get_egl_version(display: PGdkDisplay; major: Plongint; minor: Plongint): Tgboolean; cdecl; external libgtk4;
-function gdk_x11_display_get_egl_display(display: PGdkDisplay): Tgpointer; cdecl; external libgtk4;
+function gdk_x11_gl_context_get_type: TGType; cdecl; external libgtk4; deprecated;
+function gdk_x11_display_get_glx_version(display: PGdkDisplay; major: Plongint; minor: Plongint): Tgboolean; cdecl; external libgtk4; deprecated;
+function gdk_x11_display_get_egl_version(display: PGdkDisplay; major: Plongint; minor: Plongint): Tgboolean; cdecl; external libgtk4; deprecated;
+function gdk_x11_display_get_egl_display(display: PGdkDisplay): Tgpointer; cdecl; external libgtk4; deprecated;
 
 // === Konventiert am: 3-8-24 17:42:38 ===
 

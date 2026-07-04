@@ -2,12 +2,8 @@
 {$IFDEF read_interface}
 
 type
-  PGdkWaylandDevice = ^TGdkWaylandDevice;
-  TGdkWaylandDevice = TGdkDevice;
-
-  TGdkWaylandDeviceClass = record
-  end;
-  PGdkWaylandDeviceClass = ^TGdkWaylandDeviceClass;
+  PGdkWaylandDevice = PGdkDevice;
+  PGdkWaylandDeviceClass = type Pointer;
 
 function gdk_wayland_device_get_type: TGType; cdecl; external libgtk4;
 function gdk_wayland_device_get_wl_seat(device: PGdkDevice): Pwl_seat; cdecl; external libgtk4;

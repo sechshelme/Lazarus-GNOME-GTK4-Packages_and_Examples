@@ -1,10 +1,18 @@
-
 {$IFDEF read_interface}
+
+
+type
+  PGdkColorChannel = ^TGdkColorChannel;
+  TGdkColorChannel = longint;
+const
+  GDK_COLOR_CHANNEL_RED = 0;
+  GDK_COLOR_CHANNEL_GREEN = 1;
+  GDK_COLOR_CHANNEL_BLUE = 2;
+  GDK_COLOR_CHANNEL_ALPHA = 3;
 
 type
   PGdkGLAPI = ^TGdkGLAPI;
   TGdkGLAPI = longint;
-
 const
   GDK_GL_API_GL = 1 shl 0;
   GDK_GL_API_GLES = 1 shl 1;
@@ -12,7 +20,6 @@ const
 type
   PGdkGravity = ^TGdkGravity;
   TGdkGravity = longint;
-
 const
   GDK_GRAVITY_NORTH_WEST = 1;
   GDK_GRAVITY_NORTH = 2;
@@ -28,7 +35,6 @@ const
 type
   PGdkModifierType = ^TGdkModifierType;
   TGdkModifierType = longint;
-
 const
   GDK_NO_MODIFIER_MASK = 0;
   GDK_SHIFT_MASK = 1 shl 0;
@@ -43,12 +49,12 @@ const
   GDK_SUPER_MASK = 1 shl 26;
   GDK_HYPER_MASK = 1 shl 27;
   GDK_META_MASK = 1 shl 28;
-  GDK_MODIFIER_MASK = ((((((((((GDK_SHIFT_MASK or GDK_LOCK_MASK) or GDK_CONTROL_MASK) or GDK_ALT_MASK) or GDK_SUPER_MASK) or GDK_HYPER_MASK) or GDK_META_MASK) or GDK_BUTTON1_MASK) or GDK_BUTTON2_MASK) or GDK_BUTTON3_MASK) or GDK_BUTTON4_MASK) or GDK_BUTTON5_MASK;
+
+  GDK_MODIFIER_MASK = GDK_SHIFT_MASK or GDK_LOCK_MASK or GDK_CONTROL_MASK or GDK_ALT_MASK or GDK_SUPER_MASK or GDK_HYPER_MASK or GDK_META_MASK or GDK_BUTTON1_MASK or GDK_BUTTON2_MASK or GDK_BUTTON3_MASK or GDK_BUTTON4_MASK or GDK_BUTTON5_MASK;
 
 type
   PGdkDmabufError = ^TGdkDmabufError;
   TGdkDmabufError = longint;
-
 const
   GDK_DMABUF_ERROR_NOT_AVAILABLE = 0;
   GDK_DMABUF_ERROR_UNSUPPORTED_FORMAT = 1;
@@ -57,7 +63,6 @@ const
 type
   PGdkGLError = ^TGdkGLError;
   TGdkGLError = longint;
-
 const
   GDK_GL_ERROR_NOT_AVAILABLE = 0;
   GDK_GL_ERROR_UNSUPPORTED_FORMAT = 1;
@@ -68,7 +73,6 @@ const
 type
   PGdkVulkanError = ^TGdkVulkanError;
   TGdkVulkanError = longint;
-
 const
   GDK_VULKAN_ERROR_UNSUPPORTED = 0;
   GDK_VULKAN_ERROR_NOT_AVAILABLE = 1;
@@ -76,7 +80,6 @@ const
 type
   PGdkAxisUse = ^TGdkAxisUse;
   TGdkAxisUse = longint;
-
 const
   GDK_AXIS_IGNORE = 0;
   GDK_AXIS_X = 1;
@@ -95,7 +98,6 @@ const
 type
   PGdkAxisFlags = ^TGdkAxisFlags;
   TGdkAxisFlags = longint;
-
 const
   GDK_AXIS_FLAG_X = 1 shl GDK_AXIS_X;
   GDK_AXIS_FLAG_Y = 1 shl GDK_AXIS_Y;
@@ -112,18 +114,26 @@ const
 type
   PGdkDragAction = ^TGdkDragAction;
   TGdkDragAction = longint;
-
 const
+  GDK_ACTION_NONE = 0;
   GDK_ACTION_COPY = 1 shl 0;
   GDK_ACTION_MOVE = 1 shl 1;
   GDK_ACTION_LINK = 1 shl 2;
   GDK_ACTION_ASK = 1 shl 3;
-  GDK_ACTION_ALL = (GDK_ACTION_COPY or GDK_ACTION_MOVE) or GDK_ACTION_LINK;
+
+type
+  PGdkScrollRelativeDirection = ^TGdkScrollRelativeDirection;
+  TGdkScrollRelativeDirection = longint;
+const
+  GDK_SCROLL_RELATIVE_DIRECTION_IDENTICAL = 0;
+  GDK_SCROLL_RELATIVE_DIRECTION_INVERTED = 1;
+  GDK_SCROLL_RELATIVE_DIRECTION_UNKNOWN = 2;
+
+  GDK_ACTION_ALL = GDK_ACTION_COPY or GDK_ACTION_MOVE or GDK_ACTION_LINK;
 
 type
   PGdkMemoryFormat = ^TGdkMemoryFormat;
   TGdkMemoryFormat = longint;
-
 const
   GDK_MEMORY_B8G8R8A8_PREMULTIPLIED = 0;
   GDK_MEMORY_A8R8G8B8_PREMULTIPLIED = 1;
@@ -158,13 +168,48 @@ const
   GDK_MEMORY_X8R8G8B8 = 30;
   GDK_MEMORY_R8G8B8X8 = 31;
   GDK_MEMORY_X8B8G8R8 = 32;
-  GDK_MEMORY_N_FORMATS = 33;
+  GDK_MEMORY_G8_B8R8_420 = 33;
+  GDK_MEMORY_G8_R8B8_420 = 34;
+  GDK_MEMORY_G8_B8R8_422 = 35;
+  GDK_MEMORY_G8_R8B8_422 = 36;
+  GDK_MEMORY_G8_B8R8_444 = 37;
+  GDK_MEMORY_G8_R8B8_444 = 38;
+  GDK_MEMORY_G10X6_B10X6R10X6_420 = 39;
+  GDK_MEMORY_G12X4_B12X4R12X4_420 = 40;
+  GDK_MEMORY_G16_B16R16_420 = 41;
+  GDK_MEMORY_G8_B8_R8_410 = 42;
+  GDK_MEMORY_G8_R8_B8_410 = 43;
+  GDK_MEMORY_G8_B8_R8_411 = 44;
+  GDK_MEMORY_G8_R8_B8_411 = 45;
+  GDK_MEMORY_G8_B8_R8_420 = 46;
+  GDK_MEMORY_G8_R8_B8_420 = 47;
+  GDK_MEMORY_G8_B8_R8_422 = 48;
+  GDK_MEMORY_G8_R8_B8_422 = 49;
+  GDK_MEMORY_G8_B8_R8_444 = 50;
+  GDK_MEMORY_G8_R8_B8_444 = 51;
+  GDK_MEMORY_G8B8G8R8_422 = 52;
+  GDK_MEMORY_G8R8G8B8_422 = 53;
+  GDK_MEMORY_R8G8B8G8_422 = 54;
+  GDK_MEMORY_B8G8R8G8_422 = 55;
+  GDK_MEMORY_X6G10_X6B10_X6R10_420 = 56;
+  GDK_MEMORY_X6G10_X6B10_X6R10_422 = 57;
+  GDK_MEMORY_X6G10_X6B10_X6R10_444 = 58;
+  GDK_MEMORY_X4G12_X4B12_X4R12_420 = 59;
+  GDK_MEMORY_X4G12_X4B12_X4R12_422 = 60;
+  GDK_MEMORY_X4G12_X4B12_X4R12_444 = 61;
+  GDK_MEMORY_G16_B16_R16_420 = 62;
+  GDK_MEMORY_G16_B16_R16_422 = 63;
+  GDK_MEMORY_G16_B16_R16_444 = 64;
+  GDK_MEMORY_N_FORMATS = 65;
+
+  // === Konventiert am: 2-7-26 19:18:04 ===
 
 
 {$ENDIF read_interface}
 
 
 {$IFDEF read_implementation}
+
 
 
 {$ENDIF read_implementation}

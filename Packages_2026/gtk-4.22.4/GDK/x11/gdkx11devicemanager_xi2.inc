@@ -2,15 +2,10 @@
 {$IFDEF read_interface}
 
 type
-  TGdkX11DeviceManagerXI2 = record
-  end;
-  PGdkX11DeviceManagerXI2 = ^TGdkX11DeviceManagerXI2;
+  PGdkX11DeviceManagerXI2 = type Pointer;
+  PGdkX11DeviceManagerXI2Class = type Pointer;
 
-  TGdkX11DeviceManagerXI2Class = record
-  end;
-  PGdkX11DeviceManagerXI2Class = ^TGdkX11DeviceManagerXI2Class;
-
-function gdk_x11_device_manager_xi2_get_type: TGType; cdecl; external libgtk4;
+function gdk_x11_device_manager_xi2_get_type: TGType; cdecl; external libgtk4; deprecated;
 
 // === Konventiert am: 3-8-24 17:28:56 ===
 

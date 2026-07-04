@@ -2,14 +2,10 @@
 {$IFDEF read_interface}
 
 type
-  PGdkX11AppLaunchContext = ^TGdkX11AppLaunchContext;
-  TGdkX11AppLaunchContext = TGdkAppLaunchContext;
+  PGdkX11AppLaunchContext = PGdkAppLaunchContext;
+  PGdkX11AppLaunchContextClass = type Pointer;
 
-  TGdkX11AppLaunchContextClass = record
-  end;
-  PGdkX11AppLaunchContextClass = ^TGdkX11AppLaunchContextClass;
-
-function gdk_x11_app_launch_context_get_type: TGType; cdecl; external libgtk4;
+function gdk_x11_app_launch_context_get_type: TGType; cdecl; external libgtk4; deprecated;
 
 // === Konventiert am: 3-8-24 17:26:34 ===
 

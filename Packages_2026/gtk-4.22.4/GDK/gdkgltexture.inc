@@ -1,17 +1,15 @@
-
 {$IFDEF read_interface}
 
+
 type
-  TGdkGLTexture = record
-  end;
-  PGdkGLTexture = ^TGdkGLTexture;
+  PGdkGLTexture = type Pointer;
 
 function gdk_gl_texture_get_type: TGType; cdecl; external libgtk4;
-function gdk_gl_texture_new(context: PGdkGLContext; id: Tguint; Width: longint; Height: longint; Destroy: TGDestroyNotify;
-  Data: Tgpointer): PGdkTexture; cdecl; external libgtk4; deprecated 'GDK_DEPRECATED_IN_4_12_FOR(GdkGLTextureBuilder)';
+function gdk_gl_texture_new(context: PGdkGLContext; id: Tguint; width: longint; height: longint; destroy: TGDestroyNotify;
+  data: Tgpointer): PGdkTexture; cdecl; external libgtk4; deprecated;
 procedure gdk_gl_texture_release(self: PGdkGLTexture); cdecl; external libgtk4;
 
-// === Konventiert am: 2-8-24 15:54:52 ===
+// === Konventiert am: 2-7-26 19:24:44 ===
 
 function GDK_TYPE_GL_TEXTURE: TGType;
 function GDK_GL_TEXTURE(obj: Pointer): PGdkGLTexture;

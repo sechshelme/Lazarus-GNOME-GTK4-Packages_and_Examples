@@ -1,17 +1,12 @@
-
 {$IFDEF read_interface}
 
-type
-  TGdkCairoContext = record
-  end;
-  PGdkCairoContext = ^TGdkCairoContext;
 
 function gdk_cairo_context_get_type: TGType; cdecl; external libgtk4;
-function gdk_cairo_context_cairo_create(self: PGdkCairoContext): Pcairo_t; cdecl; external libgtk4;
+function gdk_cairo_context_cairo_create(self: PGdkCairoContext): Pcairo_t; cdecl; external libgtk4; deprecated;
 
 function GDK_CAIRO_ERROR: TGQuark;
 
-// === Konventiert am: 2-8-24 17:09:48 ===
+// === Konventiert am: 2-7-26 17:35:42 ===
 
 function GDK_TYPE_CAIRO_CONTEXT: TGType;
 function GDK_CAIRO_CONTEXT(obj: Pointer): PGdkCairoContext;
@@ -38,12 +33,10 @@ begin
 end;
 
 
-{ was #define dname def_expr }
-function GDK_CAIRO_ERROR: TGQuark; { return type might be wrong }
+function GDK_CAIRO_ERROR: TGQuark;
 begin
-  Result:=0;
-  // nicht vorhanden
-//  GDK_CAIRO_ERROR := gdk_cairo_error_quark;
+  // Fehlt im original
+  //  GDK_CAIRO_ERROR := gdk_cairo_error_quark;
 end;
 
 

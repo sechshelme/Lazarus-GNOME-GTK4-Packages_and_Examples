@@ -5,70 +5,13 @@ program project1;
 // diff -U 1 -r /n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Packages_2024/glib-2.80.0/C-include/gio-unix-2.80.0 /n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Packages_2026/glib-2.88.0/C-include/gio-unix-2.0 > test.diff
 // diff -U 1 /usr/include/glib-2.0/girepository /n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/Ubuntu_26.04/girepository > test.diff
 
-// diff -U 1 /usr/include/gtk-4.0/gdk/gdkkeysyms.h /home/tux/include_neu/gtk-4.0/gdk/gdkkeysyms.h > test.diff
-
+// diff -U 1 /n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Packages_2024/gtk-4.14.2/C-include/gdk/wayland /n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Packages_2026/gtk-4.22.4/C-include/gtk-4.0/gdk/wayland > test.diff
 uses
-  gdktypes,
-  gdkenums,
-  gdkenumtypes,
-  gdkrectangle,
-  gdkrgba,
-  gdkseat,
-  gdkapplaunchcontext,
-  gdkcairo,
-  gdkcairocontext,
-  gdkcicpparams,
-  gdkclipboard,
-  gdkcolorstate,
-  gdkcontentdeserializer,
-  gdkcontentformats,
-  gdkcontentprovider,
-  gdkcontentproviderimpl,
-  gdkcontentserializer,
-  gdkcursor,
-  gdkdevicetool,
-  gdkdevice,
-  gdkdevicepad,
-  gdkmonitor,
-  gdkevents,
-  gdkdisplay,
-  gdkdisplaymanager,
-  gdkdmabufformats,
-  gdkdmabuftexture,
-  gdkdmabuftexturebuilder,
-  gdkdrag,
-  gdkdragsurface,
-  gdkdragsurfacesize,
-  gdkdrawcontext,
-  gdkdrop,
-  gdkframetimings,
-  gdkframeclock,
-  gdkglcontext,
-  gdkgltexture,
-  gdkgltexturebuilder,
-  gdkkeys,
-  gdkkeysyms,
-  gdkmemorytexture,
-  gdkmemorytexturebuilder,
-  gdkpaintable,
-  gdkpango,
-  gdkpopuplayout,
-  gdkpopup,
-  gdksnapshot,
-  gdksurface,
-  gdktexture,
-  gdktexturedownloader,
-  gdktoplevellayout,
-  gdktoplevel,
-  gdktoplevelsize,
-  gdkvulkancontext,
-
-
-
   fp_girepository_2,
   fp_glib_unix,
   fp_gio_unix_2,
 
+  fp_GTK4,
   fp_glib2;
 
   procedure main;

@@ -1,20 +1,15 @@
-
 {$IFDEF read_interface}
 
-type
-  TGdkDisplayManager = record
-  end;
-  PGdkDisplayManager = ^TGdkDisplayManager;
 
 function gdk_display_manager_get_type: TGType; cdecl; external libgtk4;
 function gdk_display_manager_get: PGdkDisplayManager; cdecl; external libgtk4;
 function gdk_display_manager_get_default_display(manager: PGdkDisplayManager): PGdkDisplay; cdecl; external libgtk4;
 procedure gdk_display_manager_set_default_display(manager: PGdkDisplayManager; display: PGdkDisplay); cdecl; external libgtk4;
 function gdk_display_manager_list_displays(manager: PGdkDisplayManager): PGSList; cdecl; external libgtk4;
-function gdk_display_manager_open_display(manager: PGdkDisplayManager; Name: PChar): PGdkDisplay; cdecl; external libgtk4;
-procedure gdk_set_allowed_backends(backends: PChar); cdecl; external libgtk4;
+function gdk_display_manager_open_display(manager: PGdkDisplayManager; name: pchar): PGdkDisplay; cdecl; external libgtk4;
+procedure gdk_set_allowed_backends(backends: pchar); cdecl; external libgtk4;
 
-// === Konventiert am: 2-8-24 17:09:54 ===
+// === Konventiert am: 2-7-26 19:12:29 ===
 
 function GDK_TYPE_DISPLAY_MANAGER: TGType;
 function GDK_DISPLAY_MANAGER(obj: Pointer): PGdkDisplayManager;

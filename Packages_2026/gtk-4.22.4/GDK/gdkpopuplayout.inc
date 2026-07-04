@@ -1,10 +1,9 @@
-
 {$IFDEF read_interface}
+
 
 type
   PGdkAnchorHints = ^TGdkAnchorHints;
   TGdkAnchorHints = longint;
-
 const
   GDK_ANCHOR_FLIP_X = 1 shl 0;
   GDK_ANCHOR_FLIP_Y = 1 shl 1;
@@ -17,9 +16,7 @@ const
   GDK_ANCHOR_RESIZE = GDK_ANCHOR_RESIZE_X or GDK_ANCHOR_RESIZE_Y;
 
 type
-  TGdkPopupLayout = record
-  end;
-  PGdkPopupLayout = ^TGdkPopupLayout;
+  PGdkPopupLayout = type Pointer;
 
 function gdk_popup_layout_get_type: TGType; cdecl; external libgtk4;
 function gdk_popup_layout_new(anchor_rect: PGdkRectangle; rect_anchor: TGdkGravity; surface_anchor: TGdkGravity): PGdkPopupLayout; cdecl; external libgtk4;
@@ -40,7 +37,7 @@ procedure gdk_popup_layout_get_offset(layout: PGdkPopupLayout; dx: Plongint; dy:
 procedure gdk_popup_layout_set_shadow_width(layout: PGdkPopupLayout; left: longint; right: longint; top: longint; bottom: longint); cdecl; external libgtk4;
 procedure gdk_popup_layout_get_shadow_width(layout: PGdkPopupLayout; left: Plongint; right: Plongint; top: Plongint; bottom: Plongint); cdecl; external libgtk4;
 
-// === Konventiert am: 31-7-24 16:23:27 ===
+// === Konventiert am: 2-7-26 19:26:44 ===
 
 function GDK_TYPE_POPUP_LAYOUT: TGType;
 

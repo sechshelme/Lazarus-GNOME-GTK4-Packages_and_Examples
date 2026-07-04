@@ -1,10 +1,4 @@
-
 {$IFDEF read_interface}
-
-type
-  TGdkTexture = record
-  end;
-  PGdkTexture = ^TGdkTexture;
 
 
 function gdk_texture_error_quark: TGQuark; cdecl; external libgtk4;
@@ -12,33 +6,31 @@ function gdk_texture_error_quark: TGQuark; cdecl; external libgtk4;
 type
   PGdkTextureError = ^TGdkTextureError;
   TGdkTextureError = longint;
-
 const
   GDK_TEXTURE_ERROR_TOO_LARGE = 0;
   GDK_TEXTURE_ERROR_CORRUPT_IMAGE = 1;
   GDK_TEXTURE_ERROR_UNSUPPORTED_CONTENT = 2;
   GDK_TEXTURE_ERROR_UNSUPPORTED_FORMAT = 3;
 
-
 function gdk_texture_get_type: TGType; cdecl; external libgtk4;
-function gdk_texture_new_for_pixbuf(pixbuf: PGdkPixbuf): PGdkTexture; cdecl; external libgtk4;
-function gdk_texture_new_from_resource(resource_path: PChar): PGdkTexture; cdecl; external libgtk4;
+function gdk_texture_new_for_pixbuf(pixbuf: PGdkPixbuf): PGdkTexture; cdecl; external libgtk4; deprecated;
+function gdk_texture_new_from_resource(resource_path: pchar): PGdkTexture; cdecl; external libgtk4;
 function gdk_texture_new_from_file(file_: PGFile; error: PPGError): PGdkTexture; cdecl; external libgtk4;
-function gdk_texture_new_from_filename(path: PChar; error: PPGError): PGdkTexture; cdecl; external libgtk4;
+function gdk_texture_new_from_filename(path: pchar; error: PPGError): PGdkTexture; cdecl; external libgtk4;
 function gdk_texture_new_from_bytes(bytes: PGBytes; error: PPGError): PGdkTexture; cdecl; external libgtk4;
 function gdk_texture_get_width(texture: PGdkTexture): longint; cdecl; external libgtk4;
 function gdk_texture_get_height(texture: PGdkTexture): longint; cdecl; external libgtk4;
 function gdk_texture_get_format(self: PGdkTexture): TGdkMemoryFormat; cdecl; external libgtk4;
-procedure gdk_texture_download(texture: PGdkTexture; Data: Pguchar; stride: Tgsize); cdecl; external libgtk4;
-function gdk_texture_save_to_png(texture: PGdkTexture; filename: PChar): Tgboolean; cdecl; external libgtk4;
+function gdk_texture_get_color_state(self: PGdkTexture): PGdkColorState; cdecl; external libgtk4;
+procedure gdk_texture_download(texture: PGdkTexture; data: Pguchar; stride: Tgsize); cdecl; external libgtk4;
+function gdk_texture_save_to_png(texture: PGdkTexture; filename: pchar): Tgboolean; cdecl; external libgtk4;
 function gdk_texture_save_to_png_bytes(texture: PGdkTexture): PGBytes; cdecl; external libgtk4;
-function gdk_texture_save_to_tiff(texture: PGdkTexture; filename: PChar): Tgboolean; cdecl; external libgtk4;
+function gdk_texture_save_to_tiff(texture: PGdkTexture; filename: pchar): Tgboolean; cdecl; external libgtk4;
 function gdk_texture_save_to_tiff_bytes(texture: PGdkTexture): PGBytes; cdecl; external libgtk4;
 
 function GDK_TEXTURE_ERROR: TGQuark;
 
-
-// === Konventiert am: 31-7-24 19:30:44 ===
+// === Konventiert am: 2-7-26 19:26:05 ===
 
 function GDK_TYPE_TEXTURE: TGType;
 function GDK_TEXTURE(obj: Pointer): PGdkTexture;
@@ -64,7 +56,6 @@ begin
   Result := g_type_check_instance_is_a(obj, GDK_TYPE_TEXTURE);
 end;
 
-// =====
 
 function GDK_TEXTURE_ERROR: TGQuark;
 begin

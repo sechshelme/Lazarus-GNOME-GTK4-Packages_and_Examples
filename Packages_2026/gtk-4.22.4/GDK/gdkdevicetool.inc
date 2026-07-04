@@ -1,10 +1,11 @@
-
 {$IFDEF read_interface}
+
+type
+  PGdkDeviceTool = type Pointer;
 
 type
   PGdkDeviceToolType = ^TGdkDeviceToolType;
   TGdkDeviceToolType = longint;
-
 const
   GDK_DEVICE_TOOL_TYPE_UNKNOWN = 0;
   GDK_DEVICE_TOOL_TYPE_PEN = 1;
@@ -15,18 +16,13 @@ const
   GDK_DEVICE_TOOL_TYPE_MOUSE = 6;
   GDK_DEVICE_TOOL_TYPE_LENS = 7;
 
-type
-  TGdkDeviceTool = record
-  end;
-  PGdkDeviceTool = ^TGdkDeviceTool;
-
 function gdk_device_tool_get_type: TGType; cdecl; external libgtk4;
 function gdk_device_tool_get_serial(tool: PGdkDeviceTool): Tguint64; cdecl; external libgtk4;
 function gdk_device_tool_get_hardware_id(tool: PGdkDeviceTool): Tguint64; cdecl; external libgtk4;
 function gdk_device_tool_get_tool_type(tool: PGdkDeviceTool): TGdkDeviceToolType; cdecl; external libgtk4;
 function gdk_device_tool_get_axes(tool: PGdkDeviceTool): TGdkAxisFlags; cdecl; external libgtk4;
 
-// === Konventiert am: 2-8-24 14:38:17 ===
+// === Konventiert am: 2-7-26 19:13:24 ===
 
 function GDK_TYPE_DEVICE_TOOL: TGType;
 function GDK_DEVICE_TOOL(obj: Pointer): PGdkDeviceTool;

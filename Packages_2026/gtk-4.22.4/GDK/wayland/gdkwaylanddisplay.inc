@@ -2,19 +2,15 @@
 {$IFDEF read_interface}
 
 type
-  PGdkWaylandDisplay = ^TGdkWaylandDisplay;
-  TGdkWaylandDisplay = TGdkDisplay;
-
-  TGdkWaylandDisplayClass = record
-  end;
-  PGdkWaylandDisplayClass = ^TGdkWaylandDisplayClass;
+  PGdkWaylandDisplay = PGdkDisplay;
+  PGdkWaylandDisplayClass = type Pointer;
 
 function gdk_wayland_display_get_type: TGType; cdecl; external libgtk4;
 function gdk_wayland_display_get_wl_display(display: PGdkDisplay): Pwl_display; cdecl; external libgtk4;
 function gdk_wayland_display_get_wl_compositor(display: PGdkDisplay): Pwl_compositor; cdecl; external libgtk4;
-procedure gdk_wayland_display_set_cursor_theme(display: PGdkDisplay; Name: PChar; size: longint); cdecl; external libgtk4;
-function gdk_wayland_display_get_startup_notification_id(display: PGdkDisplay): PChar; cdecl; external libgtk4; deprecated 'GDK_DEPRECATED_IN_4_10';
-procedure gdk_wayland_display_set_startup_notification_id(display: PGdkDisplay; startup_id: PChar); cdecl; external libgtk4; deprecated 'GDK_DEPRECATED_IN_4_10_FOR(gdk_toplevel_set_startup_id)';
+procedure gdk_wayland_display_set_cursor_theme(display: PGdkDisplay; Name: PChar; size: longint); cdecl; external libgtk4; deprecated;
+function gdk_wayland_display_get_startup_notification_id(display: PGdkDisplay): PChar; cdecl; external libgtk4; deprecated;
+procedure gdk_wayland_display_set_startup_notification_id(display: PGdkDisplay; startup_id: PChar); cdecl; external libgtk4; deprecated;
 function gdk_wayland_display_query_registry(display: PGdkDisplay; global: PChar): Tgboolean; cdecl; external libgtk4;
 function gdk_wayland_display_get_egl_display(display: PGdkDisplay): Tgpointer; cdecl; external libgtk4;
 

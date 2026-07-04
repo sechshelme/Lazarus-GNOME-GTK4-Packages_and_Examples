@@ -11,6 +11,7 @@ uses
 
 
 type
+  PPGdkContentProvider=^PGdkContentProvider;
   PGdkContentProvider = ^TGdkContentProvider;
   TGdkContentProvider = record
     parent: TGObject;

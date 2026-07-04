@@ -1,10 +1,5 @@
-
 {$IFDEF read_interface}
 
-type
-  TGdkDmabufFormats = record
-  end;
-  PGdkDmabufFormats = ^TGdkDmabufFormats;
 
 function gdk_dmabuf_formats_get_type: TGType; cdecl; external libgtk4;
 function gdk_dmabuf_formats_ref(formats: PGdkDmabufFormats): PGdkDmabufFormats; cdecl; external libgtk4;
@@ -14,7 +9,7 @@ procedure gdk_dmabuf_formats_get_format(formats: PGdkDmabufFormats; idx: Tgsize;
 function gdk_dmabuf_formats_contains(formats: PGdkDmabufFormats; fourcc: Tguint32; modifier: Tguint64): Tgboolean; cdecl; external libgtk4;
 function gdk_dmabuf_formats_equal(formats1: PGdkDmabufFormats; formats2: PGdkDmabufFormats): Tgboolean; cdecl; external libgtk4;
 
-// === Konventiert am: 2-8-24 17:10:02 ===
+// === Konventiert am: 2-7-26 19:12:35 ===
 
 function GDK_TYPE_DMABUF_FORMATS: TGType;
 

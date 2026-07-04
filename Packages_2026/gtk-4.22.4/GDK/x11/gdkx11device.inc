@@ -2,7 +2,7 @@
 {$IFDEF read_interface}
 
 
-function gdk_x11_device_get_id(device: PGdkDevice): longint; cdecl; external libgtk4;
+function gdk_x11_device_get_id(device: PGdkDevice): longint; cdecl; external libgtk4; deprecated;
 
 // === Konventiert am: 3-8-24 17:26:48 ===
 
