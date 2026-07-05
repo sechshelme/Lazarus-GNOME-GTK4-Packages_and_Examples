@@ -30,7 +30,7 @@
 
 
 
-typedef struct _GskGLShaderNode                 GskGLShaderNode GDK_DEPRECATED_TYPE_IN_4_16_FOR(GtkGLArea);
+typedef struct _GskGLShaderNode                 GskGLShaderNode ;
 
 #define GSK_TYPE_GL_SHADER_NODE (gsk_gl_shader_node_get_type())
 

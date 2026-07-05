@@ -40,13 +40,13 @@
  *
  * Deprecated: 4.16
  */
-typedef struct _GskGLShader GskGLShader GDK_DEPRECATED_TYPE_IN_4_16_FOR(GtkGLArea);
-typedef struct _GskShaderArgsBuilder GskShaderArgsBuilder GDK_DEPRECATED_TYPE_IN_4_16_FOR(GtkGLArea);
+typedef struct _GskGLShader GskGLShader ;
+typedef struct _GskShaderArgsBuilder GskShaderArgsBuilder;
 
 #define GSK_TYPE_GL_SHADER (gsk_gl_shader_get_type ())
 
-extern //xxxxxGLIB_DEPRECATED_IN_4_16_FOR(GtkGLArea)
-G_DECLARE_FINAL_TYPE (GskGLShader, gsk_gl_shader, GSK, GL_SHADER, GObject)
+//extern //xxxxxGLIB_DEPRECATED_IN_4_16_FOR(GtkGLArea)
+//G_DECLARE_FINAL_TYPE (GskGLShader, gsk_gl_shader, GSK, GL_SHADER, GObject)
 
 extern //xxxxxGLIB_DEPRECATED_IN_4_16_FOR(GtkGLArea)
 GskGLShader *    gsk_gl_shader_new_from_bytes          (GBytes           *sourcecode);
