@@ -22,8 +22,7 @@
 
 #define GTK_TYPE_BIN_LAYOUT (gtk_bin_layout_get_type ())
 
-extern
-G_DECLARE_FINAL_TYPE (GtkBinLayout, gtk_bin_layout, GTK, BIN_LAYOUT, GtkLayoutManager)
+//G_DECLARE_FINAL_TYPE (GtkBinLayout, gtk_bin_layout, GTK, BIN_LAYOUT, GtkLayoutManager)
 
 extern
 GtkLayoutManager *      gtk_bin_layout_new      (void);

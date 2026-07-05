@@ -33,8 +33,7 @@
 
 #define GTK_TYPE_BOOKMARK_LIST (gtk_bookmark_list_get_type ())
 
-extern
-G_DECLARE_FINAL_TYPE (GtkBookmarkList, gtk_bookmark_list, GTK, BOOKMARK_LIST, GObject)
+//G_DECLARE_FINAL_TYPE (GtkBookmarkList, gtk_bookmark_list, GTK, BOOKMARK_LIST, GObject)
 
 extern
 GtkBookmarkList *    gtk_bookmark_list_new                  (const char *filename,

@@ -9,6 +9,7 @@ uses
   LoadTitleDialog,
   LoadSaveSongs,
 
+  MPAboutDialog,
   MPStreamer,
   MPVUMeterWidget,
   MPColumnViewBox,
@@ -44,6 +45,7 @@ type
     timer_id: Tguint;
 
     idle: PIdleSongLoader;
+    AboutDialog:PMPAboutDialog;
   end;
   PInstPriv = ^TInstPriv;
 
@@ -218,6 +220,13 @@ begin
       'listbox.down': begin
         mp_column_view_box_down(columviewBox);
       end;
+      'about': begin
+        if AboutDialog=nil then begin
+          AboutDialog:=mp_about_dialog_new;
+          g_signal_connect_swapped(AboutDialog, 'destroy', G_CALLBACK(@g_nullify_pointer), @AboutDialog);
+        end;
+        gtk_window_present(AboutDialog);
+      end;
       else begin
         g_printf('Unbekannte Action, Name: "%s"'#10, Pgchar(action_name));
       end;
@@ -364,6 +373,7 @@ begin
   priv := GetPriv(Result);
 
   with priv^ do begin
+    AboutDialog:=nil;
     SekStream := nil;
     PriStream := nil;
     IsChange := False;

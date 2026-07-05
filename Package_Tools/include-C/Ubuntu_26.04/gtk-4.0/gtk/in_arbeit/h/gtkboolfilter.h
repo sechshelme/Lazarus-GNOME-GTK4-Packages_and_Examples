@@ -29,8 +29,7 @@
 
 
 #define GTK_TYPE_BOOL_FILTER             (gtk_bool_filter_get_type ())
-extern
-G_DECLARE_FINAL_TYPE (GtkBoolFilter, gtk_bool_filter, GTK, BOOL_FILTER, GtkFilter)
+//G_DECLARE_FINAL_TYPE (GtkBoolFilter, gtk_bool_filter, GTK, BOOL_FILTER, GtkFilter)
 
 extern
 GtkBoolFilter *         gtk_bool_filter_new                     (GtkExpression          *expression);

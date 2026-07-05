@@ -10,9 +10,9 @@ uses
 
 const
   AudioExtensions: array of Pgchar = (
-  '.med',  // MPEG-1/2 Audio Layer 3
-  '.Med',  // MPEG-1/2 Audio Layer 3
-  '.MED',  // MPEG-1/2 Audio Layer 3
+    '.med',  // MPEG-1/2 Audio Layer 3
+    '.Med',  // MPEG-1/2 Audio Layer 3
+    '.MED',  // MPEG-1/2 Audio Layer 3
 
 
     '.mp3',  // MPEG-1/2 Audio Layer 3
