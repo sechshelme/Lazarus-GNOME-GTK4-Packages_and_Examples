@@ -3,7 +3,7 @@ unit gskbordernode;
 interface
 
 uses
-  fp_glib2, fp_gtk4, gsktypes;
+  fp_glib2, fp_gtk4, gsktypes, gskroundedrect;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
