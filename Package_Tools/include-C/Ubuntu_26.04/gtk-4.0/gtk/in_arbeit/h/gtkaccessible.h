@@ -32,8 +32,7 @@
 
 #define GTK_TYPE_ACCESSIBLE (gtk_accessible_get_type())
 
-extern
-G_DECLARE_INTERFACE (GtkAccessible, gtk_accessible, GTK, ACCESSIBLE, GObject)
+// G_DECLARE_INTERFACE (GtkAccessible, gtk_accessible, GTK, ACCESSIBLE, GObject)
 
 /**
  * GtkAccessiblePlatformState:

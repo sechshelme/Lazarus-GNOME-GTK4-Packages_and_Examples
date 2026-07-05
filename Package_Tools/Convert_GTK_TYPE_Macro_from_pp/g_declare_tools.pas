@@ -174,9 +174,7 @@ begin
 
   Result.Add('type ');
   if G_DECLARE = is_G_DECLARE_FINAL_TYPE then begin
-    Result.Add('  T' + sa[1] + ' = record');
-    Result.Add('  end;');
-    Result.Add('  P' + sa[1] + ' = ^T' + sa[1] + ';');
+    Result.Add('  P' + sa[1] + ' = type Pointer;');
     Result.Add('');
 
     Result.Add('  T' + sa[1] + 'Class = record');
@@ -192,26 +190,18 @@ begin
     Result.Add('  P' + sa[1] + ' = ^T' + sa[1] + ';');
     Result.Add('');
 
-    Result.Add('  T' + sa[1] + 'Class = record');
-    Result.Add('  end;');
-    Result.Add('  P' + sa[1] + 'Class = ^T' + sa[1] + 'Class;');
+    Result.Add('  P' + sa[1] + 'Class = type Pointer;');
     Result.Add('');
   end;
   if G_DECLARE = is_G_DECLARE_INTERFACE then begin
-    Result.Add('  T' + sa[1] + ' = record');
-    Result.Add('  end;');
-    Result.Add('  P' + sa[1] + ' = ^T' + sa[1] + ';');
+    Result.Add('  P' + sa[1] + ' = type Pointer;');
     Result.Add('');
 
-    Result.Add('  T' + sa[1] + 'Interface = record');
-    Result.Add('  end;');
-    Result.Add('  P' + sa[1] + 'Interface = ^T' + sa[1] + 'Interface;');
+    Result.Add('  P' + sa[1] + 'Interface = type Pointer');
     Result.Add('');
   end;
   if G_DECLARE = is_GDK_DECLARE_INTERNAL_TYPE then begin
-    Result.Add('  T' + sa[1] + ' = record');
-    Result.Add('  end;');
-    Result.Add('  P' + sa[1] + ' = ^T' + sa[1] + ';');
+    Result.Add('  P' + sa[1] + ' = type Pointer;');
     Result.Add('');
 
     Result.Add('  T' + sa[1] + 'Class = record');
@@ -220,9 +210,7 @@ begin
     Result.Add('');
   end;
   if G_DECLARE = is_JSC_DECLARE_FINAL_TYPE then begin
-    Result.Add('  T' + sa[1] + ' = record');
-    Result.Add('  end;');
-    Result.Add('  P' + sa[1] + ' = ^T' + sa[1] + ';');
+    Result.Add('  P' + sa[1] + ' = type Pointer;');
     Result.Add('');
 
     Result.Add('  T' + sa[1] + 'Class = record');
@@ -232,9 +220,7 @@ begin
     Result.Add('');
   end;
   if G_DECLARE = is_WEBKIT_DECLARE_FINAL_TYPE then begin
-    Result.Add('  T' + sa[1] + ' = record');
-    Result.Add('  end;');
-    Result.Add('  P' + sa[1] + ' = ^T' + sa[1] + ';');
+    Result.Add('  P' + sa[1] + ' = ;');
     Result.Add('');
 
     Result.Add('  T' + sa[1] + 'Class = record');
@@ -251,20 +237,14 @@ begin
     Result.Add('  P' + sa[1] + ' = ^T' + sa[1] + ';');
     Result.Add('');
 
-    Result.Add('  T' + sa[1] + 'Class = record');
-    Result.Add('  end;');
-    Result.Add('  P' + sa[1] + 'Class = ^T' + sa[1] + 'Class;');
+    Result.Add('  P' + sa[1] + 'Class = type Pointer');
     Result.Add('');
 
-    Result.Add('  T' + sa[1] + 'Private = record');
-    Result.Add('  end;');
-    Result.Add('  P' + sa[1] + 'Private = ^T' + sa[1] + 'Private;');
+    Result.Add('  P' + sa[1] + 'Private = type Pointer');
     Result.Add('');
   end;
   if G_DECLARE = is_GES_DECLARE_TYPE then begin
-    Result.Add('  T' + sa[1] + 'Private = record');
-    Result.Add('  end;');
-    Result.Add('  P' + sa[1] + 'Private = ^T' + sa[1] + 'Private;');
+    Result.Add('  P' + sa[1] + 'Private = type Pointer');
     Result.Add('');
   end;
 

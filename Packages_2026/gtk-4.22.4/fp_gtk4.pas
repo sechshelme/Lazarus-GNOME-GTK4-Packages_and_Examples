@@ -27,7 +27,7 @@ const
   {$DEFINE read_interface}
 
   {$include fp_GDK4_includes.inc}
-//  {$include fp_GSK4_includes.inc}
+  {$include fp_GSK4_includes.inc}
 //  {$include fp_GTK4_includes.inc}
 
   {$IFDEF Linux}
@@ -45,7 +45,7 @@ implementation
 {$DEFINE read_implementation}
 
 {$include fp_GDK4_includes.inc}
-//{$include fp_GSK4_includes.inc}
+{$include fp_GSK4_includes.inc}
 //{$include fp_GTK4_includes.inc}
 
 {$IFDEF Linux}

@@ -18,8 +18,7 @@
 
 #define GTK_ACCESSIBLE_HYPERLINK_TYPE (gtk_accessible_hyperlink_get_type ())
 
-extern
-G_DECLARE_FINAL_TYPE (GtkAccessibleHyperlink, gtk_accessible_hyperlink, GTK, ACCESSIBLE_HYPERLINK, GObject);
+// G_DECLARE_FINAL_TYPE (GtkAccessibleHyperlink, gtk_accessible_hyperlink, GTK, ACCESSIBLE_HYPERLINK, GObject);
 
 #define GTK_TYPE_ACCESSIBLE_HYPERTEXT (gtk_accessible_hypertext_get_type ())
 
@@ -34,8 +33,7 @@ G_DECLARE_FINAL_TYPE (GtkAccessibleHyperlink, gtk_accessible_hyperlink, GTK, ACC
  *
  * Since: 4.22
  */
-extern
-G_DECLARE_INTERFACE (GtkAccessibleHypertext, gtk_accessible_hypertext, GTK, ACCESSIBLE_HYPERTEXT, GtkAccessible)
+// G_DECLARE_INTERFACE (GtkAccessibleHypertext, gtk_accessible_hypertext, GTK, ACCESSIBLE_HYPERTEXT, GtkAccessible)
 
 /**
  * GtkAccessibleHypertextInterface:

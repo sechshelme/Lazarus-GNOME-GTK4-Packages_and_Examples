@@ -29,8 +29,7 @@
 
 #define GTK_TYPE_ALERT_DIALOG (gtk_alert_dialog_get_type ())
 
-extern
-G_DECLARE_FINAL_TYPE (GtkAlertDialog, gtk_alert_dialog, GTK, ALERT_DIALOG, GObject)
+// G_DECLARE_FINAL_TYPE (GtkAlertDialog, gtk_alert_dialog, GTK, ALERT_DIALOG, GObject)
 
 extern
 GtkAlertDialog *gtk_alert_dialog_new               (const char           *format,

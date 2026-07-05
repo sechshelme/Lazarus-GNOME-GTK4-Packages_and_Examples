@@ -31,8 +31,7 @@
  *
  * Since: 4.14
  */
-extern
-G_DECLARE_INTERFACE (GtkAccessibleText, gtk_accessible_text, GTK, ACCESSIBLE_TEXT, GtkAccessible)
+// G_DECLARE_INTERFACE (GtkAccessibleText, gtk_accessible_text, GTK, ACCESSIBLE_TEXT, GtkAccessible)
 
 /**
  * GtkAccessibleTextRange:
