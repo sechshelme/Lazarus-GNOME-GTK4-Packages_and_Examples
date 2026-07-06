@@ -1,0 +1,111 @@
+unit gtktogglebutton;
+
+interface
+
+uses
+  fp_glib2, fp_gtk4;
+
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{ GTK - The GIMP Toolkit
+ * Copyright (C) 1995-1997 Peter Mattis, Spencer Kimball and Josh MacDonald
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library. If not, see <http://www.gnu.org/licenses/>.
+  }
+{
+ * Modified by the GTK+ Team and others 1997-2000.  See the AUTHORS
+ * file for a list of people on the GTK+ Team.  See the ChangeLog
+ * files for a list of changes.  These files are distributed with
+ * GTK+ at ftp://ftp.gtk.org/pub/gtk/.
+  }
+(** unsupported pragma#pragma once*)
+{$if !defined (__GTK_H_INSIDE__) && !defined (GTK_COMPILATION)}
+{$error "Only <gtk/gtk.h> can be included directly."}
+{$endif}
+{$include <gtk/gtkbutton.h>}
+
+type
+{< private > }
+  PGtkToggleButton = ^TGtkToggleButton;
+  TGtkToggleButton = record
+      button : TGtkButton;
+    end;
+
+{< private > }
+  PGtkToggleButtonClass = ^TGtkToggleButtonClass;
+  TGtkToggleButtonClass = record
+      parent_class : TGtkButtonClass;
+      toggled : procedure (toggle_button:PGtkToggleButton);cdecl;
+      padding : array[0..7] of Tgpointer;
+    end;
+
+
+function gtk_toggle_button_get_type:TGType;cdecl;external libgtk4;
+function gtk_toggle_button_new:PGtkWidget;cdecl;external libgtk4;
+function gtk_toggle_button_new_with_label(_label:Pchar):PGtkWidget;cdecl;external libgtk4;
+function gtk_toggle_button_new_with_mnemonic(_label:Pchar):PGtkWidget;cdecl;external libgtk4;
+procedure gtk_toggle_button_set_active(toggle_button:PGtkToggleButton; is_active:Tgboolean);cdecl;external libgtk4;
+function gtk_toggle_button_get_active(toggle_button:PGtkToggleButton):Tgboolean;cdecl;external libgtk4;
+{xxxxxGLIB_DEPRECATED_IN_4_10 }
+procedure gtk_toggle_button_toggled(toggle_button:PGtkToggleButton);cdecl;external libgtk4;
+procedure gtk_toggle_button_set_group(toggle_button:PGtkToggleButton; group:PGtkToggleButton);cdecl;external libgtk4;
+{////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkToggleButton, g_object_unref) }
+
+// === Konventiert am: 6-7-26 16:36:20 ===
+
+function GTK_TYPE_TOGGLE_BUTTON : TGType;
+function GTK_TOGGLE_BUTTON(obj : Pointer) : PGtkToggleButton;
+function GTK_TOGGLE_BUTTON_CLASS(klass : Pointer) : PGtkToggleButtonClass;
+function GTK_IS_TOGGLE_BUTTON(obj : Pointer) : Tgboolean;
+function GTK_IS_TOGGLE_BUTTON_CLASS(klass : Pointer) : Tgboolean;
+function GTK_TOGGLE_BUTTON_GET_CLASS(obj : Pointer) : PGtkToggleButtonClass;
+
+implementation
+
+function GTK_TYPE_TOGGLE_BUTTON : TGType;
+  begin
+    GTK_TYPE_TOGGLE_BUTTON:=gtk_toggle_button_get_type;
+  end;
+
+function GTK_TOGGLE_BUTTON(obj : Pointer) : PGtkToggleButton;
+begin
+  Result := PGtkToggleButton(g_type_check_instance_cast(obj, GTK_TYPE_TOGGLE_BUTTON));
+end;
+
+function GTK_TOGGLE_BUTTON_CLASS(klass : Pointer) : PGtkToggleButtonClass;
+begin
+  Result := PGtkToggleButtonClass(g_type_check_class_cast(klass, GTK_TYPE_TOGGLE_BUTTON));
+end;
+
+function GTK_IS_TOGGLE_BUTTON(obj : Pointer) : Tgboolean;
+begin
+  Result := g_type_check_instance_is_a(obj,  GTK_TYPE_TOGGLE_BUTTON);
+end;
+
+function GTK_IS_TOGGLE_BUTTON_CLASS(klass : Pointer) : Tgboolean;
+begin
+  Result := g_type_check_class_is_a(klass,  GTK_TYPE_TOGGLE_BUTTON);
+end;
+
+function GTK_TOGGLE_BUTTON_GET_CLASS(obj : Pointer) : PGtkToggleButtonClass;
+begin
+  Result := PGtkToggleButtonClass(PGTypeInstance(obj)^.g_class);
+end;
+
+
+
+end.
