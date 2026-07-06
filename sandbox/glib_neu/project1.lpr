@@ -7,6 +7,16 @@ program project1;
 
 // diff -U 1 /n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Packages_2024/gtk-4.14.2/C-include/gdk/wayland /n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Packages_2026/gtk-4.22.4/C-include/gtk-4.0/gdk/wayland > test.diff
 uses
+gtktypes,
+gtktypebuiltins,
+gtkenums,
+
+gtkwidget,
+gtkwindow,
+
+
+
+
 gtkaboutdialog,
 gtkaccelgroup,
 gtkaccessible,
@@ -67,7 +77,6 @@ gtkeditablelabel,
 gtkemojichooser,
 gtkentry,
 gtkentrybuffer,
-gtkenums,
 gtkeventcontroller,
 gtkeventcontrollerfocus,
 gtkeventcontrollerkey,
@@ -209,15 +218,11 @@ gtktooltip,
 gtktreeexpander,
 gtktreelistmodel,
 gtktreelistrowsorter,
-gtktypebuiltins,
-gtktypes,
 gtkurilauncher,
 gtkversion,
 gtkvideo,
 gtkviewport,
-gtkwidget,
 gtkwidgetpaintable,
-gtkwindow,
 gtkwindowcontrols,
 gtkwindowgroup,
 gtkwindowhandle,

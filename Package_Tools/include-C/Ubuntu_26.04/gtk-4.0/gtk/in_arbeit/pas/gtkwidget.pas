@@ -3,188 +3,36 @@ unit gtkwidget;
 interface
 
 uses
-  fp_glib2, fp_gtk4;
+  fp_glib2, fp_graphene, fp_cairo, fp_pango, fp_gtk4, gtkenums, gtktypes;
 
 {$IFDEF FPC}
 {$PACKRECORDS C}
 {$ENDIF}
 
 
-{ GTK - The GIMP Toolkit
- * Copyright (C) 1995-1997 Peter Mattis, Spencer Kimball and Josh MacDonald
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library. If not, see <http://www.gnu.org/licenses/>.
-  }
-{
- * Modified by the GTK+ Team and others 1997-2000.  See the AUTHORS
- * file for a list of people on the GTK+ Team.  See the ChangeLog
- * files for a list of changes.  These files are distributed with
- * GTK+ at ftp://ftp.gtk.org/pub/gtk/.
-  }
-(** unsupported pragma#pragma once*)
-{$if !defined (__GTK_H_INSIDE__) && !defined (GTK_COMPILATION)}
-{$error "Only <gtk/gtk.h> can be included directly."}
-{$endif}
-{$include <gdk/gdk.h>}
-{$include <gsk/gsk.h>}
-{$include <gtk/gtkenums.h>}
-{$include <gtk/gtkshortcut.h>}
-{$include <gtk/gtkshortcutaction.h>}
-{$include <gtk/gtktypes.h>}
-{ Macro for casting a pointer to a GtkWidget or GtkWidgetClass pointer.
- * Macros for testing whether widget or klass are of type GTK_TYPE_WIDGET.
-  }
-
-{ was #define dname def_expr }
-function GTK_TYPE_REQUISITION : longint; { return type might be wrong }
 
 type
-{*
- * GtkAllocation:
- * @x: the X position of the widget’s area relative to its parents allocation.
- * @y: the Y position of the widget’s area relative to its parents allocation.
- * @width: the width of the widget’s allocated area.
- * @height: the height of the widget’s allocated area.
- *
- * The rectangle representing the area allocated for a widget by its parent.
-  }
+  PGtkWidget = ^TGtkWidget;
 
   PGtkAllocation = ^TGtkAllocation;
   TGtkAllocation = TGdkRectangle;
-{*
- * GtkTickCallback:
- * @widget: the widget
- * @frame_clock: the frame clock for the widget
- * @user_data: user data passed to [method@Gtk.Widget.add_tick_callback].
- *
- * Callback type for adding a function to update animations.
- *
- * See [method@Gtk.Widget.add_tick_callback].
- *
- * Returns: `G_SOURCE_CONTINUE` if the tick callback should continue
- *   to be called, `G_SOURCE_REMOVE` if it should be removed
-  }
 
   TGtkTickCallback = function (widget:PGtkWidget; frame_clock:PGdkFrameClock; user_data:Tgpointer):Tgboolean;cdecl;
-{*
- * GtkRequisition:
- * @width: the widget’s desired width
- * @height: the widget’s desired height
- *
- * Represents the desired size of a widget.
- *
- * See [GtkWidget’s geometry management section](class.Widget.html#height-for-width-geometry-management)
- * for more information.
-  }
+
   PGtkRequisition = ^TGtkRequisition;
   TGtkRequisition = record
-      width : longint;cdecl;
+      width : longint;
       height : longint;
     end;
 
-{ The widget is the base of the tree for displayable objects.
- *  (A displayable object is one which takes up some amount
- *  of screen real estate). It provides a common base and interface
- *  which actual widgets must adhere to.
-  }
-{< private > }
-  PGtkWidget = ^TGtkWidget;
+  PGtkWidgetPrivate=type Pointer;
+  PGtkWidgetClassPrivate=type Pointer;
+
   TGtkWidget = record
       parent_instance : TGInitiallyUnowned;
       priv : PGtkWidgetPrivate;
     end;
 
-{*
- * GtkWidgetClass:
- * @parent_class: The object class structure needs to be the first
- *   element in the widget class structure in order for the class mechanism
- *   to work correctly. This allows a GtkWidgetClass pointer to be cast to
- *   a GObjectClass pointer.
- * @show: Signal emitted when widget is shown
- * @hide: Signal emitted when widget is hidden.
- * @map: Signal emitted when widget is going to be mapped, that is
- *   when the widget is visible (which is controlled with
- *   gtk_widget_set_visible()) and all its parents up to the toplevel
- *   widget are also visible.
- * @unmap: Signal emitted when widget is going to be unmapped, which
- *   means that either it or any of its parents up to the toplevel
- *   widget have been set as hidden.
- * @realize: Signal emitted when widget is associated with a
- *   `GdkSurface`, which means that gtk_widget_realize() has been called or
- *   the widget has been mapped (that is, it is going to be drawn).
- * @unrealize: Signal emitted when the GdkSurface associated with
- *   widget is destroyed, which means that gtk_widget_unrealize() has
- *   been called or the widget has been unmapped (that is, it is going
- *   to be hidden).
- * @root: Called when the widget gets added to a `GtkRoot` widget. Must
- *   chain up
- * @unroot: Called when the widget is about to be removed from its
- *   `GtkRoot` widget. Must chain up
- * @size_allocate: Called to set the allocation, if the widget does
- *   not have a layout manager.
- * @state_flags_changed: Signal emitted when the widget state changes,
- *   see gtk_widget_get_state_flags().
- * @direction_changed: Signal emitted when the text direction of a
- *   widget changes.
- * @get_request_mode: Called to get the request mode, if the widget
- *   does not have a layout manager.
- *   This allows a widget to tell its parent container whether
- *   it prefers to be allocated in %GTK_SIZE_REQUEST_HEIGHT_FOR_WIDTH or
- *   %GTK_SIZE_REQUEST_WIDTH_FOR_HEIGHT mode.
- *   %GTK_SIZE_REQUEST_HEIGHT_FOR_WIDTH means the widget prefers to have
- *   `GtkWidgetClass.measure()` called first to get the default width (passing
- *   a for_size of -1), then again to get the height for said default width.
- *   %GTK_SIZE_REQUEST_CONSTANT_SIZE disables any height-for-width or
- *   width-for-height geometry management for said widget and is the
- *   default return.
- *   It’s important to note that any widget
- *   which trades height-for-width or width-for-height must respond properly
- *   to a for_size value >= -1 passed to `GtkWidgetClass.measure`, for both
- *   possible orientations.
- * @measure: Called to obtain the minimum and natural size of the widget,
- *   if the widget does not have a layout manager.
- *   Depending on the orientation parameter, the passed for_size can be
- *   interpreted as width or height. A widget will never be allocated less
- *   than its minimum size.
- * @mnemonic_activate: Activates the @widget if @group_cycling is
- *   %FALSE, and just grabs the focus if @group_cycling is %TRUE.
- * @grab_focus: Causes @widget to have the keyboard focus for the
- *   `GtkWindow` it’s inside.
- * @focus: Vfunc for gtk_widget_child_focus()
- * @set_focus_child: Sets the focused child of a widget. Must chain up
- * @move_focus: Signal emitted when a change of focus is requested
- * @keynav_failed: Signal emitted if keyboard navigation fails.
- * @query_tooltip: Signal emitted when “has-tooltip” is %TRUE and the
- *   hover timeout has expired with the cursor hovering “above”
- *   widget; or emitted when widget got focus in keyboard mode.
- * @compute_expand: Computes whether a container should give this
- *   widget extra space when possible.
- * @css_changed: Vfunc called when the CSS used by widget was changed. Widgets
- *   should then discard their caches that depend on CSS and queue resizes or
- *   redraws accordingly. The default implementation will take care of this for
- *   all the default CSS properties, so implementations must chain up.
- * @system_setting_changed: Emitted when a system setting was changed. Must chain up.
- * @snapshot: Vfunc called when a new snapshot of the widget has to be taken.
- * @contains: Vfunc for gtk_widget_contains().
-  }
-{< public > }
-{ basics  }
-{ size requests  }
-{ Mnemonics  }
-{ explicit focus  }
-{ keyboard navigation  }
-{< private > }
   PGtkWidgetClass = ^TGtkWidgetClass;
   TGtkWidgetClass = record
       parent_class : TGInitiallyUnownedClass;
@@ -200,8 +48,7 @@ type
       state_flags_changed : procedure (widget:PGtkWidget; previous_state_flags:TGtkStateFlags);cdecl;
       direction_changed : procedure (widget:PGtkWidget; previous_direction:TGtkTextDirection);cdecl;
       get_request_mode : function (widget:PGtkWidget):TGtkSizeRequestMode;cdecl;
-      measure : procedure (widget:PGtkWidget; orientation:TGtkOrientation; for_size:longint; minimum:Plongint; natural:Plongint; 
-                    minimum_baseline:Plongint; natural_baseline:Plongint);cdecl;
+      measure : procedure (widget:PGtkWidget; orientation:TGtkOrientation; for_size:longint; minimum:Plongint; natural:Plongint;                     minimum_baseline:Plongint; natural_baseline:Plongint);cdecl;
       mnemonic_activate : function (widget:PGtkWidget; group_cycling:Tgboolean):Tgboolean;cdecl;
       grab_focus : function (widget:PGtkWidget):Tgboolean;cdecl;
       focus : function (widget:PGtkWidget; direction:TGtkDirectionType):Tgboolean;cdecl;
@@ -213,23 +60,19 @@ type
       css_changed : procedure (widget:PGtkWidget; change:PGtkCssStyleChange);cdecl;
       system_setting_changed : procedure (widget:PGtkWidget; settings:TGtkSystemSetting);cdecl;
       snapshot : procedure (widget:PGtkWidget; snapshot:PGtkSnapshot);cdecl;
-      contains : function (widget:PGtkWidget; x:Tdouble; y:Tdouble):Tgboolean;cdecl;
+      contains : function (widget:PGtkWidget; x:double; y:double):Tgboolean;cdecl;
       priv : PGtkWidgetClassPrivate;
       padding : array[0..7] of Tgpointer;
     end;
 
-
 function gtk_widget_get_type:TGType;cdecl;external libgtk4;
 procedure gtk_widget_unparent(widget:PGtkWidget);cdecl;external libgtk4;
-{xxxxxGLIB_DEPRECATED_IN_4_10_FOR(gtk_widget_set_visible or gtk_window_present) }
-procedure gtk_widget_show(widget:PGtkWidget);cdecl;external libgtk4;
-{xxxxxGLIB_DEPRECATED_IN_4_10_FOR(gtk_widget_set_visible) }
-procedure gtk_widget_hide(widget:PGtkWidget);cdecl;external libgtk4;
+procedure gtk_widget_show(widget:PGtkWidget);cdecl;external libgtk4;deprecated;
+procedure gtk_widget_hide(widget:PGtkWidget);cdecl;external libgtk4;deprecated;
 procedure gtk_widget_map(widget:PGtkWidget);cdecl;external libgtk4;
 procedure gtk_widget_unmap(widget:PGtkWidget);cdecl;external libgtk4;
 procedure gtk_widget_realize(widget:PGtkWidget);cdecl;external libgtk4;
 procedure gtk_widget_unrealize(widget:PGtkWidget);cdecl;external libgtk4;
-{ Queuing draws  }
 procedure gtk_widget_queue_draw(widget:PGtkWidget);cdecl;external libgtk4;
 procedure gtk_widget_queue_resize(widget:PGtkWidget);cdecl;external libgtk4;
 procedure gtk_widget_queue_allocate(widget:PGtkWidget);cdecl;external libgtk4;
@@ -244,15 +87,9 @@ procedure gtk_widget_set_layout_manager(widget:PGtkWidget; layout_manager:PGtkLa
 function gtk_widget_get_layout_manager(widget:PGtkWidget):PGtkLayoutManager;cdecl;external libgtk4;
 procedure gtk_widget_class_set_layout_manager_type(widget_class:PGtkWidgetClass; _type:TGType);cdecl;external libgtk4;
 function gtk_widget_class_get_layout_manager_type(widget_class:PGtkWidgetClass):TGType;cdecl;external libgtk4;
-procedure gtk_widget_class_add_binding(widget_class:PGtkWidgetClass; keyval:Tguint; mods:TGdkModifierType; callback:TGtkShortcutFunc; format_string:Pchar; 
-            args:array of const);cdecl;external libgtk4;
-procedure gtk_widget_class_add_binding(widget_class:PGtkWidgetClass; keyval:Tguint; mods:TGdkModifierType; callback:TGtkShortcutFunc; format_string:Pchar);cdecl;external libgtk4;
-procedure gtk_widget_class_add_binding_signal(widget_class:PGtkWidgetClass; keyval:Tguint; mods:TGdkModifierType; signal:Pchar; format_string:Pchar; 
-            args:array of const);cdecl;external libgtk4;
-procedure gtk_widget_class_add_binding_signal(widget_class:PGtkWidgetClass; keyval:Tguint; mods:TGdkModifierType; signal:Pchar; format_string:Pchar);cdecl;external libgtk4;
-procedure gtk_widget_class_add_binding_action(widget_class:PGtkWidgetClass; keyval:Tguint; mods:TGdkModifierType; action_name:Pchar; format_string:Pchar; 
-            args:array of const);cdecl;external libgtk4;
-procedure gtk_widget_class_add_binding_action(widget_class:PGtkWidgetClass; keyval:Tguint; mods:TGdkModifierType; action_name:Pchar; format_string:Pchar);cdecl;external libgtk4;
+procedure gtk_widget_class_add_binding(widget_class:PGtkWidgetClass; keyval:Tguint; mods:TGdkModifierType; callback:TGtkShortcutFunc; format_string:Pchar);cdecl;varargs;external libgtk4;
+procedure gtk_widget_class_add_binding_signal(widget_class:PGtkWidgetClass; keyval:Tguint; mods:TGdkModifierType; signal:Pchar; format_string:Pchar);cdecl;varargs;external libgtk4;
+procedure gtk_widget_class_add_binding_action(widget_class:PGtkWidgetClass; keyval:Tguint; mods:TGdkModifierType; action_name:Pchar; format_string:Pchar);cdecl;varargs;external libgtk4;
 procedure gtk_widget_class_add_shortcut(widget_class:PGtkWidgetClass; shortcut:PGtkShortcut);cdecl;external libgtk4;
 procedure gtk_widget_class_set_activate_signal(widget_class:PGtkWidgetClass; signal_id:Tguint);cdecl;external libgtk4;
 procedure gtk_widget_class_set_activate_signal_from_name(widget_class:PGtkWidgetClass; signal_name:Pchar);cdecl;external libgtk4;
@@ -294,14 +131,10 @@ function gtk_widget_get_root(widget:PGtkWidget):PGtkRoot;cdecl;external libgtk4;
 function gtk_widget_get_native(widget:PGtkWidget):PGtkNative;cdecl;external libgtk4;
 procedure gtk_widget_set_child_visible(widget:PGtkWidget; child_visible:Tgboolean);cdecl;external libgtk4;
 function gtk_widget_get_child_visible(widget:PGtkWidget):Tgboolean;cdecl;external libgtk4;
-{xxxxxGLIB_DEPRECATED_IN_4_12_FOR(gtk_widget_get_width) }
-function gtk_widget_get_allocated_width(widget:PGtkWidget):longint;cdecl;external libgtk4;
-{xxxxxGLIB_DEPRECATED_IN_4_12_FOR(gtk_widget_get_height) }
-function gtk_widget_get_allocated_height(widget:PGtkWidget):longint;cdecl;external libgtk4;
-{xxxxxGLIB_DEPRECATED_IN_4_12_FOR(gtk_widget_get_baseline) }
-function gtk_widget_get_allocated_baseline(widget:PGtkWidget):longint;cdecl;external libgtk4;
-{xxxxxGLIB_DEPRECATED_IN_4_12_FOR(gtk_widget_compute_bounds) }
-procedure gtk_widget_get_allocation(widget:PGtkWidget; allocation:PGtkAllocation);cdecl;external libgtk4;
+function gtk_widget_get_allocated_width(widget:PGtkWidget):longint;cdecl;external libgtk4;deprecated;
+function gtk_widget_get_allocated_height(widget:PGtkWidget):longint;cdecl;external libgtk4;deprecated;
+function gtk_widget_get_allocated_baseline(widget:PGtkWidget):longint;cdecl;external libgtk4;deprecated;
+procedure gtk_widget_get_allocation(widget:PGtkWidget; allocation:PGtkAllocation);cdecl;external libgtk4;deprecated;
 function gtk_widget_compute_transform(widget:PGtkWidget; target:PGtkWidget; out_transform:Pgraphene_matrix_t):Tgboolean;cdecl;external libgtk4;
 function gtk_widget_compute_bounds(widget:PGtkWidget; target:PGtkWidget; out_bounds:Pgraphene_rect_t):Tgboolean;cdecl;external libgtk4;
 function gtk_widget_compute_point(widget:PGtkWidget; target:PGtkWidget; point:Pgraphene_point_t; out_point:Pgraphene_point_t):Tgboolean;cdecl;external libgtk4;
@@ -314,8 +147,8 @@ function gtk_widget_keynav_failed(widget:PGtkWidget; direction:TGtkDirectionType
 procedure gtk_widget_error_bell(widget:PGtkWidget);cdecl;external libgtk4;
 procedure gtk_widget_set_size_request(widget:PGtkWidget; width:longint; height:longint);cdecl;external libgtk4;
 procedure gtk_widget_get_size_request(widget:PGtkWidget; width:Plongint; height:Plongint);cdecl;external libgtk4;
-procedure gtk_widget_set_opacity(widget:PGtkWidget; opacity:Tdouble);cdecl;external libgtk4;
-function gtk_widget_get_opacity(widget:PGtkWidget):Tdouble;cdecl;external libgtk4;
+procedure gtk_widget_set_opacity(widget:PGtkWidget; opacity:double);cdecl;external libgtk4;
+function gtk_widget_get_opacity(widget:PGtkWidget):double;cdecl;external libgtk4;
 procedure gtk_widget_set_overflow(widget:PGtkWidget; overflow:TGtkOverflow);cdecl;external libgtk4;
 function gtk_widget_get_overflow(widget:PGtkWidget):TGtkOverflow;cdecl;external libgtk4;
 function gtk_widget_get_ancestor(widget:PGtkWidget; widget_type:TGType):PGtkWidget;cdecl;external libgtk4;
@@ -324,17 +157,17 @@ function gtk_widget_get_display(widget:PGtkWidget):PGdkDisplay;cdecl;external li
 function gtk_widget_get_settings(widget:PGtkWidget):PGtkSettings;cdecl;external libgtk4;
 function gtk_widget_get_clipboard(widget:PGtkWidget):PGdkClipboard;cdecl;external libgtk4;
 function gtk_widget_get_primary_clipboard(widget:PGtkWidget):PGdkClipboard;cdecl;external libgtk4;
-{ Expand flags and related support  }
+
 function gtk_widget_get_hexpand(widget:PGtkWidget):Tgboolean;cdecl;external libgtk4;
 procedure gtk_widget_set_hexpand(widget:PGtkWidget; expand:Tgboolean);cdecl;external libgtk4;
 function gtk_widget_get_hexpand_set(widget:PGtkWidget):Tgboolean;cdecl;external libgtk4;
-procedure gtk_widget_set_hexpand_set(widget:PGtkWidget; set:Tgboolean);cdecl;external libgtk4;
+procedure gtk_widget_set_hexpand_set(widget:PGtkWidget; set_:Tgboolean);cdecl;external libgtk4;
 function gtk_widget_get_vexpand(widget:PGtkWidget):Tgboolean;cdecl;external libgtk4;
 procedure gtk_widget_set_vexpand(widget:PGtkWidget; expand:Tgboolean);cdecl;external libgtk4;
 function gtk_widget_get_vexpand_set(widget:PGtkWidget):Tgboolean;cdecl;external libgtk4;
-procedure gtk_widget_set_vexpand_set(widget:PGtkWidget; set:Tgboolean);cdecl;external libgtk4;
+procedure gtk_widget_set_vexpand_set(widget:PGtkWidget; set_:Tgboolean);cdecl;external libgtk4;
 function gtk_widget_compute_expand(widget:PGtkWidget; orientation:TGtkOrientation):Tgboolean;cdecl;external libgtk4;
-{ Margin and alignment  }
+
 function gtk_widget_get_halign(widget:PGtkWidget):TGtkAlign;cdecl;external libgtk4;
 procedure gtk_widget_set_halign(widget:PGtkWidget; align:TGtkAlign);cdecl;external libgtk4;
 function gtk_widget_get_valign(widget:PGtkWidget):TGtkAlign;cdecl;external libgtk4;
@@ -348,21 +181,18 @@ procedure gtk_widget_set_margin_top(widget:PGtkWidget; margin:longint);cdecl;ext
 function gtk_widget_get_margin_bottom(widget:PGtkWidget):longint;cdecl;external libgtk4;
 procedure gtk_widget_set_margin_bottom(widget:PGtkWidget; margin:longint);cdecl;external libgtk4;
 function gtk_widget_is_ancestor(widget:PGtkWidget; ancestor:PGtkWidget):Tgboolean;cdecl;external libgtk4;
-{xxxxxGLIB_DEPRECATED_IN_4_12_FOR(gtk_widget_compute_point) }
-function gtk_widget_translate_coordinates(src_widget:PGtkWidget; dest_widget:PGtkWidget; src_x:Tdouble; src_y:Tdouble; dest_x:Pdouble; 
-           dest_y:Pdouble):Tgboolean;cdecl;external libgtk4;
-function gtk_widget_contains(widget:PGtkWidget; x:Tdouble; y:Tdouble):Tgboolean;cdecl;external libgtk4;
-function gtk_widget_pick(widget:PGtkWidget; x:Tdouble; y:Tdouble; flags:TGtkPickFlags):PGtkWidget;cdecl;external libgtk4;
+function gtk_widget_translate_coordinates(src_widget:PGtkWidget; dest_widget:PGtkWidget; src_x:double; src_y:double; dest_x:Pdouble;
+           dest_y:Pdouble):Tgboolean;cdecl;external libgtk4;deprecated;
+function gtk_widget_contains(widget:PGtkWidget; x:double; y:double):Tgboolean;cdecl;external libgtk4;
+function gtk_widget_pick(widget:PGtkWidget; x:double; y:double; flags:TGtkPickFlags):PGtkWidget;cdecl;external libgtk4;
 procedure gtk_widget_add_controller(widget:PGtkWidget; controller:PGtkEventController);cdecl;external libgtk4;
 procedure gtk_widget_remove_controller(widget:PGtkWidget; controller:PGtkEventController);cdecl;external libgtk4;
 function gtk_widget_create_pango_context(widget:PGtkWidget):PPangoContext;cdecl;external libgtk4;
 function gtk_widget_get_pango_context(widget:PGtkWidget):PPangoContext;cdecl;external libgtk4;
-{xxxxxGLIB_DEPRECATED_IN_4_16 }
-procedure gtk_widget_set_font_options(widget:PGtkWidget; options:Pcairo_font_options_t);cdecl;external libgtk4;
-{xxxxxGLIB_DEPRECATED_IN_4_16 }
-function gtk_widget_get_font_options(widget:PGtkWidget):Pcairo_font_options_t;cdecl;external libgtk4;
+procedure gtk_widget_set_font_options(widget:PGtkWidget; options:Pcairo_font_options_t);cdecl;external libgtk4;deprecated;
+function gtk_widget_get_font_options(widget:PGtkWidget):Pcairo_font_options_t;cdecl;external libgtk4;deprecated;
 function gtk_widget_create_pango_layout(widget:PGtkWidget; text:Pchar):PPangoLayout;cdecl;external libgtk4;
-{ Functions for setting directionality for widgets  }
+
 procedure gtk_widget_set_direction(widget:PGtkWidget; dir:TGtkTextDirection);cdecl;external libgtk4;
 function gtk_widget_get_direction(widget:PGtkWidget):TGtkTextDirection;cdecl;external libgtk4;
 procedure gtk_widget_set_default_direction(dir:TGtkTextDirection);cdecl;external libgtk4;
@@ -385,8 +215,7 @@ function gtk_requisition_new:PGtkRequisition;cdecl;external libgtk4;
 function gtk_requisition_copy(requisition:PGtkRequisition):PGtkRequisition;cdecl;external libgtk4;
 procedure gtk_requisition_free(requisition:PGtkRequisition);cdecl;external libgtk4;
 function gtk_widget_in_destruction(widget:PGtkWidget):Tgboolean;cdecl;external libgtk4;
-{xxxxxGLIB_DEPRECATED_IN_4_10 }
-function gtk_widget_get_style_context(widget:PGtkWidget):PGtkStyleContext;cdecl;external libgtk4;
+function gtk_widget_get_style_context(widget:PGtkWidget):PGtkStyleContext;cdecl;external libgtk4;deprecated;
 procedure gtk_widget_class_set_css_name(widget_class:PGtkWidgetClass; name:Pchar);cdecl;external libgtk4;
 function gtk_widget_class_get_css_name(widget_class:PGtkWidgetClass):Pchar;cdecl;external libgtk4;
 function gtk_widget_add_tick_callback(widget:PGtkWidget; callback:TGtkTickCallback; user_data:Tgpointer; notify:TGDestroyNotify):Tguint;cdecl;external libgtk4;
@@ -422,22 +251,11 @@ function gtk_widget_get_css_name(self:PGtkWidget):Pchar;cdecl;external libgtk4;
 procedure gtk_widget_add_css_class(widget:PGtkWidget; css_class:Pchar);cdecl;external libgtk4;
 procedure gtk_widget_remove_css_class(widget:PGtkWidget; css_class:Pchar);cdecl;external libgtk4;
 function gtk_widget_has_css_class(widget:PGtkWidget; css_class:Pchar):Tgboolean;cdecl;external libgtk4;
-function gtk_widget_get_css_classes(widget:PGtkWidget):^Pchar;cdecl;external libgtk4;
+function gtk_widget_get_css_classes(widget:PGtkWidget):PPchar;cdecl;external libgtk4;
 procedure gtk_widget_set_css_classes(widget:PGtkWidget; classes:PPchar);cdecl;external libgtk4;
 procedure gtk_widget_get_color(widget:PGtkWidget; color:PGdkRGBA);cdecl;external libgtk4;
-{*
- * GtkWidgetActionActivateFunc:
- * @widget: the widget to which the action belongs
- * @action_name: the action name
- * @parameter: (nullable): parameter for activation
- *
- * The type of the callback functions used for activating
- * actions installed with [method@Gtk.WidgetClass.install_action].
- *
- * The @parameter must match the @parameter_type of the action.
-  }
-type
 
+type
   TGtkWidgetActionActivateFunc = procedure (widget:PGtkWidget; action_name:Pchar; parameter:PGVariant);cdecl;
 
 procedure gtk_widget_class_install_action(widget_class:PGtkWidgetClass; action_name:Pchar; parameter_type:Pchar; activate:TGtkWidgetActionActivateFunc);cdecl;external libgtk4;
@@ -449,56 +267,55 @@ procedure gtk_widget_class_set_accessible_role(widget_class:PGtkWidgetClass; acc
 function gtk_widget_class_get_accessible_role(widget_class:PGtkWidgetClass):TGtkAccessibleRole;cdecl;external libgtk4;
 procedure gtk_widget_set_limit_events(widget:PGtkWidget; limit_events:Tgboolean);cdecl;external libgtk4;
 function gtk_widget_get_limit_events(widget:PGtkWidget):Tgboolean;cdecl;external libgtk4;
-{////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkWidget, g_object_unref) }
-{////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkRequisition, gtk_requisition_free) }
+
+function GTK_TYPE_REQUISITION : TGType;
+
 
 // === Konventiert am: 6-7-26 14:18:13 ===
 
-function GTK_TYPE_WIDGET : TGType;
-function GTK_WIDGET(widget : PGtkWidget) : longint;
-function GTK_WIDGET_CLASS(klass : Pointer) : PGtkWidgetClass;
-function GTK_IS_WIDGET(widget : Tgboolean) : longint;
-function GTK_IS_WIDGET_CLASS(klass : Pointer) : Tgboolean;
-function GTK_WIDGET_GET_CLASS(obj : Pointer) : PGtkWidgetClass;
+function GTK_TYPE_WIDGET: TGType;
+function GTK_WIDGET(widget: Pointer): PGtkWidget;
+function GTK_WIDGET_CLASS(klass: Pointer): PGtkWidgetClass;
+function GTK_IS_WIDGET(widget: Pointer): Tgboolean;
+function GTK_IS_WIDGET_CLASS(klass: Pointer): Tgboolean;
+function GTK_WIDGET_GET_CLASS(obj: Pointer): PGtkWidgetClass;
 
 implementation
 
-function GTK_TYPE_WIDGET : TGType;
-  begin
-    GTK_TYPE_WIDGET:=gtk_widget_get_type;
-  end;
-
-function GTK_WIDGET(widget : PGtkWidget) : longint;
+function GTK_TYPE_WIDGET: TGType;
 begin
-  Result := PGtkWidget(g_type_check_instance_cast(obj, GTK_TYPE_WIDGET));
+  GTK_TYPE_WIDGET := gtk_widget_get_type;
 end;
 
-function GTK_WIDGET_CLASS(klass : Pointer) : PGtkWidgetClass;
+function GTK_WIDGET(widget: Pointer): PGtkWidget;
+begin
+  Result := PGtkWidget(g_type_check_instance_cast(widget, GTK_TYPE_WIDGET));
+end;
+
+function GTK_WIDGET_CLASS(klass: Pointer): PGtkWidgetClass;
 begin
   Result := PGtkWidgetClass(g_type_check_class_cast(klass, GTK_TYPE_WIDGET));
 end;
 
-function GTK_IS_WIDGET(widget : Tgboolean) : longint;
+function GTK_IS_WIDGET(widget: Pointer): Tgboolean;
 begin
-  Result := g_type_check_instance_is_a(obj,  GTK_TYPE_WIDGET);
+  Result := g_type_check_instance_is_a(widget, GTK_TYPE_WIDGET);
 end;
 
-function GTK_IS_WIDGET_CLASS(klass : Pointer) : Tgboolean;
+function GTK_IS_WIDGET_CLASS(klass: Pointer): Tgboolean;
 begin
-  Result := g_type_check_class_is_a(klass,  GTK_TYPE_WIDGET);
+  Result := g_type_check_class_is_a(klass, GTK_TYPE_WIDGET);
 end;
 
-function GTK_WIDGET_GET_CLASS(obj : Pointer) : PGtkWidgetClass;
+function GTK_WIDGET_GET_CLASS(obj: Pointer): PGtkWidgetClass;
 begin
   Result := PGtkWidgetClass(PGTypeInstance(obj)^.g_class);
 end;
 
 
-{ was #define dname def_expr }
-function GTK_TYPE_REQUISITION : longint; { return type might be wrong }
-  begin
-    GTK_TYPE_REQUISITION:=gtk_requisition_get_type;
-  end;
-
+function GTK_TYPE_REQUISITION: TGType;
+begin
+  GTK_TYPE_REQUISITION := gtk_requisition_get_type;
+end;
 
 end.
