@@ -19,14 +19,14 @@ type
   PGtkAdjustment = type Pointer;
   PGtkATContext = type Pointer;
   PGtkBitset = type Pointer;                       // blank
-  PGtkBuilder = type Pointer;
+  PGtkBuilder = type Pointer;                      // blank
   PGtkBuilderScope = type Pointer;                 // blank
   PGtkCssStyleChange = type Pointer;               // blank
   PGtkEventController = type Pointer;              // blank
   PGtkGesture = type Pointer;
 //  PGtkLayoutManager = type Pointer;                // full
-  PGtkListItem = type Pointer;
-  PGtkListItemFactory = type Pointer;
+  PGtkListItem = type Pointer;                     // blank
+  PGtkListItemFactory = type Pointer;              // blank
   PGtkNative = type Pointer;                       // blank
   PGtkRequisition = type Pointer;
   PGtkRoot = type Pointer;                         // blank

@@ -1,23 +1,39 @@
 unit gtkexpression;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
   fp_glib2, fp_gtk4;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGtkExpression = type Pointer;
   PPGtkExpression = ^PGtkExpression;
 
   PGtkExpressionWatch = type Pointer;
-
   TGtkExpressionNotify = procedure(user_data: Tgpointer); cdecl;
 
+  PGtkPropertyExpression = type Pointer;
+  PGtkConstantExpression = type Pointer;
+  PGtkObjectExpression = type Pointer;
+  PGtkClosureExpression = type Pointer;
+  PGtkCClosureExpression = type Pointer;
+  PGtkTryExpression = type Pointer;
+
+  PGtkParamSpecExpression = ^TGtkParamSpecExpression;
+  TGtkParamSpecExpression = record
+    parent_instance: TGParamSpec;
+  end;
+  {$ENDIF read_struct}
+
+{$IFDEF read_function}
 function gtk_expression_get_type: TGType; cdecl; external libgtk4;
 function gtk_expression_ref(self: PGtkExpression): PGtkExpression; cdecl; external libgtk4;
 procedure gtk_expression_unref(self: PGtkExpression); cdecl; external libgtk4;
@@ -32,87 +48,59 @@ procedure gtk_expression_watch_unref(watch: PGtkExpressionWatch); cdecl; externa
 function gtk_expression_watch_evaluate(watch: PGtkExpressionWatch; Value: PGValue): Tgboolean; cdecl; external libgtk4;
 procedure gtk_expression_watch_unwatch(watch: PGtkExpressionWatch); cdecl; external libgtk4;
 
-function GTK_TYPE_EXPRESSION: TGType;
-function GTK_EXPRESSION(obj: Pointer): PGtkExpression;
-function GTK_IS_EXPRESSION(obj: Pointer): Tgboolean;
-function GTK_TYPE_EXPRESSION_WATCH: TGType;
-
-type
-  PGtkPropertyExpression = type Pointer;
-
 function gtk_property_expression_get_type: TGType; cdecl; external libgtk4;
 function gtk_property_expression_new(this_type: TGType; expression: PGtkExpression; property_name: pchar): PGtkExpression; cdecl; external libgtk4;
 function gtk_property_expression_new_for_pspec(expression: PGtkExpression; pspec: PGParamSpec): PGtkExpression; cdecl; external libgtk4;
 function gtk_property_expression_get_expression(expression: PGtkExpression): PGtkExpression; cdecl; external libgtk4;
 function gtk_property_expression_get_pspec(expression: PGtkExpression): PGParamSpec; cdecl; external libgtk4;
 
-function GTK_TYPE_PROPERTY_EXPRESSION: TGType;
-
-type
-  PGtkConstantExpression = type Pointer;
-
 function gtk_constant_expression_get_type: TGType; cdecl; external libgtk4;
 function gtk_constant_expression_new(value_type: TGType): PGtkExpression; varargs cdecl; external libgtk4;
 function gtk_constant_expression_new_for_value(Value: PGValue): PGtkExpression; cdecl; external libgtk4;
 function gtk_constant_expression_get_value(expression: PGtkExpression): PGValue; cdecl; external libgtk4;
 
-function GTK_TYPE_CONSTANT_EXPRESSION: TGType;
-
-type
-  PGtkObjectExpression = type Pointer;
-
 function gtk_object_expression_get_type: TGType; cdecl; external libgtk4;
 function gtk_object_expression_new(obj: PGObject): PGtkExpression; cdecl; external libgtk4;
 function gtk_object_expression_get_object(expression: PGtkExpression): PGObject; cdecl; external libgtk4;
 
-function GTK_TYPE_OBJECT_EXPRESSION: TGType;
-
-type
-  PGtkClosureExpression = type Pointer;
-
 function gtk_closure_expression_get_type: TGType; cdecl; external libgtk4;
 function gtk_closure_expression_new(value_type: TGType; closure: PGClosure; n_params: Tguint; params: PPGtkExpression): PGtkExpression; cdecl; external libgtk4;
-
-function GTK_TYPE_CLOSURE_EXPRESSION: TGType;
-
-type
-  PGtkCClosureExpression = type Pointer;
 
 function gtk_cclosure_expression_get_type: TGType; cdecl; external libgtk4;
 function gtk_cclosure_expression_new(value_type: TGType; marshal: TGClosureMarshal; n_params: Tguint; params: PPGtkExpression; callback_func: TGCallback;
   user_data: Tgpointer; user_destroy: TGClosureNotify): PGtkExpression; cdecl; external libgtk4;
-
-function GTK_TYPE_CCLOSURE_EXPRESSION: TGType;
 
 procedure gtk_value_set_expression(Value: PGValue; expression: PGtkExpression); cdecl; external libgtk4;
 procedure gtk_value_take_expression(Value: PGValue; expression: PGtkExpression); cdecl; external libgtk4;
 function gtk_value_get_expression(Value: PGValue): PGtkExpression; cdecl; external libgtk4;
 function gtk_value_dup_expression(Value: PGValue): PGtkExpression; cdecl; external libgtk4;
 
-function GTK_VALUE_HOLDS_EXPRESSION(Value: Pointer): Tgboolean;
-
-type
-  PGtkParamSpecExpression = ^TGtkParamSpecExpression;
-
-  TGtkParamSpecExpression = record
-    parent_instance: TGParamSpec;
-  end;
-
 function gtk_param_expression_get_type: TGType; cdecl; external libgtk4;
 function gtk_param_spec_expression(Name: pchar; nick: pchar; blurb: pchar; flags: TGParamFlags): PGParamSpec; cdecl; external libgtk4;
+
+function gtk_try_expression_get_type: TGType; cdecl; external libgtk4;
+function gtk_try_expression_new(n_expressions: Tguint; expressions: PPGtkExpression): PGtkExpression; cdecl; external libgtk4;
+
+
+function GTK_TYPE_EXPRESSION: TGType;
+function GTK_EXPRESSION(obj: Pointer): PGtkExpression;
+function GTK_IS_EXPRESSION(obj: Pointer): Tgboolean;
+
+function GTK_TYPE_EXPRESSION_WATCH: TGType;
+function GTK_TYPE_PROPERTY_EXPRESSION: TGType;
+function GTK_TYPE_CONSTANT_EXPRESSION: TGType;
+function GTK_TYPE_OBJECT_EXPRESSION: TGType;
+function GTK_TYPE_CLOSURE_EXPRESSION: TGType;
+
+function GTK_TYPE_CCLOSURE_EXPRESSION: TGType;
+function GTK_VALUE_HOLDS_EXPRESSION(Value: Pointer): Tgboolean;
 
 function GTK_TYPE_PARAM_SPEC_EXPRESSION: TGType;
 function GTK_PARAM_SPEC_EXPRESSION(obj: Pointer): PGtkParamSpecExpression;
 function GTK_IS_PARAM_SPEC_EXPRESSION(obj: Pointer): Tgboolean;
 
-function GTK_TYPE_TRY_EXPRESSION : TGType;
-
-type
-  PGtkTryExpression=type Pointer;
-
-function gtk_try_expression_get_type:TGType;cdecl;external libgtk4;
-function gtk_try_expression_new(n_expressions:Tguint; expressions:PPGtkExpression):PGtkExpression;cdecl;external libgtk4;
-
+function GTK_TYPE_TRY_EXPRESSION: TGType;
+{$ENDIF read_function}
 
 // === Konventiert am: 6-7-26 16:08:55 ===
 
