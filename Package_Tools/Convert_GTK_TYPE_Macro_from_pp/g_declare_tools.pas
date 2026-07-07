@@ -204,9 +204,7 @@ begin
     Result.Add('  P' + sa[1] + ' = type Pointer;');
     Result.Add('');
 
-    Result.Add('  T' + sa[1] + 'Class = record');
-    Result.Add('  end;');
-    Result.Add('  P' + sa[1] + 'Class = ^T' + sa[1] + 'Class;');
+    Result.Add('  P' + sa[1] + 'Class = type Pointer;');
     Result.Add('');
   end;
   if G_DECLARE = is_JSC_DECLARE_FINAL_TYPE then begin

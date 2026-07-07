@@ -1,53 +1,38 @@
 unit gtkcolumnviewrow;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
   fp_glib2, fp_gtk4;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
-{
- * Copyright © 2023 Benjamin Otte
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library. If not, see <http://www.gnu.org/licenses/>.
- *
- * Authors: Benjamin Otte <otte@gnome.org>
-  }
-(** unsupported pragma#pragma once*)
-{$if !defined (__GTK_H_INSIDE__) && !defined (GTK_COMPILATION)}
-{$error "Only <gtk/gtk.h> can be included directly."}
-{$endif}
-{$include <gtk/gtktypes.h>}
+  {$IFDEF read_struct}
+type
+  PGtkColumnViewRow = type Pointer;
+  PGtkColumnViewRowClass = type Pointer;
+  {$ENDIF read_struct}
 
-{GDK_DECLARE_INTERNAL_TYPE(GtkColumnViewRow, gtk_column_view_row, GTK, COLUMN_VIEW_ROW, GObject) }
-function gtk_column_view_row_get_item(self:PGtkColumnViewRow):Tgpointer;cdecl;external libgtk4;
-function gtk_column_view_row_get_position(self:PGtkColumnViewRow):Tguint;cdecl;external libgtk4;
-function gtk_column_view_row_get_selected(self:PGtkColumnViewRow):Tgboolean;cdecl;external libgtk4;
-function gtk_column_view_row_get_selectable(self:PGtkColumnViewRow):Tgboolean;cdecl;external libgtk4;
-procedure gtk_column_view_row_set_selectable(self:PGtkColumnViewRow; selectable:Tgboolean);cdecl;external libgtk4;
-function gtk_column_view_row_get_activatable(self:PGtkColumnViewRow):Tgboolean;cdecl;external libgtk4;
-procedure gtk_column_view_row_set_activatable(self:PGtkColumnViewRow; activatable:Tgboolean);cdecl;external libgtk4;
-function gtk_column_view_row_get_focusable(self:PGtkColumnViewRow):Tgboolean;cdecl;external libgtk4;
-procedure gtk_column_view_row_set_focusable(self:PGtkColumnViewRow; focusable:Tgboolean);cdecl;external libgtk4;
-function gtk_column_view_row_get_accessible_description(self:PGtkColumnViewRow):Pchar;cdecl;external libgtk4;
-procedure gtk_column_view_row_set_accessible_description(self:PGtkColumnViewRow; description:Pchar);cdecl;external libgtk4;
-function gtk_column_view_row_get_accessible_label(self:PGtkColumnViewRow):Pchar;cdecl;external libgtk4;
-procedure gtk_column_view_row_set_accessible_label(self:PGtkColumnViewRow; _label:Pchar);cdecl;external libgtk4;
+{$IFDEF read_function}
+function gtk_column_view_row_get_type: TGType; cdecl; external libgtk4;
+function gtk_column_view_row_get_item(self: PGtkColumnViewRow): Tgpointer; cdecl; external libgtk4;
+function gtk_column_view_row_get_position(self: PGtkColumnViewRow): Tguint; cdecl; external libgtk4;
+function gtk_column_view_row_get_selected(self: PGtkColumnViewRow): Tgboolean; cdecl; external libgtk4;
+function gtk_column_view_row_get_selectable(self: PGtkColumnViewRow): Tgboolean; cdecl; external libgtk4;
+procedure gtk_column_view_row_set_selectable(self: PGtkColumnViewRow; selectable: Tgboolean); cdecl; external libgtk4;
+function gtk_column_view_row_get_activatable(self: PGtkColumnViewRow): Tgboolean; cdecl; external libgtk4;
+procedure gtk_column_view_row_set_activatable(self: PGtkColumnViewRow; activatable: Tgboolean); cdecl; external libgtk4;
+function gtk_column_view_row_get_focusable(self: PGtkColumnViewRow): Tgboolean; cdecl; external libgtk4;
+procedure gtk_column_view_row_set_focusable(self: PGtkColumnViewRow; focusable: Tgboolean); cdecl; external libgtk4;
+function gtk_column_view_row_get_accessible_description(self: PGtkColumnViewRow): pchar; cdecl; external libgtk4;
+procedure gtk_column_view_row_set_accessible_description(self: PGtkColumnViewRow; description: pchar); cdecl; external libgtk4;
+function gtk_column_view_row_get_accessible_label(self: PGtkColumnViewRow): pchar; cdecl; external libgtk4;
+procedure gtk_column_view_row_set_accessible_label(self: PGtkColumnViewRow; _label: pchar); cdecl; external libgtk4;
 
 // === Konventiert am: 6-7-26 14:02:03 ===
 
@@ -57,6 +42,7 @@ function GTK_IS_COLUMN_VIEW_ROW(obj: Pointer): Tgboolean;
 function GTK_COLUMN_VIEW_ROW_CLASS(klass: Pointer): PGtkColumnViewRowClass;
 function GTK_IS_COLUMN_VIEW_ROW_CLASS(klass: Pointer): Tgboolean;
 function GTK_COLUMN_VIEW_ROW_GET_CLASS(obj: Pointer): PGtkColumnViewRowClass;
+{$ENDIF read_struct}
 
 implementation
 
@@ -89,16 +75,5 @@ function GTK_COLUMN_VIEW_ROW_GET_CLASS(obj: Pointer): PGtkColumnViewRowClass;
 begin
   Result := PGtkColumnViewRowClass(PGTypeInstance(obj)^.g_class);
 end;
-
-type 
-  PGtkColumnViewRow = type Pointer;
-
-  TGtkColumnViewRowClass = record
-  end;
-  PGtkColumnViewRowClass = ^TGtkColumnViewRowClass;
-
-function gtk_column_view_row_get_type: TGType; cdecl; external libgxxxxxxx;
-
-
 
 end.

@@ -5,7 +5,7 @@ program project1;
 // diff -U 1 -r /n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Packages_2024/glib-2.80.0/C-include/gio-unix-2.80.0 /n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Packages_2026/glib-2.88.0/C-include/gio-unix-2.0 > test.diff
 // diff -U 1 /usr/include/glib-2.0/girepository /n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/Ubuntu_26.04/girepository > test.diff
 
-// diff -U 1 /n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Packages_2024/gtk-4.14.2/C-include/gtk/gtklistbox.h /n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Packages_2026/gtk-4.22.4/C-include/gtk-4.0/gtk/gtklistbox.h > test.diff
+// diff -U 1 /n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Packages_2024/gtk-4.14.2/C-include/gtk/gtksectionmodel.h /n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Packages_2026/gtk-4.22.4/C-include/gtk-4.0/gtk/gtksectionmodel.h > test.diff
 uses
   gtktypes,
   gtktypebuiltins,
@@ -36,7 +36,7 @@ uses
   gtkfilter,
   gtkfilterlistmodel,
   gtkboolfilter,                // GtkFilter
-  gtkborder,
+  gtkborder,                        //  gtk_sorter_get_type failure
   gtkbox,
   gtkboxlayout,                 // GtkLayoutManager
   gtkbuilderscope,
@@ -50,22 +50,28 @@ uses
   gtklistitem,
   gtklistitemfactory,
   gtklistview,
-
   gtkbuilderlistitemfactory,
-
   gtkbutton,
   gtkcalendar,
   gtkcenterbox,
-  gtkcenterlayout,
+  gtkcenterlayout,                // GtkLayoutManager
   gtkcheckbutton,
   gtkcolordialog,
   gtkcolordialogbutton,
   gtkcolorutils,
+  gtkscrollable,
+  gtkscrollbar,
+  gtkscrolledwindow,
+  gtkscrollinfo,
+  gtksorter,
+  gtksortlistmodel,
+  gtkcolumnviewcolumn,
   gtkcolumnview,
   gtkcolumnviewcell,
-  gtkcolumnviewcolumn,
   gtkcolumnviewrow,
-  gtkcolumnviewsorter,
+  gtkcolumnviewsorter,          // GtkSorter
+
+
   gtkconstraint,
   gtkconstraintguide,
   gtkconstraintlayout,
@@ -132,8 +138,6 @@ uses
   gtklabel,
   gtklevelbar,
   gtklinkbutton,
-
-
   gtkmain,
   gtkmaplistmodel,
   gtkmediacontrols,
@@ -169,14 +173,9 @@ uses
   gtkroot,
   gtkscale,
   gtkscalebutton,
-  gtkscrollable,
-  gtkscrollbar,
-  gtkscrolledwindow,
-  gtkscrollinfo,
   gtksearchbar,
   gtksearchentry,
   gtksectionmodel,
-
   gtkseparator,
   gtksettings,
   gtkshortcut,
@@ -190,8 +189,6 @@ uses
   gtksizerequest,
   gtkslicelistmodel,
   gtksnapshot,
-  gtksorter,
-  gtksortlistmodel,
   gtkspinbutton,
   gtkspinner,
   gtkstack,

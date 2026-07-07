@@ -24,13 +24,13 @@ type
   PGtkCssStyleChange = type Pointer;               // blank
   PGtkEventController = type Pointer;              // blank
   PGtkGesture = type Pointer;
-//  PGtkLayoutManager = type Pointer;                // full
+  //  PGtkLayoutManager = type Pointer;                // full
   PGtkListItem = type Pointer;                     // blank
   PGtkListItemFactory = type Pointer;              // blank
   PGtkNative = type Pointer;                       // blank
   PGtkRequisition = type Pointer;
   PGtkRoot = type Pointer;                         // blank
-  PGtkScrollInfo = type Pointer;
+  PGtkScrollInfo = type Pointer;                   // blank
   PGtkSettings = type Pointer;                     // blank
   PGtkShortcut = type Pointer;                     // blank
   PGtkShortcutAction = type Pointer;
@@ -50,6 +50,7 @@ type
   PGtkWindowGroup = Pointer;                       // full
   PGtkApplication = Pointer;                       // full
   PGtkLayoutManager = Pointer;                     // full
+  PGtkColumnView = Pointer;                        // blank
 
   PGtkAccessible = type Pointer;                   // deprecated blank
   PGtkShortcutsWindow = type Pointer;              // blank
