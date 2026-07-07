@@ -1,14 +1,17 @@
 unit gtkaboutdialog;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
-  fp_glib2, fp_gtk4;
+  fp_glib2, fp_gtk4, gtkwidget, gtkwindow;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}
 
+  {$IFDEF read_enum}
 type
   PGtkLicense = ^TGtkLicense;
   TGtkLicense = longint;
@@ -32,7 +35,14 @@ const
   GTK_LICENSE_APACHE_2_0 = 16;
   GTK_LICENSE_MPL_2_0 = 17;
   GTK_LICENSE_0BSD = 18;
+  {$ENDIF read_enum}
 
+  {$IFDEF read_struct}
+type
+  PGtkAboutDialog = type Pointer;
+  {$ENDIF read_struct}
+
+{$IFDEF read_function}
 function gtk_about_dialog_get_type: TGType; cdecl; external libgtk4;
 function gtk_about_dialog_new: PGtkWidget; cdecl; external libgtk4;
 procedure gtk_show_about_dialog(parent: PGtkWindow; first_property_name: pchar; args: array of const); cdecl; external libgtk4;
@@ -57,11 +67,11 @@ function gtk_about_dialog_get_website(about: PGtkAboutDialog): pchar; cdecl; ext
 procedure gtk_about_dialog_set_website(about: PGtkAboutDialog; website: pchar); cdecl; external libgtk4;
 function gtk_about_dialog_get_website_label(about: PGtkAboutDialog): pchar; cdecl; external libgtk4;
 procedure gtk_about_dialog_set_website_label(about: PGtkAboutDialog; website_label: pchar); cdecl; external libgtk4;
-function gtk_about_dialog_get_authors(about: PGtkAboutDialog): ^pchar; cdecl; external libgtk4;
+function gtk_about_dialog_get_authors(about: PGtkAboutDialog): Ppchar; cdecl; external libgtk4;
 procedure gtk_about_dialog_set_authors(about: PGtkAboutDialog; authors: PPchar); cdecl; external libgtk4;
-function gtk_about_dialog_get_documenters(about: PGtkAboutDialog): ^pchar; cdecl; external libgtk4;
+function gtk_about_dialog_get_documenters(about: PGtkAboutDialog): Ppchar; cdecl; external libgtk4;
 procedure gtk_about_dialog_set_documenters(about: PGtkAboutDialog; documenters: PPchar); cdecl; external libgtk4;
-function gtk_about_dialog_get_artists(about: PGtkAboutDialog): ^pchar; cdecl; external libgtk4;
+function gtk_about_dialog_get_artists(about: PGtkAboutDialog): Ppchar; cdecl; external libgtk4;
 procedure gtk_about_dialog_set_artists(about: PGtkAboutDialog; artists: PPchar); cdecl; external libgtk4;
 function gtk_about_dialog_get_translator_credits(about: PGtkAboutDialog): pchar; cdecl; external libgtk4;
 procedure gtk_about_dialog_set_translator_credits(about: PGtkAboutDialog; translator_credits: pchar); cdecl; external libgtk4;
@@ -76,6 +86,7 @@ procedure gtk_about_dialog_add_credit_section(about: PGtkAboutDialog; section_na
 function GTK_TYPE_ABOUT_DIALOG: TGType;
 function GTK_ABOUT_DIALOG(obj: Pointer): PGtkAboutDialog;
 function GTK_IS_ABOUT_DIALOG(obj: Pointer): Tgboolean;
+{$ENDIF read_function}
 
 implementation
 

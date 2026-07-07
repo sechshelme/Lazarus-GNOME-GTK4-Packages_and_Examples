@@ -1,5 +1,7 @@
 unit gtktypebuiltins;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -11,6 +13,7 @@ uses
 
 
 
+{$IFDEF read_enum}
 function gtk_assistant_page_type_get_type: TGType; cdecl; external libgtk4;
 function GTK_TYPE_ASSISTANT_PAGE_TYPE: TGType;
 
@@ -1048,6 +1051,7 @@ function GTK_TYPE_PRINT_ERROR: TGType;
 begin
   GTK_TYPE_PRINT_ERROR := gtk_print_error_get_type;
 end;
+{$ENDIF read_enum}
 
 
 end.

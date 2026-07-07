@@ -1,5 +1,7 @@
 unit gtkenums;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -9,7 +11,7 @@ uses
   {$PACKRECORDS C}
   {$ENDIF}
 
-
+  {$IFDEF read_enum}
 type
   PGtkAlign = ^TGtkAlign;
   TGtkAlign = longint;
@@ -789,9 +791,11 @@ type
 const
   GTK_REDUCED_MOTION_NO_PREFERENCE = 0;
   GTK_REDUCED_MOTION_REDUCE = 1;
+  {$ENDIF read_enum}
 
-
+{$IFDEF read_function}
 function gtk_ordering_from_cmpfunc(cmpfunc_result: integer): TGtkOrdering;
+{$ENDIF read_function}
 
 // === Konventiert am: 6-7-26 14:19:59 ===
 
