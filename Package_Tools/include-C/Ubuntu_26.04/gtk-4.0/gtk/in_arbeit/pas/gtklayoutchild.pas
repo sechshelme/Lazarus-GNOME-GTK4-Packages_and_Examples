@@ -1,32 +1,34 @@
 unit gtklayoutchild;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
-  fp_glib2, fp_gtk4;
+  fp_glib2, fp_gtk4, gtktypes, gtkwidget;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
-(** unsupported pragma#pragma once*)
-{$if !defined (__GTK_H_INSIDE__) && !defined (GTK_COMPILATION)}
-{$error "Only <gtk/gtk.h> can be included directly."}
-{$endif}
-{$include <gtk/gtktypes.h>}
-
-{G_DECLARE_DERIVABLE_TYPE (GtkLayoutChild, gtk_layout_child, GTK, LAYOUT_CHILD, GObject) }
-{< private > }
+  {$IFDEF read_struct}
 type
+  TGtkLayoutChild = record
+    parent_instance: TGObject;
+  end;
+  PGtkLayoutChild = ^TGtkLayoutChild;
+
   PGtkLayoutChildClass = ^TGtkLayoutChildClass;
   TGtkLayoutChildClass = record
-      parent_class : TGObjectClass;
-    end;
+    parent_class: TGObjectClass;
+  end;
+  {$ENDIF read_struct}
 
-
-function gtk_layout_child_get_layout_manager(layout_child:PGtkLayoutChild):PGtkLayoutManager;cdecl;external libgtk4;
-function gtk_layout_child_get_child_widget(layout_child:PGtkLayoutChild):PGtkWidget;cdecl;external libgtk4;
+{$IFDEF read_function}
+function gtk_layout_child_get_type: TGType; cdecl; external libgtk4;
+function gtk_layout_child_get_layout_manager(layout_child: PGtkLayoutChild): PGtkLayoutManager; cdecl; external libgtk4;
+function gtk_layout_child_get_child_widget(layout_child: PGtkLayoutChild): PGtkWidget; cdecl; external libgtk4;
 
 // === Konventiert am: 6-7-26 17:18:25 ===
 
@@ -36,6 +38,7 @@ function GTK_IS_LAYOUT_CHILD(obj: Pointer): Tgboolean;
 function GTK_LAYOUT_CHILD_CLASS(klass: Pointer): PGtkLayoutChildClass;
 function GTK_IS_LAYOUT_CHILD_CLASS(klass: Pointer): Tgboolean;
 function GTK_LAYOUT_CHILD_GET_CLASS(obj: Pointer): PGtkLayoutChildClass;
+{$ENDIF read_struct}
 
 implementation
 
@@ -68,17 +71,5 @@ function GTK_LAYOUT_CHILD_GET_CLASS(obj: Pointer): PGtkLayoutChildClass;
 begin
   Result := PGtkLayoutChildClass(PGTypeInstance(obj)^.g_class);
 end;
-
-type 
-  TGtkLayoutChild = record
-    parent_instance: TGObject;
-  end;
-  PGtkLayoutChild = ^TGtkLayoutChild;
-
-  PGtkLayoutChildClass = type Pointer;
-
-function gtk_layout_child_get_type: TGType; cdecl; external libgxxxxxxx;
-
-
 
 end.

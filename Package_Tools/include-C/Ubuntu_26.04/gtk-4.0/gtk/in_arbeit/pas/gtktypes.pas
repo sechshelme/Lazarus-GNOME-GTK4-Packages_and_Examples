@@ -18,13 +18,13 @@ type
 
   PGtkAdjustment = type Pointer;
   PGtkATContext = type Pointer;
-  PGtkBitset = type Pointer;
+  PGtkBitset = type Pointer;                       // blank
   PGtkBuilder = type Pointer;
   PGtkBuilderScope = type Pointer;                 // blank
   PGtkCssStyleChange = type Pointer;               // blank
   PGtkEventController = type Pointer;              // blank
   PGtkGesture = type Pointer;
-  PGtkLayoutManager = type Pointer;                // blank
+//  PGtkLayoutManager = type Pointer;                // full
   PGtkListItem = type Pointer;
   PGtkListItemFactory = type Pointer;
   PGtkNative = type Pointer;                       // blank
@@ -44,13 +44,16 @@ type
 
 
   // zum berabeiten und löschen !
+  Tdouble = double;
   TGtkShortcutFunc = pointer;
 
-  PGtkWindowGroup = Pointer;                   // full
-  PGtkApplication = Pointer;                   // full
+  PGtkWindowGroup = Pointer;                       // full
+  PGtkApplication = Pointer;                       // full
+  PGtkLayoutManager = Pointer;                     // full
 
-  PGtkAccessible   =type Pointer;                   // blank
-  PPGtkAccessible=^PGtkAccessible;
+  PGtkAccessible = type Pointer;                   // deprecated blank
+  PGtkShortcutsWindow = type Pointer;              // blank
+  PPGtkAccessible = ^PGtkAccessible;
 
 
   {$ENDIF read_struct}

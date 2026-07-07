@@ -11,7 +11,7 @@ uses
   {$PACKRECORDS C}
   {$ENDIF}
 
-  {$IFDEF read_struct}
+  {$IFDEF read_enum}
 type
   PGtkAccessiblePlatformState = ^TGtkAccessiblePlatformState;
   TGtkAccessiblePlatformState = longint;
@@ -19,7 +19,9 @@ const
   GTK_ACCESSIBLE_PLATFORM_STATE_FOCUSABLE = 0;
   GTK_ACCESSIBLE_PLATFORM_STATE_FOCUSED = 1;
   GTK_ACCESSIBLE_PLATFORM_STATE_ACTIVE = 2;
+  {$ENDIF read_enum}
 
+  {$IFDEF read_struct}
 type
   PGtkAccessibleInterface = ^TGtkAccessibleInterface;
   TGtkAccessibleInterface = record
