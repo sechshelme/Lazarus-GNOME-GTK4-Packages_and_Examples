@@ -14,7 +14,6 @@ uses
 
   {$IFDEF read_struct}
 type
-  PGtkATContext = type Pointer;
   PGtkATContextClass = type Pointer;
   {$ENDIF read_struct}
 

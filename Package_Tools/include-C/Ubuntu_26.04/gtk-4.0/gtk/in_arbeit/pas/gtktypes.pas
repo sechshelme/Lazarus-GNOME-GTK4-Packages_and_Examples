@@ -16,8 +16,8 @@ type
   PGtkSnapshot = PGdkSnapshot;
 
 
-  PGtkAdjustment = type Pointer;
-  PGtkATContext = type Pointer;
+  // PGtkAdjustment = type Pointer;                // full
+  PGtkATContext = type Pointer;                    // blank
   PGtkBitset = type Pointer;                       // blank
   PGtkBuilder = type Pointer;                      // blank
   PGtkBuilderScope = type Pointer;                 // blank
@@ -35,7 +35,7 @@ type
   PGtkShortcut = type Pointer;                     // blank
   PGtkShortcutAction = type Pointer;
   PGtkShortcutTrigger = type Pointer;
-  PGdkSnapshot = type Pointer;
+//  PGdkSnapshot = type Pointer;
   PGtkStyleContext = type Pointer;                 // deprecated full
   PGtkTooltip = type Pointer;
   //  PGtkWidget = type Pointer;                       // full
