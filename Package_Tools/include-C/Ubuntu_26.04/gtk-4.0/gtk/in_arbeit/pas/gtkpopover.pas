@@ -1,117 +1,95 @@
 unit gtkpopover;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
-  fp_glib2, fp_gtk4;
+  fp_glib2, fp_gtk4, gtktypes, gtkenums, gtkwidget;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
-{ GTK - The GIMP Toolkit
- * Copyright (C) 2019 Red Hat, Inc.
- *
- * Authors:
- * - Matthias Clasen <mclasen@redhat.com>
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library. If not, see <http://www.gnu.org/licenses/>.
-  }
-(** unsupported pragma#pragma once*)
-{$if !defined (__GTK_H_INSIDE__) && !defined (GTK_COMPILATION)}
-{$error "Only <gtk/gtk.h> can be included directly."}
-{$endif}
-{$include <gtk/gtkwidget.h>}
-
+  {$IFDEF read_struct}
 type
   PGtkPopover = ^TGtkPopover;
   TGtkPopover = record
-      parent : TGtkWidget;
-    end;
+    parent: TGtkWidget;
+  end;
 
-{< private > }
   PGtkPopoverClass = ^TGtkPopoverClass;
   TGtkPopoverClass = record
-      parent_class : TGtkWidgetClass;
-      closed : procedure (popover:PGtkPopover);cdecl;
-      activate_default : procedure (popover:PGtkPopover);cdecl;
-      reserved : array[0..7] of Tgpointer;
-    end;
+    parent_class: TGtkWidgetClass;
+    closed: procedure(popover: PGtkPopover); cdecl;
+    activate_default: procedure(popover: PGtkPopover); cdecl;
+    reserved: array[0..7] of Tgpointer;
+  end;
+  {$ENDIF read_struct}
 
-
-function gtk_popover_get_type:TGType;cdecl;external libgtk4;
-function gtk_popover_new:PGtkWidget;cdecl;external libgtk4;
-procedure gtk_popover_set_child(popover:PGtkPopover; child:PGtkWidget);cdecl;external libgtk4;
-function gtk_popover_get_child(popover:PGtkPopover):PGtkWidget;cdecl;external libgtk4;
-procedure gtk_popover_set_pointing_to(popover:PGtkPopover; rect:PGdkRectangle);cdecl;external libgtk4;
-function gtk_popover_get_pointing_to(popover:PGtkPopover; rect:PGdkRectangle):Tgboolean;cdecl;external libgtk4;
-procedure gtk_popover_set_position(popover:PGtkPopover; position:TGtkPositionType);cdecl;external libgtk4;
-function gtk_popover_get_position(popover:PGtkPopover):TGtkPositionType;cdecl;external libgtk4;
-procedure gtk_popover_set_autohide(popover:PGtkPopover; autohide:Tgboolean);cdecl;external libgtk4;
-function gtk_popover_get_autohide(popover:PGtkPopover):Tgboolean;cdecl;external libgtk4;
-procedure gtk_popover_set_has_arrow(popover:PGtkPopover; has_arrow:Tgboolean);cdecl;external libgtk4;
-function gtk_popover_get_has_arrow(popover:PGtkPopover):Tgboolean;cdecl;external libgtk4;
-procedure gtk_popover_set_mnemonics_visible(popover:PGtkPopover; mnemonics_visible:Tgboolean);cdecl;external libgtk4;
-function gtk_popover_get_mnemonics_visible(popover:PGtkPopover):Tgboolean;cdecl;external libgtk4;
-procedure gtk_popover_popup(popover:PGtkPopover);cdecl;external libgtk4;
-procedure gtk_popover_popdown(popover:PGtkPopover);cdecl;external libgtk4;
-procedure gtk_popover_set_offset(popover:PGtkPopover; x_offset:longint; y_offset:longint);cdecl;external libgtk4;
-procedure gtk_popover_get_offset(popover:PGtkPopover; x_offset:Plongint; y_offset:Plongint);cdecl;external libgtk4;
-procedure gtk_popover_set_cascade_popdown(popover:PGtkPopover; cascade_popdown:Tgboolean);cdecl;external libgtk4;
-function gtk_popover_get_cascade_popdown(popover:PGtkPopover):Tgboolean;cdecl;external libgtk4;
-procedure gtk_popover_set_default_widget(popover:PGtkPopover; widget:PGtkWidget);cdecl;external libgtk4;
-procedure gtk_popover_present(popover:PGtkPopover);cdecl;external libgtk4;
-{////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkPopover, g_object_unref) }
+{$IFDEF read_function}
+function gtk_popover_get_type: TGType; cdecl; external libgtk4;
+function gtk_popover_new: PGtkWidget; cdecl; external libgtk4;
+procedure gtk_popover_set_child(popover: PGtkPopover; child: PGtkWidget); cdecl; external libgtk4;
+function gtk_popover_get_child(popover: PGtkPopover): PGtkWidget; cdecl; external libgtk4;
+procedure gtk_popover_set_pointing_to(popover: PGtkPopover; rect: PGdkRectangle); cdecl; external libgtk4;
+function gtk_popover_get_pointing_to(popover: PGtkPopover; rect: PGdkRectangle): Tgboolean; cdecl; external libgtk4;
+procedure gtk_popover_set_position(popover: PGtkPopover; position: TGtkPositionType); cdecl; external libgtk4;
+function gtk_popover_get_position(popover: PGtkPopover): TGtkPositionType; cdecl; external libgtk4;
+procedure gtk_popover_set_autohide(popover: PGtkPopover; autohide: Tgboolean); cdecl; external libgtk4;
+function gtk_popover_get_autohide(popover: PGtkPopover): Tgboolean; cdecl; external libgtk4;
+procedure gtk_popover_set_has_arrow(popover: PGtkPopover; has_arrow: Tgboolean); cdecl; external libgtk4;
+function gtk_popover_get_has_arrow(popover: PGtkPopover): Tgboolean; cdecl; external libgtk4;
+procedure gtk_popover_set_mnemonics_visible(popover: PGtkPopover; mnemonics_visible: Tgboolean); cdecl; external libgtk4;
+function gtk_popover_get_mnemonics_visible(popover: PGtkPopover): Tgboolean; cdecl; external libgtk4;
+procedure gtk_popover_popup(popover: PGtkPopover); cdecl; external libgtk4;
+procedure gtk_popover_popdown(popover: PGtkPopover); cdecl; external libgtk4;
+procedure gtk_popover_set_offset(popover: PGtkPopover; x_offset: longint; y_offset: longint); cdecl; external libgtk4;
+procedure gtk_popover_get_offset(popover: PGtkPopover; x_offset: Plongint; y_offset: Plongint); cdecl; external libgtk4;
+procedure gtk_popover_set_cascade_popdown(popover: PGtkPopover; cascade_popdown: Tgboolean); cdecl; external libgtk4;
+function gtk_popover_get_cascade_popdown(popover: PGtkPopover): Tgboolean; cdecl; external libgtk4;
+procedure gtk_popover_set_default_widget(popover: PGtkPopover; widget: PGtkWidget); cdecl; external libgtk4;
+procedure gtk_popover_present(popover: PGtkPopover); cdecl; external libgtk4;
 
 // === Konventiert am: 6-7-26 16:24:54 ===
 
-function GTK_TYPE_POPOVER : TGType;
-function GTK_POPOVER(obj : Pointer) : PGtkPopover;
-function GTK_POPOVER_CLASS(klass : Pointer) : PGtkPopoverClass;
-function GTK_IS_POPOVER(obj : Pointer) : Tgboolean;
-function GTK_IS_POPOVER_CLASS(klass : Pointer) : Tgboolean;
-function GTK_POPOVER_GET_CLASS(obj : Pointer) : PGtkPopoverClass;
+function GTK_TYPE_POPOVER: TGType;
+function GTK_POPOVER(obj: Pointer): PGtkPopover;
+function GTK_POPOVER_CLASS(klass: Pointer): PGtkPopoverClass;
+function GTK_IS_POPOVER(obj: Pointer): Tgboolean;
+function GTK_IS_POPOVER_CLASS(klass: Pointer): Tgboolean;
+function GTK_POPOVER_GET_CLASS(obj: Pointer): PGtkPopoverClass;
+{$ENDIF read_function}
 
 implementation
 
-function GTK_TYPE_POPOVER : TGType;
-  begin
-    GTK_TYPE_POPOVER:=gtk_popover_get_type;
-  end;
+function GTK_TYPE_POPOVER: TGType;
+begin
+  GTK_TYPE_POPOVER := gtk_popover_get_type;
+end;
 
-function GTK_POPOVER(obj : Pointer) : PGtkPopover;
+function GTK_POPOVER(obj: Pointer): PGtkPopover;
 begin
   Result := PGtkPopover(g_type_check_instance_cast(obj, GTK_TYPE_POPOVER));
 end;
 
-function GTK_POPOVER_CLASS(klass : Pointer) : PGtkPopoverClass;
+function GTK_POPOVER_CLASS(klass: Pointer): PGtkPopoverClass;
 begin
   Result := PGtkPopoverClass(g_type_check_class_cast(klass, GTK_TYPE_POPOVER));
 end;
 
-function GTK_IS_POPOVER(obj : Pointer) : Tgboolean;
+function GTK_IS_POPOVER(obj: Pointer): Tgboolean;
 begin
-  Result := g_type_check_instance_is_a(obj,  GTK_TYPE_POPOVER);
+  Result := g_type_check_instance_is_a(obj, GTK_TYPE_POPOVER);
 end;
 
-function GTK_IS_POPOVER_CLASS(klass : Pointer) : Tgboolean;
+function GTK_IS_POPOVER_CLASS(klass: Pointer): Tgboolean;
 begin
-  Result := g_type_check_class_is_a(klass,  GTK_TYPE_POPOVER);
+  Result := g_type_check_class_is_a(klass, GTK_TYPE_POPOVER);
 end;
 
-function GTK_POPOVER_GET_CLASS(obj : Pointer) : PGtkPopoverClass;
+function GTK_POPOVER_GET_CLASS(obj: Pointer): PGtkPopoverClass;
 begin
   Result := PGtkPopoverClass(PGTypeInstance(obj)^.g_class);
 end;

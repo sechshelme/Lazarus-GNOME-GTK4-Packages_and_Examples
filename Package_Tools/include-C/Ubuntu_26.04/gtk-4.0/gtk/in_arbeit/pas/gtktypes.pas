@@ -58,6 +58,10 @@ type
   PPGtkAccessible = ^PGtkAccessible;
 
 
+  PGtkPrintSettings=Pointer;                // gtk/print
+  PGtkPageSetup=pointer;                    // gtk/print
+
+
   {$ENDIF read_struct}
 
 {$IFDEF read_function}
