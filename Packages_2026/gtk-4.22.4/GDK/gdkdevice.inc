@@ -14,6 +14,7 @@ const
   GDK_SOURCE_TABLET_PAD = 6;
 
 type
+  PPGdkTimeCoord = ^PGdkTimeCoord;
   PGdkTimeCoord = ^TGdkTimeCoord;
   TGdkTimeCoord = record
     time: Tguint32;

@@ -23,7 +23,7 @@ type
   PGtkBuilderScope = type Pointer;                 // blank
   PGtkCssStyleChange = type Pointer;               // blank
   PGtkEventController = type Pointer;              // blank
-  PGtkGesture = type Pointer;
+  PGtkGesture = type Pointer;                      // blank
   //  PGtkLayoutManager = type Pointer;                // full
   PGtkListItem = type Pointer;                     // blank
   PGtkListItemFactory = type Pointer;              // blank
@@ -54,6 +54,7 @@ type
 
   PGtkAccessible = type Pointer;                   // deprecated blank
   PGtkShortcutsWindow = type Pointer;              // blank
+  PGtkEntryCompletion=Pointer;                      // deprecated blank
   PPGtkAccessible = ^PGtkAccessible;
 
 
