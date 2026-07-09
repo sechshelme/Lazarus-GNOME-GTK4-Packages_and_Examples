@@ -29,8 +29,7 @@
 
 #define GTK_TYPE_FILE_CHOOSER_NATIVE             (gtk_file_chooser_native_get_type ())
 
-extern
-G_DECLARE_FINAL_TYPE (GtkFileChooserNative, gtk_file_chooser_native, GTK, FILE_CHOOSER_NATIVE, GtkNativeDialog)
+//G_DECLARE_FINAL_TYPE (GtkFileChooserNative, gtk_file_chooser_native, GTK, FILE_CHOOSER_NATIVE, GtkNativeDialog)
 
 extern //xxxxxGLIB_DEPRECATED_IN_4_10
 GtkFileChooserNative *gtk_file_chooser_native_new (const char           *title,

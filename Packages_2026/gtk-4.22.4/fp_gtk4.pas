@@ -28,7 +28,18 @@ const
 
   {$include fp_GDK4_includes.inc}
   {$include fp_GSK4_includes.inc}
-//  {$include fp_GTK4_includes.inc}
+
+  {$DEFINE read_enum}
+  {$include fp_GTK4_includes.inc}
+  {$UNDEF read_enum}
+
+  {$DEFINE read_struct}
+  {$include fp_GTK4_includes.inc}
+  {$UNDEF read_struct}
+
+  {$DEFINE read_function}
+  {$include fp_GTK4_includes.inc}
+  {$UNDEF read_function}
 
   {$IFDEF Linux}
   //{$include unix-print/gtk/print/gtkpagesetupunixdialog.inc }
@@ -46,7 +57,7 @@ implementation
 
 {$include fp_GDK4_includes.inc}
 {$include fp_GSK4_includes.inc}
-//{$include fp_GTK4_includes.inc}
+{$include fp_GTK4_includes.inc}
 
 {$IFDEF Linux}
 //{$include unix-print/gtk/print/gtkpagesetupunixdialog.inc }
