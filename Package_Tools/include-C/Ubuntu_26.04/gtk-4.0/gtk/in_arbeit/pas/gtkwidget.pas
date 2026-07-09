@@ -14,6 +14,7 @@ uses
 
   {$IFDEF read_struct}
 type
+  PPGtkWidget = ^PGtkWidget;
   PGtkWidget = ^TGtkWidget;
 
   PGtkAllocation = ^TGtkAllocation;

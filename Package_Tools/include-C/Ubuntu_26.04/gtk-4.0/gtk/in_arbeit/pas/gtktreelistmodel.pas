@@ -1,88 +1,67 @@
 unit gtktreelistmodel;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
   fp_glib2, fp_gtk4;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
-
-{
- * Copyright © 2018 Benjamin Otte
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library. If not, see <http://www.gnu.org/licenses/>.
- *
- * Authors: Benjamin Otte <otte@gnome.org>
-  }
-(** unsupported pragma#pragma once*)
-{$if !defined (__GTK_H_INSIDE__) && !defined (GTK_COMPILATION)}
-{$error "Only <gtk/gtk.h> can be included directly."}
-{$endif}
-{$include <gio/gio.h>}
-{$include <gtk/gtkwidget.h>}
-
-{ was #define dname def_expr }
-function GTK_TYPE_TREE_LIST_ROW : longint; { return type might be wrong }
-
-{G_DECLARE_FINAL_TYPE (GtkTreeListModel, gtk_tree_list_model, GTK, TREE_LIST_MODEL, GObject) }
-{G_DECLARE_FINAL_TYPE (GtkTreeListRow, gtk_tree_list_row, GTK, TREE_LIST_ROW, GObject) }
-{*
- * GtkTreeListModelCreateModelFunc:
- * @item: (type GObject): The item that is being expanded
- * @user_data: User data passed when registering the function
- *
- * Prototype of the function called to create new child models when
- * gtk_tree_list_row_set_expanded() is called.
- *
- * This function can return %NULL to indicate that @item is guaranteed to be
- * a leaf node and will never have children. If it does not have children but
- * may get children later, it should return an empty model that is filled once
- * children arrive.
- *
- * Returns: (nullable) (transfer full): The model tracking the children of
- *   @item or %NULL if @item can never have children
-  }
+  {$IFDEF read_struct}
 type
-  PGtkTreeListModelCreateModelFunc = ^TGtkTreeListModelCreateModelFunc;
-  TGtkTreeListModelCreateModelFunc = function (item:Tgpointer; user_data:Tgpointer):PGListModel;cdecl;
+  TGtkTreeListModelCreateModelFunc = function(item: Tgpointer; user_data: Tgpointer): PGListModel; cdecl;
 
-function gtk_tree_list_model_new(root:PGListModel; passthrough:Tgboolean; autoexpand:Tgboolean; create_func:TGtkTreeListModelCreateModelFunc; user_data:Tgpointer; 
-           user_destroy:TGDestroyNotify):PGtkTreeListModel;cdecl;external libgtk4;
-function gtk_tree_list_model_get_model(self:PGtkTreeListModel):PGListModel;cdecl;external libgtk4;
-function gtk_tree_list_model_get_passthrough(self:PGtkTreeListModel):Tgboolean;cdecl;external libgtk4;
-procedure gtk_tree_list_model_set_autoexpand(self:PGtkTreeListModel; autoexpand:Tgboolean);cdecl;external libgtk4;
-function gtk_tree_list_model_get_autoexpand(self:PGtkTreeListModel):Tgboolean;cdecl;external libgtk4;
-function gtk_tree_list_model_get_child_row(self:PGtkTreeListModel; position:Tguint):PGtkTreeListRow;cdecl;external libgtk4;
-function gtk_tree_list_model_get_row(self:PGtkTreeListModel; position:Tguint):PGtkTreeListRow;cdecl;external libgtk4;
-function gtk_tree_list_row_get_item(self:PGtkTreeListRow):Tgpointer;cdecl;external libgtk4;
-procedure gtk_tree_list_row_set_expanded(self:PGtkTreeListRow; expanded:Tgboolean);cdecl;external libgtk4;
-function gtk_tree_list_row_get_expanded(self:PGtkTreeListRow):Tgboolean;cdecl;external libgtk4;
-function gtk_tree_list_row_is_expandable(self:PGtkTreeListRow):Tgboolean;cdecl;external libgtk4;
-function gtk_tree_list_row_get_position(self:PGtkTreeListRow):Tguint;cdecl;external libgtk4;
-function gtk_tree_list_row_get_depth(self:PGtkTreeListRow):Tguint;cdecl;external libgtk4;
-function gtk_tree_list_row_get_children(self:PGtkTreeListRow):PGListModel;cdecl;external libgtk4;
-function gtk_tree_list_row_get_parent(self:PGtkTreeListRow):PGtkTreeListRow;cdecl;external libgtk4;
-function gtk_tree_list_row_get_child_row(self:PGtkTreeListRow; position:Tguint):PGtkTreeListRow;cdecl;external libgtk4;
+  PGtkTreeListModel = type Pointer;
+
+  TGtkTreeListModelClass = record
+    parent_class: TGObjectClass;
+  end;
+  PGtkTreeListModelClass = ^TGtkTreeListModelClass;
+
+  PGtkTreeListRow = type Pointer;
+
+  TGtkTreeListRowClass = record
+    parent_class: TGObjectClass;
+  end;
+  PGtkTreeListRowClass = ^TGtkTreeListRowClass;
+  {$ENDIF read_struct}
+
+{$IFDEF read_function}
+function gtk_tree_list_model_get_type: TGType; cdecl; external libgtk4;
+function gtk_tree_list_model_new(root: PGListModel; passthrough: Tgboolean; autoexpand: Tgboolean; create_func: TGtkTreeListModelCreateModelFunc; user_data: Tgpointer;
+  user_destroy: TGDestroyNotify): PGtkTreeListModel; cdecl; external libgtk4;
+function gtk_tree_list_model_get_model(self: PGtkTreeListModel): PGListModel; cdecl; external libgtk4;
+function gtk_tree_list_model_get_passthrough(self: PGtkTreeListModel): Tgboolean; cdecl; external libgtk4;
+procedure gtk_tree_list_model_set_autoexpand(self: PGtkTreeListModel; autoexpand: Tgboolean); cdecl; external libgtk4;
+function gtk_tree_list_model_get_autoexpand(self: PGtkTreeListModel): Tgboolean; cdecl; external libgtk4;
+function gtk_tree_list_model_get_child_row(self: PGtkTreeListModel; position: Tguint): PGtkTreeListRow; cdecl; external libgtk4;
+function gtk_tree_list_model_get_row(self: PGtkTreeListModel; position: Tguint): PGtkTreeListRow; cdecl; external libgtk4;
+
+function gtk_tree_list_row_get_type: TGType; cdecl; external libgtk4;
+function gtk_tree_list_row_get_item(self: PGtkTreeListRow): Tgpointer; cdecl; external libgtk4;
+procedure gtk_tree_list_row_set_expanded(self: PGtkTreeListRow; expanded: Tgboolean); cdecl; external libgtk4;
+function gtk_tree_list_row_get_expanded(self: PGtkTreeListRow): Tgboolean; cdecl; external libgtk4;
+function gtk_tree_list_row_is_expandable(self: PGtkTreeListRow): Tgboolean; cdecl; external libgtk4;
+function gtk_tree_list_row_get_position(self: PGtkTreeListRow): Tguint; cdecl; external libgtk4;
+function gtk_tree_list_row_get_depth(self: PGtkTreeListRow): Tguint; cdecl; external libgtk4;
+function gtk_tree_list_row_get_children(self: PGtkTreeListRow): PGListModel; cdecl; external libgtk4;
+function gtk_tree_list_row_get_parent(self: PGtkTreeListRow): PGtkTreeListRow; cdecl; external libgtk4;
+function gtk_tree_list_row_get_child_row(self: PGtkTreeListRow; position: Tguint): PGtkTreeListRow; cdecl; external libgtk4;
 
 // === Konventiert am: 6-7-26 16:20:02 ===
 
 function GTK_TYPE_TREE_LIST_MODEL: TGType;
 function GTK_TREE_LIST_MODEL(obj: Pointer): PGtkTreeListModel;
 function GTK_IS_TREE_LIST_MODEL(obj: Pointer): Tgboolean;
+
+function GTK_TYPE_TREE_LIST_ROW: TGType;
+function GTK_TREE_LIST_ROW(obj: Pointer): PGtkTreeListRow;
+function GTK_IS_TREE_LIST_ROW(obj: Pointer): Tgboolean;
+{$ENDIF read_function}
 
 implementation
 
@@ -101,22 +80,20 @@ begin
   Result := g_type_check_instance_is_a(obj, GTK_TYPE_TREE_LIST_MODEL);
 end;
 
-type 
-  PGtkTreeListModel = type Pointer;
 
-  TGtkTreeListModelClass = record
-    parent_class: TGObjectClass;
-  end;
-  PGtkTreeListModelClass = ^TGtkTreeListModelClass;
+function GTK_TYPE_TREE_LIST_ROW: TGType;
+begin
+  Result := gtk_tree_list_row_get_type;
+end;
 
-function gtk_tree_list_model_get_type: TGType; cdecl; external libgxxxxxxx;
+function GTK_TREE_LIST_ROW(obj: Pointer): PGtkTreeListRow;
+begin
+  Result := PGtkTreeListRow(g_type_check_instance_cast(obj, GTK_TYPE_TREE_LIST_ROW));
+end;
 
-
-{ was #define dname def_expr }
-function GTK_TYPE_TREE_LIST_ROW : longint; { return type might be wrong }
-  begin
-    GTK_TYPE_TREE_LIST_ROW:=gtk_tree_list_row_get_type;
-  end;
-
+function GTK_IS_TREE_LIST_ROW(obj: Pointer): Tgboolean;
+begin
+  Result := g_type_check_instance_is_a(obj, GTK_TYPE_TREE_LIST_ROW);
+end;
 
 end.
