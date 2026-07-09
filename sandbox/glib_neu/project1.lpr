@@ -5,7 +5,7 @@ program project1;
 // diff -U 1 -r /n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Packages_2024/glib-2.80.0/C-include/gio-unix-2.80.0 /n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Packages_2026/glib-2.88.0/C-include/gio-unix-2.0 > test.diff
 // diff -U 1 /usr/include/glib-2.0/girepository /n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/Ubuntu_26.04/girepository > test.diff
 
-// diff -U 1 /n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Packages_2024/gtk-4.14.2/C-include/gtk/gtkmain.h /n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Packages_2026/gtk-4.22.4/C-include/gtk-4.0/gtk/gtkmain.h > test.diff
+// diff -U 1 /n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Packages_2024/gtk-4.14.2/C-include/gtk/gtkslicelistmodel.h /n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Packages_2026/gtk-4.22.4/C-include/gtk-4.0/gtk/gtkslicelistmodel.h > test.diff
 uses
   gtktypes,
   gtktypebuiltins,
@@ -170,11 +170,9 @@ uses
   gtkprogressbar,
   gtkrange,
   gtkrecentmanager,
-
-
   gtkrevealer,
   gtkroot,
-  gtkscale,
+  gtkscale,                      // GtkRange
   gtkscalebutton,
   gtksearchbar,
   gtksearchentry,
@@ -192,6 +190,7 @@ uses
   gtksizerequest,
   gtkslicelistmodel,
   gtksnapshot,
+
   gtkspinbutton,
   gtkspinner,
   gtkstack,

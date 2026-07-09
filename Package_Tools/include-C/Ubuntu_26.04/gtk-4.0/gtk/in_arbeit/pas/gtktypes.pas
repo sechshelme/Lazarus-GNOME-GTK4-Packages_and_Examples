@@ -33,8 +33,8 @@ type
   PGtkScrollInfo = type Pointer;                   // blank
   PGtkSettings = type Pointer;                     // blank
   PGtkShortcut = type Pointer;                     // blank
-  PGtkShortcutAction = type Pointer;
-  PGtkShortcutTrigger = type Pointer;
+  PGtkShortcutAction = type Pointer;               // blank
+  PGtkShortcutTrigger = type Pointer;              // blank
 //  PGdkSnapshot = type Pointer;
   PGtkStyleContext = type Pointer;                 // deprecated full
   PGtkTooltip = type Pointer;
