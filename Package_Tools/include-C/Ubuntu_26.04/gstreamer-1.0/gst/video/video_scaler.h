@@ -26,7 +26,7 @@
 #include <gst/video/video-color.h>
 #include <gst/video/video-resampler.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GST_VIDEO_SCALER_OPT_DITHER_METHOD:
@@ -96,6 +96,6 @@ void                  gst_video_scaler_2d             (GstVideoScaler *hscale,
                                                        guint x, guint y,
                                                        guint width, guint height);
 
-G_END_DECLS
+
 
 #endif /* __GST_VIDEO_SCALER_H__ */

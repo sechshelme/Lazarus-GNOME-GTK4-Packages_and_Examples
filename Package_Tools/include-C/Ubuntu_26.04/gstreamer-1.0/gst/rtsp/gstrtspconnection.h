@@ -51,7 +51,7 @@
 #include <gst/rtsp/gstrtspmessage.h>
 #include <gio/gio.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GstRTSPConnection:
@@ -102,13 +102,13 @@ GST_RTSP_API
 void                 gst_rtsp_connection_set_tls_database (GstRTSPConnection * conn, GTlsDatabase * database);
 
 GST_RTSP_API
-GTlsDatabase *       gst_rtsp_connection_get_tls_database (GstRTSPConnection * conn) G_GNUC_WARN_UNUSED_RESULT;
+GTlsDatabase *       gst_rtsp_connection_get_tls_database (GstRTSPConnection * conn) ;
 
 GST_RTSP_API
 void                 gst_rtsp_connection_set_tls_interaction (GstRTSPConnection * conn, GTlsInteraction * interaction);
 
 GST_RTSP_API
-GTlsInteraction *    gst_rtsp_connection_get_tls_interaction (GstRTSPConnection * conn) G_GNUC_WARN_UNUSED_RESULT;
+GTlsInteraction *    gst_rtsp_connection_get_tls_interaction (GstRTSPConnection * conn) ;
 
 typedef gboolean (*GstRTSPConnectionAcceptCertificateFunc) (GTlsConnection *conn,
                                                             GTlsCertificate *peer_cert,
@@ -348,7 +348,7 @@ void               gst_rtsp_watch_set_flushing       (GstRTSPWatch * watch,
 #ifndef GST_DISABLE_DEPRECATED
 
 /* Deprecated */
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+
 
 GST_RTSP_DEPRECATED_FOR (gst_rtsp_connection_connect_usec)
 GstRTSPResult      gst_rtsp_connection_connect                (GstRTSPConnection * conn, GTimeVal * timeout);
@@ -389,10 +389,10 @@ GST_RTSP_DEPRECATED_FOR (gst_rtsp_watch_wait_backlog_usec)
 GstRTSPResult      gst_rtsp_watch_wait_backlog       (GstRTSPWatch * watch,
                                                       GTimeVal *timeout);
 
-G_GNUC_END_IGNORE_DEPRECATIONS
+
 
 #endif /* GST_DISABLE_DEPRECATED */
 
-G_END_DECLS
+
 
 #endif /* __GST_RTSP_CONNECTION_H__ */

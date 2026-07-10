@@ -24,7 +24,7 @@
 #include <gst/gst.h>
 #include <gst/pbutils/pbutils-prelude.h>
 
-G_BEGIN_DECLS
+
 
 /*
  * functions for use by applications to initiate installation of missing plugins
@@ -99,10 +99,10 @@ typedef enum {
 typedef struct _GstInstallPluginsContext GstInstallPluginsContext;
 
 GST_PBUTILS_API
-GstInstallPluginsContext * gst_install_plugins_context_new (void) G_GNUC_WARN_UNUSED_RESULT;
+GstInstallPluginsContext * gst_install_plugins_context_new (void) ;
 
 GST_PBUTILS_API
-GstInstallPluginsContext * gst_install_plugins_context_copy (GstInstallPluginsContext * ctx) G_GNUC_WARN_UNUSED_RESULT;
+GstInstallPluginsContext * gst_install_plugins_context_copy (GstInstallPluginsContext * ctx) ;
 GST_PBUTILS_API
 void   gst_install_plugins_context_free    (GstInstallPluginsContext * ctx);
 
@@ -156,9 +156,9 @@ gboolean      gst_install_plugins_installation_in_progress (void);
 GST_PBUTILS_API
 gboolean      gst_install_plugins_supported (void);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstInstallPluginsContext, gst_install_plugins_context_free)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstInstallPluginsContext, gst_install_plugins_context_free)
 
-G_END_DECLS
+
 
 #endif /* __GST_PB_UTILS_INSTALL_PLUGINS_H__ */
 

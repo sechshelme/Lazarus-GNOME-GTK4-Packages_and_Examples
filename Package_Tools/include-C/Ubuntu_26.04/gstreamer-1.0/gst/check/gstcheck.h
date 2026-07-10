@@ -35,7 +35,7 @@
 #define CK_DLL_EXP GST_CHECK_API
 #include <gst/check/internal-check.h>
 
-G_BEGIN_DECLS
+
 
 GST_CHECK_API GstDebugCategory *check_debug;
 #define GST_CAT_DEFAULT check_debug
@@ -201,7 +201,7 @@ void gst_check_setup_events_with_stream_id (GstPad * srcpad,
 
 GST_CHECK_API
 void gst_check_objects_destroyed_on_unref (gpointer object_to_unref, gpointer first_object, ...)
-  G_GNUC_NULL_TERMINATED;
+  ;
 
 GST_CHECK_API
 void gst_check_object_destroyed_on_unref (gpointer object_to_unref);
@@ -782,6 +782,6 @@ G_STMT_START {                                                  \
 
 #endif /* !__GI_SCANNER__ */
 
-G_END_DECLS
+
 
 #endif /* __GST_CHECK_H__ */

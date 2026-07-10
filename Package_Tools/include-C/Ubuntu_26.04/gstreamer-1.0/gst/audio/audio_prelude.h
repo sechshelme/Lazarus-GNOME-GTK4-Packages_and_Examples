@@ -25,9 +25,9 @@
 #include <gst/gst.h>
 
 #ifdef BUILDING_GST_AUDIO
-#define GST_AUDIO_API GST_API_EXPORT         /* from config.h */
+#define GST_AUDIO_API extern_EXPORT         /* from config.h */
 #else
-#define GST_AUDIO_API GST_API_IMPORT
+#define GST_AUDIO_API extern_IMPORT
 #endif
 
 #endif /* __GST_AUDIO_PRELUDE_H__ */

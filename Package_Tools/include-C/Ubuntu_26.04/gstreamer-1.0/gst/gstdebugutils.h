@@ -27,7 +27,7 @@
 #include <gst/gstconfig.h>
 #include <gst/gstbin.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GstDebugGraphDetails:
@@ -61,13 +61,13 @@ typedef enum {
 
 /********** pipeline graphs **********/
 
-GST_API
+extern
 gchar * gst_debug_bin_to_dot_data (GstBin *bin, GstDebugGraphDetails details);
 
-GST_API
+extern
 void gst_debug_bin_to_dot_file (GstBin *bin, GstDebugGraphDetails details, const gchar *file_name);
 
-GST_API
+extern
 void gst_debug_bin_to_dot_file_with_ts (GstBin *bin, GstDebugGraphDetails details, const gchar *file_name);
 
 #ifndef GST_DISABLE_GST_DEBUG
@@ -119,7 +119,7 @@ void gst_debug_bin_to_dot_file_with_ts (GstBin *bin, GstDebugGraphDetails detail
 
 #endif /* GST_DISABLE_GST_DEBUG */
 
-G_END_DECLS
+
 
 #endif /* __GSTDEBUGUTILS_H__ */
 

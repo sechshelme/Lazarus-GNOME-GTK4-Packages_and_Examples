@@ -29,7 +29,7 @@
 #include <gst/tag/xmpwriter.h>
 #include <gst/tag/tag-enumtypes.h>
 
-G_BEGIN_DECLS
+
 
 /* Tag names */
 
@@ -736,6 +736,6 @@ const gchar *       gst_tag_get_license_description  (const gchar * license_ref)
 GST_TAG_API
 const gchar *       gst_tag_get_license_jurisdiction (const gchar * license_ref);
 
-G_END_DECLS
+
 
 #endif /* __GST_TAG_TAG_H__ */

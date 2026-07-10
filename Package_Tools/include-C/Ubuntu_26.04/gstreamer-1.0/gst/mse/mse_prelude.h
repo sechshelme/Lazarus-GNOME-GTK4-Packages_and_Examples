@@ -25,10 +25,10 @@
 #include <gst/gst.h>
 
 #ifndef GST_MSE_API
-# if defined(BUILDING_GST_MSE) && defined(GST_API_EXPORT)
-#  define GST_MSE_API GST_API_EXPORT
-# elif defined(GST_API_IMPORT)
-#  define GST_MSE_API GST_API_IMPORT
+# if defined(BUILDING_GST_MSE) && defined(extern_EXPORT)
+#  define GST_MSE_API extern_EXPORT
+# elif defined(extern_IMPORT)
+#  define GST_MSE_API extern_IMPORT
 # else
 #  define GST_MSE_API
 # endif

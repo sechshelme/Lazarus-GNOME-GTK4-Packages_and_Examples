@@ -26,7 +26,7 @@
 
 #include <gst/gstbin.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_PIPELINE               (gst_pipeline_get_type ())
 #define GST_PIPELINE(obj)               (G_TYPE_CHECK_INSTANCE_CAST ((obj), GST_TYPE_PIPELINE, GstPipeline))
@@ -88,57 +88,57 @@ struct _GstPipelineClass {
   gpointer _gst_reserved[GST_PADDING];
 };
 
-GST_API
+extern
 GType           gst_pipeline_get_type           (void);
 
-GST_API
-GstElement*     gst_pipeline_new                (const gchar *name) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstElement*     gst_pipeline_new                (const gchar *name)  ;
 
-GST_API
-GstBus*         gst_pipeline_get_bus            (GstPipeline *pipeline) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstBus*         gst_pipeline_get_bus            (GstPipeline *pipeline) ;
 
-GST_API
+extern
 void            gst_pipeline_use_clock          (GstPipeline *pipeline, GstClock *clock);
 
-GST_API
+extern
 gboolean        gst_pipeline_set_clock          (GstPipeline *pipeline, GstClock *clock);
 
-GST_API
-GstClock*       gst_pipeline_get_clock          (GstPipeline *pipeline) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstClock*       gst_pipeline_get_clock          (GstPipeline *pipeline) ;
 
-GST_API
-GstClock*       gst_pipeline_get_pipeline_clock (GstPipeline *pipeline) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstClock*       gst_pipeline_get_pipeline_clock (GstPipeline *pipeline) ;
 
-GST_API
+extern
 void            gst_pipeline_auto_clock         (GstPipeline *pipeline);
 
-GST_API
+extern
 void            gst_pipeline_set_delay          (GstPipeline *pipeline, GstClockTime delay);
 
-GST_API
+extern
 GstClockTime    gst_pipeline_get_delay          (GstPipeline *pipeline);
 
-GST_API
+extern
 void            gst_pipeline_set_latency        (GstPipeline *pipeline, GstClockTime latency);
 
-GST_API
+extern
 GstClockTime    gst_pipeline_get_latency        (GstPipeline *pipeline);
 
-GST_API
+extern
 void            gst_pipeline_set_auto_flush_bus (GstPipeline *pipeline, gboolean auto_flush);
 
-GST_API
+extern
 gboolean        gst_pipeline_get_auto_flush_bus (GstPipeline *pipeline);
 
-GST_API
+extern
 gboolean        gst_pipeline_is_live            (GstPipeline *pipeline);
 
-GST_API
+extern
 GstClockTime    gst_pipeline_get_configured_latency    (GstPipeline * pipeline);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstPipeline, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstPipeline, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_PIPELINE_H__ */
 

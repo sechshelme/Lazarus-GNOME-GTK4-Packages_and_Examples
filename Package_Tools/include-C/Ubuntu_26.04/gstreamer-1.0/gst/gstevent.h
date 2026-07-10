@@ -234,9 +234,9 @@ typedef enum {
 #include <gst/gsttoc.h>
 #include <gst/gststreamcollection.h>
 
-G_BEGIN_DECLS
 
-GST_API GType _gst_event_type;
+
+extern GType _gst_event_type;
 
 #define GST_TYPE_EVENT                  (_gst_event_type)
 #define GST_IS_EVENT(obj)               (GST_IS_MINI_OBJECT_TYPE (obj, GST_TYPE_EVENT))
@@ -313,7 +313,7 @@ gst_event_is_writable (const GstEvent * event)
   return gst_mini_object_is_writable (GST_MINI_OBJECT_CONST_CAST (event));
 }
 
-G_GNUC_WARN_UNUSED_RESULT static inline GstEvent *
+ static inline GstEvent *
 gst_event_make_writable (GstEvent * event)
 {
   return GST_EVENT_CAST (gst_mini_object_make_writable (GST_MINI_OBJECT_CAST (event)));
@@ -337,19 +337,19 @@ gst_event_take (GstEvent **old_event, GstEvent *new_event)
   return gst_mini_object_take ((GstMiniObject **) old_event, (GstMiniObject *) new_event);
 }
 #else /* GST_DISABLE_MINIOBJECT_INLINE_FUNCTIONS */
-GST_API
-GstEvent *  gst_event_make_writable (GstEvent * event) G_GNUC_WARN_UNUSED_RESULT;
-GST_API
+extern
+GstEvent *  gst_event_make_writable (GstEvent * event) ;
+extern
 gboolean    gst_event_is_writable   (const GstEvent * event);
 
-GST_API
+extern
 gboolean    gst_event_replace (GstEvent ** old_event,
                                GstEvent * new_event);
 
-GST_API
+extern
 GstEvent *  gst_event_steal   (GstEvent ** old_event);
 
-GST_API
+extern
 gboolean    gst_event_take    (GstEvent ** old_event,
                                GstEvent *new_event);
 #endif /* GST_DISABLE_MINIOBJECT_INLINE_FUNCTIONS */
@@ -408,19 +408,19 @@ struct _GstEvent {
   guint32       seqnum;
 };
 
-GST_API
+extern
 const gchar*    gst_event_type_get_name         (GstEventType type);
 
-GST_API
+extern
 GQuark          gst_event_type_to_quark         (GstEventType type);
 
-GST_API
+extern
 GstEventTypeFlags
                 gst_event_type_get_flags        (GstEventType type);
 
 
-GST_API
-guint gst_event_type_to_sticky_ordering (GstEventType type) G_GNUC_CONST;
+extern
+guint gst_event_type_to_sticky_ordering (GstEventType type) ;
 
 #ifndef GST_DISABLE_MINIOBJECT_INLINE_FUNCTIONS
 /* refcounting */
@@ -443,301 +443,301 @@ gst_clear_event (GstEvent ** event_ptr)
 }
 
 /* copy event */
-G_GNUC_WARN_UNUSED_RESULT static inline GstEvent *
+ static inline GstEvent *
 gst_event_copy (const GstEvent * event)
 {
   return GST_EVENT_CAST (gst_mini_object_copy (GST_MINI_OBJECT_CONST_CAST (event)));
 }
 #else /* GST_DISABLE_MINIOBJECT_INLINE_FUNCTIONS */
-GST_API
+extern
 GstEvent *      gst_event_ref                   (GstEvent * event);
 
-GST_API
+extern
 void            gst_event_unref                 (GstEvent * event);
 
-GST_API
+extern
 void            gst_clear_event                 (GstEvent ** event_ptr);
 
-GST_API
-GstEvent *      gst_event_copy                  (const GstEvent * event) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstEvent *      gst_event_copy                  (const GstEvent * event) ;
 #endif /* GST_DISABLE_MINIOBJECT_INLINE_FUNCTIONS */
 
-GST_API
+extern
 GType           gst_event_get_type              (void);
 
 /* custom event */
 
-GST_API
-GstEvent*       gst_event_new_custom            (GstEventType type, GstStructure *structure) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstEvent*       gst_event_new_custom            (GstEventType type, GstStructure *structure)  ;
 
-GST_API
+extern
 const GstStructure *
                 gst_event_get_structure         (GstEvent *event);
 
-GST_API
+extern
 GstStructure *  gst_event_writable_structure    (GstEvent *event);
 
-GST_API
+extern
 gboolean        gst_event_has_name              (GstEvent *event, const gchar *name);
 
-GST_DEPRECATED_FOR(gst_event_has_name)
+extern //xxxxxGLIB_DEPRECATED_IN(gst_event_has_name)
 gboolean        gst_event_has_name_id           (GstEvent *event, GQuark name);
 
 /* identifiers for events and messages */
 
-GST_API
+extern
 guint32         gst_event_get_seqnum            (GstEvent *event);
 
-GST_API
+extern
 void            gst_event_set_seqnum            (GstEvent *event, guint32 seqnum);
 
 /* accumulated pad offsets for the event */
 
-GST_API
+extern
 gint64          gst_event_get_running_time_offset (GstEvent *event);
 
-GST_API
+extern
 void            gst_event_set_running_time_offset (GstEvent *event, gint64 offset);
 
 /* Stream start event */
 
-GST_API
-GstEvent *      gst_event_new_stream_start      (const gchar *stream_id) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstEvent *      gst_event_new_stream_start      (const gchar *stream_id)  ;
 
-GST_API
+extern
 void            gst_event_parse_stream_start    (GstEvent *event, const gchar **stream_id);
 
-GST_API
+extern
 void            gst_event_set_stream		(GstEvent *event, GstStream *stream);
 
-GST_API
+extern
 void            gst_event_parse_stream		(GstEvent *event, GstStream **stream);
 
-GST_API
+extern
 void            gst_event_set_stream_flags      (GstEvent *event, GstStreamFlags flags);
 
-GST_API
+extern
 void            gst_event_parse_stream_flags    (GstEvent *event, GstStreamFlags *flags);
 
-GST_API
+extern
 void            gst_event_set_group_id          (GstEvent *event, guint group_id);
 
-GST_API
+extern
 gboolean        gst_event_parse_group_id        (GstEvent *event, guint *group_id);
 
 /* flush events */
 
-GST_API
-GstEvent *      gst_event_new_flush_start       (void) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstEvent *      gst_event_new_flush_start       (void)  ;
 
-GST_API
-GstEvent *      gst_event_new_flush_stop        (gboolean reset_time) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstEvent *      gst_event_new_flush_stop        (gboolean reset_time)  ;
 
-GST_API
+extern
 void            gst_event_parse_flush_stop      (GstEvent *event, gboolean *reset_time);
 
 /* Stream collection event */
 
-GST_API
-GstEvent *      gst_event_new_stream_collection   (GstStreamCollection *collection) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstEvent *      gst_event_new_stream_collection   (GstStreamCollection *collection)  ;
 
-GST_API
+extern
 void            gst_event_parse_stream_collection (GstEvent *event, GstStreamCollection **collection);
 
 /* select streams event */
 
-GST_API
-GstEvent *      gst_event_new_select_streams    (GList *streams) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstEvent *      gst_event_new_select_streams    (GList *streams) ;
 
-GST_API
+extern
 void            gst_event_parse_select_streams  (GstEvent *event, GList **streams);
 
 /* stream-group-done event */
 
-GST_API
-GstEvent *      gst_event_new_stream_group_done (guint group_id) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstEvent *      gst_event_new_stream_group_done (guint group_id)  ;
 
-GST_API
+extern
 void            gst_event_parse_stream_group_done (GstEvent *event, guint *group_id);
 
 /* EOS event */
 
-GST_API
-GstEvent *      gst_event_new_eos               (void) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstEvent *      gst_event_new_eos               (void)  ;
 
 /* GAP event */
 
-GST_API
+extern
 GstEvent *      gst_event_new_gap               (GstClockTime   timestamp,
-                                                 GstClockTime   duration) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
-GST_API
+                                                 GstClockTime   duration)  ;
+extern
 void            gst_event_parse_gap             (GstEvent     * event,
                                                  GstClockTime * timestamp,
                                                  GstClockTime * duration);
 
-GST_API
+extern
 void            gst_event_set_gap_flags           (GstEvent    * event,
                                                    GstGapFlags   flags);
 
-GST_API
+extern
 void            gst_event_parse_gap_flags         (GstEvent    * event,
                                                    GstGapFlags * flags);
 
 /* Caps events */
 
-GST_API
-GstEvent *      gst_event_new_caps              (GstCaps *caps) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstEvent *      gst_event_new_caps              (GstCaps *caps)  ;
 
-GST_API
+extern
 void            gst_event_parse_caps            (GstEvent *event, GstCaps **caps);
 
 /* segment event */
 
-GST_API
-GstEvent*       gst_event_new_segment           (const GstSegment *segment) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstEvent*       gst_event_new_segment           (const GstSegment *segment)  ;
 
-GST_API
+extern
 void            gst_event_parse_segment         (GstEvent *event, const GstSegment **segment);
 
-GST_API
+extern
 void            gst_event_copy_segment          (GstEvent *event, GstSegment *segment);
 
 /* tag event */
 
-GST_API
-GstEvent*       gst_event_new_tag               (GstTagList *taglist) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstEvent*       gst_event_new_tag               (GstTagList *taglist)  ;
 
-GST_API
+extern
 void            gst_event_parse_tag             (GstEvent *event, GstTagList **taglist);
 
 /* TOC event */
 
-GST_API
-GstEvent*      gst_event_new_toc                (GstToc *toc, gboolean updated) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstEvent*      gst_event_new_toc                (GstToc *toc, gboolean updated) ;
 
-GST_API
+extern
 void           gst_event_parse_toc              (GstEvent *event, GstToc **toc, gboolean *updated);
 
 /* Protection event */
 
-GST_API
-GstEvent *     gst_event_new_protection         (const gchar * system_id, GstBuffer * data, const gchar * origin) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstEvent *     gst_event_new_protection         (const gchar * system_id, GstBuffer * data, const gchar * origin) ;
 
-GST_API
+extern
 void           gst_event_parse_protection       (GstEvent * event, const gchar ** system_id,
                                                  GstBuffer ** data, const gchar ** origin);
 
 /* buffer */
 
-GST_API
+extern
 GstEvent *      gst_event_new_buffer_size       (GstFormat format, gint64 minsize, gint64 maxsize,
-                                                 gboolean async) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
-GST_API
+                                                 gboolean async)  ;
+extern
 void            gst_event_parse_buffer_size     (GstEvent *event, GstFormat *format, gint64 *minsize,
                                                  gint64 *maxsize, gboolean *async);
 
 /* sink message */
 
-GST_API
-GstEvent*       gst_event_new_sink_message      (const gchar *name, GstMessage *msg) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstEvent*       gst_event_new_sink_message      (const gchar *name, GstMessage *msg)  ;
 
-GST_API
+extern
 void            gst_event_parse_sink_message    (GstEvent *event, GstMessage **msg);
 
 /* QOS events */
 
-GST_API
+extern
 GstEvent*       gst_event_new_qos               (GstQOSType type, gdouble proportion,
-                                                 GstClockTimeDiff diff, GstClockTime timestamp) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
-GST_API
+                                                 GstClockTimeDiff diff, GstClockTime timestamp)  ;
+extern
 void            gst_event_parse_qos             (GstEvent *event, GstQOSType *type,
                                                  gdouble *proportion, GstClockTimeDiff *diff,
                                                  GstClockTime *timestamp);
 /* seek event */
 
-GST_API
+extern
 GstEvent*       gst_event_new_seek              (gdouble rate, GstFormat format, GstSeekFlags flags,
                                                  GstSeekType start_type, gint64 start,
-                                                 GstSeekType stop_type, gint64 stop) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
-GST_API
+                                                 GstSeekType stop_type, gint64 stop)  ;
+extern
 void            gst_event_parse_seek            (GstEvent *event, gdouble *rate, GstFormat *format,
                                                  GstSeekFlags *flags,
                                                  GstSeekType *start_type, gint64 *start,
                                                  GstSeekType *stop_type, gint64 *stop);
 
-GST_API
+extern
 void            gst_event_set_seek_trickmode_interval (GstEvent *event, GstClockTime interval);
 
-GST_API
+extern
 void            gst_event_parse_seek_trickmode_interval (GstEvent *event, GstClockTime *interval);
 
 /* navigation event */
 
-GST_API
-GstEvent*       gst_event_new_navigation        (GstStructure *structure) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstEvent*       gst_event_new_navigation        (GstStructure *structure)  ;
 
 /* latency event */
 
-GST_API
-GstEvent*       gst_event_new_latency           (GstClockTime latency) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstEvent*       gst_event_new_latency           (GstClockTime latency)  ;
 
-GST_API
+extern
 void            gst_event_parse_latency         (GstEvent *event, GstClockTime *latency);
 
 /* step event */
 
-GST_API
+extern
 GstEvent*       gst_event_new_step              (GstFormat format, guint64 amount, gdouble rate,
-                                                 gboolean flush, gboolean intermediate) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
-GST_API
+                                                 gboolean flush, gboolean intermediate)  ;
+extern
 void            gst_event_parse_step            (GstEvent *event, GstFormat *format, guint64 *amount,
                                                  gdouble *rate, gboolean *flush, gboolean *intermediate);
 
 /* renegotiate event */
 
-GST_API
-GstEvent*       gst_event_new_reconfigure       (void) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstEvent*       gst_event_new_reconfigure       (void)  ;
 
 /* TOC select event */
 
-GST_API
-GstEvent*       gst_event_new_toc_select        (const gchar *uid) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstEvent*       gst_event_new_toc_select        (const gchar *uid)  ;
 
-GST_API
+extern
 void            gst_event_parse_toc_select      (GstEvent *event, gchar **uid);
 
 /* segment-done event */
 
-GST_API
-GstEvent*       gst_event_new_segment_done      (GstFormat format, gint64 position) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstEvent*       gst_event_new_segment_done      (GstFormat format, gint64 position)  ;
 
-GST_API
+extern
 void            gst_event_parse_segment_done    (GstEvent *event, GstFormat *format, gint64 *position);
 
 /* instant-rate-change event */
 
-GST_API
-GstEvent *      gst_event_new_instant_rate_change   (gdouble rate_multiplier, GstSegmentFlags new_flags) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstEvent *      gst_event_new_instant_rate_change   (gdouble rate_multiplier, GstSegmentFlags new_flags)  ;
 
-GST_API
+extern
 void            gst_event_parse_instant_rate_change (GstEvent *event,
                                                      gdouble  *rate_multiplier, GstSegmentFlags *new_flags);
 
 /* instant-rate-change-sync-time event */
 
-GST_API
+extern
 GstEvent *      gst_event_new_instant_rate_sync_time   (gdouble      rate_multiplier,
                                                         GstClockTime running_time,
-                                                        GstClockTime upstream_running_time) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+                                                        GstClockTime upstream_running_time)  ;
 
-GST_API
+extern
 void            gst_event_parse_instant_rate_sync_time (GstEvent     *event,
                                                         gdouble      *rate_multiplier,
                                                         GstClockTime *running_time,
                                                         GstClockTime *upstream_running_time);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstEvent, gst_event_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstEvent, gst_event_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_EVENT_H__ */

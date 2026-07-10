@@ -49,7 +49,7 @@
 #include <gst/rtsp/gstrtspdefs.h>
 #include <gst/rtsp/gstrtsptransport.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GST_RTSP_DEFAULT_PORT:
@@ -93,29 +93,29 @@ GST_RTSP_API
 GstRTSPResult      gst_rtsp_url_parse           (const gchar *urlstr, GstRTSPUrl **url);
 
 GST_RTSP_API
-GstRTSPUrl*        gst_rtsp_url_copy            (const GstRTSPUrl *url) G_GNUC_WARN_UNUSED_RESULT;
+GstRTSPUrl*        gst_rtsp_url_copy            (const GstRTSPUrl *url) ;
 
 GST_RTSP_API
 void               gst_rtsp_url_free            (GstRTSPUrl *url);
 
 GST_RTSP_API
-gchar*             gst_rtsp_url_get_request_uri (const GstRTSPUrl *url) G_GNUC_WARN_UNUSED_RESULT;
+gchar*             gst_rtsp_url_get_request_uri (const GstRTSPUrl *url) ;
 
 GST_RTSP_API
 gchar *            gst_rtsp_url_get_request_uri_with_control (const GstRTSPUrl * url,
-                                                              const gchar * control_path) G_GNUC_WARN_UNUSED_RESULT;
+                                                              const gchar * control_path) ;
 
 GST_RTSP_API
 gchar**            gst_rtsp_url_decode_path_components
-                                                (const GstRTSPUrl *url) G_GNUC_WARN_UNUSED_RESULT;
+                                                (const GstRTSPUrl *url) ;
 GST_RTSP_API
 GstRTSPResult      gst_rtsp_url_set_port        (GstRTSPUrl *url, guint16 port);
 
 GST_RTSP_API
 GstRTSPResult      gst_rtsp_url_get_port        (const GstRTSPUrl *url, guint16 *port);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstRTSPUrl, gst_rtsp_url_free)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstRTSPUrl, gst_rtsp_url_free)
 
-G_END_DECLS
+
 
 #endif /* __GST_RTSP_URL_H__ */

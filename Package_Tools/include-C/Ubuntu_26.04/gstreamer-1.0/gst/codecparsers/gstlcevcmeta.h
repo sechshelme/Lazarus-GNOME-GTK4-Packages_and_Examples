@@ -23,7 +23,7 @@
 #include <gst/gst.h>
 #include <gst/codecparsers/codecparsers-prelude.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_LCEVC_META_API_TYPE (gst_lcevc_meta_api_get_type())
 #define GST_LCEVC_META_INFO  (gst_lcevc_meta_get_info())
@@ -64,6 +64,6 @@ GST_CODEC_PARSERS_API
 GstLcevcMeta * gst_buffer_add_lcevc_meta (GstBuffer *buffer,
     GstBuffer *enhancement_data);
 
-G_END_DECLS
+
 
 #endif /* __GST_VIDEO_META_H__ */

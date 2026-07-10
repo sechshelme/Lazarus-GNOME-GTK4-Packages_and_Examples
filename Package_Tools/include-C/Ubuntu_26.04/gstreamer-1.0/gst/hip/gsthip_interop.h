@@ -22,7 +22,7 @@
 #include <gst/gst.h>
 #include <gst/hip/gsthip_fwd.h>
 
-G_BEGIN_DECLS
+
 
 GST_HIP_API
 GType gst_hip_graphics_resource_get_type (void);
@@ -49,5 +49,5 @@ void gst_hip_graphics_resource_unref (GstHipGraphicsResource * resource);
 GST_HIP_API
 void gst_clear_hip_graphics_resource (GstHipGraphicsResource ** resource);
 
-G_END_DECLS
+
 

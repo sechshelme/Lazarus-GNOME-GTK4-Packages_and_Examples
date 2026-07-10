@@ -26,7 +26,7 @@
 #include <gst/gst.h>
 #include <gst/base/base-prelude.h>
 
-G_BEGIN_DECLS
+
 #define GST_TYPE_DATA_QUEUE \
   (gst_data_queue_get_type())
 #define GST_DATA_QUEUE(obj) \
@@ -143,7 +143,7 @@ GST_BASE_API
 GstDataQueue * gst_data_queue_new            (GstDataQueueCheckFullFunction checkfull,
 					      GstDataQueueFullCallback fullcallback,
 					      GstDataQueueEmptyCallback emptycallback,
-					      gpointer checkdata) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+					      gpointer checkdata)  ;
 GST_BASE_API
 gboolean       gst_data_queue_push           (GstDataQueue * queue, GstDataQueueItem * item);
 
@@ -177,8 +177,8 @@ void           gst_data_queue_get_level      (GstDataQueue * queue, GstDataQueue
 GST_BASE_API
 void           gst_data_queue_limits_changed (GstDataQueue * queue);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstDataQueue, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstDataQueue, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_DATA_QUEUE_H__ */

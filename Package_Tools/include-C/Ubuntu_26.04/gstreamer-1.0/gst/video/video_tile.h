@@ -23,7 +23,7 @@
 #include <gst/gst.h>
 #include <gst/video/video-prelude.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GstVideoTileType:
@@ -196,6 +196,6 @@ guint           gst_video_tile_get_index                (GstVideoTileMode mode, 
                                                          gint x_tiles, gint y_tiles);
 
 
-G_END_DECLS
+
 
 #endif /* __GST_VIDEO_TILE_H__ */

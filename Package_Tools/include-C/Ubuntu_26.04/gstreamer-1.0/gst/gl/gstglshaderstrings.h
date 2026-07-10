@@ -25,7 +25,7 @@
 #include <gst/gl/gl-prelude.h>
 #include <gst/gl/gl.h>
 
-G_BEGIN_DECLS
+
 
 GST_GL_API
 const gchar *gst_gl_shader_string_fragment_highp_precision;
@@ -58,6 +58,6 @@ gchar * gst_gl_shader_string_fragment_external_oes_get_default  (GstGLContext * 
                                                                  GstGLSLVersion version,
                                                                  GstGLSLProfile profile);
 
-G_END_DECLS
+
 
 #endif /* __GST_GL_SHADER_STRINGS_H__ */

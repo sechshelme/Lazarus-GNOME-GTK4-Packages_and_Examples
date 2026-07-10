@@ -26,7 +26,7 @@
 #include <gst/gst.h>
 #include <gst/rtp/rtp-prelude.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GstRTPPayload:
@@ -193,7 +193,7 @@ const GstRTPPayloadInfo *  gst_rtp_payload_info_for_pt     (guint8 payload_type)
 GST_RTP_API
 const GstRTPPayloadInfo *  gst_rtp_payload_info_for_name   (const gchar *media, const gchar *encoding_name);
 
-G_END_DECLS
+
 
 #endif /* __GST_RTPPAYLOADS_H__ */
 

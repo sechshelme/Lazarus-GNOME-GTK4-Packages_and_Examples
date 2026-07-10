@@ -23,7 +23,7 @@
 #include <gst/wayland/wayland.h>
 #include <gst/video/video.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_WL_BUFFER gst_wl_buffer_get_type ()
 
@@ -63,4 +63,4 @@ GstVideoMeta * gst_wl_buffer_get_video_meta (GstWlBuffer * self);
 GST_WL_API
 GstVideoCropMeta * gst_wl_buffer_get_video_crop_meta (GstWlBuffer * self);
 
-G_END_DECLS
+

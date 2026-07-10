@@ -47,7 +47,7 @@
 
 #include <gst/gl/gstgl_fwd.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_GL_CHECK_GL_VERSION(driver_major, driver_minor, \
                                 target_major, target_minor) \
@@ -57,6 +57,6 @@ G_BEGIN_DECLS
 GST_GL_API
 gboolean gst_gl_check_extension (const char *name, const gchar * ext);
 
-G_END_DECLS
+
 
 #endif /* __GST_GL_FEATURE_H__ */

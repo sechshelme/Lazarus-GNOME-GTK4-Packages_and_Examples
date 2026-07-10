@@ -25,7 +25,7 @@
 #include <gst/gst.h>
 #include <gst/video/gstvideosink.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_VIDEO_OVERLAY \
     (gst_video_overlay_get_type ())
@@ -114,6 +114,6 @@ gboolean        gst_video_overlay_set_property          (GObject         * objec
                                                          guint             property_id,
                                                          const GValue    * value);
 
-G_END_DECLS
+
 
 #endif /* __GST_VIDEO_OVERLAY_H__ */

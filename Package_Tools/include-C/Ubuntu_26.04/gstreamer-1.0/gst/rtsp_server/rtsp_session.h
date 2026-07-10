@@ -25,7 +25,7 @@
 #ifndef __GST_RTSP_SESSION_H__
 #define __GST_RTSP_SESSION_H__
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_RTSP_SESSION              (gst_rtsp_session_get_type ())
 #define GST_IS_RTSP_SESSION(obj)           (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GST_TYPE_RTSP_SESSION))
@@ -86,13 +86,13 @@ GType                  gst_rtsp_session_get_type             (void);
 /* create a new session */
 
 GST_RTSP_SERVER_API
-GstRTSPSession *       gst_rtsp_session_new                  (const gchar *sessionid) G_GNUC_WARN_UNUSED_RESULT;
+GstRTSPSession *       gst_rtsp_session_new                  (const gchar *sessionid) ;
 
 GST_RTSP_SERVER_API
 const gchar *          gst_rtsp_session_get_sessionid        (GstRTSPSession *session);
 
 GST_RTSP_SERVER_API
-gchar *                gst_rtsp_session_get_header           (GstRTSPSession *session) G_GNUC_WARN_UNUSED_RESULT;
+gchar *                gst_rtsp_session_get_header           (GstRTSPSession *session) ;
 
 GST_RTSP_SERVER_API
 void                   gst_rtsp_session_set_timeout          (GstRTSPSession *session, guint timeout);
@@ -117,13 +117,13 @@ gint                   gst_rtsp_session_next_timeout_usec    (GstRTSPSession *se
 GST_RTSP_SERVER_API
 gboolean               gst_rtsp_session_is_expired_usec      (GstRTSPSession *session, gint64 now);
 
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+
 GST_RTSP_SERVER_DEPRECATED_FOR(gst_rtsp_session_next_timeout_usec)
 gint                   gst_rtsp_session_next_timeout         (GstRTSPSession *session, GTimeVal *now);
 
 GST_RTSP_SERVER_DEPRECATED_FOR(gst_rtsp_session_is_expired_usec)
 gboolean               gst_rtsp_session_is_expired           (GstRTSPSession *session, GTimeVal *now);
-G_GNUC_END_IGNORE_DEPRECATIONS
+
 
 /* handle media in a session */
 
@@ -146,7 +146,7 @@ GstRTSPSessionMedia *  gst_rtsp_session_get_media            (GstRTSPSession *se
 GST_RTSP_SERVER_API
 GstRTSPSessionMedia *  gst_rtsp_session_dup_media            (GstRTSPSession *sess,
                                                               const gchar *path,
-                                                              gint * matched) G_GNUC_WARN_UNUSED_RESULT;
+                                                              gint * matched) ;
 /**
  * GstRTSPSessionFilterFunc:
  * @sess: a #GstRTSPSession object
@@ -174,13 +174,13 @@ typedef GstRTSPFilterResult (*GstRTSPSessionFilterFunc)  (GstRTSPSession *sess,
 GST_RTSP_SERVER_API
 GList *                gst_rtsp_session_filter           (GstRTSPSession *sess,
                                                           GstRTSPSessionFilterFunc func,
-                                                          gpointer user_data) G_GNUC_WARN_UNUSED_RESULT;
+                                                          gpointer user_data) ;
 
 
-#ifdef G_DEFINE_AUTOPTR_CLEANUP_FUNC
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstRTSPSession, gst_object_unref)
+#ifdef ////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstRTSPSession, gst_object_unref)
 #endif
 
-G_END_DECLS
+
 
 #endif /* __GST_RTSP_SESSION_H__ */

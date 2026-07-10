@@ -31,7 +31,7 @@
 #include <gst/gstsystemclock.h>
 #include <gst/net/net-prelude.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_NET_CLIENT_CLOCK \
   (gst_net_client_clock_get_type())
@@ -77,7 +77,7 @@ void            gst_net_client_clock_deinit (void);
 
 GST_NET_API
 GstClock*	gst_net_client_clock_new	(const gchar *name, const gchar *remote_address,
-                                                 gint remote_port, GstClockTime base_time) G_GNUC_WARN_UNUSED_RESULT;
+                                                 gint remote_port, GstClockTime base_time) ;
 
 #define GST_TYPE_NTP_CLOCK \
   (gst_ntp_clock_get_type())
@@ -98,12 +98,12 @@ GType           gst_ntp_clock_get_type	        (void);
 
 GST_NET_API
 GstClock*	gst_ntp_clock_new	        (const gchar *name, const gchar *remote_address,
-                                                 gint remote_port, GstClockTime base_time) G_GNUC_WARN_UNUSED_RESULT;
+                                                 gint remote_port, GstClockTime base_time) ;
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstNetClientClock, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstNetClientClock, gst_object_unref)
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstNtpClock, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstNtpClock, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_NET_CLIENT_CLOCK_H__ */

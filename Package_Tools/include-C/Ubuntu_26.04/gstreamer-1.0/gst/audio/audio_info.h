@@ -26,7 +26,7 @@
 #ifndef __GST_AUDIO_INFO_H__
 #define __GST_AUDIO_INFO_H__
 
-G_BEGIN_DECLS
+
 
 typedef struct _GstAudioInfo GstAudioInfo;
 
@@ -102,16 +102,16 @@ GType gst_audio_info_get_type                (void);
 #define GST_AUDIO_INFO_POSITION(info,c)      ((info)->position[c])
 
 GST_AUDIO_API
-GstAudioInfo * gst_audio_info_new         (void) G_GNUC_WARN_UNUSED_RESULT;
+GstAudioInfo * gst_audio_info_new         (void) ;
 
 GST_AUDIO_API
-GstAudioInfo * gst_audio_info_new_from_caps (const GstCaps * caps) G_GNUC_WARN_UNUSED_RESULT;
+GstAudioInfo * gst_audio_info_new_from_caps (const GstCaps * caps) ;
 
 GST_AUDIO_API
 void           gst_audio_info_init        (GstAudioInfo *info);
 
 GST_AUDIO_API
-GstAudioInfo * gst_audio_info_copy        (const GstAudioInfo *info) G_GNUC_WARN_UNUSED_RESULT;
+GstAudioInfo * gst_audio_info_copy        (const GstAudioInfo *info) ;
 
 GST_AUDIO_API
 void           gst_audio_info_free        (GstAudioInfo *info);
@@ -125,7 +125,7 @@ GST_AUDIO_API
 gboolean       gst_audio_info_from_caps   (GstAudioInfo *info, const GstCaps *caps);
 
 GST_AUDIO_API
-GstCaps *      gst_audio_info_to_caps     (const GstAudioInfo *info) G_GNUC_WARN_UNUSED_RESULT;
+GstCaps *      gst_audio_info_to_caps     (const GstAudioInfo *info) ;
 
 GST_AUDIO_API
 gboolean       gst_audio_info_convert     (const GstAudioInfo * info,
@@ -136,8 +136,8 @@ GST_AUDIO_API
 gboolean       gst_audio_info_is_equal    (const GstAudioInfo *info,
                                            const GstAudioInfo *other);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstAudioInfo, gst_audio_info_free)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstAudioInfo, gst_audio_info_free)
 
-G_END_DECLS
+
 
 #endif /* __GST_AUDIO_INFO_H__ */

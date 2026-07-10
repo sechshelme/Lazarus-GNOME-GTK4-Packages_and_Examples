@@ -23,7 +23,7 @@
 #include <gst/hip/gsthip_fwd.h>
 #include <gst/hip/gsthip-enums.h>
 
-G_BEGIN_DECLS
+
 
 GST_HIP_API
 GType gst_hip_stream_get_type (void);
@@ -54,5 +54,5 @@ void           gst_hip_stream_unref (GstHipStream * stream);
 GST_HIP_API
 void           gst_clear_hip_stream (GstHipStream ** stream);
 
-G_END_DECLS
+
 

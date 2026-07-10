@@ -25,7 +25,7 @@
 #ifndef __GST_AUDIO_BUFFER_H__
 #define __GST_AUDIO_BUFFER_H__
 
-G_BEGIN_DECLS
+
 
 /**
  * GstAudioBuffer:
@@ -103,6 +103,6 @@ void gst_audio_buffer_unmap (GstAudioBuffer *buffer);
 
 G_DEFINE_AUTO_CLEANUP_CLEAR_FUNC(GstAudioBuffer, gst_audio_buffer_unmap)
 
-G_END_DECLS
+
 
 #endif /* __GST_AUDIO_BUFFER_H__ */

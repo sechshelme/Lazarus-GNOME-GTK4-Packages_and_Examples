@@ -25,7 +25,7 @@
 #include <gst/app/app-prelude.h>
 #include <gst/app/gstappsrc.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_APP_SINK \
   (gst_app_sink_get_type())
@@ -144,7 +144,7 @@ GST_APP_API
 void            gst_app_sink_set_caps         (GstAppSink *appsink, const GstCaps *caps);
 
 GST_APP_API
-GstCaps *       gst_app_sink_get_caps         (GstAppSink *appsink) G_GNUC_WARN_UNUSED_RESULT;
+GstCaps *       gst_app_sink_get_caps         (GstAppSink *appsink) ;
 
 GST_APP_API
 gboolean        gst_app_sink_is_eos           (GstAppSink *appsink);
@@ -207,22 +207,22 @@ GST_APP_API
 gboolean        gst_app_sink_get_wait_on_eos  (GstAppSink *appsink);
 
 GST_APP_API
-GstSample *     gst_app_sink_pull_preroll     (GstAppSink *appsink) G_GNUC_WARN_UNUSED_RESULT;
+GstSample *     gst_app_sink_pull_preroll     (GstAppSink *appsink) ;
 
 GST_APP_API
-GstSample *     gst_app_sink_pull_sample      (GstAppSink *appsink) G_GNUC_WARN_UNUSED_RESULT;
+GstSample *     gst_app_sink_pull_sample      (GstAppSink *appsink) ;
 
 GST_APP_API
-GstMiniObject * gst_app_sink_pull_object      (GstAppSink *appsink) G_GNUC_WARN_UNUSED_RESULT;
+GstMiniObject * gst_app_sink_pull_object      (GstAppSink *appsink) ;
 
 GST_APP_API
-GstSample *     gst_app_sink_try_pull_preroll (GstAppSink *appsink, GstClockTime timeout) G_GNUC_WARN_UNUSED_RESULT;
+GstSample *     gst_app_sink_try_pull_preroll (GstAppSink *appsink, GstClockTime timeout) ;
 
 GST_APP_API
-GstSample *     gst_app_sink_try_pull_sample  (GstAppSink *appsink, GstClockTime timeout) G_GNUC_WARN_UNUSED_RESULT;
+GstSample *     gst_app_sink_try_pull_sample  (GstAppSink *appsink, GstClockTime timeout) ;
 
 GST_APP_API
-GstMiniObject * gst_app_sink_try_pull_object    (GstAppSink *appsink, GstClockTime timeout) G_GNUC_WARN_UNUSED_RESULT;
+GstMiniObject * gst_app_sink_try_pull_object    (GstAppSink *appsink, GstClockTime timeout) ;
 
 GST_APP_API
 void            gst_app_sink_set_callbacks    (GstAppSink * appsink,
@@ -358,10 +358,10 @@ void gst_app_sink_simple_callbacks_set_propose_allocation (GstAppSinkSimpleCallb
                                                            gpointer user_data,
                                                            GDestroyNotify destroy_notify);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstAppSink, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstAppSink, gst_object_unref)
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstAppSinkSimpleCallbacks, gst_app_sink_simple_callbacks_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstAppSinkSimpleCallbacks, gst_app_sink_simple_callbacks_unref)
 
-G_END_DECLS
+
 
 #endif

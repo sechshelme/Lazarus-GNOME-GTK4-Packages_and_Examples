@@ -24,7 +24,7 @@
 
 #include "rtsp-server-prelude.h"
 
-G_BEGIN_DECLS
+
 
 typedef struct _GstRTSPSessionPool GstRTSPSessionPool;
 typedef struct _GstRTSPSessionPoolClass GstRTSPSessionPoolClass;
@@ -121,7 +121,7 @@ GType                 gst_rtsp_session_pool_get_type          (void);
 /* creating a session pool */
 
 GST_RTSP_SERVER_API
-GstRTSPSessionPool *  gst_rtsp_session_pool_new               (void) G_GNUC_WARN_UNUSED_RESULT;
+GstRTSPSessionPool *  gst_rtsp_session_pool_new               (void) ;
 
 /* counting sessions */
 
@@ -137,11 +137,11 @@ guint                 gst_rtsp_session_pool_get_n_sessions    (GstRTSPSessionPoo
 /* managing sessions */
 
 GST_RTSP_SERVER_API
-GstRTSPSession *      gst_rtsp_session_pool_create            (GstRTSPSessionPool *pool) G_GNUC_WARN_UNUSED_RESULT;
+GstRTSPSession *      gst_rtsp_session_pool_create            (GstRTSPSessionPool *pool) ;
 
 GST_RTSP_SERVER_API
 GstRTSPSession *      gst_rtsp_session_pool_find              (GstRTSPSessionPool *pool,
-                                                               const gchar *sessionid) G_GNUC_WARN_UNUSED_RESULT;
+                                                               const gchar *sessionid) ;
 
 GST_RTSP_SERVER_API
 gboolean              gst_rtsp_session_pool_remove            (GstRTSPSessionPool *pool,
@@ -152,18 +152,18 @@ gboolean              gst_rtsp_session_pool_remove            (GstRTSPSessionPoo
 GST_RTSP_SERVER_API
 GList *               gst_rtsp_session_pool_filter            (GstRTSPSessionPool *pool,
                                                                GstRTSPSessionPoolFilterFunc func,
-                                                               gpointer user_data) G_GNUC_WARN_UNUSED_RESULT;
+                                                               gpointer user_data) ;
 
 GST_RTSP_SERVER_API
 guint                 gst_rtsp_session_pool_cleanup           (GstRTSPSessionPool *pool);
 
 GST_RTSP_SERVER_API
-GSource *             gst_rtsp_session_pool_create_watch      (GstRTSPSessionPool *pool) G_GNUC_WARN_UNUSED_RESULT;
+GSource *             gst_rtsp_session_pool_create_watch      (GstRTSPSessionPool *pool) ;
 
-#ifdef G_DEFINE_AUTOPTR_CLEANUP_FUNC
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstRTSPSessionPool, gst_object_unref)
+#ifdef ////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstRTSPSessionPool, gst_object_unref)
 #endif
 
-G_END_DECLS
+
 
 #endif /* __GST_RTSP_SESSION_POOL_H__ */

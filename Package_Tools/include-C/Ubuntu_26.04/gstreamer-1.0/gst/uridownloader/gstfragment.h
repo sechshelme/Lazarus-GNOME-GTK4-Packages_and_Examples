@@ -26,7 +26,7 @@
 #include <gst/gst.h>
 #include <gst/uridownloader/uridownloader-prelude.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_FRAGMENT (gst_fragment_get_type())
 #define GST_FRAGMENT(obj) (G_TYPE_CHECK_INSTANCE_CAST((obj),GST_TYPE_FRAGMENT,GstFragment))
@@ -84,5 +84,5 @@ gboolean gst_fragment_add_buffer (GstFragment *fragment, GstBuffer *buffer);
 GST_URI_DOWNLOADER_API
 GstFragment * gst_fragment_new (void);
 
-G_END_DECLS
+
 #endif /* __GSTFRAGMENT_H__ */

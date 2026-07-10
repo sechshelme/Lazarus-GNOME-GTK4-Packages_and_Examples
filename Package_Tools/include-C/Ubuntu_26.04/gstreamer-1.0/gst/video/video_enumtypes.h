@@ -6,7 +6,7 @@
 #include <glib-object.h>
 #include <gst/video/video-prelude.h>
 
-G_BEGIN_DECLS
+
 
 /* enumerations from "colorbalance.h" */
 
@@ -250,7 +250,7 @@ GST_VIDEO_API
 GType gst_video_orientation_method_get_type (void);
 #define GST_TYPE_VIDEO_ORIENTATION_METHOD (gst_video_orientation_method_get_type())
 
-G_END_DECLS
+
 
 /* Generated data ends here */
 

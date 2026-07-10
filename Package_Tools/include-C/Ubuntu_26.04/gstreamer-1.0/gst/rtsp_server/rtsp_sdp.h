@@ -25,7 +25,7 @@
 #ifndef __GST_RTSP_SDP_H__
 #define __GST_RTSP_SDP_H__
 
-G_BEGIN_DECLS
+
 
 typedef struct {
   gboolean is_ipv6;
@@ -44,6 +44,6 @@ GST_RTSP_SERVER_API
 gboolean
 gst_rtsp_sdp_make_media (GstSDPMessage * sdp, GstSDPInfo * info, GstRTSPStream * stream, GstCaps * caps, GstRTSPProfile profile);
 
-G_END_DECLS
+
 
 #endif /* __GST_RTSP_SDP_H__ */

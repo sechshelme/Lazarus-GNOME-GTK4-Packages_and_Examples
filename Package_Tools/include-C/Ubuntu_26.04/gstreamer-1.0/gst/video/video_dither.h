@@ -23,7 +23,7 @@
 #include <gst/gst.h>
 #include <gst/video/video-prelude.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GstVideoDitherMethod:
@@ -76,6 +76,6 @@ GST_VIDEO_API
 void                gst_video_dither_line     (GstVideoDither *dither,
                                                gpointer line, guint x, guint y, guint width);
 
-G_END_DECLS
+
 
 #endif /* __GST_VIDEO_DITHER_H__ */

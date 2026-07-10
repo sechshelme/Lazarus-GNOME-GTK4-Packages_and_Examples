@@ -26,7 +26,7 @@
 
 #include <gst/fft/fft-prelude.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GstFFTWindow:
@@ -50,8 +50,8 @@ typedef enum
 /* Functions */
 
 GST_FFT_API
-gint gst_fft_next_fast_length (gint n) G_GNUC_CONST;
+gint gst_fft_next_fast_length (gint n) ;
 
-G_END_DECLS
+
 
 #endif /* __GST_FFT_H__ */

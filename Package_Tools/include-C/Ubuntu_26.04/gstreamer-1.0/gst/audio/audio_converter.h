@@ -26,7 +26,7 @@
 #include <gst/gst.h>
 #include <gst/audio/audio.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GstAudioConverter:
@@ -137,7 +137,7 @@ GST_AUDIO_API
 GstAudioConverter *  gst_audio_converter_new             (GstAudioConverterFlags flags,
                                                           GstAudioInfo *in_info,
                                                           GstAudioInfo *out_info,
-                                                          GstStructure *config) G_GNUC_WARN_UNUSED_RESULT;
+                                                          GstStructure *config) ;
 
 GST_AUDIO_API
 GType                gst_audio_converter_get_type        (void);
@@ -186,6 +186,6 @@ gboolean             gst_audio_converter_convert          (GstAudioConverter * c
                                                            gpointer in, gsize in_size,
                                                            gpointer *out, gsize *out_size);
 
-G_END_DECLS
+
 
 #endif /* __GST_AUDIO_CONVERTER_H__ */

@@ -24,7 +24,7 @@
 #include <gst/gst.h>
 #include <gst/play/play-prelude.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GstPlay:
@@ -40,7 +40,7 @@ typedef struct _GstPlayClass GstPlayClass;
 typedef struct _GstPlaySignalAdapter GstPlaySignalAdapter;
 typedef struct _GstPlaySignalAdapterClass GstPlaySignalAdapterClass;
 
-G_END_DECLS
+
 
 #endif /* __GST_PLAY_TYPES_H__ */
 

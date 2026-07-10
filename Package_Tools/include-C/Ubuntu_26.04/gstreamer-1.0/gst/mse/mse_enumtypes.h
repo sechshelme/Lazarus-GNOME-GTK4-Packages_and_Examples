@@ -6,7 +6,7 @@
 #include <glib-object.h>
 #include <gst/mse/mse-prelude.h>
 
-G_BEGIN_DECLS
+
 
 /* enumerations from "gstmediasource.h" */
 
@@ -34,7 +34,7 @@ GST_MSE_API
 GType gst_source_buffer_append_mode_get_type (void);
 #define GST_TYPE_SOURCE_BUFFER_APPEND_MODE (gst_source_buffer_append_mode_get_type())
 
-G_END_DECLS
+
 
 /* Generated data ends here */
 

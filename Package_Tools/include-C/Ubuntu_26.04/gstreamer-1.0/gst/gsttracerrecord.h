@@ -24,7 +24,7 @@
 
 #include <gst/gstobject.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GstTracerRecord:
@@ -44,10 +44,10 @@ typedef struct _GstTracerRecordClass GstTracerRecordClass;
 #define GST_TRACER_RECORD_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS((obj),GST_TYPE_TRACER_RECORD,GstTracerRecordClass))
 #define GST_TRACER_RECORD_CAST(obj)       ((GstTracerRecord *)(obj))
 
-GST_API
+extern
 GType gst_tracer_record_get_type          (void);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstTracerRecord, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstTracerRecord, gst_object_unref)
 
 /**
  * GstTracerValueScope:
@@ -91,16 +91,16 @@ typedef enum
   GST_TRACER_VALUE_FLAGS_AGGREGATED = (1 << 1),
 } GstTracerValueFlags;
 
-GST_API
-GstTracerRecord * gst_tracer_record_new (const gchar * name, const gchar * firstfield, ...) G_GNUC_NULL_TERMINATED G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstTracerRecord * gst_tracer_record_new (const gchar * name, const gchar * firstfield, ...)  ;
 
 #ifndef GST_DISABLE_GST_DEBUG
-GST_API
+extern
 void              gst_tracer_record_log (GstTracerRecord *self, ...);
 #else
 #define gst_tracer_record_log(...) G_STMT_START {} G_STMT_END
 #endif
 
-G_END_DECLS
+
 
 #endif /* __GST_TRACER_RECORD_H__ */

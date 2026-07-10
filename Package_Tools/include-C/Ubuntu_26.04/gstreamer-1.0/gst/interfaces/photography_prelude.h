@@ -26,9 +26,9 @@
 
 #ifndef GST_PHOTOGRAPHY_API
 # ifdef BUILDING_GST_PHOTOGRAPHY
-#  define GST_PHOTOGRAPHY_API GST_API_EXPORT         /* from config.h */
+#  define GST_PHOTOGRAPHY_API extern_EXPORT         /* from config.h */
 # else
-#  define GST_PHOTOGRAPHY_API GST_API_IMPORT
+#  define GST_PHOTOGRAPHY_API extern_IMPORT
 # endif
 #endif
 

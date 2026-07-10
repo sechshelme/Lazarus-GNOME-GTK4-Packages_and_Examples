@@ -26,7 +26,7 @@
 #include <gst/gstobject.h>
 #include <gst/gsttaskpool.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GstTaskFunction:
@@ -164,57 +164,57 @@ struct _GstTaskClass {
   gpointer _gst_reserved[GST_PADDING];
 };
 
-GST_API
+extern
 void            gst_task_cleanup_all    (void);
 
-GST_API
+extern
 GType           gst_task_get_type       (void);
 
-GST_API
+extern
 GstTask*        gst_task_new            (GstTaskFunction func,
-                                         gpointer user_data, GDestroyNotify notify) G_GNUC_WARN_UNUSED_RESULT;
-GST_API
+                                         gpointer user_data, GDestroyNotify notify) ;
+extern
 void            gst_task_set_lock       (GstTask *task, GRecMutex *mutex);
 
-GST_API
-GstTaskPool *   gst_task_get_pool       (GstTask *task) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstTaskPool *   gst_task_get_pool       (GstTask *task) ;
 
-GST_API
+extern
 void            gst_task_set_pool       (GstTask *task, GstTaskPool *pool);
 
-GST_API
+extern
 void            gst_task_set_enter_callback  (GstTask *task,
                                               GstTaskThreadFunc enter_func,
                                               gpointer user_data,
                                               GDestroyNotify notify);
-GST_API
+extern
 void            gst_task_set_leave_callback  (GstTask *task,
                                               GstTaskThreadFunc leave_func,
                                               gpointer user_data,
                                               GDestroyNotify notify);
-GST_API
+extern
 GstTaskState    gst_task_get_state      (GstTask *task);
 
-GST_API
+extern
 gboolean        gst_task_set_state      (GstTask *task, GstTaskState state);
 
-GST_API
+extern
 gboolean        gst_task_start          (GstTask *task);
 
-GST_API
+extern
 gboolean        gst_task_stop           (GstTask *task);
 
-GST_API
+extern
 gboolean        gst_task_pause          (GstTask *task);
 
-GST_API
+extern
 gboolean        gst_task_resume         (GstTask *task);
 
-GST_API
+extern
 gboolean        gst_task_join           (GstTask *task);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstTask, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstTask, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_TASK_H__ */

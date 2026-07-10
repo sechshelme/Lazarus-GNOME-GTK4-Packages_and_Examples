@@ -22,7 +22,7 @@
 
 #include <gst/webrtc/webrtc_fwd.h>
 
-G_BEGIN_DECLS
+
 
 GST_WEBRTC_API
 GType gst_webrtc_ice_transport_get_type(void);
@@ -85,8 +85,8 @@ void            gst_webrtc_ice_transport_new_candidate              (GstWebRTCIC
 GST_WEBRTC_API
 GstWebRTCICECandidatePair * gst_webrtc_ice_transport_get_selected_candidate_pair (GstWebRTCICETransport * transport);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstWebRTCICETransport, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstWebRTCICETransport, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_WEBRTC_ICE_TRANSPORT_H__ */

@@ -23,7 +23,7 @@
 
 #include <gst/video/video-info.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GST_VIDEO_DMA_DRM_CAPS_MAKE:
@@ -77,10 +77,10 @@ GST_VIDEO_API
 void                 gst_video_info_dma_drm_init          (GstVideoInfoDmaDrm * drm_info);
 
 GST_VIDEO_API
-GstVideoInfoDmaDrm * gst_video_info_dma_drm_new           (void) G_GNUC_WARN_UNUSED_RESULT;
+GstVideoInfoDmaDrm * gst_video_info_dma_drm_new           (void) ;
 
 GST_VIDEO_API
-GstCaps *            gst_video_info_dma_drm_to_caps       (const GstVideoInfoDmaDrm * drm_info) G_GNUC_WARN_UNUSED_RESULT;
+GstCaps *            gst_video_info_dma_drm_to_caps       (const GstVideoInfoDmaDrm * drm_info) ;
 
 GST_VIDEO_API
 gboolean             gst_video_info_dma_drm_from_caps     (GstVideoInfoDmaDrm * drm_info,
@@ -97,7 +97,7 @@ gboolean             gst_video_info_dma_drm_to_video_info (const GstVideoInfoDma
                                                            GstVideoInfo * info);
 
 GST_VIDEO_API
-GstVideoInfoDmaDrm * gst_video_info_dma_drm_new_from_caps (const GstCaps * caps) G_GNUC_WARN_UNUSED_RESULT;
+GstVideoInfoDmaDrm * gst_video_info_dma_drm_new_from_caps (const GstCaps * caps) ;
 
 GST_VIDEO_API
 gboolean             gst_video_is_dma_drm_caps            (const GstCaps * caps);
@@ -124,4 +124,4 @@ GST_VIDEO_API
 GstVideoFormat       gst_video_dma_drm_format_to_gst_format (guint32 fourcc,
                                                              guint64 modifier);
 
-G_END_DECLS
+

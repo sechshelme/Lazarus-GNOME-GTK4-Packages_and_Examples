@@ -23,7 +23,7 @@
 #include <gst/gst.h>
 #include <gst/rtp/rtp-prelude.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_RTP_BASE_PAYLOAD \
         (gst_rtp_base_payload_get_type())
@@ -179,7 +179,7 @@ GstFlowReturn   gst_rtp_base_payload_push_list          (GstRTPBasePayload *payl
 GST_RTP_API
 GstBuffer *     gst_rtp_base_payload_allocate_output_buffer (GstRTPBasePayload * payload,
                                                              guint payload_len, guint8 pad_len,
-                                                             guint8 csrc_count) G_GNUC_WARN_UNUSED_RESULT;
+                                                             guint8 csrc_count) ;
 
 GST_RTP_API
 void            gst_rtp_base_payload_set_source_info_enabled (GstRTPBasePayload * payload,
@@ -192,8 +192,8 @@ GST_RTP_API
 guint           gst_rtp_base_payload_get_source_count (GstRTPBasePayload * payload,
                                                        GstBuffer * buffer);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstRTPBasePayload, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstRTPBasePayload, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_RTP_BASE_PAYLOAD_H__ */

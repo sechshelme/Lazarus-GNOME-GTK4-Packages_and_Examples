@@ -27,7 +27,7 @@
 
 #include "nice_fwd.h"
 
-G_BEGIN_DECLS
+
 
 GST_WEBRTCNICE_API
 GType gst_webrtc_nice_get_type(void);
@@ -60,8 +60,8 @@ struct _GstWebRTCNiceClass
 GST_WEBRTCNICE_API
 GstWebRTCNice *             gst_webrtc_nice_new                      (const gchar * name);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstWebRTCNice, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstWebRTCNice, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_WEBRTC_NICE_H__ */

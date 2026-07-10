@@ -28,7 +28,7 @@
 #include <gst/mpegts/gstmpegtssection.h>
 #include <gst/mpegts/gstmpegtsdescriptor.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * SECTION:gst-hdmv-section
@@ -61,6 +61,6 @@ typedef enum {
   GST_MPEGTS_STREAM_TYPE_HDMV_AUDIO_DTS_HD_SECONDARY = 0xa2,
 } GstMpegtsHdmvStreamType;
 
-G_END_DECLS
+
 
 #endif  /* GST_HDMV_SECTION_H */

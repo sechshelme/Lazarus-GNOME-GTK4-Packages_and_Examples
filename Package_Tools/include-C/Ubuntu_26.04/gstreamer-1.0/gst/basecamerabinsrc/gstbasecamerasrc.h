@@ -34,7 +34,7 @@
 #include "gstcamerabin-enum.h"
 #include "gstcamerabinpreview.h"
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_BASE_CAMERA_SRC \
   (gst_base_camera_src_get_type())
@@ -154,6 +154,6 @@ GST_BASE_CAMERA_BIN_SRC_API
 void gst_base_camera_src_post_preview (GstBaseCameraSrc *self, GstSample * sample);
 // XXX add methods to get/set img capture and vid capture caps..
 
-G_END_DECLS
+
 
 #endif /* __GST_BASE_CAMERA_SRC_H__ */

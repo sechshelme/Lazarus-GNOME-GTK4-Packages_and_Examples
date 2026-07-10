@@ -6,7 +6,7 @@
 #include <glib-object.h>
 #include <gst/webrtc/webrtc_fwd.h>
 
-G_BEGIN_DECLS
+
 
 /* enumerations from "webrtc_fwd.h" */
 
@@ -102,7 +102,7 @@ GST_WEBRTC_API
 GType gst_webrtc_error_get_type (void);
 #define GST_TYPE_WEBRTC_ERROR (gst_webrtc_error_get_type())
 
-G_END_DECLS
+
 
 /* Generated data ends here */
 

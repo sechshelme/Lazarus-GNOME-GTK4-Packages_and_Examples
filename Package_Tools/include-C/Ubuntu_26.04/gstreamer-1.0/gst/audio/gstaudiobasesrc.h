@@ -33,7 +33,7 @@
 #include <gst/gst.h>
 #include <gst/base/gstpushsrc.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_AUDIO_BASE_SRC                 (gst_audio_base_src_get_type())
 #define GST_AUDIO_BASE_SRC(obj)                 (G_TYPE_CHECK_INSTANCE_CAST((obj),GST_TYPE_AUDIO_BASE_SRC,GstAudioBaseSrc))
@@ -153,8 +153,8 @@ GstAudioBaseSrcSlaveMethod
            gst_audio_base_src_get_slave_method         (GstAudioBaseSrc *src);
 
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstAudioBaseSrc, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstAudioBaseSrc, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_AUDIO_BASE_SRC_H__ */

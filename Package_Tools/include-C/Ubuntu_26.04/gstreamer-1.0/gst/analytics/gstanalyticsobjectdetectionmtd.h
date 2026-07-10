@@ -31,7 +31,7 @@
 #include <gst/analytics/analytics-meta-prelude.h>
 #include <gst/analytics/gstanalyticsmeta.h>
 
-G_BEGIN_DECLS
+
 /**
  * GstAnalyticsODMtd:
  * @id: Instance identifier.
@@ -81,5 +81,5 @@ gst_analytics_relation_meta_get_od_mtd (GstAnalyticsRelationMeta * meta,
     guint an_meta_id, GstAnalyticsODMtd * rlt);
 
 
-G_END_DECLS
+
 #endif // __GST_ANALYTICS_OBJECT_DETECTION_MTD__

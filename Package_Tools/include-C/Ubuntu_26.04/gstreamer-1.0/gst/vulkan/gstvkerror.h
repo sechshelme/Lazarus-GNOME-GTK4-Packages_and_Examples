@@ -25,7 +25,7 @@
 #include <vulkan/vulkan.h>
 #include <gst/vulkan/vulkan-prelude.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GST_VULKAN_ERROR:
@@ -59,8 +59,8 @@ typedef enum
 
 /* only fills error iff error != NULL and result < 0 */
 GST_VULKAN_API
-VkResult gst_vulkan_error_to_g_error (VkResult result, GError ** error, const char * format, ...) G_GNUC_PRINTF (3, 4);
+VkResult gst_vulkan_error_to_g_error (VkResult result, GError ** error, const char * format, ...) ;// (3, 4);
 
-G_END_DECLS
+
 
 #endif /* __GST_VULKAN_ERROR_H__ */

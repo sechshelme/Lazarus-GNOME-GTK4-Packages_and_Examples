@@ -29,7 +29,7 @@
 #include <gst/gst.h>
 #include <gst/sctp/sctp-prelude.h>
 
-G_BEGIN_DECLS
+
 
 typedef enum
 {
@@ -64,6 +64,6 @@ GstSctpSendMeta *gst_sctp_buffer_add_send_meta (GstBuffer * buffer,
 
 #define gst_sctp_buffer_get_send_meta(b) ((GstSctpSendMeta *)gst_buffer_get_meta((b), GST_SCTP_SEND_META_API_TYPE))
 
-G_END_DECLS
+
 
 #endif /* __GST_SCTP_SEND_META_H__ */

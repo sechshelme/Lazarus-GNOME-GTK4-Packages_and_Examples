@@ -29,7 +29,7 @@
 
 #include <gst/gstiterator.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GstFormat:
@@ -92,35 +92,35 @@ struct _GstFormatDefinition
   GQuark       quark;
 };
 
-GST_API
+extern
 const gchar*    gst_format_get_name             (GstFormat format);
 
-GST_API
+extern
 GQuark          gst_format_to_quark             (GstFormat format);
 
 /* register a new format */
 
-GST_API
+extern
 GstFormat       gst_format_register             (const gchar *nick,
                                                  const gchar *description);
 
-GST_API
+extern
 GstFormat       gst_format_get_by_nick          (const gchar *nick);
 
 /* check if a format is in an array of formats */
 
-GST_API
+extern
 gboolean        gst_formats_contains            (const GstFormat *formats, GstFormat format);
 
 /* query for format details */
 
-GST_API
+extern
 const GstFormatDefinition*
                 gst_format_get_details          (GstFormat format);
 
-GST_API
+extern
 GstIterator*    gst_format_iterate_definitions  (void);
 
-G_END_DECLS
+
 
 #endif /* __GST_FORMAT_H__ */

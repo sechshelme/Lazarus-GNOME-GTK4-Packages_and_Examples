@@ -48,7 +48,7 @@
 
 #include <gst/rtsp/gstrtspdefs.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GstRTSPRangeUnit:
@@ -159,6 +159,6 @@ GST_RTSP_API
 gboolean        gst_rtsp_range_convert_units (GstRTSPTimeRange * range,
                                               GstRTSPRangeUnit unit);
 
-G_END_DECLS
+
 
 #endif /* __GST_RTSP_RANGE_H__ */

@@ -27,7 +27,7 @@
 #include <gst/gst.h>
 #include <gst/base/gstbasetransform.h>
 
-G_BEGIN_DECLS
+
 
 typedef struct _GstAudioFilter GstAudioFilter;
 typedef struct _GstAudioFilterClass GstAudioFilterClass;
@@ -99,9 +99,9 @@ GST_AUDIO_API
 void    gst_audio_filter_class_add_pad_templates (GstAudioFilterClass * klass,
                                                   GstCaps             * allowed_caps);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstAudioFilter, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstAudioFilter, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_AUDIO_FILTER_H__ */
 

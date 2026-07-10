@@ -27,7 +27,7 @@
 
 #include "rtsp-server-prelude.h"
 
-G_BEGIN_DECLS
+
 
 /* types for the media */
 #define GST_TYPE_RTSP_STREAM_TRANSPORT              (gst_rtsp_stream_transport_get_type ())
@@ -128,7 +128,7 @@ GType                    gst_rtsp_stream_transport_get_type (void);
 
 GST_RTSP_SERVER_API
 GstRTSPStreamTransport * gst_rtsp_stream_transport_new           (GstRTSPStream *stream,
-                                                                  GstRTSPTransport *tr) G_GNUC_WARN_UNUSED_RESULT;
+                                                                  GstRTSPTransport *tr) ;
 
 GST_RTSP_SERVER_API
 GstRTSPStream *          gst_rtsp_stream_transport_get_stream    (GstRTSPStreamTransport *trans);
@@ -150,7 +150,7 @@ const GstRTSPUrl *       gst_rtsp_stream_transport_get_url       (GstRTSPStreamT
 
 GST_RTSP_SERVER_API
 gchar *                  gst_rtsp_stream_transport_get_rtpinfo   (GstRTSPStreamTransport *trans,
-                                                                  GstClockTime start_time) G_GNUC_WARN_UNUSED_RESULT;
+                                                                  GstClockTime start_time) ;
 
 GST_RTSP_SERVER_API
 void                     gst_rtsp_stream_transport_set_callbacks (GstRTSPStreamTransport *trans,
@@ -220,10 +220,10 @@ GST_RTSP_SERVER_API
 GstFlowReturn            gst_rtsp_stream_transport_recv_data     (GstRTSPStreamTransport *trans,
                                                                   guint channel, GstBuffer *buffer);
 
-#ifdef G_DEFINE_AUTOPTR_CLEANUP_FUNC
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstRTSPStreamTransport, gst_object_unref)
+#ifdef ////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstRTSPStreamTransport, gst_object_unref)
 #endif
 
-G_END_DECLS
+
 
 #endif /* __GST_RTSP_STREAM_TRANSPORT_H__ */

@@ -24,7 +24,7 @@
 #include <gst/gst.h>
 #include <gst/player/gstplayer-types.h>
 
-G_BEGIN_DECLS
+
 
 typedef struct _GstPlayerSignalDispatcher GstPlayerSignalDispatcher;
 typedef struct _GstPlayerSignalDispatcherInterface GstPlayerSignalDispatcherInterface;
@@ -49,6 +49,6 @@ struct _GstPlayerSignalDispatcherInterface {
 GST_PLAYER_API
 GType        gst_player_signal_dispatcher_get_type    (void);
 
-G_END_DECLS
+
 
 #endif /* __GST_PLAYER_SIGNAL_DISPATCHER_H__ */

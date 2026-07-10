@@ -28,7 +28,7 @@
 #include <gst/gst.h>
 #include <gst/codecparsers/gstmpegvideoparser.h>
 
-G_BEGIN_DECLS
+
 
 typedef struct _GstMpegVideoMeta GstMpegVideoMeta;
 
@@ -87,6 +87,6 @@ gst_buffer_add_mpeg_video_meta (GstBuffer * buffer,
                                 const GstMpegVideoPictureExt *pic_ext,
                                 const GstMpegVideoQuantMatrixExt *quant_ext);
 
-G_END_DECLS
+
 
 #endif

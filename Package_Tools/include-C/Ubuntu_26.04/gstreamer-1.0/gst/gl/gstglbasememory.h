@@ -27,7 +27,7 @@
 
 #include <gst/gl/gstgl_fwd.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GST_TYPE_GL_BASE_MEMORY:
@@ -240,7 +240,7 @@ gboolean                gst_gl_allocation_params_init       (GstGLAllocationPara
 
 /* free with gst_gl_allocation_params_free */
 GST_GL_API
-GstGLAllocationParams * gst_gl_allocation_params_copy       (GstGLAllocationParams * src) G_GNUC_WARN_UNUSED_RESULT;
+GstGLAllocationParams * gst_gl_allocation_params_copy       (GstGLAllocationParams * src) ;
 
 GST_GL_API
 void                    gst_gl_allocation_params_free       (GstGLAllocationParams * params);
@@ -421,6 +421,6 @@ GST_GL_API
 GstGLBaseMemory *   gst_gl_base_memory_alloc    (GstGLBaseMemoryAllocator * allocator,
                                                  GstGLAllocationParams * params);
 
-G_END_DECLS
+
 
 #endif /* _GST_GL_BUFFER_H_ */

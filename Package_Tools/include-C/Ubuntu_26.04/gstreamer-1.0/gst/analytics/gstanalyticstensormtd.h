@@ -28,7 +28,7 @@
 #include <gst/analytics/gstanalyticsmeta.h>
 #include <gst/analytics/gsttensor.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GstAnalyticsTensorMtd:
@@ -69,5 +69,5 @@ gboolean
 gst_analytics_relation_meta_get_tensor_mtd (GstAnalyticsRelationMeta * meta,
     guint an_meta_id, GstAnalyticsTensorMtd * rlt);
 
-G_END_DECLS
+
 #endif /* __GST_ANALYTICS_TENSOR_MTD_H__ */

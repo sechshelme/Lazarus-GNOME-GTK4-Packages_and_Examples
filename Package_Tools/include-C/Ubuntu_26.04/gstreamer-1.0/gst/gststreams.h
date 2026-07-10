@@ -27,7 +27,7 @@
 
 #include <gst/gstobject.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_STREAM             (gst_stream_get_type ())
 #define GST_IS_STREAM(obj)          (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GST_TYPE_STREAM))
@@ -122,48 +122,48 @@ struct _GstStreamClass {
   gpointer _gst_reserved[GST_PADDING];
 };
 
-GST_API
+extern
 GType     gst_stream_get_type (void);
 
 #include <gst/gstevent.h>
 
-GST_API
+extern
 GstStream *gst_stream_new            (const gchar *stream_id,
 				      GstCaps *caps,
 				      GstStreamType type,
-				      GstStreamFlags flags) G_GNUC_WARN_UNUSED_RESULT;
-GST_API
+				      GstStreamFlags flags) ;
+extern
 const gchar *  gst_stream_get_stream_id (GstStream *stream);
 
-GST_API
+extern
 void           gst_stream_set_stream_flags (GstStream *stream, GstStreamFlags flags);
 
-GST_API
+extern
 GstStreamFlags gst_stream_get_stream_flags (GstStream *stream);
 
-GST_API
+extern
 void           gst_stream_set_stream_type (GstStream *stream, GstStreamType stream_type);
 
-GST_API
+extern
 GstStreamType  gst_stream_get_stream_type (GstStream *stream);
 
-GST_API
+extern
 void           gst_stream_set_tags (GstStream *stream, GstTagList *tags);
 
-GST_API
-GstTagList *   gst_stream_get_tags (GstStream *stream) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstTagList *   gst_stream_get_tags (GstStream *stream) ;
 
-GST_API
+extern
 void           gst_stream_set_caps (GstStream *stream, GstCaps *caps);
 
-GST_API
-GstCaps *      gst_stream_get_caps (GstStream *stream) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstCaps *      gst_stream_get_caps (GstStream *stream) ;
 
-GST_API
+extern
 const gchar *  gst_stream_type_get_name (GstStreamType stype);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstStream, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstStream, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_STREAMS_H__ */

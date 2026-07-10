@@ -26,7 +26,7 @@
 
 #include <gst/gl/gstgl_fwd.h>
 
-G_BEGIN_DECLS
+
 
 GST_GL_API
 GType gst_gl_display_get_type (void);
@@ -142,9 +142,9 @@ struct _GstGLDisplayClass
 };
 
 GST_GL_API
-GstGLDisplay *gst_gl_display_new (void) G_GNUC_WARN_UNUSED_RESULT;
+GstGLDisplay *gst_gl_display_new (void) ;
 GST_GL_API
-GstGLDisplay *gst_gl_display_new_with_type (GstGLDisplayType type) G_GNUC_WARN_UNUSED_RESULT;
+GstGLDisplay *gst_gl_display_new_with_type (GstGLDisplayType type) ;
 
 #define gst_gl_display_lock(display)        GST_OBJECT_LOCK (display)
 #define gst_gl_display_unlock(display)      GST_OBJECT_UNLOCK (display)
@@ -177,7 +177,7 @@ gboolean  gst_gl_display_create_context (GstGLDisplay * display,
     GstGLContext * other_context, GstGLContext ** p_context, GError **error);
 GST_GL_API
 GstGLContext * gst_gl_display_get_gl_context_for_thread (GstGLDisplay * display,
-    GThread * thread) G_GNUC_WARN_UNUSED_RESULT;
+    GThread * thread) ;
 GST_GL_API
 gboolean        gst_gl_display_add_context      (GstGLDisplay * display,
                                                  GstGLContext * context);
@@ -190,14 +190,14 @@ gboolean        gst_gl_display_ensure_context   (GstGLDisplay * display,
                                                  GstGLContext ** context,
                                                  GError ** error);
 GST_GL_API
-GstGLWindow *   gst_gl_display_create_window    (GstGLDisplay * display) G_GNUC_WARN_UNUSED_RESULT;
+GstGLWindow *   gst_gl_display_create_window    (GstGLDisplay * display) ;
 GST_GL_API
 gboolean        gst_gl_display_remove_window    (GstGLDisplay * display, GstGLWindow * window);
 GST_GL_DEPRECATED_FOR(gst_gl_display_retrieve_window)
 GstGLWindow *   gst_gl_display_find_window      (GstGLDisplay * display, gpointer data, GCompareFunc compare_func);
 GST_GL_API
-GstGLWindow *   gst_gl_display_retrieve_window  (GstGLDisplay * display, gpointer data, GCompareFunc compare_func) G_GNUC_WARN_UNUSED_RESULT;
+GstGLWindow *   gst_gl_display_retrieve_window  (GstGLDisplay * display, gpointer data, GCompareFunc compare_func) ;
 
-G_END_DECLS
+
 
 #endif /* __GST_GL_DISPLAY_H__ */

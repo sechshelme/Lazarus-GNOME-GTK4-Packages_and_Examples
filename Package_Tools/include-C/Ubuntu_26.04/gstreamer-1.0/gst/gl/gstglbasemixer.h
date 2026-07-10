@@ -26,7 +26,7 @@
 #include <gst/video/gstvideoaggregator.h>
 #include <gst/gl/gstglcontext.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_GL_BASE_MIXER_PAD (gst_gl_base_mixer_pad_get_type())
 #define GST_GL_BASE_MIXER_PAD(obj) \
@@ -83,7 +83,7 @@ struct _GstGLBaseMixerPadClass
   gpointer _padding[GST_PADDING];
 };
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstGLBaseMixerPad, gst_object_unref);
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstGLBaseMixerPad, gst_object_unref);
 
 GST_GL_API
 GType gst_gl_base_mixer_pad_get_type (void);
@@ -190,13 +190,13 @@ struct _GstGLBaseMixerClass
   gpointer _padding[GST_PADDING];
 };
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstGLBaseMixer, gst_object_unref);
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstGLBaseMixer, gst_object_unref);
 
 GST_GL_API
 GType gst_gl_base_mixer_get_type(void);
 
 GST_GL_API
-GstGLContext *      gst_gl_base_mixer_get_gl_context        (GstGLBaseMixer * mix) G_GNUC_WARN_UNUSED_RESULT;
+GstGLContext *      gst_gl_base_mixer_get_gl_context        (GstGLBaseMixer * mix) ;
 
-G_END_DECLS
+
 #endif /* __GST_GL_BASE_MIXER_H__ */

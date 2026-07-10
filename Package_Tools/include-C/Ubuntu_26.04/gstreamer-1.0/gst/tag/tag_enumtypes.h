@@ -6,7 +6,7 @@
 #include <glib-object.h>
 #include <gst/tag/tag-prelude.h>
 
-G_BEGIN_DECLS
+
 
 /* enumerations from "gsttagdemux.h" */
 
@@ -24,7 +24,7 @@ GST_TAG_API
 GType gst_tag_license_flags_get_type (void);
 #define GST_TYPE_TAG_LICENSE_FLAGS (gst_tag_license_flags_get_type())
 
-G_END_DECLS
+
 
 /* Generated data ends here */
 

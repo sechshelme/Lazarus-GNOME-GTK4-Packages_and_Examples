@@ -24,7 +24,7 @@
 #include <gio/gio.h>
 #include <gst/net/net-prelude.h>
 
-G_BEGIN_DECLS
+
 
 typedef struct _GstNetAddressMeta GstNetAddressMeta;
 
@@ -57,7 +57,7 @@ GstNetAddressMeta * gst_buffer_add_net_address_meta (GstBuffer      *buffer,
 GST_NET_API
 GstNetAddressMeta * gst_buffer_get_net_address_meta (GstBuffer      *buffer);
 
-G_END_DECLS
+
 
 #endif /* __GST_NET_ADDRESS_META_H__ */
 

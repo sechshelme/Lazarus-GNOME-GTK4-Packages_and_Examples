@@ -23,7 +23,7 @@
 #include <gst/hip/gsthip_fwd.h>
 #include <gst/hip/gsthip-enums.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_HIP_DEVICE             (gst_hip_device_get_type())
 #define GST_HIP_DEVICE(obj)             (G_TYPE_CHECK_INSTANCE_CAST((obj), GST_TYPE_HIP_DEVICE,GstHipDevice))
@@ -93,5 +93,5 @@ guint          gst_hip_device_get_device_id  (GstHipDevice * device);
 GST_HIP_API
 GstHipStream * gst_hip_device_get_stream (GstHipDevice * device);
 
-G_END_DECLS
+
 

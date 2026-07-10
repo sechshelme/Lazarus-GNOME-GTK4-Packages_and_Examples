@@ -23,7 +23,7 @@
 #include <gst/video/video.h>
 #include <gst/hip/gsthip_fwd.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_HIP_MEMORY_CAST(obj)          ((GstHipMemory *)obj)
 
@@ -187,5 +187,5 @@ GST_HIP_API
 GstFlowReturn         gst_hip_pool_allocator_acquire_memory (GstHipPoolAllocator * allocator,
                                                                GstMemory ** memory);
 
-G_END_DECLS
+
 

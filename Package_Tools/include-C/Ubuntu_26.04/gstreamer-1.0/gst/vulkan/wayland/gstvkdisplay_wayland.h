@@ -28,7 +28,7 @@
 #include <gst/vulkan/vulkan.h>
 #include <vulkan/vulkan_wayland.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_VULKAN_DISPLAY_WAYLAND             (gst_vulkan_display_wayland_get_type())
 GST_VULKAN_API
@@ -88,10 +88,10 @@ struct _GstVulkanDisplayWaylandClass
 #define GST_VULKAN_DISPLAY_WAYLAND_DISPLAY(display_) (GST_VULKAN_DISPLAY_WAYLAND (display_)->display)
 
 GST_VULKAN_API
-GstVulkanDisplayWayland *gst_vulkan_display_wayland_new (const gchar * name) G_GNUC_WARN_UNUSED_RESULT;
+GstVulkanDisplayWayland *gst_vulkan_display_wayland_new (const gchar * name) ;
 GST_VULKAN_API
-GstVulkanDisplayWayland *gst_vulkan_display_wayland_new_with_display (struct wl_display *display) G_GNUC_WARN_UNUSED_RESULT;
+GstVulkanDisplayWayland *gst_vulkan_display_wayland_new_with_display (struct wl_display *display) ;
 
-G_END_DECLS
+
 
 #endif /* __GST_VULKAN_DISPLAY_WAYLAND_H__ */

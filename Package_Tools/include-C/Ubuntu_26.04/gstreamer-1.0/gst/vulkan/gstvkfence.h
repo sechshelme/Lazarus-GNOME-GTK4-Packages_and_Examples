@@ -23,7 +23,7 @@
 
 #include <gst/vulkan/gstvkhandlepool.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GST_TYPE_VULKAN_FENCE:
@@ -71,12 +71,12 @@ struct _GstVulkanFence
 
 GST_VULKAN_API
 GstVulkanFence *    gst_vulkan_fence_new            (GstVulkanDevice * device,
-                                                     GError ** error) G_GNUC_WARN_UNUSED_RESULT;
+                                                     GError ** error) ;
 GST_VULKAN_API
 void                gst_vulkan_fence_reset          (GstVulkanFence * fence);
 
 GST_VULKAN_API
-GstVulkanFence *    gst_vulkan_fence_new_always_signalled (GstVulkanDevice *device) G_GNUC_WARN_UNUSED_RESULT;
+GstVulkanFence *    gst_vulkan_fence_new_always_signalled (GstVulkanDevice *device) ;
 
 GST_VULKAN_API
 gboolean            gst_vulkan_fence_is_signaled    (GstVulkanFence * fence);
@@ -93,7 +93,7 @@ gst_vulkan_fence_unref (GstVulkanFence * fence)
   gst_mini_object_unref (GST_MINI_OBJECT_CAST (fence));
 }
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstVulkanFence, gst_vulkan_fence_unref);
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstVulkanFence, gst_vulkan_fence_unref);
 
 GST_VULKAN_API
 GType gst_vulkan_fence_cache_get_type       (void);
@@ -132,9 +132,9 @@ struct _GstVulkanFenceCacheClass
   gpointer _reserved        [GST_PADDING];
 };
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstVulkanFenceCache, gst_object_unref);
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstVulkanFenceCache, gst_object_unref);
 
-GstVulkanFenceCache *       gst_vulkan_fence_cache_new         (GstVulkanDevice * device) G_GNUC_WARN_UNUSED_RESULT;
+GstVulkanFenceCache *       gst_vulkan_fence_cache_new         (GstVulkanDevice * device) ;
 
 /**
  * gst_vulkan_fence_cache_acquire:
@@ -147,6 +147,6 @@ GstVulkanFenceCache *       gst_vulkan_fence_cache_new         (GstVulkanDevice 
  */
 #define gst_vulkan_fence_cache_acquire(o,e) (GstVulkanFence *) gst_vulkan_handle_pool_acquire (GST_VULKAN_HANDLE_POOL (o),e);
 
-G_END_DECLS
+
 
 #endif /* __GST_VULKAN_FENCE_H__ */

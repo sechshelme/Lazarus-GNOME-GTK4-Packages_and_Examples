@@ -30,7 +30,7 @@
 #include <gst/gst.h>
 #include <gst/audio/gstaudiobasesink.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_AUDIO_SINK             (gst_audio_sink_get_type())
 #define GST_AUDIO_SINK(obj)             (G_TYPE_CHECK_INSTANCE_CAST((obj),GST_TYPE_AUDIO_SINK,GstAudioSink))
@@ -134,8 +134,8 @@ struct _GstAudioSinkClassExtension
 GST_AUDIO_API
 GType gst_audio_sink_get_type(void);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstAudioSink, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstAudioSink, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_AUDIO_SINK_H__ */

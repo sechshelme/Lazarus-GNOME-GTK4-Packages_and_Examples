@@ -25,7 +25,7 @@
 #include <gst/gst.h>
 #include <gst/video/video-prelude.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_VIDEO_ORIENTATION \
   (gst_video_orientation_get_type ())
@@ -106,6 +106,6 @@ gboolean gst_video_orientation_set_hcenter (GstVideoOrientation *video_orientati
 GST_VIDEO_API
 gboolean gst_video_orientation_set_vcenter (GstVideoOrientation *video_orientation, gint center);
 
-G_END_DECLS
+
 
 #endif /* __GST_VIDEO_ORIENTATION_H__ */

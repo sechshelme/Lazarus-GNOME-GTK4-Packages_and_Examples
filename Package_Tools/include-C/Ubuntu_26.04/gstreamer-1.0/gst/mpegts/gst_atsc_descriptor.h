@@ -27,7 +27,7 @@
 #include <gst/gst.h>
 #include <gst/mpegts/mpegts-prelude.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * SECTION:gst-atsc-descriptor
@@ -82,6 +82,6 @@ typedef enum {
  */
 #define GST_MTS_DESC_AC3_AUDIO_STREAM GST_MTS_DESC_ATSC_AC3
 
-G_END_DECLS
+
 
 #endif

@@ -24,7 +24,7 @@
 #include <gst/gst.h>
 #include <gst/player/player-prelude.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_PLAYER_STREAM_INFO \
   (gst_player_stream_info_get_type ())
@@ -250,6 +250,6 @@ GList*        gst_player_get_audio_streams    (const GstPlayerMediaInfo *info);
 GST_PLAYER_DEPRECATED_FOR(gst_player_media_info_get_subtitle_streams)
 GList*        gst_player_get_subtitle_streams (const GstPlayerMediaInfo *info);
 
-G_END_DECLS
+
 
 #endif /* __GST_PLAYER_MEDIA_INFO_H */

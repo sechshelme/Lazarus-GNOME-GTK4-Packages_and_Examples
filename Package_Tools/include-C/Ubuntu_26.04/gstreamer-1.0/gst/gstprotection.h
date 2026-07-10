@@ -22,7 +22,7 @@
 
 #include <gst/gst.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GST_PROTECTION_SYSTEM_ID_CAPS_FIELD:
@@ -73,7 +73,7 @@ struct _GstProtectionMeta
 /**
  * gst_protection_meta_api_get_type: (attributes doc.skip=true)
  */
-GST_API
+extern
 GType gst_protection_meta_api_get_type (void);
 
 #define GST_PROTECTION_META_API_TYPE (gst_protection_meta_api_get_type())
@@ -83,18 +83,18 @@ GType gst_protection_meta_api_get_type (void);
 
 #define GST_PROTECTION_META_INFO (gst_protection_meta_get_info())
 
-GST_API
+extern
 const GstMetaInfo * gst_protection_meta_get_info (void);
 
-GST_API
+extern
 GstProtectionMeta * gst_buffer_add_protection_meta (GstBuffer * buffer,
                                                     GstStructure * info);
-GST_API
+extern
 const gchar * gst_protection_select_system (const gchar ** system_identifiers);
 
-GST_API
+extern
 gchar ** gst_protection_filter_systems_by_available_decryptors (
     const gchar ** system_identifiers);
 
-G_END_DECLS
+
 #endif /* __GST_PROTECTION_META_H__ */

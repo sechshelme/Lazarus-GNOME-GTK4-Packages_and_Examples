@@ -29,7 +29,7 @@
 
 #include <gst/audio/gstdsdformat.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_AUDIO_RING_BUFFER             (gst_audio_ring_buffer_get_type())
 #define GST_AUDIO_RING_BUFFER(obj)             (G_TYPE_CHECK_INSTANCE_CAST((obj),GST_TYPE_AUDIO_RING_BUFFER,GstAudioRingBuffer))
@@ -446,8 +446,8 @@ guint64         gst_audio_ring_buffer_get_segdone     (GstAudioRingBuffer *buf);
 GST_AUDIO_API
 guint64         gst_audio_ring_buffer_get_segbase     (GstAudioRingBuffer *buf);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstAudioRingBuffer, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstAudioRingBuffer, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_AUDIO_RING_BUFFER_H__ */

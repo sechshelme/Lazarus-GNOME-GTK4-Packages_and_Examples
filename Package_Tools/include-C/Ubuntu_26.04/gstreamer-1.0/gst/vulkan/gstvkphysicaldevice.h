@@ -24,7 +24,7 @@
 #include <gst/vulkan/gstvkinstance.h>
 #include <gst/vulkan/gstvkqueue.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_VULKAN_PHYSICAL_DEVICE         (gst_vulkan_physical_device_get_type())
 #define GST_VULKAN_PHYSICAL_DEVICE(o)           (G_TYPE_CHECK_INSTANCE_CAST((o), GST_TYPE_VULKAN_PHYSICAL_DEVICE, GstVulkanPhysicalDevice))
@@ -112,13 +112,13 @@ struct _GstVulkanPhysicalDeviceClass
   gpointer _reserved        [GST_PADDING];
 };
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (GstVulkanPhysicalDevice, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstVulkanPhysicalDevice, gst_object_unref)
 
 GST_VULKAN_API
 GstVulkanPhysicalDevice *   gst_vulkan_physical_device_new                  (GstVulkanInstance * instance,
-                                                                             guint device_index) G_GNUC_WARN_UNUSED_RESULT;
+                                                                             guint device_index) ;
 GST_VULKAN_API
-GstVulkanInstance *         gst_vulkan_physical_device_get_instance         (GstVulkanPhysicalDevice * device) G_GNUC_WARN_UNUSED_RESULT;
+GstVulkanInstance *         gst_vulkan_physical_device_get_instance         (GstVulkanPhysicalDevice * device) ;
 
 GST_VULKAN_API
 VkPhysicalDevice            gst_vulkan_physical_device_get_handle           (GstVulkanPhysicalDevice * device);
@@ -144,6 +144,6 @@ gboolean                    gst_vulkan_physical_device_check_api_version    (Gst
                                                                              guint minor,
                                                                              guint patch);
 
-G_END_DECLS
+
 
 #endif /* __GST_VULKAN_PHYSICAL_DEVICE_H__ */

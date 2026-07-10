@@ -26,9 +26,9 @@
 
 #ifndef GST_BASE_CAMERA_BIN_SRC_API
 # ifdef BUILDING_GST_BASE_CAMERA_BIN_SRC
-#  define GST_BASE_CAMERA_BIN_SRC_API GST_API_EXPORT         /* from config.h */
+#  define GST_BASE_CAMERA_BIN_SRC_API extern_EXPORT         /* from config.h */
 # else
-#  define GST_BASE_CAMERA_BIN_SRC_API GST_API_IMPORT
+#  define GST_BASE_CAMERA_BIN_SRC_API extern_IMPORT
 # endif
 #endif
 

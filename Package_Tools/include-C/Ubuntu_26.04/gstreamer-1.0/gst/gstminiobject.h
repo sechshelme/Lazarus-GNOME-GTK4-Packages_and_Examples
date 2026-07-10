@@ -27,9 +27,9 @@
 
 #include <glib-object.h>
 
-G_BEGIN_DECLS
 
-GST_API GType _gst_mini_object_type;
+
+extern GType _gst_mini_object_type;
 
 #define GST_TYPE_MINI_OBJECT               (_gst_mini_object_type)
 
@@ -40,7 +40,7 @@ GST_API GType _gst_mini_object_type;
 
 typedef struct _GstMiniObject GstMiniObject;
 
-GST_API
+extern
 GType           gst_mini_object_get_type   (void);
 
 /**
@@ -225,7 +225,7 @@ struct _GstMiniObject {
   gpointer priv_pointer;
 };
 
-GST_API
+extern
 void            gst_mini_object_init (GstMiniObject *mini_object,
                                       guint flags, GType type,
                                       GstMiniObjectCopyFunction copy_func,
@@ -235,67 +235,67 @@ void            gst_mini_object_init (GstMiniObject *mini_object,
 
 /* refcounting */
 
-GST_API
+extern
 GstMiniObject * gst_mini_object_ref		(GstMiniObject *mini_object);
 
-GST_API
+extern
 void            gst_mini_object_unref		(GstMiniObject *mini_object);
 
-GST_API
+extern
 void        gst_clear_mini_object (GstMiniObject **object_ptr);
 #define     gst_clear_mini_object(object_ptr) g_clear_pointer ((object_ptr), gst_mini_object_unref)
 
-GST_API
+extern
 void            gst_mini_object_weak_ref        (GstMiniObject *object,
 					         GstMiniObjectNotify notify,
 					         gpointer data);
-GST_API
+extern
 void            gst_mini_object_weak_unref	(GstMiniObject *object,
 					         GstMiniObjectNotify notify,
 					         gpointer data);
 
 /* locking */
 
-GST_API
+extern
 gboolean        gst_mini_object_lock            (GstMiniObject *object, GstLockFlags flags);
 
-GST_API
+extern
 void            gst_mini_object_unlock          (GstMiniObject *object, GstLockFlags flags);
 
-GST_API
+extern
 gboolean        gst_mini_object_is_writable     (const GstMiniObject *mini_object);
 
-GST_API
-GstMiniObject * gst_mini_object_make_writable	(GstMiniObject *mini_object) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstMiniObject * gst_mini_object_make_writable	(GstMiniObject *mini_object) ;
 
 /* copy */
 
-GST_API
-GstMiniObject * gst_mini_object_copy		(const GstMiniObject *mini_object) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstMiniObject * gst_mini_object_copy		(const GstMiniObject *mini_object)  ;
 
 
-GST_API
+extern
 void            gst_mini_object_set_qdata       (GstMiniObject *object, GQuark quark,
                                                  gpointer data, GDestroyNotify destroy);
-GST_API
+extern
 gpointer        gst_mini_object_get_qdata       (GstMiniObject *object, GQuark quark);
 
-GST_API
-gpointer        gst_mini_object_steal_qdata     (GstMiniObject *object, GQuark quark) G_GNUC_WARN_UNUSED_RESULT;
+extern
+gpointer        gst_mini_object_steal_qdata     (GstMiniObject *object, GQuark quark) ;
 
-GST_API
+extern
 void            gst_mini_object_add_parent      (GstMiniObject *object, GstMiniObject *parent);
-GST_API
+extern
 void            gst_mini_object_remove_parent   (GstMiniObject *object, GstMiniObject *parent);
 
-GST_API
+extern
 gboolean        gst_mini_object_replace         (GstMiniObject **olddata, GstMiniObject *newdata);
 
-GST_API
+extern
 gboolean        gst_mini_object_take            (GstMiniObject **olddata, GstMiniObject *newdata);
 
-GST_API
-GstMiniObject * gst_mini_object_steal           (GstMiniObject **olddata) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstMiniObject * gst_mini_object_steal           (GstMiniObject **olddata) ;
 
 /**
  * GST_DEFINE_MINI_OBJECT_TYPE:
@@ -309,7 +309,7 @@ GstMiniObject * gst_mini_object_steal           (GstMiniObject **olddata) G_GNUC
        (GBoxedCopyFunc) gst_mini_object_ref,            \
        (GBoxedFreeFunc) gst_mini_object_unref)
 
-G_END_DECLS
+
 
 #endif
 

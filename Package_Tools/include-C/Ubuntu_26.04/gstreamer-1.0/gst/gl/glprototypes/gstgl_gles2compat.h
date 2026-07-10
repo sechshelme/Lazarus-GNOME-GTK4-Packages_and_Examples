@@ -25,7 +25,7 @@
 
 #include <glib.h>
 
-G_BEGIN_DECLS
+
 
 #ifndef GL_RGB16
 #define GL_RGB16 GL_RGB565
@@ -55,6 +55,6 @@ G_BEGIN_DECLS
 #define GL_DEPTH24_STENCIL8 0x88F0
 #endif
 
-G_END_DECLS
+
 
 #endif /* __GST_GL_ES2__ */

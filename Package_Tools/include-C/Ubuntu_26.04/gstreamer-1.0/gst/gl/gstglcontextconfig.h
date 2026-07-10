@@ -25,7 +25,7 @@
 
 #include <gst/gl/gstgl_fwd.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GST_GL_CONFIG_STRUCTURE_NAME:
@@ -155,6 +155,6 @@ typedef enum
 GST_GL_API
 const gchar * gst_gl_config_surface_type_to_string (GstGLConfigSurfaceType surface_type);
 
-G_END_DECLS
+
 
 #endif /* __GST_GL_CONTEXT_CONFIG_H__ */

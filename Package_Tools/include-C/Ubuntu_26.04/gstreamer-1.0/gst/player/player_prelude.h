@@ -26,9 +26,9 @@
 
 #ifndef GST_PLAYER_API
 # ifdef BUILDING_GST_PLAYER
-#  define GST_PLAYER_API GST_API_EXPORT         /* from config.h */
+#  define GST_PLAYER_API extern_EXPORT         /* from config.h */
 # else
-#  define GST_PLAYER_API GST_API_IMPORT
+#  define GST_PLAYER_API extern_IMPORT
 # endif
 #endif
 

@@ -32,7 +32,7 @@
 #include <gst/interfaces/photography-prelude.h>
 #include <gst/interfaces/photography-enumtypes.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_PHOTOGRAPHY \
   (gst_photography_get_type ())
@@ -680,6 +680,6 @@ gboolean gst_photography_get_config    (GstPhotography         * photo,
 GST_PHOTOGRAPHY_API
 void     gst_photography_set_autofocus (GstPhotography * photo, gboolean on);
 
-G_END_DECLS
+
 
 #endif /* __GST_PHOTOGRAPHY_H__ */

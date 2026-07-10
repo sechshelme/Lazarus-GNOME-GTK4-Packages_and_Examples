@@ -25,9 +25,9 @@
 
 #ifndef GST_HIP_API
 # ifdef BUILDING_GST_HIP
-#  define GST_HIP_API GST_API_EXPORT         /* from config.h */
+#  define GST_HIP_API extern_EXPORT         /* from config.h */
 # else
-#  define GST_HIP_API GST_API_IMPORT
+#  define GST_HIP_API extern_IMPORT
 # endif
 #endif
 

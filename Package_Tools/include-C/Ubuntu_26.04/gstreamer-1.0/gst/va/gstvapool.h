@@ -24,7 +24,7 @@
 #include <gst/video/video.h>
 #include <gst/va/gstva.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_VA_POOL (gst_va_pool_get_type())
 #define GST_IS_VA_POOL(obj)         (G_TYPE_CHECK_INSTANCE_TYPE((obj), GST_TYPE_VA_POOL))
@@ -33,7 +33,7 @@ G_BEGIN_DECLS
 GST_VA_API
 GType                gst_va_pool_get_type                 (void);
 GST_VA_API
-GstBufferPool *      gst_va_pool_new                      (void) G_GNUC_WARN_UNUSED_RESULT;
+GstBufferPool *      gst_va_pool_new                      (void) ;
 GST_VA_API
 gboolean             gst_va_pool_requires_video_meta      (GstBufferPool * pool);
 GST_VA_API
@@ -50,9 +50,9 @@ GstBufferPool *      gst_va_pool_new_with_config          (GstCaps * caps,
                                                            guint usage_hint,
                                                            GstVaFeature use_derived,
                                                            GstAllocator * allocator,
-                                                           GstAllocationParams * alloc_params) G_GNUC_WARN_UNUSED_RESULT;
+                                                           GstAllocationParams * alloc_params) ;
 GST_VA_API
 gboolean             gst_va_pool_get_buffer_size         (GstBufferPool * pool,
                                                           guint * size);
 
-G_END_DECLS
+

@@ -31,7 +31,7 @@
 #include <gst/video/video.h>
 #include <gst/opencv/opencv-prelude.h>
 
-G_BEGIN_DECLS
+
 
 GST_OPENCV_API
 gboolean gst_opencv_parse_cv_mat_params_from_caps
@@ -50,6 +50,6 @@ gboolean gst_opencv_cv_image_type_from_video_format (GstVideoFormat format,
 GST_OPENCV_API
 GstCaps * gst_opencv_caps_from_cv_image_type (int cv_type);
 
-G_END_DECLS
+
 
 #endif /* __GST_OPENCV_UTILS__ */

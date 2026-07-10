@@ -23,9 +23,9 @@
 #include <gst/hip/hip-prelude.h>
 #include <gst/hip/gsthip-enums.h>
 
-G_BEGIN_DECLS
+
 
 GST_HIP_API
 gboolean gst_hip_load_library (GstHipVendor vendor);
 
-G_END_DECLS
+

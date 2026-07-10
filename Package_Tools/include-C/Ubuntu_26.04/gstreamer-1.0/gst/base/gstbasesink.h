@@ -26,7 +26,7 @@
 #include <gst/gst.h>
 #include <gst/base/base-prelude.h>
 
-G_BEGIN_DECLS
+
 
 
 #define GST_TYPE_BASE_SINK              (gst_base_sink_get_type())
@@ -287,7 +287,7 @@ GstClockTimeDiff gst_base_sink_get_ts_offset    (GstBaseSink *sink);
 /* last sample */
 
 GST_BASE_API
-GstSample *     gst_base_sink_get_last_sample   (GstBaseSink *sink) G_GNUC_WARN_UNUSED_RESULT;
+GstSample *     gst_base_sink_get_last_sample   (GstBaseSink *sink) ;
 
 GST_BASE_API
 void            gst_base_sink_set_last_sample_enabled (GstBaseSink *sink, gboolean enabled);
@@ -350,10 +350,10 @@ GstFlowReturn   gst_base_sink_wait              (GstBaseSink *sink, GstClockTime
                                                  GstClockTimeDiff *jitter);
 
 GST_BASE_API
-GstStructure 	*gst_base_sink_get_stats (GstBaseSink * sink) G_GNUC_WARN_UNUSED_RESULT;
+GstStructure 	*gst_base_sink_get_stats (GstBaseSink * sink) ;
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstBaseSink, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstBaseSink, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_BASE_SINK_H__ */

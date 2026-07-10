@@ -27,7 +27,7 @@
 
 #include "nice_fwd.h"
 
-G_BEGIN_DECLS
+
 
 GST_WEBRTCNICE_API
 GType gst_webrtc_nice_transport_get_type(void);
@@ -64,8 +64,8 @@ GstWebRTCNiceTransport * gst_webrtc_nice_transport_new                (GstWebRTC
 
 void                     gst_webrtc_nice_transport_update_buffer_size (GstWebRTCNiceTransport * nice);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstWebRTCNiceTransport, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstWebRTCNiceTransport, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_WEBRTC_NICE_TRANSPORT_H__ */

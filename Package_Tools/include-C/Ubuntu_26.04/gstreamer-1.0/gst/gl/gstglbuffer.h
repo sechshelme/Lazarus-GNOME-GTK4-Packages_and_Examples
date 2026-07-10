@@ -23,7 +23,7 @@
 
 #include <gst/gl/gstglbasememory.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_GL_BUFFER_ALLOCATOR (gst_gl_buffer_allocator_get_type())
 GST_GL_API
@@ -89,7 +89,7 @@ GstGLBufferAllocationParams *   gst_gl_buffer_allocation_params_new     (GstGLCo
                                                                          gsize alloc_size,
                                                                          const GstAllocationParams * alloc_params,
                                                                          guint gl_target,
-                                                                         guint gl_usage) G_GNUC_WARN_UNUSED_RESULT;
+                                                                         guint gl_usage) ;
 
 /**
  * GstGLBufferAllocator:
@@ -146,6 +146,6 @@ void          gst_gl_buffer_init_once (void);
 GST_GL_API
 gboolean      gst_is_gl_buffer        (GstMemory * mem);
 
-G_END_DECLS
+
 
 #endif /* _GST_GL_BUFFER_H_ */

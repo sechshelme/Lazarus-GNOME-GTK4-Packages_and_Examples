@@ -28,7 +28,7 @@
 #include <gst/gstbytearrayinterface.h>
 #include <gst/gststructure.h>
 
-G_BEGIN_DECLS
+
 
 typedef struct _GstMeta GstMeta;
 typedef struct _GstMetaInfo GstMetaInfo;
@@ -173,7 +173,7 @@ typedef void (*GstMetaFreeFunction)     (GstMeta *meta, GstBuffer *buffer);
  * GQuark for the "gst-copy" transform.
  */
 
-GST_API GQuark _gst_meta_transform_copy;
+extern GQuark _gst_meta_transform_copy;
 
 /**
  * GST_META_TRANSFORM_IS_COPY:
@@ -371,76 +371,76 @@ struct _GstMetaInfo {
    * just like interfaces */
 };
 
-GST_API
+extern
 GType                gst_meta_api_type_register (const gchar *api,
                                                  const gchar **tags);
-GST_API
+extern
 gboolean             gst_meta_api_type_has_tag  (GType api, GQuark tag);
 
-GST_API
+extern
 gboolean             gst_meta_api_type_aggregate_params (GType api,
                                                          GstStructure ** aggregated_params,
                                                          const GstStructure * params0,
                                                          const GstStructure * params1);
 
-GST_API
+extern
 void                 gst_meta_api_type_set_params_aggregator (GType api,
                                                               GstAllocationMetaParamsAggregator aggregator);
 
-GST_API
+extern
 const GstMetaInfo *  gst_meta_register          (GType api, const gchar *impl,
                                                  gsize size,
                                                  GstMetaInitFunction      init_func,
                                                  GstMetaFreeFunction      free_func,
                                                  GstMetaTransformFunction transform_func);
 
-GST_API
+extern
 GstMetaInfo *        gst_meta_info_new (GType api,
                                         const gchar *impl,
                                         gsize size);
-GST_API
+extern
 const GstMetaInfo *  gst_meta_info_register (GstMetaInfo *info);
 
-GST_API
+extern
 const GstMetaInfo *  gst_meta_register_custom   (const gchar *name, const gchar **tags,
                                                  GstCustomMetaTransformFunction transform_func,
                                                  gpointer user_data, GDestroyNotify destroy_data);
 
-GST_API
+extern
 const GstMetaInfo *  gst_meta_register_custom_simple (const gchar *name);
 
-GST_API
+extern
 gboolean             gst_meta_info_is_custom    (const GstMetaInfo *info);
 
-GST_API
+extern
 GstStructure *       gst_custom_meta_get_structure (GstCustomMeta *meta);
 
-GST_API
+extern
 gboolean             gst_custom_meta_has_name (GstCustomMeta *meta, const gchar * name);
 
-GST_API
+extern
 const GstMetaInfo *  gst_meta_get_info          (const gchar * impl);
 
-GST_API
+extern
 const gchar* const*  gst_meta_api_type_get_tags (GType api);
 
-GST_API
+extern
 gboolean             gst_meta_api_type_tags_contain_only (GType api, const gchar ** valid_tags);
 
-GST_API
+extern
 guint64              gst_meta_get_seqnum        (const GstMeta * meta);
 
-GST_API
+extern
 gint                 gst_meta_compare_seqnum    (const GstMeta * meta1,
                                                  const GstMeta * meta2);
 
-GST_API
+extern
 gboolean             gst_meta_serialize         (const GstMeta *meta,
                                                  GstByteArrayInterface *data);
-GST_API
+extern
 gboolean             gst_meta_serialize_simple  (const GstMeta *meta,
                                                  GByteArray *data);
-GST_API
+extern
 GstMeta *            gst_meta_deserialize       (GstBuffer *buffer,
                                                  const guint8 *data,
                                                  gsize size,
@@ -448,8 +448,8 @@ GstMeta *            gst_meta_deserialize       (GstBuffer *buffer,
 
 /* some default tags */
 
-GST_API GQuark _gst_meta_tag_memory;
-GST_API GQuark _gst_meta_tag_memory_reference;
+extern GQuark _gst_meta_tag_memory;
+extern GQuark _gst_meta_tag_memory_reference;
 
 /**
  * GST_META_TAG_MEMORY:
@@ -464,6 +464,6 @@ GST_API GQuark _gst_meta_tag_memory_reference;
 #define GST_META_TAG_MEMORY (_gst_meta_tag_memory)
 #endif
 
-G_END_DECLS
+
 
 #endif /* __GST_META_H__ */

@@ -35,13 +35,13 @@
 
 #ifndef GST_INSERT_BIN_API
 # ifdef BUILDING_GST_INSERT_BIN
-#  define GST_INSERT_BIN_API GST_API_EXPORT         /* from config.h */
+#  define GST_INSERT_BIN_API extern_EXPORT         /* from config.h */
 # else
-#  define GST_INSERT_BIN_API GST_API_IMPORT
+#  define GST_INSERT_BIN_API extern_IMPORT
 # endif
 #endif
 
-G_BEGIN_DECLS
+
 #define GST_TYPE_INSERT_BIN            (gst_insert_bin_get_type())
 #define GST_INSERT_BIN(obj)            (G_TYPE_CHECK_INSTANCE_CAST((obj),GST_TYPE_INSERT_BIN,GstInsertBin))
 #define GST_IS_INSERT_BIN(obj)         (G_TYPE_CHECK_INSTANCE_TYPE((obj),GST_TYPE_INSERT_BIN))
@@ -102,7 +102,7 @@ GST_INSERT_BIN_API
 GType gst_insert_bin_get_type (void);
 
 GST_INSERT_BIN_API
-GstElement *gst_insert_bin_new (const gchar * name) G_GNUC_WARN_UNUSED_RESULT;
+GstElement *gst_insert_bin_new (const gchar * name) ;
 
 GST_INSERT_BIN_API
 void gst_insert_bin_prepend (GstInsertBin * self, GstElement * element,
@@ -127,7 +127,7 @@ void gst_insert_bin_remove (GstInsertBin * self, GstElement * element,
     GstInsertBinCallback callback, gpointer user_data);
 
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstInsertBin, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstInsertBin, gst_object_unref)
 
-G_END_DECLS
+
 #endif /* __GST_INSERT_BIN_H__ */

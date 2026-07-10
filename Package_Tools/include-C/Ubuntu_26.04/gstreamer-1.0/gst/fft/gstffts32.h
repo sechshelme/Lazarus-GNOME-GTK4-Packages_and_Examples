@@ -25,7 +25,7 @@
 
 #include "gstfft.h"
 
-G_BEGIN_DECLS
+
 
 typedef struct _GstFFTS32 GstFFTS32;
 typedef struct _GstFFTS32Complex GstFFTS32Complex;
@@ -66,6 +66,6 @@ void            gst_fft_s32_inverse_fft (GstFFTS32 *self, const GstFFTS32Complex
 GST_FFT_API
 void            gst_fft_s32_window      (GstFFTS32 *self, gint32 *timedata, GstFFTWindow window);
 
-G_END_DECLS
+
 
 #endif /* __GST_FFT_S32_H__ */

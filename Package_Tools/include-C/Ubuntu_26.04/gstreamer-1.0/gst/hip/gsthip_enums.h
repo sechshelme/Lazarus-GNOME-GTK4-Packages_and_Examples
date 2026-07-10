@@ -22,7 +22,7 @@
 #include <gst/gst.h>
 #include <gst/hip/hip-prelude.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GstHipVendor:
@@ -41,5 +41,5 @@ typedef enum
 GST_HIP_API
 GType gst_hip_vendor_get_type (void);
 
-G_END_DECLS
+
 

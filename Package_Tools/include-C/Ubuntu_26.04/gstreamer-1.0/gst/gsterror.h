@@ -24,7 +24,7 @@
 #include <glib-object.h>
 #include <errno.h>
 
-G_BEGIN_DECLS
+
 /*
  * we define FIXME error domains:
  * GST_CORE_ERROR
@@ -242,32 +242,32 @@ typedef enum
  */
 #define GST_ERROR_SYSTEM    ("system error: %s", g_strerror (errno))
 
-GST_API
+extern
 gchar *gst_error_get_message (GQuark domain, gint code);
 
 /**
  * gst_stream_error_quark: (attributes doc.skip=true)
  */
-GST_API
+extern
 GQuark gst_stream_error_quark (void);
 
 /**
  * gst_core_error_quark: (attributes doc.skip=true)
  */
-GST_API
+extern
 GQuark gst_core_error_quark (void);
 
 /**
  * gst_resource_error_quark: (attributes doc.skip=true)
  */
-GST_API
+extern
 GQuark gst_resource_error_quark (void);
 
 /**
  * gst_library_error_quark: (attributes doc.skip=true)
  */
-GST_API
+extern
 GQuark gst_library_error_quark (void);
 
-G_END_DECLS
+
 #endif /* __GST_ERROR_H__ */

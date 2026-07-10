@@ -30,7 +30,7 @@
 #include <gst/gstcontrolsource.h>
 #include <gst/controller/controller-prelude.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_DIRECT_CONTROL_BINDING \
   (gst_direct_control_binding_get_type())
@@ -117,13 +117,13 @@ GType gst_direct_control_binding_get_type (void);
 
 GST_CONTROLLER_API
 GstControlBinding * gst_direct_control_binding_new (GstObject * object, const gchar * property_name,
-                                                    GstControlSource * cs) G_GNUC_WARN_UNUSED_RESULT;
+                                                    GstControlSource * cs) ;
 GST_CONTROLLER_API
 GstControlBinding * gst_direct_control_binding_new_absolute (GstObject * object, const gchar * property_name, 
-                                                    GstControlSource * cs) G_GNUC_WARN_UNUSED_RESULT;
+                                                    GstControlSource * cs) ;
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstDirectControlBinding, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstDirectControlBinding, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_DIRECT_CONTROL_BINDING_H__ */

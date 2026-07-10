@@ -32,7 +32,7 @@
 
 #include <glib.h>
 
-G_BEGIN_DECLS
+
 
 /* http://en.wikipedia.org/wiki/Math.h */
 
@@ -109,7 +109,7 @@ static union {
 #define NAN    (__gst_nan_union.__d)
 #endif
 
-G_END_DECLS
+
 
 #endif /* !__GI_SCANNER__ */
 

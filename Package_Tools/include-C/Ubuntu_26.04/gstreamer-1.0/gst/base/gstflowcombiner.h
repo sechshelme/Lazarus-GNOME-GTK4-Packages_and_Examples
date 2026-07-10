@@ -29,7 +29,7 @@
 #include <gst/gst.h>
 #include <gst/base/base-prelude.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_FLOW_COMBINER gst_flow_combiner_get_type()
 
@@ -43,7 +43,7 @@ G_BEGIN_DECLS
 typedef struct _GstFlowCombiner GstFlowCombiner;
 
 GST_BASE_API
-GstFlowCombiner * gst_flow_combiner_new (void) G_GNUC_WARN_UNUSED_RESULT;
+GstFlowCombiner * gst_flow_combiner_new (void) ;
 
 GST_BASE_API
 GstFlowCombiner * gst_flow_combiner_ref (GstFlowCombiner * combiner);
@@ -75,8 +75,8 @@ void              gst_flow_combiner_reset (GstFlowCombiner * combiner);
 GST_BASE_API
 GType             gst_flow_combiner_get_type (void);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstFlowCombiner, gst_flow_combiner_free)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstFlowCombiner, gst_flow_combiner_free)
 
-G_END_DECLS
+
 
 #endif /* __GST_FLOW_COMBINER_H__ */

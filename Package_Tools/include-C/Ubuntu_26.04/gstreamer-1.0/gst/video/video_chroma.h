@@ -23,7 +23,7 @@
 #include <gst/gst.h>
 #include <gst/video/video-prelude.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GstVideoChromaSite:
@@ -113,6 +113,6 @@ GST_VIDEO_API
 void                     gst_video_chroma_resample       (GstVideoChromaResample *resample,
                                                           gpointer lines[], gint width);
 
-G_END_DECLS
+
 
 #endif /* __GST_VIDEO_CHROMA_H__ */

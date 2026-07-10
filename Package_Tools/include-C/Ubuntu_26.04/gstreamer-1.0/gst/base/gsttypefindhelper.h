@@ -27,15 +27,15 @@
 #include <gst/gst.h>
 #include <gst/base/base-prelude.h>
 
-G_BEGIN_DECLS
+
 
 typedef struct _GstTypeFindData GstTypeFindData;
 
 GstTypeFindData * gst_type_find_data_new (GstObject * obj,
     const guint8 * data, gsize size);
-GstCaps * gst_type_find_data_get_caps (GstTypeFindData * data) G_GNUC_WARN_UNUSED_RESULT;
+GstCaps * gst_type_find_data_get_caps (GstTypeFindData * data) ;
 GstTypeFindProbability gst_type_find_data_get_probability (GstTypeFindData * data);
-GstTypeFind * gst_type_find_data_get_typefind (GstTypeFindData * data) G_GNUC_WARN_UNUSED_RESULT;
+GstTypeFind * gst_type_find_data_get_typefind (GstTypeFindData * data) ;
 void gst_type_find_data_free (GstTypeFindData * data);
 
 GST_BASE_API
@@ -126,6 +126,6 @@ GstFlowReturn gst_type_find_helper_get_range_full (GstObject                    
                                                    GstCaps                          **caps,
                                                    GstTypeFindProbability            *prob);
 
-G_END_DECLS
+
 
 #endif /* __GST_TYPEFINDHELPER_H__ */

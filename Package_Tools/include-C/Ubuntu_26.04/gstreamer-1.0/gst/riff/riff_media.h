@@ -26,7 +26,7 @@
 #include <gst/gst.h>
 #include "riff-ids.h"
 
-G_BEGIN_DECLS
+
 
 /*
  * Create caos. strh/strf, strf/strd_data and codec_name can be NULL.
@@ -69,6 +69,6 @@ GstCaps * gst_riff_create_audio_template_caps (void);
 GST_RIFF_API
 GstCaps * gst_riff_create_iavs_template_caps  (void);
 
-G_END_DECLS
+
 
 #endif /* __GST_RIFF_READ_H__ */

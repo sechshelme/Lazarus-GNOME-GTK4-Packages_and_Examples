@@ -26,7 +26,7 @@
 #include <gst/vulkan/gstvkwindow.h>
 #include <gst/vulkan/gstvkinstance.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_VULKAN_DISPLAY             (gst_vulkan_display_get_type())
 #define GST_VULKAN_DISPLAY(obj)             (G_TYPE_CHECK_INSTANCE_CAST((obj),GST_TYPE_VULKAN_DISPLAY,GstVulkanDisplay))
@@ -125,13 +125,13 @@ struct _GstVulkanDisplayClass
   gpointer _reserved        [GST_PADDING];
 };
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (GstVulkanDisplay, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstVulkanDisplay, gst_object_unref)
 
 GST_VULKAN_API
-GstVulkanDisplay *      gst_vulkan_display_new                      (GstVulkanInstance *instance) G_GNUC_WARN_UNUSED_RESULT;
+GstVulkanDisplay *      gst_vulkan_display_new                      (GstVulkanInstance *instance) ;
 GST_VULKAN_API
 GstVulkanDisplay *      gst_vulkan_display_new_with_type            (GstVulkanInstance *instance,
-                                                                     GstVulkanDisplayType type) G_GNUC_WARN_UNUSED_RESULT;
+                                                                     GstVulkanDisplayType type) ;
 GST_VULKAN_API
 GstVulkanDisplayType    gst_vulkan_display_choose_type              (GstVulkanInstance *instance);
 GST_VULKAN_API
@@ -143,7 +143,7 @@ gpointer                gst_vulkan_display_get_handle               (GstVulkanDi
 GST_VULKAN_API
 GstVulkanDisplayType    gst_vulkan_display_get_handle_type          (GstVulkanDisplay * display);
 GST_VULKAN_API
-GstVulkanWindow *       gst_vulkan_display_create_window            (GstVulkanDisplay * display) G_GNUC_WARN_UNUSED_RESULT;
+GstVulkanWindow *       gst_vulkan_display_create_window            (GstVulkanDisplay * display) ;
 
 GST_VULKAN_API
 gboolean                gst_context_get_vulkan_display              (GstContext * context,
@@ -163,8 +163,8 @@ gboolean                gst_vulkan_display_run_context_query        (GstElement 
 GST_VULKAN_API
 gboolean                gst_vulkan_display_remove_window            (GstVulkanDisplay * display, GstVulkanWindow * window);
 GST_VULKAN_API
-GstVulkanWindow *       gst_vulkan_display_find_window              (GstVulkanDisplay * display, gpointer data, GCompareFunc compare_func) G_GNUC_WARN_UNUSED_RESULT;
+GstVulkanWindow *       gst_vulkan_display_find_window              (GstVulkanDisplay * display, gpointer data, GCompareFunc compare_func) ;
 
-G_END_DECLS
+
 
 #endif /* __GST_VULKAN_DISPLAY_H__ */

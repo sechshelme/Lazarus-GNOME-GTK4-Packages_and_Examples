@@ -24,7 +24,7 @@
 #include <gst/webrtc/webrtc_fwd.h>
 #include <gst/webrtc/dtlstransport.h>
 
-G_BEGIN_DECLS
+
 
 GST_WEBRTC_API
 GType gst_webrtc_rtp_receiver_get_type(void);
@@ -35,8 +35,8 @@ GType gst_webrtc_rtp_receiver_get_type(void);
 #define GST_IS_WEBRTC_RTP_RECEIVER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE((klass) ,GST_TYPE_WEBRTC_RTP_RECEIVER))
 #define GST_WEBRTC_RTP_RECEIVER_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS((obj) ,GST_TYPE_WEBRTC_RTP_RECEIVER,GstWebRTCRTPReceiverClass))
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstWebRTCRTPReceiver, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstWebRTCRTPReceiver, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_WEBRTC_RTP_RECEIVER_H__ */

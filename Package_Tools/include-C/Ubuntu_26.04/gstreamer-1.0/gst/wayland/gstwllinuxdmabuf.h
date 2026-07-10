@@ -26,7 +26,7 @@
 
 #include <gst/video/video.h>
 
-G_BEGIN_DECLS
+
 
 #ifndef GST_CAPS_FEATURE_MEMORY_DMABUF
 #define GST_CAPS_FEATURE_MEMORY_DMABUF "memory:DMABuf"
@@ -39,4 +39,4 @@ GST_WL_API
 struct wl_buffer *gst_wl_linux_dmabuf_construct_wl_buffer (GstBuffer * buf,
     GstWlDisplay * display, const GstVideoInfoDmaDrm * drm_info);
 
-G_END_DECLS
+

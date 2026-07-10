@@ -27,7 +27,7 @@
 #include <gst/gstobject.h>
 #include <gst/gstconfig.h>
 
-G_BEGIN_DECLS
+
 
 typedef struct _GstTracer GstTracer;
 typedef struct _GstTracerPrivate GstTracerPrivate;
@@ -60,30 +60,30 @@ struct _GstTracerClass {
   gpointer _gst_reserved[GST_PADDING];
 };
 
-GST_API
+extern
 GType gst_tracer_get_type          (void);
 
-GST_API
+extern
 void gst_tracing_register_hook (GstTracer *tracer, const gchar *detail,
   GCallback func);
 
 /* tracing modules */
 
-GST_API
+extern
 gboolean gst_tracer_register (GstPlugin * plugin, const gchar * name, GType type);
 
-GST_API
+extern
 GList* gst_tracing_get_active_tracers (void);
 
-GST_API
+extern
 gboolean gst_tracer_class_uses_structure_params  (GstTracerClass *tracer_class);
-GST_API
+extern
 void gst_tracer_class_set_use_structure_params   (GstTracerClass *tracer_class,
                                                   gboolean use_structure_params);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstTracer, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstTracer, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_TRACER_H__ */
 

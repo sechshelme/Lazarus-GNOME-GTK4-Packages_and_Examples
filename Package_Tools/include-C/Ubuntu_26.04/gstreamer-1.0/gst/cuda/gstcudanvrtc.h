@@ -22,7 +22,7 @@
 #include <gst/gst.h>
 #include <gst/cuda/cuda-prelude.h>
 
-G_BEGIN_DECLS
+
 
 GST_CUDA_API
 gboolean  gst_cuda_nvrtc_load_library (void);
@@ -34,5 +34,5 @@ GST_CUDA_API
 gchar *   gst_cuda_nvrtc_compile_cubin (const gchar * source,
                                         gint device);
 
-G_END_DECLS
+
 

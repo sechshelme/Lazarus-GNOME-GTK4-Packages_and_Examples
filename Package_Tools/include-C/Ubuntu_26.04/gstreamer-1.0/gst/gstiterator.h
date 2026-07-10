@@ -26,7 +26,7 @@
 #include <glib-object.h> /* for GValue in the fold */
 #include <gst/gstconfig.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_ITERATOR (gst_iterator_get_type ())
 
@@ -225,12 +225,12 @@ struct _GstIterator {
   gpointer _gst_reserved[GST_PADDING];
 };
 
-GST_API
+extern
 GType                   gst_iterator_get_type           (void);
 
 /* creating iterators */
 
-GST_API
+extern
 GstIterator*            gst_iterator_new                (guint size,
                                                          GType type,
                                                          GMutex *lock,
@@ -239,52 +239,52 @@ GstIterator*            gst_iterator_new                (guint size,
                                                          GstIteratorNextFunction next,
                                                          GstIteratorItemFunction item,
                                                          GstIteratorResyncFunction resync,
-                                                         GstIteratorFreeFunction free) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
-GST_API
+                                                         GstIteratorFreeFunction free)  ;
+extern
 GstIterator*            gst_iterator_new_list           (GType type,
                                                          GMutex *lock,
                                                          guint32 *master_cookie,
                                                          GList **list,
                                                          GObject * owner,
-                                                         GstIteratorItemFunction item) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
-GST_API
+                                                         GstIteratorItemFunction item)  ;
+extern
 GstIterator*            gst_iterator_new_single         (GType type,
-                                                         const GValue * object) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
-GST_API
-GstIterator*            gst_iterator_copy               (const GstIterator *it) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+                                                         const GValue * object)  ;
+extern
+GstIterator*            gst_iterator_copy               (const GstIterator *it)  ;
 
 /* using iterators */
 
-GST_API
+extern
 GstIteratorResult       gst_iterator_next               (GstIterator *it, GValue * elem);
 
-GST_API
+extern
 void                    gst_iterator_resync             (GstIterator *it);
 
-GST_API
+extern
 void                    gst_iterator_free               (GstIterator *it);
 
-GST_API
+extern
 void                    gst_iterator_push               (GstIterator *it, GstIterator *other);
 
 /* higher-order functions that operate on iterators */
 
-GST_API
+extern
 GstIterator*            gst_iterator_filter             (GstIterator *it, GCompareFunc func,
-                                                         const GValue * user_data) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
-GST_API
+                                                         const GValue * user_data)  ;
+extern
 GstIteratorResult       gst_iterator_fold               (GstIterator *it,
                                                          GstIteratorFoldFunction func,
                                                          GValue *ret, gpointer user_data);
-GST_API
+extern
 GstIteratorResult       gst_iterator_foreach            (GstIterator *it,
                                                          GstIteratorForeachFunction func, gpointer user_data);
-GST_API
+extern
 gboolean                gst_iterator_find_custom        (GstIterator *it, GCompareFunc func,
                                                          GValue *elem, gpointer user_data);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstIterator, gst_iterator_free)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstIterator, gst_iterator_free)
 
-G_END_DECLS
+
 
 #endif /* __GST_ITERATOR_H__ */

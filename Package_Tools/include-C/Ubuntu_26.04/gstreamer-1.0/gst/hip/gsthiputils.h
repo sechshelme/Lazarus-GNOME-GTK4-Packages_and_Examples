@@ -25,7 +25,7 @@
 #include <gst/hip/gsthip_fwd.h>
 #include <gst/hip/gsthip-enums.h>
 
-G_BEGIN_DECLS
+
 
 GST_HIP_API
 gboolean _gst_hip_result (hipError_t result,
@@ -73,5 +73,5 @@ gboolean     gst_hip_handle_context_query   (GstElement * element,
 GST_HIP_API
 GstContext * gst_context_new_hip_device     (GstHipDevice * device);
 
-G_END_DECLS
+
 

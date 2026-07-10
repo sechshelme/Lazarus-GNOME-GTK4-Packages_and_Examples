@@ -30,7 +30,7 @@
 #include <gst/gst.h>
 #include <gst/codecparsers/codecparsers-prelude.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_VC1_MAX_HRD_NUM_LEAKY_BUCKETS 31
 
@@ -652,5 +652,5 @@ GST_CODEC_PARSERS_API
 gboolean           gst_vc1_bitplanes_ensure_size       (GstVC1BitPlanes *bitplanes,
                                                         GstVC1SeqHdr *seqhdr);
 
-G_END_DECLS
+
 #endif

@@ -83,13 +83,13 @@ GST_RTSP_SERVER_API
 GType gst_rtsp_onvif_media_factory_get_type (void);
 
 GST_RTSP_SERVER_API
-GstRTSPMediaFactory *gst_rtsp_onvif_media_factory_new (void) G_GNUC_WARN_UNUSED_RESULT;
+GstRTSPMediaFactory *gst_rtsp_onvif_media_factory_new (void) ;
 
 GST_RTSP_SERVER_API
 void gst_rtsp_onvif_media_factory_set_backchannel_launch (GstRTSPOnvifMediaFactory *
     factory, const gchar * launch);
 GST_RTSP_SERVER_API
-gchar * gst_rtsp_onvif_media_factory_get_backchannel_launch (GstRTSPOnvifMediaFactory * factory) G_GNUC_WARN_UNUSED_RESULT;
+gchar * gst_rtsp_onvif_media_factory_get_backchannel_launch (GstRTSPOnvifMediaFactory * factory) ;
 
 GST_RTSP_SERVER_API
 gboolean gst_rtsp_onvif_media_factory_has_backchannel_support (GstRTSPOnvifMediaFactory * factory);
@@ -108,8 +108,8 @@ guint gst_rtsp_onvif_media_factory_get_backchannel_bandwidth (GstRTSPOnvifMediaF
 GST_RTSP_SERVER_API
 gboolean gst_rtsp_onvif_media_factory_requires_backchannel (GstRTSPMediaFactory * factory, GstRTSPContext * ctx);
 
-#ifdef G_DEFINE_AUTOPTR_CLEANUP_FUNC
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstRTSPOnvifMediaFactory, gst_object_unref)
+#ifdef ////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstRTSPOnvifMediaFactory, gst_object_unref)
 #endif
 
 #endif /* __GST_RTSP_ONVIF_MEDIA_FACTORY_H__ */

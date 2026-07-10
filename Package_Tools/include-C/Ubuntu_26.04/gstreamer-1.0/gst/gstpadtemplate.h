@@ -37,7 +37,7 @@ typedef struct _GstStaticPadTemplate GstStaticPadTemplate;
 #include <gst/gstquery.h>
 #include <gst/gsttask.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_STATIC_PAD_TEMPLATE	(gst_static_pad_template_get_type ())
 
@@ -198,49 +198,49 @@ struct _GstStaticPadTemplate {
 
 /* templates and factories */
 
-GST_API
+extern
 GType			gst_pad_template_get_type		(void);
 
 /**
  * gst_static_pad_template_get_type: (attributes doc.skip=true)
  */
-GST_API
+extern
 GType			gst_static_pad_template_get_type	(void);
 
-GST_API
+extern
 GstPadTemplate*		gst_pad_template_new			(const gchar *name_template,
 								 GstPadDirection direction, GstPadPresence presence,
-								 GstCaps *caps) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
-GST_API
+								 GstCaps *caps)  ;
+extern
 GstPadTemplate*		gst_pad_template_new_with_gtype		(const gchar *name_template,
 								 GstPadDirection direction, GstPadPresence presence,
-								 GstCaps *caps, GType pad_type) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
-GST_API
+								 GstCaps *caps, GType pad_type)  ;
+extern
 GstPadTemplate *	gst_static_pad_template_get             (GstStaticPadTemplate *pad_template);
 
-GST_API
+extern
 GstPadTemplate * gst_pad_template_new_from_static_pad_template_with_gtype (
     GstStaticPadTemplate * pad_template,
-    GType pad_type) G_GNUC_WARN_UNUSED_RESULT;
+    GType pad_type) ;
 
-GST_API
-GstCaps*		gst_static_pad_template_get_caps	(GstStaticPadTemplate *templ) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstCaps*		gst_static_pad_template_get_caps	(GstStaticPadTemplate *templ) ;
 
-GST_API
-GstCaps*		gst_pad_template_get_caps		(GstPadTemplate *templ) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstCaps*		gst_pad_template_get_caps		(GstPadTemplate *templ) ;
 
-GST_API
+extern
 void        gst_pad_template_set_documentation_caps (GstPadTemplate *templ, GstCaps *caps);
 
-GST_API
-GstCaps*    gst_pad_template_get_documentation_caps (GstPadTemplate *templ) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstCaps*    gst_pad_template_get_documentation_caps (GstPadTemplate *templ) ;
 
-GST_API
+extern
 void                    gst_pad_template_pad_created            (GstPadTemplate * templ, GstPad * pad);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstPadTemplate, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstPadTemplate, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_PAD_TEMPLATE_H__ */
 

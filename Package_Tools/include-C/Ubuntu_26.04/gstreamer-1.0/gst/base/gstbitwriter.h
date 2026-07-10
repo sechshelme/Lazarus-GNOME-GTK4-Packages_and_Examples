@@ -28,7 +28,7 @@
 
 #include <string.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_BIT_WRITER_DATA(writer)     ((writer)->data)
 #define GST_BIT_WRITER_BIT_SIZE(writer) ((writer)->bit_size)
@@ -58,23 +58,23 @@ struct _GstBitWriter
 };
 
 GST_BASE_API
-GstBitWriter *  gst_bit_writer_new              (void) G_GNUC_MALLOC;
+GstBitWriter *  gst_bit_writer_new              (void) ;
 
 GST_BASE_API
-GstBitWriter *  gst_bit_writer_new_with_size    (guint32 size, gboolean fixed) G_GNUC_MALLOC;
+GstBitWriter *  gst_bit_writer_new_with_size    (guint32 size, gboolean fixed) ;
 
 GST_BASE_API
 GstBitWriter *  gst_bit_writer_new_with_data    (guint8 *data, guint size,
-						 gboolean initialized) G_GNUC_MALLOC;
+						 gboolean initialized) ;
 
 GST_BASE_API
 void            gst_bit_writer_free             (GstBitWriter *bitwriter);
 
 GST_BASE_API
-guint8 *        gst_bit_writer_free_and_get_data (GstBitWriter *bitwriter) G_GNUC_WARN_UNUSED_RESULT;
+guint8 *        gst_bit_writer_free_and_get_data (GstBitWriter *bitwriter) ;
 
 GST_BASE_API
-GstBuffer *     gst_bit_writer_free_and_get_buffer (GstBitWriter *bitwriter) G_GNUC_WARN_UNUSED_RESULT;
+GstBuffer *     gst_bit_writer_free_and_get_buffer (GstBitWriter *bitwriter) ;
 
 GST_BASE_API
 void            gst_bit_writer_init             (GstBitWriter *bitwriter);
@@ -91,10 +91,10 @@ GST_BASE_API
 void            gst_bit_writer_reset            (GstBitWriter *bitwriter);
 
 GST_BASE_API
-guint8 *        gst_bit_writer_reset_and_get_data (GstBitWriter *bitwriter) G_GNUC_WARN_UNUSED_RESULT;
+guint8 *        gst_bit_writer_reset_and_get_data (GstBitWriter *bitwriter) ;
 
 GST_BASE_API
-GstBuffer *     gst_bit_writer_reset_and_get_buffer (GstBitWriter *bitwriter) G_GNUC_WARN_UNUSED_RESULT;
+GstBuffer *     gst_bit_writer_reset_and_get_buffer (GstBitWriter *bitwriter) ;
 
 GST_BASE_API
 guint           gst_bit_writer_get_size         (const GstBitWriter *bitwriter);
@@ -379,6 +379,6 @@ _gst_bit_writer_align_bytes_inline (GstBitWriter * bitwriter,
     G_LIKELY (_gst_bit_writer_align_bytes_inline(bitwriter, trailing_bit))
 #endif
 
-G_END_DECLS
+
 
 #endif /* GST_BIT_WRITER_H */

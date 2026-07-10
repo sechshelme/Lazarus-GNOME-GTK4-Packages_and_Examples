@@ -24,7 +24,7 @@
 #include <gst/player/gstplayer-types.h>
 #include <gst/player/gstplayer-video-renderer.h>
 
-G_BEGIN_DECLS
+
 
 typedef struct _GstPlayerVideoOverlayVideoRenderer
     GstPlayerVideoOverlayVideoRenderer;
@@ -63,6 +63,6 @@ void gst_player_video_overlay_video_renderer_set_render_rectangle (GstPlayerVide
 GST_PLAYER_API
 void gst_player_video_overlay_video_renderer_get_render_rectangle (GstPlayerVideoOverlayVideoRenderer * self, gint *x, gint *y, gint *width, gint *height);
 
-G_END_DECLS
+
 
 #endif /* __GST_PLAYER_VIDEO_OVERLAY_VIDEO_RENDERER_H__ */

@@ -32,13 +32,13 @@
  * @title: GstWebRTC Enumerations
  */
 
-G_BEGIN_DECLS
+
 
 #ifndef GST_WEBRTC_API
 # ifdef BUILDING_GST_WEBRTC
-#  define GST_WEBRTC_API GST_API_EXPORT         /* from config.h */
+#  define GST_WEBRTC_API extern_EXPORT         /* from config.h */
 # else
-#  define GST_WEBRTC_API GST_API_IMPORT
+#  define GST_WEBRTC_API extern_IMPORT
 # endif
 #endif
 
@@ -596,6 +596,6 @@ typedef enum /*<underscore_name=gst_webrtc_error>*/
   GST_WEBRTC_ERROR_TYPE_ERROR,
 } GstWebRTCError;
 
-G_END_DECLS
+
 
 #endif /* __GST_WEBRTC_FWD_H__ */

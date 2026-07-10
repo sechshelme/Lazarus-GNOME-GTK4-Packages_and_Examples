@@ -25,7 +25,7 @@
 #include <gst/gst.h>
 #include <gst/sdp/sdp-prelude.h>
 
-G_BEGIN_DECLS
+
 
 GST_SDP_API
 GType gst_mikey_message_get_type(void);
@@ -166,7 +166,7 @@ struct _GstMIKEYPayload {
 };
 
 GST_SDP_API
-GstMIKEYPayload *   gst_mikey_payload_new      (GstMIKEYPayloadType type) G_GNUC_WARN_UNUSED_RESULT;
+GstMIKEYPayload *   gst_mikey_payload_new      (GstMIKEYPayloadType type) ;
 
 /**
  * gst_mikey_payload_ref:
@@ -576,28 +576,28 @@ struct _GstMIKEYMessage
 
 
 GST_SDP_API
-GstMIKEYMessage *           gst_mikey_message_new               (void) G_GNUC_WARN_UNUSED_RESULT;
+GstMIKEYMessage *           gst_mikey_message_new               (void) ;
 
 GST_SDP_API
 GstMIKEYMessage *           gst_mikey_message_new_from_data     (gconstpointer data, gsize size,
-                                                                 GstMIKEYDecryptInfo *info, GError **error) G_GNUC_WARN_UNUSED_RESULT;
+                                                                 GstMIKEYDecryptInfo *info, GError **error) ;
 
 GST_SDP_API
 GstMIKEYMessage *           gst_mikey_message_new_from_bytes    (GBytes *bytes, GstMIKEYDecryptInfo *info,
-                                                                 GError **error) G_GNUC_WARN_UNUSED_RESULT;
+                                                                 GError **error) ;
 
 GST_SDP_API
 GBytes *                    gst_mikey_message_to_bytes          (GstMIKEYMessage *msg, GstMIKEYEncryptInfo *info,
-                                                                 GError **error) G_GNUC_WARN_UNUSED_RESULT;
+                                                                 GError **error) ;
 
 GST_SDP_API
-GstMIKEYMessage *           gst_mikey_message_new_from_caps     (GstCaps *caps) G_GNUC_WARN_UNUSED_RESULT;
+GstMIKEYMessage *           gst_mikey_message_new_from_caps     (GstCaps *caps) ;
 
 GST_SDP_API
 gboolean                    gst_mikey_message_to_caps           (const GstMIKEYMessage *msg, GstCaps *caps);
 
 GST_SDP_API
-gchar *                     gst_mikey_message_base64_encode     (GstMIKEYMessage* msg) G_GNUC_WARN_UNUSED_RESULT;
+gchar *                     gst_mikey_message_base64_encode     (GstMIKEYMessage* msg) ;
 
 /**
  * gst_mikey_message_ref:
@@ -740,10 +740,10 @@ gboolean                    gst_mikey_message_add_rand_len      (GstMIKEYMessage
 /* General Extension Payload */
 
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstMIKEYMessage, gst_mikey_message_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstMIKEYMessage, gst_mikey_message_unref)
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstMIKEYPayload, gst_mikey_payload_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstMIKEYPayload, gst_mikey_payload_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_MIKEY_H__ */

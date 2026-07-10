@@ -23,7 +23,7 @@
 
 #include <gst/gl/gstgl_fwd.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_GL_SYNC_META_API_TYPE (gst_gl_sync_meta_api_get_type())
 #define GST_GL_SYNC_META_INFO     (gst_gl_sync_meta_get_info())
@@ -90,6 +90,6 @@ void                gst_gl_sync_meta_wait               (GstGLSyncMeta * sync_me
 GST_GL_API
 void                gst_gl_sync_meta_wait_cpu           (GstGLSyncMeta * sync_meta, GstGLContext * context);
 
-G_END_DECLS
+
 
 #endif /* __GST_GL_SYNC_META_H__ */

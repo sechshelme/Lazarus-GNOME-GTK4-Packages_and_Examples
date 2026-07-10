@@ -24,7 +24,7 @@
 #include <gst/codecparsers/gstav1parser.h>
 #include <gst/codecparsers/codecparsers-prelude.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GstAV1BitWriterResult:
@@ -83,6 +83,6 @@ GstAV1BitWriterResult    gst_av1_bit_writer_metadata_obu        (const GstAV1Met
                                                                  gboolean size_field,
                                                                  guint8 * data,
                                                                  guint * size);
-G_END_DECLS
+
 
 #endif /* __GST_AV1_BIT_WRITER_H__ */

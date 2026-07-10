@@ -29,9 +29,9 @@
 #include <gst/gstcaps.h>
 #include <gst/gstsegment.h>
 
-G_BEGIN_DECLS
 
-GST_API GType _gst_sample_type;
+
+extern GType _gst_sample_type;
 
 #define GST_TYPE_SAMPLE      (_gst_sample_type)
 #define GST_IS_SAMPLE(obj)   (GST_IS_MINI_OBJECT_TYPE(obj, GST_TYPE_SAMPLE))
@@ -47,44 +47,44 @@ GST_API GType _gst_sample_type;
  */
 typedef struct _GstSample GstSample;
 
-GST_API
+extern
 GType                gst_sample_get_type      (void);
 
 /* allocation */
 
-GST_API
+extern
 GstSample *          gst_sample_new           (GstBuffer          *buffer,
                                                GstCaps            *caps,
                                                const GstSegment   *segment,
-                                               GstStructure       *info) G_GNUC_WARN_UNUSED_RESULT;
-GST_API
+                                               GstStructure       *info) ;
+extern
 GstBuffer *          gst_sample_get_buffer    (GstSample *sample);
 
-GST_API
+extern
 GstCaps *            gst_sample_get_caps      (GstSample *sample);
 
-GST_API
+extern
 GstSegment *         gst_sample_get_segment   (GstSample *sample);
 
-GST_API
+extern
 const GstStructure * gst_sample_get_info      (GstSample *sample);
 
-GST_API
+extern
 GstBufferList *      gst_sample_get_buffer_list (GstSample *sample);
 
-GST_API
+extern
 void                 gst_sample_set_buffer_list (GstSample *sample, GstBufferList *buffer_list);
 
-GST_API
+extern
 void                 gst_sample_set_buffer    (GstSample *sample, GstBuffer *buffer);
 
-GST_API
+extern
 void                 gst_sample_set_caps      (GstSample *sample, GstCaps *caps);
 
-GST_API
+extern
 void                 gst_sample_set_segment   (GstSample * sample, const GstSegment *segment);
 
-GST_API
+extern
 gboolean             gst_sample_set_info      (GstSample *sample, GstStructure *info);
 
 #ifndef GST_DISABLE_MINIOBJECT_INLINE_FUNCTIONS
@@ -103,7 +103,7 @@ gst_sample_unref (GstSample * sample)
 }
 
 /* copy sample */
-G_GNUC_WARN_UNUSED_RESULT static inline GstSample *
+ static inline GstSample *
 gst_sample_copy (const GstSample * sample)
 {
   return GST_SAMPLE_CAST (gst_mini_object_copy (GST_MINI_OBJECT_CONST_CAST (sample)));
@@ -115,7 +115,7 @@ gst_clear_sample (GstSample ** sample_ptr)
   gst_clear_mini_object ((GstMiniObject **) sample_ptr);
 }
 
-G_GNUC_WARN_UNUSED_RESULT static inline GstSample *
+ static inline GstSample *
 gst_sample_make_writable (GstSample * sample)
 {
   return GST_SAMPLE_CAST (gst_mini_object_make_writable (GST_MINI_OBJECT_CAST (sample)));
@@ -127,21 +127,21 @@ gst_sample_is_writable (const GstSample * sample)
   return gst_mini_object_is_writable (GST_MINI_OBJECT_CONST_CAST (sample));
 }
 #else /* GST_DISABLE_MINIOBJECT_INLINE_FUNCTIONS */
-GST_API
+extern
 GstSample * gst_sample_ref    (GstSample * sample);
 
-GST_API
+extern
 void        gst_sample_unref  (GstSample * sample);
 
-GST_API
-GstSample *   gst_sample_copy (const GstSample * sample) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstSample *   gst_sample_copy (const GstSample * sample) ;
 
-GST_API
+extern
 void          gst_clear_sample (GstSample ** sample_ptr);
 
-GST_API
-GstSample *   gst_sample_make_writable (GstSample * sample) G_GNUC_WARN_UNUSED_RESULT;
-GST_API
+extern
+GstSample *   gst_sample_make_writable (GstSample * sample) ;
+extern
 gboolean      gst_sample_is_writable (const GstSample * sample);
 #endif /* GST_DISABLE_MINIOBJECT_INLINE_FUNCTIONS */
 
@@ -173,8 +173,8 @@ gboolean      gst_sample_is_writable (const GstSample * sample);
  */
 #define         gst_value_get_sample(v)         GST_SAMPLE_CAST (g_value_get_boxed(v))
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstSample, gst_sample_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstSample, gst_sample_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_SAMPLE_H__ */

@@ -28,7 +28,7 @@
 
 #include <glib-object.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_OBJECT			(gst_object_get_type ())
 #define GST_IS_OBJECT(obj)		(G_TYPE_CHECK_INSTANCE_TYPE ((obj), GST_TYPE_OBJECT))
@@ -259,120 +259,120 @@ struct _GstObjectClass {
 
 /* normal GObject stuff */
 
-GST_API
+extern
 GType		gst_object_get_type		(void);
 
 /* name routines */
 
-GST_API
+extern
 gboolean	gst_object_set_name		(GstObject *object, const gchar *name);
 
-GST_API
-gchar*		gst_object_get_name		(GstObject *object) G_GNUC_WARN_UNUSED_RESULT;
+extern
+gchar*		gst_object_get_name		(GstObject *object) ;
 
 /* parentage routines */
 
-GST_API
+extern
 gboolean	gst_object_set_parent		(GstObject *object, GstObject *parent);
 
-GST_API
-GstObject*	gst_object_get_parent		(GstObject *object) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstObject*	gst_object_get_parent		(GstObject *object) ;
 
-GST_API
-GstObject*	gst_object_get_toplevel (GstObject *object) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstObject*	gst_object_get_toplevel (GstObject *object) ;
 
-GST_API
+extern
 void		gst_object_unparent		(GstObject *object);
 
-GST_API
+extern
 gboolean	gst_object_has_as_parent		(GstObject *object, GstObject *parent);
 
-GST_API
+extern
 gboolean	gst_object_has_as_ancestor	(GstObject *object, GstObject *ancestor);
 
-GST_DEPRECATED_FOR(gst_object_has_as_ancestor)
+extern //xxxxxGLIB_DEPRECATED_IN(gst_object_has_as_ancestor)
 gboolean	gst_object_has_ancestor		(GstObject *object, GstObject *ancestor);
 
-GST_API
+extern
 void            gst_object_default_deep_notify  (GObject *object, GstObject *orig,
                                                  GParamSpec *pspec, gchar **excluded_props);
 
 /* refcounting + life cycle */
 
-GST_API
+extern
 gpointer	gst_object_ref			(gpointer object);
 
-GST_API
+extern
 void		gst_object_unref		(gpointer object);
 
-GST_API
+extern
 void        gst_clear_object (GstObject **object_ptr);
 #define     gst_clear_object(object_ptr) g_clear_pointer ((object_ptr), gst_object_unref)
 
-GST_API
+extern
 gpointer        gst_object_ref_sink		(gpointer object);
 
 /* replace object pointer */
 
-GST_API
+extern
 gboolean        gst_object_replace		(GstObject **oldobj, GstObject *newobj);
 
 /* printing out the 'path' of the object */
 
-GST_API
-gchar *		gst_object_get_path_string	(GstObject *object) G_GNUC_WARN_UNUSED_RESULT;
+extern
+gchar *		gst_object_get_path_string	(GstObject *object) ;
 
 /* misc utils */
 
-GST_API
+extern
 gboolean	gst_object_check_uniqueness	(GList *list, const gchar *name);
 
 /* controller functions */
 #include <gst/gstcontrolbinding.h>
 #include <gst/gstcontrolsource.h>
 
-GST_API
+extern
 GstClockTime    gst_object_suggest_next_sync      (GstObject * object);
 
-GST_API
+extern
 gboolean        gst_object_sync_values            (GstObject * object, GstClockTime timestamp);
 
-GST_API
+extern
 gboolean        gst_object_has_active_control_bindings   (GstObject *object);
 
-GST_API
+extern
 void            gst_object_set_control_bindings_disabled (GstObject *object, gboolean disabled);
 
-GST_API
+extern
 void            gst_object_set_control_binding_disabled  (GstObject *object,
                                                           const gchar * property_name,
                                                           gboolean disabled);
 
-GST_API
+extern
 gboolean        gst_object_add_control_binding    (GstObject * object, GstControlBinding * binding);
 
-GST_API
+extern
 GstControlBinding *
-                gst_object_get_control_binding    (GstObject *object, const gchar * property_name) G_GNUC_WARN_UNUSED_RESULT;
+                gst_object_get_control_binding    (GstObject *object, const gchar * property_name) ;
 
-GST_API
+extern
 gboolean        gst_object_remove_control_binding (GstObject * object, GstControlBinding * binding);
 
-GST_API
+extern
 GValue *        gst_object_get_value              (GstObject * object, const gchar * property_name,
-                                                   GstClockTime timestamp) G_GNUC_WARN_UNUSED_RESULT;
-GST_API
+                                                   GstClockTime timestamp) ;
+extern
 gboolean        gst_object_get_value_array        (GstObject * object, const gchar * property_name,
                                                    GstClockTime timestamp, GstClockTime interval,
                                                    guint n_values, gpointer values);
-GST_API
+extern
 gboolean        gst_object_get_g_value_array      (GstObject * object, const gchar * property_name,
                                                    GstClockTime timestamp, GstClockTime interval,
                                                    guint n_values, GValue *values);
-GST_API
+extern
 GstClockTime    gst_object_get_control_rate       (GstObject * object);
 
-GST_API
+extern
 void            gst_object_set_control_rate       (GstObject * object, GstClockTime control_rate);
 
 /**
@@ -387,14 +387,14 @@ void            gst_object_set_control_rate       (GstObject * object, GstClockT
 typedef void  (*GstObjectCallAsyncFunc)           (GstObject * object,
                                                    gpointer user_data);
 
-GST_API
+extern
 void            gst_object_call_async             (GstObject * object,
                                                    GstObjectCallAsyncFunc func,
                                                    gpointer user_data);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstObject, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstObject, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_OBJECT_H__ */
 

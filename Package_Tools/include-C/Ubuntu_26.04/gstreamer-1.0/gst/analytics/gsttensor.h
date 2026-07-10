@@ -190,12 +190,12 @@ typedef struct _GstTensor
   gsize dims[];
 } GstTensor;
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_TENSOR (gst_tensor_get_type())
 
 GST_ANALYTICS_META_API
-GstTensor * gst_tensor_alloc (gsize num_dims) G_GNUC_WARN_UNUSED_RESULT;
+GstTensor * gst_tensor_alloc (gsize num_dims) ;
 
 GST_ANALYTICS_META_API
 GstTensor * gst_tensor_new_simple (GQuark id,
@@ -203,7 +203,7 @@ GstTensor * gst_tensor_new_simple (GQuark id,
     GstBuffer * data,
     GstTensorDimOrder dims_order,
     gsize num_dims,
-    gsize * dims) G_GNUC_WARN_UNUSED_RESULT;
+    gsize * dims) ;
 
 GST_ANALYTICS_META_API
 gboolean gst_tensor_set_simple (GstTensor * tensor, GQuark id,
@@ -214,7 +214,7 @@ GST_ANALYTICS_META_API
 void gst_tensor_free (GstTensor * tensor);
 
 GST_ANALYTICS_META_API
-GstTensor * gst_tensor_copy (const GstTensor * tensor) G_GNUC_WARN_UNUSED_RESULT;
+GstTensor * gst_tensor_copy (const GstTensor * tensor) ;
 
 GST_ANALYTICS_META_API
 gsize * gst_tensor_get_dims (GstTensor * tensor, gsize * num_dims);
@@ -230,6 +230,6 @@ gboolean gst_tensor_check_type(const GstTensor * tensor,
     GstTensorDataType data_type, GstTensorDimOrder order, gsize num_dims,
     const gsize *dims);
 
-G_END_DECLS
+
 
 #endif /* __GST_TENSOR_H__ */

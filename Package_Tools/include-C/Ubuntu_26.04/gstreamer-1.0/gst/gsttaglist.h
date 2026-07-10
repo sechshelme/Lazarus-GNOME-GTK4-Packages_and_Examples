@@ -28,7 +28,7 @@
 #include <gst/gstbuffer.h>
 #include <gst/glib-compat.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GstTagMergeMode:
@@ -105,7 +105,7 @@ struct _GstTagList {
   GstMiniObject mini_object;
 };
 
-GST_API GType _gst_tag_list_type;
+extern GType _gst_tag_list_type;
 
 #define GST_TAG_LIST(x)       ((GstTagList *) (x))
 #define GST_TYPE_TAG_LIST     (_gst_tag_list_type)
@@ -134,19 +134,19 @@ typedef void (*GstTagForeachFunc) (const GstTagList * list,
  */
 typedef void (* GstTagMergeFunc) (GValue *dest, const GValue *src);
 
-GST_API
+extern
 GType        gst_tag_list_get_type (void);
 
 /* tag registration */
 
-GST_API
+extern
 void         gst_tag_register      (const gchar     * name,
                                     GstTagFlag        flag,
                                     GType             type,
                                     const gchar     * nick,
                                     const gchar     * blurb,
                                     GstTagMergeFunc   func);
-GST_API
+extern
 void         gst_tag_register_static (const gchar   * name,
                                       GstTagFlag      flag,
                                       GType           type,
@@ -156,30 +156,30 @@ void         gst_tag_register_static (const gchar   * name,
 
 /* some default merging functions */
 
-GST_API
+extern
 void      gst_tag_merge_use_first          (GValue * dest, const GValue * src);
 
-GST_API
+extern
 void      gst_tag_merge_strings_with_comma (GValue * dest, const GValue * src);
 
 /* basic tag support */
 
-GST_API
+extern
 gboolean               gst_tag_exists          (const gchar * tag);
 
-GST_API
+extern
 GType                  gst_tag_get_type        (const gchar * tag);
 
-GST_API
+extern
 const gchar *          gst_tag_get_nick        (const gchar * tag);
 
-GST_API
+extern
 const gchar *          gst_tag_get_description (const gchar * tag);
 
-GST_API
+extern
 GstTagFlag             gst_tag_get_flag        (const gchar * tag);
 
-GST_API
+extern
 gboolean               gst_tag_is_fixed        (const gchar * tag);
 
 /* tag lists */
@@ -197,203 +197,203 @@ typedef enum {
   GST_TAG_SCOPE_GLOBAL
 } GstTagScope;
 
-GST_API
-GstTagList * gst_tag_list_new_empty         (void) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstTagList * gst_tag_list_new_empty         (void)  ;
 
-GST_API
-GstTagList * gst_tag_list_new               (const gchar * tag, ...) G_GNUC_NULL_TERMINATED G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstTagList * gst_tag_list_new               (const gchar * tag, ...)   ;
 
-GST_API
-GstTagList * gst_tag_list_new_valist        (va_list var_args) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstTagList * gst_tag_list_new_valist        (va_list var_args)  ;
 
-GST_API
+extern
 void         gst_tag_list_set_scope         (GstTagList * list, GstTagScope scope);
 
-GST_API
+extern
 GstTagScope  gst_tag_list_get_scope         (const GstTagList * list);
 
-GST_API
-gchar      * gst_tag_list_to_string         (const GstTagList * list) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+extern
+gchar      * gst_tag_list_to_string         (const GstTagList * list)  ;
 
-GST_API
-GstTagList * gst_tag_list_new_from_string   (const gchar      * str) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstTagList * gst_tag_list_new_from_string   (const gchar      * str)  ;
 
-GST_API
+extern
 gint         gst_tag_list_n_tags            (const GstTagList * list);
 
-GST_API
+extern
 const gchar* gst_tag_list_nth_tag_name      (const GstTagList * list, guint index);
 
-GST_API
+extern
 gboolean     gst_tag_list_is_empty          (const GstTagList * list);
 
-GST_API
+extern
 gboolean     gst_tag_list_is_equal          (const GstTagList * list1,
                                              const GstTagList * list2);
-GST_API
+extern
 void         gst_tag_list_insert            (GstTagList       * into,
                                              const GstTagList * from,
                                              GstTagMergeMode    mode);
-GST_API
+extern
 GstTagList * gst_tag_list_merge             (const GstTagList * list1,
                                              const GstTagList * list2,
-                                             GstTagMergeMode    mode) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
-GST_API
+                                             GstTagMergeMode    mode)  ;
+extern
 guint        gst_tag_list_get_tag_size      (const GstTagList * list,
                                              const gchar      * tag);
-GST_API
+extern
 void         gst_tag_list_add               (GstTagList       * list,
                                              GstTagMergeMode    mode,
                                              const gchar      * tag,
-                                             ...) G_GNUC_NULL_TERMINATED;
-GST_API
+                                             ...) ;
+extern
 void         gst_tag_list_add_values        (GstTagList       * list,
                                              GstTagMergeMode    mode,
                                              const gchar      * tag,
-                                             ...) G_GNUC_NULL_TERMINATED;
-GST_API
+                                             ...) ;
+extern
 void         gst_tag_list_add_valist        (GstTagList       * list,
                                              GstTagMergeMode    mode,
                                              const gchar      * tag,
                                              va_list        var_args);
-GST_API
+extern
 void         gst_tag_list_add_valist_values (GstTagList       * list,
                                              GstTagMergeMode    mode,
                                              const gchar      * tag,
                                              va_list            var_args);
-GST_API
+extern
 void         gst_tag_list_add_value         (GstTagList       * list,
                                              GstTagMergeMode    mode,
                                              const gchar      * tag,
                                              const GValue     * value);
-GST_API
+extern
 void         gst_tag_list_remove_tag        (GstTagList       * list,
                                              const gchar      * tag);
-GST_API
+extern
 void         gst_tag_list_foreach           (const GstTagList * list,
                                              GstTagForeachFunc  func,
                                              gpointer           user_data);
-GST_API
+extern
 const GValue *
              gst_tag_list_get_value_index   (const GstTagList * list,
                                              const gchar      * tag,
                                              guint              index);
-GST_API
+extern
 gboolean     gst_tag_list_copy_value        (GValue           * dest,
                                              const GstTagList * list,
                                              const gchar      * tag);
 
 /* simplifications (FIXME: do we want them?) */
 
-GST_API
+extern
 gboolean     gst_tag_list_get_boolean       (const GstTagList * list,
                                              const gchar      * tag,
                                              gboolean         * value);
-GST_API
+extern
 gboolean     gst_tag_list_get_boolean_index (const GstTagList * list,
                                              const gchar      * tag,
                                              guint              index,
                                              gboolean         * value);
-GST_API
+extern
 gboolean     gst_tag_list_get_int           (const GstTagList * list,
                                              const gchar      * tag,
                                              gint             * value);
-GST_API
+extern
 gboolean     gst_tag_list_get_int_index     (const GstTagList * list,
                                              const gchar      * tag,
                                              guint              index,
                                              gint             * value);
-GST_API
+extern
 gboolean     gst_tag_list_get_uint          (const GstTagList * list,
                                              const gchar      * tag,
                                              guint            * value);
-GST_API
+extern
 gboolean     gst_tag_list_get_uint_index    (const GstTagList * list,
                                              const gchar      * tag,
                                              guint              index,
                                              guint            * value);
-GST_API
+extern
 gboolean     gst_tag_list_get_int64         (const GstTagList * list,
                                              const gchar      * tag,
                                              gint64           * value);
-GST_API
+extern
 gboolean     gst_tag_list_get_int64_index   (const GstTagList * list,
                                              const gchar      * tag,
                                              guint              index,
                                              gint64           * value);
-GST_API
+extern
 gboolean     gst_tag_list_get_uint64        (const GstTagList * list,
                                              const gchar      * tag,
                                              guint64          * value);
-GST_API
+extern
 gboolean     gst_tag_list_get_uint64_index  (const GstTagList * list,
                                              const gchar      * tag,
                                              guint              index,
                                              guint64          * value);
-GST_API
+extern
 gboolean     gst_tag_list_get_float         (const GstTagList * list,
                                              const gchar      * tag,
                                              gfloat           * value);
-GST_API
+extern
 gboolean     gst_tag_list_get_float_index   (const GstTagList * list,
                                              const gchar      * tag,
                                              guint              index,
                                              gfloat           * value);
-GST_API
+extern
 gboolean     gst_tag_list_get_double        (const GstTagList * list,
                                              const gchar      * tag,
                                              gdouble          * value);
-GST_API
+extern
 gboolean     gst_tag_list_get_double_index  (const GstTagList * list,
                                              const gchar      * tag,
                                              guint              index,
                                              gdouble          * value);
-GST_API
+extern
 gboolean     gst_tag_list_get_string        (const GstTagList * list,
                                              const gchar      * tag,
                                              gchar           ** value);
-GST_API
+extern
 gboolean     gst_tag_list_get_string_index  (const GstTagList * list,
                                              const gchar      * tag,
                                              guint              index,
                                              gchar           ** value);
-GST_API
+extern
 gboolean     gst_tag_list_peek_string_index (const GstTagList * list,
                                              const gchar      * tag,
                                              guint              index,
                                              const gchar     ** value);
-GST_API
+extern
 gboolean     gst_tag_list_get_pointer       (const GstTagList * list,
                                              const gchar      * tag,
                                              gpointer         * value);
-GST_API
+extern
 gboolean     gst_tag_list_get_pointer_index (const GstTagList * list,
                                              const gchar      * tag,
                                              guint              index,
                                              gpointer         * value);
-GST_API
+extern
 gboolean     gst_tag_list_get_date          (const GstTagList * list,
                                              const gchar      * tag,
                                              GDate           ** value);
-GST_API
+extern
 gboolean     gst_tag_list_get_date_index    (const GstTagList * list,
                                              const gchar      * tag,
                                              guint              index,
                                              GDate           ** value);
-GST_API
+extern
 gboolean     gst_tag_list_get_date_time     (const GstTagList * list,
                                              const gchar      * tag,
                                              GstDateTime     ** value);
-GST_API
+extern
 gboolean     gst_tag_list_get_date_time_index (const GstTagList * list,
                                              const gchar      * tag,
                                              guint              index,
                                              GstDateTime     ** value);
-GST_API
+extern
 gboolean     gst_tag_list_get_sample        (const GstTagList * list,
                                              const gchar      * tag,
                                              GstSample       ** sample);
-GST_API
+extern
 gboolean     gst_tag_list_get_sample_index  (const GstTagList * list,
                                              const gchar      * tag,
                                              guint              index,
@@ -419,7 +419,7 @@ gst_clear_tag_list (GstTagList ** taglist_ptr)
   gst_clear_mini_object ((GstMiniObject **) taglist_ptr);
 }
 
-G_GNUC_WARN_UNUSED_RESULT static inline GstTagList *
+ static inline GstTagList *
 gst_tag_list_copy (const GstTagList * taglist)
 {
   return (GstTagList *) (gst_mini_object_copy (GST_MINI_OBJECT_CONST_CAST (taglist)));
@@ -445,35 +445,35 @@ gst_tag_list_is_writable (const GstTagList * taglist)
   return gst_mini_object_is_writable (GST_MINI_OBJECT_CONST_CAST (taglist));
 }
 
-G_GNUC_WARN_UNUSED_RESULT static inline GstTagList *
+ static inline GstTagList *
 gst_tag_list_make_writable (GstTagList * taglist)
 {
   return (GstTagList *) (gst_mini_object_make_writable (GST_MINI_OBJECT_CAST (taglist)));
 }
 #else /* GST_DISABLE_MINIOBJECT_INLINE_FUNCTIONS */
-GST_API
+extern
 GstTagList *  gst_tag_list_ref   (GstTagList * taglist);
 
-GST_API
+extern
 void          gst_tag_list_unref (GstTagList * taglist);
 
-GST_API
+extern
 void          gst_clear_tag_list (GstTagList ** taglist_ptr);
 
-GST_API
-GstTagList*   gst_tag_list_copy  (const GstTagList* taglist) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstTagList*   gst_tag_list_copy  (const GstTagList* taglist) ;
 
-GST_API
+extern
 gboolean      gst_tag_list_replace (GstTagList ** old_taglist,
                                     GstTagList * new_taglist);
 
-GST_API
+extern
 gboolean      gst_tag_list_take    (GstTagList ** old_taglist,
                                     GstTagList * new_taglist);
 
-GST_API
-GstTagList * gst_tag_list_make_writable (GstTagList * taglist) G_GNUC_WARN_UNUSED_RESULT;
-GST_API
+extern
+GstTagList * gst_tag_list_make_writable (GstTagList * taglist) ;
+extern
 gboolean     gst_tag_list_is_writable   (const GstTagList * taglist);
 #endif
 
@@ -1131,8 +1131,8 @@ gboolean     gst_tag_list_is_writable   (const GstTagList * taglist);
  */
 #define GST_TAG_CONTAINER_SPECIFIC_TRACK_ID "container-specific-track-id"
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstTagList, gst_tag_list_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstTagList, gst_tag_list_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_TAGLIST_H__ */

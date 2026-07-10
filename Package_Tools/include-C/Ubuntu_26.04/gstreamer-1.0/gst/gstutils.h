@@ -30,31 +30,31 @@
 #include <gst/gstbin.h>
 #include <gst/gstparse.h>
 
-G_BEGIN_DECLS
 
-GST_API
+
+extern
 void            gst_util_set_value_from_string  (GValue *value, const gchar *value_str);
 
-GST_API
+extern
 void            gst_util_set_object_arg         (GObject *object, const gchar *name, const gchar *value);
 
-GST_API
+extern
 gboolean        gst_util_set_object_array       (GObject * object, const gchar * name,
                                                  const GValueArray * array);
-GST_API
+extern
 gboolean        gst_util_get_object_array       (GObject * object, const gchar * name,
                                                  GValueArray ** array);
-GST_API
+extern
 void            gst_util_dump_mem               (const guchar *mem, guint size);
 
-GST_API
+extern
 void            gst_util_dump_buffer            (GstBuffer * buf);
 
-GST_API
-guint64         gst_util_gdouble_to_guint64     (gdouble value)  G_GNUC_CONST;
+extern
+guint64         gst_util_gdouble_to_guint64     (gdouble value)  ;
 
-GST_API
-gdouble         gst_util_guint64_to_gdouble     (guint64 value)  G_GNUC_CONST;
+extern
+gdouble         gst_util_guint64_to_gdouble     (guint64 value)  ;
 
 /**
  * gst_guint64_to_gdouble:
@@ -81,22 +81,22 @@ gdouble         gst_util_guint64_to_gdouble     (guint64 value)  G_GNUC_CONST;
 #define         gst_guint64_to_gdouble(value)   ((gdouble) (value))
 #endif
 
-GST_API
+extern
 guint64         gst_util_uint64_scale           (guint64 val, guint64 num, guint64 denom);
 
-GST_API
+extern
 guint64         gst_util_uint64_scale_round     (guint64 val, guint64 num, guint64 denom);
 
-GST_API
+extern
 guint64         gst_util_uint64_scale_ceil      (guint64 val, guint64 num, guint64 denom);
 
-GST_API
+extern
 guint64         gst_util_uint64_scale_int       (guint64 val, gint num, gint denom);
 
-GST_API
+extern
 guint64         gst_util_uint64_scale_int_round (guint64 val, gint num, gint denom);
 
-GST_API
+extern
 guint64         gst_util_uint64_scale_int_ceil  (guint64 val, gint num, gint denom);
 
 /**
@@ -111,10 +111,10 @@ guint64         gst_util_uint64_scale_int_ceil  (guint64 val, gint num, gint den
  */
 #define GST_SEQNUM_INVALID (0)
 
-GST_API
+extern
 guint32         gst_util_seqnum_next            (void);
 
-GST_API
+extern
 gint32          gst_util_seqnum_compare         (guint32 s1, guint32 s2);
 
 /**
@@ -129,7 +129,7 @@ gint32          gst_util_seqnum_compare         (guint32 s1, guint32 s2);
  */
 #define GST_GROUP_ID_INVALID (0)
 
-GST_API
+extern
 guint           gst_util_group_id_next          (void);
 
 /**
@@ -973,205 +973,205 @@ GST_WRITE_DOUBLE_BE(guint8 *data, gdouble num)
 #define GST_ROUND_DOWN_N(num,align) (((num) & ~((align) - 1)))
 
 
-GST_API
+extern
 void                    gst_object_default_error        (GstObject    * source,
                                                          const GError * error,
                                                          const gchar  * debug);
 
 /* element functions */
 
-GST_API
+extern
 void                    gst_element_create_all_pads     (GstElement *element);
 
-GST_API
+extern
 GstPad*                 gst_element_get_compatible_pad  (GstElement *element, GstPad *pad,
-                                                         GstCaps *caps) G_GNUC_WARN_UNUSED_RESULT;
-GST_API
+                                                         GstCaps *caps) ;
+extern
 GstPadTemplate*         gst_element_get_compatible_pad_template (GstElement *element, GstPadTemplate *compattempl);
 
-GST_DEPRECATED_FOR(gst_state_get_name)
+extern //xxxxxGLIB_DEPRECATED_IN(gst_state_get_name)
 const gchar*            gst_element_state_get_name      (GstState state);
 
-GST_DEPRECATED_FOR(gst_state_change_return_get_name)
+extern //xxxxxGLIB_DEPRECATED_IN(gst_state_change_return_get_name)
 const gchar *           gst_element_state_change_return_get_name (GstStateChangeReturn state_ret);
 
-GST_API
+extern
 const gchar*            gst_state_get_name               (GstState state);
 
-GST_API
+extern
 const gchar *           gst_state_change_return_get_name (GstStateChangeReturn state_ret);
 
-GST_API
+extern
 const gchar *           gst_state_change_get_name       (GstStateChange transition);
 
-GST_API
+extern
 gboolean                gst_element_link                (GstElement *src, GstElement *dest);
 
-GST_API
+extern
 gboolean                gst_element_link_many           (GstElement *element_1,
-                                                         GstElement *element_2, ...) G_GNUC_NULL_TERMINATED;
-GST_API
+                                                         GstElement *element_2, ...) ;
+extern
 gboolean                gst_element_link_filtered       (GstElement * src,
                                                          GstElement * dest,
                                                          GstCaps *filter);
-GST_API
+extern
 void                    gst_element_unlink              (GstElement *src, GstElement *dest);
 
-GST_API
+extern
 void                    gst_element_unlink_many         (GstElement *element_1,
-                                                         GstElement *element_2, ...) G_GNUC_NULL_TERMINATED;
-GST_API
+                                                         GstElement *element_2, ...) ;
+extern
 gboolean                gst_element_link_pads           (GstElement *src, const gchar *srcpadname,
                                                          GstElement *dest, const gchar *destpadname);
-GST_API
+extern
 gboolean                gst_element_link_pads_full      (GstElement *src, const gchar *srcpadname,
                                                          GstElement *dest, const gchar *destpadname,
                                                          GstPadLinkCheck flags);
-GST_API
+extern
 void                    gst_element_unlink_pads         (GstElement *src, const gchar *srcpadname,
                                                          GstElement *dest, const gchar *destpadname);
-GST_API
+extern
 gboolean                gst_element_link_pads_filtered  (GstElement * src, const gchar * srcpadname,
                                                          GstElement * dest, const gchar * destpadname,
                                                          GstCaps *filter);
-GST_API
+extern
 gboolean                gst_element_seek_simple         (GstElement   *element,
                                                          GstFormat     format,
                                                          GstSeekFlags  seek_flags,
                                                          gint64        seek_pos);
 
-GST_API
+extern
 gchar *                 gst_element_decorate_stream_id  (GstElement   *element,
-                                                         const gchar  *stream_id) G_GNUC_WARN_UNUSED_RESULT;
-GST_API
+                                                         const gchar  *stream_id) ;
+extern
 gchar *   gst_element_decorate_stream_id_printf_valist  (GstElement * element,
                                                          const gchar * format,
-                                                         va_list var_args) G_GNUC_PRINTF (2, 0) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
-GST_API
+                                                         va_list var_args) ;// (2, 0)  ;
+extern
 gchar *          gst_element_decorate_stream_id_printf  (GstElement * element,
                                                          const gchar * format,
-                                                         ...) G_GNUC_PRINTF (2, 3) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+                                                         ...) ;// (2, 3)  ;
 /* util elementfactory functions */
 
-GST_API
+extern
 gboolean gst_element_factory_can_sink_all_caps (GstElementFactory *factory, const GstCaps *caps);
 
-GST_API
+extern
 gboolean gst_element_factory_can_src_all_caps  (GstElementFactory *factory, const GstCaps *caps);
 
-GST_API
+extern
 gboolean gst_element_factory_can_sink_any_caps (GstElementFactory *factory, const GstCaps *caps);
 
-GST_API
+extern
 gboolean gst_element_factory_can_src_any_caps  (GstElementFactory *factory, const GstCaps *caps);
 
 /* util query functions */
 
-GST_API
+extern
 gboolean                gst_element_query_position      (GstElement *element, GstFormat format, gint64 *cur);
 
-GST_API
+extern
 gboolean                gst_element_query_duration      (GstElement *element, GstFormat format, gint64 *duration);
 
-GST_API
+extern
 gboolean                gst_element_query_convert       (GstElement *element, GstFormat src_format, gint64 src_val,
                                                          GstFormat dest_format, gint64 *dest_val);
 
 /* pad functions */
 
-GST_API
+extern
 void                    gst_pad_use_fixed_caps          (GstPad *pad);
 
-GST_API
-GstElement*             gst_pad_get_parent_element      (GstPad *pad) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstElement*             gst_pad_get_parent_element      (GstPad *pad) ;
 
 /* util query functions */
 
-GST_API
+extern
 gboolean                gst_pad_proxy_query_accept_caps (GstPad *pad, GstQuery *query);
 
-GST_API
+extern
 gboolean                gst_pad_proxy_query_caps        (GstPad *pad, GstQuery *query);
 
-GST_API
+extern
 gboolean                gst_pad_query_position          (GstPad *pad, GstFormat format, gint64 *cur);
 
-GST_API
+extern
 gboolean                gst_pad_query_duration          (GstPad *pad, GstFormat format, gint64 *duration);
 
-GST_API
+extern
 gboolean                gst_pad_query_convert           (GstPad *pad, GstFormat src_format, gint64 src_val,
                                                          GstFormat dest_format, gint64 *dest_val);
-GST_API
-GstCaps *               gst_pad_query_caps              (GstPad *pad, GstCaps *filter) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstCaps *               gst_pad_query_caps              (GstPad *pad, GstCaps *filter) ;
 
-GST_API
+extern
 gboolean                gst_pad_query_accept_caps       (GstPad *pad, GstCaps *caps);
 
-GST_API
+extern
 gboolean                gst_pad_link_maybe_ghosting      (GstPad            *src,
                                                           GstPad            *sink);
-GST_API
+extern
 gboolean                gst_pad_link_maybe_ghosting_full (GstPad            *src,
                                                           GstPad            *sink,
                                                           GstPadLinkCheck   flags);
-GST_API
+extern
 gboolean                gst_pad_peer_query_position     (GstPad *pad, GstFormat format, gint64 *cur);
 
-GST_API
+extern
 gboolean                gst_pad_peer_query_duration     (GstPad *pad, GstFormat format, gint64 *duration);
 
-GST_API
+extern
 gboolean                gst_pad_peer_query_convert      (GstPad *pad, GstFormat src_format, gint64 src_val,
                                                          GstFormat dest_format, gint64 *dest_val);
-GST_API
-GstCaps *               gst_pad_peer_query_caps         (GstPad * pad, GstCaps *filter) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstCaps *               gst_pad_peer_query_caps         (GstPad * pad, GstCaps *filter) ;
 
-GST_API
+extern
 gboolean                gst_pad_peer_query_accept_caps  (GstPad * pad, GstCaps *caps);
 
-GST_API
-gchar *                 gst_pad_create_stream_id               (GstPad * pad, GstElement * parent, const gchar *stream_id) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+extern
+gchar *                 gst_pad_create_stream_id               (GstPad * pad, GstElement * parent, const gchar *stream_id)  ;
 
-GST_API
-gchar *                 gst_pad_create_stream_id_printf        (GstPad * pad, GstElement * parent, const gchar *stream_id, ...) G_GNUC_PRINTF (3, 4) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+extern
+gchar *                 gst_pad_create_stream_id_printf        (GstPad * pad, GstElement * parent, const gchar *stream_id, ...) ;// (3, 4)  ;
 
-GST_API
-gchar *                 gst_pad_create_stream_id_printf_valist (GstPad * pad, GstElement * parent, const gchar *stream_id, va_list var_args) G_GNUC_PRINTF (3, 0) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+extern
+gchar *                 gst_pad_create_stream_id_printf_valist (GstPad * pad, GstElement * parent, const gchar *stream_id, va_list var_args) ;// (3, 0)  ;
 
-GST_API
-gchar *                 gst_pad_get_stream_id           (GstPad * pad) G_GNUC_WARN_UNUSED_RESULT;
+extern
+gchar *                 gst_pad_get_stream_id           (GstPad * pad) ;
 
-GST_API
-GstStream *             gst_pad_get_stream              (GstPad * pad) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstStream *             gst_pad_get_stream              (GstPad * pad) ;
 
 /* bin functions */
 
-GST_API
-void                    gst_bin_add_many                (GstBin *bin, GstElement *element_1, ...) G_GNUC_NULL_TERMINATED;
+extern
+void                    gst_bin_add_many                (GstBin *bin, GstElement *element_1, ...) ;
 
-GST_API
-void                    gst_bin_remove_many             (GstBin *bin, GstElement *element_1, ...) G_GNUC_NULL_TERMINATED;
+extern
+void                    gst_bin_remove_many             (GstBin *bin, GstElement *element_1, ...) ;
 
-GST_API
-GstPad *                gst_bin_find_unlinked_pad       (GstBin *bin, GstPadDirection direction) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstPad *                gst_bin_find_unlinked_pad       (GstBin *bin, GstPadDirection direction) ;
 
-GST_API
+extern
 gboolean                gst_bin_sync_children_states    (GstBin *bin);
 
 /* parse utility functions */
 
-GST_API
+extern
 GstElement *            gst_parse_bin_from_description      (const gchar     * bin_description,
                                                              gboolean          ghost_unlinked_pads,
                                                              GError         ** err);
-GST_API
+extern
 GstElement *            gst_parse_bin_from_description_full (const gchar     * bin_description,
                                                              gboolean          ghost_unlinked_pads,
                                                              GstParseContext * context,
                                                              GstParseFlags     flags,
                                                              GError         ** err);
-GST_API
+extern
 GstClockTime            gst_util_get_timestamp          (void);
 
 /**
@@ -1200,7 +1200,7 @@ typedef enum {
   GST_PLUGIN_API_FLAG_IGNORE_ENUM_MEMBERS = (1 << 0),
 } GstPluginAPIFlags;
 
-GST_API
+extern
 gpointer      gst_util_array_binary_search      (gpointer array, guint num_elements,
                                                  gsize element_size, GCompareDataFunc search_func,
                                                  GstSearchMode mode, gconstpointer search_data,
@@ -1208,54 +1208,54 @@ gpointer      gst_util_array_binary_search      (gpointer array, guint num_eleme
 
 /* fraction operations */
 
-GST_API
+extern
 gint          gst_util_greatest_common_divisor  (gint a, gint b);
 
-GST_API
+extern
 gint64        gst_util_greatest_common_divisor_int64 (gint64 a, gint64 b);
 
-GST_API
+extern
 void          gst_util_simplify_fraction        (gint *numerator, gint *denominator,
                                                  guint n_terms, guint threshold);
 
-GST_API
+extern
 void          gst_util_fraction_to_double       (gint src_n, gint src_d, gdouble *dest);
 
-GST_API
+extern
 void          gst_util_double_to_fraction       (gdouble src, gint *dest_n, gint *dest_d);
 
-GST_API
+extern
 gboolean      gst_util_fraction_multiply        (gint a_n, gint a_d, gint b_n, gint b_d,
                                                  gint *res_n, gint *res_d);
-GST_API
+extern
 gboolean      gst_util_fraction_multiply_int64  (gint64 a_n, gint64 a_d, gint64 b_n, gint64 b_d,
                                                  gint64 *res_n, gint64 *res_d);
-GST_API
+extern
 gboolean      gst_util_fraction_add             (gint a_n, gint a_d, gint b_n, gint b_d,
                                                  gint *res_n, gint *res_d);
-GST_API
+extern
 gint          gst_util_fraction_compare         (gint a_n, gint a_d, gint b_n, gint b_d);
 
-GST_API
+extern
 gboolean      gst_calculate_linear_regression   (const GstClockTime * xy,
                                                  GstClockTime * temp, guint n,
                                                  GstClockTime * m_num, GstClockTime * m_denom,
                                                  GstClockTime * b, GstClockTime * xbase,
                                                  gdouble * r_squared);
 
-GST_API
+extern
 void          gst_type_mark_as_plugin_api       (GType type, GstPluginAPIFlags flags);
 
-GST_API
+extern
 gboolean      gst_type_is_plugin_api            (GType type, GstPluginAPIFlags *flags);
 
-GST_API
+extern
 guint         gst_util_ceil_log2                (guint32 v);
 
-GST_API
+extern
 guint         gst_util_floor_log2               (guint32 v);
 
-GST_API
+extern
 gint          gst_util_filename_compare        (const gchar *a, const gchar *b);
 
 /**
@@ -1268,10 +1268,10 @@ gint          gst_util_filename_compare        (const gchar *a, const gchar *b);
  */
 typedef void  (*GstCallAsyncFunc)               (gpointer user_data);
 
-GST_API
+extern
 void          gst_call_async                    (GstCallAsyncFunc func,
                                                  gpointer user_data);
 
-G_END_DECLS
+
 
 #endif /* __GST_UTILS_H__ */

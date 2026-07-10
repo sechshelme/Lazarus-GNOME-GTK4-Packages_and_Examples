@@ -24,7 +24,7 @@
 #include <gst/gl/gstglbasememory.h>
 #include <gst/gl/gstglformat.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_GL_MEMORY_ALLOCATOR (gst_gl_memory_allocator_get_type())
 GST_GL_API
@@ -166,7 +166,7 @@ GstGLVideoAllocationParams * gst_gl_video_allocation_params_new (GstGLContext * 
                                                                  guint plane,
                                                                  const GstVideoAlignment * valign,
                                                                  GstGLTextureTarget target,
-                                                                 GstGLFormat tex_format) G_GNUC_WARN_UNUSED_RESULT;
+                                                                 GstGLFormat tex_format) ;
 GST_GL_API
 GstGLVideoAllocationParams * gst_gl_video_allocation_params_new_wrapped_data    (GstGLContext * context,
                                                                                  const GstAllocationParams * alloc_params,
@@ -177,7 +177,7 @@ GstGLVideoAllocationParams * gst_gl_video_allocation_params_new_wrapped_data    
                                                                                  GstGLFormat tex_format,
                                                                                  gpointer wrapped_data,
                                                                                  gpointer user_data,
-                                                                                 GDestroyNotify notify) G_GNUC_WARN_UNUSED_RESULT;
+                                                                                 GDestroyNotify notify) ;
 
 GST_GL_API
 GstGLVideoAllocationParams * gst_gl_video_allocation_params_new_wrapped_texture (GstGLContext * context,
@@ -189,7 +189,7 @@ GstGLVideoAllocationParams * gst_gl_video_allocation_params_new_wrapped_texture 
                                                                                  GstGLFormat tex_format,
                                                                                  guint tex_id,
                                                                                  gpointer user_data,
-                                                                                 GDestroyNotify notify) G_GNUC_WARN_UNUSED_RESULT;
+                                                                                 GDestroyNotify notify) ;
 
 GST_GL_API
 GstGLVideoAllocationParams * gst_gl_video_allocation_params_new_wrapped_gl_handle (GstGLContext * context,
@@ -201,7 +201,7 @@ GstGLVideoAllocationParams * gst_gl_video_allocation_params_new_wrapped_gl_handl
                                                                                  GstGLFormat tex_format,
                                                                                  gpointer gl_handle,
                                                                                  gpointer user_data,
-                                                                                 GDestroyNotify notify) G_GNUC_WARN_UNUSED_RESULT;
+                                                                                 GDestroyNotify notify) ;
 
 /* subclass usage */
 GST_GL_API
@@ -327,6 +327,6 @@ gboolean                gst_gl_memory_setup_buffer          (GstGLMemoryAllocato
 GST_GL_API
 GstGLMemoryAllocator *  gst_gl_memory_allocator_get_default (GstGLContext *context);
 
-G_END_DECLS
+
 
 #endif /* _GST_GL_MEMORY_H_ */

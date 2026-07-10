@@ -26,7 +26,7 @@
 #include <gst/gst.h>
 #include <gst/analytics/analytics-meta-prelude.h>
 
-G_BEGIN_DECLS
+
 
 GST_ANALYTICS_META_API
 gfloat gst_analytics_image_util_iou_int (gint bb1_x, gint bb1_y, gint bb1_w,
@@ -37,6 +37,6 @@ gfloat gst_analytics_image_util_iou_float (gfloat bb1_x, gfloat bb1_y, gfloat
     bb1_w, gfloat bb1_h, gfloat bb2_x, gfloat bb2_y, gfloat bb2_w, gfloat
     bb2_h);
 
-G_END_DECLS
+
 
 #endif /* __GST_ANALYTICS_IMAGE_UTIL_H__ */

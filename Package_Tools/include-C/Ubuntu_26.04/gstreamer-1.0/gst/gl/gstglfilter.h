@@ -28,7 +28,7 @@
 
 #include <gst/gl/gl.h>
 
-G_BEGIN_DECLS
+
 
 GST_GL_API
 GType gst_gl_filter_get_type(void);
@@ -144,6 +144,6 @@ void gst_gl_filter_render_to_target_with_shader     (GstGLFilter * filter,
                                                      GstGLMemory * output,
                                                      GstGLShader *shader);
 
-G_END_DECLS
+
 
 #endif /* _GST_GL_FILTER_H_ */

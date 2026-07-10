@@ -24,7 +24,7 @@
 #include <gst/video/video-format.h>
 #include <gst/video/video-info.h>
 
-G_BEGIN_DECLS
+
 
 typedef struct _GstVideoAncillary GstVideoAncillary;
 
@@ -599,10 +599,10 @@ GstVideoVBIParserResult gst_video_vbi_parser_get_ancillary(GstVideoVBIParser *pa
 							   GstVideoAncillary *anc);
 
 GST_VIDEO_API
-GstVideoVBIParser *gst_video_vbi_parser_new (GstVideoFormat format, guint32 pixel_width) G_GNUC_WARN_UNUSED_RESULT;
+GstVideoVBIParser *gst_video_vbi_parser_new (GstVideoFormat format, guint32 pixel_width) ;
 
 GST_VIDEO_API
-GstVideoVBIParser *gst_video_vbi_parser_copy (const GstVideoVBIParser *parser) G_GNUC_WARN_UNUSED_RESULT;
+GstVideoVBIParser *gst_video_vbi_parser_copy (const GstVideoVBIParser *parser) ;
 
 GST_VIDEO_API
 void               gst_video_vbi_parser_free (GstVideoVBIParser *parser);
@@ -625,10 +625,10 @@ GST_VIDEO_API
 GType gst_video_vbi_encoder_get_type (void);
 
 GST_VIDEO_API
-GstVideoVBIEncoder *gst_video_vbi_encoder_new  (GstVideoFormat format, guint32 pixel_width) G_GNUC_WARN_UNUSED_RESULT;
+GstVideoVBIEncoder *gst_video_vbi_encoder_new  (GstVideoFormat format, guint32 pixel_width) ;
 
 GST_VIDEO_API
-GstVideoVBIEncoder *gst_video_vbi_encoder_copy (const GstVideoVBIEncoder *encoder) G_GNUC_WARN_UNUSED_RESULT;
+GstVideoVBIEncoder *gst_video_vbi_encoder_copy (const GstVideoVBIEncoder *encoder) ;
 
 GST_VIDEO_API
 void               gst_video_vbi_encoder_free  (GstVideoVBIEncoder *encoder);
@@ -644,6 +644,6 @@ gboolean gst_video_vbi_encoder_add_ancillary   (GstVideoVBIEncoder *encoder,
 GST_VIDEO_API
 void gst_video_vbi_encoder_write_line (GstVideoVBIEncoder *encoder, guint8 *data);
 
-G_END_DECLS
+
 
 #endif /* __GST_VIDEO_ANC_H__ */

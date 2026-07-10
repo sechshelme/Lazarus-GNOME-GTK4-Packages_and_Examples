@@ -27,7 +27,7 @@
 
 #include <gst/gl/gstgldisplay.h>
 
-G_BEGIN_DECLS
+
 
 GST_GL_API
 GType gst_gl_display_x11_get_type (void);
@@ -69,11 +69,11 @@ struct _GstGLDisplayX11Class
 };
 
 GST_GL_API
-GstGLDisplayX11 *gst_gl_display_x11_new (const gchar * name) G_GNUC_WARN_UNUSED_RESULT;
+GstGLDisplayX11 *gst_gl_display_x11_new (const gchar * name) ;
 
 GST_GL_API
-GstGLDisplayX11 *gst_gl_display_x11_new_with_display (Display *display) G_GNUC_WARN_UNUSED_RESULT;
+GstGLDisplayX11 *gst_gl_display_x11_new_with_display (Display *display) ;
 
-G_END_DECLS
+
 
 #endif /* __GST_GL_DISPLAY_X11_H__ */

@@ -23,7 +23,7 @@
 
 #include <gst/gl/gstgl_fwd.h>
 
-G_BEGIN_DECLS
+
 
 typedef gchar * (*GstGLAsyncDebugLogGetMessage) (gpointer user_data);
 
@@ -100,7 +100,7 @@ void                gst_gl_async_debug_thaw                     (GstGLAsyncDebug
 
 GST_GL_API
 void        gst_gl_insert_debug_marker              (GstGLContext * context,
-                                                     const gchar * format, ...) G_GNUC_PRINTF (2, 3);
+                                                     const gchar * format, ...) ;// (2, 3);
 GST_GL_API
 void        gst_gl_async_debug_output_log_msg       (GstGLAsyncDebug * ad);
 GST_GL_API
@@ -111,7 +111,7 @@ void        gst_gl_async_debug_store_log_msg        (GstGLAsyncDebug * ad,
                                                      const gchar * function,
                                                      gint line,
                                                      GObject * object,
-                                                     const gchar * format, ...) G_GNUC_PRINTF (8, 9);
+                                                     const gchar * format, ...) ;// (8, 9);
 GST_GL_API
 void        gst_gl_async_debug_store_log_msg_valist (GstGLAsyncDebug * ad,
                                                      GstDebugCategory * cat,
@@ -121,7 +121,7 @@ void        gst_gl_async_debug_store_log_msg_valist (GstGLAsyncDebug * ad,
                                                      gint line,
                                                      GObject * object,
                                                      const gchar * format,
-                                                     va_list varargs) G_GNUC_PRINTF (8, 0);
+                                                     va_list varargs) ;// (8, 0);
 
 #else /* GST_DISABLE_GST_DEBUG */
 
@@ -133,6 +133,6 @@ void        gst_gl_async_debug_store_log_msg_valist (GstGLAsyncDebug * ad,
 
 #endif /* GST_DISABLE_GST_DEBUG */
 
-G_END_DECLS
+
 
 #endif /* __GST_GL_DEBUG_H__ */

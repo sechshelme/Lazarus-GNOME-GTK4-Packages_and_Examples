@@ -31,7 +31,7 @@
 #include <gst/gst.h>
 #include <gst/analytics/analytics-meta-prelude.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GstAnalyticsBatchStream:
@@ -148,6 +148,6 @@ GST_ANALYTICS_META_API
 const GstSegment *
 gst_analytics_batch_stream_get_segment (GstAnalyticsBatchStream * stream);
 
-G_END_DECLS
+
 
 #endif

@@ -24,7 +24,7 @@
 
 #include <gst/gl/gstgldisplay.h>
 
-G_BEGIN_DECLS
+
 
 GST_GL_API
 GType gst_gl_display_egl_device_get_type (void);
@@ -71,12 +71,12 @@ struct _GstGLDisplayEGLDeviceClass
 };
 
 GST_GL_API
-GstGLDisplayEGLDevice *gst_gl_display_egl_device_new (guint device_index) G_GNUC_WARN_UNUSED_RESULT;
+GstGLDisplayEGLDevice *gst_gl_display_egl_device_new (guint device_index) ;
 
 GST_GL_API
-GstGLDisplayEGLDevice *gst_gl_display_egl_device_new_with_egl_device (gpointer device) G_GNUC_WARN_UNUSED_RESULT;
+GstGLDisplayEGLDevice *gst_gl_display_egl_device_new_with_egl_device (gpointer device) ;
 
 
-G_END_DECLS
+
 
 #endif /* __GST_GL_DISPLAY_EGL_DEVICE_H__ */

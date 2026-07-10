@@ -23,7 +23,7 @@
 #include <gst/gst.h>
 #include <gst/pbutils/pbutils-prelude.h>
 
-G_BEGIN_DECLS
+
 
 /*
  * functions to create missing-plugin messages, for use by plugins primarily
@@ -91,7 +91,7 @@ gchar * gst_missing_decoder_installer_detail_new (const GstCaps * decode_caps);
 GST_PBUTILS_API
 gchar * gst_missing_encoder_installer_detail_new (const GstCaps * encode_caps);
 
-G_END_DECLS
+
 
 #endif /* __GST_PB_UTILS_MISSING_PLUGINS_H__ */
 

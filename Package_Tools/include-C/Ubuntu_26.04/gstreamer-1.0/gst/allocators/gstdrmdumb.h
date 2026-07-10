@@ -30,7 +30,7 @@
 #include <gst/gst.h>
 #include <gst/allocators/allocators-prelude.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GstDRMDumbAllocator:
@@ -70,19 +70,19 @@ GST_ALLOCATORS_API
 GstMemory*     gst_drm_dumb_memory_export_dmabuf (GstMemory * mem);
 
 GST_ALLOCATORS_API
-GstAllocator * gst_drm_dumb_allocator_new_with_fd (gint drm_fd) G_GNUC_WARN_UNUSED_RESULT;
+GstAllocator * gst_drm_dumb_allocator_new_with_fd (gint drm_fd) ;
 
 GST_ALLOCATORS_API
-GstAllocator * gst_drm_dumb_allocator_new_with_device_path (const gchar *drm_device_path) G_GNUC_WARN_UNUSED_RESULT;
+GstAllocator * gst_drm_dumb_allocator_new_with_device_path (const gchar *drm_device_path) ;
 
 GST_ALLOCATORS_API
 GstMemory    * gst_drm_dumb_allocator_alloc (GstAllocator * allocator,
                                              guint32 drm_fourcc,
                                              guint32 width,
                                              guint32 height,
-                                             guint32 *out_pitch) G_GNUC_WARN_UNUSED_RESULT;
+                                             guint32 *out_pitch) ;
 
 GST_ALLOCATORS_API
 gboolean      gst_drm_dumb_allocator_has_prime_export (GstAllocator * allocator);
 
-G_END_DECLS
+

@@ -27,7 +27,7 @@
 #include <gst/base/gstpushsrc.h>
 #include <gst/gl/gstgl_fwd.h>
 
-G_BEGIN_DECLS
+
 
 GST_GL_API
 GType gst_gl_base_src_get_type(void);
@@ -96,8 +96,8 @@ struct _GstGLBaseSrcClass {
 };
 
 GST_GL_API
-GstGLContext * gst_gl_base_src_get_gl_context (GstGLBaseSrc *base_src) G_GNUC_WARN_UNUSED_RESULT;
+GstGLContext * gst_gl_base_src_get_gl_context (GstGLBaseSrc *base_src) ;
 
-G_END_DECLS
+
 
 #endif /* __GST_GL_BASE_SRC_H__ */

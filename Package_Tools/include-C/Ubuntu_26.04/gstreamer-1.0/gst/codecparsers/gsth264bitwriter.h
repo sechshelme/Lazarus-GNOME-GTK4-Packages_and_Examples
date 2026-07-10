@@ -24,7 +24,7 @@
 #include <gst/codecparsers/codecparsers-prelude.h>
 #include <gst/codecparsers/gsth264parser.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GstH264BitWriterResult:
@@ -88,6 +88,6 @@ GstH264BitWriterResult     gst_h264_bit_writer_convert_to_nal (guint nal_prefix_
                                                                guint8 * nal_data,
                                                                guint * nal_size);
 
-G_END_DECLS
+
 
 #endif /* __GST_H264_BIT_WRITER_H__ */

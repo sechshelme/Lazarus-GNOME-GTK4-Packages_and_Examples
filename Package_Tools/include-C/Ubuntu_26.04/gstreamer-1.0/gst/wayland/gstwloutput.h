@@ -22,7 +22,7 @@
 
 #include <gst/wayland/wayland-prelude.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_WL_OUTPUT (gst_wl_output_get_type ())
 
@@ -82,4 +82,4 @@ gint gst_wl_output_get_height (GstWlOutput *self);
 GST_WL_API
 gint gst_wl_output_get_refresh (GstWlOutput *self);
 
-G_END_DECLS
+

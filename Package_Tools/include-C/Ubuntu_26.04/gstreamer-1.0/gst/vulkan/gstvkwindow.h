@@ -25,7 +25,7 @@
 
 #include <gst/vulkan/vulkan.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_VULKAN_WINDOW         (gst_vulkan_window_get_type())
 #define GST_VULKAN_WINDOW(o)           (G_TYPE_CHECK_INSTANCE_CAST((o), GST_TYPE_VULKAN_WINDOW, GstVulkanWindow))
@@ -140,13 +140,13 @@ struct _GstVulkanWindowClass {
   gpointer _reserved[GST_PADDING];
 };
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstVulkanWindow, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstVulkanWindow, gst_object_unref)
 
 GST_VULKAN_API
-GstVulkanWindow *  gst_vulkan_window_new                            (GstVulkanDisplay *display) G_GNUC_WARN_UNUSED_RESULT;
+GstVulkanWindow *  gst_vulkan_window_new                            (GstVulkanDisplay *display) ;
 
 GST_VULKAN_API
-GstVulkanDisplay * gst_vulkan_window_get_display                    (GstVulkanWindow *window) G_GNUC_WARN_UNUSED_RESULT;
+GstVulkanDisplay * gst_vulkan_window_get_display                    (GstVulkanWindow *window) ;
 GST_VULKAN_API
 VkSurfaceKHR       gst_vulkan_window_get_surface                    (GstVulkanWindow *window,
                                                                      GError **error);
@@ -189,6 +189,6 @@ void               gst_vulkan_window_resize                         (GstVulkanWi
 GST_VULKAN_API
 void               gst_vulkan_window_redraw                         (GstVulkanWindow *window);
 
-G_END_DECLS
+
 
 #endif /* __GST_VULKAN_WINDOW_H__ */

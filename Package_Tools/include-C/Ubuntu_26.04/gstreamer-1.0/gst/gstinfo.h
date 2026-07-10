@@ -30,7 +30,7 @@
 #include <gst/gstconfig.h>
 #include <gst/gstsegment.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GstDebugLevel:
@@ -356,7 +356,7 @@ typedef void (*GstLogFunction)  (GstDebugCategory * category,
                                  GstDebugMessage  * message,
                                  gpointer           user_data);
 
-GST_API
+extern
 void		    gst_debug_log            (GstDebugCategory * category,
                                           GstDebugLevel      level,
                                           const gchar      * file,
@@ -364,8 +364,8 @@ void		    gst_debug_log            (GstDebugCategory * category,
                                           gint               line,
                                           GObject          * object,
                                           const gchar      * format,
-                                          ...) G_GNUC_PRINTF (7, 8) G_GNUC_NO_INSTRUMENT;
-GST_API
+                                          ...) ;// (7, 8) G_GNUC_NO_INSTRUMENT;
+extern
 void            gst_debug_log_valist     (GstDebugCategory * category,
                                           GstDebugLevel      level,
                                           const gchar      * file,
@@ -375,7 +375,7 @@ void            gst_debug_log_valist     (GstDebugCategory * category,
                                           const gchar      * format,
                                           va_list            args) G_GNUC_NO_INSTRUMENT;
 
-GST_API
+extern
 void            gst_debug_log_literal    (GstDebugCategory * category,
                                           GstDebugLevel      level,
                                           const gchar      * file,
@@ -384,7 +384,7 @@ void            gst_debug_log_literal    (GstDebugCategory * category,
                                           GObject          * object,
                                           const gchar      * message_string) G_GNUC_NO_INSTRUMENT;
 
-GST_API
+extern
 void		gst_debug_log_id          (GstDebugCategory * category,
                                           GstDebugLevel      level,
                                           const gchar      * file,
@@ -392,8 +392,8 @@ void		gst_debug_log_id          (GstDebugCategory * category,
                                           gint               line,
 					  const gchar      * id,
                                           const gchar      * format,
-                                          ...) G_GNUC_PRINTF (7, 8) G_GNUC_NO_INSTRUMENT;
-GST_API
+                                          ...) ;// (7, 8) G_GNUC_NO_INSTRUMENT;
+extern
 void            gst_debug_log_id_valist  (GstDebugCategory * category,
                                           GstDebugLevel      level,
                                           const gchar      * file,
@@ -403,7 +403,7 @@ void            gst_debug_log_id_valist  (GstDebugCategory * category,
                                           const gchar      * format,
                                           va_list            args) G_GNUC_NO_INSTRUMENT;
 
-GST_API
+extern
 void            gst_debug_log_id_literal (GstDebugCategory * category,
                                           GstDebugLevel      level,
                                           const gchar      * file,
@@ -414,25 +414,25 @@ void            gst_debug_log_id_literal (GstDebugCategory * category,
 
 /* do not use this function, use the GST_DEBUG_CATEGORY_INIT macro */
 
-GST_API
+extern
 GstDebugCategory *_gst_debug_category_new (const gchar * name,
                                            guint         color,
                                            const gchar * description);
 
 /* do not use this function, use the GST_DEBUG_CATEGORY_GET macro */
 
-GST_API
+extern
 GstDebugCategory *_gst_debug_get_category (const gchar *name);
 
 
 /* do not use these functions, use the GST_CAT_MEMDUMP_* macros */
 
-GST_API
+extern
 void _gst_debug_dump_mem (GstDebugCategory * cat, const gchar * file,
     const gchar * func, gint line, GObject * obj, const gchar * msg,
     const guint8 * data, guint length);
 
-GST_API
+extern
 void _gst_debug_dump_mem_id (GstDebugCategory * cat, const gchar * file,
     const gchar * func, gint line, const gchar *object_id, const gchar * msg,
     const guint8 * data, guint length);
@@ -447,21 +447,21 @@ typedef	void (* GstDebugFuncPtr)	(void);
 
 /* do no use these functions, use the GST_DEBUG*_FUNCPTR macros */
 
-GST_API
+extern
 void	_gst_debug_register_funcptr	(GstDebugFuncPtr	func,
 					 const gchar *		ptrname);
-GST_API
+extern
 const gchar *
 	_gst_debug_nameof_funcptr	(GstDebugFuncPtr	func) G_GNUC_NO_INSTRUMENT;
 
 
-GST_API
+extern
 const gchar   * gst_debug_message_get    (GstDebugMessage  * message);
 
-GST_API
+extern
 const gchar   * gst_debug_message_get_id (GstDebugMessage  * message);
 
-GST_API
+extern
 gchar         * gst_debug_log_get_line    (GstDebugCategory * category,
                                            GstDebugLevel      level,
                                            const gchar      * file,
@@ -470,7 +470,7 @@ gchar         * gst_debug_log_get_line    (GstDebugCategory * category,
                                            GObject          * object,
                                            GstDebugMessage  * message) G_GNUC_NO_INSTRUMENT;
 
-GST_API
+extern
 void            gst_debug_log_default    (GstDebugCategory * category,
                                           GstDebugLevel      level,
                                           const gchar      * file,
@@ -480,114 +480,114 @@ void            gst_debug_log_default    (GstDebugCategory * category,
                                           GstDebugMessage  * message,
                                           gpointer           user_data) G_GNUC_NO_INSTRUMENT;
 
-GST_API
+extern
 const gchar *   gst_debug_level_get_name (GstDebugLevel level);
 
-GST_API
+extern
 void            gst_debug_add_log_function            (GstLogFunction func,
                                                        gpointer       user_data,
                                                        GDestroyNotify notify);
-GST_API
+extern
 guint           gst_debug_remove_log_function         (GstLogFunction func);
 
-GST_API
+extern
 guint           gst_debug_remove_log_function_by_data (gpointer       data);
 
-GST_API
+extern
 void            gst_debug_set_active  (gboolean active);
 
-GST_API
+extern
 gboolean        gst_debug_is_active   (void);
 
-GST_API
+extern
 void            gst_debug_set_colored (gboolean colored);
 
-GST_API
+extern
 void            gst_debug_set_color_mode   (GstDebugColorMode mode);
 
-GST_API
+extern
 void            gst_debug_set_color_mode_from_string (const gchar * mode);
 
-GST_API
+extern
 gboolean        gst_debug_is_colored  (void);
 
-GST_API
+extern
 GstDebugColorMode gst_debug_get_color_mode (void);
 
-GST_API
+extern
 void            gst_debug_set_default_threshold      (GstDebugLevel level);
 
-GST_API
+extern
 GstDebugLevel   gst_debug_get_default_threshold      (void);
 
-GST_API
+extern
 void            gst_debug_set_threshold_for_name     (const gchar * name,
                                                       GstDebugLevel level);
-GST_API
+extern
 void            gst_debug_set_threshold_from_string  (const gchar * list, gboolean reset);
 
-GST_API
+extern
 void            gst_debug_unset_threshold_for_name   (const gchar * name);
 
 GST_DEPRECATED
 void            gst_debug_category_free              (GstDebugCategory *	category);
 
-GST_API
+extern
 void            gst_debug_category_set_threshold     (GstDebugCategory *	category,
                                                       GstDebugLevel		level);
 
-GST_API
+extern
 void            gst_debug_category_reset_threshold   (GstDebugCategory *	category);
 
-GST_API
+extern
 GstDebugLevel   gst_debug_category_get_threshold     (GstDebugCategory *	category);
 
-GST_API
+extern
 const gchar *   gst_debug_category_get_name          (GstDebugCategory *	category);
 
-GST_API
+extern
 guint           gst_debug_category_get_color         (GstDebugCategory *	category);
 
-GST_API
+extern
 const gchar *   gst_debug_category_get_description   (GstDebugCategory *	category);
 
-GST_API
+extern
 GSList *        gst_debug_get_all_categories	(void);
 
 
-GST_API
+extern
 gchar * gst_debug_print_object  (gconstpointer ptr);
 
-GST_API
+extern
 gchar * gst_debug_print_segment (const GstSegment *segment);
 
-GST_API
+extern
 gchar * gst_debug_construct_term_color (guint colorinfo);
 
-GST_API
+extern
 gint    gst_debug_construct_win_color  (guint colorinfo);
 
-GST_API
+extern
 gint    gst_info_vasprintf              (gchar ** result,
                                          const gchar * format,
-                                         va_list args) G_GNUC_PRINTF (2, 0);
-GST_API
-gchar * gst_info_strdup_vprintf         (const gchar *format, va_list args) G_GNUC_PRINTF (1, 0);
+                                         va_list args) ;// (2, 0);
+extern
+gchar * gst_info_strdup_vprintf         (const gchar *format, va_list args) ;// (1, 0);
 
-GST_API
-gchar * gst_info_strdup_printf          (const gchar *format, ...) G_GNUC_PRINTF (1, 2);
+extern
+gchar * gst_info_strdup_printf          (const gchar *format, ...) ;// (1, 2);
 
-GST_API
-void    gst_print                       (const gchar * format, ...) G_GNUC_PRINTF (1, 2);
+extern
+void    gst_print                       (const gchar * format, ...) ;// (1, 2);
 
-GST_API
-void    gst_println                     (const gchar * format, ...) G_GNUC_PRINTF (1, 2);
+extern
+void    gst_println                     (const gchar * format, ...) ;// (1, 2);
 
-GST_API
-void    gst_printerr                    (const gchar * format, ...) G_GNUC_PRINTF (1, 2);
+extern
+void    gst_printerr                    (const gchar * format, ...) ;// (1, 2);
 
-GST_API
-void    gst_printerrln                  (const gchar * format, ...) G_GNUC_PRINTF (1, 2);
+extern
+void    gst_printerrln                  (const gchar * format, ...) ;// (1, 2);
 
 #ifndef GST_DISABLE_GST_DEBUG
 
@@ -713,15 +713,15 @@ G_STMT_START{                                              \
  * Default gstreamer core debug log category. Please define your own.
  */
 
-GST_API GstDebugCategory *	GST_CAT_DEFAULT;
+extern GstDebugCategory *	GST_CAT_DEFAULT;
 /* this symbol may not be used */
 
-GST_API gboolean                 _gst_debug_enabled;
+extern gboolean                 _gst_debug_enabled;
 
 /* the min debug level, used for quickly discarding debug
  * messages that fall under the threshold. */
 
-GST_API GstDebugLevel            _gst_debug_min;
+extern GstDebugLevel            _gst_debug_min;
 
 /**
  * GST_CAT_LEVEL_LOG:
@@ -1712,17 +1712,17 @@ GST_API GstDebugLevel            _gst_debug_min;
 #endif /* GST_DISABLE_GST_DEBUG */
 
 
-GST_API
+extern
 void gst_debug_print_stack_trace (void);
 
-GST_API
+extern
 gchar * gst_debug_get_stack_trace (GstStackTraceFlags flags);
 
-GST_API
+extern
 void                  gst_debug_add_ring_buffer_logger      (guint max_size_per_thread, guint thread_timeout);
-GST_API
+extern
 void                  gst_debug_remove_ring_buffer_logger   (void);
-GST_API
+extern
 gchar **              gst_debug_ring_buffer_logger_get_logs (void);
 
 /**
@@ -1834,14 +1834,14 @@ typedef struct _GstLogContext GstLogContext;
  */
 typedef struct _GstLogContextBuilder GstLogContextBuilder;
 
-GST_API
+extern
 GstDebugCategory *gst_log_context_get_category  (GstLogContext *context);
-GST_API
+extern
 void gst_log_context_reset                      (GstLogContext *ctx);
-GST_API
+extern
 void gst_log_context_free                       (GstLogContext *ctx);
 
-GST_API
+extern
 void gst_debug_log_with_context                 (GstLogContext *ctx,
                                                  GstDebugLevel level,
                                                  const gchar *file,
@@ -1849,9 +1849,9 @@ void gst_debug_log_with_context                 (GstLogContext *ctx,
                                                  gint line,
                                                  GObject *object,
                                                  const gchar *format,
-                                                 ...) G_GNUC_PRINTF(7, 8);
+                                                 ...) ;//(7, 8);
 
-GST_API
+extern
 void gst_debug_log_with_context_valist          (GstLogContext *ctx,
                                                  GstDebugLevel level,
                                                  const gchar *file,
@@ -1859,9 +1859,9 @@ void gst_debug_log_with_context_valist          (GstLogContext *ctx,
                                                  gint line,
                                                  GObject *object,
                                                  const gchar *format,
-                                                 va_list args)  G_GNUC_PRINTF (7, 0) G_GNUC_NO_INSTRUMENT;
+                                                 va_list args)  ;// (7, 0) G_GNUC_NO_INSTRUMENT;
 
-GST_API
+extern
 void gst_debug_log_literal_with_context         (GstLogContext *ctx,
                                                  GstDebugLevel level,
                                                  const gchar *file,
@@ -1870,7 +1870,7 @@ void gst_debug_log_literal_with_context         (GstLogContext *ctx,
                                                  GObject *object,
                                                  const gchar *message);
 
-GST_API
+extern
 void gst_debug_log_id_with_context              (GstLogContext *ctx,
                                                  GstDebugLevel level,
                                                  const gchar *file,
@@ -1878,9 +1878,9 @@ void gst_debug_log_id_with_context              (GstLogContext *ctx,
                                                  gint line,
                                                  const gchar *id,
                                                  const gchar *format,
-                                                 ...) G_GNUC_PRINTF(7, 8);
+                                                 ...) ;//(7, 8);
 
-GST_API
+extern
 void gst_debug_log_id_with_context_valist       (GstLogContext *ctx,
                                                  GstDebugLevel level,
                                                  const gchar *file,
@@ -1888,9 +1888,9 @@ void gst_debug_log_id_with_context_valist       (GstLogContext *ctx,
                                                  gint line,
                                                  const gchar *id,
                                                  const gchar *format,
-                                                 va_list args) G_GNUC_PRINTF(7, 0);
+                                                 va_list args) ;//(7, 0);
 
-GST_API
+extern
 void gst_debug_log_id_literal_with_context      (GstLogContext *ctx,
                                                  GstDebugLevel level,
                                                  const gchar *file,
@@ -1899,43 +1899,43 @@ void gst_debug_log_id_literal_with_context      (GstLogContext *ctx,
                                                  const gchar *id,
                                                  const gchar *message);
 
-GST_API
+extern
 void _gst_debug_log_once                        (GstDebugCategory * category,
                                                  GstDebugLevel level,
                                                  const gchar * file,
                                                  const gchar * function,
                                                  gint line,
                                                  GObject * object,
-                                                 const gchar * format, ...) G_GNUC_PRINTF(7, 8);
+                                                 const gchar * format, ...) ;//(7, 8);
 
-GST_API
+extern
 void _gst_debug_log_once_id                     (GstDebugCategory * category,
                                                  GstDebugLevel level,
                                                  const gchar * file,
                                                  const gchar * function,
                                                  gint line,
                                                  const gchar * id,
-                                                 const gchar * format, ...) G_GNUC_PRINTF(7, 8);
+                                                 const gchar * format, ...) ;//(7, 8);
 
 /* Builder pattern API */
-GST_API
+extern
 GstLogContextBuilder* gst_log_context_builder_new           (GstDebugCategory *category,
-                                                             GstLogContextFlags flags) G_GNUC_WARN_UNUSED_RESULT;
+                                                             GstLogContextFlags flags) ;
 
-GST_API
+extern
 GstLogContextBuilder* gst_log_context_builder_set_hash_flags (GstLogContextBuilder* builder,
-                                                             GstLogContextHashFlags flags) G_GNUC_WARN_UNUSED_RESULT;
+                                                             GstLogContextHashFlags flags) ;
 
-GST_API
+extern
 GstLogContextBuilder* gst_log_context_builder_set_category  (GstLogContextBuilder* builder,
-                                                             GstDebugCategory* category) G_GNUC_WARN_UNUSED_RESULT;
+                                                             GstDebugCategory* category) ;
 
-GST_API
+extern
 GstLogContextBuilder* gst_log_context_builder_set_interval  (GstLogContextBuilder* builder,
-                                                             GstClockTime interval) G_GNUC_WARN_UNUSED_RESULT;
+                                                             GstClockTime interval) ;
 
-GST_API
-GstLogContext*        gst_log_context_builder_build         (GstLogContextBuilder* builder) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstLogContext*        gst_log_context_builder_build         (GstLogContextBuilder* builder) ;
 
 /**
  * GST_LOG_CONTEXT_BUILDER_NEW:
@@ -2877,6 +2877,6 @@ GstLogContext*        gst_log_context_builder_build         (GstLogContextBuilde
  * Since: 1.28
  */
 
-G_END_DECLS
+
 
 #endif /* __GSTINFO_H__ */

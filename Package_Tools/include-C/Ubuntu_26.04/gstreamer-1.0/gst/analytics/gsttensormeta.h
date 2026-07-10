@@ -47,7 +47,7 @@ typedef struct _GstTensorMeta
   GstTensor **tensors;
 } GstTensorMeta;
 
-G_BEGIN_DECLS
+
 
 /**
  * GST_TENSOR_META_API_TYPE:
@@ -101,6 +101,6 @@ GST_ANALYTICS_META_API
 GstTensorMeta *
 gst_buffer_get_tensor_meta (GstBuffer * buffer);
 
-G_END_DECLS
+
 
 #endif

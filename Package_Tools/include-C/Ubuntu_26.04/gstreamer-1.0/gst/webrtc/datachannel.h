@@ -24,7 +24,7 @@
 #include <gst/gst.h>
 #include <gst/webrtc/webrtc_fwd.h>
 
-G_BEGIN_DECLS
+
 
 GST_WEBRTC_API
 GType gst_webrtc_data_channel_get_type(void);
@@ -53,8 +53,8 @@ GST_WEBRTC_DEPRECATED_FOR(gst_webrtc_data_channel_send_string_full)
 void gst_webrtc_data_channel_send_string (GstWebRTCDataChannel * channel, const gchar * str);
 #endif
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstWebRTCDataChannel, g_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstWebRTCDataChannel, g_object_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_WEBRTC_DATA_CHANNEL_H__ */

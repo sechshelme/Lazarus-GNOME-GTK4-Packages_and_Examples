@@ -26,9 +26,9 @@
 
 #ifndef GST_CHECK_API
 #ifdef BUILDING_GST_CHECK
-#define GST_CHECK_API GST_API_EXPORT        /* from config.h */
+#define GST_CHECK_API extern_EXPORT        /* from config.h */
 #else
-#define GST_CHECK_API GST_API_IMPORT
+#define GST_CHECK_API extern_IMPORT
 #endif
 #endif
 

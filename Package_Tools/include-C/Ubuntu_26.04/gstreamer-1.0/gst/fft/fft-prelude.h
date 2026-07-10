@@ -25,9 +25,9 @@
 #include <gst/gst.h>
 
 #ifdef BUILDING_GST_FFT
-#define GST_FFT_API GST_API_EXPORT         /* from config.h */
+#define GST_FFT_API extern_EXPORT         /* from config.h */
 #else
-#define GST_FFT_API GST_API_IMPORT
+#define GST_FFT_API extern_IMPORT
 #endif
 
 #endif /* __GST_FFT_PRELUDE_H__ */

@@ -25,7 +25,7 @@
 #include <gst/video/video.h>
 #include <gst/video/video-info.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_WL_DISPLAY (gst_wl_display_get_type ())
 
@@ -148,4 +148,4 @@ gboolean gst_wl_display_are_color_coefficients_supported (GstWlDisplay * self, u
 GST_WL_API
 GstWlOutput * gst_wl_display_get_output_by_name (GstWlDisplay * self, const gchar * output_name);
 
-G_END_DECLS
+

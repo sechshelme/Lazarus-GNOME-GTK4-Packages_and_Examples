@@ -24,7 +24,7 @@
 #include <gst/gst.h>
 #include <gst/player/gstplayer-types.h>
 
-G_BEGIN_DECLS
+
 
 typedef struct _GstPlayerVideoRenderer GstPlayerVideoRenderer;
 typedef struct _GstPlayerVideoRendererInterface GstPlayerVideoRendererInterface;
@@ -43,6 +43,6 @@ struct _GstPlayerVideoRendererInterface {
 GST_PLAYER_API
 GType        gst_player_video_renderer_get_type       (void);
 
-G_END_DECLS
+
 
 #endif /* __GST_PLAYER_VIDEO_RENDERER_H__ */

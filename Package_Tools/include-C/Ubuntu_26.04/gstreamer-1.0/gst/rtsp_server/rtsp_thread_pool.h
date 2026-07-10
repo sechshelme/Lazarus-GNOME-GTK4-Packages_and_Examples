@@ -29,7 +29,7 @@ typedef struct _GstRTSPThreadPoolPrivate GstRTSPThreadPoolPrivate;
 
 #include "rtsp-client.h"
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_RTSP_THREAD_POOL              (gst_rtsp_thread_pool_get_type ())
 #define GST_IS_RTSP_THREAD_POOL(obj)           (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GST_TYPE_RTSP_THREAD_POOL))
@@ -79,7 +79,7 @@ struct _GstRTSPThread {
 };
 
 GST_RTSP_SERVER_API
-GstRTSPThread *   gst_rtsp_thread_new      (GstRTSPThreadType type) G_GNUC_WARN_UNUSED_RESULT;
+GstRTSPThread *   gst_rtsp_thread_new      (GstRTSPThreadType type) ;
 
 GST_RTSP_SERVER_API
 gboolean          gst_rtsp_thread_reuse    (GstRTSPThread * thread);
@@ -163,7 +163,7 @@ GST_RTSP_SERVER_API
 GType               gst_rtsp_thread_pool_get_type        (void);
 
 GST_RTSP_SERVER_API
-GstRTSPThreadPool * gst_rtsp_thread_pool_new             (void) G_GNUC_WARN_UNUSED_RESULT;
+GstRTSPThreadPool * gst_rtsp_thread_pool_new             (void) ;
 
 GST_RTSP_SERVER_API
 void                gst_rtsp_thread_pool_set_max_threads (GstRTSPThreadPool * pool, gint max_threads);
@@ -174,18 +174,18 @@ gint                gst_rtsp_thread_pool_get_max_threads (GstRTSPThreadPool * po
 GST_RTSP_SERVER_API
 GstRTSPThread *     gst_rtsp_thread_pool_get_thread      (GstRTSPThreadPool *pool,
                                                           GstRTSPThreadType type,
-                                                          GstRTSPContext *ctx) G_GNUC_WARN_UNUSED_RESULT;
+                                                          GstRTSPContext *ctx) ;
 
 GST_RTSP_SERVER_API
 void                gst_rtsp_thread_pool_cleanup         (void);
-#ifdef G_DEFINE_AUTOPTR_CLEANUP_FUNC
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstRTSPThread, gst_rtsp_thread_unref)
+#ifdef ////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstRTSPThread, gst_rtsp_thread_unref)
 #endif
 
-#ifdef G_DEFINE_AUTOPTR_CLEANUP_FUNC
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstRTSPThreadPool, gst_object_unref)
+#ifdef ////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstRTSPThreadPool, gst_object_unref)
 #endif
 
-G_END_DECLS
+
 
 #endif /* __GST_RTSP_THREAD_POOL_H__ */

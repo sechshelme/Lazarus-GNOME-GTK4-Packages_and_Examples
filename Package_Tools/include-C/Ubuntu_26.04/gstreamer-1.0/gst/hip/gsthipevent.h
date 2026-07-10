@@ -23,7 +23,7 @@
 #include <gst/hip/gsthip_fwd.h>
 #include <gst/hip/gsthip-enums.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_HIP_EVENT_POOL                (gst_hip_event_pool_get_type ())
 #define GST_HIP_EVENT_POOL(obj)                (G_TYPE_CHECK_INSTANCE_CAST ((obj), GST_TYPE_HIP_EVENT_POOL, GstHipEventPool))
@@ -103,5 +103,5 @@ void              gst_hip_event_unref (GstHipEvent * event);
 GST_HIP_API
 void              gst_clear_hip_event (GstHipEvent ** event);
 
-G_END_DECLS
+
 

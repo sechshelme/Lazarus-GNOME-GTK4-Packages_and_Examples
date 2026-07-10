@@ -25,7 +25,7 @@
 #include <gst/gst.h>
 #include "riff-prelude.h"
 
-G_BEGIN_DECLS
+
 
 /* RIFF types */
 #define GST_RIFF_RIFF_WAVE GST_MAKE_FOURCC ('W','A','V','E')
@@ -531,6 +531,6 @@ typedef struct _gst_riff_acid {
   gfloat tempo;
 } gst_riff_acid;
 
-G_END_DECLS
+
 
 #endif /* __GST_RIFF_IDS_H__ */

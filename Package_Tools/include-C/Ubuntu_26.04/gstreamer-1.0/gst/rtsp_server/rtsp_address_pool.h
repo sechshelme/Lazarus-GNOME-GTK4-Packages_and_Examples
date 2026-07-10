@@ -23,7 +23,7 @@
 #include <gst/gst.h>
 #include "rtsp-server-prelude.h"
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_RTSP_ADDRESS_POOL              (gst_rtsp_address_pool_get_type ())
 #define GST_IS_RTSP_ADDRESS_POOL(obj)           (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GST_TYPE_RTSP_ADDRESS_POOL))
@@ -87,7 +87,7 @@ GST_RTSP_SERVER_API
 GType gst_rtsp_address_get_type        (void);
 
 GST_RTSP_SERVER_API
-GstRTSPAddress * gst_rtsp_address_copy (GstRTSPAddress *addr) G_GNUC_WARN_UNUSED_RESULT;
+GstRTSPAddress * gst_rtsp_address_copy (GstRTSPAddress *addr) ;
 
 GST_RTSP_SERVER_API
 void             gst_rtsp_address_free (GstRTSPAddress *addr);
@@ -160,7 +160,7 @@ GType                  gst_rtsp_address_pool_get_type        (void);
 /* create a new address pool */
 
 GST_RTSP_SERVER_API
-GstRTSPAddressPool *   gst_rtsp_address_pool_new             (void) G_GNUC_WARN_UNUSED_RESULT;
+GstRTSPAddressPool *   gst_rtsp_address_pool_new             (void) ;
 
 GST_RTSP_SERVER_API
 void                   gst_rtsp_address_pool_clear           (GstRTSPAddressPool * pool);
@@ -179,7 +179,7 @@ gboolean               gst_rtsp_address_pool_add_range       (GstRTSPAddressPool
 GST_RTSP_SERVER_API
 GstRTSPAddress *       gst_rtsp_address_pool_acquire_address (GstRTSPAddressPool * pool,
                                                               GstRTSPAddressFlags flags,
-                                                              gint n_ports) G_GNUC_WARN_UNUSED_RESULT;
+                                                              gint n_ports) ;
 
 GST_RTSP_SERVER_API
 GstRTSPAddressPoolResult  gst_rtsp_address_pool_reserve_address (GstRTSPAddressPool * pool,
@@ -192,14 +192,14 @@ GstRTSPAddressPoolResult  gst_rtsp_address_pool_reserve_address (GstRTSPAddressP
 GST_RTSP_SERVER_API
 gboolean               gst_rtsp_address_pool_has_unicast_addresses (GstRTSPAddressPool * pool);
 
-#ifdef G_DEFINE_AUTOPTR_CLEANUP_FUNC
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstRTSPAddress, gst_rtsp_address_free)
+#ifdef ////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstRTSPAddress, gst_rtsp_address_free)
 #endif
 
-#ifdef G_DEFINE_AUTOPTR_CLEANUP_FUNC
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstRTSPAddressPool, gst_object_unref)
+#ifdef ////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstRTSPAddressPool, gst_object_unref)
 #endif
 
-G_END_DECLS
+
 
 #endif /* __GST_RTSP_ADDRESS_POOL_H__ */

@@ -27,7 +27,7 @@
 
 #include <gst/gstclock.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_SYSTEM_CLOCK                   (gst_system_clock_get_type ())
 #define GST_SYSTEM_CLOCK(obj)                   (G_TYPE_CHECK_INSTANCE_CAST ((obj), GST_TYPE_SYSTEM_CLOCK, GstSystemClock))
@@ -81,20 +81,20 @@ struct _GstSystemClockClass {
   gpointer _gst_reserved[GST_PADDING];
 };
 
-GST_API
+extern
 GType                   gst_system_clock_get_type       (void);
 
-GST_API
+extern
 GstClock*               gst_system_clock_obtain         (void);
 
-GST_API
+extern
 void                    gst_system_clock_set_default    (GstClock *new_clock);
 
-GST_API
+extern
 gboolean gst_clock_is_system_monotonic (GstClock *clock);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstSystemClock, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstSystemClock, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_SYSTEM_CLOCK_H__ */

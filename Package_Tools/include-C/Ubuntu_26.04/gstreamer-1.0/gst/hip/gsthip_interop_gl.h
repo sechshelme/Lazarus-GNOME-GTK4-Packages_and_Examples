@@ -23,12 +23,12 @@
 #include <gst/gl/gl.h>
 #include <gst/hip/gsthip-interop.h>
 
-G_BEGIN_DECLS
+
 
 GST_HIP_API
 hipError_t gst_hip_gl_get_graphics_resource_from_memory (GstHipDevice * device,
                                                          GstMemory * mem,
                                                          GstHipGraphicsResource ** resource);
 
-G_END_DECLS
+
 

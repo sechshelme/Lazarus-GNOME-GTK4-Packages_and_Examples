@@ -29,12 +29,12 @@
 #include <gst/gstminiobject.h>
 #include <gst/gstobject.h>
 
-G_BEGIN_DECLS
 
-GST_API GType _gst_memory_type;
+
+extern GType _gst_memory_type;
 #define GST_TYPE_MEMORY (_gst_memory_type)
 
-GST_API
+extern
 GType gst_memory_get_type(void);
 
 typedef struct _GstMemory GstMemory;
@@ -333,12 +333,12 @@ typedef GstMemory * (*GstMemoryShareFunction)     (GstMemory *mem, gssize offset
  */
 typedef gboolean    (*GstMemoryIsSpanFunction)    (GstMemory *mem1, GstMemory *mem2, gsize *offset);
 
-GST_API
+extern
 void           gst_memory_init         (GstMemory *mem, GstMemoryFlags flags,
                                         GstAllocator *allocator, GstMemory *parent,
                                         gsize maxsize, gsize align,
                                         gsize offset, gsize size);
-GST_API
+extern
 gboolean       gst_memory_is_type      (GstMemory *mem, const gchar *mem_type);
 
 #ifndef GST_DISABLE_MINIOBJECT_INLINE_FUNCTIONS
@@ -361,7 +361,7 @@ gst_memory_is_writable (const GstMemory * memory)
   return gst_mini_object_is_writable (GST_MINI_OBJECT_CONST_CAST (memory));
 }
 
-G_GNUC_WARN_UNUSED_RESULT static inline GstMemory *
+ static inline GstMemory *
 gst_memory_make_writable (GstMemory * memory)
 {
   return GST_MEMORY_CAST (gst_mini_object_make_writable (GST_MINI_OBJECT_CAST (memory)));
@@ -385,35 +385,35 @@ gst_memory_take(GstMemory **old_memory, GstMemory *new_memory)
   return gst_mini_object_take((GstMiniObject **)old_memory, (GstMiniObject *)new_memory);
 }
 #else /* GST_DISABLE_MINIOBJECT_INLINE_FUNCTIONS */
-GST_API
+extern
 GstMemory *    gst_memory_ref   (GstMemory * memory);
 
-GST_API
+extern
 void           gst_memory_unref (GstMemory * memory);
 
-GST_API
-GstMemory *    gst_memory_make_writable (GstMemory * memory) G_GNUC_WARN_UNUSED_RESULT;
-GST_API
+extern
+GstMemory *    gst_memory_make_writable (GstMemory * memory) ;
+extern
 gboolean       gst_memory_is_writable   (const GstMemory * memory);
 
-GST_API
+extern
 gboolean        gst_memory_replace              (GstMemory ** old_memory,
                                                  GstMemory * new_memory);
 
-GST_API
+extern
 GstMemory *gst_memory_steal (GstMemory **old_memory);
 
-GST_API
+extern
 gboolean gst_memory_take (GstMemory **old_memory,
                           GstMemory *new_memory);
 #endif /* GST_DISABLE_MINIOBJECT_INLINE_FUNCTIONS */
 
 /* getting/setting memory properties */
 
-GST_API
+extern
 gsize          gst_memory_get_sizes    (GstMemory *mem, gsize *offset, gsize *maxsize);
 
-GST_API
+extern
 void           gst_memory_resize       (GstMemory *mem, gssize offset, gsize size);
 
 #define        gst_memory_lock(m,f)        gst_mini_object_lock (GST_MINI_OBJECT_CAST (m), (f))
@@ -421,39 +421,39 @@ void           gst_memory_resize       (GstMemory *mem, gssize offset, gsize siz
 
 /* retrieving data */
 
-GST_API
-GstMemory *    gst_memory_make_mapped  (GstMemory *mem, GstMapInfo *info, GstMapFlags flags) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstMemory *    gst_memory_make_mapped  (GstMemory *mem, GstMapInfo *info, GstMapFlags flags) ;
 
-GST_API
+extern
 gboolean       gst_memory_map          (GstMemory *mem, GstMapInfo *info, GstMapFlags flags);
 
-GST_API
+extern
 void           gst_memory_unmap        (GstMemory *mem, GstMapInfo *info);
 
 /* copy and subregions */
 
-GST_API
-GstMemory *    gst_memory_copy         (GstMemory *mem, gssize offset, gssize size) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstMemory *    gst_memory_copy         (GstMemory *mem, gssize offset, gssize size) ;
 
-GST_API
-GstMemory *    gst_memory_share        (GstMemory *mem, gssize offset, gssize size) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstMemory *    gst_memory_share        (GstMemory *mem, gssize offset, gssize size) ;
 
 /* span memory */
 
-GST_API
+extern
 gboolean       gst_memory_is_span      (GstMemory *mem1, GstMemory *mem2, gsize *offset);
 
-GST_API
+extern
 guint8 *       gst_map_info_get_data   (GstMapInfo *info, gsize *size);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstMemory, gst_memory_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstMemory, gst_memory_unref)
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstAllocator, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstAllocator, gst_object_unref)
 
-GST_API
+extern
 void           gst_map_info_init       (GstMapInfo *info);
 
-GST_API
+extern
 void           gst_map_info_clear      (GstMapInfo *info);
 
 G_DEFINE_AUTO_CLEANUP_CLEAR_FUNC(GstMapInfo, gst_map_info_clear)
@@ -479,10 +479,10 @@ G_DEFINE_AUTO_CLEANUP_CLEAR_FUNC(GstMapInfo, gst_map_info_clear)
  *
  * Deprecated: 1.28: Use #GstMapInfo instead.
  */
-typedef GstMapInfo GstMemoryMapInfo GST_DEPRECATED_TYPE_FOR(GstMapInfo);
+typedef GstMapInfo GstMemoryMapInfo ; //GST_DEPRECATED_TYPE_FOR(GstMapInfo);
 
 G_DEFINE_AUTO_CLEANUP_CLEAR_FUNC(GstMemoryMapInfo, gst_map_info_clear)
 
-G_END_DECLS
+
 
 #endif /* __GST_MEMORY_H__ */

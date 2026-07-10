@@ -88,7 +88,7 @@
 
 #include <gst/gst.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_GL_EXT_BEGIN(name, gl_availability, min_gl, maj_gl, gles_maj, \
     gles_min, ext_suf, ext_name)
@@ -106,6 +106,6 @@ struct _GstGLFuncs
 #undef GST_GL_EXT_FUNCTION
 #undef GST_GL_EXT_END
 
-G_END_DECLS
+
 
 #endif /* __GST_GL_API_H__ */

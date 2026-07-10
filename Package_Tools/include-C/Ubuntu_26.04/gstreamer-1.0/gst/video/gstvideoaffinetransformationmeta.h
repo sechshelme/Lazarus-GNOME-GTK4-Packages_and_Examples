@@ -25,7 +25,7 @@
 #include <gst/gst.h>
 #include <gst/video/video.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_VIDEO_AFFINE_TRANSFORMATION_META_API_TYPE (gst_video_affine_transformation_meta_api_get_type())
 #define GST_VIDEO_AFFINE_TRANSFORMATION_META_INFO  (gst_video_affine_transformation_meta_get_info())
@@ -76,6 +76,6 @@ GST_VIDEO_API
 void gst_video_affine_transformation_meta_apply_matrix                           (GstVideoAffineTransformationMeta * meta,
                                                                                   const gfloat matrix[16]);
 
-G_END_DECLS
+
 
 #endif /* __GST_VIDEO_AFFINE_TRANSFORMATION_META_H__ */

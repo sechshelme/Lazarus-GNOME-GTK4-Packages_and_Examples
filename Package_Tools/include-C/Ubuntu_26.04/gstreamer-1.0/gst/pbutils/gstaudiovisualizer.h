@@ -31,7 +31,7 @@
 #include <gst/base/gstadapter.h>
 #include <gst/pbutils/pbutils-prelude.h>
 
-G_BEGIN_DECLS
+
 #define GST_TYPE_AUDIO_VISUALIZER            (gst_audio_visualizer_get_type())
 #define GST_AUDIO_VISUALIZER(obj)            (G_TYPE_CHECK_INSTANCE_CAST((obj),GST_TYPE_AUDIO_VISUALIZER,GstAudioVisualizer))
 #define GST_AUDIO_VISUALIZER_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass),GST_TYPE_AUDIO_VISUALIZER,GstAudioVisualizerClass))
@@ -106,7 +106,7 @@ struct _GstAudioVisualizerClass
 GST_PBUTILS_API
 GType gst_audio_visualizer_get_type (void);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (GstAudioVisualizer, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstAudioVisualizer, gst_object_unref)
 
-G_END_DECLS
+
 #endif /* __GST_AUDIO_VISUALIZER_H__ */

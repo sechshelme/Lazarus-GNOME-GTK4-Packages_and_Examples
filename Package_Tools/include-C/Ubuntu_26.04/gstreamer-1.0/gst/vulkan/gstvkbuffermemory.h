@@ -28,7 +28,7 @@
 #include <gst/vulkan/gstvkbarrier.h>
 #include <gst/vulkan/vulkan.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_VULKAN_BUFFER_MEMORY_ALLOCATOR (gst_vulkan_buffer_memory_allocator_get_type())
 GST_VULKAN_API
@@ -139,7 +139,7 @@ struct _GstVulkanBufferMemoryAllocatorClass
   gpointer _reserved        [GST_PADDING];
 };
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstVulkanBufferMemoryAllocator, gst_object_unref);
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstVulkanBufferMemoryAllocator, gst_object_unref);
 
 GST_VULKAN_API
 void            gst_vulkan_buffer_memory_init_once       (void);
@@ -165,6 +165,6 @@ GstMemory *     gst_vulkan_buffer_memory_wrapped         (GstVulkanDevice * devi
                                                           gpointer user_data,
                                                           GDestroyNotify notify);
 
-G_END_DECLS
+
 
 #endif /* __GST_VULKAN_BUFFER_MEMORY_H__ */

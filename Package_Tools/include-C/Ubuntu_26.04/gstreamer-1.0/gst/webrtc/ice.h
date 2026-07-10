@@ -22,7 +22,7 @@
 
 #include <gst/webrtc/webrtc_fwd.h>
 
-G_BEGIN_DECLS
+
 
 GST_WEBRTC_API
 GType gst_webrtc_ice_get_type(void);
@@ -369,12 +369,12 @@ struct _GstWebRTCICEClass {
 
 GST_WEBRTC_API
 GstWebRTCICEStream *        gst_webrtc_ice_add_stream               (GstWebRTCICE * ice,
-                                                                     guint session_id) G_GNUC_WARN_UNUSED_RESULT;
+                                                                     guint session_id) ;
 
 GST_WEBRTC_API
 GstWebRTCICETransport *     gst_webrtc_ice_find_transport           (GstWebRTCICE * ice,
                                                                      GstWebRTCICEStream * stream,
-                                                                     GstWebRTCICEComponent component) G_GNUC_WARN_UNUSED_RESULT;
+                                                                     GstWebRTCICEComponent component) ;
 
 
 GST_WEBRTC_API
@@ -421,21 +421,21 @@ void                        gst_webrtc_ice_set_stun_server          (GstWebRTCIC
                                                                      const gchar * uri);
 
 GST_WEBRTC_API
-gchar *                     gst_webrtc_ice_get_stun_server          (GstWebRTCICE * ice) G_GNUC_WARN_UNUSED_RESULT;
+gchar *                     gst_webrtc_ice_get_stun_server          (GstWebRTCICE * ice) ;
 
 GST_WEBRTC_API
 void                        gst_webrtc_ice_set_turn_server          (GstWebRTCICE * ice,
                                                                      const gchar * uri);
 
 GST_WEBRTC_API
-gchar *                     gst_webrtc_ice_get_turn_server          (GstWebRTCICE * ice) G_GNUC_WARN_UNUSED_RESULT;
+gchar *                     gst_webrtc_ice_get_turn_server          (GstWebRTCICE * ice) ;
 
 GST_WEBRTC_API
 void                        gst_webrtc_ice_set_http_proxy           (GstWebRTCICE * ice,
                                                                      const gchar * uri);
 
 GST_WEBRTC_API
-gchar *                     gst_webrtc_ice_get_http_proxy           (GstWebRTCICE * ice) G_GNUC_WARN_UNUSED_RESULT;
+gchar *                     gst_webrtc_ice_get_http_proxy           (GstWebRTCICE * ice) ;
 
 GST_WEBRTC_API
 void                        gst_webrtc_ice_set_on_ice_candidate     (GstWebRTCICE * ice,
@@ -450,11 +450,11 @@ void                        gst_webrtc_ice_set_tos                  (GstWebRTCIC
 
 GST_WEBRTC_API
 GstWebRTCICECandidateStats** gst_webrtc_ice_get_local_candidates    (GstWebRTCICE * ice,
-                                                                     GstWebRTCICEStream * stream) G_GNUC_WARN_UNUSED_RESULT;
+                                                                     GstWebRTCICEStream * stream) ;
 
 GST_WEBRTC_API
 GstWebRTCICECandidateStats** gst_webrtc_ice_get_remote_candidates   (GstWebRTCICE * ice,
-                                                                     GstWebRTCICEStream * stream) G_GNUC_WARN_UNUSED_RESULT;
+                                                                     GstWebRTCICEStream * stream) ;
 
 #ifndef GST_DISABLE_DEPRECATED
 GST_WEBRTC_DEPRECATED_FOR(gst_webrtc_ice_transport_get_selected_pair)
@@ -470,10 +470,10 @@ void                        gst_webrtc_ice_candidate_stats_free     (GstWebRTCIC
 GST_WEBRTC_API
 GType                       gst_webrtc_ice_candidate_stats_get_type (void);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstWebRTCICE, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstWebRTCICE, gst_object_unref)
 
 GST_WEBRTC_API
-GstWebRTCICECandidateStats * gst_webrtc_ice_candidate_stats_copy   (GstWebRTCICECandidateStats *stats) G_GNUC_WARN_UNUSED_RESULT;
+GstWebRTCICECandidateStats * gst_webrtc_ice_candidate_stats_copy   (GstWebRTCICECandidateStats *stats) ;
 
 GST_WEBRTC_API
 void                         gst_webrtc_ice_close                  (GstWebRTCICE * ice,
@@ -497,6 +497,6 @@ GType                       gst_webrtc_ice_candidate_pair_get_type  (void);
 GST_WEBRTC_API
 GstWebRTCICECandidatePair * gst_webrtc_ice_candidate_pair_copy      (GstWebRTCICECandidatePair * pair);
 
-G_END_DECLS
+
 
 #endif /* __GST_WEBRTC_ICE_H__ */

@@ -37,7 +37,7 @@
 #include <gst/audio/gstaudioaggregator.h>
 #include <gst/audio/gstdsd.h>
 
-G_BEGIN_DECLS
+
 
 /* conversion macros */
 /**
@@ -102,7 +102,7 @@ GST_AUDIO_API
 GstBuffer *    gst_audio_buffer_truncate (GstBuffer *buffer,
                                           gint bpf, gsize trim, gsize samples);
 
-G_END_DECLS
+
 
 #include <gst/audio/gstaudioringbuffer.h>
 #include <gst/audio/gstaudioclock.h>

@@ -26,7 +26,7 @@
 #include <gst/vulkan/vulkan_fwd.h>
 #include <gst/vulkan/gstvkapi.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * gst_vulkan_descriptor_set_get_type:
@@ -129,10 +129,10 @@ GST_VULKAN_API
 GstVulkanDescriptorSet *    gst_vulkan_descriptor_set_new_wrapped       (GstVulkanDescriptorPool * pool,
                                                                          VkDescriptorSet set,
                                                                          guint n_layouts,
-                                                                         GstVulkanHandle ** layouts) G_GNUC_WARN_UNUSED_RESULT;
+                                                                         GstVulkanHandle ** layouts) ;
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstVulkanDescriptorSet, gst_vulkan_descriptor_set_unref);
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstVulkanDescriptorSet, gst_vulkan_descriptor_set_unref);
 
-G_END_DECLS
+
 
 #endif /* _GST_VULKAN_DESCRIPTOR_SET_H_ */

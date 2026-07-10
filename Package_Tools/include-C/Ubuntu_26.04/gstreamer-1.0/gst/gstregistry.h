@@ -28,7 +28,7 @@
 #include <gst/gstplugin.h>
 #include <gst/gstpluginfeature.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_REGISTRY               (gst_registry_get_type ())
 #define GST_REGISTRY(obj)               (G_TYPE_CHECK_INSTANCE_CAST ((obj), GST_TYPE_REGISTRY, GstRegistry))
@@ -57,13 +57,13 @@ struct _GstRegistryClass {
   GstObjectClass        parent_class;
 };
 
-GST_API
+extern
 GType                   gst_registry_get_type           (void);
 
-GST_API
+extern
 GstRegistry *           gst_registry_get                (void);
 
-GST_API
+extern
 gboolean                gst_registry_scan_path          (GstRegistry *registry, const gchar *path);
 
 #if 0
@@ -71,62 +71,62 @@ void                    gst_registry_add_path           (GstRegistry * registry,
 GList*                  gst_registry_get_path_list      (GstRegistry *registry);
 #endif
 
-GST_API
+extern
 gboolean                gst_registry_add_plugin         (GstRegistry *registry, GstPlugin *plugin);
 
-GST_API
+extern
 void                    gst_registry_remove_plugin      (GstRegistry *registry, GstPlugin *plugin);
 
-GST_API
+extern
 gboolean                gst_registry_add_feature        (GstRegistry * registry, GstPluginFeature * feature);
 
-GST_API
+extern
 void                    gst_registry_remove_feature     (GstRegistry * registry, GstPluginFeature * feature);
 
-GST_API
-GList*                  gst_registry_get_plugin_list    (GstRegistry *registry) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GList*                  gst_registry_get_plugin_list    (GstRegistry *registry) ;
 
-GST_API
+extern
 GList*                  gst_registry_plugin_filter      (GstRegistry *registry,
                                                          GstPluginFilter filter,
                                                          gboolean first,
-                                                         gpointer user_data) G_GNUC_WARN_UNUSED_RESULT;
-GST_API
+                                                         gpointer user_data) ;
+extern
 GList*                  gst_registry_feature_filter     (GstRegistry *registry,
                                                          GstPluginFeatureFilter filter,
                                                          gboolean first,
-                                                         gpointer user_data) G_GNUC_WARN_UNUSED_RESULT;
-GST_API
+                                                         gpointer user_data) ;
+extern
 GList *                 gst_registry_get_feature_list   (GstRegistry *registry,
-                                                         GType type) G_GNUC_WARN_UNUSED_RESULT;
-GST_API
-GList *                 gst_registry_get_feature_list_by_plugin (GstRegistry *registry, const gchar *name) G_GNUC_WARN_UNUSED_RESULT;
+                                                         GType type) ;
+extern
+GList *                 gst_registry_get_feature_list_by_plugin (GstRegistry *registry, const gchar *name) ;
 
-GST_API
+extern
 guint32                 gst_registry_get_feature_list_cookie (GstRegistry *registry);
 
-GST_API
-GstPlugin*              gst_registry_find_plugin        (GstRegistry *registry, const gchar *name) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstPlugin*              gst_registry_find_plugin        (GstRegistry *registry, const gchar *name) ;
 
-GST_API
-GstPluginFeature*       gst_registry_find_feature       (GstRegistry *registry, const gchar *name, GType type) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstPluginFeature*       gst_registry_find_feature       (GstRegistry *registry, const gchar *name, GType type) ;
 
-GST_API
-GstPlugin *             gst_registry_lookup             (GstRegistry *registry, const char *filename) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstPlugin *             gst_registry_lookup             (GstRegistry *registry, const char *filename) ;
 
-GST_API
-GstPluginFeature *      gst_registry_lookup_feature     (GstRegistry *registry, const char *name) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstPluginFeature *      gst_registry_lookup_feature     (GstRegistry *registry, const char *name) ;
 
-GST_API
+extern
 gboolean                gst_registry_check_feature_version (GstRegistry *registry,
                                                             const gchar *feature_name,
                                                             guint        min_major,
                                                             guint        min_minor,
                                                             guint        min_micro);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstRegistry, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstRegistry, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_REGISTRY_H__ */
 

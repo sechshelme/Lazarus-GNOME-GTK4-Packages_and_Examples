@@ -23,7 +23,7 @@
 #include <gst/gst.h>
 #include <gst/audio/audio-prelude.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_STREAM_VOLUME (gst_stream_volume_get_type ())
 GST_AUDIO_API
@@ -73,8 +73,8 @@ gboolean        gst_stream_volume_get_mute        (GstStreamVolume *volume);
 GST_AUDIO_API
 gdouble         gst_stream_volume_convert_volume  (GstStreamVolumeFormat from,
                                                    GstStreamVolumeFormat to,
-                                                   gdouble val) G_GNUC_CONST;
+                                                   gdouble val) ;
 
-G_END_DECLS
+
 
 #endif /* __GST_STREAM_VOLUME_H__ */

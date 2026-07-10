@@ -28,7 +28,7 @@
 #include <gst/mpegts/gstmpegtssection.h>
 #include <gst/mpegts/gstmpegtsdescriptor.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GstMpegtsSectionDVBTableID:
@@ -237,10 +237,10 @@ GST_MPEGTS_API
 GstMpegtsSection *gst_mpegts_section_from_nit (GstMpegtsNIT *nit);
 
 GST_MPEGTS_API
-GstMpegtsNIT *gst_mpegts_nit_new (void) G_GNUC_WARN_UNUSED_RESULT;
+GstMpegtsNIT *gst_mpegts_nit_new (void) ;
 
 GST_MPEGTS_API
-GstMpegtsNITStream *gst_mpegts_nit_stream_new (void) G_GNUC_WARN_UNUSED_RESULT;
+GstMpegtsNITStream *gst_mpegts_nit_stream_new (void) ;
 
 
 /* BAT */
@@ -343,10 +343,10 @@ GST_MPEGTS_API
 GstMpegtsSection *gst_mpegts_section_from_sdt (GstMpegtsSDT * sdt);
 
 GST_MPEGTS_API
-GstMpegtsSDT *gst_mpegts_sdt_new (void) G_GNUC_WARN_UNUSED_RESULT;
+GstMpegtsSDT *gst_mpegts_sdt_new (void) ;
 
 GST_MPEGTS_API
-GstMpegtsSDTService *gst_mpegts_sdt_service_new (void) G_GNUC_WARN_UNUSED_RESULT;
+GstMpegtsSDTService *gst_mpegts_sdt_service_new (void) ;
 
 /* EIT */
 
@@ -407,7 +407,7 @@ const GstMpegtsEIT *gst_mpegts_section_get_eit (GstMpegtsSection *section);
 /* TDT */
 
 GST_MPEGTS_API
-GstDateTime *gst_mpegts_section_get_tdt (GstMpegtsSection *section) G_GNUC_WARN_UNUSED_RESULT;
+GstDateTime *gst_mpegts_section_get_tdt (GstMpegtsSection *section) ;
 
 /* TOT */
 
@@ -495,6 +495,6 @@ GST_MPEGTS_API
 const GstMpegtsSIT *gst_mpegts_section_get_sit (GstMpegtsSection *section);
 
 
-G_END_DECLS
+
 
 #endif				/* GST_MPEGTS_SECTION_H */

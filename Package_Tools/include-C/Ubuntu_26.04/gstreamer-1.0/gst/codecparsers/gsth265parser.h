@@ -31,7 +31,7 @@
 #include <gst/gst.h>
 #include <gst/codecparsers/codecparsers-prelude.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_H265_MAX_SUB_LAYERS   8
 #define GST_H265_MAX_VPS_COUNT   16
@@ -2325,5 +2325,5 @@ GstH265ParserResult gst_h265_parser_parse_decoder_config_record (GstH265Parser *
                                                                  gsize size,
                                                                  GstH265DecoderConfigRecord ** config);
 
-G_END_DECLS
+
 #endif

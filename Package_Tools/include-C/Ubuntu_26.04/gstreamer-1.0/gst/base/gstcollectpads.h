@@ -26,7 +26,7 @@
 #include <gst/gst.h>
 #include <gst/base/base-prelude.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_COLLECT_PADS            (gst_collect_pads_get_type())
 #define GST_COLLECT_PADS(obj)            (G_TYPE_CHECK_INSTANCE_CAST((obj),GST_TYPE_COLLECT_PADS,GstCollectPads))
@@ -346,7 +346,7 @@ GType           gst_collect_pads_get_type (void);
 /* creating the object */
 
 GST_BASE_API
-GstCollectPads* gst_collect_pads_new      (void) G_GNUC_WARN_UNUSED_RESULT;
+GstCollectPads* gst_collect_pads_new      (void) ;
 
 /* set the callbacks */
 
@@ -402,10 +402,10 @@ void            gst_collect_pads_set_flushing  (GstCollectPads *pads, gboolean f
 /* get collected buffers */
 
 GST_BASE_API
-GstBuffer*      gst_collect_pads_peek          (GstCollectPads *pads, GstCollectData *data) G_GNUC_WARN_UNUSED_RESULT;
+GstBuffer*      gst_collect_pads_peek          (GstCollectPads *pads, GstCollectData *data) ;
 
 GST_BASE_API
-GstBuffer*      gst_collect_pads_pop           (GstCollectPads *pads, GstCollectData *data) G_GNUC_WARN_UNUSED_RESULT;
+GstBuffer*      gst_collect_pads_pop           (GstCollectPads *pads, GstCollectData *data) ;
 
 /* get collected bytes */
 
@@ -417,10 +417,10 @@ guint           gst_collect_pads_flush         (GstCollectPads *pads, GstCollect
                                                 guint size);
 GST_BASE_API
 GstBuffer*      gst_collect_pads_read_buffer   (GstCollectPads * pads, GstCollectData * data,
-                                                guint size) G_GNUC_WARN_UNUSED_RESULT;
+                                                guint size) ;
 GST_BASE_API
 GstBuffer*      gst_collect_pads_take_buffer   (GstCollectPads * pads, GstCollectData * data,
-                                                guint size) G_GNUC_WARN_UNUSED_RESULT;
+                                                guint size) ;
 
 /* setting and unsetting waiting mode */
 
@@ -449,8 +449,8 @@ gboolean        gst_collect_pads_query_default (GstCollectPads * pads, GstCollec
                                                 GstQuery * query, gboolean discard);
 
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstCollectPads, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstCollectPads, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_COLLECT_PADS_H__ */

@@ -29,7 +29,7 @@
 #include <gst/gst.h>
 #include <gst/codecparsers/codecparsers-prelude.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GST_JPEG_MAX_FRAME_COMPONENTS:
@@ -407,6 +407,6 @@ void      gst_jpeg_get_default_quantization_tables (GstJpegQuantTables * quant_t
 GST_CODEC_PARSERS_API
 void      gst_jpeg_get_default_huffman_tables (GstJpegHuffmanTables * huff_tables);
 
-G_END_DECLS
+
 
 #endif /* GST_JPEG_PARSER_H */

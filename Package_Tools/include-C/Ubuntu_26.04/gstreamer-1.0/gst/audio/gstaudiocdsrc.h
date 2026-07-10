@@ -27,7 +27,7 @@
 #include <gst/gst.h>
 #include <gst/base/gstpushsrc.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_AUDIO_CD_SRC            (gst_audio_cd_src_get_type())
 #define GST_AUDIO_CD_SRC(obj)            (G_TYPE_CHECK_INSTANCE_CAST((obj), GST_TYPE_AUDIO_CD_SRC, GstAudioCdSrc))
@@ -138,8 +138,8 @@ GST_AUDIO_API
 gboolean gst_audio_cd_src_add_track (GstAudioCdSrc      * src,
                                      GstAudioCdSrcTrack * track);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstAudioCdSrc, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstAudioCdSrc, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_AUDIO_CD_SRC_H__ */

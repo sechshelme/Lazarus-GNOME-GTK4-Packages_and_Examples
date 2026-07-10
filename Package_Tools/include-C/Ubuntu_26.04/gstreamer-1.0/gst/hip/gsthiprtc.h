@@ -24,7 +24,7 @@
 #include <gst/hip/gsthip_fwd.h>
 #include <gst/hip/gsthip-enums.h>
 
-G_BEGIN_DECLS
+
 
 GST_HIP_API
 gboolean  gst_hip_rtc_load_library (GstHipVendor vendor);
@@ -35,4 +35,4 @@ gchar *   gst_hip_rtc_compile (GstHipDevice * device,
                                const gchar ** options,
                                guint num_options);
 
-G_END_DECLS
+

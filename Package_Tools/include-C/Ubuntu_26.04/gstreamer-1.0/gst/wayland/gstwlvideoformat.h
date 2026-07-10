@@ -27,7 +27,7 @@
 
 #include <gst/video/video.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GST_WL_VIDEO_FORMATS:
@@ -66,4 +66,4 @@ GstVideoFormat gst_wl_dmabuf_format_to_video_format (guint wl_format);
 GST_WL_API
 const gchar *gst_wl_shm_format_to_string (enum wl_shm_format wl_format);
 
-G_END_DECLS
+

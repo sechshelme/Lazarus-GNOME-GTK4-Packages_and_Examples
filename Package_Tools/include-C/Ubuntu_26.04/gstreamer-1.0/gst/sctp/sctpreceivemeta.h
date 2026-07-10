@@ -29,7 +29,7 @@
 #include <gst/gst.h>
 #include <gst/sctp/sctp-prelude.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_SCTP_RECEIVE_META_API_TYPE (gst_sctp_receive_meta_api_get_type())
 #define GST_SCTP_RECEIVE_META_INFO (gst_sctp_receive_meta_get_info())
@@ -52,6 +52,6 @@ GstSctpReceiveMeta *gst_sctp_buffer_add_receive_meta (GstBuffer * buffer,
 
 #define gst_sctp_buffer_get_receive_meta(b) ((GstSctpReceiveMeta *)gst_buffer_get_meta((b), GST_SCTP_RECEIVE_META_API_TYPE))
 
-G_END_DECLS
+
 
 #endif /* __GST_SCTP_RECEIVE_META_H__ */

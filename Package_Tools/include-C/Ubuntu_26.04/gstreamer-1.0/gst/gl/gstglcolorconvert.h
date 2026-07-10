@@ -26,7 +26,7 @@
 
 #include <gst/gl/gstgl_fwd.h>
 
-G_BEGIN_DECLS
+
 
 GST_GL_API
 GType gst_gl_color_convert_get_type (void);
@@ -138,7 +138,7 @@ struct _GstGLColorConvertClass
       "DMA_DRM")
 
 GST_GL_API
-GstGLColorConvert * gst_gl_color_convert_new (GstGLContext * context) G_GNUC_WARN_UNUSED_RESULT;
+GstGLColorConvert * gst_gl_color_convert_new (GstGLContext * context) ;
 
 GST_GL_API
 GstCaps *   gst_gl_color_convert_transform_caps (GstGLContext * context,
@@ -159,7 +159,7 @@ gboolean    gst_gl_color_convert_decide_allocation (GstGLColorConvert   * conver
                                                     GstQuery            * query);
 
 GST_GL_API
-GstBuffer * gst_gl_color_convert_perform    (GstGLColorConvert * convert, GstBuffer * inbuf) G_GNUC_WARN_UNUSED_RESULT;
+GstBuffer * gst_gl_color_convert_perform    (GstGLColorConvert * convert, GstBuffer * inbuf) ;
 
 GST_GL_API
 gchar *     gst_gl_color_convert_swizzle_shader_string (GstGLContext * context);
@@ -167,6 +167,6 @@ gchar *     gst_gl_color_convert_swizzle_shader_string (GstGLContext * context);
 GST_GL_API
 gchar *     gst_gl_color_convert_yuv_to_rgb_shader_string (GstGLContext * context);
 
-G_END_DECLS
+
 
 #endif /* __GST_GL_COLOR_CONVERT_H__ */

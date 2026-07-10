@@ -14,7 +14,7 @@
 #include <cudaD3D11.h>
 #endif /* G_OS_WIN32 */
 
-G_BEGIN_DECLS
+
 
 /* cuda.h */
 GST_CUDA_API
@@ -489,4 +489,4 @@ CUresult CUDAAPI CuD3D11GetDevices(unsigned int * pCudaDeviceCount,
                                    CUd3d11DeviceList deviceList);
 #endif
 
-G_END_DECLS
+

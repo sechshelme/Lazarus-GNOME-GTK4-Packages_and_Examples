@@ -49,7 +49,7 @@ typedef struct _GstDeviceProviderFactoryClass GstDeviceProviderFactoryClass;
 #include <gst/gstpluginfeature.h>
 #include <gst/gstdeviceprovider.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_DEVICE_PROVIDER_FACTORY            (gst_device_provider_factory_get_type())
 #define GST_DEVICE_PROVIDER_FACTORY(obj)            (G_TYPE_CHECK_INSTANCE_CAST((obj),GST_TYPE_DEVICE_PROVIDER_FACTORY,\
@@ -60,43 +60,43 @@ G_BEGIN_DECLS
 #define GST_IS_DEVICE_PROVIDER_FACTORY_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE((klass),GST_TYPE_DEVICE_PROVIDER_FACTORY))
 #define GST_DEVICE_PROVIDER_FACTORY_CAST(obj)       ((GstDeviceProviderFactory *)(obj))
 
-GST_API
+extern
 GType                   gst_device_provider_factory_get_type          (void);
 
-GST_API
+extern
 GstDeviceProviderFactory * gst_device_provider_factory_find            (const gchar *name);
 
-GST_API
+extern
 GType                   gst_device_provider_factory_get_device_provider_type (GstDeviceProviderFactory *factory);
 
-GST_API
+extern
 const gchar *           gst_device_provider_factory_get_metadata       (GstDeviceProviderFactory *factory, const gchar *key);
 
-GST_API
-gchar **                gst_device_provider_factory_get_metadata_keys  (GstDeviceProviderFactory *factory) G_GNUC_WARN_UNUSED_RESULT;
+extern
+gchar **                gst_device_provider_factory_get_metadata_keys  (GstDeviceProviderFactory *factory) ;
 
-GST_API
-GstDeviceProvider*       gst_device_provider_factory_get                (GstDeviceProviderFactory *factory) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstDeviceProvider*       gst_device_provider_factory_get                (GstDeviceProviderFactory *factory)  ;
 
-GST_API
-GstDeviceProvider*       gst_device_provider_factory_get_by_name        (const gchar *factoryname) G_GNUC_MALLOC;
+extern
+GstDeviceProvider*       gst_device_provider_factory_get_by_name        (const gchar *factoryname) ;
 
-GST_API
+extern
 gboolean                gst_device_provider_register                   (GstPlugin *plugin, const gchar *name,
                                                                        guint rank,
                                                                        GType type);
-GST_API
+extern
 gboolean      gst_device_provider_factory_has_classesv (GstDeviceProviderFactory * factory,
                                                        gchar ** classes);
-GST_API
+extern
 gboolean      gst_device_provider_factory_has_classes (GstDeviceProviderFactory *factory,
                                                        const gchar * classes);
-GST_API
+extern
 GList *       gst_device_provider_factory_list_get_device_providers (
-                                                       GstRank minrank) G_GNUC_MALLOC;
+                                                       GstRank minrank) ;
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstDeviceProviderFactory, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstDeviceProviderFactory, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_DEVICE_PROVIDER_FACTORY_H__ */

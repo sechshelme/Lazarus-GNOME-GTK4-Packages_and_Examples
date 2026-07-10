@@ -26,7 +26,7 @@
 #include <gst/vulkan/vulkan_fwd.h>
 #include <gst/vulkan/gstvkapi.h>
 
-G_BEGIN_DECLS
+
 
 GST_VULKAN_API
 GType gst_vulkan_handle_pool_get_type (void);
@@ -89,7 +89,7 @@ struct _GstVulkanHandlePoolClass
   gpointer _padding[GST_PADDING];
 };
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (GstVulkanHandlePool, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstVulkanHandlePool, gst_object_unref)
 
 GST_VULKAN_API
 gpointer        gst_vulkan_handle_pool_alloc        (GstVulkanHandlePool * pool, GError ** error);
@@ -98,6 +98,6 @@ gpointer        gst_vulkan_handle_pool_acquire      (GstVulkanHandlePool * pool,
 GST_VULKAN_API
 void            gst_vulkan_handle_pool_release      (GstVulkanHandlePool * pool, gpointer handle);
 
-G_END_DECLS
+
 
 #endif /* _GST_VULKAN_HANDLE_H_ */

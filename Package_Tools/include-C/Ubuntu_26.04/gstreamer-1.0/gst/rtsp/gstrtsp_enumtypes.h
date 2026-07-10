@@ -6,7 +6,7 @@
 #include <glib-object.h>
 #include <gst/rtsp/rtsp-prelude.h>
 
-G_BEGIN_DECLS
+
 
 /* enumerations from "gstrtspdefs.h" */
 
@@ -76,7 +76,7 @@ GST_RTSP_API
 GType gst_rtsp_lower_trans_get_type (void);
 #define GST_TYPE_RTSP_LOWER_TRANS (gst_rtsp_lower_trans_get_type())
 
-G_END_DECLS
+
 
 /* Generated data ends here */
 

@@ -30,7 +30,7 @@
 #include <gst/gst.h>
 #include <gst/gstsystemclock.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_AUDIO_CLOCK \
   (gst_audio_clock_get_type())
@@ -94,7 +94,7 @@ GType           gst_audio_clock_get_type        (void);
 
 GST_AUDIO_API
 GstClock*       gst_audio_clock_new             (const gchar *name, GstAudioClockGetTimeFunc func,
-                                                 gpointer user_data, GDestroyNotify destroy_notify) G_GNUC_WARN_UNUSED_RESULT;
+                                                 gpointer user_data, GDestroyNotify destroy_notify) ;
 
 GST_AUDIO_API
 void            gst_audio_clock_reset           (GstAudioClock *clock, GstClockTime time);
@@ -108,8 +108,8 @@ GstClockTime    gst_audio_clock_adjust          (GstAudioClock * clock, GstClock
 GST_AUDIO_API
 void            gst_audio_clock_invalidate      (GstAudioClock * clock);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstAudioClock, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstAudioClock, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_AUDIO_CLOCK_H__ */

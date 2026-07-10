@@ -22,7 +22,7 @@
 
 #include <gst/gst.h>
 
-G_BEGIN_DECLS
+
 
 #include <gst/video/video-enumtypes.h>
 #include <gst/video/video-tile.h>
@@ -1125,23 +1125,23 @@ gint gst_video_format_info_extrapolate_stride        (const GstVideoFormatInfo *
 GST_VIDEO_API
 GstVideoFormat gst_video_format_from_masks           (gint depth, gint bpp, gint endianness,
                                                       guint red_mask, guint green_mask,
-                                                      guint blue_mask, guint alpha_mask) G_GNUC_CONST;
+                                                      guint blue_mask, guint alpha_mask) ;
 
 GST_VIDEO_API
-GstVideoFormat gst_video_format_from_fourcc          (guint32 fourcc) G_GNUC_CONST;
+GstVideoFormat gst_video_format_from_fourcc          (guint32 fourcc) ;
 
 GST_VIDEO_API
-GstVideoFormat gst_video_format_from_string          (const gchar *format) G_GNUC_CONST;
+GstVideoFormat gst_video_format_from_string          (const gchar *format) ;
 
 GST_VIDEO_API
-guint32        gst_video_format_to_fourcc            (GstVideoFormat format) G_GNUC_CONST;
+guint32        gst_video_format_to_fourcc            (GstVideoFormat format) ;
 
 GST_VIDEO_API
-const gchar *  gst_video_format_to_string            (GstVideoFormat format) G_GNUC_CONST;
+const gchar *  gst_video_format_to_string            (GstVideoFormat format) ;
 
 GST_VIDEO_API
 const GstVideoFormatInfo *
-               gst_video_format_get_info             (GstVideoFormat format) G_GNUC_CONST;
+               gst_video_format_get_info             (GstVideoFormat format) ;
 
 GST_VIDEO_API
 gconstpointer  gst_video_format_get_palette          (GstVideoFormat format, gsize *size);
@@ -1309,6 +1309,6 @@ GstCaps * gst_video_make_raw_caps_with_features (const GstVideoFormat formats[],
                                                  GstCapsFeatures * features);
 
 
-G_END_DECLS
+
 
 #endif /* __GST_VIDEO_FORMAT_H__ */

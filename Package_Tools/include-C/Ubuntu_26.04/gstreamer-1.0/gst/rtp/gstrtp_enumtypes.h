@@ -6,7 +6,7 @@
 #include <glib-object.h>
 #include <gst/rtp/rtp-prelude.h>
 
-G_BEGIN_DECLS
+
 
 /* enumerations from "gstrtcpbuffer.h" */
 
@@ -58,7 +58,7 @@ GST_RTP_API
 GType gst_rtp_payload_get_type (void);
 #define GST_TYPE_RTP_PAYLOAD (gst_rtp_payload_get_type())
 
-G_END_DECLS
+
 
 /* Generated data ends here */
 

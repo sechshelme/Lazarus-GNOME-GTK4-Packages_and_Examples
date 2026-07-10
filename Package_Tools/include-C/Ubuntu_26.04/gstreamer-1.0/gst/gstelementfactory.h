@@ -39,7 +39,7 @@ typedef struct _GstElementFactoryClass GstElementFactoryClass;
 #include <gst/gstpluginfeature.h>
 #include <gst/gsturi.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_ELEMENT_FACTORY                (gst_element_factory_get_type())
 #define GST_ELEMENT_FACTORY(obj)                (G_TYPE_CHECK_INSTANCE_CAST((obj),GST_TYPE_ELEMENT_FACTORY,\
@@ -50,68 +50,68 @@ G_BEGIN_DECLS
 #define GST_IS_ELEMENT_FACTORY_CLASS(klass)     (G_TYPE_CHECK_CLASS_TYPE((klass),GST_TYPE_ELEMENT_FACTORY))
 #define GST_ELEMENT_FACTORY_CAST(obj)           ((GstElementFactory *)(obj))
 
-GST_API
+extern
 GType                   gst_element_factory_get_type            (void);
 
-GST_API
+extern
 GstElementFactory *     gst_element_factory_find                (const gchar *name);
 
-GST_API
+extern
 GType                   gst_element_factory_get_element_type    (GstElementFactory *factory);
 
-GST_API
+extern
 const gchar *           gst_element_factory_get_metadata        (GstElementFactory *factory, const gchar *key);
 
-GST_API
-gchar **                gst_element_factory_get_metadata_keys   (GstElementFactory *factory) G_GNUC_WARN_UNUSED_RESULT;
+extern
+gchar **                gst_element_factory_get_metadata_keys   (GstElementFactory *factory) ;
 
-GST_API
+extern
 guint                   gst_element_factory_get_num_pad_templates (GstElementFactory *factory);
 
-GST_API
+extern
 const GList *           gst_element_factory_get_static_pad_templates (GstElementFactory *factory);
 
-GST_API
+extern
 GstURIType              gst_element_factory_get_uri_type        (GstElementFactory *factory);
 
-GST_API
+extern
 const gchar * const *   gst_element_factory_get_uri_protocols   (GstElementFactory *factory);
 
-GST_API
+extern
 gboolean                gst_element_factory_has_interface       (GstElementFactory *factory,
                                                                  const gchar *interfacename);
-GST_API
+extern
 GstElement*             gst_element_factory_create              (GstElementFactory *factory,
-                                                                 const gchar *name) G_GNUC_MALLOC;
-GST_API
+                                                                 const gchar *name) ;
+extern
 GstElement*             gst_element_factory_create_full         (GstElementFactory * factory,
-                                                                 const gchar * first, ...) G_GNUC_MALLOC;
-GST_API
+                                                                 const gchar * first, ...) ;
+extern
 GstElement *            gst_element_factory_create_valist       (GstElementFactory * factory,
-                                                                 const gchar * first, va_list properties) G_GNUC_MALLOC;
-GST_API
+                                                                 const gchar * first, va_list properties) ;
+extern
 GstElement *            gst_element_factory_create_with_properties (GstElementFactory * factory,
-                                                                 guint n, const gchar *names[], const GValue values[]) G_GNUC_MALLOC;
-GST_API
-GstElement*             gst_element_factory_make                (const gchar *factoryname, const gchar *name) G_GNUC_MALLOC;
+                                                                 guint n, const gchar *names[], const GValue values[]) ;
+extern
+GstElement*             gst_element_factory_make                (const gchar *factoryname, const gchar *name) ;
 
-GST_API
+extern
 GstElement*             gst_element_factory_make_full           (const gchar *factoryname,
-                                                                  const gchar *first, ...) G_GNUC_MALLOC;
-GST_API
+                                                                  const gchar *first, ...) ;
+extern
 GstElement*             gst_element_factory_make_valist         (const gchar *factoryname,
-                                                                 const gchar *first, va_list properties) G_GNUC_MALLOC;
-GST_API
+                                                                 const gchar *first, va_list properties) ;
+extern
 GstElement*             gst_element_factory_make_with_properties (const gchar *factoryname,
-                                                                 guint n, const gchar *names[], const GValue values[]) G_GNUC_MALLOC;
-GST_API
+                                                                 guint n, const gchar *names[], const GValue values[]) ;
+extern
 gboolean                gst_element_register                    (GstPlugin *plugin, const gchar *name,
                                                                  guint rank, GType type);
 
-GST_API
+extern
 void                    gst_element_type_set_skip_documentation (GType type);
 
-GST_API
+extern
 gboolean                gst_element_factory_get_skip_documentation (GstElementFactory * factory);
 
 /* Factory list functions */
@@ -260,21 +260,21 @@ typedef guint64 GstElementFactoryListType;
  */
 #define GST_ELEMENT_FACTORY_KLASS_HARDWARE              "Hardware"
 
-GST_API
+extern
 gboolean      gst_element_factory_list_is_type      (GstElementFactory *factory,
                                                      GstElementFactoryListType type);
 
-GST_API
+extern
 GList *       gst_element_factory_list_get_elements (GstElementFactoryListType type,
-                                                     GstRank minrank) G_GNUC_MALLOC;
+                                                     GstRank minrank) ;
 
 
-GST_API
+extern
 GList *       gst_element_factory_list_filter       (GList *list, const GstCaps *caps,
                                                      GstPadDirection direction,
-                                                     gboolean subsetonly) G_GNUC_MALLOC;
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstElementFactory, gst_object_unref)
+                                                     gboolean subsetonly) ;
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstElementFactory, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_ELEMENT_FACTORY_H__ */

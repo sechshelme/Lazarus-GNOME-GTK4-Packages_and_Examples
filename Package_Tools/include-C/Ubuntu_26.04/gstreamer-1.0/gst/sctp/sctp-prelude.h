@@ -26,9 +26,9 @@
 
 #ifndef GST_SCTP_API
 # ifdef BUILDING_GST_SCTP
-#  define GST_SCTP_API GST_API_EXPORT         /* from config.h */
+#  define GST_SCTP_API extern_EXPORT         /* from config.h */
 # else
-#  define GST_SCTP_API GST_API_IMPORT
+#  define GST_SCTP_API extern_IMPORT
 # endif
 #endif
 

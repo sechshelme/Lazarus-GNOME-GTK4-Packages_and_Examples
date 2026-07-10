@@ -32,7 +32,7 @@
 #warning "You can define GST_USE_UNSTABLE_API to avoid this warning."
 #endif
 
-G_BEGIN_DECLS
+
 
 #define GST_VP8_MAX_REF_FRAMES 3
 
@@ -377,6 +377,6 @@ GstVp8ParserResult  gst_vp8_parser_parse_frame_header (GstVp8Parser   * parser,
                                                        const guint8   * data,
                                                        gsize            size);
 
-G_END_DECLS
+
 
 #endif /* GST_VP8_PARSER_H */

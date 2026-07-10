@@ -26,7 +26,7 @@
 
 #include <gst/gl/gstgl_fwd.h>
 
-G_BEGIN_DECLS
+
 
 GST_GL_API
 gboolean gst_gl_ensure_element_data (gpointer element,
@@ -121,6 +121,6 @@ GST_GL_API
 gboolean gst_gl_dma_buf_transform_drm_formats_to_gst_formats (GstGLContext * context,
     const GValue * src, GstGLDrmFormatFlags flags, GValue * dst);
 
-G_END_DECLS
+
 
 #endif /* __GST_GL_UTILS_H__ */

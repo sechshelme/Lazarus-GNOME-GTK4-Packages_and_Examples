@@ -23,7 +23,7 @@
 
 #include <gst/gl/gstglsl.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_GLSL_STAGE         (gst_glsl_stage_get_type())
 #define GST_GLSL_STAGE(o)           (G_TYPE_CHECK_INSTANCE_CAST((o), GST_TYPE_GLSL_STAGE, GstGLSLStage))
@@ -65,25 +65,25 @@ struct _GstGLSLStageClass
 GST_GL_API
 GType          gst_glsl_stage_get_type          (void);
 GST_GL_API
-GstGLSLStage * gst_glsl_stage_new               (GstGLContext * context, guint type) G_GNUC_WARN_UNUSED_RESULT;
+GstGLSLStage * gst_glsl_stage_new               (GstGLContext * context, guint type) ;
 GST_GL_API
 GstGLSLStage * gst_glsl_stage_new_with_string   (GstGLContext * context,
                                                  guint type,
                                                  GstGLSLVersion version,
                                                  GstGLSLProfile profile,
-                                                 const gchar * str) G_GNUC_WARN_UNUSED_RESULT;
+                                                 const gchar * str) ;
 GST_GL_API
 GstGLSLStage * gst_glsl_stage_new_with_strings  (GstGLContext * context,
                                                  guint type,
                                                  GstGLSLVersion version,
                                                  GstGLSLProfile profile,
                                                  gint n_strings,
-                                                 const gchar ** str) G_GNUC_WARN_UNUSED_RESULT;
+                                                 const gchar ** str) ;
 
 GST_GL_API
-GstGLSLStage * gst_glsl_stage_new_default_fragment (GstGLContext * context) G_GNUC_WARN_UNUSED_RESULT;
+GstGLSLStage * gst_glsl_stage_new_default_fragment (GstGLContext * context) ;
 GST_GL_API
-GstGLSLStage * gst_glsl_stage_new_default_vertex   (GstGLContext * context) G_GNUC_WARN_UNUSED_RESULT;
+GstGLSLStage * gst_glsl_stage_new_default_vertex   (GstGLContext * context) ;
 
 GST_GL_API
 guint          gst_glsl_stage_get_handle        (GstGLSLStage * stage);
@@ -103,6 +103,6 @@ GST_GL_API
 gboolean       gst_glsl_stage_compile           (GstGLSLStage * stage,
                                                  GError ** error);
 
-G_END_DECLS
+
 
 #endif /* __GST_GLSL_STAGE_H__ */

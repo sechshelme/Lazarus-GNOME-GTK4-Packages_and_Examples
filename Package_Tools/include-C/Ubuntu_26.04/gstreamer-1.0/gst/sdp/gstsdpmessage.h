@@ -49,7 +49,7 @@
 #include <gst/gst.h>
 #include <gst/sdp/sdp.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GstSDPOrigin:
@@ -338,7 +338,7 @@ GST_SDP_API
 GstSDPResult            gst_sdp_message_parse_buffer        (const guint8 *data, guint size, GstSDPMessage *msg);
 
 GST_SDP_API
-gchar*                  gst_sdp_message_as_text             (const GstSDPMessage *msg) G_GNUC_WARN_UNUSED_RESULT;
+gchar*                  gst_sdp_message_as_text             (const GstSDPMessage *msg) ;
 
 GST_SDP_API
 GstSDPResult            gst_sdp_message_new_from_text       (const gchar *text, GstSDPMessage ** msg);
@@ -596,7 +596,7 @@ GST_SDP_API
 GstSDPResult            gst_sdp_media_copy                  (const GstSDPMedia *media, GstSDPMedia **copy);
 
 GST_SDP_API
-gchar*                  gst_sdp_media_as_text               (const GstSDPMedia *media) G_GNUC_WARN_UNUSED_RESULT;
+gchar*                  gst_sdp_media_as_text               (const GstSDPMedia *media) ;
 
 /* m=<media> <port>/<number of ports> <proto> <fmt> ... */
 
@@ -738,7 +738,7 @@ GstSDPResult            gst_sdp_media_add_attribute         (GstSDPMedia *media,
                                                              const gchar *value);
 
 GST_SDP_API
-GstCaps*                gst_sdp_media_get_caps_from_media   (const GstSDPMedia *media, gint pt) G_GNUC_WARN_UNUSED_RESULT;
+GstCaps*                gst_sdp_media_get_caps_from_media   (const GstSDPMedia *media, gint pt) ;
 
 GST_SDP_API
 GstSDPResult            gst_sdp_media_set_media_from_caps   (const GstCaps* caps, GstSDPMedia *media);
@@ -762,8 +762,8 @@ GstSDPResult            gst_sdp_message_attributes_to_caps  (const GstSDPMessage
 GST_SDP_API
 GstSDPResult            gst_sdp_media_attributes_to_caps    (const GstSDPMedia *media, GstCaps *caps);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstSDPMessage, gst_sdp_message_free)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstSDPMessage, gst_sdp_message_free)
 
-G_END_DECLS
+
 
 #endif /* __GST_SDP_MESSAGE_H__ */

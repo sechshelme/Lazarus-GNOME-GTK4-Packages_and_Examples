@@ -30,7 +30,7 @@
 #include <gst/controller/gsttimedvaluecontrolsource.h>
 #include <gst/controller/controller-enumtypes.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_INTERPOLATION_CONTROL_SOURCE \
   (gst_interpolation_control_source_get_type ())
@@ -95,10 +95,10 @@ GType gst_interpolation_control_source_get_type (void);
 /* Functions */
 
 GST_CONTROLLER_API
-GstControlSource * gst_interpolation_control_source_new (void) G_GNUC_WARN_UNUSED_RESULT;
+GstControlSource * gst_interpolation_control_source_new (void) ;
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstInterpolationControlSource, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstInterpolationControlSource, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_INTERPOLATION_CONTROL_SOURCE_H__ */

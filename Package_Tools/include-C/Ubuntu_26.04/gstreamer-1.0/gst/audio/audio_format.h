@@ -26,7 +26,7 @@
 #ifndef __GST_AUDIO_FORMAT_H__
 #define __GST_AUDIO_FORMAT_H__
 
-G_BEGIN_DECLS
+
 
 #if G_BYTE_ORDER == G_BIG_ENDIAN
 #define _GST_AUDIO_FORMAT_NE(fmt) GST_AUDIO_FORMAT_ ## fmt ## BE
@@ -351,17 +351,17 @@ GType gst_audio_format_info_get_type (void);
 
 GST_AUDIO_API
 GstAudioFormat gst_audio_format_build_integer    (gboolean sign, gint endianness,
-                                                  gint width, gint depth) G_GNUC_CONST;
+                                                  gint width, gint depth) ;
 
 GST_AUDIO_API
-GstAudioFormat gst_audio_format_from_string      (const gchar *format) G_GNUC_CONST;
+GstAudioFormat gst_audio_format_from_string      (const gchar *format) ;
 
 GST_AUDIO_API
-const gchar *  gst_audio_format_to_string        (GstAudioFormat format) G_GNUC_CONST;
+const gchar *  gst_audio_format_to_string        (GstAudioFormat format) ;
 
 GST_AUDIO_API
 const GstAudioFormatInfo *
-               gst_audio_format_get_info         (GstAudioFormat format) G_GNUC_CONST;
+               gst_audio_format_get_info         (GstAudioFormat format) ;
 
 GST_AUDIO_API
 void           gst_audio_format_info_fill_silence (const GstAudioFormatInfo *info,
@@ -487,6 +487,6 @@ GST_AUDIO_API
 GstCaps * gst_audio_make_raw_caps (const GstAudioFormat formats[], guint len,
                                    GstAudioLayout layout);
 
-G_END_DECLS
+
 
 #endif /* __GST_AUDIO_FORMAT_H__ */

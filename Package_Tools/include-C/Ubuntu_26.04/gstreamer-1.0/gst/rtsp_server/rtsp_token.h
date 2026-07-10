@@ -26,7 +26,7 @@ typedef struct _GstRTSPToken GstRTSPToken;
 
 #include "rtsp-auth.h"
 
-G_BEGIN_DECLS
+
 
 GST_RTSP_SERVER_API
 GType gst_rtsp_token_get_type(void);
@@ -75,13 +75,13 @@ gst_rtsp_token_unref (GstRTSPToken * token)
 
 
 GST_RTSP_SERVER_API
-GstRTSPToken *       gst_rtsp_token_new_empty          (void) G_GNUC_WARN_UNUSED_RESULT;
+GstRTSPToken *       gst_rtsp_token_new_empty          (void) ;
 
 GST_RTSP_SERVER_API
-GstRTSPToken *       gst_rtsp_token_new                (const gchar * firstfield, ...) G_GNUC_WARN_UNUSED_RESULT;
+GstRTSPToken *       gst_rtsp_token_new                (const gchar * firstfield, ...) ;
 
 GST_RTSP_SERVER_API
-GstRTSPToken *       gst_rtsp_token_new_valist         (const gchar * firstfield, va_list var_args) G_GNUC_WARN_UNUSED_RESULT;
+GstRTSPToken *       gst_rtsp_token_new_valist         (const gchar * firstfield, va_list var_args) ;
 
 GST_RTSP_SERVER_API
 const GstStructure * gst_rtsp_token_get_structure      (GstRTSPToken *token);
@@ -104,10 +104,10 @@ GST_RTSP_SERVER_API
 gboolean             gst_rtsp_token_is_allowed         (GstRTSPToken *token,
                                                         const gchar *field);
 
-#ifdef G_DEFINE_AUTOPTR_CLEANUP_FUNC
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstRTSPToken, gst_rtsp_token_unref)
+#ifdef ////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstRTSPToken, gst_rtsp_token_unref)
 #endif
 
-G_END_DECLS
+
 
 #endif /* __GST_RTSP_TOKEN_H__ */

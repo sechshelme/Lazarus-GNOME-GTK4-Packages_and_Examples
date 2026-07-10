@@ -30,7 +30,7 @@ typedef struct _GstDeviceClass GstDeviceClass;
 #include <gst/gstcaps.h>
 
 
-G_BEGIN_DECLS
+
 
 typedef struct _GstDevicePrivate GstDevicePrivate;
 
@@ -84,37 +84,37 @@ struct _GstDeviceClass {
   gpointer _gst_reserved[GST_PADDING];
 };
 
-GST_API
+extern
 GType          gst_device_get_type (void);
 
-GST_API
+extern
 GstElement *   gst_device_create_element      (GstDevice * device, const gchar * name);
 
-GST_API
-GstCaps *      gst_device_get_caps            (GstDevice * device) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstCaps *      gst_device_get_caps            (GstDevice * device) ;
 
-GST_API
-gchar *        gst_device_get_display_name    (GstDevice * device) G_GNUC_WARN_UNUSED_RESULT;
+extern
+gchar *        gst_device_get_display_name    (GstDevice * device) ;
 
-GST_API
-gchar *        gst_device_get_device_class    (GstDevice * device) G_GNUC_WARN_UNUSED_RESULT;
+extern
+gchar *        gst_device_get_device_class    (GstDevice * device) ;
 
-GST_API
-GstStructure * gst_device_get_properties      (GstDevice * device) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstStructure * gst_device_get_properties      (GstDevice * device) ;
 
-GST_API
+extern
 gboolean       gst_device_reconfigure_element (GstDevice * device,
                                                GstElement * element);
-GST_API
+extern
 gboolean        gst_device_has_classesv       (GstDevice * device,
                                                gchar ** classes);
-GST_API
+extern
 gboolean        gst_device_has_classes        (GstDevice * device,
                                                const gchar * classes);
 
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstDevice, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstDevice, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_DEVICE_H__ */

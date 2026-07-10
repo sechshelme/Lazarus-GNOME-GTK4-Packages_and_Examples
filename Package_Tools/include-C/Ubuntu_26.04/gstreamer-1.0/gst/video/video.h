@@ -38,7 +38,7 @@ typedef struct _GstVideoRectangle GstVideoRectangle;
 #include <gst/video/video-multiview.h>
 #include <gst/video/video-info-dma.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GstVideoAlignment:
@@ -193,7 +193,7 @@ GST_VIDEO_API
 gboolean gst_video_orientation_from_tag (GstTagList * taglist,
                                          GstVideoOrientationMethod * method);
 
-G_END_DECLS
+
 
 #include <gst/video/colorbalancechannel.h>
 #include <gst/video/colorbalance.h>

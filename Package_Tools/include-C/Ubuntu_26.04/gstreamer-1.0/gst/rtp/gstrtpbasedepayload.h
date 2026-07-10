@@ -23,7 +23,7 @@
 #include <gst/gst.h>
 #include <gst/rtp/gstrtpbuffer.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_RTP_BASE_DEPAYLOAD (gst_rtp_base_depayload_get_type())
 #define GST_RTP_BASE_DEPAYLOAD(obj) \
@@ -144,8 +144,8 @@ GST_RTP_API
 void            gst_rtp_base_depayload_set_aggregate_hdrext_enabled (GstRTPBaseDepayload * depayload,
                                                                      gboolean enable);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstRTPBaseDepayload, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstRTPBaseDepayload, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_RTP_BASE_DEPAYLOAD_H__ */

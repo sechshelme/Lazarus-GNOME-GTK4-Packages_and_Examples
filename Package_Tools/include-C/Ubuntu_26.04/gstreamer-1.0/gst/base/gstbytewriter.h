@@ -26,7 +26,7 @@
 
 #include <string.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_BYTE_WRITER(writer) ((GstByteWriter *) (writer))
 
@@ -52,13 +52,13 @@ typedef struct {
 } GstByteWriter;
 
 GST_BASE_API
-GstByteWriter * gst_byte_writer_new             (void) G_GNUC_MALLOC;
+GstByteWriter * gst_byte_writer_new             (void) ;
 
 GST_BASE_API
-GstByteWriter * gst_byte_writer_new_with_size   (guint size, gboolean fixed) G_GNUC_MALLOC;
+GstByteWriter * gst_byte_writer_new_with_size   (guint size, gboolean fixed) ;
 
 GST_BASE_API
-GstByteWriter * gst_byte_writer_new_with_data   (guint8 *data, guint size, gboolean initialized) G_GNUC_MALLOC;
+GstByteWriter * gst_byte_writer_new_with_data   (guint8 *data, guint size, gboolean initialized) ;
 
 GST_BASE_API
 void            gst_byte_writer_init            (GstByteWriter *writer);
@@ -73,19 +73,19 @@ GST_BASE_API
 void            gst_byte_writer_free                    (GstByteWriter *writer);
 
 GST_BASE_API
-guint8 *        gst_byte_writer_free_and_get_data       (GstByteWriter *writer) G_GNUC_WARN_UNUSED_RESULT;
+guint8 *        gst_byte_writer_free_and_get_data       (GstByteWriter *writer) ;
 
 GST_BASE_API
-GstBuffer *     gst_byte_writer_free_and_get_buffer     (GstByteWriter *writer) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+GstBuffer *     gst_byte_writer_free_and_get_buffer     (GstByteWriter *writer)  ;
 
 GST_BASE_API
 void            gst_byte_writer_reset                   (GstByteWriter *writer);
 
 GST_BASE_API
-guint8 *        gst_byte_writer_reset_and_get_data      (GstByteWriter *writer) G_GNUC_WARN_UNUSED_RESULT;
+guint8 *        gst_byte_writer_reset_and_get_data      (GstByteWriter *writer) ;
 
 GST_BASE_API
-GstBuffer *     gst_byte_writer_reset_and_get_buffer    (GstByteWriter *writer) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+GstBuffer *     gst_byte_writer_reset_and_get_buffer    (GstByteWriter *writer)  ;
 
 /**
  * gst_byte_writer_get_pos:
@@ -463,6 +463,6 @@ _gst_byte_writer_put_buffer_inline (GstByteWriter * writer, GstBuffer * buffer,
 
 #endif
 
-G_END_DECLS
+
 
 #endif /* __GST_BYTE_WRITER_H__ */

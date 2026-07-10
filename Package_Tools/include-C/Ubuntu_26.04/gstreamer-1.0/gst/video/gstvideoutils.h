@@ -30,7 +30,7 @@
 #include <gst/video/video-prelude.h>
 #include <gst/video/video-hdr.h>
 
-G_BEGIN_DECLS
+
 #define GST_TYPE_VIDEO_CODEC_STATE \
   (gst_video_codec_state_get_type())
 
@@ -332,10 +332,10 @@ void                 gst_video_codec_frame_set_user_data (GstVideoCodecFrame *fr
 GST_VIDEO_API
 gpointer             gst_video_codec_frame_get_user_data (GstVideoCodecFrame *frame);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstVideoCodecFrame, gst_video_codec_frame_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstVideoCodecFrame, gst_video_codec_frame_unref)
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstVideoCodecState, gst_video_codec_state_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstVideoCodecState, gst_video_codec_state_unref)
 
-G_END_DECLS
+
 
 #endif

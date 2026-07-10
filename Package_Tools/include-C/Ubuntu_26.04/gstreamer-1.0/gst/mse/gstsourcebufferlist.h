@@ -27,7 +27,7 @@
 
 #include "gstsourcebuffer.h"
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_SOURCE_BUFFER_LIST (gst_source_buffer_list_get_type())
 
@@ -37,8 +37,8 @@ G_DECLARE_FINAL_TYPE (GstSourceBufferList, gst_source_buffer_list, GST,
 
 GST_MSE_API
 GstSourceBuffer *gst_source_buffer_list_index (GstSourceBufferList * self,
-                                               guint index) G_GNUC_WARN_UNUSED_RESULT;
+                                               guint index) ;
 GST_MSE_API
 guint gst_source_buffer_list_get_length (GstSourceBufferList * self);
 
-G_END_DECLS
+

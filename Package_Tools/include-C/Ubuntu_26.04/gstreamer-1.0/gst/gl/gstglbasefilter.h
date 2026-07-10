@@ -27,7 +27,7 @@
 
 #include <gst/gl/gstgl_fwd.h>
 
-G_BEGIN_DECLS
+
 
 GST_GL_API
 GType gst_gl_base_filter_get_type(void);
@@ -93,8 +93,8 @@ struct _GstGLBaseFilterClass
 GST_GL_API
 gboolean        gst_gl_base_filter_find_gl_context          (GstGLBaseFilter * filter);
 GST_GL_API
-GstGLContext *  gst_gl_base_filter_get_gl_context           (GstGLBaseFilter * filter) G_GNUC_WARN_UNUSED_RESULT;
+GstGLContext *  gst_gl_base_filter_get_gl_context           (GstGLBaseFilter * filter) ;
 
-G_END_DECLS
+
 
 #endif /* _GST_GL_BASE_FILTER_H_ */

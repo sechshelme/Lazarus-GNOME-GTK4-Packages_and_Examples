@@ -28,7 +28,7 @@
 #include <gst/gl/gstgl_fwd.h>
 #include <gst/gl/gstgldisplay.h>
 
-G_BEGIN_DECLS
+
 
 GST_GL_API GType gst_gl_display_wayland_get_type (void);
 
@@ -74,11 +74,11 @@ struct _GstGLDisplayWaylandClass
 };
 
 GST_GL_API
-GstGLDisplayWayland *gst_gl_display_wayland_new (const gchar * name) G_GNUC_WARN_UNUSED_RESULT;
+GstGLDisplayWayland *gst_gl_display_wayland_new (const gchar * name) ;
 
 GST_GL_API
-GstGLDisplayWayland *gst_gl_display_wayland_new_with_display (struct wl_display *display) G_GNUC_WARN_UNUSED_RESULT;
+GstGLDisplayWayland *gst_gl_display_wayland_new_with_display (struct wl_display *display) ;
 
-G_END_DECLS
+
 
 #endif /* __GST_GL_DISPLAY_WAYLAND_H__ */

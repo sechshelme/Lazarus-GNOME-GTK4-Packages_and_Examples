@@ -26,7 +26,7 @@
 #include <gst/vulkan/vulkan_fwd.h>
 #include <gst/vulkan/gstvkapi.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * gst_vulkan_handle_get_type:
@@ -214,7 +214,7 @@ GstVulkanHandle *       gst_vulkan_handle_new_wrapped       (GstVulkanDevice *de
                                                              GstVulkanHandleType type,
                                                              GstVulkanHandleTypedef handle,
                                                              GstVulkanHandleDestroyNotify notify,
-                                                             gpointer user_data) G_GNUC_WARN_UNUSED_RESULT;
+                                                             gpointer user_data) ;
 
 GST_VULKAN_API
 void                    gst_vulkan_handle_free_descriptor_set_layout (GstVulkanHandle * handle,
@@ -238,6 +238,6 @@ GST_VULKAN_API
 void                    gst_vulkan_handle_free_shader                (GstVulkanHandle * handle,
                                                                       gpointer user_data);
 
-G_END_DECLS
+
 
 #endif /* _GST_VULKAN_HANDLE_H_ */

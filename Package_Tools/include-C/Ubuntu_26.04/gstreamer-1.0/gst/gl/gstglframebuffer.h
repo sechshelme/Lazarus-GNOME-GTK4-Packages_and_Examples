@@ -23,7 +23,7 @@
 
 #include <gst/gl/gstgl_fwd.h>
 
-G_BEGIN_DECLS
+
 
 GST_GL_API
 GType gst_gl_framebuffer_get_type (void);
@@ -79,11 +79,11 @@ struct _GstGLFramebufferClass
 };
 
 GST_GL_API
-GstGLFramebuffer *      gst_gl_framebuffer_new                      (GstGLContext *context) G_GNUC_WARN_UNUSED_RESULT;
+GstGLFramebuffer *      gst_gl_framebuffer_new                      (GstGLContext *context) ;
 GST_GL_API
 GstGLFramebuffer *      gst_gl_framebuffer_new_with_default_depth   (GstGLContext *context,
                                                                      guint width,
-                                                                     guint height) G_GNUC_WARN_UNUSED_RESULT;
+                                                                     guint height) ;
 
 GST_GL_API
 guint                   gst_gl_framebuffer_get_id                   (GstGLFramebuffer * fb);
@@ -112,8 +112,8 @@ gboolean                gst_gl_framebuffer_draw_to_texture          (GstGLFrameb
                                                                      GstGLFramebufferFunc func,
                                                                      gpointer user_data);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstGLFramebuffer, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstGLFramebuffer, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif

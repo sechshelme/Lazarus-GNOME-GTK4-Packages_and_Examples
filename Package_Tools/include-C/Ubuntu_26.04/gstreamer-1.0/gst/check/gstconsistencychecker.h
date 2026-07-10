@@ -25,7 +25,7 @@
 
 #include <gst/check/gstcheck.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GstStreamConsistency:
@@ -47,6 +47,6 @@ void                   gst_consistency_checker_reset   (GstStreamConsistency * c
 GST_CHECK_API
 void                   gst_consistency_checker_free    (GstStreamConsistency * consist);
 
-G_END_DECLS
+
 
 #endif /* __GST_CONSISTENCY_CHECKER_H__ */

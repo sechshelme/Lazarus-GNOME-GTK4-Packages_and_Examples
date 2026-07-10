@@ -23,7 +23,7 @@
 #include <gst/hip/hip-prelude.h>
 #include <hip/hip_runtime.h>
 
-G_BEGIN_DECLS
+
 
 typedef struct _GstHipDevice GstHipDevice;
 typedef struct _GstHipDeviceClass GstHipDeviceClass;
@@ -53,5 +53,5 @@ typedef struct _GstHipEventPool GstHipEventPool;
 typedef struct _GstHipEventPoolClass GstHipEventPoolClass;
 typedef struct _GstHipEventPoolPrivate GstHipEventPoolPrivate;
 
-G_END_DECLS
+
 

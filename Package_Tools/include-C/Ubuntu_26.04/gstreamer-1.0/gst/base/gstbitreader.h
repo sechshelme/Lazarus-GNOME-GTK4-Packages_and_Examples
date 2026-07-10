@@ -26,7 +26,7 @@
 
 /* FIXME: inline functions */
 
-G_BEGIN_DECLS
+
 
 #define GST_BIT_READER(reader) ((GstBitReader *) (reader))
 
@@ -52,7 +52,7 @@ typedef struct {
 } GstBitReader;
 
 GST_BASE_API
-GstBitReader *  gst_bit_reader_new              (const guint8 *data, guint size) G_GNUC_MALLOC;
+GstBitReader *  gst_bit_reader_new              (const guint8 *data, guint size) ;
 
 GST_BASE_API
 void            gst_bit_reader_free             (GstBitReader *reader);
@@ -323,6 +323,6 @@ __GST_BIT_READER_READ_BITS_INLINE (64)
     G_LIKELY (_gst_bit_reader_peek_bits_uint64_inline (reader, val, nbits))
 #endif
 
-G_END_DECLS
+
 
 #endif /* __GST_BIT_READER_H__ */

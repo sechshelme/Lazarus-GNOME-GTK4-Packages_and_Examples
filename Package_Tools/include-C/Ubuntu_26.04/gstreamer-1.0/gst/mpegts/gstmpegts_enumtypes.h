@@ -6,7 +6,7 @@
 #include <glib-object.h>
 #include <gst/mpegts/mpegts-prelude.h>
 
-G_BEGIN_DECLS
+
 
 /* enumerations from "gst-atsc-descriptor.h" */
 
@@ -186,7 +186,7 @@ GST_MPEGTS_API
 GType gst_mpegts_stream_type_get_type (void);
 #define GST_TYPE_MPEGTS_STREAM_TYPE (gst_mpegts_stream_type_get_type())
 
-G_END_DECLS
+
 
 /* Generated data ends here */
 

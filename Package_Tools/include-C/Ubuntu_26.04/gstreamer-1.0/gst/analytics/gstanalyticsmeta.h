@@ -29,7 +29,7 @@
 #include <gst/gst.h>
 #include <gst/analytics/analytics-meta-prelude.h>
 
-G_BEGIN_DECLS
+
 /**
  * GST_INF_RELATION_SPAN:
  *
@@ -278,5 +278,5 @@ gst_analytics_relation_meta_get_direct_related (GstAnalyticsRelationMeta *
     meta, guint an_meta_id, GstAnalyticsRelTypes relation_type,
     GstAnalyticsMtdType type, gpointer * state, GstAnalyticsMtd * rlt_mtd);
 
-G_END_DECLS
+
 #endif // __GST_ANALYTICS_META_H__

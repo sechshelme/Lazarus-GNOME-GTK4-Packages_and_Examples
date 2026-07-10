@@ -23,7 +23,7 @@
 #include <gst/gst.h>
 #include <gst/allocators/allocators-prelude.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_PHYS_MEMORY_ALLOCATOR (gst_phys_memory_allocator_get_type())
 GST_ALLOCATORS_API
@@ -57,6 +57,6 @@ gboolean gst_is_phys_memory (GstMemory *mem);
 GST_ALLOCATORS_API
 guintptr gst_phys_memory_get_phys_addr (GstMemory * mem);
 
-G_END_DECLS
+
 
 #endif /* __GST_PHYS_MEMORY_H__ */

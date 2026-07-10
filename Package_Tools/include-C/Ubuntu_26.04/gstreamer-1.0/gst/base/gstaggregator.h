@@ -24,7 +24,7 @@
 #include <gst/gst.h>
 #include <gst/base/base-prelude.h>
 
-G_BEGIN_DECLS
+
 
 /**************************
  * GstAggregator Structs  *
@@ -107,10 +107,10 @@ GType gst_aggregator_pad_get_type           (void);
  ***************************/
 
 GST_BASE_API
-GstBuffer * gst_aggregator_pad_pop_buffer   (GstAggregatorPad *  pad) G_GNUC_WARN_UNUSED_RESULT;
+GstBuffer * gst_aggregator_pad_pop_buffer   (GstAggregatorPad *  pad) ;
 
 GST_BASE_API
-GstBuffer * gst_aggregator_pad_peek_buffer  (GstAggregatorPad *  pad) G_GNUC_WARN_UNUSED_RESULT;
+GstBuffer * gst_aggregator_pad_peek_buffer  (GstAggregatorPad *  pad) ;
 
 GST_BASE_API
 gboolean    gst_aggregator_pad_drop_buffer  (GstAggregatorPad *  pad);
@@ -485,7 +485,7 @@ GST_BASE_API
 GstClockTime  gst_aggregator_get_latency           (GstAggregator                 *  self);
 
 GST_BASE_API
-GstBufferPool * gst_aggregator_get_buffer_pool     (GstAggregator                 * self) G_GNUC_WARN_UNUSED_RESULT;
+GstBufferPool * gst_aggregator_get_buffer_pool     (GstAggregator                 * self) ;
 
 GST_BASE_API
 void            gst_aggregator_get_allocator       (GstAggregator                 * self,
@@ -501,7 +501,7 @@ void            gst_aggregator_update_segment       (GstAggregator              
 
 GST_BASE_API
 GstSample     * gst_aggregator_peek_next_sample     (GstAggregator *self,
-                                                     GstAggregatorPad * pad) G_GNUC_WARN_UNUSED_RESULT;
+                                                     GstAggregatorPad * pad) ;
 
 GST_BASE_API
 void            gst_aggregator_selected_samples     (GstAggregator                * self,
@@ -555,9 +555,9 @@ typedef enum
 GST_BASE_API
 GType           gst_aggregator_start_time_selection_get_type (void);
 
-G_END_DECLS
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstAggregator, gst_object_unref)
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstAggregatorPad, gst_object_unref)
+
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstAggregator, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstAggregatorPad, gst_object_unref)
 
 #endif /* __GST_AGGREGATOR_H__ */

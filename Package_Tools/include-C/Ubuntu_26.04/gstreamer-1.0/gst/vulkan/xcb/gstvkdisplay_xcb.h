@@ -28,7 +28,7 @@
 
 #include <gst/vulkan/vulkan.h>
 
-G_BEGIN_DECLS
+
 
 GST_VULKAN_API
 GType gst_vulkan_display_xcb_get_type (void);
@@ -91,6 +91,6 @@ GST_VULKAN_API
 GstVulkanDisplayXCB * gst_vulkan_display_xcb_new_with_connection    (xcb_connection_t * connection,
                                                                      int screen_no);
 
-G_END_DECLS
+
 
 #endif /* __GST_VULKAN_DISPLAY_XCB_H__ */

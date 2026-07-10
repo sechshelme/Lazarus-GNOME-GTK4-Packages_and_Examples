@@ -22,7 +22,7 @@
 #include <gst/gst.h>
 #include <gst/audio/audio-prelude.h>
 
-G_BEGIN_DECLS
+
 
 #if G_BYTE_ORDER == G_BIG_ENDIAN
 #define _GST_DSD_FORMAT_NE(fmt) GST_DSD_FORMAT_ ## fmt ## BE
@@ -82,4 +82,4 @@ const gchar * gst_dsd_format_to_string   (GstDsdFormat format);
 GST_AUDIO_API
 guint         gst_dsd_format_get_width   (GstDsdFormat format);
 
-G_END_DECLS
+

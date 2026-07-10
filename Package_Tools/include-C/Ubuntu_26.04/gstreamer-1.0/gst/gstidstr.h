@@ -24,7 +24,7 @@
 #include <gst/gstconfig.h>
 #include <glib-object.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GstIdStr:
@@ -57,58 +57,58 @@ typedef struct {
  */
 #define GST_ID_STR_INIT { .pointer = NULL, .padding = {0, } }
 
-GST_API
+extern
 GType gst_id_str_get_type (void);
 
-GST_API
-gsize gst_id_str_get_len (const GstIdStr *s) G_GNUC_PURE;
+extern
+gsize gst_id_str_get_len (const GstIdStr *s) ;
 
-GST_API
+extern
 void gst_id_str_set (GstIdStr *s, const gchar *value);
 
-GST_API
+extern
 void gst_id_str_set_with_len (GstIdStr *s, const gchar *value, gsize len);
 
-GST_API
+extern
 void gst_id_str_set_static_str (GstIdStr *s, const gchar *value);
 
-GST_API
+extern
 void gst_id_str_set_static_str_with_len (GstIdStr *s, const gchar *value, gsize len);
 
-GST_API
+extern
 void gst_id_str_init (GstIdStr *s);
 
-GST_API
+extern
 void gst_id_str_clear (GstIdStr *s);
 
-GST_API
-GstIdStr * gst_id_str_new (void) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstIdStr * gst_id_str_new (void)  ;
 
-GST_API
-GstIdStr * gst_id_str_copy (const GstIdStr *s) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstIdStr * gst_id_str_copy (const GstIdStr *s)  ;
 
-GST_API
+extern
 void gst_id_str_free (GstIdStr *s);
 
-GST_API
+extern
 void gst_id_str_copy_into (GstIdStr *d, const GstIdStr *s);
 
-GST_API
+extern
 void gst_id_str_move (GstIdStr *d, GstIdStr *s);
 
-GST_API
-const gchar * gst_id_str_as_str (const GstIdStr *s) G_GNUC_PURE;
+extern
+const gchar * gst_id_str_as_str (const GstIdStr *s) ;
 
-GST_API
-gboolean gst_id_str_is_equal (const GstIdStr *s1, const GstIdStr *s2) G_GNUC_PURE;
+extern
+gboolean gst_id_str_is_equal (const GstIdStr *s1, const GstIdStr *s2) ;
 
-GST_API
-gboolean gst_id_str_is_equal_to_str (const GstIdStr *s1, const gchar *s2) G_GNUC_PURE;
+extern
+gboolean gst_id_str_is_equal_to_str (const GstIdStr *s1, const gchar *s2) ;
 
-GST_API
-gboolean gst_id_str_is_equal_to_str_with_len (const GstIdStr *s1, const gchar *s2, gsize len) G_GNUC_PURE;
+extern
+gboolean gst_id_str_is_equal_to_str_with_len (const GstIdStr *s1, const gchar *s2, gsize len) ;
 
-G_END_DECLS
+
 
 #endif
 

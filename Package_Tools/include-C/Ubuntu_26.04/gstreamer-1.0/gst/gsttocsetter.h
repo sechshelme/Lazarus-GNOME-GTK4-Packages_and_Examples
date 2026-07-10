@@ -24,7 +24,7 @@
 
 #include <gst/gst.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_TOC_SETTER              (gst_toc_setter_get_type ())
 #define GST_TOC_SETTER(obj)              (G_TYPE_CHECK_INSTANCE_CAST ((obj), GST_TYPE_TOC_SETTER, GstTocSetter))
@@ -54,19 +54,19 @@ struct _GstTocSetterInterface
   /* virtual table */
 };
 
-GST_API
+extern
 GType         gst_toc_setter_get_type (void);
 
-GST_API
+extern
 void          gst_toc_setter_reset   (GstTocSetter *setter);
 
-GST_API
-GstToc *      gst_toc_setter_get_toc (GstTocSetter *setter) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstToc *      gst_toc_setter_get_toc (GstTocSetter *setter) ;
 
-GST_API
+extern
 void          gst_toc_setter_set_toc (GstTocSetter *setter, GstToc *toc);
 
-G_END_DECLS
+
 
 #endif /* __GST_TOC_SETTER_H__ */
 

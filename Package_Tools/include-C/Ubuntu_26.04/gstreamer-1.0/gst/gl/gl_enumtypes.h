@@ -5,7 +5,7 @@
 
 #include <gst/gst.h>
 #include <gst/gl/gstgl_fwd.h>
-G_BEGIN_DECLS
+
 
 /* enumerations from "gstgl_enums.h" */
 GST_GL_API
@@ -86,7 +86,7 @@ GType gst_gl_stereo_downmix_get_type (void);
 GST_GL_API
 GType gst_gl_window_error_get_type (void);
 #define GST_TYPE_GL_WINDOW_ERROR (gst_gl_window_error_get_type())
-G_END_DECLS
+
 
 /* Generated data ends here */
 

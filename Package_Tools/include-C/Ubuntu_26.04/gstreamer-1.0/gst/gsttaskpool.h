@@ -25,7 +25,7 @@
 #include <gst/gstcontext.h>
 #include <gst/gstobject.h>
 
-G_BEGIN_DECLS
+
 
 /* --- standard type macros --- */
 #define GST_TYPE_TASK_POOL             (gst_task_pool_get_type ())
@@ -97,25 +97,25 @@ struct _GstTaskPoolClass {
   gpointer _gst_reserved[GST_PADDING - 1];
 };
 
-GST_API
+extern
 GType           gst_task_pool_get_type    (void);
 
-GST_API
-GstTaskPool *   gst_task_pool_new         (void) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstTaskPool *   gst_task_pool_new         (void) ;
 
-GST_API
+extern
 void            gst_task_pool_prepare     (GstTaskPool *pool, GError **error);
 
-GST_API
+extern
 gpointer        gst_task_pool_push        (GstTaskPool *pool, GstTaskPoolFunction func,
-                                           gpointer user_data, GError **error) G_GNUC_WARN_UNUSED_RESULT;
-GST_API
+                                           gpointer user_data, GError **error) ;
+extern
 void            gst_task_pool_join        (GstTaskPool *pool, gpointer id);
 
-GST_API
+extern
 void            gst_task_pool_dispose_handle (GstTaskPool *pool, gpointer id);
 
-GST_API
+extern
 void		gst_task_pool_cleanup     (GstTaskPool *pool);
 
 /**
@@ -134,13 +134,13 @@ void		gst_task_pool_cleanup     (GstTaskPool *pool);
  */
 #define GST_TASK_POOL_CONTEXT_TYPE "gst.task.pool"
 
-GST_API
+extern
 void            gst_context_set_task_pool (GstContext * context, GstTaskPool * pool);
 
-GST_API
+extern
 gboolean        gst_context_get_task_pool (GstContext * context, GstTaskPool ** pool);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstTaskPool, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstTaskPool, gst_object_unref)
 
 typedef struct _GstSharedTaskPool GstSharedTaskPool;
 typedef struct _GstSharedTaskPoolClass GstSharedTaskPoolClass;
@@ -183,20 +183,20 @@ struct _GstSharedTaskPoolClass {
   gpointer _gst_reserved[GST_PADDING];
 };
 
-GST_API
+extern
 GType           gst_shared_task_pool_get_type        (void);
 
-GST_API
+extern
 void            gst_shared_task_pool_set_max_threads (GstSharedTaskPool *pool, guint max_threads);
 
-GST_API
+extern
 guint           gst_shared_task_pool_get_max_threads (GstSharedTaskPool *pool);
 
-GST_API
-GstTaskPool *   gst_shared_task_pool_new             (void) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstTaskPool *   gst_shared_task_pool_new             (void) ;
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstSharedTaskPool, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstSharedTaskPool, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_TASK_POOL_H__ */

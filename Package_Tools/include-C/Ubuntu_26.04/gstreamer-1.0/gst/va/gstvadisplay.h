@@ -24,7 +24,7 @@
 #include <gst/va/va_fwd.h>
 #include <gst/va/va-prelude.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GstVaImplementation:
@@ -80,7 +80,7 @@ typedef enum
 #define GST_IS_VA_DISPLAY_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE((klass), GST_TYPE_VA_DISPLAY))
 #define GST_VA_DISPLAY_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS((obj), GST_TYPE_VA_DISPLAY, GstVaDisplayClass))
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstVaDisplay, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstVaDisplay, gst_object_unref)
 
 /**
  * GstVaDisplay:
@@ -149,4 +149,4 @@ gst_va_display_is_implementation (GstVaDisplay * display, GstVaImplementation im
   return (gst_va_display_get_implementation (display) == impl);
 }
 
-G_END_DECLS
+

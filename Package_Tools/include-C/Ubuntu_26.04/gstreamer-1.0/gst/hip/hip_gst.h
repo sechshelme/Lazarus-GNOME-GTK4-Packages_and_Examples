@@ -24,7 +24,7 @@
 #include <gst/hip/hip-prelude.h>
 #include <gst/hip/gsthip-enums.h>
 
-G_BEGIN_DECLS
+
 
 GST_HIP_API
 hipError_t HipInit (GstHipVendor vendor,
@@ -206,6 +206,6 @@ GST_HIP_API
 hipError_t HipGraphicsUnregisterResource (GstHipVendor vendor,
                                           hipGraphicsResource_t resource);
 
-G_END_DECLS
+
 
 

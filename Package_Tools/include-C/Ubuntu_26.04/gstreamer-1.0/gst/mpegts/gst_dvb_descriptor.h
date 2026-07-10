@@ -35,7 +35,7 @@
 #include <gst/gst.h>
 #include <gst/mpegts/mpegts-prelude.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GstMpegtsDVBDescriptorType:
@@ -1134,6 +1134,6 @@ gst_mpegts_descriptor_parse_audio_preselection_dump (GstMpegtsAudioPreselectionD
     * source);
 
 
-G_END_DECLS
+
 
 #endif				/* GST_MPEGTS_DESCRIPTOR_H */

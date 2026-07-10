@@ -25,7 +25,7 @@
 #include <gst/gst.h>
 #include <gst/play/play-prelude.h>
 
-G_BEGIN_DECLS
+
 
 typedef struct _GstPlayVisualization GstPlayVisualization;
 /**
@@ -45,7 +45,7 @@ GST_PLAY_API
 GType                     gst_play_visualization_get_type (void);
 
 GST_PLAY_API
-GstPlayVisualization *  gst_play_visualization_copy  (const GstPlayVisualization *vis) G_GNUC_WARN_UNUSED_RESULT;
+GstPlayVisualization *  gst_play_visualization_copy  (const GstPlayVisualization *vis) ;
 
 GST_PLAY_API
 void                      gst_play_visualization_free  (GstPlayVisualization *vis);
@@ -56,10 +56,10 @@ GstPlayVisualization ** gst_play_visualizations_get  (void);
 GST_PLAY_API
 void                      gst_play_visualizations_free (GstPlayVisualization **viss);
 
-#ifdef G_DEFINE_AUTOPTR_CLEANUP_FUNC
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstPlayVisualization, gst_play_visualization_free)
+#ifdef ////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstPlayVisualization, gst_play_visualization_free)
 #endif
 
-G_END_DECLS
+
 
 #endif /* __GST_PLAY_VISUALIZATION_H__ */

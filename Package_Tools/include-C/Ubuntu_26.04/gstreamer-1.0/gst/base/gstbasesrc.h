@@ -27,7 +27,7 @@
 #include <gst/gst.h>
 #include <gst/base/base-prelude.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_BASE_SRC               (gst_base_src_get_type())
 #define GST_BASE_SRC(obj)               (G_TYPE_CHECK_INSTANCE_CAST((obj),GST_TYPE_BASE_SRC,GstBaseSrc))
@@ -336,7 +336,7 @@ GST_BASE_API
 gboolean        gst_base_src_set_caps         (GstBaseSrc *src, GstCaps *caps);
 
 GST_BASE_API
-GstBufferPool * gst_base_src_get_buffer_pool  (GstBaseSrc *src) G_GNUC_WARN_UNUSED_RESULT;
+GstBufferPool * gst_base_src_get_buffer_pool  (GstBaseSrc *src) ;
 
 GST_BASE_API
 void            gst_base_src_get_allocator    (GstBaseSrc *src,
@@ -351,8 +351,8 @@ GST_BASE_API
 gboolean gst_base_src_push_segment              (GstBaseSrc * src,
                                                  const GstSegment * segment);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstBaseSrc, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstBaseSrc, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_BASE_SRC_H__ */

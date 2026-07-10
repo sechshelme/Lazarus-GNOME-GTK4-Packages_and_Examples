@@ -25,7 +25,7 @@
 #include <gst/video/video.h>
 #include <gst/video/gstvideotimecode.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_VIDEO_META_API_TYPE (gst_video_meta_api_get_type())
 #define GST_VIDEO_META_INFO  (gst_video_meta_get_info())
@@ -495,6 +495,6 @@ gst_buffer_add_video_time_code_meta_full                     (GstBuffer         
                                                               guint                   frames,
                                                               guint                   field_count);
 
-G_END_DECLS
+
 
 #endif /* __GST_VIDEO_META_H__ */

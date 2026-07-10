@@ -22,7 +22,7 @@
 
 #include <gst/allocators/gstdmabuf.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GST_ALLOCATOR_UDMABUF:
@@ -67,4 +67,4 @@ void gst_udmabuf_allocator_init_once (void);
 GST_ALLOCATORS_API
 GstAllocator* gst_udmabuf_allocator_get (void);
 
-G_END_DECLS
+

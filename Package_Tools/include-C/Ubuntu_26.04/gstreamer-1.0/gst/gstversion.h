@@ -41,7 +41,7 @@
  * The version macros get defined by including "gst/gst.h".
  */
 
-G_BEGIN_DECLS
+
 
 /**
  * GST_VERSION_MAJOR:
@@ -89,6 +89,6 @@ G_BEGIN_DECLS
      (GST_VERSION_MAJOR == (major) && GST_VERSION_MINOR == (minor) && \
       GST_VERSION_MICRO >= (micro)))
 
-G_END_DECLS
+
 
 #endif /* __GST_VERSION_H__ */

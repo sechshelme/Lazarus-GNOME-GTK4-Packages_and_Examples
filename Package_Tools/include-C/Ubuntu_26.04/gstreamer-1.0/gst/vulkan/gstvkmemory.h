@@ -27,7 +27,7 @@
 
 #include <gst/vulkan/vulkan.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_VULKAN_MEMORY_ALLOCATOR (gst_vulkan_memory_allocator_get_type())
 GST_VULKAN_API
@@ -132,7 +132,7 @@ struct _GstVulkanMemoryAllocatorClass
   gpointer _reserved        [GST_PADDING];
 };
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstVulkanMemoryAllocator, gst_object_unref);
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstVulkanMemoryAllocator, gst_object_unref);
 
 GST_VULKAN_API
 void            gst_vulkan_memory_init_once     (void);
@@ -153,6 +153,6 @@ gboolean       gst_vulkan_memory_find_memory_type_index_with_requirements       
                                                                                  guint32 * type_index);
 
 
-G_END_DECLS
+
 
 #endif /* _GST_VULKAN_BASE_BUFFER_H_ */

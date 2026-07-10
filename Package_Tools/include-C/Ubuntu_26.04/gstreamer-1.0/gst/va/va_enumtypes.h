@@ -6,7 +6,7 @@
 #include <glib-object.h>
 #include <gst/va/va-prelude.h>
 
-G_BEGIN_DECLS
+
 
 /* enumerations from "gstva.h" */
 
@@ -14,7 +14,7 @@ GST_VA_API
 GType gst_va_feature_get_type (void);
 #define GST_TYPE_VA_FEATURE (gst_va_feature_get_type())
 
-G_END_DECLS
+
 
 /* Generated data ends here */
 

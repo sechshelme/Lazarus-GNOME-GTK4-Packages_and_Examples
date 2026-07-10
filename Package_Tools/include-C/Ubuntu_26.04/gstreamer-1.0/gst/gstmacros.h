@@ -21,7 +21,7 @@
 
 #include <glib.h>
 
-G_BEGIN_DECLS
+
 
 #if __GNUC__ > 2 || (__GNUC__ == 2 && __GNUC_MINOR__ > 4)
 # define GST_GNUC_CONSTRUCTOR \
@@ -64,7 +64,7 @@ G_BEGIN_DECLS
 #define GST_UNUSED_ASSERT
 #endif
 
-G_END_DECLS
+
 
 #endif /* __GST_MACROS_H__ */
 

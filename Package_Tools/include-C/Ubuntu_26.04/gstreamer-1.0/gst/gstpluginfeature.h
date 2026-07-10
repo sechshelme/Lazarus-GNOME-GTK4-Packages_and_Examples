@@ -28,7 +28,7 @@
 #include <gst/gstobject.h>
 #include <gst/gstplugin.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_PLUGIN_FEATURE                 (gst_plugin_feature_get_type())
 #define GST_PLUGIN_FEATURE(obj)                 (G_TYPE_CHECK_INSTANCE_CAST ((obj), GST_TYPE_PLUGIN_FEATURE, GstPluginFeature))
@@ -105,32 +105,32 @@ typedef gboolean        (*GstPluginFeatureFilter)       (GstPluginFeature *featu
 
 /* normal GObject stuff */
 
-GST_API
+extern
 GType           gst_plugin_feature_get_type             (void);
 
-GST_API
+extern
 GstPluginFeature *
-                gst_plugin_feature_load                 (GstPluginFeature *feature) G_GNUC_WARN_UNUSED_RESULT;
+                gst_plugin_feature_load                 (GstPluginFeature *feature) ;
 
-GST_API
+extern
 void            gst_plugin_feature_set_rank             (GstPluginFeature *feature, guint rank);
 
-GST_API
+extern
 guint           gst_plugin_feature_get_rank             (GstPluginFeature *feature);
 
-GST_API
-GstPlugin     * gst_plugin_feature_get_plugin           (GstPluginFeature *feature) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstPlugin     * gst_plugin_feature_get_plugin           (GstPluginFeature *feature) ;
 
-GST_API
+extern
 const gchar   * gst_plugin_feature_get_plugin_name      (GstPluginFeature *feature);
 
-GST_API
+extern
 void            gst_plugin_feature_list_free            (GList *list);
 
-GST_API
-GList          *gst_plugin_feature_list_copy            (GList *list) G_GNUC_MALLOC;
+extern
+GList          *gst_plugin_feature_list_copy            (GList *list) ;
 
-GST_API
+extern
 void            gst_plugin_feature_list_debug           (GList *list);
 
 /**
@@ -146,18 +146,18 @@ void            gst_plugin_feature_list_debug           (GList *list);
 #define GST_PLUGIN_FEATURE_LIST_DEBUG(list)
 #endif
 
-GST_API
+extern
 gboolean        gst_plugin_feature_check_version        (GstPluginFeature *feature,
                                                          guint             min_major,
                                                          guint             min_minor,
                                                          guint             min_micro);
-GST_API
+extern
 gint            gst_plugin_feature_rank_compare_func    (gconstpointer p1,
 							 gconstpointer p2);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstPluginFeature, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstPluginFeature, gst_object_unref)
 
-G_END_DECLS
+
 
 
 #endif /* __GST_PLUGIN_FEATURE_H__ */

@@ -25,7 +25,7 @@
 #include <gst/gst.h>
 #include <gst/base/base-prelude.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_BASE_PARSE            (gst_base_parse_get_type())
 #define GST_BASE_PARSE(obj)            (G_TYPE_CHECK_INSTANCE_CAST((obj),GST_TYPE_BASE_PARSE,GstBaseParse))
@@ -301,12 +301,12 @@ GType           gst_base_parse_frame_get_type (void);
 GST_BASE_API
 GstBaseParseFrame * gst_base_parse_frame_new  (GstBuffer              * buffer,
                                                GstBaseParseFrameFlags   flags,
-                                               gint                     overhead) G_GNUC_WARN_UNUSED_RESULT;
+                                               gint                     overhead) ;
 GST_BASE_API
 void            gst_base_parse_frame_init      (GstBaseParseFrame * frame);
 
 GST_BASE_API
-GstBaseParseFrame * gst_base_parse_frame_copy  (GstBaseParseFrame * frame) G_GNUC_WARN_UNUSED_RESULT;
+GstBaseParseFrame * gst_base_parse_frame_copy  (GstBaseParseFrame * frame) ;
 GST_BASE_API
 void            gst_base_parse_frame_free      (GstBaseParseFrame * frame);
 
@@ -376,10 +376,10 @@ void            gst_base_parse_merge_tags       (GstBaseParse  * parse,
                                                  GstTagList    * tags,
                                                  GstTagMergeMode mode);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstBaseParseFrame, gst_base_parse_frame_free)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstBaseParseFrame, gst_base_parse_frame_free)
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstBaseParse, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstBaseParse, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_BASE_PARSE_H__ */

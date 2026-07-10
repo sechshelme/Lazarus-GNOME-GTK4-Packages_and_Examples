@@ -27,7 +27,7 @@
 #include <gst/gst.h>
 #include <gst/check/check-prelude.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_TEST_CLOCK (gst_test_clock_get_type ())
 #define GST_TEST_CLOCK(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj),\
@@ -79,10 +79,10 @@ GST_CHECK_API
 GType         gst_test_clock_get_type (void);
 
 GST_CHECK_API
-GstClock *    gst_test_clock_new (void) G_GNUC_WARN_UNUSED_RESULT;
+GstClock *    gst_test_clock_new (void) ;
 
 GST_CHECK_API
-GstClock *    gst_test_clock_new_with_start_time (GstClockTime start_time) G_GNUC_WARN_UNUSED_RESULT;
+GstClock *    gst_test_clock_new_with_start_time (GstClockTime start_time) ;
 
 GST_CHECK_API
 void          gst_test_clock_set_time (GstTestClock * test_clock,
@@ -111,7 +111,7 @@ void          gst_test_clock_wait_for_pending_id_count (GstTestClock * test_cloc
                                                         guint          count);
 
 GST_CHECK_API
-GstClockID    gst_test_clock_process_next_clock_id (GstTestClock * test_clock) G_GNUC_WARN_UNUSED_RESULT;
+GstClockID    gst_test_clock_process_next_clock_id (GstTestClock * test_clock) ;
 
 GST_CHECK_API
 GstClockTime  gst_test_clock_get_next_entry_time   (GstTestClock * test_clock);
@@ -141,8 +141,8 @@ GstClockTime  gst_test_clock_id_list_get_latest_time (const GList * pending_list
 GST_CHECK_API
 gboolean      gst_test_clock_crank (GstTestClock * test_clock);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstTestClock, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstTestClock, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_TEST_CLOCK_H__ */

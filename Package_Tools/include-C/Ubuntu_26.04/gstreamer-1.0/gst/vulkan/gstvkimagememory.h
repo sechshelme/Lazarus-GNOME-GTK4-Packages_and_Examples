@@ -26,7 +26,7 @@
 
 #include <gst/video/video.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_VULKAN_IMAGE_MEMORY_ALLOCATOR (gst_vulkan_image_memory_allocator_get_type())
 GST_VULKAN_API
@@ -158,7 +158,7 @@ struct _GstVulkanImageMemoryAllocatorClass
   gpointer _reserved        [GST_PADDING];
 };
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstVulkanImageMemoryAllocator, gst_object_unref);
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstVulkanImageMemoryAllocator, gst_object_unref);
 
 GST_VULKAN_API
 void            gst_vulkan_image_memory_init_once       (void);
@@ -212,12 +212,12 @@ guint32         gst_vulkan_image_memory_get_height      (GstVulkanImageMemory * 
 GST_VULKAN_API
 GstVulkanImageView *gst_vulkan_image_memory_find_view   (GstVulkanImageMemory * image,
                                                          GstVulkanImageMemoryFindViewFunc find_func,
-                                                         gpointer user_data) G_GNUC_WARN_UNUSED_RESULT;
+                                                         gpointer user_data) ;
 GST_VULKAN_API
 void            gst_vulkan_image_memory_add_view        (GstVulkanImageMemory * image,
                                                          GstVulkanImageView * view);
 
 
-G_END_DECLS
+
 
 #endif /* __GST_VULKAN_IMAGE_MEMORY_H__ */

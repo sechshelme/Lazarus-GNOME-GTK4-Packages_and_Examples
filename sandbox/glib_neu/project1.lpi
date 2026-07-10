@@ -25,9 +25,6 @@
     </RunParams>
     <RequiredPackages>
       <Item>
-        <PackageName Value="fp_gstreamer_neu_package"/>
-      </Item>
-      <Item>
         <PackageName Value="fp_gtk4_neu_package"/>
       </Item>
       <Item>

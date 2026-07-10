@@ -28,7 +28,7 @@
 #include <gst/gstdeviceprovider.h>
 #include <gst/gstdeviceproviderfactory.h>
 
-G_BEGIN_DECLS
+
 
 typedef struct _GstDeviceMonitor GstDeviceMonitor;
 typedef struct _GstDeviceMonitorPrivate GstDeviceMonitorPrivate;
@@ -75,44 +75,44 @@ struct _GstDeviceMonitorClass {
   gpointer _gst_reserved[GST_PADDING];
 };
 
-GST_API
+extern
 GType     gst_device_monitor_get_type (void);
 
-GST_API
-GstDeviceMonitor * gst_device_monitor_new  (void) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstDeviceMonitor * gst_device_monitor_new  (void) ;
 
-GST_API
-GstBus *  gst_device_monitor_get_bus (GstDeviceMonitor * monitor) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstBus *  gst_device_monitor_get_bus (GstDeviceMonitor * monitor) ;
 
-GST_API
-GList *   gst_device_monitor_get_devices (GstDeviceMonitor * monitor) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GList *   gst_device_monitor_get_devices (GstDeviceMonitor * monitor) ;
 
 
-GST_API
+extern
 gboolean  gst_device_monitor_start (GstDeviceMonitor * monitor);
 
-GST_API
+extern
 void      gst_device_monitor_stop  (GstDeviceMonitor * monitor);
 
 
-GST_API
+extern
 guint     gst_device_monitor_add_filter (GstDeviceMonitor * monitor,
                                          const gchar      * classes,
                                          GstCaps          * caps);
-GST_API
+extern
 gboolean  gst_device_monitor_remove_filter (GstDeviceMonitor * monitor,
                                             guint filter_id);
-GST_API
-gchar **  gst_device_monitor_get_providers (GstDeviceMonitor * monitor) G_GNUC_WARN_UNUSED_RESULT;
+extern
+gchar **  gst_device_monitor_get_providers (GstDeviceMonitor * monitor) ;
 
-GST_API
+extern
 void      gst_device_monitor_set_show_all_devices (GstDeviceMonitor * monitor, gboolean show_all);
 
-GST_API
+extern
 gboolean  gst_device_monitor_get_show_all_devices (GstDeviceMonitor * monitor);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstDeviceMonitor, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstDeviceMonitor, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_DEVICE_MONITOR_H__ */

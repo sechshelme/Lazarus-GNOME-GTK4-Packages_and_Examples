@@ -26,7 +26,7 @@
 #include <stdint.h>
 #include <va/va.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_VA_DMABUF_ALLOCATOR (gst_va_dmabuf_allocator_get_type())
 #define GST_IS_VA_DMABUF_ALLOCATOR(obj)         (G_TYPE_CHECK_INSTANCE_TYPE((obj), GST_TYPE_VA_DMABUF_ALLOCATOR))
@@ -35,7 +35,7 @@ G_BEGIN_DECLS
 GST_VA_API
 GType                 gst_va_dmabuf_allocator_get_type    (void);
 GST_VA_API
-GstAllocator *        gst_va_dmabuf_allocator_new         (GstVaDisplay * display) G_GNUC_WARN_UNUSED_RESULT;
+GstAllocator *        gst_va_dmabuf_allocator_new         (GstVaDisplay * display) ;
 GST_VA_API
 gboolean              gst_va_dmabuf_allocator_setup_buffer (GstAllocator * allocator,
                                                             GstBuffer * buffer);
@@ -92,7 +92,7 @@ GST_VA_API
 GType                 gst_va_allocator_get_type           (void);
 GST_VA_API
 GstAllocator *        gst_va_allocator_new                (GstVaDisplay * display,
-                                                           GArray * surface_formats) G_GNUC_WARN_UNUSED_RESULT;
+                                                           GArray * surface_formats) ;
 GST_VA_API
 GstMemory *           gst_va_allocator_alloc              (GstAllocator * allocator);
 GST_VA_API
@@ -133,4 +133,4 @@ VASurfaceID           gst_va_buffer_get_aux_surface       (GstBuffer * buffer);
 GST_VA_API
 GstVaDisplay *        gst_va_buffer_peek_display          (GstBuffer * buffer);
 
-G_END_DECLS
+

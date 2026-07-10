@@ -28,7 +28,7 @@
 
 #include <gst/gst.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_AUDIO_ENCODER		   (gst_audio_encoder_get_type())
 #define GST_AUDIO_ENCODER(obj)		   (G_TYPE_CHECK_INSTANCE_CAST((obj),GST_TYPE_AUDIO_ENCODER,GstAudioEncoder))
@@ -258,7 +258,7 @@ GstFlowReturn   gst_audio_encoder_finish_frame (GstAudioEncoder * enc,
 GST_AUDIO_API
 GstCaps *       gst_audio_encoder_proxy_getcaps (GstAudioEncoder * enc,
                                                  GstCaps         * caps,
-                                                 GstCaps         * filter) G_GNUC_WARN_UNUSED_RESULT;
+                                                 GstCaps         * filter) ;
 
 GST_AUDIO_API
 gboolean        gst_audio_encoder_set_output_format  (GstAudioEncoder    * enc,
@@ -269,7 +269,7 @@ gboolean        gst_audio_encoder_negotiate          (GstAudioEncoder * enc);
 
 GST_AUDIO_API
 GstBuffer *     gst_audio_encoder_allocate_output_buffer (GstAudioEncoder * enc,
-                                                          gsize             size) G_GNUC_WARN_UNUSED_RESULT;
+                                                          gsize             size) ;
 
 /* context parameters */
 
@@ -371,8 +371,8 @@ GST_AUDIO_API
 void            gst_audio_encoder_merge_tags (GstAudioEncoder * enc,
                                               const GstTagList * tags, GstTagMergeMode mode);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstAudioEncoder, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstAudioEncoder, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_AUDIO_ENCODER_H__ */

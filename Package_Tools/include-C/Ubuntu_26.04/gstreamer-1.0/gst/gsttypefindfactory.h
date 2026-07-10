@@ -27,7 +27,7 @@
 #include <gst/gstpluginfeature.h>
 #include <gst/gsttypefind.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_TYPE_FIND_FACTORY                 (gst_type_find_factory_get_type())
 #define GST_TYPE_FIND_FACTORY(obj)                 (G_TYPE_CHECK_INSTANCE_CAST ((obj), GST_TYPE_TYPE_FIND_FACTORY, GstTypeFindFactory))
@@ -46,27 +46,27 @@ typedef struct _GstTypeFindFactoryClass GstTypeFindFactoryClass;
 
 /* typefinding interface */
 
-GST_API
+extern
 GType           gst_type_find_factory_get_type          (void);
 
-GST_API
+extern
 GList *         gst_type_find_factory_get_list          (void);
 
-GST_API
+extern
 const gchar * const * gst_type_find_factory_get_extensions (GstTypeFindFactory *factory);
 
-GST_API
+extern
 GstCaps *       gst_type_find_factory_get_caps          (GstTypeFindFactory *factory);
 
-GST_API
+extern
 gboolean        gst_type_find_factory_has_function      (GstTypeFindFactory *factory);
 
-GST_API
+extern
 void            gst_type_find_factory_call_function     (GstTypeFindFactory *factory,
                                                          GstTypeFind *find);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstTypeFindFactory, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstTypeFindFactory, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_TYPE_FIND_FACTORY_H__ */

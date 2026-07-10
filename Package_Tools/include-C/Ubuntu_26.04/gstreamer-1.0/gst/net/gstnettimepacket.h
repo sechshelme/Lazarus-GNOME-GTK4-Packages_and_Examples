@@ -25,7 +25,7 @@
 #include <gio/gio.h>
 #include <gst/net/net-prelude.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GST_NET_TIME_PACKET_SIZE:
@@ -52,16 +52,16 @@ GST_NET_API
 GType                   gst_net_time_packet_get_type    (void);
 
 GST_NET_API
-GstNetTimePacket*       gst_net_time_packet_new         (const guint8 *buffer) G_GNUC_WARN_UNUSED_RESULT;
+GstNetTimePacket*       gst_net_time_packet_new         (const guint8 *buffer) ;
 
 GST_NET_API
-GstNetTimePacket*       gst_net_time_packet_copy        (const GstNetTimePacket *packet) G_GNUC_WARN_UNUSED_RESULT;
+GstNetTimePacket*       gst_net_time_packet_copy        (const GstNetTimePacket *packet) ;
 
 GST_NET_API
 void                    gst_net_time_packet_free        (GstNetTimePacket *packet);
 
 GST_NET_API
-guint8*                 gst_net_time_packet_serialize   (const GstNetTimePacket *packet) G_GNUC_WARN_UNUSED_RESULT;
+guint8*                 gst_net_time_packet_serialize   (const GstNetTimePacket *packet) ;
 
 GST_NET_API
 GstNetTimePacket*	gst_net_time_packet_receive     (GSocket         * socket,
@@ -73,9 +73,9 @@ gboolean                gst_net_time_packet_send        (const GstNetTimePacket 
                                                          GSocketAddress         * dest_address,
                                                          GError                ** error);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstNetTimePacket, gst_net_time_packet_free)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstNetTimePacket, gst_net_time_packet_free)
 
-G_END_DECLS
+
 
 
 #endif /* __GST_NET_TIME_PACKET_H__ */

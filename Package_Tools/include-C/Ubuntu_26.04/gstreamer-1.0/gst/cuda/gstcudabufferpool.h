@@ -25,7 +25,7 @@
 #include <gst/cuda/gstcudamemory.h>
 #include <gst/cuda/gstcudastream.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_CUDA_BUFFER_POOL             (gst_cuda_buffer_pool_get_type ())
 #define GST_CUDA_BUFFER_POOL(obj)             (G_TYPE_CHECK_INSTANCE_CAST ((obj),GST_TYPE_CUDA_BUFFER_POOL,GstCudaBufferPool))
@@ -70,7 +70,7 @@ GST_CUDA_API
 GType gst_cuda_buffer_pool_get_type (void);
 
 GST_CUDA_API
-GstBufferPool * gst_cuda_buffer_pool_new (GstCudaContext * context) G_GNUC_WARN_UNUSED_RESULT;
+GstBufferPool * gst_cuda_buffer_pool_new (GstCudaContext * context) ;
 
 GST_CUDA_API
 GstCudaStream * gst_buffer_pool_config_get_cuda_stream (GstStructure * config);
@@ -94,5 +94,5 @@ GST_CUDA_API
 void            gst_buffer_pool_config_set_cuda_stream_ordered_alloc (GstStructure * config,
                                                                       gboolean stream_ordered);
 
-G_END_DECLS
+
 

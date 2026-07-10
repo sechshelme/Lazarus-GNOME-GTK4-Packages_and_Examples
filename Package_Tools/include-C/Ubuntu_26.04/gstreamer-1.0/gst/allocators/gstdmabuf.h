@@ -24,7 +24,7 @@
 #include <gst/gst.h>
 #include <gst/allocators/gstfdmemory.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GST_CAPS_FEATURE_MEMORY_DMABUF:
@@ -99,7 +99,7 @@ GST_ALLOCATORS_API
 GType          gst_dmabuf_allocator_get_type (void);
 
 GST_ALLOCATORS_API
-GstAllocator * gst_dmabuf_allocator_new (void) G_GNUC_WARN_UNUSED_RESULT;
+GstAllocator * gst_dmabuf_allocator_new (void) ;
 
 GST_ALLOCATORS_API
 GstMemory    * gst_dmabuf_allocator_alloc (GstAllocator * allocator, gint fd, gsize size);
@@ -114,7 +114,7 @@ GST_ALLOCATORS_API
 gboolean       gst_is_dmabuf_memory (GstMemory * mem);
 
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstDmaBufAllocator, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstDmaBufAllocator, gst_object_unref)
 
-G_END_DECLS
+
 #endif /* __GST_DMABUF_H__ */

@@ -30,7 +30,7 @@
 #include <gst/audio/audio-info.h>
 #include <gst/audio/audio-bad-prelude.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_PLANAR_AUDIO_ADAPTER \
   (gst_planar_audio_adapter_get_type())
@@ -57,7 +57,7 @@ GST_AUDIO_BAD_API
 GType gst_planar_audio_adapter_get_type (void);
 
 GST_AUDIO_BAD_API
-GstPlanarAudioAdapter * gst_planar_audio_adapter_new (void) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+GstPlanarAudioAdapter * gst_planar_audio_adapter_new (void)  ;
 
 GST_AUDIO_BAD_API
 void gst_planar_audio_adapter_configure (GstPlanarAudioAdapter * adapter,
@@ -76,11 +76,11 @@ void gst_planar_audio_adapter_flush (GstPlanarAudioAdapter * adapter,
 
 GST_AUDIO_BAD_API
 GstBuffer * gst_planar_audio_adapter_get_buffer (GstPlanarAudioAdapter * adapter,
-    gsize nsamples, GstMapFlags flags) G_GNUC_WARN_UNUSED_RESULT;
+    gsize nsamples, GstMapFlags flags) ;
 
 GST_AUDIO_BAD_API
 GstBuffer * gst_planar_audio_adapter_take_buffer (GstPlanarAudioAdapter * adapter,
-    gsize nsamples, GstMapFlags flags) G_GNUC_WARN_UNUSED_RESULT;
+    gsize nsamples, GstMapFlags flags) ;
 
 GST_AUDIO_BAD_API
 gsize gst_planar_audio_adapter_available (GstPlanarAudioAdapter * adapter);
@@ -109,8 +109,8 @@ GST_AUDIO_BAD_API
 GstClockTime gst_planar_audio_adapter_prev_dts (GstPlanarAudioAdapter * adapter,
     guint64 * distance);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstPlanarAudioAdapter, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstPlanarAudioAdapter, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_PLANAR_AUDIO_ADAPTER_H__ */

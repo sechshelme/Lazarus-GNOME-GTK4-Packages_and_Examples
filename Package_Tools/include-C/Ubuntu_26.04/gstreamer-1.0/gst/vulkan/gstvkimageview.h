@@ -23,7 +23,7 @@
 
 #include <gst/vulkan/gstvkbarrier.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GST_TYPE_VULKAN_IMAGE_VIEW:
@@ -117,12 +117,12 @@ gst_clear_vulkan_image_view (GstVulkanImageView ** view_ptr)
   gst_clear_mini_object ((GstMiniObject **) view_ptr);
 }
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstVulkanImageView, gst_vulkan_image_view_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstVulkanImageView, gst_vulkan_image_view_unref)
 
 GST_VULKAN_API
 GstVulkanImageView *    gst_vulkan_image_view_new           (GstVulkanImageMemory * image,
-                                                             const VkImageViewCreateInfo * create_info) G_GNUC_WARN_UNUSED_RESULT;
+                                                             const VkImageViewCreateInfo * create_info) ;
 
-G_END_DECLS
+
 
 #endif /* __GST_VULKAN_IMAGE_MEMORY_H__ */

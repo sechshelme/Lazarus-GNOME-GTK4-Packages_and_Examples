@@ -52,12 +52,12 @@
  * Since: 1.20
  */
 #define GST_DEVICE_PROVIDER_REGISTER_DEFINE_CUSTOM(d_p, register_func) \
-G_BEGIN_DECLS \
+ \
 gboolean G_PASTE (gst_device_provider_register_, d_p) (GstPlugin * plugin) \
 { \
   return register_func (plugin); \
 } \
-G_END_DECLS
+
 
 /**
  * GST_DEVICE_PROVIDER_REGISTER_DEFINE:
@@ -73,12 +73,12 @@ G_END_DECLS
  * Since: 1.20
  */
 #define GST_DEVICE_PROVIDER_REGISTER_DEFINE(d_p, d_p_n, r, t) \
-G_BEGIN_DECLS \
+ \
 gboolean G_PASTE (gst_device_provider_register_, d_p) (GstPlugin * plugin) \
 { \
   return gst_device_provider_register (plugin, d_p_n, r, t); \
 } \
-G_END_DECLS
+
 
 /**
  * GST_DEVICE_PROVIDER_REGISTER_DECLARE:
@@ -92,9 +92,9 @@ G_END_DECLS
  * Since: 1.20
  */
 #define GST_DEVICE_PROVIDER_REGISTER_DECLARE(d_p) \
-G_BEGIN_DECLS \
+ \
 gboolean G_PASTE(gst_device_provider_register_, d_p) (GstPlugin * plugin); \
-G_END_DECLS
+
 
 /**
  * GST_DEVICE_PROVIDER_REGISTER:
@@ -109,7 +109,7 @@ G_END_DECLS
  */
 #define GST_DEVICE_PROVIDER_REGISTER(d_p, plugin) G_PASTE(gst_device_provider_register_, d_p) (plugin)
 
-G_BEGIN_DECLS
+
 
 typedef struct _GstDeviceProvider GstDeviceProvider;
 typedef struct _GstDeviceProviderClass GstDeviceProviderClass;
@@ -183,84 +183,84 @@ struct _GstDeviceProviderClass {
   gpointer _gst_reserved[GST_PADDING];
 };
 
-GST_API
+extern
 GType       gst_device_provider_get_type (void);
 
 
-GST_API
-GList *     gst_device_provider_get_devices    (GstDeviceProvider * provider) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GList *     gst_device_provider_get_devices    (GstDeviceProvider * provider) ;
 
-GST_API
+extern
 gboolean    gst_device_provider_start          (GstDeviceProvider * provider);
 
-GST_API
+extern
 void        gst_device_provider_stop           (GstDeviceProvider * provider);
 
-GST_API
+extern
 gboolean    gst_device_provider_can_monitor    (GstDeviceProvider * provider);
 
-GST_API
-GstBus *    gst_device_provider_get_bus        (GstDeviceProvider * provider) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstBus *    gst_device_provider_get_bus        (GstDeviceProvider * provider) ;
 
-GST_API
+extern
 void        gst_device_provider_device_add     (GstDeviceProvider * provider,
                                                 GstDevice * device);
-GST_API
+extern
 void        gst_device_provider_device_remove  (GstDeviceProvider * provider,
                                                 GstDevice * device);
-GST_API
-gchar **    gst_device_provider_get_hidden_providers (GstDeviceProvider * provider) G_GNUC_WARN_UNUSED_RESULT;
+extern
+gchar **    gst_device_provider_get_hidden_providers (GstDeviceProvider * provider) ;
 
-GST_API
+extern
 void        gst_device_provider_hide_provider        (GstDeviceProvider * provider,
                                                       const gchar       * name);
-GST_API
+extern
 void        gst_device_provider_unhide_provider      (GstDeviceProvider * provider,
                                                       const gchar       * name);
 
-GST_API
+extern
 const gchar * gst_device_provider_get_metadata       (GstDeviceProvider * provider,
                                                       const gchar * key);
 
-GST_API
+extern
 gboolean    gst_device_provider_is_started     (GstDeviceProvider * provider);
 
 /* device provider class meta data */
 
-GST_API
+extern
 void        gst_device_provider_class_set_metadata         (GstDeviceProviderClass *klass,
                                                             const gchar     *longname,
                                                             const gchar     *classification,
                                                             const gchar     *description,
                                                             const gchar     *author);
-GST_API
+extern
 void        gst_device_provider_class_set_static_metadata  (GstDeviceProviderClass *klass,
                                                             const gchar     *longname,
                                                             const gchar     *classification,
                                                             const gchar     *description,
                                                             const gchar     *author);
-GST_API
+extern
 void        gst_device_provider_class_add_metadata         (GstDeviceProviderClass * klass,
                                                             const gchar * key, const gchar * value);
-GST_API
+extern
 void        gst_device_provider_class_add_static_metadata  (GstDeviceProviderClass * klass,
                                                             const gchar * key, const gchar * value);
-GST_API
+extern
 const gchar * gst_device_provider_class_get_metadata       (GstDeviceProviderClass * klass,
                                                             const gchar * key);
 
-GST_API
+extern
 void gst_device_provider_device_changed                    (GstDeviceProvider * provider,
                                                             GstDevice *device,
                                                             GstDevice *changed_device);
 
 /* factory management */
 
-GST_API
+extern
 GstDeviceProviderFactory * gst_device_provider_get_factory (GstDeviceProvider * provider);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstDeviceProvider, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstDeviceProvider, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_DEVICE_PROVIDER_H__ */

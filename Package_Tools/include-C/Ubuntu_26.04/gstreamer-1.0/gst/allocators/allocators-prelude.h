@@ -25,9 +25,9 @@
 #include <gst/gst.h>
 
 #ifdef BUILDING_GST_ALLOCATORS
-#define GST_ALLOCATORS_API GST_API_EXPORT         /* from config.h */
+#define GST_ALLOCATORS_API extern_EXPORT         /* from config.h */
 #else
-#define GST_ALLOCATORS_API GST_API_IMPORT
+#define GST_ALLOCATORS_API extern_IMPORT
 #endif
 
 #endif /* __GST_ALLOCATORS_PRELUDE_H__ */

@@ -28,7 +28,7 @@
 #include "rtsp-client.h"
 #include "rtsp-session.h"
 
-G_BEGIN_DECLS
+
 
 GST_RTSP_SERVER_API
 GstRTSPResult    gst_rtsp_params_set      (GstRTSPClient * client, GstRTSPContext * ctx);
@@ -36,6 +36,6 @@ GstRTSPResult    gst_rtsp_params_set      (GstRTSPClient * client, GstRTSPContex
 GST_RTSP_SERVER_API
 GstRTSPResult    gst_rtsp_params_get      (GstRTSPClient * client, GstRTSPContext * ctx);
 
-G_END_DECLS
+
 
 #endif /* __GST_RTSP_PARAMS_H__ */

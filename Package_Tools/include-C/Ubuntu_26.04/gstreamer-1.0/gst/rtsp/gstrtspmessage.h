@@ -46,7 +46,7 @@
 #include <gst/gst.h>
 #include <gst/rtsp/gstrtspdefs.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GstRTSPMsgType:
@@ -317,12 +317,12 @@ struct _GstRTSPAuthParam {
 };
 
 GST_RTSP_API
-GstRTSPAuthParam *       gst_rtsp_auth_param_copy (GstRTSPAuthParam * param) G_GNUC_WARN_UNUSED_RESULT;
+GstRTSPAuthParam *       gst_rtsp_auth_param_copy (GstRTSPAuthParam * param) ;
 GST_RTSP_API
 void                     gst_rtsp_auth_param_free (GstRTSPAuthParam * param);
 
 GST_RTSP_API
-GstRTSPAuthCredential ** gst_rtsp_message_parse_auth_credentials (GstRTSPMessage * msg, GstRTSPHeaderField field) G_GNUC_WARN_UNUSED_RESULT;
+GstRTSPAuthCredential ** gst_rtsp_message_parse_auth_credentials (GstRTSPMessage * msg, GstRTSPHeaderField field) ;
 
 GST_RTSP_API
 void                     gst_rtsp_auth_credentials_free (GstRTSPAuthCredential ** credentials);
@@ -342,6 +342,6 @@ GType                    gst_rtsp_auth_param_get_type (void);
 GST_RTSP_API
 GstRTSPResult      gst_rtsp_message_dump            (GstRTSPMessage *msg);
 
-G_END_DECLS
+
 
 #endif /* __GST_RTSP_MESSAGE_H__ */

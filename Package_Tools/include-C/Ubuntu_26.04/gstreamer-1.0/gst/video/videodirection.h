@@ -25,7 +25,7 @@
 #include <gst/gst.h>
 #include <gst/video/video-prelude.h>
 
-G_BEGIN_DECLS
+
 #define GST_TYPE_VIDEO_DIRECTION \
   (gst_video_direction_get_type ())
 #define GST_VIDEO_DIRECTION(obj) \
@@ -60,5 +60,5 @@ struct _GstVideoDirectionInterface
 GST_VIDEO_API
 GType gst_video_direction_get_type (void);
 
-G_END_DECLS
+
 #endif /* __GST_VIDEO_DIRECTION_H__ */

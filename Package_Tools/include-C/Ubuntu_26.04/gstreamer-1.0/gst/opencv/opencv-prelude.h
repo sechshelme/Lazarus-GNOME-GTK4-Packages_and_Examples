@@ -26,9 +26,9 @@
 
 #ifndef GST_OPENCV_API
 # ifdef BUILDING_GST_OPENCV
-#  define GST_OPENCV_API GST_API_EXPORT         /* from config.h */
+#  define GST_OPENCV_API extern_EXPORT         /* from config.h */
 # else
-#  define GST_OPENCV_API GST_API_IMPORT
+#  define GST_OPENCV_API extern_IMPORT
 # endif
 #endif
 

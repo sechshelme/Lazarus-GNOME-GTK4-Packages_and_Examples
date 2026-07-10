@@ -27,7 +27,7 @@
 #include <gst/gl/egl/gsteglimage.h>
 #include <gst/gl/egl/gstgldisplay_egl.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_GL_MEMORY_EGL_ALLOCATOR (gst_gl_memory_egl_allocator_get_type())
 GST_GL_API GType gst_gl_memory_egl_allocator_get_type(void);
@@ -114,6 +114,6 @@ struct _GstGLMemoryEGLAllocatorClass
   gpointer _padding[GST_PADDING];
 };
 
-G_END_DECLS
+
 
 #endif /* _GST_GL_MEMORY_EGL_H_ */

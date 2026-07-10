@@ -65,7 +65,7 @@
  */
 #define GST_MODELINFO_SECTION_NAME "modelinfo"
 
-G_BEGIN_DECLS
+
 
 /**
  * GstAnalyticsModelInfoTensorDirection:
@@ -155,4 +155,4 @@ GST_ANALYTICS_META_API
 void
 gst_analytics_modelinfo_free (GstAnalyticsModelInfo *model_info);
 
-G_END_DECLS
+

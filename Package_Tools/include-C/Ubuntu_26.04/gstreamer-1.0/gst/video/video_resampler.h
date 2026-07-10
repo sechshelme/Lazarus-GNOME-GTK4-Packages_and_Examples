@@ -23,7 +23,7 @@
 #include <gst/gst.h>
 #include <gst/video/video-prelude.h>
 
-G_BEGIN_DECLS
+
 
 typedef struct _GstVideoResampler GstVideoResampler;
 
@@ -173,6 +173,6 @@ gboolean    gst_video_resampler_init      (GstVideoResampler *resampler,
 GST_VIDEO_API
 void        gst_video_resampler_clear     (GstVideoResampler *resampler);
 
-G_END_DECLS
+
 
 #endif /* __GST_VIDEO_RESAMPLER_H__ */

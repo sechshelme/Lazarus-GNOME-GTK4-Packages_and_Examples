@@ -27,7 +27,7 @@
 #include <gst/gst.h>
 #include <gst/mpegts/gstmpegtsdescriptor.h>
 
-G_BEGIN_DECLS
+
 
 typedef struct _GstMpegtsSection GstMpegtsSection;
 
@@ -238,7 +238,7 @@ struct _GstMpegtsSection
 };
 
 GST_MPEGTS_API
-GBytes *gst_mpegts_section_get_data (GstMpegtsSection *section) G_GNUC_WARN_UNUSED_RESULT;
+GBytes *gst_mpegts_section_get_data (GstMpegtsSection *section) ;
 
 /* PAT */
 #define GST_TYPE_MPEGTS_PAT_PROGRAM (gst_mpegts_pat_program_get_type())
@@ -267,7 +267,7 @@ GST_MPEGTS_API
 GPtrArray *gst_mpegts_pat_new (void);
 
 GST_MPEGTS_API
-GstMpegtsPatProgram *gst_mpegts_pat_program_new (void) G_GNUC_WARN_UNUSED_RESULT;
+GstMpegtsPatProgram *gst_mpegts_pat_program_new (void) ;
 
 GST_MPEGTS_API
 GstMpegtsSection *gst_mpegts_section_from_pat (GPtrArray * programs,
@@ -474,10 +474,10 @@ GST_MPEGTS_API
 GType gst_mpegts_pmt_stream_get_type (void);
 
 GST_MPEGTS_API
-GstMpegtsPMT *gst_mpegts_pmt_new (void) G_GNUC_WARN_UNUSED_RESULT;
+GstMpegtsPMT *gst_mpegts_pmt_new (void) ;
 
 GST_MPEGTS_API
-GstMpegtsPMTStream *gst_mpegts_pmt_stream_new (void) G_GNUC_WARN_UNUSED_RESULT;
+GstMpegtsPMTStream *gst_mpegts_pmt_stream_new (void) ;
 
 GST_MPEGTS_API
 const GstMpegtsPMT *gst_mpegts_section_get_pmt (GstMpegtsSection *section);
@@ -514,11 +514,11 @@ GstMpegtsSection *gst_message_parse_mpegts_section (GstMessage *message);
 GST_MPEGTS_API
 GstMpegtsSection *gst_mpegts_section_new (guint16 pid,
 					   guint8 * data,
-					   gsize data_size) G_GNUC_WARN_UNUSED_RESULT;
+					   gsize data_size) ;
 
 GST_MPEGTS_API
 guint8 *gst_mpegts_section_packetize (GstMpegtsSection * section, gsize * output_size);
 
-G_END_DECLS
+
 
 #endif				/* GST_MPEGTS_SECTION_H */

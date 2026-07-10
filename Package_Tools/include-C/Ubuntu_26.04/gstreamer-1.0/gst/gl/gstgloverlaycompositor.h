@@ -31,7 +31,7 @@
 #define GST_IS_GL_OVERLAY_COMPOSITOR_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE((klass),GST_TYPE_GL_OVERLAY_COMPOSITOR))
 #define GST_GL_OVERLAY_COMPOSITOR_CAST(obj) ((GstGLOverlayCompositor*)(obj))
 
-G_BEGIN_DECLS
+
 
 GST_GL_API
 GType gst_gl_overlay_compositor_get_type (void);
@@ -73,7 +73,7 @@ struct _GstGLOverlayCompositorClass
 };
 
 GST_GL_API
-GstGLOverlayCompositor *gst_gl_overlay_compositor_new (GstGLContext * context) G_GNUC_WARN_UNUSED_RESULT;
+GstGLOverlayCompositor *gst_gl_overlay_compositor_new (GstGLContext * context) ;
 
 GST_GL_API
 void gst_gl_overlay_compositor_free_overlays (GstGLOverlayCompositor * compositor);
@@ -88,5 +88,5 @@ void gst_gl_overlay_compositor_draw_overlays (GstGLOverlayCompositor * composito
 GST_GL_API
 GstCaps * gst_gl_overlay_compositor_add_caps(GstCaps * caps);
 
-G_END_DECLS
+
 #endif /* __GST_GL_OVERLAY_COMPOSITOR_H__ */

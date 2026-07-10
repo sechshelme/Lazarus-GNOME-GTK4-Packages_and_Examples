@@ -24,7 +24,7 @@
 #include <gst/gst.h>
 #include <gst/video/video.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GST_VIDEO_CODEC_ALPHA_META_API_TYPE:
@@ -83,6 +83,6 @@ GST_VIDEO_API
 GstVideoCodecAlphaMeta *gst_buffer_add_video_codec_alpha_meta (GstBuffer * buffer,
                                                                GstBuffer * alpha_buffer);
 
-G_END_DECLS
+
 
 #endif /* __GST_VIDEO_CODEC_ALPHA_META_H__ */

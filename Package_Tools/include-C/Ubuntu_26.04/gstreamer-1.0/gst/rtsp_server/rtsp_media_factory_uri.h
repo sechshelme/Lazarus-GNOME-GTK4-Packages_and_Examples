@@ -24,7 +24,7 @@
 #ifndef __GST_RTSP_MEDIA_FACTORY_URI_H__
 #define __GST_RTSP_MEDIA_FACTORY_URI_H__
 
-G_BEGIN_DECLS
+
 
 /* types for the media factory */
 #define GST_TYPE_RTSP_MEDIA_FACTORY_URI              (gst_rtsp_media_factory_uri_get_type ())
@@ -71,7 +71,7 @@ GType                 gst_rtsp_media_factory_uri_get_type   (void);
 /* creating the factory */
 
 GST_RTSP_SERVER_API
-GstRTSPMediaFactoryURI * gst_rtsp_media_factory_uri_new     (void) G_GNUC_WARN_UNUSED_RESULT;
+GstRTSPMediaFactoryURI * gst_rtsp_media_factory_uri_new     (void) ;
 
 /* configuring the factory */
 
@@ -80,12 +80,12 @@ void                  gst_rtsp_media_factory_uri_set_uri  (GstRTSPMediaFactoryUR
                                                            const gchar *uri);
 
 GST_RTSP_SERVER_API
-gchar *               gst_rtsp_media_factory_uri_get_uri  (GstRTSPMediaFactoryURI *factory) G_GNUC_WARN_UNUSED_RESULT;
+gchar *               gst_rtsp_media_factory_uri_get_uri  (GstRTSPMediaFactoryURI *factory) ;
 
-#ifdef G_DEFINE_AUTOPTR_CLEANUP_FUNC
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstRTSPMediaFactoryURI, gst_object_unref)
+#ifdef ////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstRTSPMediaFactoryURI, gst_object_unref)
 #endif
 
-G_END_DECLS
+
 
 #endif /* __GST_RTSP_MEDIA_FACTORY_URI_H__ */

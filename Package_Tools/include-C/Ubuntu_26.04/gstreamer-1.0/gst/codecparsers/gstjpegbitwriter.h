@@ -24,7 +24,7 @@
 #include <gst/codecparsers/gstjpegparser.h>
 #include <gst/codecparsers/codecparsers-prelude.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GstJpegBitWriterResult:
@@ -44,7 +44,7 @@ typedef enum
   GST_JPEG_BIT_WRITER_NO_MORE_SPACE,
   GST_JPEG_BIT_WRITER_ERROR
 } GstJpegBitWriterResult;
-G_END_DECLS
+
 
 GST_CODEC_PARSERS_API
 GstJpegBitWriterResult     gst_jpeg_bit_writer_frame_header     (const GstJpegFrameHdr * frame_hdr,

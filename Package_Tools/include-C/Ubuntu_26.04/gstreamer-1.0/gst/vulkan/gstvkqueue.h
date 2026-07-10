@@ -24,7 +24,7 @@
 #include <gst/vulkan/gstvkdevice.h>
 #include <gst/vulkan/gstvkcommandpool.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_VULKAN_QUEUE         (gst_vulkan_queue_get_type())
 #define GST_VULKAN_QUEUE(o)           (G_TYPE_CHECK_INSTANCE_CAST((o), GST_TYPE_VULKAN_QUEUE, GstVulkanQueue))
@@ -80,14 +80,14 @@ struct _GstVulkanQueueClass
   gpointer _reserved        [GST_PADDING];
 };
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (GstVulkanQueue, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstVulkanQueue, gst_object_unref)
 
 GST_VULKAN_API
-GstVulkanDevice *   gst_vulkan_queue_get_device (GstVulkanQueue * queue) G_GNUC_WARN_UNUSED_RESULT;
+GstVulkanDevice *   gst_vulkan_queue_get_device (GstVulkanQueue * queue) ;
 
 GST_VULKAN_API
 GstVulkanCommandPool *  gst_vulkan_queue_create_command_pool    (GstVulkanQueue * queue,
-                                                                 GError ** error) G_GNUC_WARN_UNUSED_RESULT;
+                                                                 GError ** error) ;
 
 GST_VULKAN_API
 void                gst_vulkan_queue_submit_lock                (GstVulkanQueue * queue);
@@ -108,6 +108,6 @@ GST_VULKAN_API
 gboolean            gst_vulkan_queue_run_context_query          (GstElement * element,
                                                                  GstVulkanQueue ** queue);
 
-G_END_DECLS
+
 
 #endif /* __GST_VULKAN_QUEUE_H__ */

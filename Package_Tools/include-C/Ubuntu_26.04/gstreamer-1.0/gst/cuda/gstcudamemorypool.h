@@ -24,7 +24,7 @@
 #include <gst/cuda/gstcudacontext.h>
 #include <cuda.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_CUDA_MEMORY_POOL         (gst_cuda_memory_pool_get_type())
 #define GST_IS_CUDA_MEMORY_POOL(obj)      (GST_IS_MINI_OBJECT_TYPE(obj, GST_TYPE_CUDA_MEMORY_POOL))
@@ -53,7 +53,7 @@ GType               gst_cuda_memory_pool_get_type (void);
 
 GST_CUDA_API
 GstCudaMemoryPool * gst_cuda_memory_pool_new (GstCudaContext * context,
-                                              const CUmemPoolProps * props) G_GNUC_WARN_UNUSED_RESULT;
+                                              const CUmemPoolProps * props) ;
 
 GST_CUDA_API
 CUmemoryPool        gst_cuda_memory_pool_get_handle (GstCudaMemoryPool * pool);
@@ -67,4 +67,4 @@ void                gst_cuda_memory_pool_unref (GstCudaMemoryPool * pool);
 GST_CUDA_API
 void                gst_clear_cuda_memory_pool (GstCudaMemoryPool ** pool);
 
-G_END_DECLS
+

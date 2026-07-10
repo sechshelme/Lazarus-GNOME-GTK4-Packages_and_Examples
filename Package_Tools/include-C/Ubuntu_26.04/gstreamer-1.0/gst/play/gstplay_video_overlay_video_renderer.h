@@ -24,7 +24,7 @@
 #include <gst/play/gstplay-types.h>
 #include <gst/play/gstplay-video-renderer.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GstPlayVideoOverlayVideoRenderer:
@@ -48,8 +48,8 @@ typedef struct _GstPlayVideoOverlayVideoRendererClass
  */
 #define GST_PLAY_VIDEO_OVERLAY_VIDEO_RENDERER_CAST(obj)        ((GstPlayVideoOverlayVideoRenderer*)(obj))
 
-#ifdef G_DEFINE_AUTOPTR_CLEANUP_FUNC
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstPlayVideoOverlayVideoRenderer, g_object_unref)
+#ifdef ////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstPlayVideoOverlayVideoRenderer, g_object_unref)
 #endif
 
 GST_PLAY_API
@@ -76,6 +76,6 @@ void gst_play_video_overlay_video_renderer_set_render_rectangle (GstPlayVideoOve
 GST_PLAY_API
 void gst_play_video_overlay_video_renderer_get_render_rectangle (GstPlayVideoOverlayVideoRenderer * self, gint *x, gint *y, gint *width, gint *height);
 
-G_END_DECLS
+
 
 #endif /* __GST_PLAY_VIDEO_OVERLAY_VIDEO_RENDERER_H__ */

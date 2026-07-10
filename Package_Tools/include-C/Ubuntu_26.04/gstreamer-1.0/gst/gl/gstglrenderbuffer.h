@@ -23,7 +23,7 @@
 
 #include <gst/gl/gstglbasememory.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_GL_RENDERBUFFER_ALLOCATOR (gst_gl_renderbuffer_allocator_get_type())
 GST_GL_API GType gst_gl_renderbuffer_allocator_get_type(void);
@@ -131,7 +131,7 @@ GstGLRenderbufferAllocationParams *     gst_gl_renderbuffer_allocation_params_ne
                                                                                              const GstAllocationParams * alloc_params,
                                                                                              GstGLFormat renderbuffer_format,
                                                                                              guint width,
-                                                                                             guint height) G_GNUC_WARN_UNUSED_RESULT;
+                                                                                             guint height) ;
 
 GST_GL_API
 GstGLRenderbufferAllocationParams *     gst_gl_renderbuffer_allocation_params_new_wrapped   (GstGLContext * context,
@@ -141,7 +141,7 @@ GstGLRenderbufferAllocationParams *     gst_gl_renderbuffer_allocation_params_ne
                                                                                              guint height,
                                                                                              gpointer gl_handle,
                                                                                              gpointer user_data,
-                                                                                             GDestroyNotify notify) G_GNUC_WARN_UNUSED_RESULT;
+                                                                                             GDestroyNotify notify) ;
 
 /**
  * GST_TYPE_GL_RENDERBUFFER:
@@ -172,6 +172,6 @@ GstGLFormat             gst_gl_renderbuffer_get_format    (GstGLRenderbuffer * g
 GST_GL_API
 guint                   gst_gl_renderbuffer_get_id        (GstGLRenderbuffer * gl_mem);
 
-G_END_DECLS
+
 
 #endif /* _GST_GL_RENDERBUFFER_H_ */

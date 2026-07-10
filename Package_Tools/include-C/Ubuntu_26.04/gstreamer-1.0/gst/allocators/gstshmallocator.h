@@ -25,7 +25,7 @@
 
 #include <gst/allocators/gstfdmemory.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GST_ALLOCATOR_SHM:
@@ -79,4 +79,4 @@ struct _GstShmAllocatorClass {
 GST_ALLOCATORS_API void gst_shm_allocator_init_once (void);
 GST_ALLOCATORS_API GstAllocator* gst_shm_allocator_get (void);
 
-G_END_DECLS
+

@@ -24,7 +24,7 @@
 #include <gst/gst.h>
 #include <gst/tag/tag-enumtypes.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_TAG_DEMUX            (gst_tag_demux_get_type())
 #define GST_TAG_DEMUX(obj)            (G_TYPE_CHECK_INSTANCE_CAST((obj),GST_TYPE_TAG_DEMUX,GstTagDemux))
@@ -131,9 +131,9 @@ struct _GstTagDemuxClass
 GST_TAG_API
 GType     gst_tag_demux_get_type (void);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstTagDemux, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstTagDemux, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_TAG_DEMUX_H__ */
 

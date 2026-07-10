@@ -23,7 +23,7 @@
 
 #include <gst/gl/gstgldisplay.h>
 
-G_BEGIN_DECLS
+
 
 GST_GL_API
 GType gst_gl_display_egl_get_type (void);
@@ -64,13 +64,13 @@ struct _GstGLDisplayEGLClass
 };
 
 GST_GL_API
-GstGLDisplayEGL *gst_gl_display_egl_new (void) G_GNUC_WARN_UNUSED_RESULT;
+GstGLDisplayEGL *gst_gl_display_egl_new (void) ;
 
 GST_GL_API
-GstGLDisplayEGL *gst_gl_display_egl_new_surfaceless (void) G_GNUC_WARN_UNUSED_RESULT;
+GstGLDisplayEGL *gst_gl_display_egl_new_surfaceless (void) ;
 
 GST_GL_API
-GstGLDisplayEGL *gst_gl_display_egl_new_with_egl_display (gpointer display) G_GNUC_WARN_UNUSED_RESULT;
+GstGLDisplayEGL *gst_gl_display_egl_new_with_egl_display (gpointer display) ;
 
 GST_GL_API
 GstGLDisplayEGL *gst_gl_display_egl_from_gl_display (GstGLDisplay * display);
@@ -83,6 +83,6 @@ void             gst_gl_display_egl_set_foreign     (GstGLDisplayEGL * display_e
 
 #define GST_GL_DISPLAY_EGL_NAME "gst.gl.display.egl"
 
-G_END_DECLS
+
 
 #endif /* __GST_GL_DISPLAY_EGL_H__ */

@@ -25,7 +25,7 @@
 #include <gst/gst.h>
 #include <gst/pbutils/pbutils-prelude.h>
 
-G_BEGIN_DECLS
+
 
 /* AAC */
 
@@ -197,6 +197,6 @@ gchar * gst_codec_utils_caps_get_mime_codec (GstCaps * caps);
 GST_PBUTILS_API
 GstCaps * gst_codec_utils_caps_from_mime_codec (const gchar *codecs_field);
 
-G_END_DECLS
+
 
 #endif /* __GST_PB_UTILS_CODEC_UTILS_H__ */

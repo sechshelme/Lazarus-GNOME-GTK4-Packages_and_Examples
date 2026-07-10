@@ -25,7 +25,7 @@
 #include <gst/cuda/cuda-gst.h>
 #include <gst/cuda/gstcudacontext.h>
 
-G_BEGIN_DECLS
+
 
 GST_CUDA_API
 gboolean _gst_cuda_debug (CUresult result,
@@ -164,5 +164,5 @@ void            gst_cuda_graphics_resource_free (GstCudaGraphicsResource * resou
 GST_CUDA_API
 gint64          gst_cuda_create_user_token (void);
 
-G_END_DECLS
+
 

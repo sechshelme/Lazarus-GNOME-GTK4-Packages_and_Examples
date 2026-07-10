@@ -50,7 +50,7 @@
 #include <gst/opencv/opencv-prelude.h>
 #include <opencv2/core.hpp>
 
-G_BEGIN_DECLS
+
 
 /* forward declare opencv type to avoid exposing them in this API */
 //typedef struct _IplImage IplImage;
@@ -111,6 +111,6 @@ GST_OPENCV_API
 void gst_opencv_video_filter_set_in_place (GstOpencvVideoFilter * transform,
                                            gboolean ip);
 
-G_END_DECLS
+
 
 #endif /* __GST_OPENCV_VIDEO_FILTER_H__ */

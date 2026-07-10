@@ -32,7 +32,7 @@
 #include <glib-object.h>
 #include <gst/mse/mse-prelude.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GstSourceBufferAppendMode:
@@ -75,14 +75,14 @@ gboolean gst_source_buffer_set_append_mode (GstSourceBuffer * self,
     GstSourceBufferAppendMode mode, GError ** error);
 
 GST_MSE_API
-gchar *gst_source_buffer_get_content_type (GstSourceBuffer * self) G_GNUC_WARN_UNUSED_RESULT;
+gchar *gst_source_buffer_get_content_type (GstSourceBuffer * self) ;
 
 GST_MSE_API
 gboolean gst_source_buffer_get_updating (GstSourceBuffer * self);
 
 GST_MSE_API
 GArray * gst_source_buffer_get_buffered (GstSourceBuffer * self,
-                                         GError ** error) G_GNUC_WARN_UNUSED_RESULT;
+                                         GError ** error) ;
 
 GST_MSE_API
 gboolean gst_source_buffer_set_timestamp_offset (GstSourceBuffer * self,
@@ -124,4 +124,4 @@ GST_MSE_API
 gboolean gst_source_buffer_remove (GstSourceBuffer * self, GstClockTime start,
                                    GstClockTime end, GError ** error);
 
-G_END_DECLS
+

@@ -25,7 +25,7 @@
 #include <gst/gst.h>
 #include <gst/video/colorbalancechannel.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_COLOR_BALANCE \
   (gst_color_balance_get_type ())
@@ -119,6 +119,6 @@ void    gst_color_balance_value_changed (GstColorBalance        *balance,
                                          GstColorBalanceChannel *channel,
                                          gint                    value);
 
-G_END_DECLS
+
 
 #endif /* __GST_COLOR_BALANCE_H__ */

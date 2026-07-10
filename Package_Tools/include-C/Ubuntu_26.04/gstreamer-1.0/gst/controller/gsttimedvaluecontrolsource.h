@@ -29,7 +29,7 @@
 #include <gst/gst.h>
 #include <gst/controller/controller-prelude.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_TIMED_VALUE_CONTROL_SOURCE \
   (gst_timed_value_control_source_get_type ())
@@ -142,7 +142,7 @@ GST_CONTROLLER_DEPRECATED_FOR(gst_timed_value_control_source_list_control_points
 GList *         gst_timed_value_control_source_get_all        (GstTimedValueControlSource * self);
 
 GST_CONTROLLER_API
-GstTimedValue * gst_timed_value_control_source_list_control_points (GstTimedValueControlSource * self, gsize * n_control_points) G_GNUC_WARN_UNUSED_RESULT;
+GstTimedValue * gst_timed_value_control_source_list_control_points (GstTimedValueControlSource * self, gsize * n_control_points) ;
 
 GST_CONTROLLER_API
 gint            gst_timed_value_control_source_get_count      (GstTimedValueControlSource * self);
@@ -154,10 +154,10 @@ GST_CONTROLLER_API
 void            gst_control_point_free (GstControlPoint * cp);
 
 GST_CONTROLLER_API
-GstControlPoint * gst_control_point_copy (GstControlPoint * cp) G_GNUC_WARN_UNUSED_RESULT;
+GstControlPoint * gst_control_point_copy (GstControlPoint * cp) ;
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstTimedValueControlSource, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstTimedValueControlSource, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_TIMED_VALUE_CONTROL_SOURCE_H__ */

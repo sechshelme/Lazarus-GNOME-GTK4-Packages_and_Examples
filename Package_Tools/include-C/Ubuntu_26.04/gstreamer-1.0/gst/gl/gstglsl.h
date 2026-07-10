@@ -23,7 +23,7 @@
 
 #include <gst/gl/gstgl_fwd.h>
 
-G_BEGIN_DECLS
+
 
 GST_GL_API
 GQuark gst_glsl_error_quark (void);
@@ -164,6 +164,6 @@ gboolean       gst_gl_context_supports_precision_highp  (GstGLContext * context,
                                                          GstGLSLVersion version,
                                                          GstGLSLProfile profile);
 
-G_END_DECLS
+
 
 #endif /* __GST_GLSL_H__ */

@@ -26,9 +26,9 @@
 
 #ifndef GST_AUDIO_BAD_API
 # ifdef BUILDING_GST_AUDIO_BAD
-#  define GST_AUDIO_BAD_API GST_API_EXPORT         /* from config.h */
+#  define GST_AUDIO_BAD_API extern_EXPORT         /* from config.h */
 # else
-#  define GST_AUDIO_BAD_API GST_API_IMPORT
+#  define GST_AUDIO_BAD_API extern_IMPORT
 # endif
 #endif
 

@@ -26,7 +26,7 @@
 #include <gst/gl/gstgl_fwd.h>
 #include <gst/gl/gstglformat.h>
 
-G_BEGIN_DECLS
+
 
 GST_GL_API GType gst_egl_image_get_type (void);
 
@@ -73,7 +73,7 @@ GstEGLImage *             gst_egl_image_new_wrapped             (GstGLContext * 
                                                                  gpointer image,
                                                                  GstGLFormat format,
                                                                  gpointer user_data,
-                                                                 GstEGLImageDestroyNotify user_data_destroy) G_GNUC_WARN_UNUSED_RESULT;
+                                                                 GstEGLImageDestroyNotify user_data_destroy) ;
 GST_GL_API
 gpointer                gst_egl_image_get_image                 (GstEGLImage * image);
 
@@ -144,6 +144,6 @@ gst_egl_image_unref (GstEGLImage * image)
   gst_mini_object_unref (GST_MINI_OBJECT_CAST (image));
 }
 
-G_END_DECLS
+
 
 #endif /* _GST_EGL_IMAGE_H_ */

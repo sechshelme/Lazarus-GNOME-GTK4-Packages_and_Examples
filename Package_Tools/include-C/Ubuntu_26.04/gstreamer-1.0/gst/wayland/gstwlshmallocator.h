@@ -27,7 +27,7 @@
 #include <gst/allocators/allocators.h>
 #include <gst/video/video.h>
 
-G_BEGIN_DECLS
+
 
 GST_WL_API
 void gst_wl_shm_init_once (void);
@@ -36,4 +36,4 @@ GST_WL_API
 struct wl_buffer * gst_wl_shm_memory_construct_wl_buffer (GstMemory * mem,
     GstWlDisplay * display, const GstVideoInfo * info);
 
-G_END_DECLS
+

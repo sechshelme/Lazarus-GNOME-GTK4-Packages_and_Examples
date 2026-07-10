@@ -24,7 +24,7 @@
 #include <gst/gl/gstgl_fwd.h>
 #include <gst/gl/gstgldebug.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GstGLQueryType:
@@ -110,6 +110,6 @@ guint64             gst_gl_query_result             (GstGLQuery * query);
     gst_gl_async_debug_thaw (&(query)->debug); \
   } G_STMT_END
 
-G_END_DECLS
+
 
 #endif /* __GST_GL_QUERY_H__ */

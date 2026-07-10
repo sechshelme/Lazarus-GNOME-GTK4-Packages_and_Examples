@@ -27,7 +27,7 @@
 #include <gst/gst.h>
 #include <gst/mpegts/mpegts-prelude.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * SECTION:gst-isdb-descriptor
@@ -84,6 +84,6 @@ typedef enum {
 
 } GstMpegtsISDBDescriptorType;
 
-G_END_DECLS
+
 
 #endif

@@ -34,7 +34,7 @@
 #include <gst/gst.h>
 #include <gst/codecparsers/codecparsers-prelude.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GstMpegVideoPacketTypeCode:
@@ -565,6 +565,6 @@ GST_CODEC_PARSERS_API
 void     gst_mpeg_video_quant_matrix_get_zigzag_from_raster (guint8 out_quant[64],
                                                              const guint8 quant[64]);
 
-G_END_DECLS
+
 
 #endif

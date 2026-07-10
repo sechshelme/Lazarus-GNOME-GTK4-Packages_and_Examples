@@ -6,7 +6,7 @@
 #include <glib-object.h>
 #include <gst/audio/audio-prelude.h>
 
-G_BEGIN_DECLS
+
 
 /* enumerations from "audio-channel-mixer.h" */
 
@@ -120,7 +120,7 @@ GST_AUDIO_API
 GType gst_dsd_format_get_type (void);
 #define GST_TYPE_DSD_FORMAT (gst_dsd_format_get_type())
 
-G_END_DECLS
+
 
 /* Generated data ends here */
 

@@ -29,7 +29,7 @@
 #include <gst/rtsp/gstrtspmessage.h>
 #include <gst/rtsp/gstrtspurl.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_RTSP_EXTENSION \
   (gst_rtsp_extension_get_type ())
@@ -117,6 +117,6 @@ GST_RTSP_API
 GstRTSPResult   gst_rtsp_extension_send              (GstRTSPExtension *ext, GstRTSPMessage *req,
                                                       GstRTSPMessage *resp);
 
-G_END_DECLS
+
 
 #endif /* __GST_RTSP_EXTENSION_H__ */

@@ -22,7 +22,7 @@
 
 #include <gst/video/video-enumtypes.h>
 
-G_BEGIN_DECLS
+
 
 typedef struct _GstVideoFrame GstVideoFrame;
 
@@ -261,6 +261,6 @@ typedef enum {
 
 G_DEFINE_AUTO_CLEANUP_CLEAR_FUNC(GstVideoFrame, gst_video_frame_unmap)
 
-G_END_DECLS
+
 
 #endif /* __GST_VIDEO_FRAME_H__ */

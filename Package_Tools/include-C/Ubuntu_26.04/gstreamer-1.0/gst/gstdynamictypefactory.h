@@ -34,12 +34,12 @@
  * Since: 1.20
  */
 #define GST_DYNAMIC_TYPE_REGISTER_DEFINE(t_n, t) \
-G_BEGIN_DECLS \
+ \
 gboolean G_PASTE (gst_dynamic_type_register_, t_n) (GstPlugin * plugin) \
 { \
   return gst_dynamic_type_register (plugin, t); \
 } \
-G_END_DECLS
+
 
 /**
  * GST_DYNAMIC_TYPE_REGISTER_DECLARE:
@@ -53,9 +53,9 @@ G_END_DECLS
  * Since: 1.20
  */
 #define GST_DYNAMIC_TYPE_REGISTER_DECLARE(t_n) \
-G_BEGIN_DECLS \
+ \
 gboolean G_PASTE(gst_dynamic_type_register_, t_n) (GstPlugin * plugin); \
-G_END_DECLS
+
 
 /**
  * GST_DYNAMIC_TYPE_REGISTER:
@@ -84,7 +84,7 @@ typedef struct _GstDynamicTypeFactoryClass GstDynamicTypeFactoryClass;
 #include <gst/gstplugin.h>
 #include <gst/gstpluginfeature.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_DYNAMIC_TYPE_FACTORY           (gst_dynamic_type_factory_get_type())
 #define GST_DYNAMIC_TYPE_FACTORY(obj)           (G_TYPE_CHECK_INSTANCE_CAST((obj),GST_TYPE_DYNAMIC_TYPE_FACTORY,\
@@ -99,15 +99,15 @@ G_BEGIN_DECLS
 #define GST_IS_DYNAMIC_TYPE_FACTORY_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE((klass),GST_TYPE_DYNAMIC_TYPE_FACTORY))
 #define GST_DYNAMIC_TYPE_FACTORY_CAST(obj)      ((GstDynamicTypeFactory *)(obj))
 
-GST_API
+extern
 GType  gst_dynamic_type_factory_get_type        (void);
 
-GST_API
+extern
 GType  gst_dynamic_type_factory_load            (const gchar *factoryname);
 
-GST_API
+extern
 gboolean gst_dynamic_type_register              (GstPlugin *plugin, GType type);
 
-G_END_DECLS
+
 
 #endif

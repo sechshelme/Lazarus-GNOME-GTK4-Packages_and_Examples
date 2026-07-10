@@ -24,7 +24,7 @@
 #include <gst/rtp/gstrtpbasepayload.h>
 #include <gst/base/gstadapter.h>
 
-G_BEGIN_DECLS
+
 
 typedef struct _GstRTPBaseAudioPayload GstRTPBaseAudioPayload;
 typedef struct _GstRTPBaseAudioPayloadClass GstRTPBaseAudioPayloadClass;
@@ -104,7 +104,7 @@ void            gst_rtp_base_audio_payload_set_samplebits_options (GstRTPBaseAud
 /* get the internal adapter */
 
 GST_RTP_API
-GstAdapter*     gst_rtp_base_audio_payload_get_adapter            (GstRTPBaseAudioPayload *rtpbaseaudiopayload) G_GNUC_WARN_UNUSED_RESULT;
+GstAdapter*     gst_rtp_base_audio_payload_get_adapter            (GstRTPBaseAudioPayload *rtpbaseaudiopayload) ;
 
 /* push and flushing data */
 
@@ -117,8 +117,8 @@ GST_RTP_API
 GstFlowReturn   gst_rtp_base_audio_payload_flush                  (GstRTPBaseAudioPayload * baseaudiopayload,
                                                                    guint payload_len, GstClockTime timestamp);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstRTPBaseAudioPayload, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstRTPBaseAudioPayload, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_RTP_BASE_AUDIO_PAYLOAD_H__ */

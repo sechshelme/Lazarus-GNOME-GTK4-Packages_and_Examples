@@ -30,7 +30,7 @@
 #include <gst/analytics/analytics-meta-prelude.h>
 #include <gst/analytics/gstanalyticsmeta.h>
 
-G_BEGIN_DECLS
+
 /**
  * GstAnalyticsTrackMtd:
  * @id: Instance identifier.
@@ -73,5 +73,5 @@ gst_analytics_relation_meta_get_tracking_mtd (GstAnalyticsRelationMeta * meta,
     guint an_meta_id, GstAnalyticsTrackingMtd * rlt);
 
 
-G_END_DECLS
+
 #endif // __GST_ANALYTICS_OBJECT_TRACKING_MTD__

@@ -26,7 +26,7 @@
 #include <gst/audio/audio.h>
 #include <gst/audio/audio-bad-prelude.h>
 
-G_BEGIN_DECLS
+
 
 
 typedef struct _GstNonstreamAudioDecoder GstNonstreamAudioDecoder;
@@ -403,10 +403,10 @@ void gst_nonstream_audio_decoder_get_downstream_info (GstNonstreamAudioDecoder *
 
 GST_AUDIO_BAD_API
 GstBuffer *gst_nonstream_audio_decoder_allocate_output_buffer (GstNonstreamAudioDecoder * dec,
-                                                               gsize size) G_GNUC_WARN_UNUSED_RESULT;
+                                                               gsize size) ;
 
 
-G_END_DECLS
+
 
 
 #endif /* __GST_NONSTREAM_AUDIO_DECODER_H__ */

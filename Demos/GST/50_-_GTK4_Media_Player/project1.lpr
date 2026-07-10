@@ -27,5 +27,7 @@ uses
   end;
 
 begin
+  gst_buffer_ref(nil);
+  gst_buffer_unref(nil);
   main;
 end.

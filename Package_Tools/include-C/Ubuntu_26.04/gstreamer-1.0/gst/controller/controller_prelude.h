@@ -26,9 +26,9 @@
 
 #ifndef GST_CONTROLLER_API
 #ifdef BUILDING_GST_CONTROLLER
-#define GST_CONTROLLER_API GST_API_EXPORT        /* from config.h */
+#define GST_CONTROLLER_API extern_EXPORT        /* from config.h */
 #else
-#define GST_CONTROLLER_API GST_API_IMPORT
+#define GST_CONTROLLER_API extern_IMPORT
 #endif
 #endif
 

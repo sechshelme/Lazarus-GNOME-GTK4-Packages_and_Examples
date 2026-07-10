@@ -25,7 +25,7 @@
 #include <vulkan/vulkan.h>
 #include <gst/vulkan/vulkan-prelude.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GST_VULKAN_EXTENT3D_FORMAT:
@@ -69,6 +69,6 @@ gchar *                     gst_vulkan_sample_count_flags_to_string         (VkS
 GST_VULKAN_API
 const gchar *               gst_vulkan_present_mode_to_string               (VkPresentModeKHR present_mode);
 
-G_END_DECLS
+
 
 #endif /* __GST_VULKAN_DEBUG_H__ */

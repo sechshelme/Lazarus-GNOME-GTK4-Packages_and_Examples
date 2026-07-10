@@ -24,7 +24,7 @@
 #include <gst/va/gstva.h>
 #include <gst/va/va_fwd.h>
 
-G_BEGIN_DECLS
+
 
 GST_VA_API
 gboolean              gst_va_ensure_element_data          (gpointer element,
@@ -54,4 +54,4 @@ GST_VA_API
 void                  gst_context_set_va_display          (GstContext * context,
                                                            GstVaDisplay * display);
 
-G_END_DECLS
+

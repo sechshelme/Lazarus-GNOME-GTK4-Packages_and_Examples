@@ -35,7 +35,7 @@
 #include <gst/gst.h>
 #include <gst/mpegts/mpegts-prelude.h>
 
-G_BEGIN_DECLS
+
 
 /*
  * descriptor_tag TS  PS                      Identification
@@ -227,7 +227,7 @@ GST_MPEGTS_API
 void       gst_mpegts_descriptor_free (GstMpegtsDescriptor *desc);
 
 GST_MPEGTS_API
-GstMpegtsDescriptor       * gst_mpegts_descriptor_copy (GstMpegtsDescriptor *desc) G_GNUC_WARN_UNUSED_RESULT;
+GstMpegtsDescriptor       * gst_mpegts_descriptor_copy (GstMpegtsDescriptor *desc) ;
 
 GST_MPEGTS_API
 GPtrArray *gst_mpegts_parse_descriptors (guint8 * buffer, gsize buf_len);
@@ -717,6 +717,6 @@ GST_MPEGTS_API
 GstMpegtsDescriptor *
 gst_mpegts_descriptor_from_jpeg_xs(const GstMpegtsJpegXsDescriptor *jpegxs);
 
-G_END_DECLS
+
 
 #endif				/* GST_MPEGTS_DESCRIPTOR_H */

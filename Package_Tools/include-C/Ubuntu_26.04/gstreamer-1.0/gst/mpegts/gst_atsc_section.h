@@ -28,7 +28,7 @@
 #include <gst/mpegts/gstmpegtssection.h>
 #include <gst/mpegts/gstmpegtsdescriptor.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GstMpegtsSectionATSCTableID:
@@ -264,7 +264,7 @@ GST_MPEGTS_API
 GstMpegtsSection * gst_mpegts_section_from_atsc_mgt (GstMpegtsAtscMGT * mgt);
 
 GST_MPEGTS_API
-GstMpegtsAtscMGT * gst_mpegts_atsc_mgt_new (void) G_GNUC_WARN_UNUSED_RESULT;
+GstMpegtsAtscMGT * gst_mpegts_atsc_mgt_new (void) ;
 
 /* Multiple string structure (used in ETT and EIT) */
 
@@ -446,13 +446,13 @@ const GstMpegtsAtscSTT * gst_mpegts_section_get_atsc_stt (GstMpegtsSection * sec
 /* FIXME receive a non-const parameter but we only provide a const getter */
 
 GST_MPEGTS_API
-GstDateTime * gst_mpegts_atsc_stt_get_datetime_utc (GstMpegtsAtscSTT * stt) G_GNUC_WARN_UNUSED_RESULT;
+GstDateTime * gst_mpegts_atsc_stt_get_datetime_utc (GstMpegtsAtscSTT * stt) ;
 
 GST_MPEGTS_API
 GstMpegtsSection * gst_mpegts_section_from_atsc_stt (GstMpegtsAtscSTT * stt);
 
 GST_MPEGTS_API
-GstMpegtsAtscSTT * gst_mpegts_atsc_stt_new (void) G_GNUC_WARN_UNUSED_RESULT;
+GstMpegtsAtscSTT * gst_mpegts_atsc_stt_new (void) ;
 
 /* RRT */
 #define GST_TYPE_MPEGTS_ATSC_RRT (gst_mpegts_atsc_rrt_get_type ())
@@ -530,14 +530,14 @@ GST_MPEGTS_API
 GstMpegtsSection * gst_mpegts_section_from_atsc_rrt (GstMpegtsAtscRRT * rrt);
 
 GST_MPEGTS_API
-GstMpegtsAtscRRT * gst_mpegts_atsc_rrt_new (void) G_GNUC_WARN_UNUSED_RESULT;
+GstMpegtsAtscRRT * gst_mpegts_atsc_rrt_new (void) ;
 
 GST_MPEGTS_API
-GstMpegtsAtscRRTDimension * gst_mpegts_atsc_rrt_dimension_new (void) G_GNUC_WARN_UNUSED_RESULT;
+GstMpegtsAtscRRTDimension * gst_mpegts_atsc_rrt_dimension_new (void) ;
 
 GST_MPEGTS_API
-GstMpegtsAtscRRTDimensionValue * gst_mpegts_atsc_rrt_dimension_value_new (void) G_GNUC_WARN_UNUSED_RESULT;
+GstMpegtsAtscRRTDimensionValue * gst_mpegts_atsc_rrt_dimension_value_new (void) ;
 
-G_END_DECLS
+
 
 #endif				/* GST_MPEGTS_SECTION_H */

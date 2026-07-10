@@ -24,7 +24,7 @@
 
 #include <gst/video/video.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GST_BUFFER_POOL_OPTION_VIDEO_META:
@@ -79,10 +79,10 @@ GST_VIDEO_API
 GType             gst_video_buffer_pool_get_type      (void);
 
 GST_VIDEO_API
-GstBufferPool *   gst_video_buffer_pool_new           (void) G_GNUC_WARN_UNUSED_RESULT;
+GstBufferPool *   gst_video_buffer_pool_new           (void) ;
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstVideoBufferPool, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstVideoBufferPool, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_VIDEO_POOL_H__ */

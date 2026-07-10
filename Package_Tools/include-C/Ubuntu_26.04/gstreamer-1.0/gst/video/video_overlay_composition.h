@@ -25,7 +25,7 @@
 #include <gst/gst.h>
 #include <gst/video/video.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GstVideoOverlayRectangle:
@@ -128,10 +128,10 @@ GST_VIDEO_API
 GstVideoOverlayRectangle *   gst_video_overlay_rectangle_new_raw  (GstBuffer * pixels,
                                                                    gint render_x, gint render_y,
                                                                    guint render_width, guint render_height,
-                                                                   GstVideoOverlayFormatFlags flags) G_GNUC_WARN_UNUSED_RESULT;
+                                                                   GstVideoOverlayFormatFlags flags) ;
 
 GST_VIDEO_API
-GstVideoOverlayRectangle *   gst_video_overlay_rectangle_copy     (GstVideoOverlayRectangle * rectangle) G_GNUC_WARN_UNUSED_RESULT;
+GstVideoOverlayRectangle *   gst_video_overlay_rectangle_copy     (GstVideoOverlayRectangle * rectangle) ;
 
 GST_VIDEO_API
 guint                        gst_video_overlay_rectangle_get_seqnum (GstVideoOverlayRectangle  * rectangle);
@@ -236,13 +236,13 @@ GST_VIDEO_API
 GType                        gst_video_overlay_composition_get_type (void);
 
 GST_VIDEO_API
-GstVideoOverlayComposition * gst_video_overlay_composition_copy          (GstVideoOverlayComposition * comp) G_GNUC_WARN_UNUSED_RESULT;
+GstVideoOverlayComposition * gst_video_overlay_composition_copy          (GstVideoOverlayComposition * comp) ;
 
 GST_VIDEO_API
-GstVideoOverlayComposition * gst_video_overlay_composition_make_writable (GstVideoOverlayComposition * comp) G_GNUC_WARN_UNUSED_RESULT;
+GstVideoOverlayComposition * gst_video_overlay_composition_make_writable (GstVideoOverlayComposition * comp) ;
 
 GST_VIDEO_API
-GstVideoOverlayComposition * gst_video_overlay_composition_new           (GstVideoOverlayRectangle * rectangle) G_GNUC_WARN_UNUSED_RESULT;
+GstVideoOverlayComposition * gst_video_overlay_composition_new           (GstVideoOverlayRectangle * rectangle) ;
 
 GST_VIDEO_API
 void                         gst_video_overlay_composition_add_rectangle (GstVideoOverlayComposition * comp,
@@ -313,10 +313,10 @@ GstVideoOverlayCompositionMeta * gst_buffer_add_video_overlay_composition_meta (
 #define gst_buffer_remove_video_overlay_composition_meta(b,m) \
   gst_buffer_remove_meta((b),((GstMeta *) m))
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstVideoOverlayComposition, gst_video_overlay_composition_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstVideoOverlayComposition, gst_video_overlay_composition_unref)
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstVideoOverlayRectangle, gst_video_overlay_rectangle_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstVideoOverlayRectangle, gst_video_overlay_rectangle_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_VIDEO_OVERLAY_COMPOSITION_H__ */

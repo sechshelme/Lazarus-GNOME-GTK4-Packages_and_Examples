@@ -28,7 +28,7 @@
 #include <gst/gl/gstglcontext.h>
 #include <gst/gl/gstgldisplay.h>
 
-G_BEGIN_DECLS
+
 
 GST_GL_API
 GType gst_gl_window_get_type       (void);
@@ -179,7 +179,7 @@ struct _GstGLWindowClass {
 };
 
 GST_GL_API
-GstGLWindow * gst_gl_window_new  (GstGLDisplay *display) G_GNUC_WARN_UNUSED_RESULT;
+GstGLWindow * gst_gl_window_new  (GstGLDisplay *display) ;
 
 /* callbacks */
 GST_GL_API
@@ -270,7 +270,7 @@ GST_GL_API
 void     gst_gl_window_resize               (GstGLWindow *window, guint width, guint height);
 
 GST_GL_API
-GstGLContext * gst_gl_window_get_context    (GstGLWindow *window) G_GNUC_WARN_UNUSED_RESULT;
+GstGLContext * gst_gl_window_get_context    (GstGLWindow *window) ;
 GST_GL_API
 guintptr       gst_gl_window_get_display    (GstGLWindow *window);
 
@@ -283,6 +283,6 @@ void           gst_gl_window_set_request_output_surface (GstGLWindow *window, gb
 GST_GL_API
 gboolean       gst_gl_window_get_request_output_surface (GstGLWindow *window);
 
-G_END_DECLS
+
 
 #endif /* __GST_GL_WINDOW_H__ */

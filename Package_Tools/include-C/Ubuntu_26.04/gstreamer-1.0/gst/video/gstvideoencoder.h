@@ -27,7 +27,7 @@
 
 #include <gst/video/gstvideoutils.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_VIDEO_ENCODER \
   (gst_video_encoder_get_type())
@@ -303,29 +303,29 @@ GST_VIDEO_API
 GType                gst_video_encoder_get_type (void);
 
 GST_VIDEO_API
-GstVideoCodecState*  gst_video_encoder_get_output_state (GstVideoEncoder *encoder) G_GNUC_WARN_UNUSED_RESULT;
+GstVideoCodecState*  gst_video_encoder_get_output_state (GstVideoEncoder *encoder) ;
 
 GST_VIDEO_API
 GstVideoCodecState*  gst_video_encoder_set_output_state (GstVideoEncoder * encoder,
 							 GstCaps * caps,
-							 GstVideoCodecState * reference) G_GNUC_WARN_UNUSED_RESULT;
+							 GstVideoCodecState * reference) ;
 
 GST_VIDEO_API
 gboolean             gst_video_encoder_negotiate        (GstVideoEncoder * encoder);
 
 GST_VIDEO_API
 GstVideoCodecFrame*  gst_video_encoder_get_frame        (GstVideoEncoder *encoder,
-						         int frame_number) G_GNUC_WARN_UNUSED_RESULT;
+						         int frame_number) ;
 
 GST_VIDEO_API
-GstVideoCodecFrame*  gst_video_encoder_get_oldest_frame (GstVideoEncoder *encoder) G_GNUC_WARN_UNUSED_RESULT;
+GstVideoCodecFrame*  gst_video_encoder_get_oldest_frame (GstVideoEncoder *encoder) ;
 
 GST_VIDEO_API
-GList *              gst_video_encoder_get_frames       (GstVideoEncoder *encoder) G_GNUC_WARN_UNUSED_RESULT;
+GList *              gst_video_encoder_get_frames       (GstVideoEncoder *encoder) ;
 
 GST_VIDEO_API
 GstBuffer *          gst_video_encoder_allocate_output_buffer (GstVideoEncoder * encoder,
-                                                               gsize size) G_GNUC_WARN_UNUSED_RESULT;
+                                                               gsize size) ;
 
 GST_VIDEO_API
 GstFlowReturn        gst_video_encoder_allocate_output_frame  (GstVideoEncoder *encoder,
@@ -343,7 +343,7 @@ GstFlowReturn        gst_video_encoder_finish_subframe (GstVideoEncoder * encode
 GST_VIDEO_API
 GstCaps *            gst_video_encoder_proxy_getcaps (GstVideoEncoder * enc,
 						      GstCaps         * caps,
-                                                      GstCaps         * filter) G_GNUC_WARN_UNUSED_RESULT;
+                                                      GstCaps         * filter) ;
 
 GST_VIDEO_API
 void                 gst_video_encoder_set_latency (GstVideoEncoder *encoder,
@@ -393,9 +393,9 @@ void                 gst_video_encoder_release_frame (GstVideoEncoder *encoder, 
 GST_VIDEO_API
 void                 gst_video_encoder_drop_frame (GstVideoEncoder *encoder, GstVideoCodecFrame *frame);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstVideoEncoder, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstVideoEncoder, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif
 

@@ -27,9 +27,9 @@
 
 #ifndef GST_TRANSCODER_API
 # ifdef BUILDING_GST_TRANSCODER
-#  define GST_TRANSCODER_API GST_API_EXPORT         /* from config.h */
+#  define GST_TRANSCODER_API extern_EXPORT         /* from config.h */
 # else
-#  define GST_TRANSCODER_API GST_API_IMPORT
+#  define GST_TRANSCODER_API extern_IMPORT
 # endif
 #endif
 

@@ -25,7 +25,7 @@
 
 #include <gst/vulkan/vulkan.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_VULKAN_SWAPPER         (gst_vulkan_swapper_get_type())
 #define GST_VULKAN_SWAPPER(o)           (G_TYPE_CHECK_INSTANCE_CAST((o), GST_TYPE_VULKAN_SWAPPER, GstVulkanSwapper))
@@ -84,11 +84,11 @@ struct _GstVulkanSwapperClass
   gpointer _reserved        [GST_PADDING];
 };
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (GstVulkanSwapper, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstVulkanSwapper, gst_object_unref)
 
 GST_VULKAN_API
 GstVulkanSwapper *  gst_vulkan_swapper_new                      (GstVulkanDevice * device,
-                                                                 GstVulkanWindow * window) G_GNUC_WARN_UNUSED_RESULT;
+                                                                 GstVulkanWindow * window) ;
 
 GST_VULKAN_API
 gboolean            gst_vulkan_swapper_choose_queue             (GstVulkanSwapper * swapper,
@@ -96,7 +96,7 @@ gboolean            gst_vulkan_swapper_choose_queue             (GstVulkanSwappe
                                                                  GError ** error);
 GST_VULKAN_API
 GstCaps *           gst_vulkan_swapper_get_supported_caps       (GstVulkanSwapper * swapper,
-                                                                 GError ** error) G_GNUC_WARN_UNUSED_RESULT;
+                                                                 GError ** error) ;
 GST_VULKAN_API
 gboolean            gst_vulkan_swapper_set_caps                 (GstVulkanSwapper * swapper,
                                                                  GstCaps * caps,
@@ -112,6 +112,6 @@ void                gst_vulkan_swapper_get_surface_rectangles   (GstVulkanSwappe
                                                                  GstVideoRectangle *surface_location,
                                                                  GstVideoRectangle *display_rect);
 
-G_END_DECLS
+
 
 #endif /* __GST_VULKAN_SWAPPER_H__ */

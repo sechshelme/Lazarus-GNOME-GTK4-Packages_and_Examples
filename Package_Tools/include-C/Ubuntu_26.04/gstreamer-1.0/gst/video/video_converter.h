@@ -22,7 +22,7 @@
 
 #include <gst/video/video.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GST_VIDEO_CONVERTER_OPT_RESAMPLER_METHOD:
@@ -324,6 +324,6 @@ gboolean gst_video_converter_transform_metas (GstVideoConverter * convert,
     GstBuffer * src, GstBuffer * dest);
 
 
-G_END_DECLS
+
 
 #endif /* __GST_VIDEO_CONVERTER_H__ */

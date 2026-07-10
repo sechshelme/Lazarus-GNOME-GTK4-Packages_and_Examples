@@ -26,7 +26,7 @@
 
 #include <gst/gst.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GstGLAPI:
@@ -109,6 +109,6 @@ gchar * gst_gl_platform_to_string (GstGLPlatform platform);
 GST_GL_API
 GstGLPlatform gst_gl_platform_from_string (const gchar * platform_s);
 
-G_END_DECLS
+
 
 #endif /* __GST_GL_API_H__ */

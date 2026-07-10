@@ -46,7 +46,7 @@
 #include <gst/gst.h>
 #include <gst/rtsp/rtsp-prelude.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GST_RTSP_CHECK:
@@ -478,6 +478,6 @@ gchar *            gst_rtsp_generate_digest_auth_response_from_md5 (const gchar 
                                                                     const gchar * uri,
                                                                     const gchar * nonce);
 
-G_END_DECLS
+
 
 #endif /* __GST_RTSP_DEFS_H__ */

@@ -23,7 +23,7 @@
 #include <gst/video/video.h>
 #include <gst/hip/gsthip_fwd.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_HIP_BUFFER_POOL             (gst_hip_buffer_pool_get_type ())
 #define GST_HIP_BUFFER_POOL(obj)             (G_TYPE_CHECK_INSTANCE_CAST ((obj),GST_TYPE_HIP_BUFFER_POOL,GstHipBufferPool))
@@ -72,5 +72,5 @@ GType           gst_hip_buffer_pool_get_type (void);
 GST_HIP_API
 GstBufferPool * gst_hip_buffer_pool_new (GstHipDevice * device);
 
-G_END_DECLS
+
 

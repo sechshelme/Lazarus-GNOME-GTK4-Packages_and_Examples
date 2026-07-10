@@ -6,7 +6,7 @@
 #include <glib-object.h>
 #include <gst/interfaces/photography-prelude.h>
 
-G_BEGIN_DECLS
+
 
 /* enumerations from "photography.h" */
 
@@ -54,7 +54,7 @@ GST_PHOTOGRAPHY_API
 GType gst_photography_exposure_mode_get_type (void);
 #define GST_TYPE_PHOTOGRAPHY_EXPOSURE_MODE (gst_photography_exposure_mode_get_type())
 
-G_END_DECLS
+
 
 /* Generated data ends here */
 

@@ -25,7 +25,7 @@
 #include <gst/app/app-prelude.h>
 #include <gst/app/app-enumtypes.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_APP_SRC \
   (gst_app_src_get_type())
@@ -154,7 +154,7 @@ GST_APP_API
 void             gst_app_src_set_caps                (GstAppSrc *appsrc, const GstCaps *caps);
 
 GST_APP_API
-GstCaps*         gst_app_src_get_caps                (GstAppSrc *appsrc) G_GNUC_WARN_UNUSED_RESULT;
+GstCaps*         gst_app_src_get_caps                (GstAppSrc *appsrc) ;
 
 GST_APP_API
 void             gst_app_src_set_size                (GstAppSrc *appsrc, gint64 size);
@@ -326,10 +326,10 @@ void gst_app_src_simple_callbacks_set_seek_data (GstAppSrcSimpleCallbacks *cb,
                                                  gpointer user_data,
                                                  GDestroyNotify destroy_notify);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstAppSrc, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstAppSrc, gst_object_unref)
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstAppSrcSimpleCallbacks, gst_app_src_simple_callbacks_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstAppSrcSimpleCallbacks, gst_app_src_simple_callbacks_unref)
 
-G_END_DECLS
+
 
 #endif

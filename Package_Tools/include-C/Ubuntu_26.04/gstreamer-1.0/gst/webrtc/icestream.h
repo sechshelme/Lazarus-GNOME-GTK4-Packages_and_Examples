@@ -22,7 +22,7 @@
 
 #include "ice.h"
 
-G_BEGIN_DECLS
+
 
 GST_WEBRTC_API
 GType gst_webrtc_ice_stream_get_type(void);
@@ -50,12 +50,12 @@ struct _GstWebRTCICEStreamClass
 
 GST_WEBRTC_API
 GstWebRTCICETransport *     gst_webrtc_ice_stream_find_transport        (GstWebRTCICEStream * stream,
-                                                                         GstWebRTCICEComponent component) G_GNUC_WARN_UNUSED_RESULT;
+                                                                         GstWebRTCICEComponent component) ;
 GST_WEBRTC_API
 gboolean                    gst_webrtc_ice_stream_gather_candidates     (GstWebRTCICEStream * ice);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstWebRTCICEStream, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstWebRTCICEStream, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_WEBRTC_ICE_STREAM_H__ */

@@ -27,7 +27,7 @@
 #include <gst/gst.h>
 #include <gst/base/gstbasesrc.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_PUSH_SRC               (gst_push_src_get_type())
 #define GST_PUSH_SRC(obj)               (G_TYPE_CHECK_INSTANCE_CAST((obj),GST_TYPE_PUSH_SRC,GstPushSrc))
@@ -95,8 +95,8 @@ struct _GstPushSrcClass {
 GST_BASE_API
 GType gst_push_src_get_type (void);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstPushSrc, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstPushSrc, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_PUSH_SRC_H__ */

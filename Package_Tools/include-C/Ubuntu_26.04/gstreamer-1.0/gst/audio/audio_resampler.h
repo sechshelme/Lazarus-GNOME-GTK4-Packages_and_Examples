@@ -23,7 +23,7 @@
 #include <gst/gst.h>
 #include <gst/audio/audio.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GstAudioResampler:
@@ -254,6 +254,6 @@ void                gst_audio_resampler_resample         (GstAudioResampler * re
                                                           gpointer in[], gsize in_frames,
                                                           gpointer out[], gsize out_frames);
 
-G_END_DECLS
+
 
 #endif /* __GST_AUDIO_RESAMPLER_H__ */

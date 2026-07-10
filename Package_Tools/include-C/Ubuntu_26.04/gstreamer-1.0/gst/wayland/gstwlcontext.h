@@ -22,7 +22,7 @@
 
 #include <gst/wayland/wayland.h>
 
-G_BEGIN_DECLS
+
 
 /* The type of GstContext used to pass the wl_display pointer
  * from the application to the sink */
@@ -42,4 +42,4 @@ GST_WL_API
 struct wl_display *
 gst_wl_display_handle_context_get_handle (GstContext * context);
 
-G_END_DECLS
+

@@ -27,7 +27,7 @@
 #include <gst/cuda/gstcudastream.h>
 #include <gst/cuda/gstcudamemorypool.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_CUDA_ALLOCATOR             (gst_cuda_allocator_get_type())
 #define GST_CUDA_ALLOCATOR(obj)             (G_TYPE_CHECK_INSTANCE_CAST((obj),GST_TYPE_CUDA_ALLOCATOR,GstCudaAllocator))
@@ -317,13 +317,13 @@ GST_CUDA_API
 GstMemory *     gst_cuda_allocator_alloc    (GstCudaAllocator * allocator,
                                              GstCudaContext * context,
                                              GstCudaStream * stream,
-                                             const GstVideoInfo * info) G_GNUC_WARN_UNUSED_RESULT;
+                                             const GstVideoInfo * info) ;
 
 GST_CUDA_API
 GstMemory *     gst_cuda_allocator_alloc_stream_ordered (GstCudaAllocator * allocator,
                                                          GstCudaContext * context,
                                                          GstCudaStream * stream,
-                                                         const GstVideoInfo * info) G_GNUC_WARN_UNUSED_RESULT;
+                                                         const GstVideoInfo * info) ;
 
 GST_CUDA_API
 gboolean        gst_cuda_allocator_set_active (GstCudaAllocator * allocator,
@@ -336,7 +336,7 @@ GstMemory *     gst_cuda_allocator_alloc_wrapped (GstCudaAllocator * allocator,
                                                   const GstVideoInfo * info,
                                                   CUdeviceptr dev_ptr,
                                                   gpointer user_data,
-                                                  GDestroyNotify notify) G_GNUC_WARN_UNUSED_RESULT;
+                                                  GDestroyNotify notify) ;
 
 GST_CUDA_API
 GstMemory *     gst_cuda_allocator_virtual_alloc (GstCudaAllocator * allocator,
@@ -344,7 +344,7 @@ GstMemory *     gst_cuda_allocator_virtual_alloc (GstCudaAllocator * allocator,
                                                   GstCudaStream * stream,
                                                   const GstVideoInfo * info,
                                                   const CUmemAllocationProp * prop,
-                                                  CUmemAllocationGranularity_flags granularity_flags) G_GNUC_WARN_UNUSED_RESULT;
+                                                  CUmemAllocationGranularity_flags granularity_flags) ;
 
 /**
  * GstCudaPoolAllocator:
@@ -381,20 +381,20 @@ GType                  gst_cuda_pool_allocator_get_type (void);
 GST_CUDA_API
 GstCudaPoolAllocator * gst_cuda_pool_allocator_new (GstCudaContext * context,
                                                     GstCudaStream * stream,
-                                                    const GstVideoInfo * info) G_GNUC_WARN_UNUSED_RESULT;
+                                                    const GstVideoInfo * info) ;
 
 GST_CUDA_API
 GstCudaPoolAllocator * gst_cuda_pool_allocator_new_for_virtual_memory (GstCudaContext * context,
                                                                        GstCudaStream * stream,
                                                                        const GstVideoInfo * info,
                                                                        const CUmemAllocationProp * prop,
-                                                                       CUmemAllocationGranularity_flags granularity_flags) G_GNUC_WARN_UNUSED_RESULT;
+                                                                       CUmemAllocationGranularity_flags granularity_flags) ;
 
 GST_CUDA_API
 GstCudaPoolAllocator * gst_cuda_pool_allocator_new_full (GstCudaContext * context,
                                                          GstCudaStream * stream,
                                                          const GstVideoInfo * info,
-                                                         GstStructure * config) G_GNUC_WARN_UNUSED_RESULT;
+                                                         GstStructure * config) ;
 GST_CUDA_API
 GstFlowReturn          gst_cuda_pool_allocator_acquire_memory (GstCudaPoolAllocator * allocator,
                                                                GstMemory ** memory);
@@ -404,5 +404,5 @@ void                   gst_cuda_register_allocator_need_pool_callback (GstCudaMe
                                                                        gpointer user_data,
                                                                        GDestroyNotify notify);
 
-G_END_DECLS
+
 

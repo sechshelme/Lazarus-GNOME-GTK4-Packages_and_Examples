@@ -6,7 +6,7 @@
 #include <glib-object.h>
 #include <gst/pbutils/pbutils-prelude.h>
 
-G_BEGIN_DECLS
+
 
 /* enumerations from "descriptions.h" */
 
@@ -36,7 +36,7 @@ GST_PBUTILS_API
 GType gst_install_plugins_return_get_type (void);
 #define GST_TYPE_INSTALL_PLUGINS_RETURN (gst_install_plugins_return_get_type())
 
-G_END_DECLS
+
 
 /* Generated data ends here */
 

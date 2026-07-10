@@ -26,7 +26,7 @@
 #include <gst/gst.h>
 #include <gst/rtp/rtp-prelude.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GST_RTCP_VERSION:
@@ -489,7 +489,7 @@ GST_RTP_API
 guint8          gst_rtcp_packet_bye_get_reason_len    (GstRTCPPacket *packet);
 
 GST_RTP_API
-gchar*          gst_rtcp_packet_bye_get_reason        (GstRTCPPacket *packet) G_GNUC_WARN_UNUSED_RESULT;
+gchar*          gst_rtcp_packet_bye_get_reason        (GstRTCPPacket *packet) ;
 
 GST_RTP_API
 gboolean        gst_rtcp_packet_bye_set_reason        (GstRTCPPacket *packet, const gchar *reason);
@@ -665,7 +665,7 @@ gboolean        gst_rtcp_packet_xr_get_voip_jitter_buffer_params        (GstRTCP
                                                                          guint16 * jb_maximum,
                                                                          guint16 * jb_abs_max);
 
-G_END_DECLS
+
 
 #endif /* __GST_RTCPBUFFER_H__ */
 

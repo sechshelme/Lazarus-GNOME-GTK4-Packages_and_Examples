@@ -33,12 +33,12 @@
 #include <gst/pbutils/encoding-target.h>
 #include <gst/pbutils/gstaudiovisualizer.h>
 
-G_BEGIN_DECLS
+
 
 GST_PBUTILS_API
 void    gst_pb_utils_init (void);
 
-G_END_DECLS
+
 
 #endif /* __GST_PB_UTILS_BASE_UTILS_H__ */
 

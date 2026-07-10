@@ -24,7 +24,7 @@
 #include <gst/gst.h>
 #include <gst/play/play-prelude.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GST_TYPE_PLAY_STREAM_INFO:
@@ -218,8 +218,8 @@ const gchar * gst_play_subtitle_info_get_language (const GstPlaySubtitleInfo* in
 typedef struct _GstPlayMediaInfo GstPlayMediaInfo;
 typedef struct _GstPlayMediaInfoClass GstPlayMediaInfoClass;
 
-#ifdef G_DEFINE_AUTOPTR_CLEANUP_FUNC
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstPlayMediaInfo, g_object_unref)
+#ifdef ////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstPlayMediaInfo, g_object_unref)
 #endif
 
 GST_PLAY_API
@@ -282,6 +282,6 @@ GList*        gst_play_get_audio_streams    (const GstPlayMediaInfo *info);
 GST_PLAY_DEPRECATED_FOR(gst_play_media_info_get_subtitle_streams)
 GList*        gst_play_get_subtitle_streams (const GstPlayMediaInfo *info);
 
-G_END_DECLS
+
 
 #endif /* __GST_PLAY_MEDIA_INFO_H */

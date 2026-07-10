@@ -31,7 +31,7 @@
 #include <gst/gst.h>
 #include <gst/base/gstadapter.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_AUDIO_DECODER \
   (gst_audio_decoder_get_type())
@@ -332,7 +332,7 @@ gboolean          gst_audio_decoder_set_output_caps  (GstAudioDecoder * dec,
 GST_AUDIO_API
 GstCaps *         gst_audio_decoder_proxy_getcaps (GstAudioDecoder * decoder,
                                                    GstCaps         * caps,
-                                                   GstCaps         * filter) G_GNUC_WARN_UNUSED_RESULT;
+                                                   GstCaps         * filter) ;
 
 GST_AUDIO_API
 gboolean          gst_audio_decoder_negotiate (GstAudioDecoder * dec);
@@ -347,7 +347,7 @@ GstFlowReturn     gst_audio_decoder_finish_frame (GstAudioDecoder * dec,
 
 GST_AUDIO_API
 GstBuffer *       gst_audio_decoder_allocate_output_buffer (GstAudioDecoder * dec,
-                                                            gsize              size) G_GNUC_WARN_UNUSED_RESULT;
+                                                            gsize              size) ;
 
 /* context parameters */
 
@@ -447,8 +447,8 @@ GST_AUDIO_API
 void              gst_audio_decoder_set_use_default_pad_acceptcaps (GstAudioDecoder * decoder,
                                                                    gboolean use);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstAudioDecoder, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstAudioDecoder, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif /* _GST_AUDIO_DECODER_H_ */

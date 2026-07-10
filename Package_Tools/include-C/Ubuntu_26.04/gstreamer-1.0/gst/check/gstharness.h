@@ -25,7 +25,7 @@
 #include <gst/check/gsttestclock.h>
 #include <gst/check/check-prelude.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GstHarnessThread:
@@ -146,7 +146,7 @@ GST_CHECK_API
 void           gst_harness_use_testclock (GstHarness * h);
 
 GST_CHECK_API
-GstTestClock * gst_harness_get_testclock (GstHarness * h) G_GNUC_WARN_UNUSED_RESULT;
+GstTestClock * gst_harness_get_testclock (GstHarness * h) ;
 
 GST_CHECK_API
 gboolean       gst_harness_set_time (GstHarness * h, GstClockTime time);
@@ -177,22 +177,22 @@ void           gst_harness_set_forwarding (GstHarness * h, gboolean forwarding);
 /* buffers */
 
 GST_CHECK_API
-GstBuffer *    gst_harness_create_buffer (GstHarness * h, gsize size) G_GNUC_WARN_UNUSED_RESULT;
+GstBuffer *    gst_harness_create_buffer (GstHarness * h, gsize size) ;
 
 GST_CHECK_API
 GstFlowReturn  gst_harness_push (GstHarness * h, GstBuffer * buffer);
 
 GST_CHECK_API
-GstBuffer *    gst_harness_pull (GstHarness * h) G_GNUC_WARN_UNUSED_RESULT;
+GstBuffer *    gst_harness_pull (GstHarness * h) ;
 
 GST_CHECK_API
-GstBuffer *    gst_harness_try_pull (GstHarness * h) G_GNUC_WARN_UNUSED_RESULT;
+GstBuffer *    gst_harness_try_pull (GstHarness * h) ;
 
 GST_CHECK_API
 gboolean       gst_harness_pull_until_eos (GstHarness * h, GstBuffer ** buf);
 
 GST_CHECK_API
-GstBuffer *    gst_harness_push_and_pull (GstHarness * h, GstBuffer * buffer) G_GNUC_WARN_UNUSED_RESULT;
+GstBuffer *    gst_harness_push_and_pull (GstHarness * h, GstBuffer * buffer) ;
 
 GST_CHECK_API
 guint          gst_harness_buffers_received (GstHarness * h);
@@ -207,13 +207,13 @@ GST_CHECK_API
 void           gst_harness_dump_to_file (GstHarness * h, const gchar * filename);
 
 GST_CHECK_API
-guint8 *       gst_harness_take_all_data (GstHarness * h, gsize * size) G_GNUC_WARN_UNUSED_RESULT;
+guint8 *       gst_harness_take_all_data (GstHarness * h, gsize * size) ;
 
 GST_CHECK_API
-GstBuffer *    gst_harness_take_all_data_as_buffer (GstHarness * h) G_GNUC_WARN_UNUSED_RESULT;
+GstBuffer *    gst_harness_take_all_data_as_buffer (GstHarness * h) ;
 
 GST_CHECK_API
-GBytes *       gst_harness_take_all_data_as_bytes (GstHarness * h) G_GNUC_WARN_UNUSED_RESULT;
+GBytes *       gst_harness_take_all_data_as_bytes (GstHarness * h) ;
 
 GST_CHECK_API
 GstClockTime   gst_harness_get_last_pushed_timestamp (GstHarness * h);
@@ -224,10 +224,10 @@ GST_CHECK_API
 gboolean       gst_harness_push_event (GstHarness * h, GstEvent * event);
 
 GST_CHECK_API
-GstEvent *     gst_harness_pull_event (GstHarness * h) G_GNUC_WARN_UNUSED_RESULT;
+GstEvent *     gst_harness_pull_event (GstHarness * h) ;
 
 GST_CHECK_API
-GstEvent *     gst_harness_try_pull_event  (GstHarness * h) G_GNUC_WARN_UNUSED_RESULT;
+GstEvent *     gst_harness_try_pull_event  (GstHarness * h) ;
 
 GST_CHECK_API
 guint          gst_harness_events_received (GstHarness * h);
@@ -241,10 +241,10 @@ GST_CHECK_API
 gboolean   gst_harness_push_upstream_event (GstHarness * h, GstEvent * event);
 
 GST_CHECK_API
-GstEvent * gst_harness_pull_upstream_event (GstHarness * h) G_GNUC_WARN_UNUSED_RESULT;
+GstEvent * gst_harness_pull_upstream_event (GstHarness * h) ;
 
 GST_CHECK_API
-GstEvent * gst_harness_try_pull_upstream_event  (GstHarness * h) G_GNUC_WARN_UNUSED_RESULT;
+GstEvent * gst_harness_try_pull_upstream_event  (GstHarness * h) ;
 
 GST_CHECK_API
 guint      gst_harness_upstream_events_received (GstHarness * h);
@@ -332,17 +332,17 @@ GstFlowReturn gst_harness_sink_push_many (GstHarness * h, gint pushes);
 
 GST_CHECK_API
 GstElement *  gst_harness_find_element (GstHarness * h,
-                                       const gchar * element_name) G_GNUC_WARN_UNUSED_RESULT;
+                                       const gchar * element_name) ;
 
 GST_CHECK_API
 void          gst_harness_set (GstHarness  * h,
                                const gchar * element_name,
-                               const gchar * first_property_name, ...) G_GNUC_NULL_TERMINATED;
+                               const gchar * first_property_name, ...) ;
 
 GST_CHECK_API
 void          gst_harness_get (GstHarness  * h,
                                const gchar * element_name,
-                               const gchar * first_property_name, ...) G_GNUC_NULL_TERMINATED;
+                               const gchar * first_property_name, ...) ;
 
 GST_CHECK_API
 void          gst_harness_add_probe (GstHarness        * h,
@@ -469,6 +469,6 @@ GstHarnessThread * gst_harness_stress_requestpad_start_full (GstHarness     * h,
                                                              gboolean         release,
                                                              gulong           sleep);
 
-G_END_DECLS
+
 
 #endif /* __GST_HARNESS_H__ */

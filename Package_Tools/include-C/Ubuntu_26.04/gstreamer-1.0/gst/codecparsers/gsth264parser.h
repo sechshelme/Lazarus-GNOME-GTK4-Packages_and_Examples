@@ -38,7 +38,7 @@
 #include <gst/gst.h>
 #include <gst/codecparsers/codecparsers-prelude.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_H264_MAX_SPS_COUNT   32
 #define GST_H264_MAX_PPS_COUNT   256
@@ -1606,6 +1606,6 @@ GstH264Profile gst_h264_profile_from_string (const gchar * profile);
 GST_CODEC_PARSERS_API
 const gchar *   gst_h264_slice_type_to_string      (GstH264SliceType slice_type);
 
-G_END_DECLS
+
 
 #endif

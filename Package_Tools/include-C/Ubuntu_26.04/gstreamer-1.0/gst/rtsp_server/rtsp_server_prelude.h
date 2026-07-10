@@ -26,9 +26,9 @@
 
 #ifndef GST_RTSP_SERVER_API
 # ifdef BUILDING_GST_RTSP_SERVER
-#  define GST_RTSP_SERVER_API GST_API_EXPORT         /* from config.h */
+#  define GST_RTSP_SERVER_API extern_EXPORT         /* from config.h */
 # else
-#  define GST_RTSP_SERVER_API GST_API_IMPORT
+#  define GST_RTSP_SERVER_API extern_IMPORT
 # endif
 #endif
 

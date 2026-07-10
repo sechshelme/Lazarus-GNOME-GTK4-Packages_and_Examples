@@ -26,7 +26,7 @@
 
 #include <gst/base/base-prelude.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GstQueueArray: (skip)
@@ -123,6 +123,6 @@ void            gst_queue_array_sort (GstQueueArray *array,
                                       GCompareDataFunc compare_func,
                                       gpointer user_data);
 
-G_END_DECLS
+
 
 #endif

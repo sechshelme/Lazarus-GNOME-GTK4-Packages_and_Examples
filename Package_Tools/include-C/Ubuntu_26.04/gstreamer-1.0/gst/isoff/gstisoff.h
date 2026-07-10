@@ -28,13 +28,13 @@
 #include <gst/gst.h>
 #include <gst/base/base.h>
 
-G_BEGIN_DECLS
+
 
 #ifndef GST_ISOFF_API
 # ifdef BUILDING_GST_ISOFF
-#  define GST_ISOFF_API GST_API_EXPORT         /* from config.h */
+#  define GST_ISOFF_API extern_EXPORT         /* from config.h */
 # else
-#  define GST_ISOFF_API GST_API_IMPORT
+#  define GST_ISOFF_API extern_IMPORT
 # endif
 #endif
 
@@ -294,6 +294,6 @@ GstIsoffParserResult gst_isoff_sidx_parser_parse (GstSidxParser * parser, GstByt
 GST_ISOFF_API
 GstIsoffParserResult gst_isoff_sidx_parser_add_buffer (GstSidxParser * parser, GstBuffer * buf, guint * consumed);
 
-G_END_DECLS
+
 
 #endif /* __GST_ISOFF_H__ */

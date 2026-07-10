@@ -26,7 +26,7 @@
 #include <gst/gstplugin.h>
 #include <gst/gstpluginfeature.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_TRACER_FACTORY                 (gst_tracer_factory_get_type())
 #define GST_TRACER_FACTORY(obj)                 (G_TYPE_CHECK_INSTANCE_CAST ((obj), GST_TYPE_TRACER_FACTORY, GstTracerFactory))
@@ -48,18 +48,18 @@ typedef struct _GstTracerFactoryClass GstTracerFactoryClass;
 
 /* tracering interface */
 
-GST_API
+extern
 GType           gst_tracer_factory_get_type          (void);
 
-GST_API
+extern
 GList *         gst_tracer_factory_get_list          (void);
 
-GST_API
+extern
 GType           gst_tracer_factory_get_tracer_type   (GstTracerFactory * factory);
 
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstTracerFactory, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstTracerFactory, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_TRACER_FACTORY_H__ */

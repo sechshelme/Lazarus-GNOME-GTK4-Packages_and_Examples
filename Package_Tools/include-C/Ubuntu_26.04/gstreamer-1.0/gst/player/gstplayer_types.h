@@ -24,12 +24,12 @@
 #include <gst/gst.h>
 #include <gst/player/player-prelude.h>
 
-G_BEGIN_DECLS
+
 
 typedef struct _GstPlayer GstPlayer;
 typedef struct _GstPlayerClass GstPlayerClass;
 
-G_END_DECLS
+
 
 #endif /* __GST_PLAYER_TYPES_H__ */
 

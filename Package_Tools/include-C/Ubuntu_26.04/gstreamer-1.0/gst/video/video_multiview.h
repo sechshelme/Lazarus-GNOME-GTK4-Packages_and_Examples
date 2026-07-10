@@ -23,7 +23,7 @@
 #include <gst/gst.h>
 #include <gst/video/video-prelude.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GstVideoMultiviewFlagsSet:
@@ -103,6 +103,6 @@ struct _GstVideoMultiviewMeta {
 };
 #endif
 
-G_END_DECLS
+
 
 #endif

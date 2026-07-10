@@ -27,7 +27,7 @@
 #include <gst/gstplugin.h>
 #include <gst/gstpluginfeature.h>
 
-G_BEGIN_DECLS
+
 /**
  * GST_TYPE_FIND_REGISTER_DEFINE_CUSTOM:
  * @type_find: The type find name in lower case, with words separated by '_'.
@@ -47,12 +47,12 @@ G_BEGIN_DECLS
  * Since: 1.20
  */
 #define GST_TYPE_FIND_REGISTER_DEFINE_CUSTOM(type_find, register_func) \
-G_BEGIN_DECLS \
+ \
 gboolean G_PASTE (gst_type_find_register_, type_find) (GstPlugin * plugin) \
 { \
   return register_func (plugin); \
 } \
-G_END_DECLS
+
 
 /**
  * GST_TYPE_FIND_REGISTER_DEFINE:
@@ -76,12 +76,12 @@ G_END_DECLS
  * Since: 1.20
  */
 #define GST_TYPE_FIND_REGISTER_DEFINE(t_f, t_f_n, r, func, extensions, possible_caps, data, data_notify) \
-G_BEGIN_DECLS \
+ \
 gboolean G_PASTE (gst_type_find_register_, t_f) (GstPlugin * plugin) \
 { \
   return gst_type_find_register (plugin, t_f_n, r, func, extensions, possible_caps, data, data_notify); \
 } \
-G_END_DECLS
+
 
 /**
  * GST_TYPE_FIND_REGISTER_DECLARE:
@@ -95,9 +95,9 @@ G_END_DECLS
  * Since: 1.20
  */
 #define GST_TYPE_FIND_REGISTER_DECLARE(t_f) \
-G_BEGIN_DECLS \
+ \
 gboolean G_PASTE(gst_type_find_register_, t_f) (GstPlugin * plugin); \
-G_END_DECLS
+
 
 /**
  * GST_TYPE_FIND_REGISTER:
@@ -179,34 +179,34 @@ struct _GstTypeFind {
 /**
  * gst_type_find_get_type: (attributes doc.skip=true)
  */
-GST_API
+extern
 GType     gst_type_find_get_type   (void);
 
 /* typefind function interface */
 
-GST_API
+extern
 const guint8 *  gst_type_find_peek       (GstTypeFind   * find,
                                           gint64          offset,
                                           guint           size);
-GST_API
+extern
 void            gst_type_find_suggest    (GstTypeFind   * find,
                                           guint           probability,
                                           GstCaps       * caps);
-GST_API
+extern
 void            gst_type_find_suggest_empty_simple (GstTypeFind * find,
                                                     guint         probability,
                                                     const char  * media_type);
-GST_API
+extern
 void            gst_type_find_suggest_simple (GstTypeFind * find,
                                               guint         probability,
                                               const char  * media_type,
-                                              const char  * fieldname, ...) G_GNUC_NULL_TERMINATED;
-GST_API
+                                              const char  * fieldname, ...) ;
+extern
 guint64   gst_type_find_get_length (GstTypeFind   * find);
 
 /* registration interface */
 
-GST_API
+extern
 gboolean  gst_type_find_register   (GstPlugin            * plugin,
                                     const gchar          * name,
                                     guint                  rank,
@@ -216,6 +216,6 @@ gboolean  gst_type_find_register   (GstPlugin            * plugin,
                                     gpointer               data,
                                     GDestroyNotify         data_notify);
 
-G_END_DECLS
+
 
 #endif /* __GST_TYPE_FIND_H__ */

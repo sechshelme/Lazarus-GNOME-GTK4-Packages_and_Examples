@@ -30,7 +30,7 @@
 #include <gst/gstmacros.h>
 #include <gst/gststructure.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GstPlugin:
@@ -49,7 +49,7 @@ typedef struct _GstPluginDesc GstPluginDesc;
  * Returns: The error quark used in GError messages
  */
 
-GST_API
+extern
 GQuark gst_plugin_error_quark (void);
 /**
  * GST_PLUGIN_ERROR:
@@ -253,7 +253,7 @@ struct _GstPluginDesc {
  * #GstPluginDesc,release_datetime field.
  */
 #define GST_PLUGIN_DEFINE(major,minor,name,description,init,version,license,package,origin) \
-G_BEGIN_DECLS \
+ \
 GST_PLUGIN_EXPORT const GstPluginDesc * G_PASTE(gst_plugin_, G_PASTE(name, _get_desc)) (void); \
 GST_PLUGIN_EXPORT void G_PASTE(gst_plugin_, G_PASTE(name, _register)) (void); \
 \
@@ -285,7 +285,7 @@ G_PASTE(gst_plugin_, G_PASTE(name, _register)) (void) \
       description, init, version, license, \
       PACKAGE, package, origin); \
 } \
-G_END_DECLS
+
 
 /**
  * GST_LICENSE_UNKNOWN:
@@ -309,10 +309,10 @@ G_END_DECLS
 typedef gboolean        (*GstPluginFilter)              (GstPlugin *plugin,
                                                          gpointer user_data);
 
-GST_API
+extern
 GType                   gst_plugin_get_type             (void);
 
-GST_API
+extern
 gboolean		gst_plugin_register_static	(gint major_version,
                                                          gint minor_version,
                                                          const gchar *name,
@@ -323,7 +323,7 @@ gboolean		gst_plugin_register_static	(gint major_version,
                                                          const gchar *source,
                                                          const gchar *package,
                                                          const gchar *origin);
-GST_API
+extern
 gboolean		gst_plugin_register_static_full	(gint major_version,
                                                          gint minor_version,
                                                          const gchar *name,
@@ -335,86 +335,86 @@ gboolean		gst_plugin_register_static_full	(gint major_version,
                                                          const gchar *package,
                                                          const gchar *origin,
                                                          gpointer user_data);
-GST_API
+extern
 const gchar*		gst_plugin_get_name		(GstPlugin *plugin);
 
-GST_API
+extern
 const gchar*		gst_plugin_get_description	(GstPlugin *plugin);
 
-GST_API
+extern
 const gchar*		gst_plugin_get_filename		(GstPlugin *plugin);
 
-GST_API
+extern
 const gchar*		gst_plugin_get_version		(GstPlugin *plugin);
 
-GST_API
+extern
 const gchar*		gst_plugin_get_license		(GstPlugin *plugin);
 
-GST_API
+extern
 const gchar*		gst_plugin_get_source		(GstPlugin *plugin);
 
-GST_API
+extern
 const gchar*		gst_plugin_get_package		(GstPlugin *plugin);
 
-GST_API
+extern
 const gchar*		gst_plugin_get_origin		(GstPlugin *plugin);
 
-GST_API
+extern
 const gchar*		gst_plugin_get_release_date_string (GstPlugin *plugin);
 
-GST_API
+extern
 const GstStructure*	gst_plugin_get_cache_data	(GstPlugin * plugin);
 
-GST_API
+extern
 void			gst_plugin_set_cache_data	(GstPlugin * plugin, GstStructure *cache_data);
 
-GST_API
+extern
 gboolean		gst_plugin_is_loaded		(GstPlugin *plugin);
 
-GST_API
+extern
 GstPlugin *		gst_plugin_load_file		(const gchar *filename, GError** error);
 
-GST_API
-GstPlugin *             gst_plugin_load                 (GstPlugin *plugin) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstPlugin *             gst_plugin_load                 (GstPlugin *plugin) ;
 
-GST_API
+extern
 GstPlugin *             gst_plugin_load_by_name         (const gchar *name);
 
-GST_API
+extern
 void                    gst_plugin_add_dependency        (GstPlugin    * plugin,
                                                           const gchar ** env_vars,
                                                           const gchar ** paths,
                                                           const gchar ** names,
                                                           GstPluginDependencyFlags flags);
-GST_API
+extern
 void                    gst_plugin_add_dependency_simple (GstPlugin   * plugin,
                                                           const gchar * env_vars,
                                                           const gchar * paths,
                                                           const gchar * names,
                                                           GstPluginDependencyFlags flags);
-GST_API
+extern
 void                    gst_plugin_add_status_error      (GstPlugin   * plugin,
                                                           const gchar * message);
-GST_API
+extern
 void                    gst_plugin_add_status_warning    (GstPlugin   * plugin,
                                                           const gchar * message);
-GST_API
+extern
 void                    gst_plugin_add_status_info       (GstPlugin   * plugin,
                                                           const gchar * message);
-GST_API
-gchar **                gst_plugin_get_status_errors     (GstPlugin   * plugin) G_GNUC_WARN_UNUSED_RESULT;
+extern
+gchar **                gst_plugin_get_status_errors     (GstPlugin   * plugin) ;
 
-GST_API
-gchar **                gst_plugin_get_status_warnings   (GstPlugin   * plugin) G_GNUC_WARN_UNUSED_RESULT;
+extern
+gchar **                gst_plugin_get_status_warnings   (GstPlugin   * plugin) ;
 
-GST_API
-gchar **                gst_plugin_get_status_infos      (GstPlugin   * plugin) G_GNUC_WARN_UNUSED_RESULT;
+extern
+gchar **                gst_plugin_get_status_infos      (GstPlugin   * plugin) ;
 
-GST_API
+extern
 void                    gst_plugin_list_free (GList *list);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstPlugin, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstPlugin, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_PLUGIN_H__ */

@@ -22,7 +22,7 @@
 
 #include <gst/video/gstvideopool.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GstVideoDmabufPool:
@@ -55,4 +55,4 @@ G_DECLARE_FINAL_TYPE (GstVideoDmabufPool, gst_video_dmabuf_pool, GST,
 GST_VIDEO_API
 GstBufferPool *gst_video_dmabuf_pool_new (void);
 
-G_END_DECLS
+

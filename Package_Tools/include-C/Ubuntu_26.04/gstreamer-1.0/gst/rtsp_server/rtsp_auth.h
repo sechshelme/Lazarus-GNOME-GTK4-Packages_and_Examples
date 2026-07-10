@@ -30,7 +30,7 @@ typedef struct _GstRTSPAuthPrivate GstRTSPAuthPrivate;
 #include "rtsp-client.h"
 #include "rtsp-token.h"
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_RTSP_AUTH              (gst_rtsp_auth_get_type ())
 #define GST_IS_RTSP_AUTH(obj)           (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GST_TYPE_RTSP_AUTH))
@@ -86,19 +86,19 @@ GST_RTSP_SERVER_API
 GType               gst_rtsp_auth_get_type          (void);
 
 GST_RTSP_SERVER_API
-GstRTSPAuth *       gst_rtsp_auth_new               (void) G_GNUC_WARN_UNUSED_RESULT;
+GstRTSPAuth *       gst_rtsp_auth_new               (void) ;
 
 GST_RTSP_SERVER_API
 void                gst_rtsp_auth_set_tls_certificate (GstRTSPAuth *auth, GTlsCertificate *cert);
 
 GST_RTSP_SERVER_API
-GTlsCertificate *   gst_rtsp_auth_get_tls_certificate (GstRTSPAuth *auth) G_GNUC_WARN_UNUSED_RESULT;
+GTlsCertificate *   gst_rtsp_auth_get_tls_certificate (GstRTSPAuth *auth) ;
 
 GST_RTSP_SERVER_API
 void                gst_rtsp_auth_set_tls_database (GstRTSPAuth *auth, GTlsDatabase *database);
 
 GST_RTSP_SERVER_API
-GTlsDatabase *      gst_rtsp_auth_get_tls_database (GstRTSPAuth *auth) G_GNUC_WARN_UNUSED_RESULT;
+GTlsDatabase *      gst_rtsp_auth_get_tls_database (GstRTSPAuth *auth) ;
 
 GST_RTSP_SERVER_API
 void                gst_rtsp_auth_set_tls_authentication_mode (GstRTSPAuth *auth, GTlsAuthenticationMode mode);
@@ -110,7 +110,7 @@ GST_RTSP_SERVER_API
 void                gst_rtsp_auth_set_default_token (GstRTSPAuth *auth, GstRTSPToken *token);
 
 GST_RTSP_SERVER_API
-GstRTSPToken *      gst_rtsp_auth_get_default_token (GstRTSPAuth *auth) G_GNUC_WARN_UNUSED_RESULT;
+GstRTSPToken *      gst_rtsp_auth_get_default_token (GstRTSPAuth *auth) ;
 
 GST_RTSP_SERVER_API
 void                gst_rtsp_auth_add_basic         (GstRTSPAuth *auth, const gchar * basic,
@@ -142,7 +142,7 @@ GST_RTSP_SERVER_API
 void                gst_rtsp_auth_set_realm         (GstRTSPAuth *auth, const gchar *realm);
 
 GST_RTSP_SERVER_API
-gchar *             gst_rtsp_auth_get_realm         (GstRTSPAuth *auth) G_GNUC_WARN_UNUSED_RESULT;
+gchar *             gst_rtsp_auth_get_realm         (GstRTSPAuth *auth) ;
 
 /* helpers */
 
@@ -221,10 +221,10 @@ gchar *             gst_rtsp_auth_make_basic        (const gchar * user, const g
  */
 #define GST_RTSP_PERM_MEDIA_FACTORY_CONSTRUCT   "media.factory.construct"
 
-#ifdef G_DEFINE_AUTOPTR_CLEANUP_FUNC
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstRTSPAuth, gst_object_unref)
+#ifdef ////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstRTSPAuth, gst_object_unref)
 #endif
 
-G_END_DECLS
+
 
 #endif /* __GST_RTSP_AUTH_H__ */

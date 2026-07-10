@@ -25,9 +25,9 @@
 #include <gst/gst.h>
 
 #ifdef BUILDING_GST_RIFF
-#define GST_RIFF_API GST_API_EXPORT         /* from config.h */
+#define GST_RIFF_API extern_EXPORT         /* from config.h */
 #else
-#define GST_RIFF_API GST_API_IMPORT
+#define GST_RIFF_API extern_IMPORT
 #endif
 
 #endif /* __GST_RIFF_PRELUDE_H__ */

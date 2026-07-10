@@ -26,7 +26,7 @@
 
 typedef struct _GstRTSPPermissions GstRTSPPermissions;
 
-G_BEGIN_DECLS
+
 
 GST_RTSP_SERVER_API
 GType gst_rtsp_permissions_get_type (void);
@@ -75,7 +75,7 @@ gst_rtsp_permissions_unref (GstRTSPPermissions * permissions)
 
 
 GST_RTSP_SERVER_API
-GstRTSPPermissions *  gst_rtsp_permissions_new             (void) G_GNUC_WARN_UNUSED_RESULT;
+GstRTSPPermissions *  gst_rtsp_permissions_new             (void) ;
 
 GST_RTSP_SERVER_API
 void                  gst_rtsp_permissions_add_role        (GstRTSPPermissions *permissions,
@@ -113,10 +113,10 @@ GST_RTSP_SERVER_API
 gboolean              gst_rtsp_permissions_is_allowed      (GstRTSPPermissions *permissions,
                                                             const gchar *role, const gchar *permission);
 
-#ifdef G_DEFINE_AUTOPTR_CLEANUP_FUNC
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstRTSPPermissions, gst_rtsp_permissions_unref)
+#ifdef ////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstRTSPPermissions, gst_rtsp_permissions_unref)
 #endif
 
-G_END_DECLS
+
 
 #endif /* __GST_RTSP_PERMISSIONS_H__ */

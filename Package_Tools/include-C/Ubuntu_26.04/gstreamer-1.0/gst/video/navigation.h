@@ -26,7 +26,7 @@
 #include <gst/gst.h>
 #include <gst/video/video-prelude.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_NAVIGATION \
   (gst_navigation_get_type ())
@@ -468,62 +468,62 @@ GstNavigationEventType gst_navigation_event_get_type          (GstEvent *event);
 
 GST_VIDEO_API
 GstEvent*       gst_navigation_event_new_key_press            (const gchar * key,
-                                                               GstNavigationModifierType state) G_GNUC_MALLOC;
+                                                               GstNavigationModifierType state) ;
 
 GST_VIDEO_API
 GstEvent*       gst_navigation_event_new_key_release          (const gchar * key,
-                                                               GstNavigationModifierType state) G_GNUC_MALLOC;
+                                                               GstNavigationModifierType state) ;
 
 GST_VIDEO_API
 GstEvent*       gst_navigation_event_new_mouse_button_press   (gint button, gdouble x,
                                                                gdouble y,
-                                                               GstNavigationModifierType state) G_GNUC_MALLOC;
+                                                               GstNavigationModifierType state) ;
 
 GST_VIDEO_API
 GstEvent*       gst_navigation_event_new_mouse_double_click   (gint button, gdouble x,
                                                                gdouble y,
-                                                               GstNavigationModifierType state) G_GNUC_MALLOC;
+                                                               GstNavigationModifierType state) ;
 
 GST_VIDEO_API
 GstEvent*       gst_navigation_event_new_mouse_button_release (gint button, gdouble x,
                                                                gdouble y,
-                                                               GstNavigationModifierType state) G_GNUC_MALLOC;
+                                                               GstNavigationModifierType state) ;
 
 GST_VIDEO_API
 GstEvent*       gst_navigation_event_new_mouse_move           (gdouble x,
                                                                gdouble y,
-                                                               GstNavigationModifierType state) G_GNUC_MALLOC;
+                                                               GstNavigationModifierType state) ;
 
 GST_VIDEO_API
 GstEvent*       gst_navigation_event_new_mouse_scroll         (gdouble x, gdouble y,
                                                                gdouble delta_x, gdouble delta_y,
-                                                               GstNavigationModifierType state) G_GNUC_MALLOC;
+                                                               GstNavigationModifierType state) ;
 
 GST_VIDEO_API
-GstEvent*       gst_navigation_event_new_command              (GstNavigationCommand command) G_GNUC_MALLOC;
+GstEvent*       gst_navigation_event_new_command              (GstNavigationCommand command) ;
 
 GST_VIDEO_API
 GstEvent*       gst_navigation_event_new_touch_down           (guint identifier,
                                                                gdouble x, gdouble y,
                                                                gdouble pressure,
-                                                               GstNavigationModifierType state) G_GNUC_MALLOC;
+                                                               GstNavigationModifierType state) ;
 
 GST_VIDEO_API
 GstEvent*       gst_navigation_event_new_touch_motion         (guint identifier,
                                                                gdouble x, gdouble y,
                                                                gdouble pressure,
-                                                               GstNavigationModifierType state) G_GNUC_MALLOC;
+                                                               GstNavigationModifierType state) ;
 
 GST_VIDEO_API
 GstEvent*       gst_navigation_event_new_touch_up             (guint identifier,
                                                                gdouble x, gdouble y,
-                                                               GstNavigationModifierType state) G_GNUC_MALLOC;
+                                                               GstNavigationModifierType state) ;
 
 GST_VIDEO_API
-GstEvent*       gst_navigation_event_new_touch_frame          (GstNavigationModifierType state) G_GNUC_MALLOC;
+GstEvent*       gst_navigation_event_new_touch_frame          (GstNavigationModifierType state) ;
 
 GST_VIDEO_API
-GstEvent*       gst_navigation_event_new_touch_cancel         (GstNavigationModifierType state) G_GNUC_MALLOC;
+GstEvent*       gst_navigation_event_new_touch_cancel         (GstNavigationModifierType state) ;
 
 GST_VIDEO_API
 gboolean        gst_navigation_event_parse_key_event          (GstEvent *event,
@@ -595,6 +595,6 @@ GST_VIDEO_API
 gboolean        gst_navigation_event_parse_modifier_state (GstEvent *event,
                                                            GstNavigationModifierType *state);
 
-G_END_DECLS
+
 
 #endif /* __GST_NAVIGATION_H__ */

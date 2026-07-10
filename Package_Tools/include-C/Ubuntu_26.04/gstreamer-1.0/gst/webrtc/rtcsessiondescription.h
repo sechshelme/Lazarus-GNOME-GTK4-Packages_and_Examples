@@ -24,7 +24,7 @@
 #include <gst/sdp/sdp.h>
 #include <gst/webrtc/webrtc_fwd.h>
 
-G_BEGIN_DECLS
+
 
 GST_WEBRTC_API
 const gchar *       gst_webrtc_sdp_type_to_string (GstWebRTCSDPType type);
@@ -47,15 +47,15 @@ struct _GstWebRTCSessionDescription
 };
 
 GST_WEBRTC_API
-GstWebRTCSessionDescription *       gst_webrtc_session_description_new      (GstWebRTCSDPType type, GstSDPMessage *sdp) G_GNUC_WARN_UNUSED_RESULT;
+GstWebRTCSessionDescription *       gst_webrtc_session_description_new      (GstWebRTCSDPType type, GstSDPMessage *sdp) ;
 GST_WEBRTC_API
-GstWebRTCSessionDescription *       gst_webrtc_session_description_copy     (const GstWebRTCSessionDescription * src) G_GNUC_WARN_UNUSED_RESULT;
+GstWebRTCSessionDescription *       gst_webrtc_session_description_copy     (const GstWebRTCSessionDescription * src) ;
 GST_WEBRTC_API
 void                                gst_webrtc_session_description_free     (GstWebRTCSessionDescription * desc);
 
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstWebRTCSessionDescription, gst_webrtc_session_description_free)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstWebRTCSessionDescription, gst_webrtc_session_description_free)
 
-G_END_DECLS
+
 
 #endif /* __GST_WEBRTC_PEERCONNECTION_H__ */

@@ -24,7 +24,7 @@
 
 #include <gst/gl/gstglmemory.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_GL_MEMORY_PBO_ALLOCATOR (gst_gl_memory_pbo_allocator_get_type())
 GST_GL_API
@@ -115,6 +115,6 @@ struct _GstGLMemoryPBOAllocatorClass
   gpointer                  _padding[GST_PADDING];
 };
 
-G_END_DECLS
+
 
 #endif /* _GST_GL_MEMORY_PBO_H_ */

@@ -27,7 +27,7 @@
 
 #include <gst/vulkan/vulkan.h>
 
-G_BEGIN_DECLS
+
 
 GST_VULKAN_API
 GType gst_vulkan_buffer_pool_get_type (void);
@@ -76,10 +76,10 @@ struct _GstVulkanBufferPoolClass
   gpointer _padding[GST_PADDING];
 };
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstVulkanBufferPool, gst_object_unref);
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstVulkanBufferPool, gst_object_unref);
 
 GST_VULKAN_API
-GstBufferPool *gst_vulkan_buffer_pool_new               (GstVulkanDevice * device) G_GNUC_WARN_UNUSED_RESULT;
+GstBufferPool *gst_vulkan_buffer_pool_new               (GstVulkanDevice * device) ;
 
 GST_VULKAN_API
 void            gst_vulkan_buffer_pool_config_set_allocation_params
@@ -87,6 +87,6 @@ void            gst_vulkan_buffer_pool_config_set_allocation_params
                                                          VkBufferUsageFlags usage,
                                                          VkMemoryPropertyFlags mem_properties);
 
-G_END_DECLS
+
 
 #endif /* __GST_VULKAN_BUFFER_POOL_H__ */

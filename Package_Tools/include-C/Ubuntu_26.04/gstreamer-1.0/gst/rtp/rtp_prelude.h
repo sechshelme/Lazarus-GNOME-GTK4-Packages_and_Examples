@@ -25,9 +25,9 @@
 #include <gst/gst.h>
 
 #ifdef BUILDING_GST_RTP
-#define GST_RTP_API GST_API_EXPORT         /* from config.h */
+#define GST_RTP_API extern_EXPORT         /* from config.h */
 #else
-#define GST_RTP_API GST_API_IMPORT
+#define GST_RTP_API extern_IMPORT
 #endif
 
 #endif /* __GST_RTP_PRELUDE_H__ */

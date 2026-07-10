@@ -25,7 +25,7 @@
 #include <gst/gstsystemclock.h>
 #include <gst/net/net-prelude.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_PTP_CLOCK \
   (gst_ptp_clock_get_type())
@@ -155,11 +155,11 @@ void            gst_ptp_statistics_callback_remove (gulong id);
 
 GST_NET_API
 GstClock*       gst_ptp_clock_new                  (const gchar *name,
-                                                    guint domain) G_GNUC_WARN_UNUSED_RESULT;
+                                                    guint domain) ;
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstPtpClock, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstPtpClock, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_PTP_CLOCK_H__ */
 

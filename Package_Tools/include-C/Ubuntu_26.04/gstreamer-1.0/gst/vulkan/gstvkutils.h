@@ -23,7 +23,7 @@
 #include <gst/gst.h>
 #include <gst/vulkan/vulkan.h>
 
-G_BEGIN_DECLS
+
 
 GST_VULKAN_API
 gboolean                gst_vulkan_ensure_element_data          (GstElement * element,
@@ -70,6 +70,6 @@ GstVulkanHandle *       gst_vulkan_create_shader                (GstVulkanDevice
                                                                  gsize size,
                                                                  GError ** error);
 
-G_END_DECLS
+
 
 #endif /*_VK_UTILS_H_ */

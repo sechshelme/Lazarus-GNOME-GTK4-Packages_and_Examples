@@ -23,7 +23,7 @@
 #ifndef __GST_RTSP_CONTEXT_H__
 #define __GST_RTSP_CONTEXT_H__
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_RTSP_CONTEXT              (gst_rtsp_context_get_type ())
 
@@ -94,6 +94,6 @@ void                 gst_rtsp_context_pop_current   (GstRTSPContext * ctx);
 GST_RTSP_SERVER_API
 void                 gst_rtsp_context_set_token     (GstRTSPContext * ctx, GstRTSPToken * token);
 
-G_END_DECLS
+
 
 #endif /* __GST_RTSP_CONTEXT_H__ */

@@ -26,7 +26,7 @@
 #ifndef __GST_AUDIO_CHANNELS_H__
 #define __GST_AUDIO_CHANNELS_H__
 
-G_BEGIN_DECLS
+
 
 /**
  * GstAudioChannelPosition:
@@ -203,6 +203,6 @@ GST_AUDIO_API
 gchar*         gst_audio_channel_positions_to_string (const GstAudioChannelPosition * position,
                                                       gint channels);
 
-G_END_DECLS
+
 
 #endif /* __GST_AUDIO_CHANNELS_H__ */

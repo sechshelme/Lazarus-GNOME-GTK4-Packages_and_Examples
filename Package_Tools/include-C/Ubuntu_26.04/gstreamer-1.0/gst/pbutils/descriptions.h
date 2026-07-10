@@ -24,7 +24,7 @@
 #include <gst/gstcaps.h>
 #include <gst/pbutils/pbutils-prelude.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GstPbUtilsCapsDescriptionFlags:
@@ -108,7 +108,7 @@ GstPbUtilsCapsDescriptionFlags gst_pb_utils_get_caps_description_flags (const Gs
 GST_PBUTILS_API
 gchar * gst_pb_utils_get_file_extension_from_caps (const GstCaps *caps);
 
-G_END_DECLS
+
 
 #endif /* __GST_PB_UTILS_DESCRIPTIONS_H__ */
 

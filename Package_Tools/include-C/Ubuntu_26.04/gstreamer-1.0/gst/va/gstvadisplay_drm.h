@@ -23,7 +23,7 @@
 #include <gst/va/gstva.h>
 #include <gst/va/va_fwd.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_VA_DISPLAY_DRM            (gst_va_display_drm_get_type())
 #define GST_VA_DISPLAY_DRM(obj)            (G_TYPE_CHECK_INSTANCE_CAST((obj), GST_TYPE_VA_DISPLAY_DRM, GstVaDisplayDrm))
@@ -32,11 +32,11 @@ G_BEGIN_DECLS
 #define GST_IS_VA_DISPLAY_DRM_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE((klass), GST_TYPE_VA_DISPLAY_DRM))
 #define GST_VA_DISPLAY_DRM_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS((obj), GST_TYPE_VA_DISPLAY_DRM, GstVaDisplayDrmClass))
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstVaDisplayDrm, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstVaDisplayDrm, gst_object_unref)
 
 GST_VA_API
 GType                 gst_va_display_drm_get_type         (void);
 GST_VA_API
-GstVaDisplay *        gst_va_display_drm_new_from_path    (const gchar * path) G_GNUC_WARN_UNUSED_RESULT;
+GstVaDisplay *        gst_va_display_drm_new_from_path    (const gchar * path) ;
 
-G_END_DECLS
+

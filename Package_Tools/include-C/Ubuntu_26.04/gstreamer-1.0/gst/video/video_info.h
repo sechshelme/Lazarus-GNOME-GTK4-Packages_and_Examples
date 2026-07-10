@@ -24,7 +24,7 @@
 #include <gst/video/video-format.h>
 #include <gst/video/video-color.h>
 
-G_BEGIN_DECLS
+
 
 #include <gst/video/video-enumtypes.h>
 
@@ -425,19 +425,19 @@ GType gst_video_info_get_type            (void);
 #define GST_VIDEO_INFO_COMP_POFFSET(i,c) GST_VIDEO_FORMAT_INFO_POFFSET((i)->finfo,(c))
 
 GST_VIDEO_API
-GstVideoInfo * gst_video_info_new         (void) G_GNUC_WARN_UNUSED_RESULT;
+GstVideoInfo * gst_video_info_new         (void) ;
 
 GST_VIDEO_API
 void           gst_video_info_init        (GstVideoInfo *info);
 
 GST_VIDEO_API
-GstVideoInfo * gst_video_info_copy        (const GstVideoInfo *info) G_GNUC_WARN_UNUSED_RESULT;
+GstVideoInfo * gst_video_info_copy        (const GstVideoInfo *info) ;
 
 GST_VIDEO_API
 void           gst_video_info_free        (GstVideoInfo *info);
 
 GST_VIDEO_API
-GstVideoInfo * gst_video_info_new_from_caps (const GstCaps * caps) G_GNUC_WARN_UNUSED_RESULT;
+GstVideoInfo * gst_video_info_new_from_caps (const GstCaps * caps) ;
 
 GST_VIDEO_API
 gboolean       gst_video_info_set_format  (GstVideoInfo *info, GstVideoFormat format,
@@ -455,7 +455,7 @@ GST_VIDEO_API
 gboolean       gst_video_info_from_caps   (GstVideoInfo *info, const GstCaps  * caps);
 
 GST_VIDEO_API
-GstCaps *      gst_video_info_to_caps     (const GstVideoInfo *info) G_GNUC_WARN_UNUSED_RESULT;
+GstCaps *      gst_video_info_to_caps     (const GstVideoInfo *info) ;
 
 GST_VIDEO_API
 gboolean       gst_video_info_convert     (const GstVideoInfo *info,
@@ -477,8 +477,8 @@ GST_VIDEO_API
 gboolean       gst_video_info_align_full  (GstVideoInfo * info, GstVideoAlignment * align, gsize plane_size[GST_VIDEO_MAX_PLANES]);
 
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstVideoInfo, gst_video_info_free)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstVideoInfo, gst_video_info_free)
 
-G_END_DECLS
+
 
 #endif /* __GST_VIDEO_INFO_H__ */

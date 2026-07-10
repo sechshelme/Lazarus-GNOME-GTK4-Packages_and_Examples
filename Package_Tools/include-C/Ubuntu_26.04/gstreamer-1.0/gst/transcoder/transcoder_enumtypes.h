@@ -6,7 +6,7 @@
 #include <glib-object.h>
 #include <gst/transcoder/transcoder-prelude.h>
 
-G_BEGIN_DECLS
+
 
 /* enumerations from "gsttranscoder.h" */
 
@@ -22,7 +22,7 @@ GST_TRANSCODER_API
 GType gst_transcoder_message_get_type (void);
 #define GST_TYPE_TRANSCODER_MESSAGE (gst_transcoder_message_get_type())
 
-G_END_DECLS
+
 
 /* Generated data ends here */
 

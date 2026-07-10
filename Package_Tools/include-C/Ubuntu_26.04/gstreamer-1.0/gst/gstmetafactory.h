@@ -23,7 +23,7 @@
 #include <gst/gstplugin.h>
 #include <gst/gstmeta.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GstMetaFactory:
@@ -39,13 +39,13 @@ typedef struct _GstMetaFactory GstMetaFactory;
 #define GST_IS_META_FACTORY(obj) (G_TYPE_CHECK_INSTANCE_TYPE((obj), GST_TYPE_META_FACTORY))
 #define GST_META_FACTORY(obj)    (G_TYPE_CHECK_INSTANCE_CAST((obj), GST_TYPE_META_FACTORY, GstMetaFactory))
 
-GST_API
+extern
 GType gst_meta_factory_get_type (void);
 
-GST_API
+extern
 const GstMetaInfo * gst_meta_factory_load (const gchar *factoryname);
 
-GST_API
+extern
 gboolean gst_meta_factory_register (GstPlugin *plugin, const GstMetaInfo *meta_info);
 
-G_END_DECLS
+

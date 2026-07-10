@@ -20,7 +20,7 @@
 
 #pragma once
 
-G_BEGIN_DECLS
+
 
 typedef struct _GstWlBuffer GstWlBuffer;
 typedef struct _GstWlDisplay GstWlDisplay;
@@ -28,4 +28,4 @@ typedef struct _GstWlShmAllocator GstWlShmAllocator;
 typedef struct _GstWlVideoBufferPool GstWlVideoBufferPool;
 typedef struct _GstWlWindow GstWlWindow;
 
-G_END_DECLS
+

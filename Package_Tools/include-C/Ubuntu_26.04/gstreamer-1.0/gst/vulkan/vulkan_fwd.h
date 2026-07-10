@@ -24,7 +24,7 @@
 #include <gst/gst.h>
 #include <gst/vulkan/vulkan-prelude.h>
 
-G_BEGIN_DECLS
+
 
 typedef struct _GstVulkanInstance GstVulkanInstance;
 typedef struct _GstVulkanInstanceClass GstVulkanInstanceClass;
@@ -118,6 +118,6 @@ typedef struct _GstVulkanOperationClass GstVulkanOperationClass;
 typedef struct _GstVulkanOperationPrivate GstVulkanOperationPrivate;
 typedef struct _GstVulkanEncodeQueryResult GstVulkanEncodeQueryResult;
 
-G_END_DECLS
+
 
 #endif /* __GST_VULKAN_FWD_H__ */

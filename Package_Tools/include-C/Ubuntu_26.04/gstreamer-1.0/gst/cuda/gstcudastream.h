@@ -24,7 +24,7 @@
 #include <gst/cuda/gstcudacontext.h>
 #include <cuda.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_CUDA_STREAM              (gst_cuda_stream_get_type())
 #define GST_IS_CUDA_STREAM(obj)           (GST_IS_MINI_OBJECT_TYPE(obj, GST_TYPE_CUDA_STREAM))
@@ -52,7 +52,7 @@ GST_CUDA_API
 GType           gst_cuda_stream_get_type (void);
 
 GST_CUDA_API
-GstCudaStream * gst_cuda_stream_new (GstCudaContext * context) G_GNUC_WARN_UNUSED_RESULT;
+GstCudaStream * gst_cuda_stream_new (GstCudaContext * context) ;
 
 GST_CUDA_API
 CUstream        gst_cuda_stream_get_handle (GstCudaStream * stream);
@@ -66,4 +66,4 @@ void            gst_cuda_stream_unref (GstCudaStream * stream);
 GST_CUDA_API
 void            gst_clear_cuda_stream (GstCudaStream ** stream);
 
-G_END_DECLS
+

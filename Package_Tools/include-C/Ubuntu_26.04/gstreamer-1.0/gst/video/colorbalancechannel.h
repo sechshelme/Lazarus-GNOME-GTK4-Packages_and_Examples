@@ -25,7 +25,7 @@
 #include <gst/gst.h>
 #include <gst/video/video-prelude.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_COLOR_BALANCE_CHANNEL \
   (gst_color_balance_channel_get_type ())
@@ -82,8 +82,8 @@ struct _GstColorBalanceChannelClass {
 GST_VIDEO_API
 GType   gst_color_balance_channel_get_type (void);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstColorBalanceChannel, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstColorBalanceChannel, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_COLOR_BALANCE_CHANNEL_H__ */

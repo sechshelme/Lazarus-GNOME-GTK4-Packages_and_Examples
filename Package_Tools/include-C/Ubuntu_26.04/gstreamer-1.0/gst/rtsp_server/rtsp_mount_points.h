@@ -24,7 +24,7 @@
 #ifndef __GST_RTSP_MOUNT_POINTS_H__
 #define __GST_RTSP_MOUNT_POINTS_H__
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_RTSP_MOUNT_POINTS              (gst_rtsp_mount_points_get_type ())
 #define GST_IS_RTSP_MOUNT_POINTS(obj)           (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GST_TYPE_RTSP_MOUNT_POINTS))
@@ -74,17 +74,17 @@ GType                 gst_rtsp_mount_points_get_type       (void);
 /* creating a mount points */
 
 GST_RTSP_SERVER_API
-GstRTSPMountPoints *  gst_rtsp_mount_points_new            (void) G_GNUC_WARN_UNUSED_RESULT;
+GstRTSPMountPoints *  gst_rtsp_mount_points_new            (void) ;
 
 GST_RTSP_SERVER_API
 gchar *               gst_rtsp_mount_points_make_path      (GstRTSPMountPoints *mounts,
-                                                            const GstRTSPUrl * url) G_GNUC_WARN_UNUSED_RESULT;
+                                                            const GstRTSPUrl * url) ;
 /* finding a media factory */
 
 GST_RTSP_SERVER_API
 GstRTSPMediaFactory * gst_rtsp_mount_points_match          (GstRTSPMountPoints *mounts,
                                                             const gchar *path,
-                                                            gint * matched) G_GNUC_WARN_UNUSED_RESULT;
+                                                            gint * matched) ;
 /* managing media to a mount point */
 
 GST_RTSP_SERVER_API
@@ -96,10 +96,10 @@ GST_RTSP_SERVER_API
 void                  gst_rtsp_mount_points_remove_factory (GstRTSPMountPoints *mounts,
                                                             const gchar *path);
 
-#ifdef G_DEFINE_AUTOPTR_CLEANUP_FUNC
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstRTSPMountPoints, gst_object_unref)
+#ifdef ////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstRTSPMountPoints, gst_object_unref)
 #endif
 
-G_END_DECLS
+
 
 #endif /* __GST_RTSP_MOUNT_POINTS_H__ */

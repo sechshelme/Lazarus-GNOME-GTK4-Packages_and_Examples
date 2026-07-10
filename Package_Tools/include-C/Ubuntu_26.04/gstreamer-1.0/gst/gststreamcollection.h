@@ -27,7 +27,7 @@
 
 #include <gst/gstobject.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_STREAM_COLLECTION             (gst_stream_collection_get_type ())
 #define GST_IS_STREAM_COLLECTION(obj)          (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GST_TYPE_STREAM_COLLECTION))
@@ -93,27 +93,27 @@ struct _GstStreamCollectionClass {
   gpointer _gst_reserved[GST_PADDING];
 };
 
-GST_API
+extern
 GType gst_stream_collection_get_type (void);
 
-GST_API
-GstStreamCollection *gst_stream_collection_new (const gchar *upstream_id) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstStreamCollection *gst_stream_collection_new (const gchar *upstream_id) ;
 
-GST_API
+extern
 const gchar *gst_stream_collection_get_upstream_id (GstStreamCollection *collection);
 
-GST_API
+extern
 guint gst_stream_collection_get_size (GstStreamCollection *collection);
 
-GST_API
+extern
 GstStream *gst_stream_collection_get_stream (GstStreamCollection *collection, guint index);
 
-GST_API
+extern
 gboolean gst_stream_collection_add_stream (GstStreamCollection *collection,
                                            GstStream *stream);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstStreamCollection, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstStreamCollection, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_STREAM_COLLECTION_H__ */

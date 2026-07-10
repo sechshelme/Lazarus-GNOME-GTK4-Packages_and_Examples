@@ -23,7 +23,7 @@
 #include <gst/gst.h>
 #include <gst/video/video-prelude.h>
 
-G_BEGIN_DECLS
+
 
 /* video still frame event creation and parsing */
 
@@ -64,6 +64,6 @@ gboolean gst_video_event_parse_upstream_force_key_unit (GstEvent * event,
 GST_VIDEO_API
 gboolean gst_video_event_is_force_key_unit(GstEvent *event);
 
-G_END_DECLS
+
 
 #endif /* __GST_VIDEO_EVENT_H__ */

@@ -30,7 +30,7 @@
 #include <gst/gst.h>
 #include <gst/mse/mse-prelude.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GstMseSrcReadyState:
@@ -91,4 +91,4 @@ guint gst_mse_src_get_n_text (GstMseSrc * self);
 GST_MSE_API
 guint gst_mse_src_get_n_video (GstMseSrc * self);
 
-G_END_DECLS
+

@@ -25,7 +25,7 @@
 #include <hip/hip_runtime.h>
 #include <hip/hip_gl_interop.h>
 
-G_BEGIN_DECLS
+
 
 GST_HIP_API
 hipError_t HipGLGetDevices (GstHipVendor vendor,
@@ -40,5 +40,5 @@ hipError_t HipGraphicsGLRegisterBuffer (GstHipVendor vendor,
                                         unsigned int buffer,
                                         unsigned int flags);
 
-G_END_DECLS
+
 

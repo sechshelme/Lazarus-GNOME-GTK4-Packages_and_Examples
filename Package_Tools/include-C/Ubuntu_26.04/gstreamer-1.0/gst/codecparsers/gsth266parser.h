@@ -30,7 +30,7 @@
 #include <gst/gst.h>
 #include <gst/codecparsers/codecparsers-prelude.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_H266_IS_B_SLICE(slice)  ((slice)->slice_type == GST_H266_B_SLICE)
 #define GST_H266_IS_P_SLICE(slice)  ((slice)->slice_type == GST_H266_P_SLICE)
@@ -3557,4 +3557,4 @@ GstH266ParserResult gst_h266_parser_parse_decoder_config_record (GstH266Parser *
                                                                  gsize size,
                                                                  GstH266DecoderConfigRecord ** config);
 
-G_END_DECLS
+

@@ -22,7 +22,7 @@
 
 #include <gst/gst.h>
 
-G_BEGIN_DECLS
+
 
 #include "rtsp-server-prelude.h"
 #include "rtsp-server-object.h"
@@ -51,6 +51,6 @@ G_BEGIN_DECLS
 #include "rtsp-onvif-media.h"
 #include "rtsp-onvif-server.h"
 
-G_END_DECLS
+
 
 #endif /* __GST_RTSP_SERVER_H__ */

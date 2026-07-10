@@ -24,7 +24,7 @@
 #include <gst/player/gstplayer-types.h>
 #include <gst/player/gstplayer-signal-dispatcher.h>
 
-G_BEGIN_DECLS
+
 
 typedef struct _GstPlayerGMainContextSignalDispatcher
     GstPlayerGMainContextSignalDispatcher;
@@ -45,6 +45,6 @@ GType gst_player_g_main_context_signal_dispatcher_get_type (void);
 GST_PLAYER_API
 GstPlayerSignalDispatcher * gst_player_g_main_context_signal_dispatcher_new (GMainContext * application_context);
 
-G_END_DECLS
+
 
 #endif /* __GST_PLAYER_G_MAIN_CONTEXT_SIGNAL_DISPATCHER_H__ */

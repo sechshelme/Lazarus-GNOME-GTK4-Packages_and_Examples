@@ -63,7 +63,7 @@ typedef enum {
 
 #include <glib.h>
 
-GST_API
+extern
 const gchar   * gst_pad_mode_get_name (GstPadMode mode);
 
 #include <gst/gstobject.h>
@@ -75,7 +75,7 @@ const gchar   * gst_pad_mode_get_name (GstPadMode mode);
 #include <gst/gstquery.h>
 #include <gst/gsttask.h>
 
-G_BEGIN_DECLS
+
 
 /*
  * Pad base class
@@ -182,13 +182,13 @@ typedef enum {
   GST_FLOW_CUSTOM_ERROR_2 = -102
 } GstFlowReturn;
 
-GST_API
+extern
 const gchar *         gst_flow_get_name (GstFlowReturn ret);
 
-GST_API
+extern
 GQuark                gst_flow_to_quark (GstFlowReturn ret);
 
-GST_API
+extern
 const gchar *         gst_pad_link_get_name (GstPadLinkReturn ret);
 
 /**
@@ -618,46 +618,46 @@ struct _GstPadProbeInfo
 #define GST_PAD_PROBE_INFO_OFFSET(d)       ((d)->offset)
 #define GST_PAD_PROBE_INFO_SIZE(d)         ((d)->size)
 
-GST_API
+extern
 GstPadProbeType gst_pad_probe_info_get_type       (GstPadProbeInfo * info);
 
-GST_API
+extern
 gulong         gst_pad_probe_info_get_id          (GstPadProbeInfo * info);
 
-GST_API
+extern
 guint64        gst_pad_probe_info_get_offset      (GstPadProbeInfo * info);
 
-GST_API
+extern
 gsize          gst_pad_probe_info_get_size        (GstPadProbeInfo * info);
 
-GST_API
+extern
 GstFlowReturn  gst_pad_probe_info_get_flow_return  (GstPadProbeInfo * info);
 
-GST_API
+extern
 GstEvent*      gst_pad_probe_info_get_event       (GstPadProbeInfo * info);
 
-GST_API
+extern
 GstQuery*      gst_pad_probe_info_get_query       (GstPadProbeInfo * info);
 
-GST_API
+extern
 GstBuffer*     gst_pad_probe_info_get_buffer      (GstPadProbeInfo * info);
 
-GST_API
+extern
 GstBufferList* gst_pad_probe_info_get_buffer_list (GstPadProbeInfo * info);
 
-GST_API
+extern
 void           gst_pad_probe_info_set_event       (GstPadProbeInfo * info,
                                                    GstEvent        * event);
 
-GST_API
+extern
 void           gst_pad_probe_info_set_buffer      (GstPadProbeInfo * info,
                                                    GstBuffer       * buffer);
 
-GST_API
+extern
 void           gst_pad_probe_info_set_buffer_list (GstPadProbeInfo * info,
                                                    GstBufferList   * list);
 
-GST_API
+extern
 void           gst_pad_probe_info_set_flow_return  (GstPadProbeInfo * info,
                                                     GstFlowReturn     flow_ret);
 
@@ -1338,19 +1338,19 @@ struct _GstPadClass {
 #define GST_PAD_BLOCK_SIGNAL(pad)       (g_cond_signal(GST_PAD_BLOCK_GET_COND (pad)))
 #define GST_PAD_BLOCK_BROADCAST(pad)    (g_cond_broadcast(GST_PAD_BLOCK_GET_COND (pad)))
 
-GST_API
+extern
 GType			gst_pad_get_type			(void);
 
 /* creating pads */
 
-GST_API
-GstPad*			gst_pad_new				(const gchar *name, GstPadDirection direction) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstPad*			gst_pad_new				(const gchar *name, GstPadDirection direction) ;
 
-GST_API
-GstPad*			gst_pad_new_from_template		(GstPadTemplate *templ, const gchar *name) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstPad*			gst_pad_new_from_template		(GstPadTemplate *templ, const gchar *name) ;
 
-GST_API
-GstPad*			gst_pad_new_from_static_template	(GstStaticPadTemplate *templ, const gchar *name) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstPad*			gst_pad_new_from_static_template	(GstStaticPadTemplate *templ, const gchar *name) ;
 
 
 /**
@@ -1376,96 +1376,96 @@ GstPad*			gst_pad_new_from_static_template	(GstStaticPadTemplate *templ, const g
  */
 #define gst_pad_get_parent(pad) gst_object_get_parent (GST_OBJECT_CAST (pad))
 
-GST_API
+extern
 GstPadDirection		gst_pad_get_direction			(GstPad *pad);
 
-GST_API
+extern
 gboolean		gst_pad_set_active			(GstPad *pad, gboolean active);
 
-GST_API
+extern
 gboolean		gst_pad_is_active			(GstPad *pad);
 
-GST_API
+extern
 gboolean		gst_pad_activate_mode			(GstPad *pad, GstPadMode mode,
                                                                  gboolean active);
-GST_API
+extern
 gulong                  gst_pad_add_probe                       (GstPad *pad,
 								 GstPadProbeType mask,
 								 GstPadProbeCallback callback,
                                                                  gpointer user_data,
                                                                  GDestroyNotify destroy_data);
-GST_API
+extern
 void                    gst_pad_remove_probe                    (GstPad *pad, gulong id);
 
-GST_API
+extern
 gboolean		gst_pad_is_blocked			(GstPad *pad);
 
-GST_API
+extern
 gboolean		gst_pad_is_blocking			(GstPad *pad);
 
-GST_API
+extern
 void                    gst_pad_mark_reconfigure                (GstPad *pad);
 
-GST_API
+extern
 gboolean		gst_pad_needs_reconfigure               (GstPad *pad);
 
-GST_API
+extern
 gboolean		gst_pad_check_reconfigure               (GstPad *pad);
 
-GST_API
+extern
 void			gst_pad_set_element_private		(GstPad *pad, gpointer priv);
 
-GST_API
+extern
 gpointer		gst_pad_get_element_private		(GstPad *pad);
 
-GST_API
-GstPadTemplate*		gst_pad_get_pad_template		(GstPad *pad) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstPadTemplate*		gst_pad_get_pad_template		(GstPad *pad) ;
 
-GST_API
+extern
 GstFlowReturn           gst_pad_store_sticky_event              (GstPad *pad, GstEvent *event);
 
-GST_API
+extern
 GstEvent*               gst_pad_get_sticky_event                (GstPad *pad, GstEventType event_type,
-                                                                 guint idx) G_GNUC_WARN_UNUSED_RESULT;
+                                                                 guint idx) ;
 
-GST_API
+extern
 void                    gst_pad_sticky_events_foreach           (GstPad *pad, GstPadStickyEventsForeachFunction foreach_func, gpointer user_data);
 
 /* data passing setup functions */
 
-GST_API
+extern
 void			gst_pad_set_activate_function_full	(GstPad *pad,
                                                                  GstPadActivateFunction activate,
                                                                  gpointer user_data,
                                                                  GDestroyNotify notify);
-GST_API
+extern
 void			gst_pad_set_activatemode_function_full	(GstPad *pad,
                                                                  GstPadActivateModeFunction activatemode,
                                                                  gpointer user_data,
                                                                  GDestroyNotify notify);
 /* data passing functions */
 
-GST_API
+extern
 void			gst_pad_set_chain_function_full		(GstPad *pad,
                                                                  GstPadChainFunction chain,
                                                                  gpointer user_data,
                                                                  GDestroyNotify notify);
-GST_API
+extern
 void			gst_pad_set_chain_list_function_full	(GstPad *pad,
                                                                  GstPadChainListFunction chainlist,
                                                                  gpointer user_data,
                                                                  GDestroyNotify notify);
-GST_API
+extern
 void			gst_pad_set_getrange_function_full	(GstPad *pad,
                                                                  GstPadGetRangeFunction get,
                                                                  gpointer user_data,
                                                                  GDestroyNotify notify);
-GST_API
+extern
 void			gst_pad_set_event_function_full		(GstPad *pad,
                                                                  GstPadEventFunction event,
                                                                  gpointer user_data,
                                                                  GDestroyNotify notify);
-GST_API
+extern
 void			gst_pad_set_event_full_function_full	(GstPad *pad,
                                                                  GstPadEventFullFunction event,
                                                                  gpointer user_data,
@@ -1481,12 +1481,12 @@ void			gst_pad_set_event_full_function_full	(GstPad *pad,
 
 /* pad links */
 
-GST_API
+extern
 void			gst_pad_set_link_function_full		(GstPad *pad,
                                                                  GstPadLinkFunction link,
                                                                  gpointer user_data,
                                                                  GDestroyNotify notify);
-GST_API
+extern
 void			gst_pad_set_unlink_function_full        (GstPad *pad,
                                                                  GstPadUnlinkFunction unlink,
                                                                  gpointer user_data,
@@ -1495,128 +1495,128 @@ void			gst_pad_set_unlink_function_full        (GstPad *pad,
 #define gst_pad_set_link_function(p,f)          gst_pad_set_link_function_full((p),(f),NULL,NULL)
 #define gst_pad_set_unlink_function(p,f)        gst_pad_set_unlink_function_full((p),(f),NULL,NULL)
 
-GST_API
+extern
 gboolean                gst_pad_can_link                        (GstPad *srcpad, GstPad *sinkpad);
 
-GST_API
+extern
 GstPadLinkReturn        gst_pad_link				(GstPad *srcpad, GstPad *sinkpad);
 
-GST_API
+extern
 GstPadLinkReturn        gst_pad_link_full			(GstPad *srcpad, GstPad *sinkpad, GstPadLinkCheck flags);
 
-GST_API
+extern
 gboolean		gst_pad_unlink				(GstPad *srcpad, GstPad *sinkpad);
 
-GST_API
+extern
 gboolean		gst_pad_is_linked			(GstPad *pad);
 
-GST_API
-GstPad*			gst_pad_get_peer			(GstPad *pad) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstPad*			gst_pad_get_peer			(GstPad *pad) ;
 
-GST_API
-GstCaps*                gst_pad_get_pad_template_caps		(GstPad *pad) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstCaps*                gst_pad_get_pad_template_caps		(GstPad *pad) ;
 
 /* capsnego function for linked/unlinked pads */
 
-GST_API
-GstCaps *		gst_pad_get_current_caps                (GstPad * pad) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstCaps *		gst_pad_get_current_caps                (GstPad * pad) ;
 
-GST_API
+extern
 gboolean		gst_pad_has_current_caps                (GstPad * pad);
 
 /* capsnego for linked pads */
 
-GST_API
-GstCaps *		gst_pad_get_allowed_caps		(GstPad * pad) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstCaps *		gst_pad_get_allowed_caps		(GstPad * pad) ;
 
 /* pad offsets */
 
-GST_API
+extern
 gint64                  gst_pad_get_offset                      (GstPad *pad);
 
-GST_API
+extern
 void                    gst_pad_set_offset                      (GstPad *pad, gint64 offset);
 
 /* data passing functions to peer */
 
-GST_API
+extern
 GstFlowReturn		gst_pad_push				(GstPad *pad, GstBuffer *buffer);
 
-GST_API
+extern
 GstFlowReturn		gst_pad_push_list			(GstPad *pad, GstBufferList *list);
 
-GST_API
+extern
 GstFlowReturn		gst_pad_pull_range			(GstPad *pad, guint64 offset, guint size,
 								 GstBuffer **buffer);
-GST_API
+extern
 gboolean		gst_pad_push_event			(GstPad *pad, GstEvent *event);
 
-GST_API
+extern
 gboolean		gst_pad_event_default			(GstPad *pad, GstObject *parent,
                                                                  GstEvent *event);
-GST_API
+extern
 GstFlowReturn           gst_pad_get_last_flow_return            (GstPad *pad);
 
 /* data passing functions on pad */
 
-GST_API
+extern
 GstFlowReturn		gst_pad_chain				(GstPad *pad, GstBuffer *buffer);
 
-GST_API
+extern
 GstFlowReturn		gst_pad_chain_list                      (GstPad *pad, GstBufferList *list);
 
-GST_API
+extern
 GstFlowReturn		gst_pad_get_range			(GstPad *pad, guint64 offset, guint size,
 								 GstBuffer **buffer);
-GST_API
+extern
 gboolean		gst_pad_send_event			(GstPad *pad, GstEvent *event);
 
 /* pad tasks */
 
-GST_API
+extern
 gboolean		gst_pad_start_task			(GstPad *pad, GstTaskFunction func,
 								 gpointer user_data, GDestroyNotify notify);
-GST_API
+extern
 gboolean		gst_pad_pause_task			(GstPad *pad);
 
-GST_API
+extern
 gboolean		gst_pad_stop_task			(GstPad *pad);
 
-GST_API
+extern
 GstTaskState	gst_pad_get_task_state		(GstPad *pad);
 
 /* internal links */
 
-GST_API
+extern
 void                    gst_pad_set_iterate_internal_links_function_full (GstPad * pad,
                                                                  GstPadIterIntLinkFunction iterintlink,
                                                                  gpointer user_data,
                                                                  GDestroyNotify notify);
 
-GST_API
-GstIterator *           gst_pad_iterate_internal_links          (GstPad * pad) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstIterator *           gst_pad_iterate_internal_links          (GstPad * pad) ;
 
-GST_API
-GstIterator *           gst_pad_iterate_internal_links_default  (GstPad * pad, GstObject *parent) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstIterator *           gst_pad_iterate_internal_links_default  (GstPad * pad, GstObject *parent) ;
 
 #define gst_pad_set_iterate_internal_links_function(p,f) gst_pad_set_iterate_internal_links_function_full((p),(f),NULL,NULL)
 
-GST_API
-GstPad *                gst_pad_get_single_internal_link        (GstPad * pad) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstPad *                gst_pad_get_single_internal_link        (GstPad * pad) ;
 
 /* generic query function */
 
-GST_API
+extern
 gboolean		gst_pad_query				(GstPad *pad, GstQuery *query);
 
-GST_API
+extern
 gboolean		gst_pad_peer_query			(GstPad *pad, GstQuery *query);
 
-GST_API
+extern
 void			gst_pad_set_query_function_full		(GstPad *pad, GstPadQueryFunction query,
                                                                  gpointer user_data,
                                                                  GDestroyNotify notify);
-GST_API
+extern
 gboolean		gst_pad_query_default			(GstPad *pad, GstObject *parent,
                                                                  GstQuery *query);
 
@@ -1624,12 +1624,12 @@ gboolean		gst_pad_query_default			(GstPad *pad, GstObject *parent,
 
 /* misc helper functions */
 
-GST_API
+extern
 gboolean		gst_pad_forward                         (GstPad *pad, GstPadForwardFunction forward,
 								 gpointer user_data);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstPad, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstPad, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_PAD_H__ */

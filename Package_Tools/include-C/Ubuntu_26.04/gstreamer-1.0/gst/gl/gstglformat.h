@@ -68,7 +68,7 @@
  */
 #define GST_BUFFER_POOL_OPTION_GL_TEXTURE_TARGET_EXTERNAL_OES "GstBufferPoolOptionGLTextureTargetExternalOES"
 
-G_BEGIN_DECLS
+
 
 /**
  * GstGLFormat:
@@ -175,6 +175,6 @@ GstGLTextureTarget      gst_gl_texture_target_from_gl               (guint targe
 GST_GL_API
 const gchar *           gst_gl_texture_target_to_buffer_pool_option (GstGLTextureTarget target);
 
-G_END_DECLS
+
 
 #endif /* _GST_GL_FORMAT_H_ */

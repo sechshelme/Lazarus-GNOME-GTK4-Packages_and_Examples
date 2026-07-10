@@ -34,7 +34,7 @@
 #include <gst/gst.h>
 #include <gst/codecparsers/codecparsers-prelude.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_AV1_MAX_NUM_TEMPORAL_LAYERS        8
 #define GST_AV1_MAX_NUM_SPATIAL_LAYERS         4
@@ -1890,6 +1890,6 @@ GstAV1Parser * gst_av1_parser_new (void);
 GST_CODEC_PARSERS_API
 void gst_av1_parser_free (GstAV1Parser * parser);
 
-G_END_DECLS
+
 
 #endif /* __GST_AV1_PARSER_H__ */

@@ -24,7 +24,7 @@
 #include <gst/vulkan/vulkan_fwd.h>
 #include <gst/vulkan/gstvkapi.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GstVulkanBarrierType:
@@ -95,6 +95,6 @@ struct _GstVulkanBarrierMemoryInfo
   gpointer _reserved        [GST_PADDING];
 };
 
-G_END_DECLS
+
 
 #endif /* __GST_VULKAN_BARRIER_H__ */

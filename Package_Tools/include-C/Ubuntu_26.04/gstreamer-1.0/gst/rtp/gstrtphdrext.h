@@ -26,7 +26,7 @@
 #include <gst/gst.h>
 #include <gst/rtp/gstrtpbuffer.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_RTP_HDREXT_BASE "urn:ietf:params:rtp-hdrext:"
 
@@ -213,7 +213,7 @@ struct _GstRTPHeaderExtensionClass
   gpointer _gst_reserved[GST_PADDING_LARGE];
 };
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstRTPHeaderExtension, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstRTPHeaderExtension, gst_object_unref)
 
 /**
  * GST_RTP_HEADER_EXTENSION_URI_METADATA_KEY:
@@ -275,7 +275,7 @@ GST_RTP_API
 GstRTPHeaderExtension * gst_rtp_header_extension_create_from_uri (const gchar * uri);
 
 GST_RTP_API
-gchar *	            gst_rtp_header_extension_get_sdp_caps_field_name (GstRTPHeaderExtension * ext) G_GNUC_WARN_UNUSED_RESULT;
+gchar *	            gst_rtp_header_extension_get_sdp_caps_field_name (GstRTPHeaderExtension * ext) ;
 
 GST_RTP_API
 void	            gst_rtp_header_extension_set_direction (GstRTPHeaderExtension * ext,
@@ -288,7 +288,7 @@ gboolean    gst_rtp_header_extension_set_caps_from_attributes_helper (GstRTPHead
                                                                       GstCaps * caps,
                                                                       const gchar * attributes);
 
-G_END_DECLS
+
 
 #endif /* __GST_RTPHDREXT_H__ */
 

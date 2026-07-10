@@ -24,7 +24,7 @@
 
 #include <gst/gl/gstgl_fwd.h>
 
-G_BEGIN_DECLS
+
 
 GST_GL_API
 GType gst_gl_shader_get_type (void);
@@ -54,13 +54,13 @@ struct _GstGLShaderClass {
 };
 
 GST_GL_API
-GstGLShader * gst_gl_shader_new                     (GstGLContext *context) G_GNUC_WARN_UNUSED_RESULT;
+GstGLShader * gst_gl_shader_new                     (GstGLContext *context) ;
 GST_GL_API
-GstGLShader * gst_gl_shader_new_with_stages         (GstGLContext * context, GError ** error, ...) G_GNUC_WARN_UNUSED_RESULT;
+GstGLShader * gst_gl_shader_new_with_stages         (GstGLContext * context, GError ** error, ...) ;
 GST_GL_API
-GstGLShader * gst_gl_shader_new_link_with_stages    (GstGLContext * context, GError ** error, ...) G_GNUC_WARN_UNUSED_RESULT;
+GstGLShader * gst_gl_shader_new_link_with_stages    (GstGLContext * context, GError ** error, ...) ;
 GST_GL_API
-GstGLShader * gst_gl_shader_new_default             (GstGLContext * context, GError ** error) G_GNUC_WARN_UNUSED_RESULT;
+GstGLShader * gst_gl_shader_new_default             (GstGLContext * context, GError ** error) ;
 
 GST_GL_API
 gboolean gst_gl_shader_attach                       (GstGLShader * shader, GstGLSLStage * stage);
@@ -151,6 +151,6 @@ void gst_gl_shader_bind_attribute_location (GstGLShader * shader, guint index, c
 GST_GL_API
 void gst_gl_shader_bind_frag_data_location (GstGLShader * shader, guint index, const gchar * name);
 
-G_END_DECLS
+
 
 #endif /* __GST_GL_SHADER_H__ */

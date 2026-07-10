@@ -25,7 +25,7 @@
 
 #include <glib.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GST_ELEMENT_METADATA_LONGNAME:
@@ -74,6 +74,6 @@ G_BEGIN_DECLS
  */
 #define GST_ELEMENT_METADATA_ICON_NAME     "icon-name"
 
-G_END_DECLS
+
 
 #endif /* __GST_ELEMENT_METADATA_H__ */

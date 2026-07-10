@@ -5,7 +5,7 @@
 
 #include <gst/gst.h>
 #include <gst/vulkan/vulkan_fwd.h>
-G_BEGIN_DECLS
+
 
 /* enumerations from "gstvkbarrier.h" */
 GST_VULKAN_API
@@ -42,7 +42,7 @@ GType gst_vulkan_handle_type_get_type (void);
 GST_VULKAN_API
 GType gst_vulkan_window_error_get_type (void);
 #define GST_TYPE_VULKAN_WINDOW_ERROR (gst_vulkan_window_error_get_type())
-G_END_DECLS
+
 
 /* Generated data ends here */
 

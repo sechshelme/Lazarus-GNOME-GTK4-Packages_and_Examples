@@ -23,7 +23,7 @@
 #include <gst/gst.h>
 #include <gst/rtp/rtp-prelude.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_RTP_SOURCE_META_API_TYPE  (gst_rtp_source_meta_api_get_type())
 #define GST_RTP_SOURCE_META_INFO  (gst_rtp_source_meta_get_info())
@@ -74,6 +74,6 @@ gboolean            gst_rtp_source_meta_append_csrc      (GstRTPSourceMeta * met
 GST_RTP_API
 const GstMetaInfo * gst_rtp_source_meta_get_info         (void);
 
-G_END_DECLS
+
 
 #endif /* __GST_RTP_META_H__ */

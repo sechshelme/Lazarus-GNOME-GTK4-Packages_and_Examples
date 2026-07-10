@@ -24,7 +24,7 @@
 #include <gst/gst.h>
 #include <gst/base/base-prelude.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_BASE_TRANSFORM		   (gst_base_transform_get_type())
 #define GST_BASE_TRANSFORM(obj)		   (G_TYPE_CHECK_INSTANCE_CAST((obj),GST_TYPE_BASE_TRANSFORM,GstBaseTransform))
@@ -346,7 +346,7 @@ GST_BASE_API
 void            gst_base_transform_set_prefer_passthrough (GstBaseTransform *trans,
                                                            gboolean prefer_passthrough);
 GST_BASE_API
-GstBufferPool * gst_base_transform_get_buffer_pool  (GstBaseTransform *trans) G_GNUC_WARN_UNUSED_RESULT;
+GstBufferPool * gst_base_transform_get_buffer_pool  (GstBaseTransform *trans) ;
 
 GST_BASE_API
 void            gst_base_transform_get_allocator    (GstBaseTransform *trans,
@@ -365,8 +365,8 @@ gboolean gst_base_transform_update_src_caps (GstBaseTransform *trans,
 GST_BASE_API
 gboolean gst_base_transform_reconfigure (GstBaseTransform * trans);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstBaseTransform, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstBaseTransform, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_BASE_TRANSFORM_H__ */

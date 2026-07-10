@@ -24,7 +24,7 @@
 
 #include <gst/video/video.h>
 
-G_BEGIN_DECLS
+
 
 /* A GstVideoBufferPool subclass that modify the options to remove
  * VideoAlignment. To support VideoAlignment we would need to pass the padded
@@ -41,4 +41,4 @@ G_DECLARE_FINAL_TYPE (GstWlVideoBufferPool, gst_wl_video_buffer_pool, GST, WL_VI
 GST_WL_API
 GstBufferPool * gst_wl_video_buffer_pool_new (void);
 
-G_END_DECLS
+

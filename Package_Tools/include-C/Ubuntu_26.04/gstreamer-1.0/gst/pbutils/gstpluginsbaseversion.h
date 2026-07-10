@@ -23,7 +23,7 @@
 #include <gst/gst.h>
 #include <gst/pbutils/pbutils-prelude.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GST_PLUGINS_BASE_VERSION_MAJOR:
@@ -74,6 +74,6 @@ void     gst_plugins_base_version (guint *major, guint *minor, guint *micro, gui
 GST_PBUTILS_API
 gchar *  gst_plugins_base_version_string (void);
 
-G_END_DECLS
+
 
 #endif /* __GST_PLUGINS_BASE_VERSION_H__ */

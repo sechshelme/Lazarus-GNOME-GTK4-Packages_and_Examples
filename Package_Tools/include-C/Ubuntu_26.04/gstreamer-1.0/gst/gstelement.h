@@ -26,13 +26,13 @@
 
 #include <glib.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * _GST_ELEMENT_REGISTER_DEFINE_BEGIN: (attributes doc.skip=true)
  */
 #define _GST_ELEMENT_REGISTER_DEFINE_BEGIN(element) \
-G_BEGIN_DECLS \
+ \
 gboolean G_PASTE (gst_element_register_, element) (GstPlugin * plugin) \
 { \
   {
@@ -44,7 +44,7 @@ gboolean G_PASTE (gst_element_register_, element) (GstPlugin * plugin) \
   } \
   return gst_element_register (plugin, element_name, rank, type); \
 } \
-G_END_DECLS
+
 
 /**
  * GST_ELEMENT_REGISTER_DEFINE_CUSTOM:
@@ -65,12 +65,12 @@ G_END_DECLS
  * Since: 1.20
  */
 #define GST_ELEMENT_REGISTER_DEFINE_CUSTOM(element, register_func) \
-G_BEGIN_DECLS \
+ \
 gboolean G_PASTE (gst_element_register_, element) (GstPlugin * plugin) \
 { \
   return register_func (plugin); \
 } \
-G_END_DECLS
+
 
 /**
  * GST_ELEMENT_REGISTER_DEFINE:
@@ -137,9 +137,9 @@ G_END_DECLS
  * Since: 1.20
  */
 #define GST_ELEMENT_REGISTER_DECLARE(element) \
-G_BEGIN_DECLS \
+ \
 gboolean G_PASTE(gst_element_register_, element) (GstPlugin * plugin); \
-G_END_DECLS
+
 
 /**
  * GST_ELEMENT_REGISTER:
@@ -483,8 +483,8 @@ typedef enum
  */
 #define GST_ELEMENT_START_TIME(elem)            (GST_ELEMENT_CAST(elem)->start_time)
 
-GST_API
-GstStructure *gst_make_element_message_details (const char *name, ...) G_GNUC_NULL_TERMINATED;
+extern
+GstStructure *gst_make_element_message_details (const char *name, ...) ;
 
 #define GST_ELEMENT_MESSAGE_MAKE_DETAILS(args) gst_make_element_message_details args
 
@@ -1109,51 +1109,51 @@ struct _GstElementClass
 
 /* element class pad templates */
 
-GST_API
+extern
 void                    gst_element_class_add_pad_template      (GstElementClass *klass, GstPadTemplate *templ);
 
-GST_API
+extern
 void                    gst_element_class_add_static_pad_template (GstElementClass *klass, GstStaticPadTemplate *static_templ);
 
-GST_API
+extern
 void                    gst_element_class_add_static_pad_template_with_gtype (GstElementClass *klass,
                                                                               GstStaticPadTemplate *static_templ,
                                                                               GType pad_type);
 
-GST_API
+extern
 GstPadTemplate*         gst_element_class_get_pad_template      (GstElementClass *element_class, const gchar *name);
 
-GST_API
+extern
 GList*                  gst_element_class_get_pad_template_list (GstElementClass *element_class);
 
 /* element class meta data */
 
-GST_API
+extern
 void                    gst_element_class_set_metadata          (GstElementClass *klass,
                                                                  const gchar     *longname,
                                                                  const gchar     *classification,
                                                                  const gchar     *description,
                                                                  const gchar     *author);
-GST_API
+extern
 void                    gst_element_class_set_static_metadata   (GstElementClass *klass,
                                                                  const gchar     *longname,
                                                                  const gchar     *classification,
                                                                  const gchar     *description,
                                                                  const gchar     *author);
-GST_API
+extern
 void                    gst_element_class_add_metadata          (GstElementClass * klass,
                                                                  const gchar * key, const gchar * value);
-GST_API
+extern
 void                    gst_element_class_add_static_metadata   (GstElementClass * klass,
                                                                  const gchar * key, const gchar * value);
-GST_API
+extern
 const gchar *           gst_element_class_get_metadata          (GstElementClass * klass,
                                                                  const gchar * key);
 
 
 /* element instance */
 
-GST_API
+extern
 GType                   gst_element_get_type            (void);
 
 /* basic name and parentage stuff from GstObject */
@@ -1203,89 +1203,89 @@ GType                   gst_element_get_type            (void);
 
 /* clocking */
 
-GST_API
-GstClock*               gst_element_provide_clock       (GstElement *element) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstClock*               gst_element_provide_clock       (GstElement *element) ;
 
-GST_API
-GstClock*               gst_element_get_clock           (GstElement *element) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstClock*               gst_element_get_clock           (GstElement *element) ;
 
-GST_API
+extern
 gboolean                gst_element_set_clock           (GstElement *element, GstClock *clock);
 
-GST_API
+extern
 void                    gst_element_set_base_time       (GstElement *element, GstClockTime time);
 
-GST_API
+extern
 GstClockTime            gst_element_get_base_time       (GstElement *element);
 
-GST_API
+extern
 void                    gst_element_set_start_time      (GstElement *element, GstClockTime time);
 
-GST_API
+extern
 GstClockTime            gst_element_get_start_time      (GstElement *element);
 
-GST_API
+extern
 GstClockTime            gst_element_get_current_running_time (GstElement *element);
 
-GST_API
+extern
 GstClockTime            gst_element_get_current_clock_time (GstElement *element);
 
 /* bus */
 
-GST_API
+extern
 void                    gst_element_set_bus             (GstElement * element, GstBus * bus);
 
-GST_API
-GstBus *                gst_element_get_bus             (GstElement * element) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstBus *                gst_element_get_bus             (GstElement * element) ;
 
 /* context */
 
-GST_API
+extern
 void                    gst_element_set_context         (GstElement * element, GstContext * context);
 
-GST_API
-GList *                 gst_element_get_contexts        (GstElement * element) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GList *                 gst_element_get_contexts        (GstElement * element) ;
 
-GST_API
-GstContext *            gst_element_get_context         (GstElement * element, const gchar * context_type) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstContext *            gst_element_get_context         (GstElement * element, const gchar * context_type) ;
 
-GST_API
-GstContext *            gst_element_get_context_unlocked (GstElement * element, const gchar * context_type) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstContext *            gst_element_get_context_unlocked (GstElement * element, const gchar * context_type) ;
 
 /* pad management */
 
-GST_API
+extern
 gboolean                gst_element_add_pad             (GstElement *element, GstPad *pad);
 
-GST_API
+extern
 gboolean                gst_element_remove_pad          (GstElement *element, GstPad *pad);
 
-GST_API
+extern
 void                    gst_element_no_more_pads        (GstElement *element);
 
-GST_API
-GstPad*                 gst_element_get_static_pad      (GstElement *element, const gchar *name) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstPad*                 gst_element_get_static_pad      (GstElement *element, const gchar *name) ;
 
-GST_API G_DEPRECATED_FOR(gst_element_request_pad_simple)
-GstPad*                 gst_element_get_request_pad     (GstElement *element, const gchar *name) G_GNUC_WARN_UNUSED_RESULT;
+extern G_DEPRECATED_FOR(gst_element_request_pad_simple)
+GstPad*                 gst_element_get_request_pad     (GstElement *element, const gchar *name) ;
 
-GST_API
-GstPad*                 gst_element_request_pad_simple  (GstElement *element, const gchar *name) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstPad*                 gst_element_request_pad_simple  (GstElement *element, const gchar *name) ;
 
-GST_API
+extern
 GstPad*                 gst_element_request_pad         (GstElement *element, GstPadTemplate *templ,
-							 const gchar * name, const GstCaps *caps) G_GNUC_WARN_UNUSED_RESULT;
-GST_API
+							 const gchar * name, const GstCaps *caps) ;
+extern
 void                    gst_element_release_request_pad (GstElement *element, GstPad *pad);
 
-GST_API
-GstIterator *           gst_element_iterate_pads        (GstElement * element) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstIterator *           gst_element_iterate_pads        (GstElement * element) ;
 
-GST_API
-GstIterator *           gst_element_iterate_src_pads    (GstElement * element) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstIterator *           gst_element_iterate_src_pads    (GstElement * element) ;
 
-GST_API
-GstIterator *           gst_element_iterate_sink_pads   (GstElement * element) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstIterator *           gst_element_iterate_sink_pads   (GstElement * element) ;
 
 /**
  * GstElementForeachPadFunc:
@@ -1304,52 +1304,52 @@ typedef gboolean (*GstElementForeachPadFunc) (GstElement * element,
                                               GstPad     * pad,
                                               gpointer     user_data);
 
-GST_API
+extern
 gboolean                gst_element_foreach_sink_pad    (GstElement * element,
                                                          GstElementForeachPadFunc func,
                                                          gpointer     user_data);
-GST_API
+extern
 gboolean                gst_element_foreach_src_pad     (GstElement * element,
                                                          GstElementForeachPadFunc func,
                                                          gpointer     user_data);
-GST_API
+extern
 gboolean                gst_element_foreach_pad         (GstElement * element,
                                                          GstElementForeachPadFunc func,
                                                          gpointer     user_data);
 /* event/query/format stuff */
 
-GST_API
+extern
 gboolean                gst_element_send_event          (GstElement *element, GstEvent *event);
 
-GST_API
+extern
 gboolean                gst_element_seek                (GstElement *element, gdouble rate,
                                                          GstFormat format, GstSeekFlags flags,
                                                          GstSeekType start_type, gint64 start,
                                                          GstSeekType stop_type, gint64 stop);
-GST_API
+extern
 gboolean                gst_element_query               (GstElement *element, GstQuery *query);
 
 /* messages */
 
-GST_API
+extern
 gboolean                gst_element_post_message        (GstElement * element, GstMessage * message);
 
 /* error handling */
 /* gcc versions < 3.3 warn about NULL being passed as format to printf */
 #if (!defined(__GNUC__) || (__GNUC__ < 3) || (__GNUC__ == 3 && __GNUC_MINOR__ < 3))
-GST_API
+extern
 gchar *                 _gst_element_error_printf       (const gchar *format, ...);
 #else
-GST_API
-gchar *                 _gst_element_error_printf       (const gchar *format, ...) G_GNUC_PRINTF (1, 2);
+extern
+gchar *                 _gst_element_error_printf       (const gchar *format, ...) ;// (1, 2);
 #endif
 
-GST_API
+extern
 void                    gst_element_message_full        (GstElement * element, GstMessageType type,
                                                          GQuark domain, gint code, gchar * text,
                                                          gchar * debug, const gchar * file,
                                                          const gchar * function, gint line);
-GST_API
+extern
 void                    gst_element_message_full_with_details (GstElement * element, GstMessageType type,
                                                          GQuark domain, gint code, gchar * text,
                                                          gchar * debug, const gchar * file,
@@ -1358,34 +1358,34 @@ void                    gst_element_message_full_with_details (GstElement * elem
 
 /* state management */
 
-GST_API
+extern
 gboolean                gst_element_is_locked_state     (GstElement *element);
 
-GST_API
+extern
 gboolean                gst_element_set_locked_state    (GstElement *element, gboolean locked_state);
 
-GST_API
+extern
 gboolean                gst_element_sync_state_with_parent (GstElement *element);
 
-GST_API
+extern
 GstStateChangeReturn    gst_element_get_state           (GstElement * element,
                                                          GstState * state,
                                                          GstState * pending,
                                                          GstClockTime timeout);
-GST_API
+extern
 GstStateChangeReturn    gst_element_set_state           (GstElement *element, GstState state);
 
-GST_API
+extern
 void                    gst_element_abort_state         (GstElement * element);
 
-GST_API
+extern
 GstStateChangeReturn    gst_element_change_state        (GstElement * element,
                                                          GstStateChange transition);
 
-GST_API
+extern
 GstStateChangeReturn    gst_element_continue_state      (GstElement * element,
                                                          GstStateChangeReturn ret);
-GST_API
+extern
 void                    gst_element_lost_state          (GstElement * element);
 
 
@@ -1401,40 +1401,40 @@ void                    gst_element_lost_state          (GstElement * element);
  */
 typedef void          (*GstElementCallAsyncFunc)        (GstElement * element,
                                                          gpointer     user_data);
-GST_DEPRECATED_FOR(gst_object_call_async)
+extern //xxxxxGLIB_DEPRECATED_IN(gst_object_call_async)
 void                    gst_element_call_async          (GstElement * element,
                                                          GstElementCallAsyncFunc func, gpointer user_data,
                                                          GDestroyNotify destroy_notify);
 
 /* factory management */
 
-GST_API
+extern
 GstElementFactory*      gst_element_get_factory         (GstElement *element);
 
 /* utility functions */
 
-GST_API
+extern
 gulong                  gst_element_add_property_notify_watch (GstElement  * element,
                                                                const gchar * property_name,
                                                                gboolean      include_value);
-GST_API
+extern
 gulong                  gst_element_add_property_deep_notify_watch (GstElement  * element,
                                                                     const gchar * property_name,
                                                                     gboolean      include_value);
-GST_API
+extern
 void                    gst_element_remove_property_notify_watch (GstElement * element,
                                                                   gulong       watch_id);
 
-GST_API
+extern
 GstPadTemplate*         gst_element_get_pad_template           (GstElement *element, const gchar *name);
 
-GST_API
+extern
 GList*                  gst_element_get_pad_template_list      (GstElement *element);
-GST_API
+extern
 const gchar *           gst_element_get_metadata               (GstElement * element, const gchar * key);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstElement, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstElement, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_ELEMENT_H__ */

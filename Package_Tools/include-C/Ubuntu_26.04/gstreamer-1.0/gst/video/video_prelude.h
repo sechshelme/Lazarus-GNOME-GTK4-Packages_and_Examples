@@ -25,9 +25,9 @@
 #include <gst/gst.h>
 
 #ifdef BUILDING_GST_VIDEO
-#define GST_VIDEO_API GST_API_EXPORT         /* from config.h */
+#define GST_VIDEO_API extern_EXPORT         /* from config.h */
 #else
-#define GST_VIDEO_API GST_API_IMPORT
+#define GST_VIDEO_API extern_IMPORT
 #endif
 
 #ifndef GST_DISABLE_DEPRECATED

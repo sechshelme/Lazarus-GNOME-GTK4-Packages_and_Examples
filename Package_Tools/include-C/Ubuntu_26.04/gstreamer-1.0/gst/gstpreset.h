@@ -25,7 +25,7 @@
 #include <glib-object.h>
 #include <gst/gstconfig.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_PRESET               (gst_preset_get_type())
 #define GST_PRESET(obj)               (G_TYPE_CHECK_INSTANCE_CAST ((obj), GST_TYPE_PRESET, GstPreset))
@@ -77,42 +77,42 @@ struct _GstPresetInterface
   gpointer _gst_reserved[GST_PADDING];
 };
 
-GST_API
+extern
 GType        gst_preset_get_type (void);
 
-GST_API
-gchar**      gst_preset_get_preset_names   (GstPreset *preset) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+extern
+gchar**      gst_preset_get_preset_names   (GstPreset *preset)  ;
 
-GST_API
-gchar**      gst_preset_get_property_names (GstPreset *preset) G_GNUC_MALLOC G_GNUC_WARN_UNUSED_RESULT;
+extern
+gchar**      gst_preset_get_property_names (GstPreset *preset)  ;
 
-GST_API
+extern
 gboolean     gst_preset_load_preset        (GstPreset *preset, const gchar *name);
 
-GST_API
+extern
 gboolean     gst_preset_save_preset        (GstPreset *preset, const gchar *name);
 
-GST_API
+extern
 gboolean     gst_preset_rename_preset      (GstPreset *preset, const gchar *old_name,
                                             const gchar *new_name);
-GST_API
+extern
 gboolean     gst_preset_delete_preset      (GstPreset *preset, const gchar *name);
 
-GST_API
+extern
 gboolean     gst_preset_set_meta           (GstPreset *preset, const gchar *name,
                                             const gchar *tag, const gchar *value);
-GST_API
+extern
 gboolean     gst_preset_get_meta           (GstPreset *preset, const gchar *name,
                                             const gchar *tag, gchar **value);
-GST_API
+extern
 gboolean     gst_preset_set_app_dir        (const gchar *app_dir);
 
-GST_API
+extern
 const gchar *gst_preset_get_app_dir        (void);
 
-GST_API
+extern
 gboolean     gst_preset_is_editable        (GstPreset *preset);
 
-G_END_DECLS
+
 
 #endif /* __GST_PRESET_H__ */

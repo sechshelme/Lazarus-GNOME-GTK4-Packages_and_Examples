@@ -31,7 +31,7 @@
 #include <gst/gst.h>
 #include "gstfragment.h"
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_URI_DOWNLOADER (gst_uri_downloader_get_type())
 #define GST_URI_DOWNLOADER(obj) (G_TYPE_CHECK_INSTANCE_CAST((obj),GST_TYPE_URI_DOWNLOADER,GstUriDownloader))
@@ -79,5 +79,5 @@ void gst_uri_downloader_reset (GstUriDownloader *downloader);
 GST_URI_DOWNLOADER_API
 void gst_uri_downloader_cancel (GstUriDownloader *downloader);
 
-G_END_DECLS
+
 #endif /* __GSTURIDOWNLOADER_H__ */

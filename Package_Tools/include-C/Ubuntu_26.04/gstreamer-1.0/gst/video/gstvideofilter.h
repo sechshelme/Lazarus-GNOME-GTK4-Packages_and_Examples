@@ -24,7 +24,7 @@
 #include <gst/base/gstbasetransform.h>
 #include <gst/video/video.h>
 
-G_BEGIN_DECLS
+
 
 typedef struct _GstVideoFilter GstVideoFilter;
 typedef struct _GstVideoFilterClass GstVideoFilterClass;
@@ -82,8 +82,8 @@ struct _GstVideoFilterClass {
 GST_VIDEO_API
 GType gst_video_filter_get_type (void);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstVideoFilter, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstVideoFilter, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_VIDEO_FILTER_H__ */

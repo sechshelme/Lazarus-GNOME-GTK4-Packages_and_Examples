@@ -24,7 +24,7 @@
 #include <gst/gst.h>
 #include <gst/video/video.h>
 
-G_BEGIN_DECLS
+
 
 static const guint8 H264_MISP_MICROSECTIME[] = {
   0x4D, 0x49, 0x53, 0x50, 0x6D, 0x69, 0x63, 0x72,
@@ -105,6 +105,6 @@ gboolean gst_video_sei_user_data_unregistered_parse_precision_time_stamp (GstVid
                                                                           guint8 * status,
                                                                           guint64 * precision_time_stamp);
 
-G_END_DECLS
+
 
 #endif /* __GST_VIDEO_SEI_USER_DATA_UNREGISTERED_H__ */

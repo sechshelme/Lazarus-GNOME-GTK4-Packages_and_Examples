@@ -25,7 +25,7 @@
 #include <gst/gst.h>
 #include <gst/base/base-prelude.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_BYTE_READER(reader) ((GstByteReader *) (reader))
 
@@ -49,7 +49,7 @@ typedef struct {
 } GstByteReader;
 
 GST_BASE_API
-GstByteReader * gst_byte_reader_new             (const guint8 *data, guint size) G_GNUC_MALLOC;
+GstByteReader * gst_byte_reader_new             (const guint8 *data, guint size) ;
 
 GST_BASE_API
 void            gst_byte_reader_free            (GstByteReader *reader);
@@ -679,6 +679,6 @@ _gst_byte_reader_skip_inline (GstByteReader * reader, guint nbytes)
 
 #endif /* GST_BYTE_READER_DISABLE_INLINES */
 
-G_END_DECLS
+
 
 #endif /* __GST_BYTE_READER_H__ */

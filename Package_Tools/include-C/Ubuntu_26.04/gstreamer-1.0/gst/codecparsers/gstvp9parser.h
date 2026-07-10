@@ -33,7 +33,7 @@
 #include <gst/gst.h>
 #include <gst/codecparsers/codecparsers-prelude.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_VP9_FRAME_MARKER 0x02
 #define GST_VP9_SYNC_CODE 0x498342
@@ -517,6 +517,6 @@ GstVp9ParserResult gst_vp9_parser_parse_superframe_info (GstVp9Parser* parser, G
 GST_CODEC_PARSERS_API
 void               gst_vp9_parser_free (GstVp9Parser * parser);
 
-G_END_DECLS
+
 
 #endif /* GST_VP9_PARSER_H */

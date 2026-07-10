@@ -22,9 +22,9 @@
 
 #include <gst/gst.h>
 
-G_BEGIN_DECLS
 
-GST_API
+
+extern
 GType gst_promise_get_type(void);
 #define GST_TYPE_PROMISE            (gst_promise_get_type())
 #define GST_IS_PROMISE(obj)         (GST_IS_MINI_OBJECT_TYPE (obj, GST_TYPE_PROMISE))
@@ -74,24 +74,24 @@ struct _GstPromise
   GstMiniObject         parent;
 };
 
-GST_API
-GstPromise *            gst_promise_new                     (void) G_GNUC_WARN_UNUSED_RESULT;
-GST_API
+extern
+GstPromise *            gst_promise_new                     (void) ;
+extern
 GstPromise *            gst_promise_new_with_change_func    (GstPromiseChangeFunc func,
                                                              gpointer user_data,
-                                                             GDestroyNotify notify) G_GNUC_WARN_UNUSED_RESULT;
+                                                             GDestroyNotify notify) ;
 
-GST_API
+extern
 GstPromiseResult        gst_promise_wait                    (GstPromise * promise);
-GST_API
+extern
 void                    gst_promise_reply                   (GstPromise * promise,
                                                              GstStructure * s);
-GST_API
+extern
 void                    gst_promise_interrupt               (GstPromise * promise);
-GST_API
+extern
 void                    gst_promise_expire                  (GstPromise * promise);
 
-GST_API
+extern
 const GstStructure *    gst_promise_get_reply               (GstPromise * promise);
 
 #ifndef GST_DISABLE_MINIOBJECT_INLINE_FUNCTIONS
@@ -113,18 +113,18 @@ gst_clear_promise (GstPromise ** promise_ptr)
   gst_clear_mini_object ((GstMiniObject **) promise_ptr);
 }
 #else /* GST_DISABLE_MINIOBJECT_INLINE_FUNCTIONS */
-GST_API
+extern
 GstPromise *  gst_promise_ref (GstPromise * promise);
 
-GST_API
+extern
 void          gst_promise_unref (GstPromise * promise);
 
-GST_API
+extern
 void          gst_clear_promise (GstPromise ** promise_ptr);
 #endif /* GST_DISABLE_MINIOBJECT_INLINE_FUNCTIONS */
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstPromise, gst_promise_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstPromise, gst_promise_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_PROMISE_H__ */

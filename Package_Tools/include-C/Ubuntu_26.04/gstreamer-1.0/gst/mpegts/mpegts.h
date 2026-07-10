@@ -41,11 +41,11 @@
 #include <gst/mpegts/gstmpegts-enumtypes.h>
 #include <gst/mpegts/gst-hdmv-section.h>
 
-G_BEGIN_DECLS
+
 
 GST_MPEGTS_API
 void gst_mpegts_initialize (void);
 
-G_END_DECLS
+
 
 #endif

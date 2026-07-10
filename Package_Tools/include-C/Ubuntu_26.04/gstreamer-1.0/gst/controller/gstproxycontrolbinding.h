@@ -24,7 +24,7 @@
 #include <gst/gst.h>
 #include <gst/controller/controller-prelude.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_PROXY_CONTROL_BINDING  (gst_proxy_control_binding_get_type())
 #define GST_PROXY_CONTROL_BINDING(obj) \
@@ -77,9 +77,9 @@ GST_CONTROLLER_API
 GstControlBinding *     gst_proxy_control_binding_new (GstObject * object,
                                                        const gchar * property_name,
                                                        GstObject * ref_object,
-                                                       const gchar * ref_property_name) G_GNUC_WARN_UNUSED_RESULT;
+                                                       const gchar * ref_property_name) ;
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstProxyControlBinding, gst_object_unref)
-G_END_DECLS
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstProxyControlBinding, gst_object_unref)
+
 
 #endif /* __GST_PROXY_CONTROL_BINDING_H__ */

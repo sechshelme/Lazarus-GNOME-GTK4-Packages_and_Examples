@@ -24,7 +24,7 @@
 #include <gst/vulkan/gstvkphysicaldevice.h>
 #include <gst/vulkan/gstvkqueue.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_VULKAN_DEVICE         (gst_vulkan_device_get_type())
 #define GST_VULKAN_DEVICE(o)           (G_TYPE_CHECK_INSTANCE_CAST((o), GST_TYPE_VULKAN_DEVICE, GstVulkanDevice))
@@ -84,14 +84,14 @@ struct _GstVulkanDeviceClass
   gpointer _reserved        [GST_PADDING];
 };
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (GstVulkanDevice, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstVulkanDevice, gst_object_unref)
 
 GST_VULKAN_API
-GstVulkanDevice *   gst_vulkan_device_new                   (GstVulkanPhysicalDevice * physical_device) G_GNUC_WARN_UNUSED_RESULT;
+GstVulkanDevice *   gst_vulkan_device_new                   (GstVulkanPhysicalDevice * physical_device) ;
 GST_VULKAN_API
-GstVulkanDevice *   gst_vulkan_device_new_with_index        (GstVulkanInstance * instance, guint device_index) G_GNUC_WARN_UNUSED_RESULT;
+GstVulkanDevice *   gst_vulkan_device_new_with_index        (GstVulkanInstance * instance, guint device_index) ;
 GST_VULKAN_API
-GstVulkanInstance * gst_vulkan_device_get_instance          (GstVulkanDevice * device) G_GNUC_WARN_UNUSED_RESULT;
+GstVulkanInstance * gst_vulkan_device_get_instance          (GstVulkanDevice * device) ;
 GST_VULKAN_API
 gboolean            gst_vulkan_device_open                  (GstVulkanDevice * device,
                                                              GError ** error);
@@ -122,9 +122,9 @@ void                gst_vulkan_device_foreach_queue         (GstVulkanDevice * d
 GST_VULKAN_API
 GstVulkanQueue *    gst_vulkan_device_get_queue             (GstVulkanDevice * device,
                                                              guint32 queue_family,
-                                                             guint32 queue_i) G_GNUC_WARN_UNUSED_RESULT;
+                                                             guint32 queue_i) ;
 GST_VULKAN_API
-GArray *            gst_vulkan_device_queue_family_indices  (GstVulkanDevice * device) G_GNUC_WARN_UNUSED_RESULT;
+GArray *            gst_vulkan_device_queue_family_indices  (GstVulkanDevice * device) ;
 
 GST_VULKAN_API
 VkPhysicalDevice    gst_vulkan_device_get_physical_device   (GstVulkanDevice * device);
@@ -145,12 +145,12 @@ gboolean            gst_vulkan_device_run_context_query     (GstElement * elemen
 
 GST_VULKAN_API
 GstVulkanFence *    gst_vulkan_device_create_fence          (GstVulkanDevice * device,
-                                                             GError ** error) G_GNUC_WARN_UNUSED_RESULT;
+                                                             GError ** error) ;
 
 GST_VULKAN_API
 GstVulkanQueue *    gst_vulkan_device_select_queue          (GstVulkanDevice * device,
-                                                             VkQueueFlagBits expected_flags) G_GNUC_WARN_UNUSED_RESULT;
+                                                             VkQueueFlagBits expected_flags) ;
 
-G_END_DECLS
+
 
 #endif /* __GST_VULKAN_DEVICE_H__ */

@@ -66,21 +66,21 @@ struct _GstVulkanDescriptorPoolClass
   gpointer _reserved        [GST_PADDING];
 };
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstVulkanDescriptorPool, gst_object_unref);
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstVulkanDescriptorPool, gst_object_unref);
 
 GST_VULKAN_API
 GstVulkanDescriptorPool *   gst_vulkan_descriptor_pool_new_wrapped      (GstVulkanDevice * device,
                                                                          VkDescriptorPool pool,
-                                                                         gsize max_sets) G_GNUC_WARN_UNUSED_RESULT;
+                                                                         gsize max_sets) ;
 
 GST_VULKAN_API
-GstVulkanDevice *           gst_vulkan_descriptor_pool_get_device       (GstVulkanDescriptorPool * pool) G_GNUC_WARN_UNUSED_RESULT;
+GstVulkanDevice *           gst_vulkan_descriptor_pool_get_device       (GstVulkanDescriptorPool * pool) ;
 
 GST_VULKAN_API
 GstVulkanDescriptorSet *    gst_vulkan_descriptor_pool_create           (GstVulkanDescriptorPool * pool,
                                                                          guint n_layouts,
                                                                          GstVulkanHandle **layouts,
-                                                                         GError ** error) G_GNUC_WARN_UNUSED_RESULT;
+                                                                         GError ** error) ;
 GST_VULKAN_API
 gsize                       gst_vulkan_descriptor_pool_get_max_sets     (GstVulkanDescriptorPool * pool);
 

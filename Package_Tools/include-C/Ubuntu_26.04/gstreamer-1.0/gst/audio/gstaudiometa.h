@@ -22,7 +22,7 @@
 
 #include <gst/audio/audio.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_AUDIO_DOWNMIX_META_API_TYPE (gst_audio_downmix_meta_api_get_type())
 #define GST_AUDIO_DOWNMIX_META_INFO  (gst_audio_downmix_meta_get_info())
@@ -250,6 +250,6 @@ GstAudioLevelMeta * gst_buffer_add_audio_level_meta                     (GstBuff
 GST_AUDIO_API
 GstAudioLevelMeta * gst_buffer_get_audio_level_meta                     (GstBuffer * buffer);
 
-G_END_DECLS
+
 
 #endif /* __GST_AUDIO_META_H__ */

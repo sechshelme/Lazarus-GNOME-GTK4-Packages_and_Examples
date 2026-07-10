@@ -24,7 +24,7 @@
 #include <gst/webrtc/webrtc_fwd.h>
 #include <gst/webrtc/dtlstransport.h>
 
-G_BEGIN_DECLS
+
 
 GST_WEBRTC_API
 GType gst_webrtc_rtp_sender_get_type(void);
@@ -39,8 +39,8 @@ GST_WEBRTC_API
 void                        gst_webrtc_rtp_sender_set_priority          (GstWebRTCRTPSender *sender,
                                                                          GstWebRTCPriorityType priority);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstWebRTCRTPSender, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstWebRTCRTPSender, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif /* __GST_WEBRTC_RTP_SENDER_H__ */

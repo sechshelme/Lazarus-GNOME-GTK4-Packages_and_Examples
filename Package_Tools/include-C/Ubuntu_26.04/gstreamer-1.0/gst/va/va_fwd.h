@@ -21,7 +21,7 @@
 
 #include <gst/gst.h>
 
-G_BEGIN_DECLS
+
 
 typedef struct _GstVaDisplay GstVaDisplay;
 typedef struct _GstVaDisplayClass GstVaDisplayClass;
@@ -32,4 +32,4 @@ typedef struct _GstVaDisplayDrmClass GstVaDisplayDrmClass;
 typedef struct _GstVaDisplayWrapped GstVaDisplayWrapped;
 typedef struct _GstVaDisplayWrappedClass GstVaDisplayWrappedClass;
 
-G_END_DECLS
+

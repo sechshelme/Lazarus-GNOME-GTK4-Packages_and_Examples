@@ -29,7 +29,7 @@
 #include <gst/gst.h>
 #include "basecamerabinsrc-prelude.h"
 
-G_BEGIN_DECLS
+
 
 /* FIXME: these should be properly namespaced if they're meant as exposed API */
 #ifndef __GI_SCANNER__
@@ -63,6 +63,6 @@ typedef enum
 GST_BASE_CAMERA_BIN_SRC_API
 GType gst_camerabin_mode_get_type (void);
 
-G_END_DECLS
+
 
 #endif                          /* #ifndef __GST_CAMERABIN_ENUM_H__ */

@@ -28,7 +28,7 @@
 #include <gst/analytics/analytics-meta-prelude.h>
 #include <gst/analytics/gstanalyticsmeta.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GstAnalyticsSegmentationMtd:
@@ -68,7 +68,7 @@ GST_ANALYTICS_META_API
 GstBuffer *
 gst_analytics_segmentation_mtd_get_mask (const GstAnalyticsSegmentationMtd *
     handle, gint * masks_loc_x, gint * masks_loc_y, guint * masks_loc_w, guint *
-    masks_loc_h) G_GNUC_WARN_UNUSED_RESULT;
+    masks_loc_h) ;
 
 GST_ANALYTICS_META_API
 gboolean
@@ -98,5 +98,5 @@ gboolean
 gst_analytics_relation_meta_get_segmentation_mtd (GstAnalyticsRelationMeta *
     meta, guint an_meta_id, GstAnalyticsSegmentationMtd * rlt);
 
-G_END_DECLS
+
 #endif // __GST_ANALYTICS_SEGMENTATION_META_H__

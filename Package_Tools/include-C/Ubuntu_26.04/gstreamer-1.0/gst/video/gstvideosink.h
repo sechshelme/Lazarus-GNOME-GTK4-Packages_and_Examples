@@ -27,7 +27,7 @@
 #include <gst/base/gstbasesink.h>
 #include <gst/video/video.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_VIDEO_SINK (gst_video_sink_get_type())
 #define GST_VIDEO_SINK(obj) \
@@ -128,8 +128,8 @@ void gst_video_center_rect      (const GstVideoRectangle * src,
                                  GstVideoRectangle * result,
                                  gboolean scaling);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstVideoSink, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstVideoSink, gst_object_unref)
 
-G_END_DECLS
+
 
 #endif  /* __GST_VIDEO_SINK_H__ */

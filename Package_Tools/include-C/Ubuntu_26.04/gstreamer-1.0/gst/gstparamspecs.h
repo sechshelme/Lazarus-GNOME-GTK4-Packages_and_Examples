@@ -22,7 +22,7 @@
 
 #include <gst/gstvalue.h>
 
-G_BEGIN_DECLS
+
 
 /* --- paramspec flags */
 
@@ -120,10 +120,10 @@ G_BEGIN_DECLS
 
 /* --- get_type functions --- */
 
-GST_API
+extern
 GType  gst_param_spec_fraction_get_type (void);
 
-GST_API
+extern
 GType  gst_param_spec_array_get_type (void);
 
 
@@ -169,22 +169,22 @@ struct _GstParamSpecArray {
 
 /* --- GParamSpec prototypes --- */
 
-GST_API
+extern
 GParamSpec  * gst_param_spec_fraction (const gchar * name,
                                        const gchar * nick,
                                        const gchar * blurb,
                                        gint min_num, gint min_denom,
                                        gint max_num, gint max_denom,
                                        gint default_num, gint default_denom,
-                                       GParamFlags flags) G_GNUC_MALLOC;
-GST_API
+                                       GParamFlags flags) ;
+extern
 GParamSpec  * gst_param_spec_array    (const gchar * name,
                                        const gchar * nick,
                                        const gchar * blurb,
                                        GParamSpec * element_spec,
-                                       GParamFlags flags) G_GNUC_MALLOC;
+                                       GParamFlags flags) ;
 
-G_END_DECLS
+
 
 #endif /* __GST_PARAMSPECS_H__ */
 

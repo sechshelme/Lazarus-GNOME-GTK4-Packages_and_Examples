@@ -27,7 +27,7 @@
 
 #include "riff-ids.h"
 
-G_BEGIN_DECLS
+
 
 /*
  * Operate using pull_range().
@@ -93,6 +93,6 @@ void gst_riff_parse_info            (GstElement  * element,
 GST_RIFF_API
 void gst_riff_init                  (void);
 
-G_END_DECLS
+
 
 #endif /* __GST_RIFF_READ_H__ */

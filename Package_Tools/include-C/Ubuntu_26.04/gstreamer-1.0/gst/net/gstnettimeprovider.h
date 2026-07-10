@@ -26,7 +26,7 @@
 #include <gst/gst.h>
 #include <gst/net/net-prelude.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_NET_TIME_PROVIDER \
   (gst_net_time_provider_get_type())
@@ -69,11 +69,11 @@ GType                   gst_net_time_provider_get_type  (void);
 GST_NET_API
 GstNetTimeProvider*     gst_net_time_provider_new       (GstClock *clock,
                                                          const gchar *address,
-                                                         gint port) G_GNUC_WARN_UNUSED_RESULT;
+                                                         gint port) ;
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(GstNetTimeProvider, gst_object_unref)
+////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstNetTimeProvider, gst_object_unref)
 
-G_END_DECLS
+
 
 
 #endif /* __GST_NET_TIME_PROVIDER_H__ */

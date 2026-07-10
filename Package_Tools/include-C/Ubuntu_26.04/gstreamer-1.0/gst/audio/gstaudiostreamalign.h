@@ -25,7 +25,7 @@
 #include <gst/gst.h>
 #include <gst/audio/audio-prelude.h>
 
-G_BEGIN_DECLS
+
 
 #define GST_TYPE_AUDIO_INFO_STREAM_ALIGN (gst_audio_stream_align_get_type ())
 
@@ -44,9 +44,9 @@ GType                   gst_audio_stream_align_get_type                  (void);
 GST_AUDIO_API
 GstAudioStreamAlign *   gst_audio_stream_align_new                       (gint rate,
                                                                           GstClockTime alignment_threshold,
-                                                                          GstClockTime discont_wait) G_GNUC_WARN_UNUSED_RESULT;
+                                                                          GstClockTime discont_wait) ;
 GST_AUDIO_API
-GstAudioStreamAlign *   gst_audio_stream_align_copy                      (const GstAudioStreamAlign * align) G_GNUC_WARN_UNUSED_RESULT;
+GstAudioStreamAlign *   gst_audio_stream_align_copy                      (const GstAudioStreamAlign * align) ;
 GST_AUDIO_API
 void                    gst_audio_stream_align_free                      (GstAudioStreamAlign * align);
 
@@ -87,6 +87,6 @@ gboolean                gst_audio_stream_align_process                   (GstAud
                                                                           GstClockTime *out_duration,
                                                                           guint64 *out_sample_position);
 
-G_END_DECLS
+
 
 #endif /* __GST_AUDIO_STREAM_ALIGN_H__ */

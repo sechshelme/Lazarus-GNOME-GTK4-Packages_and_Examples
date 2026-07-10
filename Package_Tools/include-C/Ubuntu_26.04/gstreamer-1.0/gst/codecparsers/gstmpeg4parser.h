@@ -29,7 +29,7 @@
 #warning "You can define GST_USE_UNSTABLE_API to avoid this warning."
 #endif
 
-G_BEGIN_DECLS
+
 
 typedef struct _GstMpeg4VisualObjectSequence    GstMpeg4VisualObjectSequence;
 typedef struct _GstMpeg4VisualObject            GstMpeg4VisualObject;
@@ -587,6 +587,6 @@ gst_mpeg4_parse_video_packet_header      (GstMpeg4VideoPacketHdr * videopackethd
                                           GstMpeg4SpriteTrajectory * sprite_trajectory,
                                           const guint8 * data, gsize size);
 
-G_END_DECLS
+
 
 #endif /* __GST_MPEG4UTIL_H__ */
