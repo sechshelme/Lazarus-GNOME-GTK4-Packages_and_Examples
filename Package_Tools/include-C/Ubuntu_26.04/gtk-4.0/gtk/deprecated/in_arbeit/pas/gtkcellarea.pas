@@ -1,388 +1,153 @@
 unit gtkcellarea;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
-  fp_glib2, fp_gtk4;
+  fp_glib2, fp_gtk4, gtkcellrenderer, gtkcellareacontext, gtktreemodel, gtkcelleditable;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
-{ gtkcellarea.h
- *
- * Copyright (C) 2010 Openismus GmbH
- *
- * Authors:
- *      Tristan Van Berkom <tristanvb@openismus.com>
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Library General Public
- * License as published by the Free Software Foundation; either
- * version 2 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Library General Public License for more details.
- *
- * You should have received a copy of the GNU Library General Public
- * License along with this library. If not, see <http://www.gnu.org/licenses/>.
-  }
-(** unsupported pragma#pragma once*)
-{$if !defined (__GTK_H_INSIDE__) && !defined (GTK_COMPILATION)}
-{$error "Only <gtk/gtk.h> can be included directly."}
-{$endif}
-{$include <gtk/gtkwidget.h>}
-{$include <gtk/deprecated/gtkcellrenderer.h>}
-{$include <gtk/deprecated/gtktreemodel.h>}
-
+  {$IFDEF read_struct}
 type
-{*
- * GTK_CELL_AREA_WARN_INVALID_CELL_PROPERTY_ID:
- * @object: the `GObject` on which set_cell_property() or get_cell_property()
- *   was called
- * @property_id: the numeric id of the property
- * @pspec: the `GParamSpec` of the property
- *
- * This macro should be used to emit a standard warning about unexpected
- * properties in set_cell_property() and get_cell_property() implementations.
- *
- * Deprecated: 4.20: There is no replacement
-  }
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
+  TGtkCellCallback = function(renderer: PGtkCellRenderer; data: Tgpointer): Tgboolean; cdecl;
+  TGtkCellAllocCallback = function(renderer: PGtkCellRenderer; cell_area: PGdkRectangle; cell_background: PGdkRectangle; data: Tgpointer): Tgboolean; cdecl;
 
-function GTK_CELL_AREA_WARN_INVALID_CELL_PROPERTY_ID(object,property_id,pspec : longint) : longint;
-
-{*
- * GtkCellCallback:
- * @renderer: the cell renderer to operate on
- * @data: (closure): user-supplied data
- *
- * The type of the callback functions used for iterating over
- * the cell renderers of a `GtkCellArea`, see gtk_cell_area_foreach().
- *
- * Returns: %TRUE to stop iterating over cells.
- *
- * Deprecated: 4.20: There is no replacement
-  }
-type
-
-  TGtkCellCallback = function (renderer:PGtkCellRenderer; data:Tgpointer):Tgboolean;cdecl;
-{*
- * GtkCellAllocCallback:
- * @renderer: the cell renderer to operate on
- * @cell_area: the area allocated to @renderer inside the rectangle
- *   provided to gtk_cell_area_foreach_alloc().
- * @cell_background: the background area for @renderer inside the
- *   background area provided to gtk_cell_area_foreach_alloc().
- * @data: (closure): user-supplied data
- *
- * The type of the callback functions used for iterating over the
- * cell renderers and their allocated areas inside a `GtkCellArea`,
- * see gtk_cell_area_foreach_alloc().
- *
- * Returns: %TRUE to stop iterating over cells.
- *
- * Deprecated: 4.20: There is no replacement
-  }
-
-  TGtkCellAllocCallback = function (renderer:PGtkCellRenderer; cell_area:PGdkRectangle; cell_background:PGdkRectangle; data:Tgpointer):Tgboolean;cdecl;
-{< private > }
   PGtkCellArea = ^TGtkCellArea;
   TGtkCellArea = record
-      parent_instance : TGInitiallyUnowned;cdecl;
-    end;
+    parent_instance: TGInitiallyUnowned;
+  end;
 
-{*
- * GtkCellAreaClass:
- * @add: adds a `GtkCellRenderer` to the area.
- * @remove: removes a `GtkCellRenderer` from the area.
- * @foreach: calls the `GtkCellCallback` function on every `GtkCellRenderer` in
- *   the area with the provided user data until the callback returns %TRUE.
- * @foreach_alloc: Calls the `GtkCellAllocCallback` function on every
- *   `GtkCellRenderer` in the area with the allocated area for the cell
- *   and the provided user data until the callback returns %TRUE.
- * @event: Handle an event in the area, this is generally used to activate
- *   a cell at the event location for button events but can also be used
- *   to generically pass events to `GtkWidget`s drawn onto the area.
- * @snapshot: Actually snapshot the area’s cells to the specified rectangle,
- *   @background_area should be correctly distributed to the cells
- *   corresponding background areas.
- * @apply_attributes: Apply the cell attributes to the cells. This is
- *   implemented as a signal and generally `GtkCellArea` subclasses don't
- *   need to implement it since it is handled by the base class.
- * @create_context: Creates and returns a class specific `GtkCellAreaContext`
- *   to store cell alignment and allocation details for a said `GtkCellArea`
- *   class.
- * @copy_context: Creates a new `GtkCellAreaContext` in the same state as
- *   the passed @context with any cell alignment data and allocations intact.
- * @get_request_mode: This allows an area to tell its layouting widget whether
- *   it prefers to be allocated in %GTK_SIZE_REQUEST_HEIGHT_FOR_WIDTH or
- *   %GTK_SIZE_REQUEST_WIDTH_FOR_HEIGHT mode.
- * @get_preferred_width: Calculates the minimum and natural width of the
- *   areas cells with the current attributes applied while considering
- *   the particular layouting details of the said `GtkCellArea`. While
- *   requests are performed over a series of rows, alignments and overall
- *   minimum and natural sizes should be stored in the corresponding
- *   `GtkCellAreaContext`.
- * @get_preferred_height_for_width: Calculates the minimum and natural height
- *   for the area if the passed @context would be allocated the given width.
- *   When implementing this virtual method it is safe to assume that @context
- *   has already stored the aligned cell widths for every `GtkTreeModel` row
- *   that @context will be allocated for since this information was stored
- *   at `GtkCellAreaClass.get_preferred_width()` time. This virtual method
- *   should also store any necessary alignments of cell heights for the
- *   case that the context is allocated a height.
- * @get_preferred_height: Calculates the minimum and natural height of the
- *   areas cells with the current attributes applied. Essentially this is
- *   the same as `GtkCellAreaClass.get_preferred_width()` only for areas
- *   that are being requested as %GTK_SIZE_REQUEST_WIDTH_FOR_HEIGHT.
- * @get_preferred_width_for_height: Calculates the minimum and natural width
- *   for the area if the passed @context would be allocated the given
- *   height. The same as `GtkCellAreaClass.get_preferred_height_for_width()`
- *   only for handling requests in the %GTK_SIZE_REQUEST_WIDTH_FOR_HEIGHT
- *   mode.
- * @set_cell_property: This should be implemented to handle changes in child
- *   cell properties for a given `GtkCellRenderer` that were previously
- *   installed on the `GtkCellAreaClass` with gtk_cell_area_class_install_cell_property().
- * @get_cell_property: This should be implemented to report the values of
- *   child cell properties for a given child `GtkCellRenderer`.
- * @focus: This virtual method should be implemented to navigate focus from
- *   cell to cell inside the `GtkCellArea`. The `GtkCellArea` should move
- *   focus from cell to cell inside the area and return %FALSE if focus
- *   logically leaves the area with the following exceptions: When the
- *   area contains no activatable cells, the entire area receives focus.
- *   Focus should not be given to cells that are actually “focus siblings”
- *   of other sibling cells (see gtk_cell_area_get_focus_from_sibling()).
- *   Focus is set by calling gtk_cell_area_set_focus_cell().
- * @is_activatable: Returns whether the `GtkCellArea` can respond to
- *   `GtkCellAreaClass.activate()`, usually this does not need to be
- *   implemented since the base class takes care of this however it can
- *   be enhanced if the `GtkCellArea` subclass can handle activation in
- *   other ways than activating its `GtkCellRenderers`.
- * @activate: This is called when the layouting widget rendering the
- *   `GtkCellArea` activates the focus cell (see gtk_cell_area_get_focus_cell()).
-  }
-{< private > }
-{< public > }
-{ Basic methods  }
-{ Geometry  }
-{ Cell Properties  }
-{ Focus  }
-{< private > }
   PGtkCellAreaClass = ^TGtkCellAreaClass;
   TGtkCellAreaClass = record
-      parent_class : TGInitiallyUnownedClass;
-      add : procedure (area:PGtkCellArea; renderer:PGtkCellRenderer);cdecl;
-      remove : procedure (area:PGtkCellArea; renderer:PGtkCellRenderer);cdecl;
-      foreach : procedure (area:PGtkCellArea; callback:TGtkCellCallback; callback_data:Tgpointer);cdecl;
-      foreach_alloc : procedure (area:PGtkCellArea; context:PGtkCellAreaContext; widget:PGtkWidget; cell_area:PGdkRectangle; background_area:PGdkRectangle; 
-                    callback:TGtkCellAllocCallback; callback_data:Tgpointer);cdecl;
-      event : function (area:PGtkCellArea; context:PGtkCellAreaContext; widget:PGtkWidget; event:PGdkEvent; cell_area:PGdkRectangle; 
-                   flags:TGtkCellRendererState):longint;cdecl;
-      snapshot : procedure (area:PGtkCellArea; context:PGtkCellAreaContext; widget:PGtkWidget; snapshot:PGtkSnapshot; background_area:PGdkRectangle; 
-                    cell_area:PGdkRectangle; flags:TGtkCellRendererState; paint_focus:Tgboolean);cdecl;
-      apply_attributes : procedure (area:PGtkCellArea; tree_model:PGtkTreeModel; iter:PGtkTreeIter; is_expander:Tgboolean; is_expanded:Tgboolean);cdecl;
-      create_context : function (area:PGtkCellArea):PGtkCellAreaContext;cdecl;
-      copy_context : function (area:PGtkCellArea; context:PGtkCellAreaContext):PGtkCellAreaContext;cdecl;
-      get_request_mode : function (area:PGtkCellArea):TGtkSizeRequestMode;cdecl;
-      get_preferred_width : procedure (area:PGtkCellArea; context:PGtkCellAreaContext; widget:PGtkWidget; minimum_width:Plongint; natural_width:Plongint);cdecl;
-      get_preferred_height_for_width : procedure (area:PGtkCellArea; context:PGtkCellAreaContext; widget:PGtkWidget; width:longint; minimum_height:Plongint; 
-                    natural_height:Plongint);cdecl;
-      get_preferred_height : procedure (area:PGtkCellArea; context:PGtkCellAreaContext; widget:PGtkWidget; minimum_height:Plongint; natural_height:Plongint);cdecl;
-      get_preferred_width_for_height : procedure (area:PGtkCellArea; context:PGtkCellAreaContext; widget:PGtkWidget; height:longint; minimum_width:Plongint; 
-                    natural_width:Plongint);cdecl;
-      set_cell_property : procedure (area:PGtkCellArea; renderer:PGtkCellRenderer; property_id:Tguint; value:PGValue; pspec:PGParamSpec);cdecl;
-      get_cell_property : procedure (area:PGtkCellArea; renderer:PGtkCellRenderer; property_id:Tguint; value:PGValue; pspec:PGParamSpec);cdecl;
-      focus : function (area:PGtkCellArea; direction:TGtkDirectionType):Tgboolean;cdecl;
-      is_activatable : function (area:PGtkCellArea):Tgboolean;cdecl;
-      activate : function (area:PGtkCellArea; context:PGtkCellAreaContext; widget:PGtkWidget; cell_area:PGdkRectangle; flags:TGtkCellRendererState; 
-                   edit_only:Tgboolean):Tgboolean;cdecl;
-      padding : array[0..7] of Tgpointer;
-    end;
+    parent_class: TGInitiallyUnownedClass;
+    add: procedure(area: PGtkCellArea; renderer: PGtkCellRenderer); cdecl;
+    remove: procedure(area: PGtkCellArea; renderer: PGtkCellRenderer); cdecl;
+    foreach: procedure(area: PGtkCellArea; callback: TGtkCellCallback; callback_data: Tgpointer); cdecl;
+    foreach_alloc: procedure(area: PGtkCellArea; context: PGtkCellAreaContext; widget: PGtkWidget; cell_area: PGdkRectangle; background_area: PGdkRectangle; callback: TGtkCellAllocCallback; callback_data: Tgpointer); cdecl;
+    event: function(area: PGtkCellArea; context: PGtkCellAreaContext; widget: PGtkWidget; event: PGdkEvent; cell_area: PGdkRectangle; flags: TGtkCellRendererState): longint; cdecl;
+    snapshot: procedure(area: PGtkCellArea; context: PGtkCellAreaContext; widget: PGtkWidget; snapshot: PGtkSnapshot; background_area: PGdkRectangle; cell_area: PGdkRectangle; flags: TGtkCellRendererState; paint_focus: Tgboolean); cdecl;
+    apply_attributes: procedure(area: PGtkCellArea; tree_model: PGtkTreeModel; iter: PGtkTreeIter; is_expander: Tgboolean; is_expanded: Tgboolean); cdecl;
+    create_context: function(area: PGtkCellArea): PGtkCellAreaContext; cdecl;
+    copy_context: function(area: PGtkCellArea; context: PGtkCellAreaContext): PGtkCellAreaContext; cdecl;
+    get_request_mode: function(area: PGtkCellArea): TGtkSizeRequestMode; cdecl;
+    get_preferred_width: procedure(area: PGtkCellArea; context: PGtkCellAreaContext; widget: PGtkWidget; minimum_width: Plongint; natural_width: Plongint); cdecl;
+    get_preferred_height_for_width: procedure(area: PGtkCellArea; context: PGtkCellAreaContext; widget: PGtkWidget; width: longint; minimum_height: Plongint; natural_height: Plongint); cdecl;
+    get_preferred_height: procedure(area: PGtkCellArea; context: PGtkCellAreaContext; widget: PGtkWidget; minimum_height: Plongint; natural_height: Plongint); cdecl;
+    get_preferred_width_for_height: procedure(area: PGtkCellArea; context: PGtkCellAreaContext; widget: PGtkWidget; height: longint; minimum_width: Plongint; natural_width: Plongint); cdecl;
+    set_cell_property: procedure(area: PGtkCellArea; renderer: PGtkCellRenderer; property_id: Tguint; value: PGValue; pspec: PGParamSpec); cdecl;
+    get_cell_property: procedure(area: PGtkCellArea; renderer: PGtkCellRenderer; property_id: Tguint; value: PGValue; pspec: PGParamSpec); cdecl;
+    focus: function(area: PGtkCellArea; direction: TGtkDirectionType): Tgboolean; cdecl;
+    is_activatable: function(area: PGtkCellArea): Tgboolean; cdecl;
+    activate: function(area: PGtkCellArea; context: PGtkCellAreaContext; widget: PGtkWidget; cell_area: PGdkRectangle; flags: TGtkCellRendererState; edit_only: Tgboolean): Tgboolean; cdecl;
+    padding: array[0..7] of Tgpointer;
+  end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
+function gtk_cell_area_get_type: TGType; cdecl; external libgtk4; deprecated;
+procedure gtk_cell_area_add(area: PGtkCellArea; renderer: PGtkCellRenderer); cdecl; external libgtk4; deprecated;
+procedure gtk_cell_area_remove(area: PGtkCellArea; renderer: PGtkCellRenderer); cdecl; external libgtk4; deprecated;
+function gtk_cell_area_has_renderer(area: PGtkCellArea; renderer: PGtkCellRenderer): Tgboolean; cdecl; external libgtk4; deprecated;
+procedure gtk_cell_area_foreach(area: PGtkCellArea; callback: TGtkCellCallback; callback_data: Tgpointer); cdecl; external libgtk4; deprecated;
+procedure gtk_cell_area_foreach_alloc(area: PGtkCellArea; context: PGtkCellAreaContext; widget: PGtkWidget; cell_area: PGdkRectangle; background_area: PGdkRectangle; callback: TGtkCellAllocCallback; callback_data: Tgpointer); cdecl; external libgtk4; deprecated;
+function gtk_cell_area_event(area: PGtkCellArea; context: PGtkCellAreaContext; widget: PGtkWidget; event: PGdkEvent; cell_area: PGdkRectangle; flags: TGtkCellRendererState): longint; cdecl; external libgtk4; deprecated;
+procedure gtk_cell_area_snapshot(area: PGtkCellArea; context: PGtkCellAreaContext; widget: PGtkWidget; snapshot: PGtkSnapshot; background_area: PGdkRectangle; cell_area: PGdkRectangle; flags: TGtkCellRendererState; paint_focus: Tgboolean); cdecl; external libgtk4; deprecated;
+procedure gtk_cell_area_get_cell_allocation(area: PGtkCellArea; context: PGtkCellAreaContext; widget: PGtkWidget; renderer: PGtkCellRenderer; cell_area: PGdkRectangle; allocation: PGdkRectangle); cdecl; external libgtk4; deprecated;
+function gtk_cell_area_get_cell_at_position(area: PGtkCellArea; context: PGtkCellAreaContext; widget: PGtkWidget; cell_area: PGdkRectangle; x: longint; y: longint; alloc_area: PGdkRectangle): PGtkCellRenderer; cdecl; external libgtk4; deprecated;
+function gtk_cell_area_create_context(area: PGtkCellArea): PGtkCellAreaContext; cdecl; external libgtk4; deprecated;
+function gtk_cell_area_copy_context(area: PGtkCellArea; context: PGtkCellAreaContext): PGtkCellAreaContext; cdecl; external libgtk4; deprecated;
+function gtk_cell_area_get_request_mode(area: PGtkCellArea): TGtkSizeRequestMode; cdecl; external libgtk4; deprecated;
+procedure gtk_cell_area_get_preferred_width(area: PGtkCellArea; context: PGtkCellAreaContext; widget: PGtkWidget; minimum_width: Plongint; natural_width: Plongint); cdecl; external libgtk4; deprecated;
+procedure gtk_cell_area_get_preferred_height_for_width(area: PGtkCellArea; context: PGtkCellAreaContext; widget: PGtkWidget; width: longint; minimum_height: Plongint; natural_height: Plongint); cdecl; external libgtk4; deprecated;
+procedure gtk_cell_area_get_preferred_height(area: PGtkCellArea; context: PGtkCellAreaContext; widget: PGtkWidget; minimum_height: Plongint; natural_height: Plongint); cdecl; external libgtk4; deprecated;
+procedure gtk_cell_area_get_preferred_width_for_height(area: PGtkCellArea; context: PGtkCellAreaContext; widget: PGtkWidget; height: longint; minimum_width: Plongint; natural_width: Plongint); cdecl; external libgtk4; deprecated;
+function gtk_cell_area_get_current_path_string(area: PGtkCellArea): pchar; cdecl; external libgtk4; deprecated;
+procedure gtk_cell_area_apply_attributes(area: PGtkCellArea; tree_model: PGtkTreeModel; iter: PGtkTreeIter; is_expander: Tgboolean; is_expanded: Tgboolean); cdecl; external libgtk4; deprecated;
+procedure gtk_cell_area_attribute_connect(area: PGtkCellArea; renderer: PGtkCellRenderer; attribute: pchar; column: longint); cdecl; external libgtk4; deprecated;
+procedure gtk_cell_area_attribute_disconnect(area: PGtkCellArea; renderer: PGtkCellRenderer; attribute: pchar); cdecl; external libgtk4; deprecated;
+function gtk_cell_area_attribute_get_column(area: PGtkCellArea; renderer: PGtkCellRenderer; attribute: pchar): longint; cdecl; external libgtk4; deprecated;
+procedure gtk_cell_area_class_install_cell_property(aclass: PGtkCellAreaClass; property_id: Tguint; pspec: PGParamSpec); cdecl; external libgtk4; deprecated;
+function gtk_cell_area_class_find_cell_property(aclass: PGtkCellAreaClass; property_name: pchar): PGParamSpec; cdecl; external libgtk4; deprecated;
+function gtk_cell_area_class_list_cell_properties(aclass: PGtkCellAreaClass; n_properties: Pguint): PPGParamSpec; cdecl; external libgtk4; deprecated;
+procedure gtk_cell_area_add_with_properties(area: PGtkCellArea; renderer: PGtkCellRenderer; first_prop_name: pchar); cdecl; varargs; external libgtk4; deprecated;
+procedure gtk_cell_area_cell_set(area: PGtkCellArea; renderer: PGtkCellRenderer; first_prop_name: pchar); cdecl; varargs; external libgtk4; deprecated;
+procedure gtk_cell_area_cell_get(area: PGtkCellArea; renderer: PGtkCellRenderer; first_prop_name: pchar); cdecl; varargs; external libgtk4; deprecated;
+procedure gtk_cell_area_cell_set_valist(area: PGtkCellArea; renderer: PGtkCellRenderer; first_property_name: pchar; var_args: Tva_list); cdecl; external libgtk4; deprecated;
+procedure gtk_cell_area_cell_get_valist(area: PGtkCellArea; renderer: PGtkCellRenderer; first_property_name: pchar; var_args: Tva_list); cdecl; external libgtk4; deprecated;
+procedure gtk_cell_area_cell_set_property(area: PGtkCellArea; renderer: PGtkCellRenderer; property_name: pchar; value: PGValue); cdecl; external libgtk4; deprecated;
+procedure gtk_cell_area_cell_get_property(area: PGtkCellArea; renderer: PGtkCellRenderer; property_name: pchar; value: PGValue); cdecl; external libgtk4; deprecated;
+function gtk_cell_area_is_activatable(area: PGtkCellArea): Tgboolean; cdecl; external libgtk4; deprecated;
+function gtk_cell_area_activate(area: PGtkCellArea; context: PGtkCellAreaContext; widget: PGtkWidget; cell_area: PGdkRectangle; flags: TGtkCellRendererState; edit_only: Tgboolean): Tgboolean; cdecl; external libgtk4; deprecated;
+function gtk_cell_area_focus(area: PGtkCellArea; direction: TGtkDirectionType): Tgboolean; cdecl; external libgtk4; deprecated;
+procedure gtk_cell_area_set_focus_cell(area: PGtkCellArea; renderer: PGtkCellRenderer); cdecl; external libgtk4; deprecated;
+function gtk_cell_area_get_focus_cell(area: PGtkCellArea): PGtkCellRenderer; cdecl; external libgtk4; deprecated;
+procedure gtk_cell_area_add_focus_sibling(area: PGtkCellArea; renderer: PGtkCellRenderer; sibling: PGtkCellRenderer); cdecl; external libgtk4; deprecated;
+procedure gtk_cell_area_remove_focus_sibling(area: PGtkCellArea; renderer: PGtkCellRenderer; sibling: PGtkCellRenderer); cdecl; external libgtk4; deprecated;
+function gtk_cell_area_is_focus_sibling(area: PGtkCellArea; renderer: PGtkCellRenderer; sibling: PGtkCellRenderer): Tgboolean; cdecl; external libgtk4; deprecated;
+function gtk_cell_area_get_focus_siblings(area: PGtkCellArea; renderer: PGtkCellRenderer): PGList; cdecl; external libgtk4; deprecated;
+function gtk_cell_area_get_focus_from_sibling(area: PGtkCellArea; renderer: PGtkCellRenderer): PGtkCellRenderer; cdecl; external libgtk4; deprecated;
+function gtk_cell_area_get_edited_cell(area: PGtkCellArea): PGtkCellRenderer; cdecl; external libgtk4; deprecated;
+function gtk_cell_area_get_edit_widget(area: PGtkCellArea): PGtkCellEditable; cdecl; external libgtk4; deprecated;
+function gtk_cell_area_activate_cell(area: PGtkCellArea; widget: PGtkWidget; renderer: PGtkCellRenderer; event: PGdkEvent; cell_area: PGdkRectangle; flags: TGtkCellRendererState): Tgboolean; cdecl; external libgtk4; deprecated;
+procedure gtk_cell_area_stop_editing(area: PGtkCellArea; canceled: Tgboolean); cdecl; external libgtk4; deprecated;
+procedure gtk_cell_area_inner_cell_area(area: PGtkCellArea; widget: PGtkWidget; cell_area: PGdkRectangle; inner_area: PGdkRectangle); cdecl; external libgtk4; deprecated;
+procedure gtk_cell_area_request_renderer(area: PGtkCellArea; renderer: PGtkCellRenderer; orientation: TGtkOrientation; widget: PGtkWidget; for_size: longint; minimum_size: Plongint; natural_size: Plongint); cdecl; external libgtk4; deprecated;
+procedure _gtk_cell_area_set_cell_data_func_with_proxy(area: PGtkCellArea; cell: PGtkCellRenderer; func: TGFunc; func_data: Tgpointer; destroy: TGDestroyNotify; proxy: Tgpointer); cdecl; external libgtk4; deprecated;
 
-function gtk_cell_area_get_type:TGType;cdecl;external libgtk4;
-{ Basic methods  }
-{xxxxxGLIB_DEPRECATED_IN_4_10 }
-procedure gtk_cell_area_add(area:PGtkCellArea; renderer:PGtkCellRenderer);cdecl;external libgtk4;
-{xxxxxGLIB_DEPRECATED_IN_4_10 }
-procedure gtk_cell_area_remove(area:PGtkCellArea; renderer:PGtkCellRenderer);cdecl;external libgtk4;
-{xxxxxGLIB_DEPRECATED_IN_4_10 }
-function gtk_cell_area_has_renderer(area:PGtkCellArea; renderer:PGtkCellRenderer):Tgboolean;cdecl;external libgtk4;
-{xxxxxGLIB_DEPRECATED_IN_4_10 }
-procedure gtk_cell_area_foreach(area:PGtkCellArea; callback:TGtkCellCallback; callback_data:Tgpointer);cdecl;external libgtk4;
-{xxxxxGLIB_DEPRECATED_IN_4_10 }
-procedure gtk_cell_area_foreach_alloc(area:PGtkCellArea; context:PGtkCellAreaContext; widget:PGtkWidget; cell_area:PGdkRectangle; background_area:PGdkRectangle; 
-            callback:TGtkCellAllocCallback; callback_data:Tgpointer);cdecl;external libgtk4;
-{xxxxxGLIB_DEPRECATED_IN_4_10 }
-function gtk_cell_area_event(area:PGtkCellArea; context:PGtkCellAreaContext; widget:PGtkWidget; event:PGdkEvent; cell_area:PGdkRectangle; 
-           flags:TGtkCellRendererState):longint;cdecl;external libgtk4;
-{xxxxxGLIB_DEPRECATED_IN_4_10 }
-procedure gtk_cell_area_snapshot(area:PGtkCellArea; context:PGtkCellAreaContext; widget:PGtkWidget; snapshot:PGtkSnapshot; background_area:PGdkRectangle; 
-            cell_area:PGdkRectangle; flags:TGtkCellRendererState; paint_focus:Tgboolean);cdecl;external libgtk4;
-{xxxxxGLIB_DEPRECATED_IN_4_10 }
-procedure gtk_cell_area_get_cell_allocation(area:PGtkCellArea; context:PGtkCellAreaContext; widget:PGtkWidget; renderer:PGtkCellRenderer; cell_area:PGdkRectangle; 
-            allocation:PGdkRectangle);cdecl;external libgtk4;
-{xxxxxGLIB_DEPRECATED_IN_4_10 }
-function gtk_cell_area_get_cell_at_position(area:PGtkCellArea; context:PGtkCellAreaContext; widget:PGtkWidget; cell_area:PGdkRectangle; x:longint; 
-           y:longint; alloc_area:PGdkRectangle):PGtkCellRenderer;cdecl;external libgtk4;
-{ Geometry  }
-{xxxxxGLIB_DEPRECATED_IN_4_10 }
-function gtk_cell_area_create_context(area:PGtkCellArea):PGtkCellAreaContext;cdecl;external libgtk4;
-{xxxxxGLIB_DEPRECATED_IN_4_10 }
-function gtk_cell_area_copy_context(area:PGtkCellArea; context:PGtkCellAreaContext):PGtkCellAreaContext;cdecl;external libgtk4;
-{xxxxxGLIB_DEPRECATED_IN_4_10 }
-function gtk_cell_area_get_request_mode(area:PGtkCellArea):TGtkSizeRequestMode;cdecl;external libgtk4;
-{xxxxxGLIB_DEPRECATED_IN_4_10 }
-procedure gtk_cell_area_get_preferred_width(area:PGtkCellArea; context:PGtkCellAreaContext; widget:PGtkWidget; minimum_width:Plongint; natural_width:Plongint);cdecl;external libgtk4;
-{xxxxxGLIB_DEPRECATED_IN_4_10 }
-procedure gtk_cell_area_get_preferred_height_for_width(area:PGtkCellArea; context:PGtkCellAreaContext; widget:PGtkWidget; width:longint; minimum_height:Plongint; 
-            natural_height:Plongint);cdecl;external libgtk4;
-{xxxxxGLIB_DEPRECATED_IN_4_10 }
-procedure gtk_cell_area_get_preferred_height(area:PGtkCellArea; context:PGtkCellAreaContext; widget:PGtkWidget; minimum_height:Plongint; natural_height:Plongint);cdecl;external libgtk4;
-{xxxxxGLIB_DEPRECATED_IN_4_10 }
-procedure gtk_cell_area_get_preferred_width_for_height(area:PGtkCellArea; context:PGtkCellAreaContext; widget:PGtkWidget; height:longint; minimum_width:Plongint; 
-            natural_width:Plongint);cdecl;external libgtk4;
-{xxxxxGLIB_DEPRECATED_IN_4_10 }
-function gtk_cell_area_get_current_path_string(area:PGtkCellArea):Pchar;cdecl;external libgtk4;
-{ Attributes  }
-{xxxxxGLIB_DEPRECATED_IN_4_10 }
-procedure gtk_cell_area_apply_attributes(area:PGtkCellArea; tree_model:PGtkTreeModel; iter:PGtkTreeIter; is_expander:Tgboolean; is_expanded:Tgboolean);cdecl;external libgtk4;
-{xxxxxGLIB_DEPRECATED_IN_4_10 }
-procedure gtk_cell_area_attribute_connect(area:PGtkCellArea; renderer:PGtkCellRenderer; attribute:Pchar; column:longint);cdecl;external libgtk4;
-{xxxxxGLIB_DEPRECATED_IN_4_10 }
-procedure gtk_cell_area_attribute_disconnect(area:PGtkCellArea; renderer:PGtkCellRenderer; attribute:Pchar);cdecl;external libgtk4;
-{xxxxxGLIB_DEPRECATED_IN_4_10 }
-function gtk_cell_area_attribute_get_column(area:PGtkCellArea; renderer:PGtkCellRenderer; attribute:Pchar):longint;cdecl;external libgtk4;
-{ Cell Properties  }
-{xxxxxGLIB_DEPRECATED_IN_4_10 }
-procedure gtk_cell_area_class_install_cell_property(aclass:PGtkCellAreaClass; property_id:Tguint; pspec:PGParamSpec);cdecl;external libgtk4;
-{xxxxxGLIB_DEPRECATED_IN_4_10 }
-function gtk_cell_area_class_find_cell_property(aclass:PGtkCellAreaClass; property_name:Pchar):PGParamSpec;cdecl;external libgtk4;
-{xxxxxGLIB_DEPRECATED_IN_4_10 }
-function gtk_cell_area_class_list_cell_properties(aclass:PGtkCellAreaClass; n_properties:Pguint):^PGParamSpec;cdecl;external libgtk4;
-{xxxxxGLIB_DEPRECATED_IN_4_10 }
-procedure gtk_cell_area_add_with_properties(area:PGtkCellArea; renderer:PGtkCellRenderer; first_prop_name:Pchar; args:array of const);cdecl;external libgtk4;
-procedure gtk_cell_area_add_with_properties(area:PGtkCellArea; renderer:PGtkCellRenderer; first_prop_name:Pchar);cdecl;external libgtk4;
-{xxxxxGLIB_DEPRECATED_IN_4_10 }
-procedure gtk_cell_area_cell_set(area:PGtkCellArea; renderer:PGtkCellRenderer; first_prop_name:Pchar; args:array of const);cdecl;external libgtk4;
-procedure gtk_cell_area_cell_set(area:PGtkCellArea; renderer:PGtkCellRenderer; first_prop_name:Pchar);cdecl;external libgtk4;
-{xxxxxGLIB_DEPRECATED_IN_4_10 }
-procedure gtk_cell_area_cell_get(area:PGtkCellArea; renderer:PGtkCellRenderer; first_prop_name:Pchar; args:array of const);cdecl;external libgtk4;
-procedure gtk_cell_area_cell_get(area:PGtkCellArea; renderer:PGtkCellRenderer; first_prop_name:Pchar);cdecl;external libgtk4;
-{xxxxxGLIB_DEPRECATED_IN_4_10 }
-procedure gtk_cell_area_cell_set_valist(area:PGtkCellArea; renderer:PGtkCellRenderer; first_property_name:Pchar; var_args:Tva_list);cdecl;external libgtk4;
-{xxxxxGLIB_DEPRECATED_IN_4_10 }
-procedure gtk_cell_area_cell_get_valist(area:PGtkCellArea; renderer:PGtkCellRenderer; first_property_name:Pchar; var_args:Tva_list);cdecl;external libgtk4;
-{xxxxxGLIB_DEPRECATED_IN_4_10 }
-procedure gtk_cell_area_cell_set_property(area:PGtkCellArea; renderer:PGtkCellRenderer; property_name:Pchar; value:PGValue);cdecl;external libgtk4;
-{xxxxxGLIB_DEPRECATED_IN_4_10 }
-procedure gtk_cell_area_cell_get_property(area:PGtkCellArea; renderer:PGtkCellRenderer; property_name:Pchar; value:PGValue);cdecl;external libgtk4;
-{ Focus  }
-{xxxxxGLIB_DEPRECATED_IN_4_10 }
-function gtk_cell_area_is_activatable(area:PGtkCellArea):Tgboolean;cdecl;external libgtk4;
-{xxxxxGLIB_DEPRECATED_IN_4_10 }
-function gtk_cell_area_activate(area:PGtkCellArea; context:PGtkCellAreaContext; widget:PGtkWidget; cell_area:PGdkRectangle; flags:TGtkCellRendererState; 
-           edit_only:Tgboolean):Tgboolean;cdecl;external libgtk4;
-{xxxxxGLIB_DEPRECATED_IN_4_10 }
-function gtk_cell_area_focus(area:PGtkCellArea; direction:TGtkDirectionType):Tgboolean;cdecl;external libgtk4;
-{xxxxxGLIB_DEPRECATED_IN_4_10 }
-procedure gtk_cell_area_set_focus_cell(area:PGtkCellArea; renderer:PGtkCellRenderer);cdecl;external libgtk4;
-{xxxxxGLIB_DEPRECATED_IN_4_10 }
-function gtk_cell_area_get_focus_cell(area:PGtkCellArea):PGtkCellRenderer;cdecl;external libgtk4;
-{ Focus siblings  }
-{xxxxxGLIB_DEPRECATED_IN_4_10 }
-procedure gtk_cell_area_add_focus_sibling(area:PGtkCellArea; renderer:PGtkCellRenderer; sibling:PGtkCellRenderer);cdecl;external libgtk4;
-{xxxxxGLIB_DEPRECATED_IN_4_10 }
-procedure gtk_cell_area_remove_focus_sibling(area:PGtkCellArea; renderer:PGtkCellRenderer; sibling:PGtkCellRenderer);cdecl;external libgtk4;
-{xxxxxGLIB_DEPRECATED_IN_4_10 }
-function gtk_cell_area_is_focus_sibling(area:PGtkCellArea; renderer:PGtkCellRenderer; sibling:PGtkCellRenderer):Tgboolean;cdecl;external libgtk4;
-{xxxxxGLIB_DEPRECATED_IN_4_10 }
-function gtk_cell_area_get_focus_siblings(area:PGtkCellArea; renderer:PGtkCellRenderer):PGList;cdecl;external libgtk4;
-{xxxxxGLIB_DEPRECATED_IN_4_10 }
-function gtk_cell_area_get_focus_from_sibling(area:PGtkCellArea; renderer:PGtkCellRenderer):PGtkCellRenderer;cdecl;external libgtk4;
-{ Cell Activation/Editing  }
-{xxxxxGLIB_DEPRECATED_IN_4_10 }
-function gtk_cell_area_get_edited_cell(area:PGtkCellArea):PGtkCellRenderer;cdecl;external libgtk4;
-{xxxxxGLIB_DEPRECATED_IN_4_10 }
-function gtk_cell_area_get_edit_widget(area:PGtkCellArea):PGtkCellEditable;cdecl;external libgtk4;
-{xxxxxGLIB_DEPRECATED_IN_4_10 }
-function gtk_cell_area_activate_cell(area:PGtkCellArea; widget:PGtkWidget; renderer:PGtkCellRenderer; event:PGdkEvent; cell_area:PGdkRectangle; 
-           flags:TGtkCellRendererState):Tgboolean;cdecl;external libgtk4;
-{xxxxxGLIB_DEPRECATED_IN_4_10 }
-procedure gtk_cell_area_stop_editing(area:PGtkCellArea; canceled:Tgboolean);cdecl;external libgtk4;
-{ Functions for area implementations  }
-{ Distinguish the inner cell area from the whole requested area including margins  }
-{xxxxxGLIB_DEPRECATED_IN_4_10 }
-procedure gtk_cell_area_inner_cell_area(area:PGtkCellArea; widget:PGtkWidget; cell_area:PGdkRectangle; inner_area:PGdkRectangle);cdecl;external libgtk4;
-{ Request the size of a cell while respecting the cell margins (requests are margin inclusive)  }
-{xxxxxGLIB_DEPRECATED_IN_4_10 }
-procedure gtk_cell_area_request_renderer(area:PGtkCellArea; renderer:PGtkCellRenderer; orientation:TGtkOrientation; widget:PGtkWidget; for_size:longint; 
-            minimum_size:Plongint; natural_size:Plongint);cdecl;external libgtk4;
-{ For api stability, this is called from gtkcelllayout.c in order to ensure the correct
- * object is passed to the user function in gtk_cell_layout_set_cell_data_func.
- *
- * This private api takes gpointer & GFunc arguments to circumvent circular header file
- * dependencies.
-  }
-procedure _gtk_cell_area_set_cell_data_func_with_proxy(area:PGtkCellArea; cell:PGtkCellRenderer; func:TGFunc; func_data:Tgpointer; destroy:TGDestroyNotify; 
-            proxy:Tgpointer);cdecl;external libgtk4;
-{////G_DEFINE_AUTOPTR_CLEANUP_FUNC   (GtkCellArea, g_object_unref) }
+procedure GTK_CELL_AREA_WARN_INVALID_CELL_PROPERTY_ID(AnObject: PGObject; property_id: Tguint; pspec: PGParamSpec);
 
 // === Konventiert am: 9-7-26 19:34:17 ===
 
-function GTK_TYPE_CELL_AREA : TGType;
-function GTK_CELL_AREA(obj : Pointer) : PGtkCellArea;
-function GTK_CELL_AREA_CLASS(klass : Pointer) : PGtkCellAreaClass;
-function GTK_IS_CELL_AREA(obj : Pointer) : Tgboolean;
-function GTK_IS_CELL_AREA_CLASS(klass : Pointer) : Tgboolean;
-function GTK_CELL_AREA_GET_CLASS(obj : Pointer) : PGtkCellAreaClass;
+function GTK_TYPE_CELL_AREA: TGType;
+function GTK_CELL_AREA(obj: Pointer): PGtkCellArea;
+function GTK_CELL_AREA_CLASS(klass: Pointer): PGtkCellAreaClass;
+function GTK_IS_CELL_AREA(obj: Pointer): Tgboolean;
+function GTK_IS_CELL_AREA_CLASS(klass: Pointer): Tgboolean;
+function GTK_CELL_AREA_GET_CLASS(obj: Pointer): PGtkCellAreaClass;
+{$ENDIF read_function}
 
 implementation
 
-function GTK_TYPE_CELL_AREA : TGType;
-  begin
-    GTK_TYPE_CELL_AREA:=gtk_cell_area_get_type;
-  end;
+function GTK_TYPE_CELL_AREA: TGType;
+begin
+  GTK_TYPE_CELL_AREA := gtk_cell_area_get_type;
+end;
 
-function GTK_CELL_AREA(obj : Pointer) : PGtkCellArea;
+function GTK_CELL_AREA(obj: Pointer): PGtkCellArea;
 begin
   Result := PGtkCellArea(g_type_check_instance_cast(obj, GTK_TYPE_CELL_AREA));
 end;
 
-function GTK_CELL_AREA_CLASS(klass : Pointer) : PGtkCellAreaClass;
+function GTK_CELL_AREA_CLASS(klass: Pointer): PGtkCellAreaClass;
 begin
   Result := PGtkCellAreaClass(g_type_check_class_cast(klass, GTK_TYPE_CELL_AREA));
 end;
 
-function GTK_IS_CELL_AREA(obj : Pointer) : Tgboolean;
+function GTK_IS_CELL_AREA(obj: Pointer): Tgboolean;
 begin
-  Result := g_type_check_instance_is_a(obj,  GTK_TYPE_CELL_AREA);
+  Result := g_type_check_instance_is_a(obj, GTK_TYPE_CELL_AREA);
 end;
 
-function GTK_IS_CELL_AREA_CLASS(klass : Pointer) : Tgboolean;
+function GTK_IS_CELL_AREA_CLASS(klass: Pointer): Tgboolean;
 begin
-  Result := g_type_check_class_is_a(klass,  GTK_TYPE_CELL_AREA);
+  Result := g_type_check_class_is_a(klass, GTK_TYPE_CELL_AREA);
 end;
 
-function GTK_CELL_AREA_GET_CLASS(obj : Pointer) : PGtkCellAreaClass;
+function GTK_CELL_AREA_GET_CLASS(obj: Pointer): PGtkCellAreaClass;
 begin
   Result := PGtkCellAreaClass(PGTypeInstance(obj)^.g_class);
 end;
 
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GTK_CELL_AREA_WARN_INVALID_CELL_PROPERTY_ID(object,property_id,pspec : longint) : longint;
+procedure GTK_CELL_AREA_WARN_INVALID_CELL_PROPERTY_ID(AnObject: PGObject;
+  property_id: Tguint; pspec: PGParamSpec);
 begin
-  GTK_CELL_AREA_WARN_INVALID_CELL_PROPERTY_ID:=G_OBJECT_WARN_INVALID_PSPEC(object,'cell property id',property_id,pspec);
+  G_OBJECT_WARN_INVALID_PSPEC(AnObject, 'cell property id', property_id, pspec);
 end;
-
 
 end.

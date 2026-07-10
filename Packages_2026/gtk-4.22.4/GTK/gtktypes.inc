@@ -36,6 +36,11 @@ type
   PGtkShortcutsWindow = type Pointer;              // deprecated blank
   PGtkEntryCompletion=Pointer;                      // deprecated blank
 
+  PGtkCellArea                 =pointer;               // deprecated blank
+  PGtkTreeModel             =pointer;               // deprecated blank
+  PGtkTreeIter             =pointer;               // deprecated blank
+  PGtkTreeSelection      =pointer;               // deprecated blank
+
 
   {$ENDIF read_struct}
 
