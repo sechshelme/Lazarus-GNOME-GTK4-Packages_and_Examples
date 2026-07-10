@@ -11,6 +11,9 @@ const
 
   {$IFDEF read_struct}
 type
+  PGtkAccessible = type Pointer;
+  PPGtkAccessible = ^PGtkAccessible;
+
   PGtkAccessibleInterface = ^TGtkAccessibleInterface;
   TGtkAccessibleInterface = record
     g_iface: TGTypeInterface;

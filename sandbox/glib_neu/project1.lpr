@@ -1,75 +1,7 @@
 program project1;
 
-// diff /usr/include/glib-2.0/gio/gioenumtypes.h /home/tux/include_neu/gtk-4.0/gdk/gdkenumtypes.h > test.diff
-
-// diff -U 1 -r /n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Packages_2024/glib-2.80.0/C-include/gio-unix-2.80.0 /n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Packages_2026/glib-2.88.0/C-include/gio-unix-2.0 > test.diff
-// diff -U 1 /usr/include/glib-2.0/girepository /n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/Ubuntu_26.04/girepository > test.diff
-
 // diff -U 1 /n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Packages_2024/gtk-4.14.2/C-include/gtk/gtkslicelistmodel.h /n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Packages_2026/gtk-4.22.4/C-include/gtk-4.0/gtk/gtkslicelistmodel.h > test.diff
 uses
-
-  gtkdialog,
-  gtkappchooser,
-  gtkappchooserbutton,
-  gtkappchooserdialog,
-  gtkappchooserwidget,
-  gtkassistant,
-  gtkcelleditable,
-  gtkcellrenderer,
-  gtkcellrendereraccel,
-  gtkcellrenderercombo,
-  gtkcellrendererpixbuf,
-  gtkcellrendererprogress,
-  gtkcellrendererspin,
-  gtkcellrendererspinner,
-  gtkcellrenderertext,
-  gtkcellrenderertoggle,
-  gtktreeselection,
-  gtktreesortable,
-  gtktreeviewcolumn,
-  gtktreemodel,
-  gtktreemodelfilter,
-  gtktreemodelsort,
-  gtktreednd,
-  gtktreestore,
-  gtktreeview,
-  gtkcellareacontext,
-  gtkcellarea,
-  gtkcellareabox,
-  gtkcelllayout,
-  gtkcellview,
-  gtkcolorbutton,
-  gtkcolorchooser,
-  gtkcolorchooserdialog,
-  gtkcolorchooserwidget,
-  gtkcombobox,
-  gtkcomboboxtext,
-  gtkentrycompletion,
-  gtkfilechooser,
-  gtkfilechooserdialog,
-  gtkfilechoosernative,
-  gtkfilechooserwidget,
-  gtkfontbutton,
-  gtkfontchooser,
-  gtkfontchooserdialog,
-  gtkfontchooserwidget,
-  gtkiconview,
-  gtkinfobar,
-  gtkliststore,
-  gtklockbutton,
-  gtkmessagedialog,
-  gtkrender,
-  gtkshortcutsshortcut,
-  gtkshortcutlabel,
-  gtkshortcutsgroup,
-  gtkshortcutssection,
-  gtkshortcutswindow,
-  gtkshow,
-  gtkstatusbar,
-  gtkstylecontext,
-  gtkvolumebutton,
-
-
 
   fp_girepository_2,
   fp_glib_unix,
@@ -77,21 +9,48 @@ uses
   fp_GTK4,
   fp_glib2;
 
+  procedure print_hello(widget: PGtkWidget; Data: Tgpointer); cdecl;
+  const
+    counter: integer = 0;
+  var
+    s: Pgchar;
+  begin
+    Inc(counter);
+    s := g_strdup_printf('Ich wurde %d gelickt', counter);
+    gtk_button_set_label(GTK_BUTTON(widget), s);
+    g_free(s);
+  end;
+
+
+  procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
+  var
+    window, box, button: PGtkWidget;
+  begin
+    window := gtk_application_window_new(app);
+    gtk_window_set_title(GTK_WINDOW(window), 'Window');
+    gtk_window_set_default_size(GTK_WINDOW(window), 200, 200);
+
+    box := gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
+    gtk_widget_set_halign(box, GTK_ALIGN_CENTER);
+    gtk_widget_set_valign(box, GTK_ALIGN_CENTER);
+
+    gtk_window_set_child(GTK_WINDOW(window), box);
+    button := gtk_button_new_with_label('Hello World');
+    g_signal_connect(button, 'clicked', G_CALLBACK(@print_hello), nil);
+    gtk_box_append(GTK_BOX(box), button);
+
+    gtk_window_present(GTK_WINDOW(window));
+  end;
+
+
   procedure main;
   var
-    list: PPgchar;
-    i: integer = 0;
-    v: Pgchar;
+    app: PGtkApplication;
   begin
-    list := g_listenv;
-    if list <> nil then begin
-      while list[i] <> nil do begin
-        v := g_getenv(list[i]);
-        g_printf('%3d. %-30s   %s'#10, i, list[i], v);
-        Inc(i);
-      end;
-      g_free(list);
-    end;
+    app := gtk_application_new('org.gtk.example', G_APPLICATION_DEFAULT_FLAGS);
+    g_signal_connect(app, 'activate', G_CALLBACK(@activate), nil);
+    g_application_run(G_APPLICATION(app), argc, argv);
+    g_object_unref(app);
   end;
 
 begin

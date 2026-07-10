@@ -1,4 +1,6 @@
 
+
+// ==== root
 {$include GTK/gtktypes.inc}
 {$include GTK/gtktypebuiltins.inc}
 {$include GTK/gtkenums.inc}
@@ -20,17 +22,17 @@
 {$include GTK/gtkapplicationwindow.inc}
 {$include GTK/gtkaspectframe.inc}
 {$include GTK/gtklayoutchild.inc}
-{$include GTK/gtklayoutmanager.inc}           // GtkLayoutChild
-{$include GTK/gtkbinlayout.inc}               // GtkLayoutManager
+{$include GTK/gtklayoutmanager.inc}
+{$include GTK/gtkbinlayout.inc}
 {$include GTK/gtkbitset.inc}
 {$include GTK/gtkbookmarklist.inc}
 {$include GTK/gtkexpression.inc}
 {$include GTK/gtkfilter.inc}
 {$include GTK/gtkfilterlistmodel.inc}
-{$include GTK/gtkboolfilter.inc}                // GtkFilter
-{$include GTK/gtkborder.inc}                        //  gtk_sorter_get_type failure
+{$include GTK/gtkboolfilter.inc}
+{$include GTK/gtkborder.inc}
 {$include GTK/gtkbox.inc}
-{$include GTK/gtkboxlayout.inc}                 // GtkLayoutManager
+{$include GTK/gtkboxlayout.inc}
 {$include GTK/gtkbuilderscope.inc}
 {$include GTK/gtkbuilder.inc}
 {$include GTK/gtkbuildable.inc}
@@ -46,7 +48,7 @@
 {$include GTK/gtkbutton.inc}
 {$include GTK/gtkcalendar.inc}
 {$include GTK/gtkcenterbox.inc}
-{$include GTK/gtkcenterlayout.inc}                // GtkLayoutManager
+{$include GTK/gtkcenterlayout.inc}
 {$include GTK/gtkcheckbutton.inc}
 {$include GTK/gtkcolordialog.inc}
 {$include GTK/gtkcolordialogbutton.inc}
@@ -61,14 +63,14 @@
 {$include GTK/gtkcolumnview.inc}
 {$include GTK/gtkcolumnviewcell.inc}
 {$include GTK/gtkcolumnviewrow.inc}
-{$include GTK/gtkcolumnviewsorter.inc}          // GtkSorter
+{$include GTK/gtkcolumnviewsorter.inc}
 {$include GTK/gtkconstraint.inc}
 {$include GTK/gtkconstraintguide.inc}
-{$include GTK/gtkconstraintlayout.inc}          // GtkLayoutManager, GtkLayoutChild
+{$include GTK/gtkconstraintlayout.inc}
 {$include GTK/gtkcssprovider.inc}
-{$include GTK/gtkcustomfilter.inc}              // GtkFilter
-{$include GTK/gtkcustomlayout.inc}              // GtkLayoutManager
-{$include GTK/gtkcustomsorter.inc}              // GtkSorter
+{$include GTK/gtkcustomfilter.inc}
+{$include GTK/gtkcustomlayout.inc}
+{$include GTK/gtkcustomsorter.inc}
 {$include GTK/gtkdebug.inc}
 {$include GTK/gtkdialogerror.inc}
 {$include GTK/gtkdirectorylist.inc}
@@ -76,7 +78,7 @@
 {$include GTK/gtkdragsource.inc}
 {$include GTK/gtkdrawingarea.inc}
 {$include GTK/gtkimcontext.inc}
-{$include GTK/gtkimcontextsimple.inc}           // GtkIMContext
+{$include GTK/gtkimcontextsimple.inc}
 {$include GTK/gtkimmodule.inc}
 {$include GTK/gtkimmulticontext.inc}
 {$include GTK/gtkeventcontroller.inc}
@@ -86,9 +88,9 @@
 {$include GTK/gtkeventcontrollermotion.inc}
 {$include GTK/gtkeventcontrollerscroll.inc}
 {$include GTK/gtkdropcontrollermotion.inc}
-{$include GTK/gtkstringfilter.inc}           // GtkFilter
+{$include GTK/gtkstringfilter.inc}
 {$include GTK/gtkstringlist.inc}
-{$include GTK/gtkstringsorter.inc}            // GtkSorter
+{$include GTK/gtkstringsorter.inc}
 {$include GTK/gtkdropdown.inc}
 {$include GTK/gtkdroptarget.inc}
 {$include GTK/gtkdroptargetasync.inc}
@@ -103,7 +105,7 @@
 {$include GTK/gtkfiledialog.inc}
 {$include GTK/gtkfilelauncher.inc}
 {$include GTK/gtkfixed.inc}
-{$include GTK/gtkfixedlayout.inc}                 // gtklayoutmanagerm gtklayoutchild
+{$include GTK/gtkfixedlayout.inc}
 {$include GTK/gtkflattenlistmodel.inc}
 {$include GTK/gtkflowbox.inc}
 {$include GTK/gtkfontdialog.inc}
@@ -122,7 +124,7 @@
 {$include GTK/gtkglarea.inc}
 {$include GTK/gtkgraphicsoffload.inc}
 {$include GTK/gtkgrid.inc}
-{$include GTK/gtkgridlayout.inc}                // gtklayoutmanager, gtklayoutchild
+{$include GTK/gtkgridlayout.inc}
 {$include GTK/gtkgridview.inc}
 {$include GTK/gtkheaderbar.inc}
 {$include GTK/gtkiconpaintable.inc}
@@ -131,11 +133,11 @@
 {$include GTK/gtklabel.inc}
 {$include GTK/gtklevelbar.inc}
 {$include GTK/gtklinkbutton.inc}
-{$include GTK/gtkmain.inc}                  // ???      gtk_init probieren
+{$include GTK/gtkmain.inc}
 {$include GTK/gtkmaplistmodel.inc}
 {$include GTK/gtkmediastream.inc}
 {$include GTK/gtkmediacontrols.inc}
-{$include GTK/gtkmediafile.inc}            // GtkMediaStream
+{$include GTK/gtkmediafile.inc}
 {$include GTK/gtkpopover.inc}
 {$include GTK/gtkpopoverbin.inc}
 {$include GTK/gtkpopovermenu.inc}
@@ -144,19 +146,19 @@
 {$include GTK/gtkmountoperation.inc}
 {$include GTK/gtkmultifilter.inc}
 {$include GTK/gtkmultiselection.inc}
-{$include GTK/gtkmultisorter.inc}           //      GtkSorter
+{$include GTK/gtkmultisorter.inc}
 {$include GTK/gtknative.inc}
 {$include GTK/gtknativedialog.inc}
 {$include GTK/gtknoselection.inc}
 {$include GTK/gtknotebook.inc}
-{$include GTK/gtknumericsorter.inc}             // GtkSorter
+{$include GTK/gtknumericsorter.inc}
 {$include GTK/gtkorientable.inc}
 {$include GTK/gtkoverlay.inc}
-{$include GTK/gtkoverlaylayout.inc}           // gtklayoutmanager, gtklayoutchild
+{$include GTK/gtkoverlaylayout.inc}
 {$include GTK/gtkpadcontroller.inc}
 {$include GTK/gtkpaned.inc}
 {$include GTK/gtkpasswordentry.inc}
-{$include GTK/gtkpasswordentrybuffer.inc}    // GtkEntryBuffer
+{$include GTK/gtkpasswordentrybuffer.inc}
 {$include GTK/gtkpicture.inc}
 {$include GTK/gtkprintdialog.inc}
 {$include GTK/gtkprogressbar.inc}
@@ -164,7 +166,7 @@
 {$include GTK/gtkrecentmanager.inc}
 {$include GTK/gtkrevealer.inc}
 {$include GTK/gtkroot.inc}
-{$include GTK/gtkscale.inc}                      // GtkRange
+{$include GTK/gtkscale.inc}
 {$include GTK/gtkscalebutton.inc}
 {$include GTK/gtksearchbar.inc}
 {$include GTK/gtksearchentry.inc}
@@ -204,7 +206,7 @@
 {$include GTK/gtktogglebutton.inc}
 {$include GTK/gtktooltip.inc}
 {$include GTK/gtktreelistmodel.inc}
-{$include GTK/gtktreelistrowsorter.inc}     // GtkSorter
+{$include GTK/gtktreelistrowsorter.inc}
 {$include GTK/gtktreeexpander.inc}
 {$include GTK/gtkurilauncher.inc}
 {$include GTK/gtkversion.inc}
@@ -216,12 +218,12 @@
 
 
 // === print
+{$include GTK/print/gtkprintsettings.inc}
 {$include GTK/print/gtkpapersize.inc}
 {$include GTK/print/gtkpagesetup.inc}
 {$include GTK/print/gtkprintcontext.inc}
 {$include GTK/print/gtkprintoperationpreview.inc}
 {$include GTK/print/gtkprintoperation.inc}
-{$include GTK/print/gtkprintsettings.inc}
 
 
 // === gtkcss
@@ -234,6 +236,70 @@
 
 // ==== a11y
 {$include GTK/a11y/gtkatspisocket.inc}
+
+
+// ==== deprecated
+{$include GTK/deprecated/gtkdialog.inc}
+{$include GTK/deprecated/gtkappchooser.inc}
+{$include GTK/deprecated/gtkappchooserbutton.inc}
+{$include GTK/deprecated/gtkappchooserdialog.inc}
+{$include GTK/deprecated/gtkappchooserwidget.inc}
+{$include GTK/deprecated/gtkassistant.inc}
+{$include GTK/deprecated/gtkcelleditable.inc}
+{$include GTK/deprecated/gtkcellrenderer.inc}
+{$include GTK/deprecated/gtkcellrendereraccel.inc}
+{$include GTK/deprecated/gtkcellrenderercombo.inc}
+{$include GTK/deprecated/gtkcellrendererpixbuf.inc}
+{$include GTK/deprecated/gtkcellrendererprogress.inc}
+{$include GTK/deprecated/gtkcellrendererspin.inc}
+{$include GTK/deprecated/gtkcellrendererspinner.inc}
+{$include GTK/deprecated/gtkcellrenderertext.inc}
+{$include GTK/deprecated/gtkcellrenderertoggle.inc}
+{$include GTK/deprecated/gtktreemodel.inc}
+{$include GTK/deprecated/gtktreeselection.inc}
+{$include GTK/deprecated/gtktreesortable.inc}
+{$include GTK/deprecated/gtktreeviewcolumn.inc}
+{$include GTK/deprecated/gtktreemodelfilter.inc}
+{$include GTK/deprecated/gtktreemodelsort.inc}
+{$include GTK/deprecated/gtktreednd.inc}
+{$include GTK/deprecated/gtktreestore.inc}
+{$include GTK/deprecated/gtktreeview.inc}
+{$include GTK/deprecated/gtkcellareacontext.inc}
+{$include GTK/deprecated/gtkcellarea.inc}
+{$include GTK/deprecated/gtkcellareabox.inc}
+{$include GTK/deprecated/gtkcelllayout.inc}
+{$include GTK/deprecated/gtkcellview.inc}
+{$include GTK/deprecated/gtkcolorbutton.inc}
+{$include GTK/deprecated/gtkcolorchooser.inc}
+{$include GTK/deprecated/gtkcolorchooserdialog.inc}
+{$include GTK/deprecated/gtkcolorchooserwidget.inc}
+{$include GTK/deprecated/gtkcombobox.inc}
+{$include GTK/deprecated/gtkcomboboxtext.inc}
+{$include GTK/deprecated/gtkentrycompletion.inc}
+{$include GTK/deprecated/gtkfilechooser.inc}
+{$include GTK/deprecated/gtkfilechooserdialog.inc}
+{$include GTK/deprecated/gtkfilechoosernative.inc}
+{$include GTK/deprecated/gtkfilechooserwidget.inc}
+{$include GTK/deprecated/gtkfontbutton.inc}
+{$include GTK/deprecated/gtkfontchooser.inc}
+{$include GTK/deprecated/gtkfontchooserdialog.inc}
+{$include GTK/deprecated/gtkfontchooserwidget.inc}
+{$include GTK/deprecated/gtkiconview.inc}
+{$include GTK/deprecated/gtkinfobar.inc}
+{$include GTK/deprecated/gtkliststore.inc}
+{$include GTK/deprecated/gtklockbutton.inc}
+{$include GTK/deprecated/gtkmessagedialog.inc}
+{$include GTK/deprecated/gtkrender.inc}
+{$include GTK/deprecated/gtkshortcutsshortcut.inc}
+{$include GTK/deprecated/gtkshortcutlabel.inc}
+{$include GTK/deprecated/gtkshortcutsgroup.inc}
+{$include GTK/deprecated/gtkshortcutssection.inc}
+{$include GTK/deprecated/gtkshortcutswindow.inc}
+{$include GTK/deprecated/gtkshow.inc}
+{$include GTK/deprecated/gtkstatusbar.inc}
+{$include GTK/deprecated/gtkstylecontext.inc}
+{$include GTK/deprecated/gtkvolumebutton.inc}
+
 
 
 

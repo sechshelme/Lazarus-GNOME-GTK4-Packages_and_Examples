@@ -1,0 +1,55 @@
+
+
+  {$IFDEF read_struct}
+type
+  PGtkCellEditable = type Pointer;
+
+  PGtkCellEditableIface = ^TGtkCellEditableIface;
+  TGtkCellEditableIface = record
+    g_iface: TGTypeInterface;
+    editing_done: procedure(cell_editable: PGtkCellEditable); cdecl;
+    remove_widget: procedure(cell_editable: PGtkCellEditable); cdecl;
+    start_editing: procedure(cell_editable: PGtkCellEditable; event: PGdkEvent); cdecl;
+  end;
+  {$ENDIF read_struct}
+
+{$IFDEF read_function}
+function gtk_cell_editable_get_type: TGType; cdecl; external libgtk4; deprecated;
+procedure gtk_cell_editable_start_editing(cell_editable: PGtkCellEditable; event: PGdkEvent); cdecl; external libgtk4; deprecated;
+procedure gtk_cell_editable_editing_done(cell_editable: PGtkCellEditable); cdecl; external libgtk4; deprecated;
+procedure gtk_cell_editable_remove_widget(cell_editable: PGtkCellEditable); cdecl; external libgtk4; deprecated;
+
+// === Konventiert am: 9-7-26 19:34:48 ===
+
+function GTK_TYPE_CELL_EDITABLE: TGType;
+function GTK_CELL_EDITABLE(obj: Pointer): PGtkCellEditable;
+function GTK_IS_CELL_EDITABLE(obj: Pointer): Tgboolean;
+function GTK_CELL_EDITABLE_GET_IFACE(obj: Pointer): PGtkCellEditableIface;
+{$ENDIF read_function}
+
+
+{$IFDEF read_implementation}
+
+function GTK_TYPE_CELL_EDITABLE: TGType;
+begin
+  GTK_TYPE_CELL_EDITABLE := gtk_cell_editable_get_type;
+end;
+
+function GTK_CELL_EDITABLE(obj: Pointer): PGtkCellEditable;
+begin
+  Result := PGtkCellEditable(g_type_check_instance_cast(obj, GTK_TYPE_CELL_EDITABLE));
+end;
+
+function GTK_IS_CELL_EDITABLE(obj: Pointer): Tgboolean;
+begin
+  Result := g_type_check_instance_is_a(obj, GTK_TYPE_CELL_EDITABLE);
+end;
+
+function GTK_CELL_EDITABLE_GET_IFACE(obj: Pointer): PGtkCellEditableIface;
+begin
+  Result := g_type_interface_peek(obj, GTK_TYPE_CELL_EDITABLE);
+end;
+
+
+
+{$ENDIF read_implementation}

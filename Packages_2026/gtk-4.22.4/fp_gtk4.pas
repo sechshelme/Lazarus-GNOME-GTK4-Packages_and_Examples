@@ -42,10 +42,10 @@ const
   {$UNDEF read_function}
 
   {$IFDEF Linux}
-  //{$include unix-print/gtk/print/gtkpagesetupunixdialog.inc }
-  //{$include unix-print/gtk/print/gtkprinter.inc }
-  //{$include unix-print/gtk/print/gtkprintunixdialog.inc }
-  //{$include unix-print/gtk/print/gtkprintjob.inc }
+  {$include unix-print/gtk/print/gtkpagesetupunixdialog.inc }
+  {$include unix-print/gtk/print/gtkprinter.inc }
+  {$include unix-print/gtk/print/gtkprintunixdialog.inc }
+  {$include unix-print/gtk/print/gtkprintjob.inc }
   {$ENDIF}
 
   {$UNDEF read_interface}
@@ -60,10 +60,10 @@ implementation
 {$include fp_GTK4_includes.inc}
 
 {$IFDEF Linux}
-//{$include unix-print/gtk/print/gtkpagesetupunixdialog.inc }
-//{$include unix-print/gtk/print/gtkprinter.inc }
-//{$include unix-print/gtk/print/gtkprintunixdialog.inc }
-//{$include unix-print/gtk/print/gtkprintjob.inc }
+{$include unix-print/gtk/print/gtkpagesetupunixdialog.inc }
+{$include unix-print/gtk/print/gtkprinter.inc }
+{$include unix-print/gtk/print/gtkprintunixdialog.inc }
+{$include unix-print/gtk/print/gtkprintjob.inc }
 {$ENDIF}
 
 {$UNDEF read_implementation}

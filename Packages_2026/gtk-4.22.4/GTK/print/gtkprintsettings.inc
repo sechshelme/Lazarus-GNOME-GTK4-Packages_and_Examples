@@ -3,6 +3,8 @@
 type
   TGtkPrintSettingsFunc = procedure(key: pchar; value: pchar; user_data: Tgpointer); cdecl;
 
+  PGtkPrintSettings = type Pointer;
+
   PGtkPageRange = ^TGtkPageRange;
   TGtkPageRange = record
     start: longint;
