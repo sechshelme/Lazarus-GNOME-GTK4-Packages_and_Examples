@@ -1,5 +1,5 @@
 
-{$include glib/gtypes.inc}      // Alte gtypes.inc übernommen,   ckd_add, etc überürüfen
+{$include glib/gtypes.inc}
 {$include glib/garray.inc}
 {$include glib/gbytes.inc}
 {$include glib/glist.inc}

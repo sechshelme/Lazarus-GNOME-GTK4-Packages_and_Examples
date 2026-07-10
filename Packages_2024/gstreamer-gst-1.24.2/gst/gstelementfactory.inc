@@ -131,7 +131,7 @@ begin
 end;
 
 type
-  G_GUINT64_CONSTANT = culong;
+  G_GUINT64_CONSTANT = UInt64;
 
 function GST_ELEMENT_FACTORY_TYPE_DECODER: TGstElementFactoryListType;
 begin

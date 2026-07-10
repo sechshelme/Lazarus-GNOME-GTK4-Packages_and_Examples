@@ -278,7 +278,6 @@
 {$include GTK/gtktestatcontext.inc }           // -> gtkaccessible    // komplexe Macros
 
 // === gtkcss
-
 {$include GTK/css/gtkcssenums.inc }                // io.
 {$include GTK/css/gtkcssenumtypes.inc }            // io.
 {$include GTK/css/gtkcsserror.inc }                // io.

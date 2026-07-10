@@ -92,7 +92,7 @@ type
   Pwl_shm_format = ^Twl_shm_format;
 
   {$DEFINE read_interface}
-  {$include glibconfig.inc}        // Aussklammern rückgängig machen
+  {$include glibconfig.inc}
   {$include fp_glib2_includes.inc}
   {$include fp_gobject2_includes.inc}
   {$UNDEF read_interface}
@@ -114,7 +114,7 @@ type
 implementation
 
 {$DEFINE read_implementation}
-{$include glibconfig.inc}        // Aussklammern rückgängig machen
+{$include glibconfig.inc}
 {$include fp_glib2_includes.inc}
 {$include fp_gobject2_includes.inc}
 {$include fp_gio2_includes.inc}
