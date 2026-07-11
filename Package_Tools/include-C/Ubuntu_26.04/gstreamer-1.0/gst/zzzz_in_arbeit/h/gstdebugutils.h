@@ -70,56 +70,6 @@ void gst_debug_bin_to_dot_file (GstBin *bin, GstDebugGraphDetails details, const
 extern
 void gst_debug_bin_to_dot_file_with_ts (GstBin *bin, GstDebugGraphDetails details, const gchar *file_name);
 
-#ifndef GST_DISABLE_GST_DEBUG
-
-/**
- * GST_DEBUG_BIN_TO_DOT_FILE:
- * @bin: the top-level pipeline that should be analyzed
- * @details: details to show in the graph, e.g. #GST_DEBUG_GRAPH_SHOW_ALL or
- *    one or more other #GstDebugGraphDetails flags.
- * @file_name: output base filename (e.g. "myplayer")
- *
- * To aid debugging applications one can use this method to write out the whole
- * network of gstreamer elements that form the pipeline into a dot file.
- * This file can be processed with graphviz to get an image, like this:
- *
- * ``` shell
- * dot -Tpng -oimage.png graph_lowlevel.dot
- * ```
- *
- * There is also a utility called [xdot] which allows you to view the dot file
- * directly without converting it first.
- *
- * The macro is only active if the environment variable `GST_DEBUG_DUMP_DOT_DIR`
- * is set to a basepath (e.g. `/tmp`), and the GStreamer debugging subsystem is
- * enabled (i.e., no use of `./configure --disable-gst-debug`)
- *
- * [xdot]: https://pypi.org/project/xdot/
- */
-#define GST_DEBUG_BIN_TO_DOT_FILE(bin, details, file_name) gst_debug_bin_to_dot_file (bin, details, file_name)
-
-/**
- * GST_DEBUG_BIN_TO_DOT_FILE_WITH_TS:
- * @bin: the top-level pipeline that should be analyzed
- * @details: details to show in the graph, e.g. #GST_DEBUG_GRAPH_SHOW_ALL or
- *    one or more other #GstDebugGraphDetails flags.
- * @file_name: output base filename (e.g. "myplayer")
- *
- * This works like GST_DEBUG_BIN_TO_DOT_FILE(), but adds the current timestamp
- * to the filename, so that it can be used to take multiple snapshots.
- */
-#define GST_DEBUG_BIN_TO_DOT_FILE_WITH_TS(bin, details, file_name) gst_debug_bin_to_dot_file_with_ts (bin, details, file_name)
-
-
-#else /* GST_DISABLE_GST_DEBUG */
-
-
-#define GST_DEBUG_BIN_TO_DOT_FILE(bin, details, file_name)
-#define GST_DEBUG_BIN_TO_DOT_FILE_WITH_TS(bin, details, file_name)
-
-#endif /* GST_DISABLE_GST_DEBUG */
-
-
 
 #endif /* __GSTDEBUGUTILS_H__ */
 

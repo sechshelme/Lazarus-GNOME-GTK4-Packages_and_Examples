@@ -74,7 +74,6 @@ typedef enum {
 #define GST_EVENT_MAKE_TYPE(num,flags) \
     (((num) << GST_EVENT_NUM_SHIFT) | (flags))
 
-#define _FLAG(name) GST_EVENT_TYPE_##name
 
 /**
  * GstEventType:
@@ -306,37 +305,6 @@ extern GType _gst_event_type;
  */
 #define GST_EVENT_IS_STICKY(ev)     !!(GST_EVENT_TYPE (ev) & GST_EVENT_TYPE_STICKY)
 
-#ifndef GST_DISABLE_MINIOBJECT_INLINE_FUNCTIONS
-static inline gboolean
-gst_event_is_writable (const GstEvent * event)
-{
-  return gst_mini_object_is_writable (GST_MINI_OBJECT_CONST_CAST (event));
-}
-
- static inline GstEvent *
-gst_event_make_writable (GstEvent * event)
-{
-  return GST_EVENT_CAST (gst_mini_object_make_writable (GST_MINI_OBJECT_CAST (event)));
-}
-
-static inline gboolean
-gst_event_replace(GstEvent** old_event, GstEvent* new_event)
-{
-  return gst_mini_object_replace ((GstMiniObject **) old_event, (GstMiniObject *) new_event);
-}
-
-static inline GstEvent *
-gst_event_steal (GstEvent **old_event)
-{
-  return GST_EVENT_CAST (gst_mini_object_steal ((GstMiniObject **) old_event));
-}
-
-static inline gboolean
-gst_event_take (GstEvent **old_event, GstEvent *new_event)
-{
-  return gst_mini_object_take ((GstMiniObject **) old_event, (GstMiniObject *) new_event);
-}
-#else /* GST_DISABLE_MINIOBJECT_INLINE_FUNCTIONS */
 extern
 GstEvent *  gst_event_make_writable (GstEvent * event) ;
 extern
@@ -352,7 +320,6 @@ GstEvent *  gst_event_steal   (GstEvent ** old_event);
 extern
 gboolean    gst_event_take    (GstEvent ** old_event,
                                GstEvent *new_event);
-#endif /* GST_DISABLE_MINIOBJECT_INLINE_FUNCTIONS */
 
 /**
  * GstQOSType:
@@ -422,33 +389,6 @@ GstEventTypeFlags
 extern
 guint gst_event_type_to_sticky_ordering (GstEventType type) ;
 
-#ifndef GST_DISABLE_MINIOBJECT_INLINE_FUNCTIONS
-/* refcounting */
-static inline GstEvent *
-gst_event_ref (GstEvent * event)
-{
-  return (GstEvent *) gst_mini_object_ref (GST_MINI_OBJECT_CAST (event));
-}
-
-static inline void
-gst_event_unref (GstEvent * event)
-{
-  gst_mini_object_unref (GST_MINI_OBJECT_CAST (event));
-}
-
-static inline void
-gst_clear_event (GstEvent ** event_ptr)
-{
-  gst_clear_mini_object ((GstMiniObject **) event_ptr);
-}
-
-/* copy event */
- static inline GstEvent *
-gst_event_copy (const GstEvent * event)
-{
-  return GST_EVENT_CAST (gst_mini_object_copy (GST_MINI_OBJECT_CONST_CAST (event)));
-}
-#else /* GST_DISABLE_MINIOBJECT_INLINE_FUNCTIONS */
 extern
 GstEvent *      gst_event_ref                   (GstEvent * event);
 
@@ -460,7 +400,6 @@ void            gst_clear_event                 (GstEvent ** event_ptr);
 
 extern
 GstEvent *      gst_event_copy                  (const GstEvent * event) ;
-#endif /* GST_DISABLE_MINIOBJECT_INLINE_FUNCTIONS */
 
 extern
 GType           gst_event_get_type              (void);

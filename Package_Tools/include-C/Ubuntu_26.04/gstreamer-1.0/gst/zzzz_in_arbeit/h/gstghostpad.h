@@ -132,7 +132,7 @@ GstPad*          gst_ghost_pad_get_target        (GstGhostPad *gpad) ;
 extern
 gboolean         gst_ghost_pad_set_target        (GstGhostPad *gpad, GstPad *newtarget);
 
-GST_DEPRECATED
+// xxxxxxxGST_DEPRECATED
 gboolean         gst_ghost_pad_construct         (GstGhostPad *gpad);
 
 extern

@@ -72,78 +72,6 @@ typedef enum {
   GST_MEMORY_FLAG_LAST          = (GST_MINI_OBJECT_FLAG_LAST << 16)
 } GstMemoryFlags;
 
-/**
- * GST_MEMORY_FLAGS:
- * @mem: a #GstMemory.
- *
- * A flags word containing #GstMemoryFlags flags set on @mem
- */
-#define GST_MEMORY_FLAGS(mem)  GST_MINI_OBJECT_FLAGS (mem)
-/**
- * GST_MEMORY_FLAG_IS_SET:
- * @mem: a #GstMemory.
- * @flag: the #GstMemoryFlags to check.
- *
- * Gives the status of a specific flag on a @mem.
- */
-#define GST_MEMORY_FLAG_IS_SET(mem,flag)   GST_MINI_OBJECT_FLAG_IS_SET (mem,flag)
-/**
- * GST_MEMORY_FLAG_UNSET:
- * @mem: a #GstMemory.
- * @flag: the #GstMemoryFlags to clear.
- *
- * Clear a specific flag on a @mem.
- */
-#define GST_MEMORY_FLAG_UNSET(mem,flag)   GST_MINI_OBJECT_FLAG_UNSET (mem, flag)
-
-/**
- * GST_MEMORY_IS_READONLY:
- * @mem: a #GstMemory.
- *
- * Check if @mem is readonly.
- */
-#define GST_MEMORY_IS_READONLY(mem)        GST_MEMORY_FLAG_IS_SET(mem,GST_MEMORY_FLAG_READONLY)
-/**
- * GST_MEMORY_IS_NO_SHARE:
- * @mem: a #GstMemory.
- *
- * Check if @mem cannot be shared between buffers
- */
-#define GST_MEMORY_IS_NO_SHARE(mem)        GST_MEMORY_FLAG_IS_SET(mem,GST_MEMORY_FLAG_NO_SHARE)
-/**
- * GST_MEMORY_IS_ZERO_PREFIXED:
- * @mem: a #GstMemory.
- *
- * Check if the prefix in @mem is 0 filled.
- */
-#define GST_MEMORY_IS_ZERO_PREFIXED(mem)   GST_MEMORY_FLAG_IS_SET(mem,GST_MEMORY_FLAG_ZERO_PREFIXED)
-/**
- * GST_MEMORY_IS_ZERO_PADDED:
- * @mem: a #GstMemory.
- *
- * Check if the padding in @mem is 0 filled.
- */
-#define GST_MEMORY_IS_ZERO_PADDED(mem)     GST_MEMORY_FLAG_IS_SET(mem,GST_MEMORY_FLAG_ZERO_PADDED)
-
-/**
- * GST_MEMORY_IS_PHYSICALLY_CONTIGUOUS:
- * @mem: a #GstMemory.
- *
- * Check if @mem is physically contiguous.
- *
- * Since: 1.2
- */
-#define GST_MEMORY_IS_PHYSICALLY_CONTIGUOUS(mem)     GST_MEMORY_FLAG_IS_SET(mem,GST_MEMORY_FLAG_PHYSICALLY_CONTIGUOUS)
-
-/**
- * GST_MEMORY_IS_NOT_MAPPABLE:
- * @mem: a #GstMemory.
- *
- * Check if @mem can't be mapped via gst_memory_map() without any preconditions
- *
- * Since: 1.2
- */
-#define GST_MEMORY_IS_NOT_MAPPABLE(mem)     GST_MEMORY_FLAG_IS_SET(mem,GST_MEMORY_FLAG_NOT_MAPPABLE)
 
 /**
  * GstMemory:
@@ -242,7 +170,7 @@ typedef struct {
  *
  * Initializer for #GstMapInfo
  */
-#define GST_MAP_INFO_INIT { NULL, (GstMapFlags) 0, NULL, 0, 0, { NULL, NULL, NULL, NULL}, {NULL, NULL, NULL, NULL}}
+//xxxxxxx #define GST_MAP_INFO_INIT { NULL, (GstMapFlags) 0, NULL, 0, 0, { NULL, NULL, NULL, NULL}, {NULL, NULL, NULL, NULL}}
 
 /**
  * GstMemoryMapFunction:
@@ -341,50 +269,6 @@ void           gst_memory_init         (GstMemory *mem, GstMemoryFlags flags,
 extern
 gboolean       gst_memory_is_type      (GstMemory *mem, const gchar *mem_type);
 
-#ifndef GST_DISABLE_MINIOBJECT_INLINE_FUNCTIONS
-/* refcounting */
-static inline GstMemory *
-gst_memory_ref (GstMemory * memory)
-{
-  return (GstMemory *) gst_mini_object_ref (GST_MINI_OBJECT_CAST (memory));
-}
-
-static inline void
-gst_memory_unref (GstMemory * memory)
-{
-  gst_mini_object_unref (GST_MINI_OBJECT_CAST (memory));
-}
-
-static inline gboolean
-gst_memory_is_writable (const GstMemory * memory)
-{
-  return gst_mini_object_is_writable (GST_MINI_OBJECT_CONST_CAST (memory));
-}
-
- static inline GstMemory *
-gst_memory_make_writable (GstMemory * memory)
-{
-  return GST_MEMORY_CAST (gst_mini_object_make_writable (GST_MINI_OBJECT_CAST (memory)));
-}
-
-static inline gboolean
-gst_memory_replace (GstMemory **old_memory, GstMemory *new_memory)
-{
-  return gst_mini_object_replace ((GstMiniObject **) old_memory, (GstMiniObject *) new_memory);
-}
-
-static inline GstMemory *
-gst_memory_steal(GstMemory **old_memory)
-{
-  return GST_MEMORY_CAST(gst_mini_object_steal((GstMiniObject **)old_memory));
-}
-
-static inline gboolean
-gst_memory_take(GstMemory **old_memory, GstMemory *new_memory)
-{
-  return gst_mini_object_take((GstMiniObject **)old_memory, (GstMiniObject *)new_memory);
-}
-#else /* GST_DISABLE_MINIOBJECT_INLINE_FUNCTIONS */
 extern
 GstMemory *    gst_memory_ref   (GstMemory * memory);
 
@@ -406,7 +290,6 @@ GstMemory *gst_memory_steal (GstMemory **old_memory);
 extern
 gboolean gst_memory_take (GstMemory **old_memory,
                           GstMemory *new_memory);
-#endif /* GST_DISABLE_MINIOBJECT_INLINE_FUNCTIONS */
 
 /* getting/setting memory properties */
 
@@ -446,9 +329,6 @@ gboolean       gst_memory_is_span      (GstMemory *mem1, GstMemory *mem2, gsize 
 extern
 guint8 *       gst_map_info_get_data   (GstMapInfo *info, gsize *size);
 
-////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstMemory, gst_memory_unref)
-
-////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstAllocator, gst_object_unref)
 
 extern
 void           gst_map_info_init       (GstMapInfo *info);
@@ -456,7 +336,6 @@ void           gst_map_info_init       (GstMapInfo *info);
 extern
 void           gst_map_info_clear      (GstMapInfo *info);
 
-G_DEFINE_AUTO_CLEANUP_CLEAR_FUNC(GstMapInfo, gst_map_info_clear)
 
 /**
  * GstMemoryMapInfo: (skip):
@@ -481,7 +360,6 @@ G_DEFINE_AUTO_CLEANUP_CLEAR_FUNC(GstMapInfo, gst_map_info_clear)
  */
 typedef GstMapInfo GstMemoryMapInfo ; //GST_DEPRECATED_TYPE_FOR(GstMapInfo);
 
-G_DEFINE_AUTO_CLEANUP_CLEAR_FUNC(GstMemoryMapInfo, gst_map_info_clear)
 
 
 

@@ -42,7 +42,7 @@ typedef struct {
 #if GLIB_SIZEOF_VOID_P == 8
   guint8 padding[8];
 #elif GLIB_SIZEOF_VOID_P == 4
-  guint8 padding[12];
+//  guint8 padding[12];
 #else
   #error "Only 32 bit and 64 bit pointers supported currently"
 #endif
@@ -55,7 +55,7 @@ typedef struct {
  *
  * Since: 1.26
  */
-#define GST_ID_STR_INIT { .pointer = NULL, .padding = {0, } }
+
 
 extern
 GType gst_id_str_get_type (void);

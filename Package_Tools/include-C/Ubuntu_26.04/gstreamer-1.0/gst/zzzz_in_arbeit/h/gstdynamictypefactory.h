@@ -22,40 +22,6 @@
 #ifndef __GST_DYNAMIC_TYPE_FACTORY_H__
 #define __GST_DYNAMIC_TYPE_FACTORY_H__
 
-/**
- * GST_DYNAMIC_TYPE_REGISTER_DEFINE:
- * @t_n: The dynamic type name in lower case, with words separated by '_'.
- * Used to generate `gst_dynamic_type_register_*(GstPlugin* plugin)`.
- * @t: The #GType of the dynamic type
-
- * A convenience macro to define the entry point of a
- * dynamic type `gst_dynamic_type_register_*(GstPlugin* plugin)`.
- *
- * Since: 1.20
- */
-#define GST_DYNAMIC_TYPE_REGISTER_DEFINE(t_n, t) \
- \
-gboolean G_PASTE (gst_dynamic_type_register_, t_n) (GstPlugin * plugin) \
-{ \
-  return gst_dynamic_type_register (plugin, t); \
-} \
-
-
-/**
- * GST_DYNAMIC_TYPE_REGISTER_DECLARE:
- * @t_f: The dynamic type name in lower case, with words separated by '_'.
- *
- * This macro can be used to declare a new dynamic type.
- * It has to be used in combination with #GST_DYNAMIC_TYPE_REGISTER_DEFINE macro
- * and must be placed outside any block to declare the type find registration
- * function.
- *
- * Since: 1.20
- */
-#define GST_DYNAMIC_TYPE_REGISTER_DECLARE(t_n) \
- \
-gboolean G_PASTE(gst_dynamic_type_register_, t_n) (GstPlugin * plugin); \
-
 
 /**
  * GST_DYNAMIC_TYPE_REGISTER:
@@ -68,7 +34,6 @@ gboolean G_PASTE(gst_dynamic_type_register_, t_n) (GstPlugin * plugin); \
  *
  * Since: 1.20
  */
-#define GST_DYNAMIC_TYPE_REGISTER(t_n, plugin) G_PASTE(gst_dynamic_type_register_, t_n) (plugin)
 
 /**
  * GstDynamicTypeFactory:
@@ -89,10 +54,8 @@ typedef struct _GstDynamicTypeFactoryClass GstDynamicTypeFactoryClass;
 #define GST_TYPE_DYNAMIC_TYPE_FACTORY           (gst_dynamic_type_factory_get_type())
 #define GST_DYNAMIC_TYPE_FACTORY(obj)           (G_TYPE_CHECK_INSTANCE_CAST((obj),GST_TYPE_DYNAMIC_TYPE_FACTORY,\
                                                  GstDynamicTypeFactory))
-#ifndef GST_DISABLE_DEPRECATED
 #define GST_DYNAMIC_TYPE_CLASS(klass)           (G_TYPE_CHECK_CLASS_CAST((klass),GST_TYPE_DYNAMIC_TYPE_FACTORY,\
                                                  GstDynamicTypeFactoryClass))
-#endif
 #define GST_DYNAMIC_TYPE_FACTORY_CLASS(klass)   (G_TYPE_CHECK_CLASS_CAST((klass),GST_TYPE_DYNAMIC_TYPE_FACTORY,\
                                                  GstDynamicTypeFactoryClass))
 #define GST_IS_DYNAMIC_TYPE_FACTORY(obj)        (G_TYPE_CHECK_INSTANCE_TYPE((obj),GST_TYPE_DYNAMIC_TYPE_FACTORY))

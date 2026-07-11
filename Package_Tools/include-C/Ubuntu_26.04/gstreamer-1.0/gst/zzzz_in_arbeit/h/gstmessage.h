@@ -214,12 +214,6 @@ extern GType _gst_message_type;
 /* the lock is used to handle the synchronous handling of messages,
  * the emitting thread is blocked until the handling thread processed
  * the message using this mutex/cond pair */
-#define GST_MESSAGE_GET_LOCK(message)   (&GST_MESSAGE_CAST(message)->lock)
-#define GST_MESSAGE_LOCK(message)       g_mutex_lock(GST_MESSAGE_GET_LOCK(message))
-#define GST_MESSAGE_UNLOCK(message)     g_mutex_unlock(GST_MESSAGE_GET_LOCK(message))
-#define GST_MESSAGE_GET_COND(message)   (&GST_MESSAGE_CAST(message)->cond)
-#define GST_MESSAGE_WAIT(message)       g_cond_wait(GST_MESSAGE_GET_COND(message),GST_MESSAGE_GET_LOCK(message))
-#define GST_MESSAGE_SIGNAL(message)     g_cond_signal(GST_MESSAGE_GET_COND(message))
 
 /**
  * GST_MESSAGE_TYPE:
@@ -370,64 +364,6 @@ const gchar*    gst_message_type_get_name       (GstMessageType type);
 extern
 GQuark          gst_message_type_to_quark       (GstMessageType type);
 
-#ifndef GST_DISABLE_MINIOBJECT_INLINE_FUNCTIONS
-/* refcounting */
-static inline GstMessage *
-gst_message_ref (GstMessage * msg)
-{
-  return (GstMessage *) gst_mini_object_ref (GST_MINI_OBJECT_CAST (msg));
-}
-
-static inline void
-gst_message_unref (GstMessage * msg)
-{
-  gst_mini_object_unref (GST_MINI_OBJECT_CAST (msg));
-}
-
-static inline void
-gst_clear_message (GstMessage ** msg_ptr)
-{
-  gst_clear_mini_object ((GstMiniObject **) msg_ptr);
-}
-
-/* copy message */
- static inline GstMessage *
-gst_message_copy (const GstMessage * msg)
-{
-  return GST_MESSAGE_CAST (gst_mini_object_copy (GST_MINI_OBJECT_CONST_CAST (msg)));
-}
-
-static inline gboolean
-gst_message_is_writable (const GstMessage * message)
-{
-  return gst_mini_object_is_writable (GST_MINI_OBJECT_CONST_CAST (message));
-}
-
- static inline GstMessage *
-gst_message_make_writable (GstMessage * message)
-{
-  return GST_MESSAGE_CAST (gst_mini_object_make_writable (GST_MINI_OBJECT_CAST (message)));
-}
-
-static inline gboolean
-gst_message_replace (GstMessage **old_message, GstMessage *new_message)
-{
-  return gst_mini_object_replace ((GstMiniObject **) old_message, (GstMiniObject *) new_message);
-}
-
-static inline gboolean
-gst_message_take (GstMessage **old_message, GstMessage *new_message)
-{
-  return gst_mini_object_take ((GstMiniObject **) old_message,
-      (GstMiniObject *) new_message);
-}
-
-static inline GstMessage *
-gst_message_steal(GstMessage **old_message)
-{
-  return GST_MESSAGE_CAST(gst_mini_object_steal((GstMiniObject **)old_message));
-}
-#else /* GST_DISABLE_MINIOBJECT_INLINE_FUNCTIONS */
 extern
 GstMessage *  gst_message_ref   (GstMessage * msg);
 
@@ -455,7 +391,6 @@ gboolean  gst_message_take                      (GstMessage ** old_message,
 
 extern
 GstMessage *gst_message_steal (GstMessage **old_message);
-#endif /* GST_DISABLE_MINIOBJECT_INLINE_FUNCTIONS */
 
 /* custom messages */
 
