@@ -4,9 +4,19 @@ program project1;
 uses
 
 gst,
-gstallocator,
+gstobject,
+gstminiobject,
+gstmemory,
+gstallocator,                     // GstMemoryFlags
 gstatomicqueue,
+
+gstelement,
+gstelementfactory,
+gstelementmetadata,
+
+
 gstbin,
+
 gstbuffer,
 gstbufferlist,
 gstbufferpool,
@@ -28,9 +38,6 @@ gstdevicemonitor,
 gstdeviceprovider,
 gstdeviceproviderfactory,
 gstdynamictypefactory,
-gstelement,
-gstelementfactory,
-gstelementmetadata,
 gstenumtypes,
 gsterror,
 gstevent,
@@ -39,12 +46,9 @@ gstghostpad,
 gstidstr,
 gstinfo,
 gstiterator,
-gstmemory,
 gstmessage,
 gstmeta,
 gstmetafactory,
-gstminiobject,
-gstobject,
 gstpad,
 gstpadtemplate,
 gstparamspecs,
