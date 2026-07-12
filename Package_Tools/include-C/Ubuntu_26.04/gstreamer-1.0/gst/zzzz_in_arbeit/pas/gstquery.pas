@@ -5,7 +5,7 @@ unit gstquery;
 interface
 
 uses
-  fp_glib2, fp_gst, gstminiobject, gststructure, gstformat, gstallocator;
+  fp_glib2, fp_gst, gstminiobject, gststructure, gstformat, gstallocator, gstcontext, gstbufferpool;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -208,7 +208,6 @@ function gst_query_new_selectable: PGstQuery; cdecl; external libgstreamer;
 procedure gst_query_set_selectable(query: PGstQuery; selectable: Tgboolean); cdecl; external libgstreamer;
 procedure gst_query_parse_selectable(query: PGstQuery; selectable: Pgboolean); cdecl; external libgstreamer;
 
-function GST_QUERY_TYPE_BOTH: TGstQueryTypeFlags;
 function GST_QUERY_MAKE_TYPE(num, flags: longint): longint;
 
 function GST_TYPE_QUERY: TGType;
@@ -230,11 +229,6 @@ function gst_query_make_writable(q: Pointer): PGstQuery;
 
 
 implementation
-
-function GST_QUERY_TYPE_BOTH: TGstQueryTypeFlags;
-begin
-  GST_QUERY_TYPE_BOTH := TGstQueryTypeFlags(GST_QUERY_TYPE_UPSTREAM or GST_QUERY_TYPE_DOWNSTREAM);
-end;
 
 function GST_QUERY_MAKE_TYPE(num, flags: longint): longint;
 begin

@@ -5,7 +5,7 @@ unit gstevent;
 interface
 
 uses
-  fp_glib2, fp_gst, gstminiobject, gststructure, gststreams, gststreamcollection, gstsegment, gsttaglist, gsttoc, gstbuffer, gstformat, gstmessage;
+  fp_glib2, fp_gst, gstminiobject, gststructure, gststreams, gststreamcollection, gstsegment, gsttaglist, gsttoc, gstbuffer, gstformat, gstmessage, gstclock;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

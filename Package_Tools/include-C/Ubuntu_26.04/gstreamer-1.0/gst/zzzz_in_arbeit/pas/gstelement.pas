@@ -5,7 +5,7 @@ unit gstelement;
 interface
 
 uses
-  fp_glib2, fp_gst, gstobject;
+  fp_glib2, fp_gst, gstobject, gstclock;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

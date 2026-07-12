@@ -39,6 +39,7 @@ type
 type
   PGstAllocatorPrivate = type Pointer;
 
+  PPGstAllocator = ^PGstAllocator;
   PGstAllocator = ^TGstAllocator;
   TGstAllocator = record
     obj: TGstObject;

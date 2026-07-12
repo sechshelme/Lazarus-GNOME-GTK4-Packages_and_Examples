@@ -5,7 +5,7 @@ unit gstpad;
 interface
 
 uses
-  fp_glib2, fp_gst, gstobject;
+  fp_glib2, fp_gst, gstobject, gstbuffer, gstbufferpool, gstbufferlist, gstevent, gstquery, gstiterator, gsttask;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -129,6 +129,8 @@ const
 
   {$IFDEF read_struct}
 type
+  PGstPadTemplate_ = type Pointer; // ????
+
   PGstPadProbeInfo = ^TGstPadProbeInfo;
   TGstPadProbeInfo = record
     _type: TGstPadProbeType;
@@ -150,10 +152,25 @@ type
   TGstPadProbeCallback = function(pad: PGstPad; info: PGstPadProbeInfo; user_data: Tgpointer): TGstPadProbeReturn; cdecl;
   TGstPadStickyEventsForeachFunction = function(pad: PGstPad; event: PPGstEvent; user_data: Tgpointer): Tgboolean; cdecl;
 
+  TGstPadActivateFunction = function(pad: PGstPad; parent: PGstObject): Tgboolean; cdecl;
+  TGstPadActivateModeFunction = function(pad: PGstPad; parent: PGstObject; mode: TGstPadMode; active: Tgboolean): Tgboolean; cdecl;
+  TGstPadChainFunction = function(pad: PGstPad; parent: PGstObject; buffer: PGstBuffer): TGstFlowReturn; cdecl;
+  TGstPadChainListFunction = function(pad: PGstPad; parent: PGstObject; list: PGstBufferList): TGstFlowReturn; cdecl;
+  TGstPadGetRangeFunction = function(pad: PGstPad; parent: PGstObject; offset: Tguint64; length: Tguint; buffer: PPGstBuffer): TGstFlowReturn; cdecl;
+  TGstPadEventFunction = function(pad: PGstPad; parent: PGstObject; event: PGstEvent): Tgboolean; cdecl;
+  TGstPadEventFullFunction = function(pad: PGstPad; parent: PGstObject; event: PGstEvent): TGstFlowReturn; cdecl;
+  TGstPadIterIntLinkFunction = function(pad: PGstPad; parent: PGstObject): PGstIterator; cdecl;
+  TGstPadQueryFunction = function(pad: PGstPad; parent: PGstObject; query: PGstQuery): Tgboolean; cdecl;
+  TGstPadLinkFunction = function(pad: PGstPad; parent: PGstObject; peer: PGstPad): TGstPadLinkReturn; cdecl;
+  TGstPadUnlinkFunction = procedure(pad: PGstPad; parent: PGstObject); cdecl;
+  TGstPadForwardFunction = function(pad: PGstPad; user_data: Tgpointer): Tgboolean; cdecl;
+
+  PGstPadPrivate=type Pointer;
+
   TGstPad = record
     obj: TGstObject;
     element_private: Tgpointer;
-    padtemplate: PGstPadTemplate;
+    padtemplate: PGstPadTemplate_;
     direction: TGstPadDirection;
     stream_rec_lock: TGRecMutex;
     task: PGstTask;
@@ -212,20 +229,6 @@ type
     unlinked: procedure(pad: PGstPad; peer: PGstPad); cdecl;
     _gst_reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
   end;
-
-
-  TGstPadActivateFunction = function(pad: PGstPad; parent: PGstObject): Tgboolean; cdecl;
-  TGstPadActivateModeFunction = function(pad: PGstPad; parent: PGstObject; mode: TGstPadMode; active: Tgboolean): Tgboolean; cdecl;
-  TGstPadChainFunction = function(pad: PGstPad; parent: PGstObject; buffer: PGstBuffer): TGstFlowReturn; cdecl;
-  TGstPadChainListFunction = function(pad: PGstPad; parent: PGstObject; list: PGstBufferList): TGstFlowReturn; cdecl;
-  TGstPadGetRangeFunction = function(pad: PGstPad; parent: PGstObject; offset: Tguint64; length: Tguint; buffer: PPGstBuffer): TGstFlowReturn; cdecl;
-  TGstPadEventFunction = function(pad: PGstPad; parent: PGstObject; event: PGstEvent): Tgboolean; cdecl;
-  TGstPadEventFullFunction = function(pad: PGstPad; parent: PGstObject; event: PGstEvent): TGstFlowReturn; cdecl;
-  TGstPadIterIntLinkFunction = function(pad: PGstPad; parent: PGstObject): PGstIterator; cdecl;
-  TGstPadQueryFunction = function(pad: PGstPad; parent: PGstObject; query: PGstQuery): Tgboolean; cdecl;
-  TGstPadLinkFunction = function(pad: PGstPad; parent: PGstObject; peer: PGstPad): TGstPadLinkReturn; cdecl;
-  TGstPadUnlinkFunction = procedure(pad: PGstPad; parent: PGstObject); cdecl;
-  TGstPadForwardFunction = function(pad: PGstPad; user_data: Tgpointer): Tgboolean; cdecl;
   {$ENDIF read_struct}
 
 {$IFDEF read_function}
@@ -251,8 +254,8 @@ procedure gst_pad_probe_info_set_flow_return(info: PGstPadProbeInfo; flow_ret: T
 
 function gst_pad_get_type: TGType; cdecl; external libgstreamer;
 function gst_pad_new(name: Pgchar; direction: TGstPadDirection): PGstPad; cdecl; external libgstreamer;
-function gst_pad_new_from_template(templ: PGstPadTemplate; name: Pgchar): PGstPad; cdecl; external libgstreamer;
-function gst_pad_new_from_static_template(templ: PGstStaticPadTemplate; name: Pgchar): PGstPad; cdecl; external libgstreamer;
+function gst_pad_new_from_template(templ: PGstPadTemplate_; name: Pgchar): PGstPad; cdecl; external libgstreamer;
+function gst_pad_new_from_static_template(templ: Pointer; {PGstStaticPadTemplate;} name: Pgchar): PGstPad; cdecl; external libgstreamer;
 function gst_pad_get_direction(pad: PGstPad): TGstPadDirection; cdecl; external libgstreamer;
 function gst_pad_set_active(pad: PGstPad; active: Tgboolean): Tgboolean; cdecl; external libgstreamer;
 function gst_pad_is_active(pad: PGstPad): Tgboolean; cdecl; external libgstreamer;
@@ -266,7 +269,7 @@ function gst_pad_needs_reconfigure(pad: PGstPad): Tgboolean; cdecl; external lib
 function gst_pad_check_reconfigure(pad: PGstPad): Tgboolean; cdecl; external libgstreamer;
 procedure gst_pad_set_element_private(pad: PGstPad; priv: Tgpointer); cdecl; external libgstreamer;
 function gst_pad_get_element_private(pad: PGstPad): Tgpointer; cdecl; external libgstreamer;
-function gst_pad_get_pad_template(pad: PGstPad): PGstPadTemplate; cdecl; external libgstreamer;
+function gst_pad_get_pad_template(pad: PGstPad): PGstPadTemplate_; cdecl; external libgstreamer;
 function gst_pad_store_sticky_event(pad: PGstPad; event: PGstEvent): TGstFlowReturn; cdecl; external libgstreamer;
 function gst_pad_get_sticky_event(pad: PGstPad; event_type: TGstEventType; idx: Tguint): PGstEvent; cdecl; external libgstreamer;
 procedure gst_pad_sticky_events_foreach(pad: PGstPad; foreach_func: TGstPadStickyEventsForeachFunction; user_data: Tgpointer); cdecl; external libgstreamer;
@@ -334,7 +337,7 @@ function GST_PAD_PROBE_INFO_SIZE(d: PGstPadProbeInfo): Tguint;
 function GST_PAD_NAME(pad: Pointer): Pgchar;
 function GST_PAD_PARENT(pad: Pointer): Pointer;
 function GST_PAD_ELEMENT_PRIVATE(pad: Pointer): Tgpointer;
-function GST_PAD_PAD_TEMPLATE(pad: Pointer): PGstPadTemplate;
+function GST_PAD_PAD_TEMPLATE(pad: Pointer): PGstPadTemplate_;
 function GST_PAD_DIRECTION(pad: Pointer): TGstPadDirection;
 function GST_PAD_TASK(pad: Pointer): PGstTask;
 function GST_PAD_MODE(pad: Pointer): TGstPadMode;
@@ -523,7 +526,7 @@ begin
   GST_PAD_ELEMENT_PRIVATE := (GST_PAD_CAST(pad))^.element_private;
 end;
 
-function GST_PAD_PAD_TEMPLATE(pad: Pointer): PGstPadTemplate;
+function GST_PAD_PAD_TEMPLATE(pad: Pointer): PGstPadTemplate_;
 begin
   GST_PAD_PAD_TEMPLATE := (GST_PAD_CAST(pad))^.padtemplate;
 end;

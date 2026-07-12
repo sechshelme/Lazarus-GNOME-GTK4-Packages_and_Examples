@@ -23,29 +23,33 @@ uses
   gsttaglist,
   gsttagsetter,
   gststreams,
-    gststreamcollection,
-    gsttoc,
+  gststreamcollection,
+  gsttoc,
   gsttocsetter,
-
+  gstcontext,
   gstbuffer,
-
-
-
-  gstquery,
-  gstmessage,
-  gstevent,
-
-  gstpad,
-
-
   gstbufferpool,
   gstbufferlist,
-
-
-
+  gstquery,
+    gstplugin,
+  gstpluginfeature,
+  gstdevice,                                   // GST_DEVICE_CLASS &  GST_DEVICE_GET_CLASS
+  gstdevicemonitor,
+  gstdeviceproviderfactory,
+  gstdeviceprovider,
+  gstmessage,
+  gstevent,
+  gsttaskpool,
+    gsttask,
+  gstpad,
   gstpadtemplate,
 
+    gsturi,
 
+
+  gstelementfactory,
+  gstelement,
+  gstelementmetadata,
 
 
 
@@ -55,28 +59,19 @@ uses
 
 
 
-
   gstbus,
 
 
-  gstelement,
-  gstelementfactory,
-  gstelementmetadata,
 
 
   gstbin,
 
   gstchildproxy,
   gstconfig,
-  gstcontext,
   gstcontrolbinding,
   gstcontrolsource,
   gstcpuid,
   gstdebugutils,
-  gstdevice,                                   // GST_DEVICE_CLASS &  GST_DEVICE_GET_CLASS
-  gstdevicemonitor,
-  gstdeviceprovider,
-  gstdeviceproviderfactory,
   gstdynamictypefactory,
   gstenumtypes,
   gsterror,
@@ -86,22 +81,17 @@ uses
   gstparamspecs,
   gstparse,
   gstpipeline,
-  gstplugin,
-  gstpluginfeature,
   gstpoll,
   gstpreset,
   gstpromise,
   gstprotection,
   gstregistry,
   gstsystemclock,
-  gsttask,
-  gsttaskpool,
   gsttracer,
   gsttracerfactory,
   gsttracerrecord,
   gsttypefind,
   gsttypefindfactory,
-  gsturi,
   gstutils,
   gstvalue,
   gstvecdeque,

@@ -5,7 +5,7 @@ unit gstbufferlist;
 interface
 
 uses
-  fp_glib2, fp_gst, gstminiobject;
+  fp_glib2, fp_gst, gstminiobject, gstbuffer;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

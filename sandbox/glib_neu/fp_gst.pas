@@ -147,9 +147,22 @@ type
   // /usr/include/EGL/eglplatform.h
   TEGLint = Tkhronos_int32_t;
 
-  TGstStreamFlags=LongInt;
+  PGstPadDirection = ^TGstPadDirection;
+  TGstPadDirection = longint;
 
-  PPGstSample=PPointer;
+  TGstStreamFlags=LongInt;
+  TGstFlowReturn=LongInt;
+  TGstPadMode=LongInt;
+  TGstState=LongInt;
+  PGstState=^TGstState;
+    PPGstSample=PPointer;
+
+
+    PGstDeviceProvider=Pointer;
+  PGstElement=Pointer;
+  PPGstElement=^PGstElement;
+
+  PGstBus=Pointer;
 
   // ==== Windows
   {$ifdef windows}

@@ -5,7 +5,7 @@ unit gstbufferpool;
 interface
 
 uses
-  fp_glib2, fp_gst, gstobject, gstformat, gststructure, gstbuffer;
+  fp_glib2, fp_gst, gstobject, gstformat, gststructure, gstbuffer, gstallocator;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -37,6 +37,7 @@ type
 
   PGstBufferPoolPrivate=type Pointer;
 
+  PPGstBufferPool = ^PGstBufferPool;
   PGstBufferPool = ^TGstBufferPool;
   TGstBufferPool = record
     obj: TGstObject;
@@ -71,7 +72,7 @@ function gst_buffer_pool_set_active(pool: PGstBufferPool; active: Tgboolean): Tg
 function gst_buffer_pool_is_active(pool: PGstBufferPool): Tgboolean; cdecl; external libgstreamer;
 function gst_buffer_pool_set_config(pool: PGstBufferPool; config: PGstStructure): Tgboolean; cdecl; external libgstreamer;
 function gst_buffer_pool_get_config(pool: PGstBufferPool): PGstStructure; cdecl; external libgstreamer;
-function gst_buffer_pool_get_options(pool: PGstBufferPool): ^Pgchar; cdecl; external libgstreamer;
+function gst_buffer_pool_get_options(pool: PGstBufferPool): PPgchar; cdecl; external libgstreamer;
 function gst_buffer_pool_has_option(pool: PGstBufferPool; option: Pgchar): Tgboolean; cdecl; external libgstreamer;
 procedure gst_buffer_pool_set_flushing(pool: PGstBufferPool; flushing: Tgboolean); cdecl; external libgstreamer;
 

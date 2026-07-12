@@ -65,6 +65,7 @@ type
   TGstClockID = Tgpointer;
 
   PGstClock = ^TGstClock;
+  PPGstClock = ^PGstClock;
 
   TGstClockCallback = function(clock: PGstClock; time: TGstClockTime; id: TGstClockID; user_data: Tgpointer): Tgboolean; cdecl;
 
