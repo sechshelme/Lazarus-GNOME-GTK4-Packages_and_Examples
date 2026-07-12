@@ -101,6 +101,9 @@ const
   type
   PGstAllocator=Pointer;
 
+  PGstCaps=Pointer;
+  PPGstCaps=^PGstCaps        ;
+
   // ======================
 
 type
@@ -144,6 +147,10 @@ type
   // /usr/include/EGL/eglplatform.h
   TEGLint = Tkhronos_int32_t;
 
+  TGstStreamFlags=LongInt;
+
+  PPGstSample=PPointer;
+
   // ==== Windows
   {$ifdef windows}
 type
@@ -159,176 +166,177 @@ type
   // === GST
 const
   GST_PADDING = 4;
-
+//
 type
   PGstClockTime = ^TGstClockTime;
   TGstClockTime = Tguint64;
-
-type
-  PGstObject = ^TGstObject;
-
-  TGstObject = record
-    obj: TGInitiallyUnowned;
-    lock: TGMutex;
-    Name: Pgchar;
-    parent: PGstObject;
-    flags: Tguint32;
-    control_bindings: PGList;
-    control_rate: Tguint64;
-    last_sync: Tguint64;
-    _gst_reserved: Tgpointer;
-  end;
-  PPGstObject = ^PGstObject;
-
-  PGstControlBindingPrivate = type Pointer;
-
-  TGstControlBinding = record
-    parent: TGstObject;
-    Name: Pgchar;
-    pspec: PGParamSpec;
-    obj: PGstObject;
-    __object: Tgpointer;
-    disabled: Tgboolean;
-    ABI: record
-      case longint of
-        0: (abi: record
-            priv: PGstControlBindingPrivate;
-            end);
-        1: (_gst_reserved: array[0..(GST_PADDING) - 1] of Tgpointer);
-      end;
-  end;
-  PGstControlBinding = ^TGstControlBinding;
-
-  PGstBufferPoolPrivate = type Pointer;
-
-  TGstBufferPool = record
-    obj: TGstObject;
-    flushing: Tgint;
-    priv: PGstBufferPoolPrivate;
-    _gst_reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
-  end;
-  PGstBufferPool = ^TGstBufferPool;
-  PPGstBufferPool = ^PGstBufferPool;
-
-type
-  PGstMiniObject = ^TGstMiniObject;
-  PPGstMiniObject = ^PGstMiniObject;
-
-  PGstMiniObjectCopyFunction = ^TGstMiniObjectCopyFunction;
-  TGstMiniObjectCopyFunction = function(obj: PGstMiniObject): PGstMiniObject; cdecl;
-  TGstMiniObjectDisposeFunction = function(obj: PGstMiniObject): Tgboolean; cdecl;
-  TGstMiniObjectFreeFunction = procedure(obj: PGstMiniObject); cdecl;
-  TGstMiniObjectNotify = procedure(user_data: Tgpointer; obj: PGstMiniObject); cdecl;
-
-  TGstMiniObject = record
-    _type: TGType;
-    refcount: Tgint;
-    lockstate: Tgint;
-    flags: Tguint;
-    copy: TGstMiniObjectCopyFunction;
-    _dispose: TGstMiniObjectDisposeFunction;
-    Free: TGstMiniObjectFreeFunction;
-    priv_uint: Tguint;
-    priv_pointer: Tgpointer;
-  end;
-
-type
-  TGstBuffer = record
-    mini_object: TGstMiniObject;
-    pool: PGstBufferPool;
-    pts: TGstClockTime;
-    dts: TGstClockTime;
-    duration: TGstClockTime;
-    offset: Tguint64;
-    offset_end: Tguint64;
-  end;
-  PGstBuffer = ^TGstBuffer;
-  PPGstBuffer = ^PGstBuffer;
-
-type
-  PGstPadDirection = ^TGstPadDirection;
-  TGstPadDirection = longint;
-
-const
-  GST_PAD_UNKNOWN = 0;
-  GST_PAD_SRC = 1;
-  GST_PAD_SINK = 2;
-
-type
-  PGstStreamPrivate = type Pointer;
-
-  TGstStream = record
-    obj: TGstObject;
-    stream_id: Pgchar;
-    priv: PGstStreamPrivate;
-    _gst_reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
-  end;
-  PGstStream = ^TGstStream;
-  PPGstStream = ^PGstStream;
-
-const
-  GST_QUERY_TYPE_UPSTREAM = 1 shl 0;
-  GST_QUERY_TYPE_DOWNSTREAM = 1 shl 1;
-  GST_QUERY_TYPE_SERIALIZED = 1 shl 2;
-
-const
-  GST_QUERY_NUM_SHIFT = 8;
-
-type
-  PGstQueryType = ^TGstQueryType;
-  TGstQueryType = longint;
-
-const
-  GST_QUERY_UNKNOWN = 0 shl (GST_QUERY_NUM_SHIFT or 0);
-  GST_QUERY_POSITION = 10 shl (GST_QUERY_NUM_SHIFT or GST_QUERY_TYPE_UPSTREAM or GST_QUERY_TYPE_DOWNSTREAM);
-  GST_QUERY_DURATION = 20 shl (GST_QUERY_NUM_SHIFT or GST_QUERY_TYPE_UPSTREAM or GST_QUERY_TYPE_DOWNSTREAM);
-  GST_QUERY_LATENCY = 30 shl (GST_QUERY_NUM_SHIFT or GST_QUERY_TYPE_UPSTREAM or GST_QUERY_TYPE_DOWNSTREAM);
-  GST_QUERY_JITTER = 40 shl (GST_QUERY_NUM_SHIFT or GST_QUERY_TYPE_UPSTREAM or GST_QUERY_TYPE_DOWNSTREAM);
-  GST_QUERY_RATE = 50 shl (GST_QUERY_NUM_SHIFT or GST_QUERY_TYPE_UPSTREAM or GST_QUERY_TYPE_DOWNSTREAM);
-  GST_QUERY_SEEKING = 60 shl (GST_QUERY_NUM_SHIFT or GST_QUERY_TYPE_UPSTREAM or GST_QUERY_TYPE_DOWNSTREAM);
-  GST_QUERY_SEGMENT = 70 shl (GST_QUERY_NUM_SHIFT or GST_QUERY_TYPE_UPSTREAM or GST_QUERY_TYPE_DOWNSTREAM);
-  GST_QUERY_CONVERT = 80 shl (GST_QUERY_NUM_SHIFT or GST_QUERY_TYPE_UPSTREAM or GST_QUERY_TYPE_DOWNSTREAM);
-  GST_QUERY_FORMATS = 90 shl (GST_QUERY_NUM_SHIFT or GST_QUERY_TYPE_UPSTREAM or GST_QUERY_TYPE_DOWNSTREAM);
-  GST_QUERY_BUFFERING = 110 shl (GST_QUERY_NUM_SHIFT or GST_QUERY_TYPE_UPSTREAM or GST_QUERY_TYPE_DOWNSTREAM);
-  GST_QUERY_CUSTOM = 120 shl (GST_QUERY_NUM_SHIFT or GST_QUERY_TYPE_UPSTREAM or GST_QUERY_TYPE_DOWNSTREAM);
-  GST_QUERY_URI = 130 shl (GST_QUERY_NUM_SHIFT or GST_QUERY_TYPE_UPSTREAM or GST_QUERY_TYPE_DOWNSTREAM);
-  GST_QUERY_ALLOCATION = 140 shl (GST_QUERY_NUM_SHIFT or GST_QUERY_TYPE_DOWNSTREAM or GST_QUERY_TYPE_SERIALIZED);
-  GST_QUERY_SCHEDULING = 150 shl (GST_QUERY_NUM_SHIFT or GST_QUERY_TYPE_UPSTREAM);
-  GST_QUERY_ACCEPT_CAPS = 160 shl (GST_QUERY_NUM_SHIFT or GST_QUERY_TYPE_UPSTREAM or GST_QUERY_TYPE_DOWNSTREAM);
-  GST_QUERY_CAPS = 170 shl (GST_QUERY_NUM_SHIFT or GST_QUERY_TYPE_UPSTREAM or GST_QUERY_TYPE_DOWNSTREAM);
-  GST_QUERY_DRAIN = 180 shl (GST_QUERY_NUM_SHIFT or GST_QUERY_TYPE_DOWNSTREAM or GST_QUERY_TYPE_SERIALIZED);
-  GST_QUERY_CONTEXT = 190 shl (GST_QUERY_NUM_SHIFT or GST_QUERY_TYPE_UPSTREAM or GST_QUERY_TYPE_DOWNSTREAM);
-  GST_QUERY_BITRATE = 200 shl (GST_QUERY_NUM_SHIFT or GST_QUERY_TYPE_DOWNSTREAM);
-  GST_QUERY_SELECTABLE = 210 shl (GST_QUERY_NUM_SHIFT or GST_QUERY_TYPE_UPSTREAM or GST_QUERY_TYPE_DOWNSTREAM);
-
-type
-  TGstQuery = record
-    mini_object: TGstMiniObject;
-    _type: TGstQueryType;
-  end;
-  PGstQuery = ^TGstQuery;
-  PPGstQuery = ^PGstQuery;
-
-type
-  PGstElementFactory = type Pointer;
-  PGstDeviceProviderFactory = type Pointer;
-
-  // video/video_chroma
-type
-  PGstVideoChromaSite = ^TGstVideoChromaSite;
-  TGstVideoChromaSite = longint;
-
-const
-  GST_VIDEO_CHROMA_SITE_UNKNOWN = 0;
-  GST_VIDEO_CHROMA_SITE_NONE = 1 shl 0;
-  GST_VIDEO_CHROMA_SITE_H_COSITED = 1 shl 1;
-  GST_VIDEO_CHROMA_SITE_V_COSITED = 1 shl 2;
-  GST_VIDEO_CHROMA_SITE_ALT_LINE = 1 shl 3;
-  GST_VIDEO_CHROMA_SITE_COSITED = GST_VIDEO_CHROMA_SITE_H_COSITED or GST_VIDEO_CHROMA_SITE_V_COSITED;
-  GST_VIDEO_CHROMA_SITE_JPEG = GST_VIDEO_CHROMA_SITE_NONE;
-  GST_VIDEO_CHROMA_SITE_MPEG2 = GST_VIDEO_CHROMA_SITE_H_COSITED;
-  GST_VIDEO_CHROMA_SITE_DV = GST_VIDEO_CHROMA_SITE_COSITED or GST_VIDEO_CHROMA_SITE_ALT_LINE;
-
+//
+//type
+//  PGstObject = ^TGstObject;
+//
+//  TGstObject = record
+//    obj: TGInitiallyUnowned;
+//    lock: TGMutex;
+//    Name: Pgchar;
+//    parent: PGstObject;
+//    flags: Tguint32;
+//    control_bindings: PGList;
+//    control_rate: Tguint64;
+//    last_sync: Tguint64;
+//    _gst_reserved: Tgpointer;
+//  end;
+//  PPGstObject = ^PGstObject;
+//
+//  PGstControlBindingPrivate = type Pointer;
+//
+//  TGstControlBinding = record
+//    parent: TGstObject;
+//    Name: Pgchar;
+//    pspec: PGParamSpec;
+//    obj: PGstObject;
+//    __object: Tgpointer;
+//    disabled: Tgboolean;
+//    ABI: record
+//      case longint of
+//        0: (abi: record
+//            priv: PGstControlBindingPrivate;
+//            end);
+//        1: (_gst_reserved: array[0..(GST_PADDING) - 1] of Tgpointer);
+//      end;
+//  end;
+//  PGstControlBinding = ^TGstControlBinding;
+  PGstControlBinding = Pointer;
+//
+//  PGstBufferPoolPrivate = type Pointer;
+//
+//  TGstBufferPool = record
+//    obj: TGstObject;
+//    flushing: Tgint;
+//    priv: PGstBufferPoolPrivate;
+//    _gst_reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
+//  end;
+//  PGstBufferPool = ^TGstBufferPool;
+//  PPGstBufferPool = ^PGstBufferPool;
+//
+//type
+//  PGstMiniObject = ^TGstMiniObject;
+//  PPGstMiniObject = ^PGstMiniObject;
+//
+//  PGstMiniObjectCopyFunction = ^TGstMiniObjectCopyFunction;
+//  TGstMiniObjectCopyFunction = function(obj: PGstMiniObject): PGstMiniObject; cdecl;
+//  TGstMiniObjectDisposeFunction = function(obj: PGstMiniObject): Tgboolean; cdecl;
+//  TGstMiniObjectFreeFunction = procedure(obj: PGstMiniObject); cdecl;
+//  TGstMiniObjectNotify = procedure(user_data: Tgpointer; obj: PGstMiniObject); cdecl;
+//
+//  TGstMiniObject = record
+//    _type: TGType;
+//    refcount: Tgint;
+//    lockstate: Tgint;
+//    flags: Tguint;
+//    copy: TGstMiniObjectCopyFunction;
+//    _dispose: TGstMiniObjectDisposeFunction;
+//    Free: TGstMiniObjectFreeFunction;
+//    priv_uint: Tguint;
+//    priv_pointer: Tgpointer;
+//  end;
+//
+//type
+//  TGstBuffer = record
+//    mini_object: TGstMiniObject;
+//    pool: PGstBufferPool;
+//    pts: TGstClockTime;
+//    dts: TGstClockTime;
+//    duration: TGstClockTime;
+//    offset: Tguint64;
+//    offset_end: Tguint64;
+//  end;
+//  PGstBuffer = ^TGstBuffer;
+//  PPGstBuffer = ^PGstBuffer;
+//
+//type
+//  PGstPadDirection = ^TGstPadDirection;
+//  TGstPadDirection = longint;
+//
+//const
+//  GST_PAD_UNKNOWN = 0;
+//  GST_PAD_SRC = 1;
+//  GST_PAD_SINK = 2;
+//
+//type
+//  PGstStreamPrivate = type Pointer;
+//
+//  TGstStream = record
+//    obj: TGstObject;
+//    stream_id: Pgchar;
+//    priv: PGstStreamPrivate;
+//    _gst_reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
+//  end;
+//  PGstStream = ^TGstStream;
+//  PPGstStream = ^PGstStream;
+//
+//const
+//  GST_QUERY_TYPE_UPSTREAM = 1 shl 0;
+//  GST_QUERY_TYPE_DOWNSTREAM = 1 shl 1;
+//  GST_QUERY_TYPE_SERIALIZED = 1 shl 2;
+//
+//const
+//  GST_QUERY_NUM_SHIFT = 8;
+//
+//type
+//  PGstQueryType = ^TGstQueryType;
+//  TGstQueryType = longint;
+//
+//const
+//  GST_QUERY_UNKNOWN = 0 shl (GST_QUERY_NUM_SHIFT or 0);
+//  GST_QUERY_POSITION = 10 shl (GST_QUERY_NUM_SHIFT or GST_QUERY_TYPE_UPSTREAM or GST_QUERY_TYPE_DOWNSTREAM);
+//  GST_QUERY_DURATION = 20 shl (GST_QUERY_NUM_SHIFT or GST_QUERY_TYPE_UPSTREAM or GST_QUERY_TYPE_DOWNSTREAM);
+//  GST_QUERY_LATENCY = 30 shl (GST_QUERY_NUM_SHIFT or GST_QUERY_TYPE_UPSTREAM or GST_QUERY_TYPE_DOWNSTREAM);
+//  GST_QUERY_JITTER = 40 shl (GST_QUERY_NUM_SHIFT or GST_QUERY_TYPE_UPSTREAM or GST_QUERY_TYPE_DOWNSTREAM);
+//  GST_QUERY_RATE = 50 shl (GST_QUERY_NUM_SHIFT or GST_QUERY_TYPE_UPSTREAM or GST_QUERY_TYPE_DOWNSTREAM);
+//  GST_QUERY_SEEKING = 60 shl (GST_QUERY_NUM_SHIFT or GST_QUERY_TYPE_UPSTREAM or GST_QUERY_TYPE_DOWNSTREAM);
+//  GST_QUERY_SEGMENT = 70 shl (GST_QUERY_NUM_SHIFT or GST_QUERY_TYPE_UPSTREAM or GST_QUERY_TYPE_DOWNSTREAM);
+//  GST_QUERY_CONVERT = 80 shl (GST_QUERY_NUM_SHIFT or GST_QUERY_TYPE_UPSTREAM or GST_QUERY_TYPE_DOWNSTREAM);
+//  GST_QUERY_FORMATS = 90 shl (GST_QUERY_NUM_SHIFT or GST_QUERY_TYPE_UPSTREAM or GST_QUERY_TYPE_DOWNSTREAM);
+//  GST_QUERY_BUFFERING = 110 shl (GST_QUERY_NUM_SHIFT or GST_QUERY_TYPE_UPSTREAM or GST_QUERY_TYPE_DOWNSTREAM);
+//  GST_QUERY_CUSTOM = 120 shl (GST_QUERY_NUM_SHIFT or GST_QUERY_TYPE_UPSTREAM or GST_QUERY_TYPE_DOWNSTREAM);
+//  GST_QUERY_URI = 130 shl (GST_QUERY_NUM_SHIFT or GST_QUERY_TYPE_UPSTREAM or GST_QUERY_TYPE_DOWNSTREAM);
+//  GST_QUERY_ALLOCATION = 140 shl (GST_QUERY_NUM_SHIFT or GST_QUERY_TYPE_DOWNSTREAM or GST_QUERY_TYPE_SERIALIZED);
+//  GST_QUERY_SCHEDULING = 150 shl (GST_QUERY_NUM_SHIFT or GST_QUERY_TYPE_UPSTREAM);
+//  GST_QUERY_ACCEPT_CAPS = 160 shl (GST_QUERY_NUM_SHIFT or GST_QUERY_TYPE_UPSTREAM or GST_QUERY_TYPE_DOWNSTREAM);
+//  GST_QUERY_CAPS = 170 shl (GST_QUERY_NUM_SHIFT or GST_QUERY_TYPE_UPSTREAM or GST_QUERY_TYPE_DOWNSTREAM);
+//  GST_QUERY_DRAIN = 180 shl (GST_QUERY_NUM_SHIFT or GST_QUERY_TYPE_DOWNSTREAM or GST_QUERY_TYPE_SERIALIZED);
+//  GST_QUERY_CONTEXT = 190 shl (GST_QUERY_NUM_SHIFT or GST_QUERY_TYPE_UPSTREAM or GST_QUERY_TYPE_DOWNSTREAM);
+//  GST_QUERY_BITRATE = 200 shl (GST_QUERY_NUM_SHIFT or GST_QUERY_TYPE_DOWNSTREAM);
+//  GST_QUERY_SELECTABLE = 210 shl (GST_QUERY_NUM_SHIFT or GST_QUERY_TYPE_UPSTREAM or GST_QUERY_TYPE_DOWNSTREAM);
+//
+//type
+//  TGstQuery = record
+//    mini_object: TGstMiniObject;
+//    _type: TGstQueryType;
+//  end;
+//  PGstQuery = ^TGstQuery;
+//  PPGstQuery = ^PGstQuery;
+//
+//type
+//  PGstElementFactory = type Pointer;
+//  PGstDeviceProviderFactory = type Pointer;
+//
+//  // video/video_chroma
+//type
+//  PGstVideoChromaSite = ^TGstVideoChromaSite;
+//  TGstVideoChromaSite = longint;
+//
+//const
+//  GST_VIDEO_CHROMA_SITE_UNKNOWN = 0;
+//  GST_VIDEO_CHROMA_SITE_NONE = 1 shl 0;
+//  GST_VIDEO_CHROMA_SITE_H_COSITED = 1 shl 1;
+//  GST_VIDEO_CHROMA_SITE_V_COSITED = 1 shl 2;
+//  GST_VIDEO_CHROMA_SITE_ALT_LINE = 1 shl 3;
+//  GST_VIDEO_CHROMA_SITE_COSITED = GST_VIDEO_CHROMA_SITE_H_COSITED or GST_VIDEO_CHROMA_SITE_V_COSITED;
+//  GST_VIDEO_CHROMA_SITE_JPEG = GST_VIDEO_CHROMA_SITE_NONE;
+//  GST_VIDEO_CHROMA_SITE_MPEG2 = GST_VIDEO_CHROMA_SITE_H_COSITED;
+//  GST_VIDEO_CHROMA_SITE_DV = GST_VIDEO_CHROMA_SITE_COSITED or GST_VIDEO_CHROMA_SITE_ALT_LINE;
+//
 
   {$DEFINE read_interface}
 //  {$include fp_gst_includes.inc}

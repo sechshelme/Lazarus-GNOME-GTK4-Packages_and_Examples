@@ -1,965 +1,836 @@
 unit gstpad;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
-  fp_glib2, fp_gst;
+  fp_glib2, fp_gst, gstobject;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
-{ GStreamer
- * Copyright (C) 1999,2000 Erik Walthinsen <omega@cse.ogi.edu>
- *                    2000 Wim Taymans <wim.taymans@chello.be>
- *
- * gstpad.h: Header for GstPad object
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Library General Public
- * License as published by the Free Software Foundation; either
- * version 2 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Library General Public License for more details.
- *
- * You should have received a copy of the GNU Library General Public
- * License along with this library; if not, write to the
- * Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
- * Boston, MA 02110-1301, USA.
-  }
-{$ifndef __GST_PAD_H__}
-{$define __GST_PAD_H__}
-{$include <gst/gstconfig.h>}
+  {$IFDEF read_enum}
 type
-{*
- * GstPadDirection:
- * @GST_PAD_UNKNOWN: direction is unknown.
- * @GST_PAD_SRC: the pad is a source pad.
- * @GST_PAD_SINK: the pad is a sink pad.
- *
- * The direction of a pad.
-  }
-
   PGstPadDirection = ^TGstPadDirection;
-  TGstPadDirection =  Longint;
-  Const
-    GST_PAD_UNKNOWN = 0;
-    GST_PAD_SRC = 1;
-    GST_PAD_SINK = 2;
-;
-{*
- * GstPadMode:
- * @GST_PAD_MODE_NONE: Pad will not handle dataflow
- * @GST_PAD_MODE_PUSH: Pad handles dataflow in downstream push mode
- * @GST_PAD_MODE_PULL: Pad handles dataflow in upstream pull mode
- *
- * The status of a GstPad. After activating a pad, which usually happens when the
- * parent element goes from READY to PAUSED, the GstPadMode defines if the
- * pad operates in push or pull mode.
-  }
+  TGstPadDirection = longint;
+const
+  GST_PAD_UNKNOWN = 0;
+  GST_PAD_SRC = 1;
+  GST_PAD_SINK = 2;
+
 type
   PGstPadMode = ^TGstPadMode;
-  TGstPadMode =  Longint;
-  Const
-    GST_PAD_MODE_NONE = 0;
-    GST_PAD_MODE_PUSH = 1;
-    GST_PAD_MODE_PULL = 2;
-;
-{$include <glib.h>}
+  TGstPadMode = longint;
+const
+  GST_PAD_MODE_NONE = 0;
+  GST_PAD_MODE_PUSH = 1;
+  GST_PAD_MODE_PULL = 2;
 
-function gst_pad_mode_get_name(mode:TGstPadMode):Pgchar;cdecl;external libgstreamer;
-{$include <gst/gstobject.h>}
-{$include <gst/gstbuffer.h>}
-{$include <gst/gstbufferlist.h>}
-{$include <gst/gstcaps.h>}
-{$include <gst/gstpadtemplate.h>}
-{$include <gst/gstevent.h>}
-{$include <gst/gstquery.h>}
-{$include <gst/gsttask.h>}
-{
- * Pad base class
-  }
-
-{ was #define dname def_expr }
-function GST_TYPE_PAD : longint; { return type might be wrong }
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_IS_PAD(obj : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_IS_PAD_CLASS(klass : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_PAD(obj : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_PAD_CLASS(klass : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-function GST_PAD_CAST(obj : longint) : PGstPad;
-
-{*
- * GstPadLinkReturn:
- * @GST_PAD_LINK_OK		: link succeeded
- * @GST_PAD_LINK_WRONG_HIERARCHY: pads have no common grandparent
- * @GST_PAD_LINK_WAS_LINKED	: pad was already linked
- * @GST_PAD_LINK_WRONG_DIRECTION: pads have wrong direction
- * @GST_PAD_LINK_NOFORMAT	: pads do not have common format
- * @GST_PAD_LINK_NOSCHED	: pads cannot cooperate in scheduling
- * @GST_PAD_LINK_REFUSED	: refused for some reason
- *
- * Result values from gst_pad_link and friends.
-  }
 type
   PGstPadLinkReturn = ^TGstPadLinkReturn;
-  TGstPadLinkReturn =  Longint;
-  Const
-    GST_PAD_LINK_OK = 0;
-    GST_PAD_LINK_WRONG_HIERARCHY = -(1);
-    GST_PAD_LINK_WAS_LINKED = -(2);
-    GST_PAD_LINK_WRONG_DIRECTION = -(3);
-    GST_PAD_LINK_NOFORMAT = -(4);
-    GST_PAD_LINK_NOSCHED = -(5);
-    GST_PAD_LINK_REFUSED = -(6);
-;
-{*
- * GST_PAD_LINK_FAILED:
- * @ret: the #GstPadLinkReturn value
- *
- * Macro to test if the given #GstPadLinkReturn value indicates a failed
- * link step.
-  }
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
+  TGstPadLinkReturn = longint;
+const
+  GST_PAD_LINK_OK = 0;
+  GST_PAD_LINK_WRONG_HIERARCHY = -(1);
+  GST_PAD_LINK_WAS_LINKED = -(2);
+  GST_PAD_LINK_WRONG_DIRECTION = -(3);
+  GST_PAD_LINK_NOFORMAT = -(4);
+  GST_PAD_LINK_NOSCHED = -(5);
+  GST_PAD_LINK_REFUSED = -(6);
 
-function GST_PAD_LINK_FAILED(ret : longint) : longint;
-
-{*
- * GST_PAD_LINK_SUCCESSFUL:
- * @ret: the #GstPadLinkReturn value
- *
- * Macro to test if the given #GstPadLinkReturn value indicates a successful
- * link step.
-  }
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_PAD_LINK_SUCCESSFUL(ret : longint) : longint;
-
-{*
- * GstFlowReturn:
- * @GST_FLOW_OK:		 Data passing was ok.
- * @GST_FLOW_NOT_LINKED:	 Pad is not linked.
- * @GST_FLOW_FLUSHING:	         Pad is flushing.
- * @GST_FLOW_EOS:                Pad is EOS.
- * @GST_FLOW_NOT_NEGOTIATED:	 Pad is not negotiated.
- * @GST_FLOW_ERROR:		 Some (fatal) error occurred. Element generating
- *                               this error should post an error message using
- *                               GST_ELEMENT_ERROR() with more details.
- * @GST_FLOW_NOT_SUPPORTED:	 This operation is not supported.
- * @GST_FLOW_CUSTOM_SUCCESS:	 Elements can use values starting from
- *                               this (and higher) to define custom success
- *                               codes.
- * @GST_FLOW_CUSTOM_SUCCESS_1:	 Pre-defined custom success code (define your
- *                               custom success code to this to avoid compiler
- *                               warnings).
- * @GST_FLOW_CUSTOM_SUCCESS_2:	 Pre-defined custom success code.
- * @GST_FLOW_CUSTOM_ERROR:	 Elements can use values starting from
- *                               this (and lower) to define custom error codes.
- * @GST_FLOW_CUSTOM_ERROR_1:	 Pre-defined custom error code (define your
- *                               custom error code to this to avoid compiler
- *                               warnings).
- * @GST_FLOW_CUSTOM_ERROR_2:	 Pre-defined custom error code.
- *
- * The result of passing data to a pad.
- *
- * Note that the custom return values should not be exposed outside of the
- * element scope.
-  }
-{ custom success starts here  }
-{ core predefined  }
-{ expected failures  }
-{ error cases  }
-{ custom error starts here  }
 type
   PGstFlowReturn = ^TGstFlowReturn;
-  TGstFlowReturn =  Longint;
-  Const
-    GST_FLOW_CUSTOM_SUCCESS_2 = 102;
-    GST_FLOW_CUSTOM_SUCCESS_1 = 101;
-    GST_FLOW_CUSTOM_SUCCESS = 100;
-    GST_FLOW_OK = 0;
-    GST_FLOW_NOT_LINKED = -(1);
-    GST_FLOW_FLUSHING = -(2);
-    GST_FLOW_EOS = -(3);
-    GST_FLOW_NOT_NEGOTIATED = -(4);
-    GST_FLOW_ERROR = -(5);
-    GST_FLOW_NOT_SUPPORTED = -(6);
-    GST_FLOW_CUSTOM_ERROR = -(100);
-    GST_FLOW_CUSTOM_ERROR_1 = -(101);
-    GST_FLOW_CUSTOM_ERROR_2 = -(102);
-;
+  TGstFlowReturn = longint;
+const
+  GST_FLOW_CUSTOM_SUCCESS_2 = 102;
+  GST_FLOW_CUSTOM_SUCCESS_1 = 101;
+  GST_FLOW_CUSTOM_SUCCESS = 100;
+  GST_FLOW_OK = 0;
+  GST_FLOW_NOT_LINKED = -(1);
+  GST_FLOW_FLUSHING = -(2);
+  GST_FLOW_EOS = -(3);
+  GST_FLOW_NOT_NEGOTIATED = -(4);
+  GST_FLOW_ERROR = -(5);
+  GST_FLOW_NOT_SUPPORTED = -(6);
+  GST_FLOW_CUSTOM_ERROR = -(100);
+  GST_FLOW_CUSTOM_ERROR_1 = -(101);
+  GST_FLOW_CUSTOM_ERROR_2 = -(102);
 
-function gst_flow_get_name(ret:TGstFlowReturn):Pgchar;cdecl;external libgstreamer;
-function gst_flow_to_quark(ret:TGstFlowReturn):TGQuark;cdecl;external libgstreamer;
-function gst_pad_link_get_name(ret:TGstPadLinkReturn):Pgchar;cdecl;external libgstreamer;
-{*
- * GstPadLinkCheck:
- * @GST_PAD_LINK_CHECK_NOTHING: Don't check hierarchy or caps compatibility.
- * @GST_PAD_LINK_CHECK_HIERARCHY: Check the pads have same parents/grandparents.
- *   Could be omitted if it is already known that the two elements that own the
- *   pads are in the same bin.
- * @GST_PAD_LINK_CHECK_TEMPLATE_CAPS: Check if the pads are compatible by using
- *   their template caps. This is much faster than @GST_PAD_LINK_CHECK_CAPS, but
- *   would be unsafe e.g. if one pad has %GST_CAPS_ANY.
- * @GST_PAD_LINK_CHECK_CAPS: Check if the pads are compatible by comparing the
- *   caps returned by gst_pad_query_caps().
- * @GST_PAD_LINK_CHECK_NO_RECONFIGURE: Disables pushing a reconfigure event when pads are
- *   linked.
- * @GST_PAD_LINK_CHECK_DEFAULT: The default checks done when linking
- *   pads (i.e. the ones used by gst_pad_link()).
- *
- * The amount of checking to be done when linking pads. @GST_PAD_LINK_CHECK_CAPS
- * and @GST_PAD_LINK_CHECK_TEMPLATE_CAPS are mutually exclusive. If both are
- * specified, expensive but safe @GST_PAD_LINK_CHECK_CAPS are performed.
- *
- * > Only disable some of the checks if you are 100% certain you know the link
- * > will not fail because of hierarchy/caps compatibility failures. If uncertain,
- * > use the default checks (%GST_PAD_LINK_CHECK_DEFAULT) or the regular methods
- * > for linking the pads.
-  }
-{ Not really checks, more like flags
-   * Added here to avoid creating a new gst_pad_link_variant  }
 type
   PGstPadLinkCheck = ^TGstPadLinkCheck;
-  TGstPadLinkCheck =  Longint;
-  Const
-    GST_PAD_LINK_CHECK_NOTHING = 0;
-    GST_PAD_LINK_CHECK_HIERARCHY = 1 shl 0;
-    GST_PAD_LINK_CHECK_TEMPLATE_CAPS = 1 shl 1;
-    GST_PAD_LINK_CHECK_CAPS = 1 shl 2;
-    GST_PAD_LINK_CHECK_NO_RECONFIGURE = 1 shl 3;
-    GST_PAD_LINK_CHECK_DEFAULT = GST_PAD_LINK_CHECK_HIERARCHY or GST_PAD_LINK_CHECK_CAPS;
-;
-{ pad states  }
-{*
- * GstPadActivateFunction:
- * @pad: a #GstPad
- * @parent: the parent of @pad
- *
- * This function is called when the pad is activated during the element
- * READY to PAUSED state change. By default this function will call the
- * activate function that puts the pad in push mode but elements can
- * override this function to activate the pad in pull mode if they wish.
- *
- * Returns: %TRUE if the pad could be activated.
-  }
+  TGstPadLinkCheck = longint;
+const
+  GST_PAD_LINK_CHECK_NOTHING = 0;
+  GST_PAD_LINK_CHECK_HIERARCHY = 1 shl 0;
+  GST_PAD_LINK_CHECK_TEMPLATE_CAPS = 1 shl 1;
+  GST_PAD_LINK_CHECK_CAPS = 1 shl 2;
+  GST_PAD_LINK_CHECK_NO_RECONFIGURE = 1 shl 3;
+  GST_PAD_LINK_CHECK_DEFAULT = GST_PAD_LINK_CHECK_HIERARCHY or GST_PAD_LINK_CHECK_CAPS;
+
 type
-
-  TGstPadActivateFunction = function (pad:PGstPad; parent:PGstObject):Tgboolean;cdecl;
-{*
- * GstPadActivateModeFunction:
- * @pad: a #GstPad
- * @parent: the parent of @pad
- * @mode: the requested activation mode of @pad
- * @active: activate or deactivate the pad.
- *
- * The prototype of the push and pull activate functions.
- *
- * Returns: %TRUE if the pad could be activated or deactivated.
-  }
-
-  TGstPadActivateModeFunction = function (pad:PGstPad; parent:PGstObject; mode:TGstPadMode; active:Tgboolean):Tgboolean;cdecl;
-{ data passing  }
-{*
- * GstPadChainFunction:
- * @pad: the sink #GstPad that performed the chain.
- * @parent: (nullable): the parent of @pad. If the #GST_PAD_FLAG_NEED_PARENT
- *          flag is set, @parent is guaranteed to be not-%NULL and remain valid
- *          during the execution of this function.
- * @buffer: (transfer full): the #GstBuffer that is chained, not %NULL.
- *
- * A function that will be called on sinkpads when chaining buffers.
- * The function typically processes the data contained in the buffer and
- * either consumes the data or passes it on to the internally linked pad(s).
- *
- * The implementer of this function receives a refcount to @buffer and should
- * gst_buffer_unref() when the buffer is no longer needed.
- *
- * When a chain function detects an error in the data stream, it must post an
- * error on the bus and return an appropriate #GstFlowReturn value.
- *
- * Returns: #GST_FLOW_OK for success
-  }
-
-  TGstPadChainFunction = function (pad:PGstPad; parent:PGstObject; buffer:PGstBuffer):TGstFlowReturn;cdecl;
-{*
- * GstPadChainListFunction:
- * @pad: the sink #GstPad that performed the chain.
- * @parent: (nullable): the parent of @pad. If the #GST_PAD_FLAG_NEED_PARENT
- *          flag is set, @parent is guaranteed to be not-%NULL and remain valid
- *          during the execution of this function.
- * @list: (transfer full): the #GstBufferList that is chained, not %NULL.
- *
- * A function that will be called on sinkpads when chaining buffer lists.
- * The function typically processes the data contained in the buffer list and
- * either consumes the data or passes it on to the internally linked pad(s).
- *
- * The implementer of this function receives a refcount to @list and
- * should gst_buffer_list_unref() when the list is no longer needed.
- *
- * When a chainlist function detects an error in the data stream, it must
- * post an error on the bus and return an appropriate #GstFlowReturn value.
- *
- * Returns: #GST_FLOW_OK for success
-  }
-
-  TGstPadChainListFunction = function (pad:PGstPad; parent:PGstObject; list:PGstBufferList):TGstFlowReturn;cdecl;
-{*
- * GstPadGetRangeFunction:
- * @pad: the src #GstPad to perform the getrange on.
- * @parent: (nullable): the parent of @pad. If the #GST_PAD_FLAG_NEED_PARENT
- *          flag is set, @parent is guaranteed to be not-%NULL and remain valid
- *          during the execution of this function.
- * @offset: the offset of the range
- * @length: the length of the range
- * @buffer: a memory location to hold the result buffer, cannot be %NULL.
- *
- * This function will be called on source pads when a peer element
- * request a buffer at the specified @offset and @length. If this function
- * returns #GST_FLOW_OK, the result buffer will be stored in @buffer. The
- * contents of @buffer is invalid for any other return value.
- *
- * This function is installed on a source pad with
- * gst_pad_set_getrange_function() and can only be called on source pads after
- * they are successfully activated with gst_pad_activate_mode() with the
- * #GST_PAD_MODE_PULL.
- *
- * @offset and @length are always given in byte units. @offset must normally be a value
- * between 0 and the length in bytes of the data available on @pad. The
- * length (duration in bytes) can be retrieved with a #GST_QUERY_DURATION or with a
- * #GST_QUERY_SEEKING.
- *
- * Any @offset larger or equal than the length will make the function return
- * #GST_FLOW_EOS, which corresponds to EOS. In this case @buffer does not
- * contain a valid buffer.
- *
- * The buffer size of @buffer will only be smaller than @length when @offset is
- * near the end of the stream. In all other cases, the size of @buffer must be
- * exactly the requested size.
- *
- * It is allowed to call this function with a 0 @length and valid @offset, in
- * which case @buffer will contain a 0-sized buffer and the function returns
- * #GST_FLOW_OK.
- *
- * When this function is called with a -1 @offset, the sequentially next buffer
- * of length @length in the stream is returned.
- *
- * When this function is called with a -1 @length, a buffer with a default
- * optimal length is returned in @buffer. The length might depend on the value
- * of @offset.
- *
- * Returns: #GST_FLOW_OK for success and a valid buffer in @buffer. Any other
- * return value leaves @buffer undefined.
-  }
-
-  TGstPadGetRangeFunction = function (pad:PGstPad; parent:PGstObject; offset:Tguint64; length:Tguint; buffer:PPGstBuffer):TGstFlowReturn;cdecl;
-{*
- * GstPadEventFunction:
- * @pad: the #GstPad to handle the event.
- * @parent: (nullable): the parent of @pad. If the #GST_PAD_FLAG_NEED_PARENT
- *          flag is set, @parent is guaranteed to be not-%NULL and remain valid
- *          during the execution of this function.
- * @event: (transfer full): the #GstEvent to handle.
- *
- * Function signature to handle an event for the pad.
- *
- * Returns: %TRUE if the pad could handle the event.
-  }
-
-  TGstPadEventFunction = function (pad:PGstPad; parent:PGstObject; event:PGstEvent):Tgboolean;cdecl;
-{*
- * GstPadEventFullFunction:
- * @pad: the #GstPad to handle the event.
- * @parent: (nullable): the parent of @pad. If the #GST_PAD_FLAG_NEED_PARENT
- *          flag is set, @parent is guaranteed to be not-%NULL and remain valid
- *          during the execution of this function.
- * @event: (transfer full): the #GstEvent to handle.
- *
- * Function signature to handle an event for the pad.
- *
- * This variant is for specific elements that will take into account the
- * last downstream flow return (from a pad push), in which case they can
- * return it.
- *
- * Returns: %GST_FLOW_OK if the event was handled properly, or any other
- * #GstFlowReturn dependent on downstream state.
- *
- * Since: 1.8
-  }
-
-  TGstPadEventFullFunction = function (pad:PGstPad; parent:PGstObject; event:PGstEvent):TGstFlowReturn;cdecl;
-{ internal links  }
-{*
- * GstPadIterIntLinkFunction:
- * @pad: The #GstPad to query.
- * @parent: (nullable): the parent of @pad. If the #GST_PAD_FLAG_NEED_PARENT
- *          flag is set, @parent is guaranteed to be not-%NULL and remain valid
- *          during the execution of this function.
- *
- * The signature of the internal pad link iterator function.
- *
- * Returns: a new #GstIterator that will iterate over all pads that are
- * linked to the given pad on the inside of the parent element.
- *
- * the caller must call gst_iterator_free() after usage.
-  }
-
-  PGstPadIterIntLinkFunction = ^TGstPadIterIntLinkFunction;
-  TGstPadIterIntLinkFunction = function (pad:PGstPad; parent:PGstObject):PGstIterator;cdecl;
-{ generic query function  }
-{*
- * GstPadQueryFunction:
- * @pad: the #GstPad to query.
- * @parent: (nullable): the parent of @pad. If the #GST_PAD_FLAG_NEED_PARENT
- *          flag is set, @parent is guaranteed to be not-%NULL and remain valid
- *          during the execution of this function.
- * @query: the #GstQuery object to execute
- *
- * The signature of the query function.
- *
- * Returns: %TRUE if the query could be performed.
-  }
-
-  TGstPadQueryFunction = function (pad:PGstPad; parent:PGstObject; query:PGstQuery):Tgboolean;cdecl;
-{ linking  }
-{*
- * GstPadLinkFunction:
- * @pad: the #GstPad that is linked.
- * @parent: (nullable): the parent of @pad. If the #GST_PAD_FLAG_NEED_PARENT
- *          flag is set, @parent is guaranteed to be not-%NULL and remain valid
- *          during the execution of this function.
- * @peer: the peer #GstPad of the link
- *
- * Function signature to handle a new link on the pad.
- *
- * Returns: the result of the link with the specified peer.
-  }
-
-  TGstPadLinkFunction = function (pad:PGstPad; parent:PGstObject; peer:PGstPad):TGstPadLinkReturn;cdecl;
-{*
- * GstPadUnlinkFunction:
- * @pad: the #GstPad that is linked.
- * @parent: (nullable): the parent of @pad. If the #GST_PAD_FLAG_NEED_PARENT
- *          flag is set, @parent is guaranteed to be not-%NULL and remain valid
- *          during the execution of this function.
- *
- * Function signature to handle a unlinking the pad prom its peer.
- *
- * The pad's lock is already held when the unlink function is called, so most
- * pad functions cannot be called from within the callback.
-  }
-
-  TGstPadUnlinkFunction = procedure (pad:PGstPad; parent:PGstObject);cdecl;
-{ misc  }
-{*
- * GstPadForwardFunction:
- * @pad: the #GstPad that is forwarded.
- * @user_data: the gpointer to optional user data.
- *
- * A forward function is called for all internally linked pads, see
- * gst_pad_forward().
- *
- * Returns: %TRUE if the dispatching procedure has to be stopped.
-  }
-
-  TGstPadForwardFunction = function (pad:PGstPad; user_data:Tgpointer):Tgboolean;cdecl;
-{*
- * GstPadProbeType:
- * @GST_PAD_PROBE_TYPE_INVALID: invalid probe type
- * @GST_PAD_PROBE_TYPE_IDLE: probe idle pads and block while the callback is called
- * @GST_PAD_PROBE_TYPE_BLOCK: probe and block pads
- * @GST_PAD_PROBE_TYPE_BUFFER: probe buffers
- * @GST_PAD_PROBE_TYPE_BUFFER_LIST: probe buffer lists
- * @GST_PAD_PROBE_TYPE_EVENT_DOWNSTREAM: probe downstream events
- * @GST_PAD_PROBE_TYPE_EVENT_UPSTREAM: probe upstream events
- * @GST_PAD_PROBE_TYPE_EVENT_FLUSH: probe flush events. This probe has to be
- *     explicitly enabled and is not included in the
- *     @@GST_PAD_PROBE_TYPE_EVENT_DOWNSTREAM or
- *     @@GST_PAD_PROBE_TYPE_EVENT_UPSTREAM probe types.
- * @GST_PAD_PROBE_TYPE_QUERY_DOWNSTREAM: probe downstream queries
- * @GST_PAD_PROBE_TYPE_QUERY_UPSTREAM: probe upstream queries
- * @GST_PAD_PROBE_TYPE_PUSH: probe push
- * @GST_PAD_PROBE_TYPE_PULL: probe pull
- * @GST_PAD_PROBE_TYPE_BLOCKING: probe and block at the next opportunity, at data flow or when idle
- * @GST_PAD_PROBE_TYPE_DATA_DOWNSTREAM: probe downstream data (buffers, buffer lists, and events)
- * @GST_PAD_PROBE_TYPE_DATA_UPSTREAM: probe upstream data (events)
- * @GST_PAD_PROBE_TYPE_DATA_BOTH: probe upstream and downstream data (buffers, buffer lists, and events)
- * @GST_PAD_PROBE_TYPE_BLOCK_DOWNSTREAM: probe and block downstream data (buffers, buffer lists, and events)
- * @GST_PAD_PROBE_TYPE_BLOCK_UPSTREAM: probe and block upstream data (events)
- * @GST_PAD_PROBE_TYPE_EVENT_BOTH: probe upstream and downstream events
- * @GST_PAD_PROBE_TYPE_QUERY_BOTH: probe upstream and downstream queries
- * @GST_PAD_PROBE_TYPE_ALL_BOTH: probe upstream events and queries and downstream buffers, buffer lists, events and queries
- * @GST_PAD_PROBE_TYPE_SCHEDULING: probe push and pull
- *
- * The different probing types that can occur. When either one of
- * @GST_PAD_PROBE_TYPE_IDLE or @GST_PAD_PROBE_TYPE_BLOCK is used, the probe will be a
- * blocking probe.
-  }
-{ flags to control blocking  }
-{ flags to select datatypes  }
-{ flags to select scheduling mode  }
-{ flag combinations  }
-
   PGstPadProbeType = ^TGstPadProbeType;
-  TGstPadProbeType =  Longint;
-  Const
-    GST_PAD_PROBE_TYPE_INVALID = 0;
-    GST_PAD_PROBE_TYPE_IDLE = 1 shl 0;
-    GST_PAD_PROBE_TYPE_BLOCK = 1 shl 1;
-    GST_PAD_PROBE_TYPE_BUFFER = 1 shl 4;
-    GST_PAD_PROBE_TYPE_BUFFER_LIST = 1 shl 5;
-    GST_PAD_PROBE_TYPE_EVENT_DOWNSTREAM = 1 shl 6;
-    GST_PAD_PROBE_TYPE_EVENT_UPSTREAM = 1 shl 7;
-    GST_PAD_PROBE_TYPE_EVENT_FLUSH = 1 shl 8;
-    GST_PAD_PROBE_TYPE_QUERY_DOWNSTREAM = 1 shl 9;
-    GST_PAD_PROBE_TYPE_QUERY_UPSTREAM = 1 shl 10;
-    GST_PAD_PROBE_TYPE_PUSH = 1 shl 12;
-    GST_PAD_PROBE_TYPE_PULL = 1 shl 13;
-    GST_PAD_PROBE_TYPE_BLOCKING = GST_PAD_PROBE_TYPE_IDLE or GST_PAD_PROBE_TYPE_BLOCK;
-    GST_PAD_PROBE_TYPE_DATA_DOWNSTREAM = (GST_PAD_PROBE_TYPE_BUFFER or GST_PAD_PROBE_TYPE_BUFFER_LIST) or GST_PAD_PROBE_TYPE_EVENT_DOWNSTREAM;
-    GST_PAD_PROBE_TYPE_DATA_UPSTREAM = GST_PAD_PROBE_TYPE_EVENT_UPSTREAM;
-    GST_PAD_PROBE_TYPE_DATA_BOTH = GST_PAD_PROBE_TYPE_DATA_DOWNSTREAM or GST_PAD_PROBE_TYPE_DATA_UPSTREAM;
-    GST_PAD_PROBE_TYPE_BLOCK_DOWNSTREAM = GST_PAD_PROBE_TYPE_BLOCK or GST_PAD_PROBE_TYPE_DATA_DOWNSTREAM;
-    GST_PAD_PROBE_TYPE_BLOCK_UPSTREAM = GST_PAD_PROBE_TYPE_BLOCK or GST_PAD_PROBE_TYPE_DATA_UPSTREAM;
-    GST_PAD_PROBE_TYPE_EVENT_BOTH = GST_PAD_PROBE_TYPE_EVENT_DOWNSTREAM or GST_PAD_PROBE_TYPE_EVENT_UPSTREAM;
-    GST_PAD_PROBE_TYPE_QUERY_BOTH = GST_PAD_PROBE_TYPE_QUERY_DOWNSTREAM or GST_PAD_PROBE_TYPE_QUERY_UPSTREAM;
-    GST_PAD_PROBE_TYPE_ALL_BOTH = GST_PAD_PROBE_TYPE_DATA_BOTH or GST_PAD_PROBE_TYPE_QUERY_BOTH;
-    GST_PAD_PROBE_TYPE_SCHEDULING = GST_PAD_PROBE_TYPE_PUSH or GST_PAD_PROBE_TYPE_PULL;
-;
-{*
- * GstPadProbeReturn:
- * @GST_PAD_PROBE_OK: normal probe return value. This leaves the probe in
- *        place, and defers decisions about dropping or passing data to other
- *        probes, if any. If there are no other probes, the default behaviour
- *        for the probe type applies ('block' for blocking probes,
- *        and 'pass' for non-blocking probes).
- * @GST_PAD_PROBE_DROP: drop data in data probes. For push mode this means that
- *        the data item is not sent downstream. For pull mode, it means that
- *        the data item is not passed upstream. In both cases, no other probes
- *        are called for this item and %GST_FLOW_OK or %TRUE is returned to the
- *        caller.
- * @GST_PAD_PROBE_REMOVE: remove this probe, passing the data. For blocking probes
- *        this will cause data flow to unblock, unless there are also other
- *        blocking probes installed.
- * @GST_PAD_PROBE_PASS: pass the data item in the block probe and block on the
- *        next item. Note, that if there are multiple pad probes installed and
- *        any probe returns PASS, the data will be passed.
- * @GST_PAD_PROBE_HANDLED: Data has been handled in the probe and will not be
- *        forwarded further. For events and buffers this is the same behaviour as
- *        %GST_PAD_PROBE_DROP (except that in this case you need to unref the buffer
- *        or event yourself). For queries it will also return %TRUE to the caller.
- *        The probe can also modify the #GstFlowReturn value by using the
- *        #GST_PAD_PROBE_INFO_FLOW_RETURN() accessor.
- *        Note that the resulting query must contain valid entries.
- *        Since: 1.6
- *
- * Different return values for the #GstPadProbeCallback.
-  }
+  TGstPadProbeType = longint;
+const
+  GST_PAD_PROBE_TYPE_INVALID = 0;
+  GST_PAD_PROBE_TYPE_IDLE = 1 shl 0;
+  GST_PAD_PROBE_TYPE_BLOCK = 1 shl 1;
+  GST_PAD_PROBE_TYPE_BUFFER = 1 shl 4;
+  GST_PAD_PROBE_TYPE_BUFFER_LIST = 1 shl 5;
+  GST_PAD_PROBE_TYPE_EVENT_DOWNSTREAM = 1 shl 6;
+  GST_PAD_PROBE_TYPE_EVENT_UPSTREAM = 1 shl 7;
+  GST_PAD_PROBE_TYPE_EVENT_FLUSH = 1 shl 8;
+  GST_PAD_PROBE_TYPE_QUERY_DOWNSTREAM = 1 shl 9;
+  GST_PAD_PROBE_TYPE_QUERY_UPSTREAM = 1 shl 10;
+  GST_PAD_PROBE_TYPE_PUSH = 1 shl 12;
+  GST_PAD_PROBE_TYPE_PULL = 1 shl 13;
+  GST_PAD_PROBE_TYPE_BLOCKING = GST_PAD_PROBE_TYPE_IDLE or GST_PAD_PROBE_TYPE_BLOCK;
+  GST_PAD_PROBE_TYPE_DATA_DOWNSTREAM = (GST_PAD_PROBE_TYPE_BUFFER or GST_PAD_PROBE_TYPE_BUFFER_LIST) or GST_PAD_PROBE_TYPE_EVENT_DOWNSTREAM;
+  GST_PAD_PROBE_TYPE_DATA_UPSTREAM = GST_PAD_PROBE_TYPE_EVENT_UPSTREAM;
+  GST_PAD_PROBE_TYPE_DATA_BOTH = GST_PAD_PROBE_TYPE_DATA_DOWNSTREAM or GST_PAD_PROBE_TYPE_DATA_UPSTREAM;
+  GST_PAD_PROBE_TYPE_BLOCK_DOWNSTREAM = GST_PAD_PROBE_TYPE_BLOCK or GST_PAD_PROBE_TYPE_DATA_DOWNSTREAM;
+  GST_PAD_PROBE_TYPE_BLOCK_UPSTREAM = GST_PAD_PROBE_TYPE_BLOCK or GST_PAD_PROBE_TYPE_DATA_UPSTREAM;
+  GST_PAD_PROBE_TYPE_EVENT_BOTH = GST_PAD_PROBE_TYPE_EVENT_DOWNSTREAM or GST_PAD_PROBE_TYPE_EVENT_UPSTREAM;
+  GST_PAD_PROBE_TYPE_QUERY_BOTH = GST_PAD_PROBE_TYPE_QUERY_DOWNSTREAM or GST_PAD_PROBE_TYPE_QUERY_UPSTREAM;
+  GST_PAD_PROBE_TYPE_ALL_BOTH = GST_PAD_PROBE_TYPE_DATA_BOTH or GST_PAD_PROBE_TYPE_QUERY_BOTH;
+  GST_PAD_PROBE_TYPE_SCHEDULING = GST_PAD_PROBE_TYPE_PUSH or GST_PAD_PROBE_TYPE_PULL;
+
 type
   PGstPadProbeReturn = ^TGstPadProbeReturn;
-  TGstPadProbeReturn =  Longint;
-  Const
-    GST_PAD_PROBE_DROP = 0;
-    GST_PAD_PROBE_OK = 1;
-    GST_PAD_PROBE_REMOVE = 2;
-    GST_PAD_PROBE_PASS = 3;
-    GST_PAD_PROBE_HANDLED = 4;
-;
-{*
- * GstPadProbeInfo:
- * @type: the current probe type
- * @id: the id of the probe
- * @data: (nullable): type specific data, check the @type field to know the
- *    datatype.  This field can be %NULL.
- * @offset: offset of pull probe, this field is valid when @type contains
- *    #GST_PAD_PROBE_TYPE_PULL
- * @size: size of pull probe, this field is valid when @type contains
- *    #GST_PAD_PROBE_TYPE_PULL
- *
- * Info passed in the #GstPadProbeCallback.
-  }
-{< private > }
+  TGstPadProbeReturn = longint;
+const
+  GST_PAD_PROBE_DROP = 0;
+  GST_PAD_PROBE_OK = 1;
+  GST_PAD_PROBE_REMOVE = 2;
+  GST_PAD_PROBE_PASS = 3;
+  GST_PAD_PROBE_HANDLED = 4;
+
+type
+  PGstPadFlags = ^TGstPadFlags;
+  TGstPadFlags = longint;
+const
+  GST_PAD_FLAG_BLOCKED = GST_OBJECT_FLAG_LAST shl 0;
+  GST_PAD_FLAG_FLUSHING = GST_OBJECT_FLAG_LAST shl 1;
+  GST_PAD_FLAG_EOS = GST_OBJECT_FLAG_LAST shl 2;
+  GST_PAD_FLAG_BLOCKING = GST_OBJECT_FLAG_LAST shl 3;
+  GST_PAD_FLAG_NEED_PARENT = GST_OBJECT_FLAG_LAST shl 4;
+  GST_PAD_FLAG_NEED_RECONFIGURE = GST_OBJECT_FLAG_LAST shl 5;
+  GST_PAD_FLAG_PENDING_EVENTS = GST_OBJECT_FLAG_LAST shl 6;
+  GST_PAD_FLAG_FIXED_CAPS = GST_OBJECT_FLAG_LAST shl 7;
+  GST_PAD_FLAG_PROXY_CAPS = GST_OBJECT_FLAG_LAST shl 8;
+  GST_PAD_FLAG_PROXY_ALLOCATION = GST_OBJECT_FLAG_LAST shl 9;
+  GST_PAD_FLAG_PROXY_SCHEDULING = GST_OBJECT_FLAG_LAST shl 10;
+  GST_PAD_FLAG_ACCEPT_INTERSECT = GST_OBJECT_FLAG_LAST shl 11;
+  GST_PAD_FLAG_ACCEPT_TEMPLATE = GST_OBJECT_FLAG_LAST shl 12;
+  GST_PAD_FLAG_LAST = GST_OBJECT_FLAG_LAST shl 16;
+  {$ENDIF read_enum}
+
+  {$IFDEF read_struct}
 type
   PGstPadProbeInfo = ^TGstPadProbeInfo;
   TGstPadProbeInfo = record
-      _type : TGstPadProbeType;
-      id : Tgulong;
-      data : Tgpointer;
-      offset : Tguint64;
-      size : Tguint;
-      ABI : record
-          case longint of
-            0 : ( _gst_reserved : array[0..(GST_PADDING)-1] of Tgpointer );
-            1 : ( abi : record
-                flow_ret : TGstFlowReturn;
-              end );
-          end;
-    end;
+    _type: TGstPadProbeType;
+    id: Tgulong;
+    data: Tgpointer;
+    offset: Tguint64;
+    size: Tguint;
+    ABI: record
+      case longint of
+        0: (_gst_reserved: array[0..(GST_PADDING) - 1] of Tgpointer);
+        1: (abi: record
+            flow_ret: TGstFlowReturn;
+            end);
+      end;
+  end;
 
-
-function gst_pad_probe_info_get_type(info:PGstPadProbeInfo):TGstPadProbeType;cdecl;external libgstreamer;
-function gst_pad_probe_info_get_id(info:PGstPadProbeInfo):Tgulong;cdecl;external libgstreamer;
-function gst_pad_probe_info_get_offset(info:PGstPadProbeInfo):Tguint64;cdecl;external libgstreamer;
-function gst_pad_probe_info_get_size(info:PGstPadProbeInfo):Tgsize;cdecl;external libgstreamer;
-function gst_pad_probe_info_get_flow_return(info:PGstPadProbeInfo):TGstFlowReturn;cdecl;external libgstreamer;
-function gst_pad_probe_info_get_event(info:PGstPadProbeInfo):PGstEvent;cdecl;external libgstreamer;
-function gst_pad_probe_info_get_query(info:PGstPadProbeInfo):PGstQuery;cdecl;external libgstreamer;
-function gst_pad_probe_info_get_buffer(info:PGstPadProbeInfo):PGstBuffer;cdecl;external libgstreamer;
-function gst_pad_probe_info_get_buffer_list(info:PGstPadProbeInfo):PGstBufferList;cdecl;external libgstreamer;
-procedure gst_pad_probe_info_set_event(info:PGstPadProbeInfo; event:PGstEvent);cdecl;external libgstreamer;
-procedure gst_pad_probe_info_set_buffer(info:PGstPadProbeInfo; buffer:PGstBuffer);cdecl;external libgstreamer;
-procedure gst_pad_probe_info_set_buffer_list(info:PGstPadProbeInfo; list:PGstBufferList);cdecl;external libgstreamer;
-procedure gst_pad_probe_info_set_flow_return(info:PGstPadProbeInfo; flow_ret:TGstFlowReturn);cdecl;external libgstreamer;
-{*
- * GstPadProbeCallback:
- * @pad: the #GstPad that is blocked
- * @info: #GstPadProbeInfo
- * @user_data: the gpointer to optional user data.
- *
- * Callback used by gst_pad_add_probe(). Gets called to notify about the current
- * blocking type.
- *
- * The callback is allowed to modify the data pointer in @info.
- *
- * Returns: a #GstPadProbeReturn
-  }
-type
-
-  TGstPadProbeCallback = function (pad:PGstPad; info:PGstPadProbeInfo; user_data:Tgpointer):TGstPadProbeReturn;cdecl;
-{*
- * GstPadStickyEventsForeachFunction:
- * @pad: the #GstPad.
- * @event: (inout) (nullable): a sticky #GstEvent.
- * @user_data: the #gpointer to optional user data.
- *
- * Callback used by gst_pad_sticky_events_foreach().
- *
- * When this function returns %TRUE, the next event will be
- * returned. When %FALSE is returned, gst_pad_sticky_events_foreach() will return.
- *
- * When @event is set to %NULL, the item will be removed from the list of sticky events.
- * @event can be replaced by assigning a new reference to it.
- * This function is responsible for unreffing the old event when
- * removing or modifying.
- *
- * Returns: %TRUE if the iteration should continue
-  }
-
-  TGstPadStickyEventsForeachFunction = function (pad:PGstPad; event:PPGstEvent; user_data:Tgpointer):Tgboolean;cdecl;
-{*
- * GstPadFlags:
- * @GST_PAD_FLAG_BLOCKED: is dataflow on a pad blocked
- * @GST_PAD_FLAG_FLUSHING: is pad flushing
- * @GST_PAD_FLAG_EOS: is pad in EOS state
- * @GST_PAD_FLAG_BLOCKING: is pad currently blocking on a buffer or event
- * @GST_PAD_FLAG_NEED_PARENT: ensure that there is a parent object before calling
- *                       into the pad callbacks.
- * @GST_PAD_FLAG_NEED_RECONFIGURE: the pad should be reconfigured/renegotiated.
- *                            The flag has to be unset manually after
- *                            reconfiguration happened.
- * @GST_PAD_FLAG_PENDING_EVENTS: the pad has pending events
- * @GST_PAD_FLAG_FIXED_CAPS: the pad is using fixed caps. This means that
- *     once the caps are set on the pad, the default caps query function
- *     will only return those caps.
- * @GST_PAD_FLAG_PROXY_CAPS: the default event and query handler will forward
- *                      all events and queries to the internally linked pads
- *                      instead of discarding them.
- * @GST_PAD_FLAG_PROXY_ALLOCATION: the default query handler will forward
- *                      allocation queries to the internally linked pads
- *                      instead of discarding them.
- * @GST_PAD_FLAG_PROXY_SCHEDULING: the default query handler will forward
- *                      scheduling queries to the internally linked pads
- *                      instead of discarding them.
- * @GST_PAD_FLAG_ACCEPT_INTERSECT: the default accept-caps handler will check
- *                      it the caps intersect the query-caps result instead
- *                      of checking for a subset. This is interesting for
- *                      parsers that can accept incompletely specified caps.
- * @GST_PAD_FLAG_ACCEPT_TEMPLATE: the default accept-caps handler will use
- *                      the template pad caps instead of query caps to
- *                      compare with the accept caps. Use this in combination
- *                      with %GST_PAD_FLAG_ACCEPT_INTERSECT. (Since: 1.6)
- * @GST_PAD_FLAG_LAST: offset to define more flags
- *
- * Pad state flags
-  }
-{ padding  }
-
-  PGstPadFlags = ^TGstPadFlags;
-  TGstPadFlags =  Longint;
-  Const
-    GST_PAD_FLAG_BLOCKED = GST_OBJECT_FLAG_LAST shl 0;
-    GST_PAD_FLAG_FLUSHING = GST_OBJECT_FLAG_LAST shl 1;
-    GST_PAD_FLAG_EOS = GST_OBJECT_FLAG_LAST shl 2;
-    GST_PAD_FLAG_BLOCKING = GST_OBJECT_FLAG_LAST shl 3;
-    GST_PAD_FLAG_NEED_PARENT = GST_OBJECT_FLAG_LAST shl 4;
-    GST_PAD_FLAG_NEED_RECONFIGURE = GST_OBJECT_FLAG_LAST shl 5;
-    GST_PAD_FLAG_PENDING_EVENTS = GST_OBJECT_FLAG_LAST shl 6;
-    GST_PAD_FLAG_FIXED_CAPS = GST_OBJECT_FLAG_LAST shl 7;
-    GST_PAD_FLAG_PROXY_CAPS = GST_OBJECT_FLAG_LAST shl 8;
-    GST_PAD_FLAG_PROXY_ALLOCATION = GST_OBJECT_FLAG_LAST shl 9;
-    GST_PAD_FLAG_PROXY_SCHEDULING = GST_OBJECT_FLAG_LAST shl 10;
-    GST_PAD_FLAG_ACCEPT_INTERSECT = GST_OBJECT_FLAG_LAST shl 11;
-    GST_PAD_FLAG_ACCEPT_TEMPLATE = GST_OBJECT_FLAG_LAST shl 12;
-    GST_PAD_FLAG_LAST = GST_OBJECT_FLAG_LAST shl 16;
-;
-{*
- * GstPad:
- * @element_private: private data owned by the parent element
- * @padtemplate: padtemplate for this pad
- * @direction: the direction of the pad, cannot change after creating
- *             the pad.
- *
- * The #GstPad structure. Use the functions to update the variables.
-  }
-{< public > }
-{< private > }
-{ streaming rec_lock  }
-{ block cond, mutex is from the object  }
-{ pad link  }
-{ data transport functions  }
-{ pad offset  }
-{ generic query method  }
-{ internal links  }
-{ counts number of probes attached.  }
-type
   PGstPad = ^TGstPad;
-  TGstPad = record
-      object : TGstObject;
-      element_private : Tgpointer;
-      padtemplate : PGstPadTemplate;
-      direction : TGstPadDirection;
-      stream_rec_lock : TGRecMutex;
-      task : PGstTask;
-      block_cond : TGCond;
-      probes : TGHookList;
-      mode : TGstPadMode;
-      activatefunc : TGstPadActivateFunction;
-      activatedata : Tgpointer;
-      activatenotify : TGDestroyNotify;
-      activatemodefunc : TGstPadActivateModeFunction;
-      activatemodedata : Tgpointer;
-      activatemodenotify : TGDestroyNotify;
-      peer : PGstPad;
-      linkfunc : TGstPadLinkFunction;
-      linkdata : Tgpointer;
-      linknotify : TGDestroyNotify;
-      unlinkfunc : TGstPadUnlinkFunction;
-      unlinkdata : Tgpointer;
-      unlinknotify : TGDestroyNotify;
-      chainfunc : TGstPadChainFunction;
-      chaindata : Tgpointer;
-      chainnotify : TGDestroyNotify;
-      chainlistfunc : TGstPadChainListFunction;
-      chainlistdata : Tgpointer;
-      chainlistnotify : TGDestroyNotify;
-      getrangefunc : TGstPadGetRangeFunction;
-      getrangedata : Tgpointer;
-      getrangenotify : TGDestroyNotify;
-      eventfunc : TGstPadEventFunction;
-      eventdata : Tgpointer;
-      eventnotify : TGDestroyNotify;
-      offset : Tgint64;
-      queryfunc : TGstPadQueryFunction;
-      querydata : Tgpointer;
-      querynotify : TGDestroyNotify;
-      iterintlinkfunc : TGstPadIterIntLinkFunction;
-      iterintlinkdata : Tgpointer;
-      iterintlinknotify : TGDestroyNotify;
-      num_probes : Tgint;
-      num_blocked : Tgint;
-      priv : PGstPadPrivate;
-      ABI : record
-          case longint of
-            0 : ( _gst_reserved : array[0..(GST_PADDING)-1] of Tgpointer );
-            1 : ( abi : record
-                last_flowret : TGstFlowReturn;
-                eventfullfunc : TGstPadEventFullFunction;
-              end );
-          end;
-    end;
 
-{ signal callbacks  }
-{< private > }
+  TGstPadProbeCallback = function(pad: PGstPad; info: PGstPadProbeInfo; user_data: Tgpointer): TGstPadProbeReturn; cdecl;
+  TGstPadStickyEventsForeachFunction = function(pad: PGstPad; event: PPGstEvent; user_data: Tgpointer): Tgboolean; cdecl;
+
+  TGstPad = record
+    obj: TGstObject;
+    element_private: Tgpointer;
+    padtemplate: PGstPadTemplate;
+    direction: TGstPadDirection;
+    stream_rec_lock: TGRecMutex;
+    task: PGstTask;
+    block_cond: TGCond;
+    probes: TGHookList;
+    mode: TGstPadMode;
+    activatefunc: TGstPadActivateFunction;
+    activatedata: Tgpointer;
+    activatenotify: TGDestroyNotify;
+    activatemodefunc: TGstPadActivateModeFunction;
+    activatemodedata: Tgpointer;
+    activatemodenotify: TGDestroyNotify;
+    peer: PGstPad;
+    linkfunc: TGstPadLinkFunction;
+    linkdata: Tgpointer;
+    linknotify: TGDestroyNotify;
+    unlinkfunc: TGstPadUnlinkFunction;
+    unlinkdata: Tgpointer;
+    unlinknotify: TGDestroyNotify;
+    chainfunc: TGstPadChainFunction;
+    chaindata: Tgpointer;
+    chainnotify: TGDestroyNotify;
+    chainlistfunc: TGstPadChainListFunction;
+    chainlistdata: Tgpointer;
+    chainlistnotify: TGDestroyNotify;
+    getrangefunc: TGstPadGetRangeFunction;
+    getrangedata: Tgpointer;
+    getrangenotify: TGDestroyNotify;
+    eventfunc: TGstPadEventFunction;
+    eventdata: Tgpointer;
+    eventnotify: TGDestroyNotify;
+    offset: Tgint64;
+    queryfunc: TGstPadQueryFunction;
+    querydata: Tgpointer;
+    querynotify: TGDestroyNotify;
+    iterintlinkfunc: TGstPadIterIntLinkFunction;
+    iterintlinkdata: Tgpointer;
+    iterintlinknotify: TGDestroyNotify;
+    num_probes: Tgint;
+    num_blocked: Tgint;
+    priv: PGstPadPrivate;
+    ABI: record
+      case longint of
+        0: (_gst_reserved: array[0..(GST_PADDING) - 1] of Tgpointer);
+        1: (abi: record
+            last_flowret: TGstFlowReturn;
+            eventfullfunc: TGstPadEventFullFunction;
+            end);
+      end;
+  end;
+
   PGstPadClass = ^TGstPadClass;
   TGstPadClass = record
-      parent_class : TGstObjectClass;
-      linked : procedure (pad:PGstPad; peer:PGstPad);cdecl;
-      unlinked : procedure (pad:PGstPad; peer:PGstPad);cdecl;
-      _gst_reserved : array[0..(GST_PADDING)-1] of Tgpointer;
-    end;
+    parent_class: TGstObjectClass;
+    linked: procedure(pad: PGstPad; peer: PGstPad); cdecl;
+    unlinked: procedure(pad: PGstPad; peer: PGstPad); cdecl;
+    _gst_reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
+  end;
 
 
-function gst_pad_get_type:TGType;cdecl;external libgstreamer;
-{ creating pads  }
-function gst_pad_new(name:Pgchar; direction:TGstPadDirection):PGstPad;cdecl;external libgstreamer;
-function gst_pad_new_from_template(templ:PGstPadTemplate; name:Pgchar):PGstPad;cdecl;external libgstreamer;
-function gst_pad_new_from_static_template(templ:PGstStaticPadTemplate; name:Pgchar):PGstPad;cdecl;external libgstreamer;
-function gst_pad_get_direction(pad:PGstPad):TGstPadDirection;cdecl;external libgstreamer;
-function gst_pad_set_active(pad:PGstPad; active:Tgboolean):Tgboolean;cdecl;external libgstreamer;
-function gst_pad_is_active(pad:PGstPad):Tgboolean;cdecl;external libgstreamer;
-function gst_pad_activate_mode(pad:PGstPad; mode:TGstPadMode; active:Tgboolean):Tgboolean;cdecl;external libgstreamer;
-function gst_pad_add_probe(pad:PGstPad; mask:TGstPadProbeType; callback:TGstPadProbeCallback; user_data:Tgpointer; destroy_data:TGDestroyNotify):Tgulong;cdecl;external libgstreamer;
-procedure gst_pad_remove_probe(pad:PGstPad; id:Tgulong);cdecl;external libgstreamer;
-function gst_pad_is_blocked(pad:PGstPad):Tgboolean;cdecl;external libgstreamer;
-function gst_pad_is_blocking(pad:PGstPad):Tgboolean;cdecl;external libgstreamer;
-procedure gst_pad_mark_reconfigure(pad:PGstPad);cdecl;external libgstreamer;
-function gst_pad_needs_reconfigure(pad:PGstPad):Tgboolean;cdecl;external libgstreamer;
-function gst_pad_check_reconfigure(pad:PGstPad):Tgboolean;cdecl;external libgstreamer;
-procedure gst_pad_set_element_private(pad:PGstPad; priv:Tgpointer);cdecl;external libgstreamer;
-function gst_pad_get_element_private(pad:PGstPad):Tgpointer;cdecl;external libgstreamer;
-function gst_pad_get_pad_template(pad:PGstPad):PGstPadTemplate;cdecl;external libgstreamer;
-function gst_pad_store_sticky_event(pad:PGstPad; event:PGstEvent):TGstFlowReturn;cdecl;external libgstreamer;
-function gst_pad_get_sticky_event(pad:PGstPad; event_type:TGstEventType; idx:Tguint):PGstEvent;cdecl;external libgstreamer;
-procedure gst_pad_sticky_events_foreach(pad:PGstPad; foreach_func:TGstPadStickyEventsForeachFunction; user_data:Tgpointer);cdecl;external libgstreamer;
-{ data passing setup functions  }
-procedure gst_pad_set_activate_function_full(pad:PGstPad; activate:TGstPadActivateFunction; user_data:Tgpointer; notify:TGDestroyNotify);cdecl;external libgstreamer;
-procedure gst_pad_set_activatemode_function_full(pad:PGstPad; activatemode:TGstPadActivateModeFunction; user_data:Tgpointer; notify:TGDestroyNotify);cdecl;external libgstreamer;
-{ data passing functions  }
-procedure gst_pad_set_chain_function_full(pad:PGstPad; chain:TGstPadChainFunction; user_data:Tgpointer; notify:TGDestroyNotify);cdecl;external libgstreamer;
-procedure gst_pad_set_chain_list_function_full(pad:PGstPad; chainlist:TGstPadChainListFunction; user_data:Tgpointer; notify:TGDestroyNotify);cdecl;external libgstreamer;
-procedure gst_pad_set_getrange_function_full(pad:PGstPad; get:TGstPadGetRangeFunction; user_data:Tgpointer; notify:TGDestroyNotify);cdecl;external libgstreamer;
-procedure gst_pad_set_event_function_full(pad:PGstPad; event:TGstPadEventFunction; user_data:Tgpointer; notify:TGDestroyNotify);cdecl;external libgstreamer;
-procedure gst_pad_set_event_full_function_full(pad:PGstPad; event:TGstPadEventFullFunction; user_data:Tgpointer; notify:TGDestroyNotify);cdecl;external libgstreamer;
-procedure gst_pad_set_link_function_full(pad:PGstPad; link:TGstPadLinkFunction; user_data:Tgpointer; notify:TGDestroyNotify);cdecl;external libgstreamer;
-procedure gst_pad_set_unlink_function_full(pad:PGstPad; unlink:TGstPadUnlinkFunction; user_data:Tgpointer; notify:TGDestroyNotify);cdecl;external libgstreamer;
-function gst_pad_can_link(srcpad:PGstPad; sinkpad:PGstPad):Tgboolean;cdecl;external libgstreamer;
-function gst_pad_link(srcpad:PGstPad; sinkpad:PGstPad):TGstPadLinkReturn;cdecl;external libgstreamer;
-function gst_pad_link_full(srcpad:PGstPad; sinkpad:PGstPad; flags:TGstPadLinkCheck):TGstPadLinkReturn;cdecl;external libgstreamer;
-function gst_pad_unlink(srcpad:PGstPad; sinkpad:PGstPad):Tgboolean;cdecl;external libgstreamer;
-function gst_pad_is_linked(pad:PGstPad):Tgboolean;cdecl;external libgstreamer;
-function gst_pad_get_peer(pad:PGstPad):PGstPad;cdecl;external libgstreamer;
-function gst_pad_get_pad_template_caps(pad:PGstPad):PGstCaps;cdecl;external libgstreamer;
-{ capsnego function for linked/unlinked pads  }
-function gst_pad_get_current_caps(pad:PGstPad):PGstCaps;cdecl;external libgstreamer;
-function gst_pad_has_current_caps(pad:PGstPad):Tgboolean;cdecl;external libgstreamer;
-{ capsnego for linked pads  }
-function gst_pad_get_allowed_caps(pad:PGstPad):PGstCaps;cdecl;external libgstreamer;
-{ pad offsets  }
-function gst_pad_get_offset(pad:PGstPad):Tgint64;cdecl;external libgstreamer;
-procedure gst_pad_set_offset(pad:PGstPad; offset:Tgint64);cdecl;external libgstreamer;
-{ data passing functions to peer  }
-function gst_pad_push(pad:PGstPad; buffer:PGstBuffer):TGstFlowReturn;cdecl;external libgstreamer;
-function gst_pad_push_list(pad:PGstPad; list:PGstBufferList):TGstFlowReturn;cdecl;external libgstreamer;
-function gst_pad_pull_range(pad:PGstPad; offset:Tguint64; size:Tguint; buffer:PPGstBuffer):TGstFlowReturn;cdecl;external libgstreamer;
-function gst_pad_push_event(pad:PGstPad; event:PGstEvent):Tgboolean;cdecl;external libgstreamer;
-function gst_pad_event_default(pad:PGstPad; parent:PGstObject; event:PGstEvent):Tgboolean;cdecl;external libgstreamer;
-function gst_pad_get_last_flow_return(pad:PGstPad):TGstFlowReturn;cdecl;external libgstreamer;
-{ data passing functions on pad  }
-function gst_pad_chain(pad:PGstPad; buffer:PGstBuffer):TGstFlowReturn;cdecl;external libgstreamer;
-function gst_pad_chain_list(pad:PGstPad; list:PGstBufferList):TGstFlowReturn;cdecl;external libgstreamer;
-function gst_pad_get_range(pad:PGstPad; offset:Tguint64; size:Tguint; buffer:PPGstBuffer):TGstFlowReturn;cdecl;external libgstreamer;
-function gst_pad_send_event(pad:PGstPad; event:PGstEvent):Tgboolean;cdecl;external libgstreamer;
-{ pad tasks  }
-function gst_pad_start_task(pad:PGstPad; func:TGstTaskFunction; user_data:Tgpointer; notify:TGDestroyNotify):Tgboolean;cdecl;external libgstreamer;
-function gst_pad_pause_task(pad:PGstPad):Tgboolean;cdecl;external libgstreamer;
-function gst_pad_stop_task(pad:PGstPad):Tgboolean;cdecl;external libgstreamer;
-function gst_pad_get_task_state(pad:PGstPad):TGstTaskState;cdecl;external libgstreamer;
-{ internal links  }
-procedure gst_pad_set_iterate_internal_links_function_full(pad:PGstPad; iterintlink:TGstPadIterIntLinkFunction; user_data:Tgpointer; notify:TGDestroyNotify);cdecl;external libgstreamer;
-function gst_pad_iterate_internal_links(pad:PGstPad):PGstIterator;cdecl;external libgstreamer;
-function gst_pad_iterate_internal_links_default(pad:PGstPad; parent:PGstObject):PGstIterator;cdecl;external libgstreamer;
-function gst_pad_get_single_internal_link(pad:PGstPad):PGstPad;cdecl;external libgstreamer;
-{ generic query function  }
-function gst_pad_query(pad:PGstPad; query:PGstQuery):Tgboolean;cdecl;external libgstreamer;
-function gst_pad_peer_query(pad:PGstPad; query:PGstQuery):Tgboolean;cdecl;external libgstreamer;
-procedure gst_pad_set_query_function_full(pad:PGstPad; query:TGstPadQueryFunction; user_data:Tgpointer; notify:TGDestroyNotify);cdecl;external libgstreamer;
-function gst_pad_query_default(pad:PGstPad; parent:PGstObject; query:PGstQuery):Tgboolean;cdecl;external libgstreamer;
-{ misc helper functions  }
-function gst_pad_forward(pad:PGstPad; forward:TGstPadForwardFunction; user_data:Tgpointer):Tgboolean;cdecl;external libgstreamer;
-{$endif}
-{ __GST_PAD_H__  }
+  TGstPadActivateFunction = function(pad: PGstPad; parent: PGstObject): Tgboolean; cdecl;
+  TGstPadActivateModeFunction = function(pad: PGstPad; parent: PGstObject; mode: TGstPadMode; active: Tgboolean): Tgboolean; cdecl;
+  TGstPadChainFunction = function(pad: PGstPad; parent: PGstObject; buffer: PGstBuffer): TGstFlowReturn; cdecl;
+  TGstPadChainListFunction = function(pad: PGstPad; parent: PGstObject; list: PGstBufferList): TGstFlowReturn; cdecl;
+  TGstPadGetRangeFunction = function(pad: PGstPad; parent: PGstObject; offset: Tguint64; length: Tguint; buffer: PPGstBuffer): TGstFlowReturn; cdecl;
+  TGstPadEventFunction = function(pad: PGstPad; parent: PGstObject; event: PGstEvent): Tgboolean; cdecl;
+  TGstPadEventFullFunction = function(pad: PGstPad; parent: PGstObject; event: PGstEvent): TGstFlowReturn; cdecl;
+  TGstPadIterIntLinkFunction = function(pad: PGstPad; parent: PGstObject): PGstIterator; cdecl;
+  TGstPadQueryFunction = function(pad: PGstPad; parent: PGstObject; query: PGstQuery): Tgboolean; cdecl;
+  TGstPadLinkFunction = function(pad: PGstPad; parent: PGstObject; peer: PGstPad): TGstPadLinkReturn; cdecl;
+  TGstPadUnlinkFunction = procedure(pad: PGstPad; parent: PGstObject); cdecl;
+  TGstPadForwardFunction = function(pad: PGstPad; user_data: Tgpointer): Tgboolean; cdecl;
+  {$ENDIF read_struct}
+
+{$IFDEF read_function}
+function gst_pad_mode_get_name(mode: TGstPadMode): Pgchar; cdecl; external libgstreamer;
+
+function gst_flow_get_name(ret: TGstFlowReturn): Pgchar; cdecl; external libgstreamer;
+function gst_flow_to_quark(ret: TGstFlowReturn): TGQuark; cdecl; external libgstreamer;
+function gst_pad_link_get_name(ret: TGstPadLinkReturn): Pgchar; cdecl; external libgstreamer;
+
+function gst_pad_probe_info_get_type(info: PGstPadProbeInfo): TGstPadProbeType; cdecl; external libgstreamer;
+function gst_pad_probe_info_get_id(info: PGstPadProbeInfo): Tgulong; cdecl; external libgstreamer;
+function gst_pad_probe_info_get_offset(info: PGstPadProbeInfo): Tguint64; cdecl; external libgstreamer;
+function gst_pad_probe_info_get_size(info: PGstPadProbeInfo): Tgsize; cdecl; external libgstreamer;
+function gst_pad_probe_info_get_flow_return(info: PGstPadProbeInfo): TGstFlowReturn; cdecl; external libgstreamer;
+function gst_pad_probe_info_get_event(info: PGstPadProbeInfo): PGstEvent; cdecl; external libgstreamer;
+function gst_pad_probe_info_get_query(info: PGstPadProbeInfo): PGstQuery; cdecl; external libgstreamer;
+function gst_pad_probe_info_get_buffer(info: PGstPadProbeInfo): PGstBuffer; cdecl; external libgstreamer;
+function gst_pad_probe_info_get_buffer_list(info: PGstPadProbeInfo): PGstBufferList; cdecl; external libgstreamer;
+procedure gst_pad_probe_info_set_event(info: PGstPadProbeInfo; event: PGstEvent); cdecl; external libgstreamer;
+procedure gst_pad_probe_info_set_buffer(info: PGstPadProbeInfo; buffer: PGstBuffer); cdecl; external libgstreamer;
+procedure gst_pad_probe_info_set_buffer_list(info: PGstPadProbeInfo; list: PGstBufferList); cdecl; external libgstreamer;
+procedure gst_pad_probe_info_set_flow_return(info: PGstPadProbeInfo; flow_ret: TGstFlowReturn); cdecl; external libgstreamer;
+
+function gst_pad_get_type: TGType; cdecl; external libgstreamer;
+function gst_pad_new(name: Pgchar; direction: TGstPadDirection): PGstPad; cdecl; external libgstreamer;
+function gst_pad_new_from_template(templ: PGstPadTemplate; name: Pgchar): PGstPad; cdecl; external libgstreamer;
+function gst_pad_new_from_static_template(templ: PGstStaticPadTemplate; name: Pgchar): PGstPad; cdecl; external libgstreamer;
+function gst_pad_get_direction(pad: PGstPad): TGstPadDirection; cdecl; external libgstreamer;
+function gst_pad_set_active(pad: PGstPad; active: Tgboolean): Tgboolean; cdecl; external libgstreamer;
+function gst_pad_is_active(pad: PGstPad): Tgboolean; cdecl; external libgstreamer;
+function gst_pad_activate_mode(pad: PGstPad; mode: TGstPadMode; active: Tgboolean): Tgboolean; cdecl; external libgstreamer;
+function gst_pad_add_probe(pad: PGstPad; mask: TGstPadProbeType; callback: TGstPadProbeCallback; user_data: Tgpointer; destroy_data: TGDestroyNotify): Tgulong; cdecl; external libgstreamer;
+procedure gst_pad_remove_probe(pad: PGstPad; id: Tgulong); cdecl; external libgstreamer;
+function gst_pad_is_blocked(pad: PGstPad): Tgboolean; cdecl; external libgstreamer;
+function gst_pad_is_blocking(pad: PGstPad): Tgboolean; cdecl; external libgstreamer;
+procedure gst_pad_mark_reconfigure(pad: PGstPad); cdecl; external libgstreamer;
+function gst_pad_needs_reconfigure(pad: PGstPad): Tgboolean; cdecl; external libgstreamer;
+function gst_pad_check_reconfigure(pad: PGstPad): Tgboolean; cdecl; external libgstreamer;
+procedure gst_pad_set_element_private(pad: PGstPad; priv: Tgpointer); cdecl; external libgstreamer;
+function gst_pad_get_element_private(pad: PGstPad): Tgpointer; cdecl; external libgstreamer;
+function gst_pad_get_pad_template(pad: PGstPad): PGstPadTemplate; cdecl; external libgstreamer;
+function gst_pad_store_sticky_event(pad: PGstPad; event: PGstEvent): TGstFlowReturn; cdecl; external libgstreamer;
+function gst_pad_get_sticky_event(pad: PGstPad; event_type: TGstEventType; idx: Tguint): PGstEvent; cdecl; external libgstreamer;
+procedure gst_pad_sticky_events_foreach(pad: PGstPad; foreach_func: TGstPadStickyEventsForeachFunction; user_data: Tgpointer); cdecl; external libgstreamer;
+procedure gst_pad_set_activate_function_full(pad: PGstPad; activate: TGstPadActivateFunction; user_data: Tgpointer; notify: TGDestroyNotify); cdecl; external libgstreamer;
+procedure gst_pad_set_activatemode_function_full(pad: PGstPad; activatemode: TGstPadActivateModeFunction; user_data: Tgpointer; notify: TGDestroyNotify); cdecl; external libgstreamer;
+procedure gst_pad_set_chain_function_full(pad: PGstPad; chain: TGstPadChainFunction; user_data: Tgpointer; notify: TGDestroyNotify); cdecl; external libgstreamer;
+procedure gst_pad_set_chain_list_function_full(pad: PGstPad; chainlist: TGstPadChainListFunction; user_data: Tgpointer; notify: TGDestroyNotify); cdecl; external libgstreamer;
+procedure gst_pad_set_getrange_function_full(pad: PGstPad; get: TGstPadGetRangeFunction; user_data: Tgpointer; notify: TGDestroyNotify); cdecl; external libgstreamer;
+procedure gst_pad_set_event_function_full(pad: PGstPad; event: TGstPadEventFunction; user_data: Tgpointer; notify: TGDestroyNotify); cdecl; external libgstreamer;
+procedure gst_pad_set_event_full_function_full(pad: PGstPad; event: TGstPadEventFullFunction; user_data: Tgpointer; notify: TGDestroyNotify); cdecl; external libgstreamer;
+procedure gst_pad_set_link_function_full(pad: PGstPad; link: TGstPadLinkFunction; user_data: Tgpointer; notify: TGDestroyNotify); cdecl; external libgstreamer;
+procedure gst_pad_set_unlink_function_full(pad: PGstPad; unlink: TGstPadUnlinkFunction; user_data: Tgpointer; notify: TGDestroyNotify); cdecl; external libgstreamer;
+function gst_pad_can_link(srcpad: PGstPad; sinkpad: PGstPad): Tgboolean; cdecl; external libgstreamer;
+function gst_pad_link(srcpad: PGstPad; sinkpad: PGstPad): TGstPadLinkReturn; cdecl; external libgstreamer;
+function gst_pad_link_full(srcpad: PGstPad; sinkpad: PGstPad; flags: TGstPadLinkCheck): TGstPadLinkReturn; cdecl; external libgstreamer;
+function gst_pad_unlink(srcpad: PGstPad; sinkpad: PGstPad): Tgboolean; cdecl; external libgstreamer;
+function gst_pad_is_linked(pad: PGstPad): Tgboolean; cdecl; external libgstreamer;
+function gst_pad_get_peer(pad: PGstPad): PGstPad; cdecl; external libgstreamer;
+function gst_pad_get_pad_template_caps(pad: PGstPad): PGstCaps; cdecl; external libgstreamer;
+function gst_pad_get_current_caps(pad: PGstPad): PGstCaps; cdecl; external libgstreamer;
+function gst_pad_has_current_caps(pad: PGstPad): Tgboolean; cdecl; external libgstreamer;
+function gst_pad_get_allowed_caps(pad: PGstPad): PGstCaps; cdecl; external libgstreamer;
+function gst_pad_get_offset(pad: PGstPad): Tgint64; cdecl; external libgstreamer;
+procedure gst_pad_set_offset(pad: PGstPad; offset: Tgint64); cdecl; external libgstreamer;
+function gst_pad_push(pad: PGstPad; buffer: PGstBuffer): TGstFlowReturn; cdecl; external libgstreamer;
+function gst_pad_push_list(pad: PGstPad; list: PGstBufferList): TGstFlowReturn; cdecl; external libgstreamer;
+function gst_pad_pull_range(pad: PGstPad; offset: Tguint64; size: Tguint; buffer: PPGstBuffer): TGstFlowReturn; cdecl; external libgstreamer;
+function gst_pad_push_event(pad: PGstPad; event: PGstEvent): Tgboolean; cdecl; external libgstreamer;
+function gst_pad_event_default(pad: PGstPad; parent: PGstObject; event: PGstEvent): Tgboolean; cdecl; external libgstreamer;
+function gst_pad_get_last_flow_return(pad: PGstPad): TGstFlowReturn; cdecl; external libgstreamer;
+function gst_pad_chain(pad: PGstPad; buffer: PGstBuffer): TGstFlowReturn; cdecl; external libgstreamer;
+function gst_pad_chain_list(pad: PGstPad; list: PGstBufferList): TGstFlowReturn; cdecl; external libgstreamer;
+function gst_pad_get_range(pad: PGstPad; offset: Tguint64; size: Tguint; buffer: PPGstBuffer): TGstFlowReturn; cdecl; external libgstreamer;
+function gst_pad_send_event(pad: PGstPad; event: PGstEvent): Tgboolean; cdecl; external libgstreamer;
+function gst_pad_start_task(pad: PGstPad; func: TGstTaskFunction; user_data: Tgpointer; notify: TGDestroyNotify): Tgboolean; cdecl; external libgstreamer;
+function gst_pad_pause_task(pad: PGstPad): Tgboolean; cdecl; external libgstreamer;
+function gst_pad_stop_task(pad: PGstPad): Tgboolean; cdecl; external libgstreamer;
+function gst_pad_get_task_state(pad: PGstPad): TGstTaskState; cdecl; external libgstreamer;
+procedure gst_pad_set_iterate_internal_links_function_full(pad: PGstPad; iterintlink: TGstPadIterIntLinkFunction; user_data: Tgpointer; notify: TGDestroyNotify); cdecl; external libgstreamer;
+function gst_pad_iterate_internal_links(pad: PGstPad): PGstIterator; cdecl; external libgstreamer;
+function gst_pad_iterate_internal_links_default(pad: PGstPad; parent: PGstObject): PGstIterator; cdecl; external libgstreamer;
+function gst_pad_get_single_internal_link(pad: PGstPad): PGstPad; cdecl; external libgstreamer;
+function gst_pad_query(pad: PGstPad; query: PGstQuery): Tgboolean; cdecl; external libgstreamer;
+function gst_pad_peer_query(pad: PGstPad; query: PGstQuery): Tgboolean; cdecl; external libgstreamer;
+procedure gst_pad_set_query_function_full(pad: PGstPad; query: TGstPadQueryFunction; user_data: Tgpointer; notify: TGDestroyNotify); cdecl; external libgstreamer;
+function gst_pad_query_default(pad: PGstPad; parent: PGstObject; query: PGstQuery): Tgboolean; cdecl; external libgstreamer;
+function gst_pad_forward(pad: PGstPad; forward: TGstPadForwardFunction; user_data: Tgpointer): Tgboolean; cdecl; external libgstreamer;
 
 // === Konventiert am: 11-7-26 15:18:08 ===
+
+function GST_PAD_LINK_FAILED(ret: longint): Tgboolean;
+function GST_PAD_LINK_SUCCESSFUL(ret: longint): Tgboolean;
+
+function GST_PAD_PROBE_INFO_TYPE(d: PGstPadProbeInfo): TGstPadProbeType;
+function GST_PAD_PROBE_INFO_ID(d: PGstPadProbeInfo): Tgulong;
+function GST_PAD_PROBE_INFO_DATA(d: PGstPadProbeInfo): Tgpointer;
+function GST_PAD_PROBE_INFO_FLOW_RETURN(d: PGstPadProbeInfo): TGstFlowReturn;
+function GST_PAD_PROBE_INFO_BUFFER(d: PGstPadProbeInfo): PGstBuffer;
+function GST_PAD_PROBE_INFO_BUFFER_LIST(d: PGstPadProbeInfo): PGstBufferList;
+function GST_PAD_PROBE_INFO_EVENT(d: PGstPadProbeInfo): PGstEvent;
+function GST_PAD_PROBE_INFO_QUERY(d: PGstPadProbeInfo): PGstQuery;
+function GST_PAD_PROBE_INFO_OFFSET(d: PGstPadProbeInfo): Tguint64;
+function GST_PAD_PROBE_INFO_SIZE(d: PGstPadProbeInfo): Tguint;
+
+function GST_PAD_NAME(pad: Pointer): Pgchar;
+function GST_PAD_PARENT(pad: Pointer): Pointer;
+function GST_PAD_ELEMENT_PRIVATE(pad: Pointer): Tgpointer;
+function GST_PAD_PAD_TEMPLATE(pad: Pointer): PGstPadTemplate;
+function GST_PAD_DIRECTION(pad: Pointer): TGstPadDirection;
+function GST_PAD_TASK(pad: Pointer): PGstTask;
+function GST_PAD_MODE(pad: Pointer): TGstPadMode;
+function GST_PAD_ACTIVATEFUNC(pad: Pointer): TGstPadActivateFunction;
+function GST_PAD_ACTIVATEMODEFUNC(pad: Pointer): TGstPadActivateModeFunction;
+function GST_PAD_CHAINFUNC(pad: Pointer): TGstPadChainFunction;
+function GST_PAD_CHAINLISTFUNC(pad: Pointer): TGstPadChainListFunction;
+function GST_PAD_GETRANGEFUNC(pad: Pointer): TGstPadGetRangeFunction;
+function GST_PAD_EVENTFUNC(pad: Pointer): TGstPadEventFunction;
+function GST_PAD_EVENTFULLFUNC(pad: Pointer): TGstPadEventFullFunction;
+function GST_PAD_QUERYFUNC(pad: Pointer): TGstPadQueryFunction;
+function GST_PAD_ITERINTLINKFUNC(pad: Pointer): TGstPadIterIntLinkFunction;
+function GST_PAD_PEER(pad: Pointer): PGstPad;
+function GST_PAD_LINKFUNC(pad: Pointer): TGstPadLinkFunction;
+function GST_PAD_UNLINKFUNC(pad: Pointer): TGstPadUnlinkFunction;
+function GST_PAD_IS_SRC(pad: Pointer): Tgboolean;
+function GST_PAD_IS_SINK(pad: Pointer): Tgboolean;
+function GST_PAD_IS_FLUSHING(pad: Pointer): Tgboolean;
+procedure GST_PAD_SET_FLUSHING(var pad: Pointer);
+procedure GST_PAD_UNSET_FLUSHING(var pad: Pointer);
+function GST_PAD_IS_EOS(pad: Pointer): Tgboolean;
+function GST_PAD_HAS_PENDING_EVENTS(pad: Pointer): Tgboolean;
+function GST_PAD_IS_FIXED_CAPS(pad: Pointer): Tgboolean;
+function GST_PAD_NEEDS_PARENT(pad: Pointer): Tgboolean;
+function GST_PAD_IS_PROXY_CAPS(pad: Pointer): Tgboolean;
+procedure GST_PAD_SET_PROXY_CAPS(var pad: Pointer);
+procedure GST_PAD_UNSET_PROXY_CAPS(var pad: Pointer);
+function GST_PAD_IS_PROXY_ALLOCATION(pad: Pointer): Tgboolean;
+procedure GST_PAD_SET_PROXY_ALLOCATION(var pad: Pointer);
+procedure GST_PAD_UNSET_PROXY_ALLOCATION(var pad: Pointer);
+function GST_PAD_IS_PROXY_SCHEDULING(pad: Pointer): Tgboolean;
+procedure GST_PAD_SET_PROXY_SCHEDULING(var pad: Pointer);
+procedure GST_PAD_UNSET_PROXY_SCHEDULING(var pad: Pointer);
+function GST_PAD_IS_ACCEPT_INTERSECT(pad: Pointer): Tgboolean;
+procedure GST_PAD_SET_ACCEPT_INTERSECT(var pad: Pointer);
+procedure GST_PAD_UNSET_ACCEPT_INTERSECT(var pad: Pointer);
+function GST_PAD_IS_ACCEPT_TEMPLATE(pad: Pointer): Tgboolean;
+procedure GST_PAD_SET_ACCEPT_TEMPLATE(var pad: Pointer);
+procedure GST_PAD_UNSET_ACCEPT_TEMPLATE(var pad: Pointer);
+function GST_PAD_GET_STREAM_LOCK(pad: Pointer): PGRecMutex;
+procedure GST_PAD_STREAM_LOCK(pad: Pointer);
+
+function GST_PAD_STREAM_TRYLOCK(pad: Pointer): Tgboolean;
+procedure GST_PAD_STREAM_UNLOCK(pad: Pointer);
+function GST_PAD_LAST_FLOW_RETURN(pad: Pointer): TGstFlowReturn;
+function GST_PAD_BLOCK_GET_COND(pad: Pointer): PGCond;
+procedure GST_PAD_BLOCK_WAIT(pad: Pointer);
+procedure GST_PAD_BLOCK_SIGNAL(pad: Pointer);
+procedure GST_PAD_BLOCK_BROADCAST(pad: Pointer);
+
+function gst_pad_get_name(pad: Pointer): Pgchar;
+function gst_pad_get_parent(pad: Pointer): PGstObject;
+
+procedure gst_pad_set_activate_function(p: PGstPad; f: TGstPadActivateFunction);
+procedure gst_pad_set_activatemode_function(p: PGstPad; f: TGstPadActivateModeFunction);
+procedure gst_pad_set_chain_function(p: PGstPad; f: TGstPadChainFunction);
+procedure gst_pad_set_chain_list_function(p: PGstPad; f: TGstPadChainListFunction);
+procedure gst_pad_set_getrange_function(p: PGstPad; f: TGstPadGetRangeFunction);
+procedure gst_pad_set_event_function(p: PGstPad; f: TGstPadEventFunction);
+procedure gst_pad_set_event_full_function(p: PGstPad; f: TGstPadEventFullFunction);
+
+procedure gst_pad_set_link_function(p: PGstPad; f: TGstPadLinkFunction);
+procedure gst_pad_set_unlink_function(p: PGstPad; f: TGstPadUnlinkFunction);
+
+procedure gst_pad_set_iterate_internal_links_function(p: PGstPad; f: TGstPadIterIntLinkFunction);
+procedure gst_pad_set_query_function(p: PGstPad; f: TGstPadQueryFunction);
+
+function GST_TYPE_PAD: TGType;
+function GST_PAD(obj: Pointer): PGstPad;
+function GST_PAD_CLASS(klass: Pointer): PGstPadClass;
+function GST_IS_PAD(obj: Pointer): Tgboolean;
+function GST_IS_PAD_CLASS(klass: Pointer): Tgboolean;
+
+function GST_PAD_CAST(obj: Pointer): PGstPad;
+{$ENDIF read_function}
+
 
 
 implementation
 
 
-{ was #define dname def_expr }
-function GST_TYPE_PAD : longint; { return type might be wrong }
-  begin
-    GST_TYPE_PAD:=gst_pad_get_type;
-  end;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_IS_PAD(obj : longint) : longint;
+function GST_TYPE_PAD: TGType;
 begin
-  GST_IS_PAD:=G_TYPE_CHECK_INSTANCE_TYPE(obj,GST_TYPE_PAD);
+  GST_TYPE_PAD := gst_pad_get_type;
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_IS_PAD_CLASS(klass : longint) : longint;
+function GST_PAD(obj: Pointer): PGstPad;
 begin
-  GST_IS_PAD_CLASS:=G_TYPE_CHECK_CLASS_TYPE(klass,GST_TYPE_PAD);
+  Result := PGstPad(g_type_check_instance_cast(obj, GST_TYPE_PAD));
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_PAD(obj : longint) : longint;
+function GST_PAD_CLASS(klass: Pointer): PGstPadClass;
 begin
-  GST_PAD:=G_TYPE_CHECK_INSTANCE_CAST(obj,GST_TYPE_PAD,GstPad);
+  Result := PGstPadClass(g_type_check_class_cast(klass, GST_TYPE_PAD));
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_PAD_CLASS(klass : longint) : longint;
+function GST_IS_PAD(obj: Pointer): Tgboolean;
 begin
-  GST_PAD_CLASS:=G_TYPE_CHECK_CLASS_CAST(klass,GST_TYPE_PAD,GstPadClass);
+  Result := g_type_check_instance_is_a(obj, GST_TYPE_PAD);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-function GST_PAD_CAST(obj : longint) : PGstPad;
+function GST_IS_PAD_CLASS(klass: Pointer): Tgboolean;
 begin
-  GST_PAD_CAST:=PGstPad(obj);
+  Result := g_type_check_class_is_a(klass, GST_TYPE_PAD);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_PAD_LINK_FAILED(ret : longint) : longint;
+function GST_PAD_CAST(obj: Pointer): PGstPad;
 begin
-  GST_PAD_LINK_FAILED:=ret<GST_PAD_LINK_OK;
+  Result := PGstPad(obj);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_PAD_LINK_SUCCESSFUL(ret : longint) : longint;
+// ====
+
+function GST_PAD_LINK_FAILED(ret: longint): Tgboolean;
 begin
-  GST_PAD_LINK_SUCCESSFUL:=ret>=GST_PAD_LINK_OK;
+  GST_PAD_LINK_FAILED := ret < GST_PAD_LINK_OK;
 end;
 
+function GST_PAD_LINK_SUCCESSFUL(ret: longint): Tgboolean;
+begin
+  GST_PAD_LINK_SUCCESSFUL := ret >= GST_PAD_LINK_OK;
+end;
+
+function GST_PAD_PROBE_INFO_TYPE(d: PGstPadProbeInfo): TGstPadProbeType;
+begin
+  GST_PAD_PROBE_INFO_TYPE := d^._type;
+end;
+
+function GST_PAD_PROBE_INFO_ID(d: PGstPadProbeInfo): Tgulong;
+begin
+  GST_PAD_PROBE_INFO_ID := d^.id;
+end;
+
+function GST_PAD_PROBE_INFO_DATA(d: PGstPadProbeInfo): Tgpointer;
+begin
+  GST_PAD_PROBE_INFO_DATA := d^.Data;
+end;
+
+function GST_PAD_PROBE_INFO_FLOW_RETURN(d: PGstPadProbeInfo): TGstFlowReturn;
+begin
+  GST_PAD_PROBE_INFO_FLOW_RETURN := d^.ABI.abi.flow_ret;
+end;
+
+function GST_PAD_PROBE_INFO_BUFFER(d: PGstPadProbeInfo): PGstBuffer;
+begin
+  GST_PAD_PROBE_INFO_BUFFER := GST_BUFFER_CAST(GST_PAD_PROBE_INFO_DATA(d));
+end;
+
+function GST_PAD_PROBE_INFO_BUFFER_LIST(d: PGstPadProbeInfo): PGstBufferList;
+begin
+  GST_PAD_PROBE_INFO_BUFFER_LIST := GST_BUFFER_LIST_CAST(GST_PAD_PROBE_INFO_DATA(d));
+end;
+
+function GST_PAD_PROBE_INFO_EVENT(d: PGstPadProbeInfo): PGstEvent;
+begin
+  GST_PAD_PROBE_INFO_EVENT := GST_EVENT_CAST(GST_PAD_PROBE_INFO_DATA(d));
+end;
+
+function GST_PAD_PROBE_INFO_QUERY(d: PGstPadProbeInfo): PGstQuery;
+begin
+  GST_PAD_PROBE_INFO_QUERY := PGstQuery(GST_PAD_PROBE_INFO_DATA(d));
+end;
+
+function GST_PAD_PROBE_INFO_OFFSET(d: PGstPadProbeInfo): Tguint64;
+begin
+  GST_PAD_PROBE_INFO_OFFSET := d^.offset;
+end;
+
+function GST_PAD_PROBE_INFO_SIZE(d: PGstPadProbeInfo): Tguint;
+begin
+  GST_PAD_PROBE_INFO_SIZE := d^.size;
+end;
+
+function GST_PAD_NAME(pad: Pointer): Pgchar;
+begin
+  GST_PAD_NAME := GST_OBJECT_NAME(pad);
+end;
+
+function GST_PAD_PARENT(pad: Pointer): Pointer;
+begin
+  Result := Pointer(GST_OBJECT_PARENT(pad));
+end;
+
+function GST_PAD_ELEMENT_PRIVATE(pad: Pointer): Tgpointer;
+begin
+  GST_PAD_ELEMENT_PRIVATE := (GST_PAD_CAST(pad))^.element_private;
+end;
+
+function GST_PAD_PAD_TEMPLATE(pad: Pointer): PGstPadTemplate;
+begin
+  GST_PAD_PAD_TEMPLATE := (GST_PAD_CAST(pad))^.padtemplate;
+end;
+
+function GST_PAD_DIRECTION(pad: Pointer): TGstPadDirection;
+begin
+  GST_PAD_DIRECTION := (GST_PAD_CAST(pad))^.direction;
+end;
+
+function GST_PAD_TASK(pad: Pointer): PGstTask;
+begin
+  GST_PAD_TASK := (GST_PAD_CAST(pad))^.task;
+end;
+
+function GST_PAD_MODE(pad: Pointer): TGstPadMode;
+begin
+  GST_PAD_MODE := (GST_PAD_CAST(pad))^.mode;
+end;
+
+function GST_PAD_ACTIVATEFUNC(pad: Pointer): TGstPadActivateFunction;
+begin
+  GST_PAD_ACTIVATEFUNC := (GST_PAD_CAST(pad))^.activatefunc;
+end;
+
+function GST_PAD_ACTIVATEMODEFUNC(pad: Pointer): TGstPadActivateModeFunction;
+begin
+  GST_PAD_ACTIVATEMODEFUNC := (GST_PAD_CAST(pad))^.activatemodefunc;
+end;
+
+function GST_PAD_CHAINFUNC(pad: Pointer): TGstPadChainFunction;
+begin
+  GST_PAD_CHAINFUNC := (GST_PAD_CAST(pad))^.chainfunc;
+end;
+
+function GST_PAD_CHAINLISTFUNC(pad: Pointer): TGstPadChainListFunction;
+begin
+  GST_PAD_CHAINLISTFUNC := (GST_PAD_CAST(pad))^.chainlistfunc;
+end;
+
+function GST_PAD_GETRANGEFUNC(pad: Pointer): TGstPadGetRangeFunction;
+begin
+  GST_PAD_GETRANGEFUNC := (GST_PAD_CAST(pad))^.getrangefunc;
+end;
+
+function GST_PAD_EVENTFUNC(pad: Pointer): TGstPadEventFunction;
+begin
+  GST_PAD_EVENTFUNC := (GST_PAD_CAST(pad))^.eventfunc;
+end;
+
+function GST_PAD_EVENTFULLFUNC(pad: Pointer): TGstPadEventFullFunction;
+begin
+  GST_PAD_EVENTFULLFUNC := (GST_PAD_CAST(pad))^.ABI.abi.eventfullfunc;
+end;
+
+function GST_PAD_QUERYFUNC(pad: Pointer): TGstPadQueryFunction;
+begin
+  GST_PAD_QUERYFUNC := (GST_PAD_CAST(pad))^.queryfunc;
+end;
+
+function GST_PAD_ITERINTLINKFUNC(pad: Pointer): TGstPadIterIntLinkFunction;
+begin
+  GST_PAD_ITERINTLINKFUNC := (GST_PAD_CAST(pad))^.iterintlinkfunc;
+end;
+
+function GST_PAD_PEER(pad: Pointer): PGstPad;
+begin
+  GST_PAD_PEER := (GST_PAD_CAST(pad))^.peer;
+end;
+
+function GST_PAD_LINKFUNC(pad: Pointer): TGstPadLinkFunction;
+begin
+  GST_PAD_LINKFUNC := (GST_PAD_CAST(pad))^.linkfunc;
+end;
+
+function GST_PAD_UNLINKFUNC(pad: Pointer): TGstPadUnlinkFunction;
+begin
+  GST_PAD_UNLINKFUNC := (GST_PAD_CAST(pad))^.unlinkfunc;
+end;
+
+function GST_PAD_IS_SRC(pad: Pointer): Tgboolean;
+begin
+  GST_PAD_IS_SRC := (GST_PAD_DIRECTION(pad)) = GST_PAD_SRC;
+end;
+
+function GST_PAD_IS_SINK(pad: Pointer): Tgboolean;
+begin
+  GST_PAD_IS_SINK := (GST_PAD_DIRECTION(pad)) = GST_PAD_SINK;
+end;
+
+function GST_PAD_IS_FLUSHING(pad: Pointer): Tgboolean;
+begin
+  GST_PAD_IS_FLUSHING := GST_OBJECT_FLAG_IS_SET(pad, GST_PAD_FLAG_FLUSHING);
+end;
+
+procedure GST_PAD_SET_FLUSHING(var pad: Pointer);
+begin
+  GST_OBJECT_FLAG_SET(pad, GST_PAD_FLAG_FLUSHING);
+end;
+
+procedure GST_PAD_UNSET_FLUSHING(var pad: Pointer);
+begin
+  GST_OBJECT_FLAG_UNSET(pad, GST_PAD_FLAG_FLUSHING);
+end;
+
+function GST_PAD_IS_EOS(pad: Pointer): Tgboolean;
+begin
+  GST_PAD_IS_EOS := GST_OBJECT_FLAG_IS_SET(pad, GST_PAD_FLAG_EOS);
+end;
+
+function GST_PAD_HAS_PENDING_EVENTS(pad: Pointer): Tgboolean;
+begin
+  GST_PAD_HAS_PENDING_EVENTS := GST_OBJECT_FLAG_IS_SET(pad, GST_PAD_FLAG_PENDING_EVENTS);
+end;
+
+function GST_PAD_IS_FIXED_CAPS(pad: Pointer): Tgboolean;
+begin
+  GST_PAD_IS_FIXED_CAPS := GST_OBJECT_FLAG_IS_SET(pad, GST_PAD_FLAG_FIXED_CAPS);
+end;
+
+function GST_PAD_NEEDS_PARENT(pad: Pointer): Tgboolean;
+begin
+  GST_PAD_NEEDS_PARENT := GST_OBJECT_FLAG_IS_SET(pad, GST_PAD_FLAG_NEED_PARENT);
+end;
+
+function GST_PAD_IS_PROXY_CAPS(pad: Pointer): Tgboolean;
+begin
+  GST_PAD_IS_PROXY_CAPS := GST_OBJECT_FLAG_IS_SET(pad, GST_PAD_FLAG_PROXY_CAPS);
+end;
+
+procedure GST_PAD_SET_PROXY_CAPS(var pad: Pointer);
+begin
+  GST_OBJECT_FLAG_SET(pad, GST_PAD_FLAG_PROXY_CAPS);
+end;
+
+procedure GST_PAD_UNSET_PROXY_CAPS(var pad: Pointer);
+begin
+  GST_OBJECT_FLAG_UNSET(pad, GST_PAD_FLAG_PROXY_CAPS);
+end;
+
+function GST_PAD_IS_PROXY_ALLOCATION(pad: Pointer): Tgboolean;
+begin
+  GST_PAD_IS_PROXY_ALLOCATION := GST_OBJECT_FLAG_IS_SET(pad, GST_PAD_FLAG_PROXY_ALLOCATION);
+end;
+
+procedure GST_PAD_SET_PROXY_ALLOCATION(var pad: Pointer);
+begin
+  GST_OBJECT_FLAG_SET(pad, GST_PAD_FLAG_PROXY_ALLOCATION);
+end;
+
+procedure GST_PAD_UNSET_PROXY_ALLOCATION(var pad: Pointer);
+begin
+  GST_OBJECT_FLAG_UNSET(pad, GST_PAD_FLAG_PROXY_ALLOCATION);
+end;
+
+function GST_PAD_IS_PROXY_SCHEDULING(pad: Pointer): Tgboolean;
+begin
+  GST_PAD_IS_PROXY_SCHEDULING := GST_OBJECT_FLAG_IS_SET(pad, GST_PAD_FLAG_PROXY_SCHEDULING);
+end;
+
+procedure GST_PAD_SET_PROXY_SCHEDULING(var pad: Pointer);
+begin
+  GST_OBJECT_FLAG_SET(pad, GST_PAD_FLAG_PROXY_SCHEDULING);
+end;
+
+procedure GST_PAD_UNSET_PROXY_SCHEDULING(var pad: Pointer);
+begin
+  GST_OBJECT_FLAG_UNSET(pad, GST_PAD_FLAG_PROXY_SCHEDULING);
+end;
+
+function GST_PAD_IS_ACCEPT_INTERSECT(pad: Pointer): Tgboolean;
+begin
+  GST_PAD_IS_ACCEPT_INTERSECT := GST_OBJECT_FLAG_IS_SET(pad, GST_PAD_FLAG_ACCEPT_INTERSECT);
+end;
+
+procedure GST_PAD_SET_ACCEPT_INTERSECT(var pad: Pointer);
+begin
+  GST_OBJECT_FLAG_SET(pad, GST_PAD_FLAG_ACCEPT_INTERSECT);
+end;
+
+procedure GST_PAD_UNSET_ACCEPT_INTERSECT(var pad: Pointer);
+begin
+  GST_OBJECT_FLAG_UNSET(pad, GST_PAD_FLAG_ACCEPT_INTERSECT);
+end;
+
+function GST_PAD_IS_ACCEPT_TEMPLATE(pad: Pointer): Tgboolean;
+begin
+  GST_PAD_IS_ACCEPT_TEMPLATE := GST_OBJECT_FLAG_IS_SET(pad, GST_PAD_FLAG_ACCEPT_TEMPLATE);
+end;
+
+procedure GST_PAD_SET_ACCEPT_TEMPLATE(var pad: Pointer);
+begin
+  GST_OBJECT_FLAG_SET(pad, GST_PAD_FLAG_ACCEPT_TEMPLATE);
+end;
+
+procedure GST_PAD_UNSET_ACCEPT_TEMPLATE(var pad: Pointer);
+begin
+  GST_OBJECT_FLAG_UNSET(pad, GST_PAD_FLAG_ACCEPT_TEMPLATE);
+end;
+
+function GST_PAD_GET_STREAM_LOCK(pad: Pointer): PGRecMutex;
+begin
+  GST_PAD_GET_STREAM_LOCK := @((GST_PAD_CAST(pad))^.stream_rec_lock);
+end;
+
+procedure GST_PAD_STREAM_LOCK(pad: Pointer);
+begin
+  g_rec_mutex_lock(GST_PAD_GET_STREAM_LOCK(pad));
+end;
+
+function GST_PAD_STREAM_TRYLOCK(pad: Pointer): Tgboolean;
+begin
+  GST_PAD_STREAM_TRYLOCK := g_rec_mutex_trylock(GST_PAD_GET_STREAM_LOCK(pad));
+end;
+
+procedure GST_PAD_STREAM_UNLOCK(pad: Pointer);
+begin
+  g_rec_mutex_unlock(GST_PAD_GET_STREAM_LOCK(pad));
+end;
+
+function GST_PAD_LAST_FLOW_RETURN(pad: Pointer): TGstFlowReturn;
+begin
+  GST_PAD_LAST_FLOW_RETURN := (GST_PAD_CAST(pad))^.ABI.abi.last_flowret;
+end;
+
+function GST_PAD_BLOCK_GET_COND(pad: Pointer): PGCond;
+begin
+  GST_PAD_BLOCK_GET_COND := @((GST_PAD_CAST(pad))^.block_cond);
+end;
+
+procedure GST_PAD_BLOCK_WAIT(pad: Pointer);
+begin
+  g_cond_wait(GST_PAD_BLOCK_GET_COND(pad), GST_OBJECT_GET_LOCK(pad));
+end;
+
+procedure GST_PAD_BLOCK_SIGNAL(pad: Pointer);
+begin
+  g_cond_signal(GST_PAD_BLOCK_GET_COND(pad));
+end;
+
+procedure GST_PAD_BLOCK_BROADCAST(pad: Pointer);
+begin
+  g_cond_broadcast(GST_PAD_BLOCK_GET_COND(pad));
+end;
+
+function gst_pad_get_name(pad: Pointer): Pgchar;
+begin
+  gst_pad_get_name := gst_object_get_name(GST_OBJECT_CAST(pad));
+end;
+
+function gst_pad_get_parent(pad: Pointer): PGstObject;
+begin
+  gst_pad_get_parent := gst_object_get_parent(GST_OBJECT_CAST(pad));
+end;
+
+procedure gst_pad_set_activate_function(p: PGstPad; f: TGstPadActivateFunction);
+begin
+  gst_pad_set_activate_function_full(p, f, nil, nil);
+end;
+
+procedure gst_pad_set_activatemode_function(p: PGstPad; f: TGstPadActivateModeFunction);
+begin
+  gst_pad_set_activatemode_function_full(p, f, nil, nil);
+end;
+
+procedure gst_pad_set_chain_function(p: PGstPad; f: TGstPadChainFunction);
+begin
+  gst_pad_set_chain_function_full(p, f, nil, nil);
+end;
+
+procedure gst_pad_set_chain_list_function(p: PGstPad; f: TGstPadChainListFunction);
+begin
+  gst_pad_set_chain_list_function_full(p, f, nil, nil);
+end;
+
+procedure gst_pad_set_getrange_function(p: PGstPad; f: TGstPadGetRangeFunction);
+begin
+  gst_pad_set_getrange_function_full(p, f, nil, nil);
+end;
+
+procedure gst_pad_set_event_function(p: PGstPad; f: TGstPadEventFunction);
+begin
+  gst_pad_set_event_function_full(p, f, nil, nil);
+end;
+
+procedure gst_pad_set_event_full_function(p: PGstPad; f: TGstPadEventFullFunction);
+begin
+  gst_pad_set_event_full_function_full(p, f, nil, nil);
+end;
+
+procedure gst_pad_set_link_function(p: PGstPad; f: TGstPadLinkFunction);
+begin
+  gst_pad_set_link_function_full(p, f, nil, nil);
+end;
+
+procedure gst_pad_set_unlink_function(p: PGstPad; f: TGstPadUnlinkFunction);
+begin
+  gst_pad_set_unlink_function_full(p, f, nil, nil);
+end;
+
+procedure gst_pad_set_iterate_internal_links_function(p: PGstPad; f: TGstPadIterIntLinkFunction);
+begin
+  gst_pad_set_iterate_internal_links_function_full(p, f, nil, nil);
+end;
+
+procedure gst_pad_set_query_function(p: PGstPad; f: TGstPadQueryFunction);
+begin
+  gst_pad_set_query_function_full(p, f, nil, nil);
+end;
 
 end.

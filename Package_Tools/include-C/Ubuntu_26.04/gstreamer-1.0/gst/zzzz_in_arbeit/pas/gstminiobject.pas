@@ -34,13 +34,14 @@ const
 
   {$IFDEF read_struct}
 type
+  PGstMiniObject = ^TGstMiniObject;
+  PPGstMiniObject = ^PGstMiniObject;
+
   TGstMiniObjectCopyFunction = function(obj: PGstMiniObject): PGstMiniObject; cdecl;
   TGstMiniObjectDisposeFunction = function(obj: PGstMiniObject): Tgboolean; cdecl;
   TGstMiniObjectFreeFunction = procedure(obj: PGstMiniObject); cdecl;
   TGstMiniObjectNotify = procedure(user_data: Tgpointer; obj: PGstMiniObject); cdecl;
 
-type
-  PGstMiniObject = ^TGstMiniObject;
   TGstMiniObject = record
     _type: TGType;
     refcount: Tgint;

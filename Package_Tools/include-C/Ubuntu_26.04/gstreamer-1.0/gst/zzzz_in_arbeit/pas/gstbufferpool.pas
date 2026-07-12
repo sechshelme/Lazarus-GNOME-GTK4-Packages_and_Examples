@@ -1,391 +1,149 @@
 unit gstbufferpool;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
-  fp_glib2, fp_gst;
+  fp_glib2, fp_gst, gstobject, gstformat, gststructure, gstbuffer;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
-{ GStreamer
- * Copyright (C) 2010 Wim Taymans <wim.taymans@gmail.com>
- *
- * gstbufferpool.h: Header for GstBufferPool object
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Library General Public
- * License as published by the Free Software Foundation; either
- * version 2 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Library General Public License for more details.
- *
- * You should have received a copy of the GNU Library General Public
- * License along with this library; if not, write to the
- * Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
- * Boston, MA 02110-1301, USA.
-  }
-{$ifndef __GST_BUFFER_POOL_H__}
-{$define __GST_BUFFER_POOL_H__}
-{$include <gst/gstminiobject.h>}
-{$include <gst/gstpad.h>}
-{$include <gst/gstbuffer.h>}
-type
-
-{ was #define dname def_expr }
-function GST_TYPE_BUFFER_POOL : longint; { return type might be wrong }
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_IS_BUFFER_POOL(obj : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_IS_BUFFER_POOL_CLASS(klass : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_BUFFER_POOL_GET_CLASS(obj : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_BUFFER_POOL(obj : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_BUFFER_POOL_CLASS(klass : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-function GST_BUFFER_POOL_CAST(obj : longint) : PGstBufferPool;
-
-{*
- * GstBufferPoolAcquireFlags:
- * @GST_BUFFER_POOL_ACQUIRE_FLAG_NONE: no flags
- * @GST_BUFFER_POOL_ACQUIRE_FLAG_KEY_UNIT: buffer is keyframe
- * @GST_BUFFER_POOL_ACQUIRE_FLAG_DONTWAIT: when the bufferpool is empty, acquire_buffer
- * will by default block until a buffer is released into the pool again. Setting
- * this flag makes acquire_buffer return #GST_FLOW_EOS instead of blocking.
- * @GST_BUFFER_POOL_ACQUIRE_FLAG_DISCONT: buffer is discont
- * @GST_BUFFER_POOL_ACQUIRE_FLAG_LAST: last flag, subclasses can use private flags
- *    starting from this value.
- *
- * Additional flags to control the allocation of a buffer
-  }
+  {$IFDEF read_enum}
 type
   PGstBufferPoolAcquireFlags = ^TGstBufferPoolAcquireFlags;
-  TGstBufferPoolAcquireFlags =  Longint;
-  Const
-    GST_BUFFER_POOL_ACQUIRE_FLAG_NONE = 0;
-    GST_BUFFER_POOL_ACQUIRE_FLAG_KEY_UNIT = 1 shl 0;
-    GST_BUFFER_POOL_ACQUIRE_FLAG_DONTWAIT = 1 shl 1;
-    GST_BUFFER_POOL_ACQUIRE_FLAG_DISCONT = 1 shl 2;
-    GST_BUFFER_POOL_ACQUIRE_FLAG_LAST = 1 shl 16;
-;
+  TGstBufferPoolAcquireFlags = longint;
+const
+  GST_BUFFER_POOL_ACQUIRE_FLAG_NONE = 0;
+  GST_BUFFER_POOL_ACQUIRE_FLAG_KEY_UNIT = 1 shl 0;
+  GST_BUFFER_POOL_ACQUIRE_FLAG_DONTWAIT = 1 shl 1;
+  GST_BUFFER_POOL_ACQUIRE_FLAG_DISCONT = 1 shl 2;
+  GST_BUFFER_POOL_ACQUIRE_FLAG_LAST = 1 shl 16;
+  {$ENDIF read_enum}
+
+  {$IFDEF read_struct}
 type
-{*
- * GstBufferPoolAcquireParams:
- * @format: the format of @start and @stop
- * @start: the start position
- * @stop: the stop position
- * @flags: additional flags
- *
- * Parameters passed to the gst_buffer_pool_acquire_buffer() function to control the
- * allocation of the buffer.
- *
- * The default implementation ignores the @start and @stop members but other
- * implementations can use this extra information to decide what buffer to
- * return.
-  }
-{< private > }
   PGstBufferPoolAcquireParams = ^TGstBufferPoolAcquireParams;
   TGstBufferPoolAcquireParams = record
-      format : TGstFormat;
-      start : Tgint64;
-      stop : Tgint64;
-      flags : TGstBufferPoolAcquireFlags;
-      _gst_reserved : array[0..(GST_PADDING)-1] of Tgpointer;
-    end;
+    format: TGstFormat;
+    start: Tgint64;
+    stop: Tgint64;
+    flags: TGstBufferPoolAcquireFlags;
+    _gst_reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
+  end;
 
-{*
- * GST_BUFFER_POOL_IS_FLUSHING:
- * @pool: a GstBufferPool
- *
- * Check if the bufferpool is flushing. Subclasses might want to check the
- * state of the pool in the acquire function.
-  }
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
+  PGstBufferPoolPrivate=type Pointer;
 
-function GST_BUFFER_POOL_IS_FLUSHING(obj : longint) : longint;
-
-{*
- * GstBufferPool:
- * @object: the parent structure
- * @flushing: whether the pool is currently gathering back outstanding buffers
- *
- * The structure of a #GstBufferPool. Use the associated macros to access the public
- * variables.
-  }
-{< protected > }
-{< private > }
-type
   PGstBufferPool = ^TGstBufferPool;
   TGstBufferPool = record
-      object : TGstObject;
-      flushing : Tgint;
-      priv : PGstBufferPoolPrivate;
-      _gst_reserved : array[0..(GST_PADDING)-1] of Tgpointer;
-    end;
+    obj: TGstObject;
+    flushing: Tgint;
+    priv: PGstBufferPoolPrivate;
+    _gst_reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
+  end;
 
-{*
- * GstBufferPoolClass:
- * @object_class:  Object parent class
- *
- * The #GstBufferPool class.
-  }
-{< public > }
-{*
-   * GstBufferPoolClass::get_options:
-   * @pool: the #GstBufferPool
-   *
-   * Get a list of options supported by this pool
-   *
-   * Returns: (array zero-terminated=1) (transfer none): a %NULL terminated array
-   *          of strings.
-    }
-{*
-   * GstBufferPoolClass::set_config:
-   * @pool: the #GstBufferPool
-   * @config: the required configuration
-   *
-   * Apply the bufferpool configuration. The default configuration will parse
-   * the default config parameters.
-   *
-   * Returns: whether the configuration could be set.
-    }
-{*
-   * GstBufferPoolClass::start:
-   * @pool: the #GstBufferPool
-   *
-   * Start the bufferpool. The default implementation will preallocate
-   * min-buffers buffers and put them in the queue.
-   *
-   * Subclasses do not need to chain up to the parent's default implementation
-   * if they don't want min-buffers based preallocation.
-   *
-   * Returns: whether the pool could be started.
-    }
-{*
-   * GstBufferPoolClass::stop:
-   * @pool: the #GstBufferPool
-   *
-   * Stop the bufferpool. the default implementation will free the
-   * preallocated buffers. This function is called when all the buffers are
-   * returned to the pool.
-   *
-   * Returns: whether the pool could be stopped.
-    }
-{*
-   * GstBufferPoolClass::acquire_buffer:
-   * @pool: the #GstBufferPool
-   * @buffer: (out) (transfer full) (nullable): a location for a #GstBuffer
-   * @params: (transfer none) (nullable): parameters.
-   *
-   * Get a new buffer from the pool. The default implementation
-   * will take a buffer from the queue and optionally wait for a buffer to
-   * be released when there are no buffers available.
-   *
-   * Returns: a #GstFlowReturn such as %GST_FLOW_FLUSHING when the pool is
-   * inactive.
-    }
-{*
-   * GstBufferPoolClass::alloc_buffer:
-   * @pool: the #GstBufferPool
-   * @buffer: (out) (transfer full) (nullable): a location for a #GstBuffer
-   * @params: (transfer none) (nullable): parameters.
-   *
-   * Allocate a buffer. the default implementation allocates
-   * buffers from the configured memory allocator and with the configured
-   * parameters. All metadata that is present on the allocated buffer will
-   * be marked as #GST_META_FLAG_POOLED and #GST_META_FLAG_LOCKED and will
-   * not be removed from the buffer in #GstBufferPoolClass::reset_buffer.
-   * The buffer should have the #GST_BUFFER_FLAG_TAG_MEMORY cleared.
-   *
-   * Returns: a #GstFlowReturn to indicate whether the allocation was
-   * successful.
-    }
-{*
-   * GstBufferPoolClass::reset_buffer:
-   * @pool: the #GstBufferPool
-   * @buffer: the #GstBuffer to reset
-   *
-   * Reset the buffer to its state when it was freshly allocated.
-   * The default implementation will clear the flags, timestamps and
-   * will remove the metadata without the #GST_META_FLAG_POOLED flag (even
-   * the metadata with #GST_META_FLAG_LOCKED). If the
-   * #GST_BUFFER_FLAG_TAG_MEMORY was set, this function can also try to
-   * restore the memory and clear the #GST_BUFFER_FLAG_TAG_MEMORY again.
-    }
-{*
-   * GstBufferPoolClass::release_buffer:
-   * @pool: the #GstBufferPool
-   * @buffer: the #GstBuffer to release
-   *
-   * Release a buffer back in the pool. The default implementation
-   * will put the buffer back in the queue and notify any
-   * blocking #GstBufferPoolClass::acquire_buffer calls when the
-   * #GST_BUFFER_FLAG_TAG_MEMORY is not set on the buffer.
-   * If #GST_BUFFER_FLAG_TAG_MEMORY is set, the buffer will be freed with
-   * #GstBufferPoolClass::free_buffer.
-    }
-{*
-   * GstBufferPoolClass::free_buffer:
-   * @pool: the #GstBufferPool
-   * @buffer: the #GstBuffer to free
-   *
-   * Free a buffer. The default implementation unrefs the buffer.
-    }
-{*
-   * GstBufferPoolClass::flush_start:
-   * @pool: the #GstBufferPool
-   *
-   * Enter the flushing state.
-   *
-   * Since: 1.4
-    }
-{*
-   * GstBufferPoolClass::flush_stop:
-   * @pool: the #GstBufferPool
-   *
-   * Leave the flushing state.
-   *
-   * Since: 1.4
-    }
-{< private > }
   PGstBufferPoolClass = ^TGstBufferPoolClass;
   TGstBufferPoolClass = record
-      object_class : TGstObjectClass;
-      get_options : function (pool:PGstBufferPool):PPgchar;cdecl;
-      set_config : function (pool:PGstBufferPool; config:PGstStructure):Tgboolean;cdecl;
-      start : function (pool:PGstBufferPool):Tgboolean;cdecl;
-      stop : function (pool:PGstBufferPool):Tgboolean;cdecl;
-      acquire_buffer : function (pool:PGstBufferPool; buffer:PPGstBuffer; params:PGstBufferPoolAcquireParams):TGstFlowReturn;cdecl;
-      alloc_buffer : function (pool:PGstBufferPool; buffer:PPGstBuffer; params:PGstBufferPoolAcquireParams):TGstFlowReturn;cdecl;
-      reset_buffer : procedure (pool:PGstBufferPool; buffer:PGstBuffer);cdecl;
-      release_buffer : procedure (pool:PGstBufferPool; buffer:PGstBuffer);cdecl;
-      free_buffer : procedure (pool:PGstBufferPool; buffer:PGstBuffer);cdecl;
-      flush_start : procedure (pool:PGstBufferPool);cdecl;
-      flush_stop : procedure (pool:PGstBufferPool);cdecl;
-      _gst_reserved : array[0..(GST_PADDING-2)-1] of Tgpointer;
-    end;
+    object_class: TGstObjectClass;
+    get_options: function(pool: PGstBufferPool): PPgchar; cdecl;
+    set_config: function(pool: PGstBufferPool; config: PGstStructure): Tgboolean; cdecl;
+    start: function(pool: PGstBufferPool): Tgboolean; cdecl;
+    stop: function(pool: PGstBufferPool): Tgboolean; cdecl;
+    acquire_buffer: function(pool: PGstBufferPool; buffer: PPGstBuffer; params: PGstBufferPoolAcquireParams): TGstFlowReturn; cdecl;
+    alloc_buffer: function(pool: PGstBufferPool; buffer: PPGstBuffer; params: PGstBufferPoolAcquireParams): TGstFlowReturn; cdecl;
+    reset_buffer: procedure(pool: PGstBufferPool; buffer: PGstBuffer); cdecl;
+    release_buffer: procedure(pool: PGstBufferPool; buffer: PGstBuffer); cdecl;
+    free_buffer: procedure(pool: PGstBufferPool; buffer: PGstBuffer); cdecl;
+    flush_start: procedure(pool: PGstBufferPool); cdecl;
+    flush_stop: procedure(pool: PGstBufferPool); cdecl;
+    _gst_reserved: array[0..(GST_PADDING - 2) - 1] of Tgpointer;
+  end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
+function gst_buffer_pool_get_type: TGType; cdecl; external libgstreamer;
+function gst_buffer_pool_new: PGstBufferPool; cdecl; external libgstreamer;
 
-function gst_buffer_pool_get_type:TGType;cdecl;external libgstreamer;
-{ allocation  }
-function gst_buffer_pool_new:PGstBufferPool;cdecl;external libgstreamer;
-{ state management  }
-function gst_buffer_pool_set_active(pool:PGstBufferPool; active:Tgboolean):Tgboolean;cdecl;external libgstreamer;
-function gst_buffer_pool_is_active(pool:PGstBufferPool):Tgboolean;cdecl;external libgstreamer;
-function gst_buffer_pool_set_config(pool:PGstBufferPool; config:PGstStructure):Tgboolean;cdecl;external libgstreamer;
-function gst_buffer_pool_get_config(pool:PGstBufferPool):PGstStructure;cdecl;external libgstreamer;
-function gst_buffer_pool_get_options(pool:PGstBufferPool):^Pgchar;cdecl;external libgstreamer;
-function gst_buffer_pool_has_option(pool:PGstBufferPool; option:Pgchar):Tgboolean;cdecl;external libgstreamer;
-procedure gst_buffer_pool_set_flushing(pool:PGstBufferPool; flushing:Tgboolean);cdecl;external libgstreamer;
-{ helpers for configuring the config structure  }
-procedure gst_buffer_pool_config_set_params(config:PGstStructure; caps:PGstCaps; size:Tguint; min_buffers:Tguint; max_buffers:Tguint);cdecl;external libgstreamer;
-function gst_buffer_pool_config_get_params(config:PGstStructure; caps:PPGstCaps; size:Pguint; min_buffers:Pguint; max_buffers:Pguint):Tgboolean;cdecl;external libgstreamer;
-procedure gst_buffer_pool_config_set_allocator(config:PGstStructure; allocator:PGstAllocator; params:PGstAllocationParams);cdecl;external libgstreamer;
-function gst_buffer_pool_config_get_allocator(config:PGstStructure; allocator:PPGstAllocator; params:PGstAllocationParams):Tgboolean;cdecl;external libgstreamer;
-{ options  }
-function gst_buffer_pool_config_n_options(config:PGstStructure):Tguint;cdecl;external libgstreamer;
-procedure gst_buffer_pool_config_add_option(config:PGstStructure; option:Pgchar);cdecl;external libgstreamer;
-function gst_buffer_pool_config_get_option(config:PGstStructure; index:Tguint):Pgchar;cdecl;external libgstreamer;
-function gst_buffer_pool_config_has_option(config:PGstStructure; option:Pgchar):Tgboolean;cdecl;external libgstreamer;
-function gst_buffer_pool_config_validate_params(config:PGstStructure; caps:PGstCaps; size:Tguint; min_buffers:Tguint; max_buffers:Tguint):Tgboolean;cdecl;external libgstreamer;
-{ buffer management  }
-function gst_buffer_pool_acquire_buffer(pool:PGstBufferPool; buffer:PPGstBuffer; params:PGstBufferPoolAcquireParams):TGstFlowReturn;cdecl;external libgstreamer;
-procedure gst_buffer_pool_release_buffer(pool:PGstBufferPool; buffer:PGstBuffer);cdecl;external libgstreamer;
-{$endif}
-{ __GST_BUFFER_POOL_H__  }
+function gst_buffer_pool_set_active(pool: PGstBufferPool; active: Tgboolean): Tgboolean; cdecl; external libgstreamer;
+function gst_buffer_pool_is_active(pool: PGstBufferPool): Tgboolean; cdecl; external libgstreamer;
+function gst_buffer_pool_set_config(pool: PGstBufferPool; config: PGstStructure): Tgboolean; cdecl; external libgstreamer;
+function gst_buffer_pool_get_config(pool: PGstBufferPool): PGstStructure; cdecl; external libgstreamer;
+function gst_buffer_pool_get_options(pool: PGstBufferPool): ^Pgchar; cdecl; external libgstreamer;
+function gst_buffer_pool_has_option(pool: PGstBufferPool; option: Pgchar): Tgboolean; cdecl; external libgstreamer;
+procedure gst_buffer_pool_set_flushing(pool: PGstBufferPool; flushing: Tgboolean); cdecl; external libgstreamer;
+
+procedure gst_buffer_pool_config_set_params(config: PGstStructure; caps: PGstCaps; size: Tguint; min_buffers: Tguint; max_buffers: Tguint); cdecl; external libgstreamer;
+function gst_buffer_pool_config_get_params(config: PGstStructure; caps: PPGstCaps; size: Pguint; min_buffers: Pguint; max_buffers: Pguint): Tgboolean; cdecl; external libgstreamer;
+procedure gst_buffer_pool_config_set_allocator(config: PGstStructure; allocator: PGstAllocator; params: PGstAllocationParams); cdecl; external libgstreamer;
+function gst_buffer_pool_config_get_allocator(config: PGstStructure; allocator: PPGstAllocator; params: PGstAllocationParams): Tgboolean; cdecl; external libgstreamer;
+
+function gst_buffer_pool_config_n_options(config: PGstStructure): Tguint; cdecl; external libgstreamer;
+procedure gst_buffer_pool_config_add_option(config: PGstStructure; option: Pgchar); cdecl; external libgstreamer;
+function gst_buffer_pool_config_get_option(config: PGstStructure; index: Tguint): Pgchar; cdecl; external libgstreamer;
+function gst_buffer_pool_config_has_option(config: PGstStructure; option: Pgchar): Tgboolean; cdecl; external libgstreamer;
+function gst_buffer_pool_config_validate_params(config: PGstStructure; caps: PGstCaps; size: Tguint; min_buffers: Tguint; max_buffers: Tguint): Tgboolean; cdecl; external libgstreamer;
+
+function gst_buffer_pool_acquire_buffer(pool: PGstBufferPool; buffer: PPGstBuffer; params: PGstBufferPoolAcquireParams): TGstFlowReturn; cdecl; external libgstreamer;
+procedure gst_buffer_pool_release_buffer(pool: PGstBufferPool; buffer: PGstBuffer); cdecl; external libgstreamer;
+
+function GST_BUFFER_POOL_CAST(obj: Pointer): PGstBufferPool;
+
+function GST_BUFFER_POOL_IS_FLUSHING(pool: PGstBufferPool): Tgint;
 
 // === Konventiert am: 10-7-26 19:47:00 ===
+
+function GST_TYPE_BUFFER_POOL: TGType;
+function GST_BUFFER_POOL(obj: Pointer): PGstBufferPool;
+function GST_BUFFER_POOL_CLASS(klass: Pointer): PGstBufferPoolClass;
+function GST_IS_BUFFER_POOL(obj: Pointer): Tgboolean;
+function GST_IS_BUFFER_POOL_CLASS(klass: Pointer): Tgboolean;
+function GST_BUFFER_POOL_GET_CLASS(obj: Pointer): PGstBufferPoolClass;
+{$ENDIF read_function}
 
 
 implementation
 
-
-{ was #define dname def_expr }
-function GST_TYPE_BUFFER_POOL : longint; { return type might be wrong }
-  begin
-    GST_TYPE_BUFFER_POOL:=gst_buffer_pool_get_type;
-  end;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_IS_BUFFER_POOL(obj : longint) : longint;
+function GST_TYPE_BUFFER_POOL: TGType;
 begin
-  GST_IS_BUFFER_POOL:=G_TYPE_CHECK_INSTANCE_TYPE(obj,GST_TYPE_BUFFER_POOL);
+  GST_TYPE_BUFFER_POOL := gst_buffer_pool_get_type;
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_IS_BUFFER_POOL_CLASS(klass : longint) : longint;
+function GST_BUFFER_POOL(obj: Pointer): PGstBufferPool;
 begin
-  GST_IS_BUFFER_POOL_CLASS:=G_TYPE_CHECK_CLASS_TYPE(klass,GST_TYPE_BUFFER_POOL);
+  Result := PGstBufferPool(g_type_check_instance_cast(obj, GST_TYPE_BUFFER_POOL));
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_BUFFER_POOL_GET_CLASS(obj : longint) : longint;
+function GST_BUFFER_POOL_CLASS(klass: Pointer): PGstBufferPoolClass;
 begin
-  GST_BUFFER_POOL_GET_CLASS:=G_TYPE_INSTANCE_GET_CLASS(obj,GST_TYPE_BUFFER_POOL,GstBufferPoolClass);
+  Result := PGstBufferPoolClass(g_type_check_class_cast(klass, GST_TYPE_BUFFER_POOL));
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_BUFFER_POOL(obj : longint) : longint;
+function GST_IS_BUFFER_POOL(obj: Pointer): Tgboolean;
 begin
-  GST_BUFFER_POOL:=G_TYPE_CHECK_INSTANCE_CAST(obj,GST_TYPE_BUFFER_POOL,GstBufferPool);
+  Result := g_type_check_instance_is_a(obj, GST_TYPE_BUFFER_POOL);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_BUFFER_POOL_CLASS(klass : longint) : longint;
+function GST_IS_BUFFER_POOL_CLASS(klass: Pointer): Tgboolean;
 begin
-  GST_BUFFER_POOL_CLASS:=G_TYPE_CHECK_CLASS_CAST(klass,GST_TYPE_BUFFER_POOL,GstBufferPoolClass);
+  Result := g_type_check_class_is_a(klass, GST_TYPE_BUFFER_POOL);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-function GST_BUFFER_POOL_CAST(obj : longint) : PGstBufferPool;
+function GST_BUFFER_POOL_GET_CLASS(obj: Pointer): PGstBufferPoolClass;
 begin
-  GST_BUFFER_POOL_CAST:=PGstBufferPool(obj);
+  Result := PGstBufferPoolClass(PGTypeInstance(obj)^.g_class);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_BUFFER_POOL_IS_FLUSHING(obj : longint) : longint;
+function GST_BUFFER_POOL_CAST(obj: Pointer): PGstBufferPool;
 begin
-  GST_BUFFER_POOL_IS_FLUSHING:=g_atomic_int_get(@(pool^.flushing));
+  GST_BUFFER_POOL_CAST := PGstBufferPool(obj);
 end;
 
+function GST_BUFFER_POOL_IS_FLUSHING(pool: PGstBufferPool): Tgint;
+begin
+  GST_BUFFER_POOL_IS_FLUSHING := g_atomic_int_get(@(pool^.flushing));
+end;
 
 end.

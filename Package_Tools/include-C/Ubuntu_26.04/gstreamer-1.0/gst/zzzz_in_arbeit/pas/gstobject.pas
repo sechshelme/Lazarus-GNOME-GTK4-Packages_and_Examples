@@ -24,6 +24,7 @@ const
 
   {$IFDEF read_struct}
 type
+  PPGstObject = ^PGstObject;
   PGstObject = ^TGstObject;
   TGstObject = record
     obj: TGInitiallyUnowned;
