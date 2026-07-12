@@ -1,15 +1,18 @@
 unit gstelementfactory;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
-  fp_glib2, fp_gst, gstplugin;
+  fp_glib2, fp_gst, gstplugin, gsturi, gstpluginfeature;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
+  {$IFDEF read_enum}
 type
   PGstElementFactoryListType = ^TGstElementFactoryListType;
   TGstElementFactoryListType = Tguint64;
@@ -33,102 +36,71 @@ const
   GST_ELEMENT_FACTORY_KLASS_MEDIA_METADATA = 'Metadata';
   GST_ELEMENT_FACTORY_KLASS_HARDWARE = 'Hardware';
 
-  type
-    PGstElementFactory=type Pointer;
-
-  function gst_element_factory_get_type:TGType;cdecl;external libgstreamer;
-function gst_element_factory_find(name:Pgchar):PGstElementFactory;cdecl;external libgstreamer;
-function gst_element_factory_get_element_type(factory:PGstElementFactory):TGType;cdecl;external libgstreamer;
-function gst_element_factory_get_metadata(factory:PGstElementFactory; key:Pgchar):Pgchar;cdecl;external libgstreamer;
-function gst_element_factory_get_metadata_keys(factory:PGstElementFactory):PPgchar;cdecl;external libgstreamer;
-function gst_element_factory_get_num_pad_templates(factory:PGstElementFactory):Tguint;cdecl;external libgstreamer;
-function gst_element_factory_get_static_pad_templates(factory:PGstElementFactory):PGList;cdecl;external libgstreamer;
-function gst_element_factory_get_uri_type(factory:PGstElementFactory):TGstURIType;cdecl;external libgstreamer;
-function gst_element_factory_get_uri_protocols(factory:PGstElementFactory):^Pgchar;cdecl;external libgstreamer;
-function gst_element_factory_has_interface(factory:PGstElementFactory; interfacename:Pgchar):Tgboolean;cdecl;external libgstreamer;
-function gst_element_factory_create(factory:PGstElementFactory; name:Pgchar):PGstElement;cdecl;external libgstreamer;
-function gst_element_factory_create_full(factory:PGstElementFactory; first:Pgchar; args:array of const):PGstElement;cdecl;external libgstreamer;
-function gst_element_factory_create_full(factory:PGstElementFactory; first:Pgchar):PGstElement;cdecl;external libgstreamer;
-function gst_element_factory_create_valist(factory:PGstElementFactory; first:Pgchar; properties:Tva_list):PGstElement;cdecl;external libgstreamer;
-function gst_element_factory_create_with_properties(factory:PGstElementFactory; n:Tguint; names:PPgchar; values:PGValue):PGstElement;cdecl;external libgstreamer;
-function gst_element_factory_make(factoryname:Pgchar; name:Pgchar):PGstElement;cdecl;external libgstreamer;
-function gst_element_factory_make_full(factoryname:Pgchar; first:Pgchar; args:array of const):PGstElement;cdecl;external libgstreamer;
-function gst_element_factory_make_full(factoryname:Pgchar; first:Pgchar):PGstElement;cdecl;external libgstreamer;
-function gst_element_factory_make_valist(factoryname:Pgchar; first:Pgchar; properties:Tva_list):PGstElement;cdecl;external libgstreamer;
-function gst_element_factory_make_with_properties(factoryname:Pgchar; n:Tguint; names:PPgchar; values:PGValue):PGstElement;cdecl;external libgstreamer;
-function gst_element_register(plugin:PGstPlugin; name:Pgchar; rank:Tguint; _type:TGType):Tgboolean;cdecl;external libgstreamer;
-procedure gst_element_type_set_skip_documentation(_type:TGType);cdecl;external libgstreamer;
-function gst_element_factory_get_skip_documentation(factory:PGstElementFactory):Tgboolean;cdecl;external libgstreamer;
-
-function gst_element_factory_list_is_type(factory:PGstElementFactory; _type:TGstElementFactoryListType):Tgboolean;cdecl;external libgstreamer;
-function gst_element_factory_list_get_elements(_type:TGstElementFactoryListType; minrank:TGstRank):PGList;cdecl;external libgstreamer;
-function gst_element_factory_list_filter(list:PGList; caps:PGstCaps; direction:TGstPadDirection; subsetonly:Tgboolean):PGList;cdecl;external libgstreamer;
-
-// === Konventiert am: 11-7-26 10:58:58 ===
-
-function GST_ELEMENT_FACTORY_TYPE_DECODER: TGstElementFactoryListType;
-function GST_ELEMENT_FACTORY_TYPE_ENCODER: TGstElementFactoryListType;
-function GST_ELEMENT_FACTORY_TYPE_SINK: TGstElementFactoryListType;
-function GST_ELEMENT_FACTORY_TYPE_SRC: TGstElementFactoryListType;
-function GST_ELEMENT_FACTORY_TYPE_MUXER: TGstElementFactoryListType;
-function GST_ELEMENT_FACTORY_TYPE_DEMUXER: TGstElementFactoryListType;
-function GST_ELEMENT_FACTORY_TYPE_PARSER: TGstElementFactoryListType;
-function GST_ELEMENT_FACTORY_TYPE_PAYLOADER: TGstElementFactoryListType;
-function GST_ELEMENT_FACTORY_TYPE_DEPAYLOADER: TGstElementFactoryListType;
-function GST_ELEMENT_FACTORY_TYPE_FORMATTER: TGstElementFactoryListType;
-function GST_ELEMENT_FACTORY_TYPE_DECRYPTOR: TGstElementFactoryListType;
-function GST_ELEMENT_FACTORY_TYPE_ENCRYPTOR: TGstElementFactoryListType;
-function GST_ELEMENT_FACTORY_TYPE_HARDWARE: TGstElementFactoryListType;
-function GST_ELEMENT_FACTORY_TYPE_TIMESTAMPER: TGstElementFactoryListType;
-function GST_ELEMENT_FACTORY_TYPE_MAX_ELEMENTS: TGstElementFactoryListType;
-function GST_ELEMENT_FACTORY_TYPE_MEDIA_VIDEO: TGstElementFactoryListType;
-function GST_ELEMENT_FACTORY_TYPE_MEDIA_AUDIO: TGstElementFactoryListType;
-function GST_ELEMENT_FACTORY_TYPE_MEDIA_IMAGE: TGstElementFactoryListType;
-function GST_ELEMENT_FACTORY_TYPE_MEDIA_SUBTITLE: TGstElementFactoryListType;
-function GST_ELEMENT_FACTORY_TYPE_MEDIA_METADATA: TGstElementFactoryListType;
-
-
-function GST_ELEMENT_FACTORY_TYPE_ANY: TGstElementFactoryListType;
-function GST_ELEMENT_FACTORY_TYPE_MEDIA_ANY: TGstElementFactoryListType;
-function GST_ELEMENT_FACTORY_TYPE_VIDEO_ENCODER: TGstElementFactoryListType;
-function GST_ELEMENT_FACTORY_TYPE_AUDIO_ENCODER: TGstElementFactoryListType;
-function GST_ELEMENT_FACTORY_TYPE_AUDIOVIDEO_SINKS: TGstElementFactoryListType;
-function GST_ELEMENT_FACTORY_TYPE_DECODABLE: TGstElementFactoryListType;
-
-
-
 const
-  GST_ELEMENT_FACTORY_TYPE_DECODER      = TGstElementFactoryListType(QWord(1) shl 0);
-  GST_ELEMENT_FACTORY_TYPE_ENCODER      = TGstElementFactoryListType(QWord(1) shl 1);
-  GST_ELEMENT_FACTORY_TYPE_SINK         = TGstElementFactoryListType(QWord(1) shl 2);
-  GST_ELEMENT_FACTORY_TYPE_SRC          = TGstElementFactoryListType(QWord(1) shl 3);
-  GST_ELEMENT_FACTORY_TYPE_MUXER        = TGstElementFactoryListType(QWord(1) shl 4);
-  GST_ELEMENT_FACTORY_TYPE_DEMUXER      = TGstElementFactoryListType(QWord(1) shl 5);
-  GST_ELEMENT_FACTORY_TYPE_PARSER       = TGstElementFactoryListType(QWord(1) shl 6);
-  GST_ELEMENT_FACTORY_TYPE_PAYLOADER    = TGstElementFactoryListType(QWord(1) shl 7);
-  GST_ELEMENT_FACTORY_TYPE_DEPAYLOADER  = TGstElementFactoryListType(QWord(1) shl 8);
-  GST_ELEMENT_FACTORY_TYPE_FORMATTER    = TGstElementFactoryListType(QWord(1) shl 9);
-  GST_ELEMENT_FACTORY_TYPE_DECRYPTOR    = TGstElementFactoryListType(QWord(1) shl 10);
-  GST_ELEMENT_FACTORY_TYPE_ENCRYPTOR    = TGstElementFactoryListType(QWord(1) shl 11);
-  GST_ELEMENT_FACTORY_TYPE_HARDWARE     = TGstElementFactoryListType(QWord(1) shl 12);
-  GST_ELEMENT_FACTORY_TYPE_TIMESTAMPER  = TGstElementFactoryListType(QWord(1) shl 13);
+  GST_ELEMENT_FACTORY_TYPE_DECODER = TGstElementFactoryListType(QWord(1) shl 0);
+  GST_ELEMENT_FACTORY_TYPE_ENCODER = TGstElementFactoryListType(QWord(1) shl 1);
+  GST_ELEMENT_FACTORY_TYPE_SINK = TGstElementFactoryListType(QWord(1) shl 2);
+  GST_ELEMENT_FACTORY_TYPE_SRC = TGstElementFactoryListType(QWord(1) shl 3);
+  GST_ELEMENT_FACTORY_TYPE_MUXER = TGstElementFactoryListType(QWord(1) shl 4);
+  GST_ELEMENT_FACTORY_TYPE_DEMUXER = TGstElementFactoryListType(QWord(1) shl 5);
+  GST_ELEMENT_FACTORY_TYPE_PARSER = TGstElementFactoryListType(QWord(1) shl 6);
+  GST_ELEMENT_FACTORY_TYPE_PAYLOADER = TGstElementFactoryListType(QWord(1) shl 7);
+  GST_ELEMENT_FACTORY_TYPE_DEPAYLOADER = TGstElementFactoryListType(QWord(1) shl 8);
+  GST_ELEMENT_FACTORY_TYPE_FORMATTER = TGstElementFactoryListType(QWord(1) shl 9);
+  GST_ELEMENT_FACTORY_TYPE_DECRYPTOR = TGstElementFactoryListType(QWord(1) shl 10);
+  GST_ELEMENT_FACTORY_TYPE_ENCRYPTOR = TGstElementFactoryListType(QWord(1) shl 11);
+  GST_ELEMENT_FACTORY_TYPE_HARDWARE = TGstElementFactoryListType(QWord(1) shl 12);
+  GST_ELEMENT_FACTORY_TYPE_TIMESTAMPER = TGstElementFactoryListType(QWord(1) shl 13);
   GST_ELEMENT_FACTORY_TYPE_MAX_ELEMENTS = TGstElementFactoryListType(QWord(1) shl 48);
-  GST_ELEMENT_FACTORY_TYPE_MEDIA_VIDEO    = TGstElementFactoryListType(QWord(1) shl 49);
-  GST_ELEMENT_FACTORY_TYPE_MEDIA_AUDIO    = TGstElementFactoryListType(QWord(1) shl 50);
-  GST_ELEMENT_FACTORY_TYPE_MEDIA_IMAGE    = TGstElementFactoryListType(QWord(1) shl 51);
+  GST_ELEMENT_FACTORY_TYPE_MEDIA_VIDEO = TGstElementFactoryListType(QWord(1) shl 49);
+  GST_ELEMENT_FACTORY_TYPE_MEDIA_AUDIO = TGstElementFactoryListType(QWord(1) shl 50);
+  GST_ELEMENT_FACTORY_TYPE_MEDIA_IMAGE = TGstElementFactoryListType(QWord(1) shl 51);
   GST_ELEMENT_FACTORY_TYPE_MEDIA_SUBTITLE = TGstElementFactoryListType(QWord(1) shl 52);
   GST_ELEMENT_FACTORY_TYPE_MEDIA_METADATA = TGstElementFactoryListType(QWord(1) shl 53);
-  GST_ELEMENT_FACTORY_TYPE_ANY       = TGstElementFactoryListType((QWord(1) shl 49) - 1);
+  GST_ELEMENT_FACTORY_TYPE_ANY = TGstElementFactoryListType((QWord(1) shl 49) - 1);
   GST_ELEMENT_FACTORY_TYPE_MEDIA_ANY = TGstElementFactoryListType((not QWord(0)) shl 48);
-  GST_ELEMENT_FACTORY_TYPE_VIDEO_ENCODER = TGstElementFactoryListType(    GST_ELEMENT_FACTORY_TYPE_ENCODER or GST_ELEMENT_FACTORY_TYPE_MEDIA_VIDEO or GST_ELEMENT_FACTORY_TYPE_MEDIA_IMAGE  );
-  GST_ELEMENT_FACTORY_TYPE_AUDIO_ENCODER = TGstElementFactoryListType(    GST_ELEMENT_FACTORY_TYPE_ENCODER or GST_ELEMENT_FACTORY_TYPE_MEDIA_AUDIO  );
-  GST_ELEMENT_FACTORY_TYPE_AUDIOVIDEO_SINKS = TGstElementFactoryListType(    GST_ELEMENT_FACTORY_TYPE_SINK or GST_ELEMENT_FACTORY_TYPE_MEDIA_AUDIO or GST_ELEMENT_FACTORY_TYPE_MEDIA_VIDEO or GST_ELEMENT_FACTORY_TYPE_MEDIA_IMAGE  );
-  GST_ELEMENT_FACTORY_TYPE_DECODABLE = TGstElementFactoryListType(    GST_ELEMENT_FACTORY_TYPE_DECODER or GST_ELEMENT_FACTORY_TYPE_DEMUXER or GST_ELEMENT_FACTORY_TYPE_DEPAYLOADER or GST_ELEMENT_FACTORY_TYPE_PARSER or GST_ELEMENT_FACTORY_TYPE_DECRYPTOR  );
+  GST_ELEMENT_FACTORY_TYPE_VIDEO_ENCODER = TGstElementFactoryListType(GST_ELEMENT_FACTORY_TYPE_ENCODER or GST_ELEMENT_FACTORY_TYPE_MEDIA_VIDEO or GST_ELEMENT_FACTORY_TYPE_MEDIA_IMAGE);
+  GST_ELEMENT_FACTORY_TYPE_AUDIO_ENCODER = TGstElementFactoryListType(GST_ELEMENT_FACTORY_TYPE_ENCODER or GST_ELEMENT_FACTORY_TYPE_MEDIA_AUDIO);
+  GST_ELEMENT_FACTORY_TYPE_AUDIOVIDEO_SINKS = TGstElementFactoryListType(GST_ELEMENT_FACTORY_TYPE_SINK or GST_ELEMENT_FACTORY_TYPE_MEDIA_AUDIO or GST_ELEMENT_FACTORY_TYPE_MEDIA_VIDEO or GST_ELEMENT_FACTORY_TYPE_MEDIA_IMAGE);
+  GST_ELEMENT_FACTORY_TYPE_DECODABLE = TGstElementFactoryListType(GST_ELEMENT_FACTORY_TYPE_DECODER or GST_ELEMENT_FACTORY_TYPE_DEMUXER or GST_ELEMENT_FACTORY_TYPE_DEPAYLOADER or GST_ELEMENT_FACTORY_TYPE_PARSER or GST_ELEMENT_FACTORY_TYPE_DECRYPTOR);
+  {$ENDIF read_enum}
 
+  {$IFDEF read_struct}
+type
+  PGstElementFactory = type Pointer;
+  PGstElementFactoryClass = type Pointer;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
+function gst_element_factory_get_type: TGType; cdecl; external libgstreamer;
+function gst_element_factory_find(name: Pgchar): PGstElementFactory; cdecl; external libgstreamer;
+function gst_element_factory_get_element_type(factory: PGstElementFactory): TGType; cdecl; external libgstreamer;
+function gst_element_factory_get_metadata(factory: PGstElementFactory; key: Pgchar): Pgchar; cdecl; external libgstreamer;
+function gst_element_factory_get_metadata_keys(factory: PGstElementFactory): PPgchar; cdecl; external libgstreamer;
+function gst_element_factory_get_num_pad_templates(factory: PGstElementFactory): Tguint; cdecl; external libgstreamer;
+function gst_element_factory_get_static_pad_templates(factory: PGstElementFactory): PGList; cdecl; external libgstreamer;
+function gst_element_factory_get_uri_type(factory: PGstElementFactory): TGstURIType; cdecl; external libgstreamer;
+function gst_element_factory_get_uri_protocols(factory: PGstElementFactory): PPgchar; cdecl; external libgstreamer;
+function gst_element_factory_has_interface(factory: PGstElementFactory; interfacename: Pgchar): Tgboolean; cdecl; external libgstreamer;
+function gst_element_factory_create(factory: PGstElementFactory; name: Pgchar): PGstElement; cdecl; external libgstreamer;
+function gst_element_factory_create_full(factory: PGstElementFactory; first: Pgchar; args: array of const): PGstElement; cdecl; external libgstreamer;
+function gst_element_factory_create_full(factory: PGstElementFactory; first: Pgchar): PGstElement; cdecl; external libgstreamer;
+function gst_element_factory_create_valist(factory: PGstElementFactory; first: Pgchar; properties: Tva_list): PGstElement; cdecl; external libgstreamer;
+function gst_element_factory_create_with_properties(factory: PGstElementFactory; n: Tguint; names: PPgchar; values: PGValue): PGstElement; cdecl; external libgstreamer;
+function gst_element_factory_make(factoryname: Pgchar; name: Pgchar): PGstElement; cdecl; external libgstreamer;
+function gst_element_factory_make_full(factoryname: Pgchar; first: Pgchar; args: array of const): PGstElement; cdecl; external libgstreamer;
+function gst_element_factory_make_full(factoryname: Pgchar; first: Pgchar): PGstElement; cdecl; external libgstreamer;
+function gst_element_factory_make_valist(factoryname: Pgchar; first: Pgchar; properties: Tva_list): PGstElement; cdecl; external libgstreamer;
+function gst_element_factory_make_with_properties(factoryname: Pgchar; n: Tguint; names: PPgchar; values: PGValue): PGstElement; cdecl; external libgstreamer;
+function gst_element_register(plugin: PGstPlugin; name: Pgchar; rank: Tguint; _type: TGType): Tgboolean; cdecl; external libgstreamer;
+procedure gst_element_type_set_skip_documentation(_type: TGType); cdecl; external libgstreamer;
+function gst_element_factory_get_skip_documentation(factory: PGstElementFactory): Tgboolean; cdecl; external libgstreamer;
 
+function gst_element_factory_list_is_type(factory: PGstElementFactory; _type: TGstElementFactoryListType): Tgboolean; cdecl; external libgstreamer;
+function gst_element_factory_list_get_elements(_type: TGstElementFactoryListType; minrank: TGstRank): PGList; cdecl; external libgstreamer;
+function gst_element_factory_list_filter(list: PGList; caps: PGstCaps; direction: TGstPadDirection; subsetonly: Tgboolean): PGList; cdecl; external libgstreamer;
 
-
+// === Konventiert am: 11-7-26 10:58:58 ===
 
 function GST_ELEMENT_FACTORY_CAST(obj: Pointer): PGstElementFactory;
 function GST_TYPE_ELEMENT_FACTORY: TGType;
@@ -136,6 +108,7 @@ function GST_ELEMENT_FACTORY(obj: Pointer): PGstElementFactory;
 function GST_ELEMENT_FACTORY_CLASS(klass: Pointer): PGstElementFactoryClass;
 function GST_IS_ELEMENT_FACTORY(obj: Pointer): Tgboolean;
 function GST_IS_ELEMENT_FACTORY_CLASS(klass: Pointer): Tgboolean;
+{$ENDIF read_struct}
 
 
 implementation
@@ -168,138 +141,6 @@ end;
 function GST_ELEMENT_FACTORY_CAST(obj: Pointer): PGstElementFactory;
 begin
   GST_ELEMENT_FACTORY_CAST := PGstElementFactory(obj);
-end;
-
-// ====
-
-function GST_ELEMENT_FACTORY_TYPE_DECODER: TGstElementFactoryListType;
-begin
-  GST_ELEMENT_FACTORY_TYPE_DECODER := TGstElementFactoryListType((G_GUINT64_CONSTANT(1)) shl 0);
-end;
-
-function GST_ELEMENT_FACTORY_TYPE_ENCODER: TGstElementFactoryListType;
-begin
-  GST_ELEMENT_FACTORY_TYPE_ENCODER := TGstElementFactoryListType((G_GUINT64_CONSTANT(1)) shl 1);
-end;
-
-function GST_ELEMENT_FACTORY_TYPE_SINK: TGstElementFactoryListType;
-begin
-  GST_ELEMENT_FACTORY_TYPE_SINK := TGstElementFactoryListType((G_GUINT64_CONSTANT(1)) shl 2);
-end;
-
-function GST_ELEMENT_FACTORY_TYPE_SRC: TGstElementFactoryListType;
-begin
-  GST_ELEMENT_FACTORY_TYPE_SRC := TGstElementFactoryListType((G_GUINT64_CONSTANT(1)) shl 3);
-end;
-
-function GST_ELEMENT_FACTORY_TYPE_MUXER: TGstElementFactoryListType;
-begin
-  GST_ELEMENT_FACTORY_TYPE_MUXER := TGstElementFactoryListType((G_GUINT64_CONSTANT(1)) shl 4);
-end;
-
-function GST_ELEMENT_FACTORY_TYPE_DEMUXER: TGstElementFactoryListType;
-begin
-  GST_ELEMENT_FACTORY_TYPE_DEMUXER := TGstElementFactoryListType((G_GUINT64_CONSTANT(1)) shl 5);
-end;
-
-function GST_ELEMENT_FACTORY_TYPE_PARSER: TGstElementFactoryListType;
-begin
-  GST_ELEMENT_FACTORY_TYPE_PARSER := TGstElementFactoryListType((G_GUINT64_CONSTANT(1)) shl 6);
-end;
-
-function GST_ELEMENT_FACTORY_TYPE_PAYLOADER: TGstElementFactoryListType;
-begin
-  GST_ELEMENT_FACTORY_TYPE_PAYLOADER := TGstElementFactoryListType((G_GUINT64_CONSTANT(1)) shl 7);
-end;
-
-function GST_ELEMENT_FACTORY_TYPE_DEPAYLOADER: TGstElementFactoryListType;
-begin
-  GST_ELEMENT_FACTORY_TYPE_DEPAYLOADER := TGstElementFactoryListType((G_GUINT64_CONSTANT(1)) shl 8);
-end;
-
-function GST_ELEMENT_FACTORY_TYPE_FORMATTER: TGstElementFactoryListType;
-begin
-  GST_ELEMENT_FACTORY_TYPE_FORMATTER := TGstElementFactoryListType((G_GUINT64_CONSTANT(1)) shl 9);
-end;
-
-function GST_ELEMENT_FACTORY_TYPE_DECRYPTOR: TGstElementFactoryListType;
-begin
-  GST_ELEMENT_FACTORY_TYPE_DECRYPTOR := TGstElementFactoryListType((G_GUINT64_CONSTANT(1)) shl 10);
-end;
-
-function GST_ELEMENT_FACTORY_TYPE_ENCRYPTOR: TGstElementFactoryListType;
-begin
-  GST_ELEMENT_FACTORY_TYPE_ENCRYPTOR := TGstElementFactoryListType((G_GUINT64_CONSTANT(1)) shl 11);
-end;
-
-function GST_ELEMENT_FACTORY_TYPE_HARDWARE: TGstElementFactoryListType;
-begin
-  GST_ELEMENT_FACTORY_TYPE_HARDWARE := TGstElementFactoryListType((G_GUINT64_CONSTANT(1)) shl 12);
-end;
-
-function GST_ELEMENT_FACTORY_TYPE_TIMESTAMPER: TGstElementFactoryListType;
-begin
-  GST_ELEMENT_FACTORY_TYPE_TIMESTAMPER := TGstElementFactoryListType((G_GUINT64_CONSTANT(1)) shl 13);
-end;
-
-function GST_ELEMENT_FACTORY_TYPE_MAX_ELEMENTS: TGstElementFactoryListType;
-begin
-  GST_ELEMENT_FACTORY_TYPE_MAX_ELEMENTS := TGstElementFactoryListType((G_GUINT64_CONSTANT(1)) shl 48);
-end;
-
-function GST_ELEMENT_FACTORY_TYPE_MEDIA_VIDEO: TGstElementFactoryListType;
-begin
-  GST_ELEMENT_FACTORY_TYPE_MEDIA_VIDEO := TGstElementFactoryListType((G_GUINT64_CONSTANT(1)) shl 49);
-end;
-
-function GST_ELEMENT_FACTORY_TYPE_MEDIA_AUDIO: TGstElementFactoryListType;
-begin
-  GST_ELEMENT_FACTORY_TYPE_MEDIA_AUDIO := TGstElementFactoryListType((G_GUINT64_CONSTANT(1)) shl 50);
-end;
-
-function GST_ELEMENT_FACTORY_TYPE_MEDIA_IMAGE: TGstElementFactoryListType;
-begin
-  GST_ELEMENT_FACTORY_TYPE_MEDIA_IMAGE := TGstElementFactoryListType((G_GUINT64_CONSTANT(1)) shl 51);
-end;
-
-function GST_ELEMENT_FACTORY_TYPE_MEDIA_SUBTITLE: TGstElementFactoryListType;
-begin
-  GST_ELEMENT_FACTORY_TYPE_MEDIA_SUBTITLE := TGstElementFactoryListType((G_GUINT64_CONSTANT(1)) shl 52);
-end;
-
-function GST_ELEMENT_FACTORY_TYPE_MEDIA_METADATA: TGstElementFactoryListType;
-begin
-  GST_ELEMENT_FACTORY_TYPE_MEDIA_METADATA := TGstElementFactoryListType((G_GUINT64_CONSTANT(1)) shl 53);
-end;
-
-function GST_ELEMENT_FACTORY_TYPE_ANY: TGstElementFactoryListType;
-begin
-  GST_ELEMENT_FACTORY_TYPE_ANY := TGstElementFactoryListType(((G_GUINT64_CONSTANT(1)) shl 49) - 1);
-end;
-
-function GST_ELEMENT_FACTORY_TYPE_MEDIA_ANY: TGstElementFactoryListType;
-begin
-  GST_ELEMENT_FACTORY_TYPE_MEDIA_ANY := TGstElementFactoryListType((not (G_GUINT64_CONSTANT(0))) shl 48);
-end;
-
-function GST_ELEMENT_FACTORY_TYPE_VIDEO_ENCODER: TGstElementFactoryListType;
-begin
-  GST_ELEMENT_FACTORY_TYPE_VIDEO_ENCODER := TGstElementFactoryListType((GST_ELEMENT_FACTORY_TYPE_ENCODER or GST_ELEMENT_FACTORY_TYPE_MEDIA_VIDEO) or GST_ELEMENT_FACTORY_TYPE_MEDIA_IMAGE);
-end;
-
-function GST_ELEMENT_FACTORY_TYPE_AUDIO_ENCODER: TGstElementFactoryListType;
-begin
-  GST_ELEMENT_FACTORY_TYPE_AUDIO_ENCODER := TGstElementFactoryListType(GST_ELEMENT_FACTORY_TYPE_ENCODER or GST_ELEMENT_FACTORY_TYPE_MEDIA_AUDIO);
-end;
-
-function GST_ELEMENT_FACTORY_TYPE_AUDIOVIDEO_SINKS: TGstElementFactoryListType;
-begin
-  GST_ELEMENT_FACTORY_TYPE_AUDIOVIDEO_SINKS := TGstElementFactoryListType(((GST_ELEMENT_FACTORY_TYPE_SINK or GST_ELEMENT_FACTORY_TYPE_MEDIA_AUDIO) or GST_ELEMENT_FACTORY_TYPE_MEDIA_VIDEO) or GST_ELEMENT_FACTORY_TYPE_MEDIA_IMAGE);
-end;
-
-function GST_ELEMENT_FACTORY_TYPE_DECODABLE: TGstElementFactoryListType;
-begin
-  GST_ELEMENT_FACTORY_TYPE_DECODABLE := TGstElementFactoryListType((((GST_ELEMENT_FACTORY_TYPE_DECODER or GST_ELEMENT_FACTORY_TYPE_DEMUXER) or GST_ELEMENT_FACTORY_TYPE_DEPAYLOADER) or GST_ELEMENT_FACTORY_TYPE_PARSER) or GST_ELEMENT_FACTORY_TYPE_DECRYPTOR);
 end;
 
 end.

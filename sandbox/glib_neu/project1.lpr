@@ -2,8 +2,9 @@ program project1;
 
 // diff -U 1 /n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Packages_2024/gtk-4.14.2/C-include/gtk/gtkslicelistmodel.h /n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Packages_2026/gtk-4.22.4/C-include/gtk-4.0/gtk/gtkslicelistmodel.h > test.diff
 uses
-
   gst,
+  gstconfig,
+  gstenumtypes,
   gstobject,
   gstminiobject,
   gstmemory,
@@ -31,7 +32,7 @@ uses
   gstbufferpool,
   gstbufferlist,
   gstquery,
-    gstplugin,
+  gstplugin,
   gstpluginfeature,
   gstdevice,                                   // GST_DEVICE_CLASS &  GST_DEVICE_GET_CLASS
   gstdevicemonitor,
@@ -40,43 +41,26 @@ uses
   gstmessage,
   gstevent,
   gsttaskpool,
-    gsttask,
+  gsttask,
   gstpad,
   gstpadtemplate,
-
-    gsturi,
-
-
+  gsturi,
+  gstelementmetadata,
   gstelementfactory,
   gstelement,
-  gstelementmetadata,
-
-
-
-
   gstsample,
-
-
-
-
   gstbus,
-
-
-
-
   gstbin,
-
   gstchildproxy,
-  gstconfig,
   gstcontrolbinding,
   gstcontrolsource,
   gstcpuid,
   gstdebugutils,
   gstdynamictypefactory,
-  gstenumtypes,
   gsterror,
   gstghostpad,
   gstinfo,
+
   gstmetafactory,
   gstparamspecs,
   gstparse,

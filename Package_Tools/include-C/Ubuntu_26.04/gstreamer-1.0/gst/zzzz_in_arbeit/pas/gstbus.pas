@@ -5,7 +5,7 @@ unit gstbus;
 interface
 
 uses
-  fp_glib2, fp_gst, gstobject;
+  fp_glib2, fp_gst, gstobject, gstmessage;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -34,6 +34,8 @@ type
 
   TGstBusSyncHandler = function(bus: PGstBus; message: PGstMessage; user_data: Tgpointer): TGstBusSyncReply; cdecl;
   TGstBusFunc = function(bus: PGstBus; message: PGstMessage; user_data: Tgpointer): Tgboolean; cdecl;
+
+  PGstBusPrivate = type Pointer;
 
   TGstBus = record
     obj: TGstObject;

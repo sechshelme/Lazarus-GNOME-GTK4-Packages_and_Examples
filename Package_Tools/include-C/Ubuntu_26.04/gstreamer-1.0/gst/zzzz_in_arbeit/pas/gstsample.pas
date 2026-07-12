@@ -5,7 +5,7 @@ unit gstsample;
 interface
 
 uses
-  fp_glib2, fp_gst, gstsegment, gststructure;
+  fp_glib2, fp_gst, gstsegment, gststructure, gstbuffer, gstbufferlist, gstminiobject;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -47,9 +47,6 @@ function GST_IS_SAMPLE(obj: Pointer): Tgboolean;
 function GST_SAMPLE_CAST(obj: Pointer): PGstSample;
 function GST_SAMPLE(obj: Pointer): PGstSample;
 
-function gst_sample_is_writable(sample: PGstSample): Tgboolean;
-function gst_sample_make_writable(sample: PGstSample): PGstSample;
-
 procedure gst_value_set_sample(v: PGValue; b: Tgconstpointer);
 procedure gst_value_take_sample(v: PGValue; b: Tgconstpointer);
 function gst_value_get_sample(v: PGValue): PGstSample;
@@ -75,16 +72,6 @@ end;
 function GST_SAMPLE(obj: Pointer): PGstSample;
 begin
   GST_SAMPLE := GST_SAMPLE_CAST(obj);
-end;
-
-function gst_sample_is_writable(sample: PGstSample): Tgboolean;
-begin
-  gst_sample_is_writable := gst_mini_object_is_writable(GST_MINI_OBJECT_CAST(sample));
-end;
-
-function gst_sample_make_writable(sample: PGstSample): PGstSample;
-begin
-  gst_sample_make_writable := GST_SAMPLE_CAST(gst_mini_object_make_writable(GST_MINI_OBJECT_CAST(sample)));
 end;
 
 procedure gst_value_set_sample(v: PGValue; b: Tgconstpointer);

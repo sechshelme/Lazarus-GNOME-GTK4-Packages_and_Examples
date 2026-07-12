@@ -5,7 +5,7 @@ unit gstbin;
 interface
 
 uses
-  fp_glib2, fp_gst;
+  fp_glib2, fp_gst, gstobject, gstelement, gstclock, gstmessage, gstiterator;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -24,6 +24,8 @@ const
 
   {$IFDEF read_struct}
 type
+  PGstBinPrivate = type Pointer;
+
   PGstBin = ^TGstBin;
   TGstBin = record
     element: TGstElement;
