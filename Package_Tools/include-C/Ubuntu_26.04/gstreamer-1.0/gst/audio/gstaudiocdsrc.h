@@ -138,7 +138,7 @@ GST_AUDIO_API
 gboolean gst_audio_cd_src_add_track (GstAudioCdSrc      * src,
                                      GstAudioCdSrcTrack * track);
 
-////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstAudioCdSrc, gst_object_unref)
+//////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstAudioCdSrc, gst_object_unref)
 
 
 

@@ -477,7 +477,7 @@ GST_VIDEO_API
 gboolean       gst_video_info_align_full  (GstVideoInfo * info, GstVideoAlignment * align, gsize plane_size[GST_VIDEO_MAX_PLANES]);
 
 
-////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstVideoInfo, gst_video_info_free)
+//////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstVideoInfo, gst_video_info_free)
 
 
 

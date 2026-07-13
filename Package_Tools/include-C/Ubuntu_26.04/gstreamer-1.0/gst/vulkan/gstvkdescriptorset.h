@@ -131,7 +131,7 @@ GstVulkanDescriptorSet *    gst_vulkan_descriptor_set_new_wrapped       (GstVulk
                                                                          guint n_layouts,
                                                                          GstVulkanHandle ** layouts) ;
 
-////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstVulkanDescriptorSet, gst_vulkan_descriptor_set_unref);
+//////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstVulkanDescriptorSet, gst_vulkan_descriptor_set_unref);
 
 
 

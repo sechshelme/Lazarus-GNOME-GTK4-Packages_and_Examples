@@ -203,7 +203,7 @@ GType gst_video_aggregator_convert_pad_get_type           (void);
 GST_VIDEO_API
 void gst_video_aggregator_convert_pad_update_conversion_info (GstVideoAggregatorConvertPad * pad);
 
-////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstVideoAggregatorConvertPad, gst_object_unref)
+//////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstVideoAggregatorConvertPad, gst_object_unref)
 
 /****************************************
  * GstVideoAggregatorParallelConvertPad *
@@ -329,8 +329,8 @@ GType gst_video_aggregator_get_type       (void);
 GST_VIDEO_API
 GstTaskPool * gst_video_aggregator_get_execution_task_pool (GstVideoAggregator * vagg) ;
 
-////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstVideoAggregator, gst_object_unref)
-////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstVideoAggregatorPad, gst_object_unref)
+//////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstVideoAggregator, gst_object_unref)
+//////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstVideoAggregatorPad, gst_object_unref)
 
 
 #endif /* __GST_VIDEO_AGGREGATOR_H__ */

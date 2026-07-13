@@ -82,7 +82,7 @@ struct _GstColorBalanceChannelClass {
 GST_VIDEO_API
 GType   gst_color_balance_channel_get_type (void);
 
-////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstColorBalanceChannel, gst_object_unref)
+//////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstColorBalanceChannel, gst_object_unref)
 
 
 

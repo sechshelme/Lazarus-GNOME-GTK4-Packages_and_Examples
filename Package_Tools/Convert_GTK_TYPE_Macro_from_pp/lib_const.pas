@@ -306,7 +306,6 @@ const
 
 
     (libs: 'libgstpbutils'; units: 'fp_glib2, fp_gst'),
-    (libs: 'libgstbase'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstaudio'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstvideo'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstallocators'; units: 'fp_glib2, fp_gst'),
@@ -342,6 +341,8 @@ const
     (libs: 'libgstisoff'; units: 'fp_glib2, fp_gst'),
 
     (libs: 'libgstreamer'; units: 'fp_glib2, fp_gst'),
+    (libs: 'libgstbase'; units: 'fp_glib2, fp_gst'),
+
 
 
 

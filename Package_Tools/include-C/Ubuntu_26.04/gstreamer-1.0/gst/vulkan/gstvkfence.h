@@ -93,7 +93,7 @@ gst_vulkan_fence_unref (GstVulkanFence * fence)
   gst_mini_object_unref (GST_MINI_OBJECT_CAST (fence));
 }
 
-////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstVulkanFence, gst_vulkan_fence_unref);
+//////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstVulkanFence, gst_vulkan_fence_unref);
 
 GST_VULKAN_API
 GType gst_vulkan_fence_cache_get_type       (void);
@@ -132,7 +132,7 @@ struct _GstVulkanFenceCacheClass
   gpointer _reserved        [GST_PADDING];
 };
 
-////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstVulkanFenceCache, gst_object_unref);
+//////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstVulkanFenceCache, gst_object_unref);
 
 GstVulkanFenceCache *       gst_vulkan_fence_cache_new         (GstVulkanDevice * device) ;
 

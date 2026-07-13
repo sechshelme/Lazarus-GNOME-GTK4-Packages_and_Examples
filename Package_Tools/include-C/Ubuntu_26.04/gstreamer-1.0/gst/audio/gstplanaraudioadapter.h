@@ -109,7 +109,7 @@ GST_AUDIO_BAD_API
 GstClockTime gst_planar_audio_adapter_prev_dts (GstPlanarAudioAdapter * adapter,
     guint64 * distance);
 
-////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstPlanarAudioAdapter, gst_object_unref)
+//////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstPlanarAudioAdapter, gst_object_unref)
 
 
 

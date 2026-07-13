@@ -96,8 +96,8 @@ GST_RTSP_SERVER_API
 void                  gst_rtsp_mount_points_remove_factory (GstRTSPMountPoints *mounts,
                                                             const gchar *path);
 
-#ifdef ////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    
-////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstRTSPMountPoints, gst_object_unref)
+#ifdef //////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     
+//////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstRTSPMountPoints, gst_object_unref)
 #endif
 
 

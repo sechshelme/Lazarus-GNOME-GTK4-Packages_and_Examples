@@ -220,8 +220,8 @@ GST_RTSP_SERVER_API
 GstFlowReturn            gst_rtsp_stream_transport_recv_data     (GstRTSPStreamTransport *trans,
                                                                   guint channel, GstBuffer *buffer);
 
-#ifdef ////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    
-////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstRTSPStreamTransport, gst_object_unref)
+#ifdef //////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     
+//////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstRTSPStreamTransport, gst_object_unref)
 #endif
 
 

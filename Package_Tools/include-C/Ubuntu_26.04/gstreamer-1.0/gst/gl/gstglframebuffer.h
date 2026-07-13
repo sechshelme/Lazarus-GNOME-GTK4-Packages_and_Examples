@@ -112,7 +112,7 @@ gboolean                gst_gl_framebuffer_draw_to_texture          (GstGLFrameb
                                                                      GstGLFramebufferFunc func,
                                                                      gpointer user_data);
 
-////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstGLFramebuffer, gst_object_unref)
+//////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstGLFramebuffer, gst_object_unref)
 
 
 

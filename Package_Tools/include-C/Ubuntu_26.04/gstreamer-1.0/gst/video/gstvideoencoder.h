@@ -393,7 +393,7 @@ void                 gst_video_encoder_release_frame (GstVideoEncoder *encoder, 
 GST_VIDEO_API
 void                 gst_video_encoder_drop_frame (GstVideoEncoder *encoder, GstVideoCodecFrame *frame);
 
-////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstVideoEncoder, gst_object_unref)
+//////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstVideoEncoder, gst_object_unref)
 
 
 

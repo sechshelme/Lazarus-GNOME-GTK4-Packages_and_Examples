@@ -85,7 +85,7 @@ void            gst_webrtc_ice_transport_new_candidate              (GstWebRTCIC
 GST_WEBRTC_API
 GstWebRTCICECandidatePair * gst_webrtc_ice_transport_get_selected_candidate_pair (GstWebRTCICETransport * transport);
 
-////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstWebRTCICETransport, gst_object_unref)
+//////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstWebRTCICETransport, gst_object_unref)
 
 
 

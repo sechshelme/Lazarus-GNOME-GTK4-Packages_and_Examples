@@ -108,39 +108,39 @@ typedef struct _GstGLAsyncDebug GstGLAsyncDebug;
 
 #include <gst/gl/gstgl_enums.h>
 
-////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstGLBaseFilter, gst_object_unref)
+//////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstGLBaseFilter, gst_object_unref)
 
-////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstGLBaseMemoryAllocator, gst_object_unref)
+//////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstGLBaseMemoryAllocator, gst_object_unref)
 
-////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstGLBaseSrc, gst_object_unref)
+//////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstGLBaseSrc, gst_object_unref)
 
-////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstGLBufferAllocator, gst_object_unref)
+//////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstGLBufferAllocator, gst_object_unref)
 
-////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstGLBufferPool, gst_object_unref)
+//////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstGLBufferPool, gst_object_unref)
 
-////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstGLColorConvert, gst_object_unref)
+//////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstGLColorConvert, gst_object_unref)
 
-////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstGLContext, gst_object_unref)
+//////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstGLContext, gst_object_unref)
 
-////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstGLDisplay, gst_object_unref)
+//////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstGLDisplay, gst_object_unref)
 
-////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstGLFilter, gst_object_unref)
+//////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstGLFilter, gst_object_unref)
 
-////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstGLMemoryAllocator, gst_object_unref)
+//////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstGLMemoryAllocator, gst_object_unref)
 
-////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstGLMemoryPBOAllocator, gst_object_unref)
+//////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstGLMemoryPBOAllocator, gst_object_unref)
 
-////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstGLOverlayCompositor, gst_object_unref)
+//////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstGLOverlayCompositor, gst_object_unref)
 
-////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstGLSLStage, gst_object_unref)
+//////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstGLSLStage, gst_object_unref)
 
-////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstGLShader, gst_object_unref)
+//////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstGLShader, gst_object_unref)
 
-////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstGLUpload, gst_object_unref)
+//////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstGLUpload, gst_object_unref)
 
-////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstGLViewConvert, gst_object_unref)
+//////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstGLViewConvert, gst_object_unref)
 
-////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstGLWindow, gst_object_unref)
+//////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstGLWindow, gst_object_unref)
 
 
 

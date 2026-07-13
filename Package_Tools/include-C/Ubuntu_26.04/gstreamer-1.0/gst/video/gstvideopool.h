@@ -81,7 +81,7 @@ GType             gst_video_buffer_pool_get_type      (void);
 GST_VIDEO_API
 GstBufferPool *   gst_video_buffer_pool_new           (void) ;
 
-////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstVideoBufferPool, gst_object_unref)
+//////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstVideoBufferPool, gst_object_unref)
 
 
 

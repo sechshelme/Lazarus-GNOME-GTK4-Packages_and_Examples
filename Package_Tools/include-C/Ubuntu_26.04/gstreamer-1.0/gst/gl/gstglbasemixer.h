@@ -83,7 +83,7 @@ struct _GstGLBaseMixerPadClass
   gpointer _padding[GST_PADDING];
 };
 
-////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstGLBaseMixerPad, gst_object_unref);
+//////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstGLBaseMixerPad, gst_object_unref);
 
 GST_GL_API
 GType gst_gl_base_mixer_pad_get_type (void);
@@ -190,7 +190,7 @@ struct _GstGLBaseMixerClass
   gpointer _padding[GST_PADDING];
 };
 
-////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstGLBaseMixer, gst_object_unref);
+//////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstGLBaseMixer, gst_object_unref);
 
 GST_GL_API
 GType gst_gl_base_mixer_get_type(void);

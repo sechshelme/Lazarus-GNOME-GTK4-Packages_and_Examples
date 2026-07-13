@@ -153,7 +153,7 @@ GstAudioBaseSrcSlaveMethod
            gst_audio_base_src_get_slave_method         (GstAudioBaseSrc *src);
 
 
-////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstAudioBaseSrc, gst_object_unref)
+//////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstAudioBaseSrc, gst_object_unref)
 
 
 

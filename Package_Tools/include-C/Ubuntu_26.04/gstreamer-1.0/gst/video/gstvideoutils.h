@@ -332,9 +332,9 @@ void                 gst_video_codec_frame_set_user_data (GstVideoCodecFrame *fr
 GST_VIDEO_API
 gpointer             gst_video_codec_frame_get_user_data (GstVideoCodecFrame *frame);
 
-////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstVideoCodecFrame, gst_video_codec_frame_unref)
+//////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstVideoCodecFrame, gst_video_codec_frame_unref)
 
-////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstVideoCodecState, gst_video_codec_state_unref)
+//////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstVideoCodecState, gst_video_codec_state_unref)
 
 
 

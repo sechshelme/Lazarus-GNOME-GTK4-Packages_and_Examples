@@ -82,7 +82,7 @@ struct _GstTagMuxClass {
 GST_TAG_API
 GType gst_tag_mux_get_type (void);
 
-////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstTagMux, gst_object_unref)
+//////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstTagMux, gst_object_unref)
 
 
 

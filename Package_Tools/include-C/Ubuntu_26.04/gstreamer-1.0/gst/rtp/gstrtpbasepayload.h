@@ -192,7 +192,7 @@ GST_RTP_API
 guint           gst_rtp_base_payload_get_source_count (GstRTPBasePayload * payload,
                                                        GstBuffer * buffer);
 
-////////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstRTPBasePayload, gst_object_unref)
+//////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstRTPBasePayload, gst_object_unref)
 
 
 

@@ -96,16 +96,6 @@ const
   libges = 'libges-1.0-0.dll';
   {$endif}
 
-  // ==== Muss ausgemistet werden
-
-  //type
-  //PGstAllocator=Pointer;
-  //
-  //PGstCaps=Pointer;
-  //PPGstCaps=^PGstCaps        ;
-
-  // ======================
-
 type
   Tuintptr_t = PtrUInt;
   Puintptr_t = ^Tuintptr_t;

@@ -11,6 +11,10 @@
     </CompilerOptions>
     <Files>
       <Item>
+        <Filename Value="fp_gst_base.pas"/>
+        <UnitName Value="fp_gst_base"/>
+      </Item>
+      <Item>
         <Filename Value="fp_gst_webrtc_nice.pas"/>
         <UnitName Value="fp_gst_webrtc_nice"/>
       </Item>
@@ -157,10 +161,6 @@
       <Item>
         <Filename Value="fp_gst_basecamerabinsrc.pas"/>
         <UnitName Value="fp_gst_basecamerabinsrc"/>
-      </Item>
-      <Item>
-        <Filename Value="fp_gst_base.pas"/>
-        <UnitName Value="fp_gst_base"/>
       </Item>
       <Item>
         <Filename Value="fp_gst_audio.pas"/>
