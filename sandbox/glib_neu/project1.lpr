@@ -60,7 +60,6 @@ uses
   gsterror,
   gstghostpad,
   gstinfo,
-
   gstmetafactory,
   gstparamspecs,
   gstparse,

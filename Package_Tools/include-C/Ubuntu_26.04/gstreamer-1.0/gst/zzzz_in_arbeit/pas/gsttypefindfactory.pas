@@ -1,139 +1,71 @@
 unit gsttypefindfactory;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
-  fp_glib2, fp_gst;
+  fp_glib2, fp_gst, gsttypefind;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
-{ GStreamer
- * Copyright (C) 2003 Benjamin Otte <in7y118@public.uni-hamburg.de>
- *
- * gsttypefindfactory.h: typefinding subsystem
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Library General Public
- * License as published by the Free Software Foundation; either
- * version 2 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Library General Public License for more details.
- *
- * You should have received a copy of the GNU Library General Public
- * License along with this library; if not, write to the
- * Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
- * Boston, MA 02110-1301, USA.
-  }
-{$ifndef __GST_TYPE_FIND_FACTORY_H__}
-{$define __GST_TYPE_FIND_FACTORY_H__}
-{$include <gst/gstcaps.h>}
-{$include <gst/gstplugin.h>}
-{$include <gst/gstpluginfeature.h>}
-{$include <gst/gsttypefind.h>}
-
-{ was #define dname def_expr }
-function GST_TYPE_TYPE_FIND_FACTORY : longint; { return type might be wrong }
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_TYPE_FIND_FACTORY(obj : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_IS_TYPE_FIND_FACTORY(obj : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_TYPE_FIND_FACTORY_CLASS(klass : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_IS_TYPE_FIND_FACTORY_CLASS(klass : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_TYPE_FIND_FACTORY_GET_CLASS(obj : longint) : longint;
-
-{*
- * GstTypeFindFactory:
- *
- * Opaque object that stores information about a typefind function.
-  }
+  {$IFDEF read_struct}
 type
-{ typefinding interface  }
+  PGstTypeFindFactory = type Pointer;
+  PGstTypeFindFactoryClass = type Pointer;
+  {$ENDIF read_struct}
 
-function gst_type_find_factory_get_type:TGType;cdecl;external libgstreamer;
-function gst_type_find_factory_get_list:PGList;cdecl;external libgstreamer;
-function gst_type_find_factory_get_extensions(factory:PGstTypeFindFactory):^Pgchar;cdecl;external libgstreamer;
-function gst_type_find_factory_get_caps(factory:PGstTypeFindFactory):PGstCaps;cdecl;external libgstreamer;
-function gst_type_find_factory_has_function(factory:PGstTypeFindFactory):Tgboolean;cdecl;external libgstreamer;
-procedure gst_type_find_factory_call_function(factory:PGstTypeFindFactory; find:PGstTypeFind);cdecl;external libgstreamer;
-{//////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstTypeFindFactory, gst_object_unref) }
-{$endif}
-{ __GST_TYPE_FIND_FACTORY_H__  }
+{$IFDEF read_function}
+function gst_type_find_factory_get_type: TGType; cdecl; external libgstreamer;
+function gst_type_find_factory_get_list: PGList; cdecl; external libgstreamer;
+function gst_type_find_factory_get_extensions(factory: PGstTypeFindFactory): PPgchar; cdecl; external libgstreamer;
+function gst_type_find_factory_get_caps(factory: PGstTypeFindFactory): PGstCaps; cdecl; external libgstreamer;
+function gst_type_find_factory_has_function(factory: PGstTypeFindFactory): Tgboolean; cdecl; external libgstreamer;
+procedure gst_type_find_factory_call_function(factory: PGstTypeFindFactory; find: PGstTypeFind); cdecl; external libgstreamer;
 
 // === Konventiert am: 11-7-26 15:54:13 ===
 
+function GST_TYPE_TYPE_FIND_FACTORY: TGType;
+function GST_TYPE_FIND_FACTORY(obj: Pointer): PGstTypeFindFactory;
+function GST_TYPE_FIND_FACTORY_CLASS(klass: Pointer): PGstTypeFindFactoryClass;
+function GST_IS_TYPE_FIND_FACTORY(obj: Pointer): Tgboolean;
+function GST_IS_TYPE_FIND_FACTORY_CLASS(klass: Pointer): Tgboolean;
+function GST_TYPE_FIND_FACTORY_GET_CLASS(obj: Pointer): PGstTypeFindFactoryClass;
+{$ENDIF read_function}
 
 implementation
 
-
-{ was #define dname def_expr }
-function GST_TYPE_TYPE_FIND_FACTORY : longint; { return type might be wrong }
-  begin
-    GST_TYPE_TYPE_FIND_FACTORY:=gst_type_find_factory_get_type;
-  end;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_TYPE_FIND_FACTORY(obj : longint) : longint;
+function GST_TYPE_TYPE_FIND_FACTORY: TGType;
 begin
-  GST_TYPE_FIND_FACTORY:=G_TYPE_CHECK_INSTANCE_CAST(obj,GST_TYPE_TYPE_FIND_FACTORY,GstTypeFindFactory);
+  GST_TYPE_TYPE_FIND_FACTORY := gst_type_find_factory_get_type;
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_IS_TYPE_FIND_FACTORY(obj : longint) : longint;
+function GST_TYPE_FIND_FACTORY(obj: Pointer): PGstTypeFindFactory;
 begin
-  GST_IS_TYPE_FIND_FACTORY:=G_TYPE_CHECK_INSTANCE_TYPE(obj,GST_TYPE_TYPE_FIND_FACTORY);
+  Result := PGstTypeFindFactory(g_type_check_instance_cast(obj, GST_TYPE_TYPE_FIND_FACTORY));
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_TYPE_FIND_FACTORY_CLASS(klass : longint) : longint;
+function GST_TYPE_FIND_FACTORY_CLASS(klass: Pointer): PGstTypeFindFactoryClass;
 begin
-  GST_TYPE_FIND_FACTORY_CLASS:=G_TYPE_CHECK_CLASS_CAST(klass,GST_TYPE_TYPE_FIND_FACTORY,GstTypeFindFactoryClass);
+  Result := PGstTypeFindFactoryClass(g_type_check_class_cast(klass, GST_TYPE_TYPE_FIND_FACTORY));
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_IS_TYPE_FIND_FACTORY_CLASS(klass : longint) : longint;
+function GST_IS_TYPE_FIND_FACTORY(obj: Pointer): Tgboolean;
 begin
-  GST_IS_TYPE_FIND_FACTORY_CLASS:=G_TYPE_CHECK_CLASS_TYPE(klass,GST_TYPE_TYPE_FIND_FACTORY);
+  Result := g_type_check_instance_is_a(obj, GST_TYPE_TYPE_FIND_FACTORY);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_TYPE_FIND_FACTORY_GET_CLASS(obj : longint) : longint;
+function GST_IS_TYPE_FIND_FACTORY_CLASS(klass: Pointer): Tgboolean;
 begin
-  GST_TYPE_FIND_FACTORY_GET_CLASS:=G_TYPE_INSTANCE_GET_CLASS(obj,GST_TYPE_TYPE_FIND_FACTORY,GstTypeFindFactoryClass);
+  Result := g_type_check_class_is_a(klass, GST_TYPE_TYPE_FIND_FACTORY);
 end;
 
+function GST_TYPE_FIND_FACTORY_GET_CLASS(obj: Pointer): PGstTypeFindFactoryClass;
+begin
+  Result := PGstTypeFindFactoryClass(PGTypeInstance(obj)^.g_class);
+end;
 
 end.

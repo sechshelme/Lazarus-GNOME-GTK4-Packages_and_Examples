@@ -1,168 +1,94 @@
 unit gstregistry;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
-  fp_glib2, fp_gst;
+  fp_glib2, fp_gst, gstobject, gstplugin, gstpluginfeature;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
-{ GStreamer
- * Copyright (C) 1999,2000 Erik Walthinsen <omega@cse.ogi.edu>
- *                    2000 Wim Taymans <wim.taymans@chello.be>
- *
- * gstregistry.h: Header for registry handling
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Library General Public
- * License as published by the Free Software Foundation; either
- * version 2 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Library General Public License for more details.
- *
- * You should have received a copy of the GNU Library General Public
- * License along with this library; if not, write to the
- * Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
- * Boston, MA 02110-1301, USA.
-  }
-{$ifndef __GST_REGISTRY_H__}
-{$define __GST_REGISTRY_H__}
-{$include <gst/gstconfig.h>}
-{$include <gst/gstplugin.h>}
-{$include <gst/gstpluginfeature.h>}
-
-{ was #define dname def_expr }
-function GST_TYPE_REGISTRY : longint; { return type might be wrong }
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_REGISTRY(obj : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_IS_REGISTRY(obj : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_REGISTRY_CLASS(klass : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_IS_REGISTRY_CLASS(klass : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_REGISTRY_GET_CLASS(obj : longint) : longint;
-
+  {$IFDEF read_struct}
 type
-{*
- * GstRegistry:
- *
- * Opaque #GstRegistry structure.
-  }
-{< private > }
+  PGstRegistryPrivate = type Pointer;
+
   PGstRegistry = ^TGstRegistry;
   TGstRegistry = record
-      object : TGstObject;
-      priv : PGstRegistryPrivate;
-    end;
+    obj: TGstObject;
+    priv: PGstRegistryPrivate;
+  end;
 
   PGstRegistryClass = ^TGstRegistryClass;
   TGstRegistryClass = record
-      parent_class : TGstObjectClass;
-    end;
+    parent_class: TGstObjectClass;
+  end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
+function gst_registry_get_type: TGType; cdecl; external libgstreamer;
+function gst_registry_get: PGstRegistry; cdecl; external libgstreamer;
+function gst_registry_scan_path(registry: PGstRegistry; path: Pgchar): Tgboolean; cdecl; external libgstreamer;
 
-function gst_registry_get_type:TGType;cdecl;external libgstreamer;
-function gst_registry_get:PGstRegistry;cdecl;external libgstreamer;
-function gst_registry_scan_path(registry:PGstRegistry; path:Pgchar):Tgboolean;cdecl;external libgstreamer;
-{$if 0}
-
-procedure gst_registry_add_path(registry:PGstRegistry; path:Pgchar);cdecl;external libgstreamer;
-function gst_registry_get_path_list(registry:PGstRegistry):PGList;cdecl;external libgstreamer;
-{$endif}
-
-function gst_registry_add_plugin(registry:PGstRegistry; plugin:PGstPlugin):Tgboolean;cdecl;external libgstreamer;
-procedure gst_registry_remove_plugin(registry:PGstRegistry; plugin:PGstPlugin);cdecl;external libgstreamer;
-function gst_registry_add_feature(registry:PGstRegistry; feature:PGstPluginFeature):Tgboolean;cdecl;external libgstreamer;
-procedure gst_registry_remove_feature(registry:PGstRegistry; feature:PGstPluginFeature);cdecl;external libgstreamer;
-function gst_registry_get_plugin_list(registry:PGstRegistry):PGList;cdecl;external libgstreamer;
-function gst_registry_plugin_filter(registry:PGstRegistry; filter:TGstPluginFilter; first:Tgboolean; user_data:Tgpointer):PGList;cdecl;external libgstreamer;
-function gst_registry_feature_filter(registry:PGstRegistry; filter:TGstPluginFeatureFilter; first:Tgboolean; user_data:Tgpointer):PGList;cdecl;external libgstreamer;
-function gst_registry_get_feature_list(registry:PGstRegistry; _type:TGType):PGList;cdecl;external libgstreamer;
-function gst_registry_get_feature_list_by_plugin(registry:PGstRegistry; name:Pgchar):PGList;cdecl;external libgstreamer;
-function gst_registry_get_feature_list_cookie(registry:PGstRegistry):Tguint32;cdecl;external libgstreamer;
-function gst_registry_find_plugin(registry:PGstRegistry; name:Pgchar):PGstPlugin;cdecl;external libgstreamer;
-function gst_registry_find_feature(registry:PGstRegistry; name:Pgchar; _type:TGType):PGstPluginFeature;cdecl;external libgstreamer;
-function gst_registry_lookup(registry:PGstRegistry; filename:Pchar):PGstPlugin;cdecl;external libgstreamer;
-function gst_registry_lookup_feature(registry:PGstRegistry; name:Pchar):PGstPluginFeature;cdecl;external libgstreamer;
-function gst_registry_check_feature_version(registry:PGstRegistry; feature_name:Pgchar; min_major:Tguint; min_minor:Tguint; min_micro:Tguint):Tgboolean;cdecl;external libgstreamer;
-{//////G_DEFINE_AUTOPTR_CLEANUP_FUNC    (GstRegistry, gst_object_unref) }
-{$endif}
-{ __GST_REGISTRY_H__  }
+function gst_registry_add_plugin(registry: PGstRegistry; plugin: PGstPlugin): Tgboolean; cdecl; external libgstreamer;
+procedure gst_registry_remove_plugin(registry: PGstRegistry; plugin: PGstPlugin); cdecl; external libgstreamer;
+function gst_registry_add_feature(registry: PGstRegistry; feature: PGstPluginFeature): Tgboolean; cdecl; external libgstreamer;
+procedure gst_registry_remove_feature(registry: PGstRegistry; feature: PGstPluginFeature); cdecl; external libgstreamer;
+function gst_registry_get_plugin_list(registry: PGstRegistry): PGList; cdecl; external libgstreamer;
+function gst_registry_plugin_filter(registry: PGstRegistry; filter: TGstPluginFilter; first: Tgboolean; user_data: Tgpointer): PGList; cdecl; external libgstreamer;
+function gst_registry_feature_filter(registry: PGstRegistry; filter: TGstPluginFeatureFilter; first: Tgboolean; user_data: Tgpointer): PGList; cdecl; external libgstreamer;
+function gst_registry_get_feature_list(registry: PGstRegistry; _type: TGType): PGList; cdecl; external libgstreamer;
+function gst_registry_get_feature_list_by_plugin(registry: PGstRegistry; name: Pgchar): PGList; cdecl; external libgstreamer;
+function gst_registry_get_feature_list_cookie(registry: PGstRegistry): Tguint32; cdecl; external libgstreamer;
+function gst_registry_find_plugin(registry: PGstRegistry; name: Pgchar): PGstPlugin; cdecl; external libgstreamer;
+function gst_registry_find_feature(registry: PGstRegistry; name: Pgchar; _type: TGType): PGstPluginFeature; cdecl; external libgstreamer;
+function gst_registry_lookup(registry: PGstRegistry; filename: pchar): PGstPlugin; cdecl; external libgstreamer;
+function gst_registry_lookup_feature(registry: PGstRegistry; name: pchar): PGstPluginFeature; cdecl; external libgstreamer;
+function gst_registry_check_feature_version(registry: PGstRegistry; feature_name: Pgchar; min_major: Tguint; min_minor: Tguint; min_micro: Tguint): Tgboolean; cdecl; external libgstreamer;
 
 // === Konventiert am: 11-7-26 15:24:43 ===
 
+function GST_TYPE_REGISTRY: TGType;
+function GST_REGISTRY(obj: Pointer): PGstRegistry;
+function GST_REGISTRY_CLASS(klass: Pointer): PGstRegistryClass;
+function GST_IS_REGISTRY(obj: Pointer): Tgboolean;
+function GST_IS_REGISTRY_CLASS(klass: Pointer): Tgboolean;
+function GST_REGISTRY_GET_CLASS(obj: Pointer): PGstRegistryClass;
+{$ENDIF read_function}
 
 implementation
 
-
-{ was #define dname def_expr }
-function GST_TYPE_REGISTRY : longint; { return type might be wrong }
-  begin
-    GST_TYPE_REGISTRY:=gst_registry_get_type;
-  end;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_REGISTRY(obj : longint) : longint;
+function GST_TYPE_REGISTRY: TGType;
 begin
-  GST_REGISTRY:=G_TYPE_CHECK_INSTANCE_CAST(obj,GST_TYPE_REGISTRY,GstRegistry);
+  GST_TYPE_REGISTRY := gst_registry_get_type;
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_IS_REGISTRY(obj : longint) : longint;
+function GST_REGISTRY(obj: Pointer): PGstRegistry;
 begin
-  GST_IS_REGISTRY:=G_TYPE_CHECK_INSTANCE_TYPE(obj,GST_TYPE_REGISTRY);
+  Result := PGstRegistry(g_type_check_instance_cast(obj, GST_TYPE_REGISTRY));
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_REGISTRY_CLASS(klass : longint) : longint;
+function GST_REGISTRY_CLASS(klass: Pointer): PGstRegistryClass;
 begin
-  GST_REGISTRY_CLASS:=G_TYPE_CHECK_CLASS_CAST(klass,GST_TYPE_REGISTRY,GstRegistryClass);
+  Result := PGstRegistryClass(g_type_check_class_cast(klass, GST_TYPE_REGISTRY));
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_IS_REGISTRY_CLASS(klass : longint) : longint;
+function GST_IS_REGISTRY(obj: Pointer): Tgboolean;
 begin
-  GST_IS_REGISTRY_CLASS:=G_TYPE_CHECK_CLASS_TYPE(klass,GST_TYPE_REGISTRY);
+  Result := g_type_check_instance_is_a(obj, GST_TYPE_REGISTRY);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_REGISTRY_GET_CLASS(obj : longint) : longint;
+function GST_IS_REGISTRY_CLASS(klass: Pointer): Tgboolean;
 begin
-  GST_REGISTRY_GET_CLASS:=G_TYPE_INSTANCE_GET_CLASS(obj,GST_TYPE_REGISTRY,GstRegistryClass);
+  Result := g_type_check_class_is_a(klass, GST_TYPE_REGISTRY);
 end;
 
+function GST_REGISTRY_GET_CLASS(obj: Pointer): PGstRegistryClass;
+begin
+  Result := PGstRegistryClass(PGTypeInstance(obj)^.g_class);
+end;
 
 end.
