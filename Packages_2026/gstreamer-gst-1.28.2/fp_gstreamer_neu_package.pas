@@ -2,7 +2,7 @@
   This source is only used to compile and install the package.
  }
 
-unit fp_gstreamer_package;
+unit fp_gstreamer_neu_package;
 
 {$warn 5023 off : no warning about unused units}
 interface
@@ -27,5 +27,5 @@ begin
 end;
 
 initialization
-  RegisterPackage('fp_gstreamer_package', @Register);
+  RegisterPackage('fp_gstreamer_neu_package', @Register);
 end.

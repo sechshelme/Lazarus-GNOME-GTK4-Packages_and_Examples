@@ -2,86 +2,87 @@ program project1;
 
 // diff -U 1 /n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Packages_2024/gtk-4.14.2/C-include/gtk/gtkslicelistmodel.h /n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Packages_2026/gtk-4.22.4/C-include/gtk-4.0/gtk/gtkslicelistmodel.h > test.diff
 uses
-  gst,
-  gstconfig,
-  gstenumtypes,
-  gstobject,
-  gstminiobject,
-  gstmemory,
-  gstallocator,                     // GstMemoryFlags
-  gstatomicqueue,
-  gstidstr,
-  gstdatetime,
-  gstcapsfeatures,
-  gststructure,
-  gstcaps,
-  gstiterator,
-  gstformat,
-  gstsegment,
-  gstbytearrayinterface,
-  gstclock,
-  gstmeta,
-  gsttaglist,
-  gsttagsetter,
-  gststreams,
-  gststreamcollection,
-  gsttoc,
-  gsttocsetter,
-  gstcontext,
-  gstbuffer,
-  gstbufferpool,
-  gstbufferlist,
-  gstquery,
-  gstplugin,
-  gstpluginfeature,
-  gstdevice,                                   // GST_DEVICE_CLASS &  GST_DEVICE_GET_CLASS
-  gstdevicemonitor,
-  gstdeviceproviderfactory,
-  gstdeviceprovider,
-  gstmessage,
-  gstevent,
-  gsttaskpool,
-  gsttask,
-  gstpad,
-  gstpadtemplate,
-  gsturi,
-  gstelementmetadata,
-  gstelementfactory,
-  gstelement,
-  gstsample,
-  gstbus,
-  gstbin,
-  gstchildproxy,
-  gstcontrolbinding,
-  gstcontrolsource,
-  gstcpuid,
-  gstdebugutils,
-  gstdynamictypefactory,
-  gsterror,
-  gstghostpad,
-  gstinfo,
-  gstmetafactory,
-  gstparamspecs,
-  gstparse,
-  gstpipeline,
-  gstpoll,
-  gstpreset,
-  gstpromise,
-  gstprotection,
-  gstregistry,
-  gstsystemclock,
-  gsttracer,
-  gsttracerfactory,
-  gsttracerrecord,
-  gsttypefind,
-  gsttypefindfactory,
-  gstutils,
-  gstvalue,
-  gstvecdeque,
-  gstversion,
+  //gst,
+  //gstconfig,
+  //gstenumtypes,
+  //gstobject,
+  //gstminiobject,
+  //gstmemory,
+  //gstallocator,                     // GstMemoryFlags
+  //gstatomicqueue,
+  //gstidstr,
+  //gstdatetime,
+  //gstcapsfeatures,
+  //gststructure,
+  //gstcaps,
+  //gstiterator,
+  //gstformat,
+  //gstsegment,
+  //gstbytearrayinterface,
+  //gstclock,
+  //gstmeta,
+  //gsttaglist,
+  //gsttagsetter,
+  //gststreams,
+  //gststreamcollection,
+  //gsttoc,
+  //gsttocsetter,
+  //gstcontext,
+  //gstbuffer,
+  //gstbufferpool,
+  //gstbufferlist,
+  //gstquery,
+  //gstplugin,
+  //gstpluginfeature,
+  //gstdevice,                                   // GST_DEVICE_CLASS &  GST_DEVICE_GET_CLASS
+  //gstdevicemonitor,
+  //gstdeviceproviderfactory,
+  //gstdeviceprovider,
+  //gstmessage,
+  //gstevent,
+  //gsttaskpool,
+  //gsttask,
+  //gstpad,
+  //gstpadtemplate,
+  //gsturi,
+  //gstelementmetadata,
+  //gstelementfactory,
+  //gstelement,
+  //gstsample,
+  //gstbus,
+  //gstbin,
+  //gstchildproxy,
+  //gstcontrolbinding,
+  //gstcontrolsource,
+  //gstcpuid,
+  //gstdebugutils,
+  //gstdynamictypefactory,
+  //gsterror,
+  //gstghostpad,
+  //gstinfo,
+  //gstmetafactory,
+  //gstparamspecs,
+  //gstparse,
+  //gstpipeline,
+  //gstpoll,
+  //gstpreset,
+  //gstpromise,
+  //gstprotection,
+  //gstregistry,
+  //gstsystemclock,
+  //gsttracer,
+  //gsttracerfactory,
+  //gsttracerrecord,
+  //gsttypefind,
+  //gsttypefindfactory,
+  //gstutils,
+  //gstvalue,
+  //gstvecdeque,
+  //gstversion,
 
 
 
+  fp_gst,
   fp_girepository_2,
   fp_glib_unix,
   fp_gio_unix_2,
@@ -125,7 +126,31 @@ uses
   procedure main;
   var
     app: PGtkApplication;
+    pipeline: PGstElement;
+    bus: PGstBus;
+    msg: PGstMessage;
   begin
+    gst_init(@argc, @argv);
+    pipeline := gst_parse_launch('playbin uri=https://gstreamer.freedesktop.org/data/media/sintel_trailer-480p.webm', nil);
+
+    gst_element_set_state(pipeline, GST_STATE_PLAYING);
+
+    bus := gst_element_get_bus(pipeline);
+    msg := gst_bus_timed_pop_filtered(bus, GST_CLOCK_TIME_NONE, GST_MESSAGE_ERROR or GST_MESSAGE_EOS);
+
+    if msg <> nil then    begin
+      if msg^._type = GST_MESSAGE_ERROR then
+      begin
+        g_printerr('An error occurred!'#10);
+      end;
+      gst_message_unref(msg);
+    end;
+
+    gst_object_unref(bus);
+    gst_element_set_state(pipeline, GST_STATE_NULL);
+    gst_object_unref(pipeline);
+
+
     app := gtk_application_new('org.gtk.example', G_APPLICATION_DEFAULT_FLAGS);
     g_signal_connect(app, 'activate', G_CALLBACK(@activate), nil);
     g_application_run(G_APPLICATION(app), argc, argv);
