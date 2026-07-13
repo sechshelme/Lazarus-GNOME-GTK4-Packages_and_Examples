@@ -15,17 +15,17 @@ uses
   {$ENDIF}
 
 {$DEFINE read_interface}
-{$include gst/transcoder/gsttranscoder.inc}                // io.
-{$include gst/transcoder/gsttranscoder_signal_adapter.inc} // io. -> gsttranscoder
-{$include gst/transcoder/transcoder_enumtypes.inc}         // io.
+//{$include gst/transcoder/gsttranscoder.inc}                // io.
+//{$include gst/transcoder/gsttranscoder_signal_adapter.inc} // io. -> gsttranscoder
+//{$include gst/transcoder/transcoder_enumtypes.inc}         // io.
 {$UNDEF read_interface}
 
 implementation
 
 {$DEFINE read_implementation}
-{$include gst/transcoder/gsttranscoder.inc}                // io.
-{$include gst/transcoder/gsttranscoder_signal_adapter.inc} // io. -> gsttranscoder
-{$include gst/transcoder/transcoder_enumtypes.inc}         // io.
+//{$include gst/transcoder/gsttranscoder.inc}                // io.
+//{$include gst/transcoder/gsttranscoder_signal_adapter.inc} // io. -> gsttranscoder
+//{$include gst/transcoder/transcoder_enumtypes.inc}         // io.
 {$UNDEF read_implementation}
 
 end.

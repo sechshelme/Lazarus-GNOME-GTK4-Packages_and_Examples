@@ -15,15 +15,15 @@ uses
   {$ENDIF}
 
 {$DEFINE read_interface}
-{$include gst/opencv/gstopencvutils.inc}
-{$include gst/opencv/gstopencvvideofilter.inc}
+//{$include gst/opencv/gstopencvutils.inc}
+//{$include gst/opencv/gstopencvvideofilter.inc}
 {$UNDEF read_interface}
 
 implementation
 
 {$DEFINE read_implementation}
-{$include gst/opencv/gstopencvutils.inc}
-{$include gst/opencv/gstopencvvideofilter.inc}
+//{$include gst/opencv/gstopencvutils.inc}
+//{$include gst/opencv/gstopencvvideofilter.inc}
 {$UNDEF read_implementation}
 
 end.

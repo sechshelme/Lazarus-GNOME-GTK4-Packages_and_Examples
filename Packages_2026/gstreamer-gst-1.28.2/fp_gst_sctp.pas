@@ -14,15 +14,15 @@ uses
   {$ENDIF}
 
 {$DEFINE read_interface}
-{$include gst/sctp/sctpreceivemeta.inc}
-{$include gst/sctp/sctpsendmeta.inc}
+//{$include gst/sctp/sctpreceivemeta.inc}
+//{$include gst/sctp/sctpsendmeta.inc}
 {$UNDEF read_interface}
 
 implementation
 
 {$DEFINE read_implementation}
-{$include gst/sctp/sctpreceivemeta.inc}
-{$include gst/sctp/sctpsendmeta.inc}
+//{$include gst/sctp/sctpreceivemeta.inc}
+//{$include gst/sctp/sctpsendmeta.inc}
 {$UNDEF read_implementation}
 
 end.

@@ -2,6 +2,23 @@ program project1;
 
 // diff -U 1 /n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Packages_2024/gtk-4.14.2/C-include/gtk/gtkslicelistmodel.h /n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Packages_2026/gtk-4.22.4/C-include/gtk-4.0/gtk/gtkslicelistmodel.h > test.diff
 uses
+  gstadapter,
+  gstaggregator,
+  gstbaseparse,
+  gstbasesink,
+
+  gstbasesrc,
+  gstbasetransform,
+  gstbitreader,
+  gstbitwriter,
+  gstbytereader,
+  gstbytewriter,
+  gstcollectpads,
+  gstdataqueue,
+  gstflowcombiner,
+  gstpushsrc,
+  gstqueuearray,
+  gsttypefindhelper,
 
 
 

@@ -14,17 +14,17 @@ uses
   {$ENDIF}
 
 {$DEFINE read_interface}
-{$include gst/app/app_enumtypes.inc}
-{$include gst/app/gstappsink.inc}
-{$include gst/app/gstappsrc.inc}
+//{$include gst/app/app_enumtypes.inc}
+//{$include gst/app/gstappsink.inc}
+//{$include gst/app/gstappsrc.inc}
 {$UNDEF read_interface}
 
 implementation
 
 {$DEFINE read_implementation}
-{$include gst/app/app_enumtypes.inc}
-{$include gst/app/gstappsink.inc}
-{$include gst/app/gstappsrc.inc}
+//{$include gst/app/app_enumtypes.inc}
+//{$include gst/app/gstappsink.inc}
+//{$include gst/app/gstappsrc.inc}
 {$UNDEF read_implementation}
 
 end.

@@ -14,25 +14,25 @@ uses
   {$ENDIF}
 
   {$DEFINE read_interface}
-  {$include gst/net/gstnetaddressmeta.inc}
-  {$include gst/net/gstnetclientclock.inc}
-  {$include gst/net/gstnetcontrolmessagemeta.inc}
-  {$include gst/net/gstnettimepacket.inc}
-  {$include gst/net/gstnettimeprovider.inc}
-  {$include gst/net/gstnetutils.inc}
-  {$include gst/net/gstptpclock.inc}
+  //{$include gst/net/gstnetaddressmeta.inc}
+  //{$include gst/net/gstnetclientclock.inc}
+  //{$include gst/net/gstnetcontrolmessagemeta.inc}
+  //{$include gst/net/gstnettimepacket.inc}
+  //{$include gst/net/gstnettimeprovider.inc}
+  //{$include gst/net/gstnetutils.inc}
+  //{$include gst/net/gstptpclock.inc}
   {$UNDEF read_interface}
 
 implementation
 
 {$DEFINE read_implementation}
-{$include gst/net/gstnetaddressmeta.inc}
-{$include gst/net/gstnetclientclock.inc}
-{$include gst/net/gstnetcontrolmessagemeta.inc}
-{$include gst/net/gstnettimepacket.inc}
-{$include gst/net/gstnettimeprovider.inc}
-{$include gst/net/gstnetutils.inc}
-{$include gst/net/gstptpclock.inc}
+//{$include gst/net/gstnetaddressmeta.inc}
+//{$include gst/net/gstnetclientclock.inc}
+//{$include gst/net/gstnetcontrolmessagemeta.inc}
+//{$include gst/net/gstnettimepacket.inc}
+//{$include gst/net/gstnettimeprovider.inc}
+//{$include gst/net/gstnetutils.inc}
+//{$include gst/net/gstptpclock.inc}
 {$UNDEF read_implementation}
 
 end.

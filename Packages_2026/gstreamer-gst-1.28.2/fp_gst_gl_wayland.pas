@@ -16,13 +16,13 @@ uses
   {$ENDIF}
 
   {$DEFINE read_interface}
-  {$include gst/gl/wayland/gstgldisplay_wayland.inc}
+//  {$include gst/gl/wayland/gstgldisplay_wayland.inc}
   {$UNDEF read_interface}
 
 implementation
 
 {$DEFINE read_implementation}
-{$include gst/gl/wayland/gstgldisplay_wayland.inc}
+//{$include gst/gl/wayland/gstgldisplay_wayland.inc}
 {$UNDEF read_implementation}
 
 end.

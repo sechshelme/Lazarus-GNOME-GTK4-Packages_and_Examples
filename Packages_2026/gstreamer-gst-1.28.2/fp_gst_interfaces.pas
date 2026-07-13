@@ -14,16 +14,15 @@ uses
   {$ENDIF}
 
   {$DEFINE read_interface}
-  {$include gst/interfaces/photography.inc}                           // io.
-  {$include gst/interfaces/photography_enumtypes.inc}                 // io.
+//  {$include gst/interfaces/photography.inc}                           // io.
+//  {$include gst/interfaces/photography_enumtypes.inc}                 // io.
   {$UNDEF read_interface}
 
 implementation
 
 {$DEFINE read_implementation}
-{$include gst/interfaces/photography.inc}                           // io.
-{$include gst/interfaces/photography_enumtypes.inc}                 // io.
-{$UNDEF read_interface}
+//{$include gst/interfaces/photography.inc}                           // io.
+//{$include gst/interfaces/photography_enumtypes.inc}                 // io.
 {$UNDEF read_implementation}
 
 end.

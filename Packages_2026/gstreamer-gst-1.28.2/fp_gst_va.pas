@@ -21,25 +21,25 @@ type
 
 
   {$DEFINE read_interface}
-  {$include gst/va/gstva.inc}
-  {$include gst/va/va_enumtypes.inc}
-  {$include gst/va/gstvadisplay.inc}
-  {$include gst/va/gstvadisplay_drm.inc}
-  {$include gst/va/gstvadisplay_wrapped.inc}
-  {$include gst/va/gstvaallocator.inc}
-  {$include gst/va/gstvautils.inc}
+  //{$include gst/va/gstva.inc}
+  //{$include gst/va/va_enumtypes.inc}
+  //{$include gst/va/gstvadisplay.inc}
+  //{$include gst/va/gstvadisplay_drm.inc}
+  //{$include gst/va/gstvadisplay_wrapped.inc}
+  //{$include gst/va/gstvaallocator.inc}
+  //{$include gst/va/gstvautils.inc}
   {$UNDEF read_interface}
 
 implementation
 
 {$DEFINE read_implementation}
-{$include gst/va/gstva.inc}
-{$include gst/va/va_enumtypes.inc}
-{$include gst/va/gstvadisplay.inc}
-{$include gst/va/gstvadisplay_drm.inc}
-{$include gst/va/gstvadisplay_wrapped.inc}
-{$include gst/va/gstvaallocator.inc}
-{$include gst/va/gstvautils.inc}
+//{$include gst/va/gstva.inc}
+//{$include gst/va/va_enumtypes.inc}
+//{$include gst/va/gstvadisplay.inc}
+//{$include gst/va/gstvadisplay_drm.inc}
+//{$include gst/va/gstvadisplay_wrapped.inc}
+//{$include gst/va/gstvaallocator.inc}
+//{$include gst/va/gstvautils.inc}
 {$UNDEF read_implementation}
 
 end.
