@@ -24,7 +24,11 @@ type
      TGstVideoInfo=Integer;
      TGstVideoFormat=Integer;
      TGstVideoAlignment=Integer;
+     TGstVideoMultiviewMode=Integer;
+     TGstVideoMultiviewFlags=Integer;
      PGstVideoAlignment=Pointer;
+     PGstVideoAffineTransformationMeta=Pointer;
+     PGstVideoInfoDmaDrm=Pointer;
 
   // ===============
 

@@ -4,7 +4,6 @@ program project1;
 uses
   gl_enumtypes,
   gstgl_enums,
-
   gstglapi,
   gstglfuncs,
   gstglwindow,
@@ -34,10 +33,23 @@ uses
   gstgloverlaycompositor,
   gstglrenderbuffer,
   gstglsyncmeta,
-
   gstglupload,
   gstglutils,
   gstglviewconvert,
+
+
+  // egl
+  gstegl,
+  gsteglimage,
+  gstgldisplay_egl,
+  gstgldisplay_egl_device,
+  gstglmemoryegl,
+
+  // wayland
+  gstgldisplay_wayland,
+
+  // x11
+  gstgldisplay_x11,
 
 
 

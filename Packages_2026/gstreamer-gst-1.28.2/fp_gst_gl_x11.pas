@@ -20,7 +20,7 @@ uses
 
   {$ifdef Linux}
   {$DEFINE read_interface}
-  {$include gst/gl/x11/gstgldisplay_x11.inc}
+//  {$include gst/gl/x11/gstgldisplay_x11.inc}
   {$UNDEF read_interface}
   {$endif}
 
@@ -28,7 +28,7 @@ implementation
 
 {$ifdef Linux}
 {$DEFINE read_implementation}
-{$include gst/gl/x11/gstgldisplay_x11.inc}
+//{$include gst/gl/x11/gstgldisplay_x11.inc}
 {$UNDEF read_implementation}
 {$endif}
 
