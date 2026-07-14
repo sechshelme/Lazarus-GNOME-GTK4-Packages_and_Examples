@@ -1,13 +1,4 @@
-unit gstbaseparse;
-
-interface
-
-uses
-  fp_glib2, fp_gst;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 const
@@ -111,7 +102,10 @@ function GST_IS_BASE_PARSE(obj: Pointer): Tgboolean;
 function GST_IS_BASE_PARSE_CLASS(klass: Pointer): Tgboolean;
 function GST_BASE_PARSE_GET_CLASS(obj: Pointer): PGstBaseParseClass;
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 function GST_TYPE_BASE_PARSE: TGType;
 begin
@@ -169,4 +163,4 @@ begin
   GST_BASE_PARSE_DRAINING := ((GST_BASE_PARSE_CAST(parse))^.flags) and GST_BASE_PARSE_FLAG_DRAINING;
 end;
 
-end.
+{$ENDIF read_implementation}

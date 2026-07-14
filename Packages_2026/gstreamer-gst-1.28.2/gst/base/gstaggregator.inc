@@ -1,13 +1,4 @@
-unit gstaggregator;
-
-interface
-
-uses
-  fp_glib2, fp_gst;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 type
@@ -131,7 +122,10 @@ function GST_AGGREGATOR_GET_CLASS(obj: Pointer): PGstAggregatorClass;
 function GST_AGGREGATOR_CAST(obj: Pointer): PGstAggregator;
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 function GST_TYPE_AGGREGATOR_PAD: TGType;
 begin
@@ -210,4 +204,4 @@ begin
   GST_AGGREGATOR_SRC_PAD := (PGstAggregator(agg))^.srcpad;
 end;
 
-end.
+{$ENDIF read_implementation}

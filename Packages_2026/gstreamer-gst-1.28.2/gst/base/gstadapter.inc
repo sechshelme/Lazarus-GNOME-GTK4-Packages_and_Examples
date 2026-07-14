@@ -1,13 +1,4 @@
-unit gstadapter;
-
-interface
-
-uses
-  fp_glib2, fp_gst;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 type
   PGstAdapter = type Pointer;
@@ -55,7 +46,10 @@ function GST_IS_ADAPTER(obj: Pointer): Tgboolean;
 function GST_IS_ADAPTER_CLASS(klass: Pointer): Tgboolean;
 function GST_ADAPTER_GET_CLASS(obj: Pointer): PGstAdapterClass;
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 function GST_TYPE_ADAPTER: TGType;
 begin
@@ -87,4 +81,4 @@ begin
   Result := PGstAdapterClass(PGTypeInstance(obj)^.g_class);
 end;
 
-end.
+{$ENDIF read_implementation}

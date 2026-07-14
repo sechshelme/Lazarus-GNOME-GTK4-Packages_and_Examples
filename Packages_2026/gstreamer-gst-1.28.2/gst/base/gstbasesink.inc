@@ -1,13 +1,4 @@
-unit gstbasesink;
-
-interface
-
-uses
-  fp_glib2, fp_gst;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 const
@@ -120,7 +111,10 @@ function GST_IS_BASE_SINK(obj: Pointer): Tgboolean;
 function GST_IS_BASE_SINK_CLASS(klass: Pointer): Tgboolean;
 function GST_BASE_SINK_GET_CLASS(obj: Pointer): PGstBaseSinkClass;
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 function GST_TYPE_BASE_SINK: TGType;
 begin
@@ -209,4 +203,4 @@ begin
   g_cond_broadcast(GST_BASE_SINK_GET_PREROLL_COND(obj));
 end;
 
-end.
+{$ENDIF read_implementation}
