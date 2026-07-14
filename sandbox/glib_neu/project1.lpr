@@ -2,41 +2,42 @@ program project1;
 
 // diff -U 1 /n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Packages_2024/gtk-4.14.2/C-include/gtk/gtkslicelistmodel.h /n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Packages_2026/gtk-4.22.4/C-include/gtk-4.0/gtk/gtkslicelistmodel.h > test.diff
 uses
-gl_enumtypes,
-gstglapi,
-gstglbasefilter,
-gstglbasememory,
-gstglbasemixer,
-gstglbasesrc,
-gstglbuffer,
-gstglbufferpool,
-gstglcolorconvert,
-gstglcontext,
-gstglcontextconfig,
-gstgldebug,
-gstgldisplay,
-gstgl_enums,
-gstglfeature,
-gstglfilter,
-gstglformat,
-gstglframebuffer,
-gstglfuncs,
-gstgl_fwd,
-gstglmemory,
-gstglmemorypbo,
-gstglmixer,
-gstgloverlaycompositor,
-gstglquery,
-gstglrenderbuffer,
-gstglshader,
-gstglshaderstrings,
-gstglsl,
-gstglslstage,
-gstglsyncmeta,
-gstglupload,
-gstglutils,
-gstglviewconvert,
-gstglwindow,
+  gl_enumtypes,
+  gstgl_enums,
+
+  gstglapi,
+  gstglfuncs,
+  gstglwindow,
+  gstgldisplay,
+  gstglcontext,
+  gstglbasefilter,
+  gstgldebug,
+  gstglquery,
+  gstglbasemixer,
+  gstglformat,
+  gstglbasememory,
+  gstglbuffer,
+  gstglbufferpool,
+  gstglmemory,
+  gstglmemorypbo,
+  gstglbasesrc,
+  gstglframebuffer,
+  gstglsl,
+  gstglslstage,
+  gstglshader,
+  gstglshaderstrings,
+  gstglcolorconvert,
+  gstglcontextconfig,
+  gstglfeature,
+  gstglfilter,
+  gstglmixer,
+  gstgloverlaycompositor,
+  gstglrenderbuffer,
+  gstglsyncmeta,
+
+  gstglupload,
+  gstglutils,
+  gstglviewconvert,
 
 
 
@@ -97,9 +98,8 @@ gstglwindow,
     bus := gst_element_get_bus(pipeline);
     msg := gst_bus_timed_pop_filtered(bus, GST_CLOCK_TIME_NONE, GST_MESSAGE_ERROR or GST_MESSAGE_EOS);
 
-    if msg <> nil then    begin
-      if msg^._type = GST_MESSAGE_ERROR then
-      begin
+    if msg <> nil then  begin
+      if msg^._type = GST_MESSAGE_ERROR then begin
         g_printerr('An error occurred!'#10);
       end;
       gst_message_unref(msg);

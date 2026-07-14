@@ -1,5 +1,7 @@
 unit gl_enumtypes;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+{$IFDEF read_enum}
 function gst_gl_texture_target_get_type: TGType; cdecl; external libgstgl;
 function GST_TYPE_GL_TEXTURE_TARGET: TGType;
 
@@ -63,6 +66,7 @@ function GST_TYPE_GL_STEREO_DOWNMIX: TGType;
 
 function gst_gl_window_error_get_type: TGType; cdecl; external libgstgl;
 function GST_TYPE_GL_WINDOW_ERROR: TGType;
+{$ENDIF read_enum}
 
 // === Konventiert am: 14-7-26 12:55:50 ===
 

@@ -1,173 +1,88 @@
 unit gstglbasefilter;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
-  fp_glib2, fp_gst;
+  fp_glib2, fp_gst, fp_gst_base, gstglapi;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
-{
- * GStreamer
- * Copyright (C) 2007 David Schleef <ds@schleef.org>
- * Copyright (C) 2008 Julien Isorce <julien.isorce@gmail.com>
- * Copyright (C) 2008 Filippo Argiolas <filippo.argiolas@gmail.com>
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Library General Public
- * License as published by the Free Software Foundation; either
- * version 2 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Library General Public License for more details.
- *
- * You should have received a copy of the GNU Library General Public
- * License along with this library; if not, write to the
- * Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
- * Boston, MA 02110-1301, USA.
-  }
-{$ifndef _GST_GL_BASE_FILTER_H_}
-{$define _GST_GL_BASE_FILTER_H_}
-{$include <gst/base/gstbasetransform.h>}
-{$include <gst/gl/gstgl_fwd.h>}
-
-function gst_gl_base_filter_get_type:TGType;cdecl;external libgstgl;
-{ was #define dname def_expr }
-function GST_TYPE_GL_BASE_FILTER : longint; { return type might be wrong }
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_GL_BASE_FILTER(obj : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_IS_GL_BASE_FILTER(obj : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_GL_BASE_FILTER_CLASS(klass : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_IS_GL_BASE_FILTER_CLASS(klass : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_GL_BASE_FILTER_GET_CLASS(obj : longint) : longint;
-
-{*
- * GstGLBaseFilter:
- * @display: the currently configured #GstGLDisplay
- * @context: the currently configured #GstGLContext
- * @in_caps: the currently configured input #GstCaps
- * @out_caps: the currently configured output #GstCaps
- *
- * The parent instance type of a base GStreamer GL Filter.
-  }
-{< public > }
-{< private > }
+  {$IFDEF read_struct}
 type
+  PGstGLBaseFilterPrivate = type Pointer;
+
   PGstGLBaseFilter = ^TGstGLBaseFilter;
   TGstGLBaseFilter = record
-      parent : TGstBaseTransform;
-      display : PGstGLDisplay;
-      context : PGstGLContext;
-      in_caps : PGstCaps;
-      out_caps : PGstCaps;
-      _padding : array[0..(GST_PADDING)-1] of Tgpointer;
-      priv : PGstGLBaseFilterPrivate;
-    end;
+    parent: TGstBaseTransform;
+    display: PGstGLDisplay;
+    context: PGstGLContext;
+    in_caps: PGstCaps;
+    out_caps: PGstCaps;
+    _padding: array[0..(GST_PADDING) - 1] of Tgpointer;
+    priv: PGstGLBaseFilterPrivate;
+  end;
 
-{*
- * GstGLBaseFilterClass:
- * @supported_gl_api: the logical-OR of #GstGLAPI's supported by this element
- * @gl_start: called in the GL thread to setup the element GL state.
- * @gl_stop: called in the GL thread to setup the element GL state.
- * @gl_set_caps: called in the GL thread when caps are set on @filter.
- *               Note: this will also be called when changing OpenGL contexts
- *               where #GstBaseTransform::set_caps may not.
- *
- * The base class for GStreamer GL Filter.
-  }
-{< public > }
-{< private > }
   PGstGLBaseFilterClass = ^TGstGLBaseFilterClass;
   TGstGLBaseFilterClass = record
-      parent_class : TGstBaseTransformClass;
-      supported_gl_api : TGstGLAPI;
-      gl_start : function (filter:PGstGLBaseFilter):Tgboolean;cdecl;
-      gl_stop : procedure (filter:PGstGLBaseFilter);cdecl;
-      gl_set_caps : function (filter:PGstGLBaseFilter; incaps:PGstCaps; outcaps:PGstCaps):Tgboolean;cdecl;
-      _padding : array[0..(GST_PADDING)-1] of Tgpointer;
-    end;
+    parent_class: TGstBaseTransformClass;
+    supported_gl_api: TGstGLAPI;
+    gl_start: function(filter: PGstGLBaseFilter): Tgboolean; cdecl;
+    gl_stop: procedure(filter: PGstGLBaseFilter); cdecl;
+    gl_set_caps: function(filter: PGstGLBaseFilter; incaps: PGstCaps; outcaps: PGstCaps): Tgboolean; cdecl;
+    _padding: array[0..(GST_PADDING) - 1] of Tgpointer;
+  end;
+  {$ENDIF read_struct}
 
-
-function gst_gl_base_filter_find_gl_context(filter:PGstGLBaseFilter):Tgboolean;cdecl;external libgstgl;
-function gst_gl_base_filter_get_gl_context(filter:PGstGLBaseFilter):PGstGLContext;cdecl;external libgstgl;
-{$endif}
-{ _GST_GL_BASE_FILTER_H_  }
+{$IFDEF read_function}
+function gst_gl_base_filter_get_type: TGType; cdecl; external libgstgl;
+function gst_gl_base_filter_find_gl_context(filter: PGstGLBaseFilter): Tgboolean; cdecl; external libgstgl;
+function gst_gl_base_filter_get_gl_context(filter: PGstGLBaseFilter): PGstGLContext; cdecl; external libgstgl;
 
 // === Konventiert am: 14-7-26 12:55:43 ===
 
+function GST_TYPE_GL_BASE_FILTER: TGType;
+function GST_GL_BASE_FILTER(obj: Pointer): PGstGLBaseFilter;
+function GST_GL_BASE_FILTER_CLASS(klass: Pointer): PGstGLBaseFilterClass;
+function GST_IS_GL_BASE_FILTER(obj: Pointer): Tgboolean;
+function GST_IS_GL_BASE_FILTER_CLASS(klass: Pointer): Tgboolean;
+function GST_GL_BASE_FILTER_GET_CLASS(obj: Pointer): PGstGLBaseFilterClass;
+{$ENDIF read_function}
 
 implementation
 
-
-{ was #define dname def_expr }
-function GST_TYPE_GL_BASE_FILTER : longint; { return type might be wrong }
-  begin
-    GST_TYPE_GL_BASE_FILTER:=gst_gl_base_filter_get_type;
-  end;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_GL_BASE_FILTER(obj : longint) : longint;
+function GST_TYPE_GL_BASE_FILTER: TGType;
 begin
-  GST_GL_BASE_FILTER:=G_TYPE_CHECK_INSTANCE_CAST(obj,GST_TYPE_GL_BASE_FILTER,GstGLBaseFilter);
+  GST_TYPE_GL_BASE_FILTER := gst_gl_base_filter_get_type;
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_IS_GL_BASE_FILTER(obj : longint) : longint;
+function GST_GL_BASE_FILTER(obj: Pointer): PGstGLBaseFilter;
 begin
-  GST_IS_GL_BASE_FILTER:=G_TYPE_CHECK_INSTANCE_TYPE(obj,GST_TYPE_GL_BASE_FILTER);
+  Result := PGstGLBaseFilter(g_type_check_instance_cast(obj, GST_TYPE_GL_BASE_FILTER));
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_GL_BASE_FILTER_CLASS(klass : longint) : longint;
+function GST_GL_BASE_FILTER_CLASS(klass: Pointer): PGstGLBaseFilterClass;
 begin
-  GST_GL_BASE_FILTER_CLASS:=G_TYPE_CHECK_CLASS_CAST(klass,GST_TYPE_GL_BASE_FILTER,GstGLBaseFilterClass);
+  Result := PGstGLBaseFilterClass(g_type_check_class_cast(klass, GST_TYPE_GL_BASE_FILTER));
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_IS_GL_BASE_FILTER_CLASS(klass : longint) : longint;
+function GST_IS_GL_BASE_FILTER(obj: Pointer): Tgboolean;
 begin
-  GST_IS_GL_BASE_FILTER_CLASS:=G_TYPE_CHECK_CLASS_TYPE(klass,GST_TYPE_GL_BASE_FILTER);
+  Result := g_type_check_instance_is_a(obj, GST_TYPE_GL_BASE_FILTER);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_GL_BASE_FILTER_GET_CLASS(obj : longint) : longint;
+function GST_IS_GL_BASE_FILTER_CLASS(klass: Pointer): Tgboolean;
 begin
-  GST_GL_BASE_FILTER_GET_CLASS:=G_TYPE_INSTANCE_GET_CLASS(obj,GST_TYPE_GL_BASE_FILTER,GstGLBaseFilterClass);
+  Result := g_type_check_class_is_a(klass, GST_TYPE_GL_BASE_FILTER);
 end;
 
+function GST_GL_BASE_FILTER_GET_CLASS(obj: Pointer): PGstGLBaseFilterClass;
+begin
+  Result := PGstGLBaseFilterClass(PGTypeInstance(obj)^.g_class);
+end;
 
 end.

@@ -8,7 +8,26 @@ uses
   {$endif}
   fp_glib2;
 
-  // ==== gstreamer
+
+// === Muss bearbeitet werden
+type
+  PGstGLDisplay=Pointer;
+ PGstGLContext=Pointer;
+   PPGstGLContext = ^PGstGLContext;
+
+   // gts video
+   TGstVideoAggregator=Pointer;  // ??????  gst_video         gstvideoaggregator.h
+   TGstVideoAggregatorClass=Pointer;  // ??????  gst_video         gstvideoaggregator.h
+   TGstVideoAggregatorPad=Pointer;  // ??????  gst_video         gstvideoaggregator.h
+     TGstVideoAggregatorPadClass=Pointer;  // ??????  gst_video         gstvideoaggregator.h
+     PGstVideoInfo =^TGstVideoInfo;
+     TGstVideoInfo=Integer;
+     TGstVideoFormat=Integer;
+     TGstVideoAlignment=Integer;
+     PGstVideoAlignment=Pointer;
+
+  // ===============
+
 const
   {$ifdef Linux}
   libgstreamer = 'libgstreamer-1.0';
