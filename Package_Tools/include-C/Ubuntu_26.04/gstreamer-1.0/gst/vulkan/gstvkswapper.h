@@ -84,7 +84,7 @@ struct _GstVulkanSwapperClass
   gpointer _reserved        [GST_PADDING];
 };
 
-//////////G_DEFINE_AUTOPTR_CLEANUP_FUNC      (GstVulkanSwapper, gst_object_unref)
+////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC       (GstVulkanSwapper, gst_object_unref)
 
 GST_VULKAN_API
 GstVulkanSwapper *  gst_vulkan_swapper_new                      (GstVulkanDevice * device,

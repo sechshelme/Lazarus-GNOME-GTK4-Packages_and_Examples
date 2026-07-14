@@ -446,7 +446,7 @@ guint64         gst_audio_ring_buffer_get_segdone     (GstAudioRingBuffer *buf);
 GST_AUDIO_API
 guint64         gst_audio_ring_buffer_get_segbase     (GstAudioRingBuffer *buf);
 
-//////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstAudioRingBuffer, gst_object_unref)
+////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC      (GstAudioRingBuffer, gst_object_unref)
 
 
 

@@ -56,7 +56,7 @@ struct _GstWebRTCNiceStreamClass
 GstWebRTCNiceStream *       gst_webrtc_nice_stream_new                   (GstWebRTCICE * ice,
                                                                          guint stream_id);
 
-//////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstWebRTCNiceStream, gst_object_unref)
+////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC      (GstWebRTCNiceStream, gst_object_unref)
 
 
 

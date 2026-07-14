@@ -26,7 +26,7 @@
 
 
 
-GST_GL_API
+extern
 GType gst_gl_display_egl_device_get_type (void);
 
 #define GST_TYPE_GL_DISPLAY_EGL_DEVICE             (gst_gl_display_egl_device_get_type())
@@ -70,10 +70,10 @@ struct _GstGLDisplayEGLDeviceClass
   gpointer _padding[GST_PADDING];
 };
 
-GST_GL_API
+extern
 GstGLDisplayEGLDevice *gst_gl_display_egl_device_new (guint device_index) ;
 
-GST_GL_API
+extern
 GstGLDisplayEGLDevice *gst_gl_display_egl_device_new_with_egl_device (gpointer device) ;
 
 

@@ -290,8 +290,8 @@ GST_RTSP_SERVER_API
 GstElement *          gst_rtsp_media_factory_create_element   (GstRTSPMediaFactory *factory,
                                                                const GstRTSPUrl *url);
 
-#ifdef //////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     
-//////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstRTSPMediaFactory, gst_object_unref)
+#ifdef ////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC      
+////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC      (GstRTSPMediaFactory, gst_object_unref)
 #endif
 
 

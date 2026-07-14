@@ -64,7 +64,7 @@ struct _GstVulkanDescriptorCacheClass
   gpointer _reserved        [GST_PADDING];
 };
 
-//////////G_DEFINE_AUTOPTR_CLEANUP_FUNC      (GstVulkanDescriptorCache, gst_object_unref)
+////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC       (GstVulkanDescriptorCache, gst_object_unref)
 
 GST_VULKAN_API
 GstVulkanDescriptorCache *   gst_vulkan_descriptor_cache_new            (GstVulkanDescriptorPool * pool,

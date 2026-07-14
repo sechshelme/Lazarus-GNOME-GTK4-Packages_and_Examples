@@ -58,7 +58,7 @@ typedef gintptr EGLAttrib;
 typedef guint64 EGLuint64KHR;
 #endif
 
-GST_GL_API
+extern
 const gchar *   gst_egl_get_error_string             (EGLint err);
 
 #endif /* _GST_EGL_H_ */

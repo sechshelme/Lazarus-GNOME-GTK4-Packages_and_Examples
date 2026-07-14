@@ -54,7 +54,7 @@ GstWebRTCICETransport *     gst_webrtc_ice_stream_find_transport        (GstWebR
 GST_WEBRTC_API
 gboolean                    gst_webrtc_ice_stream_gather_candidates     (GstWebRTCICEStream * ice);
 
-//////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstWebRTCICEStream, gst_object_unref)
+////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC      (GstWebRTCICEStream, gst_object_unref)
 
 
 

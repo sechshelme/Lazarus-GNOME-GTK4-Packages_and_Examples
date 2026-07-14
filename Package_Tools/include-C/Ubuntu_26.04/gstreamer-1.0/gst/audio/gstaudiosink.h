@@ -134,7 +134,7 @@ struct _GstAudioSinkClassExtension
 GST_AUDIO_API
 GType gst_audio_sink_get_type(void);
 
-//////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstAudioSink, gst_object_unref)
+////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC      (GstAudioSink, gst_object_unref)
 
 
 

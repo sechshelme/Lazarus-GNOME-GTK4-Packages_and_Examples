@@ -104,8 +104,8 @@ GST_RTSP_SERVER_API
 gboolean             gst_rtsp_token_is_allowed         (GstRTSPToken *token,
                                                         const gchar *field);
 
-#ifdef //////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     
-//////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstRTSPToken, gst_rtsp_token_unref)
+#ifdef ////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC      
+////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC      (GstRTSPToken, gst_rtsp_token_unref)
 #endif
 
 

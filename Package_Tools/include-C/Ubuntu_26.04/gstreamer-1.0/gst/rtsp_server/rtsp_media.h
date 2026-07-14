@@ -457,8 +457,8 @@ void                  gst_rtsp_media_set_rate_control (GstRTSPMedia * media, gbo
 GST_RTSP_SERVER_API
 gboolean              gst_rtsp_media_get_rate_control (GstRTSPMedia * media);
 
-#ifdef //////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     
-//////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstRTSPMedia, gst_object_unref)
+#ifdef ////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC      
+////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC      (GstRTSPMedia, gst_object_unref)
 #endif
 
 

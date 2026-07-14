@@ -327,7 +327,6 @@ const
     (libs: 'libgstwayland'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstva'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstplayer'; units: 'fp_glib2, fp_gst'),
-    (libs: 'libgstgl'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstvulkan'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstnet'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstcuda'; units: 'fp_glib2, fp_gst'),
@@ -342,6 +341,7 @@ const
 
     (libs: 'libgstreamer'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstbase'; units: 'fp_glib2, fp_gst'),
+    (libs: 'libgstgl'; units: 'fp_glib2, fp_gst'),
 
 
 

@@ -28,7 +28,7 @@
 
 
 
-GST_GL_API GType gst_egl_image_get_type (void);
+extern GType gst_egl_image_get_type (void);
 
 #define GST_TYPE_EGL_IMAGE                         (gst_egl_image_get_type())
 #define GST_IS_EGL_IMAGE(obj)                      (GST_IS_MINI_OBJECT_TYPE(obj, GST_TYPE_EGL_IMAGE))
@@ -68,40 +68,40 @@ struct _GstEGLImage
   gpointer _padding[GST_PADDING];
 };
 
-GST_GL_API
+extern
 GstEGLImage *             gst_egl_image_new_wrapped             (GstGLContext * context,
                                                                  gpointer image,
                                                                  GstGLFormat format,
                                                                  gpointer user_data,
                                                                  GstEGLImageDestroyNotify user_data_destroy) ;
-GST_GL_API
+extern
 gpointer                gst_egl_image_get_image                 (GstEGLImage * image);
 
-GST_GL_API
+extern
 GstEGLImage *           gst_egl_image_from_texture              (GstGLContext * context,
                                                                  GstGLMemory * gl_mem,
                                                                  guintptr * attribs);
 #if GST_GL_HAVE_DMABUF
-GST_GL_API
+extern
 GstEGLImage *           gst_egl_image_from_dmabuf               (GstGLContext * context,
                                                                  gint dmabuf,
                                                                  const GstVideoInfo * in_info,
                                                                  gint plane,
                                                                  gsize offset);
 
-GST_GL_API
+extern
 GstEGLImage *           gst_egl_image_from_dmabuf_direct        (GstGLContext * context,
                                                                  gint *fd,
                                                                  const gsize *offset,
                                                                  const GstVideoInfo * in_info);
-GST_GL_API
+extern
 GstEGLImage *           gst_egl_image_from_dmabuf_direct_target (GstGLContext * context,
                                                                  gint *fd,
                                                                  const gsize *offset,
                                                                  const GstVideoInfo * in_info,
                                                                  GstGLTextureTarget target);
 
-GST_GL_API
+extern
 GstEGLImage *           gst_egl_image_from_dmabuf_direct_target_with_dma_drm
                                                                 (GstGLContext * context,
                                                                  guint n_planes,
@@ -109,10 +109,10 @@ GstEGLImage *           gst_egl_image_from_dmabuf_direct_target_with_dma_drm
                                                                  const gsize * offset,
                                                                  const GstVideoInfoDmaDrm * in_info_dma,
                                                                  GstGLTextureTarget target);
-GST_GL_API
+extern
 gboolean                gst_egl_image_export_dmabuf             (GstEGLImage *image, int *fd, gint *stride, gsize *offset);
 
-GST_GL_API
+extern
 gboolean                gst_egl_image_can_emulate               (GstGLContext * context,
                                                                  GstVideoFormat format);
 #endif

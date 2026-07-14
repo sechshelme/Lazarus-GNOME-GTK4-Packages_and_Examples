@@ -397,8 +397,8 @@ GList *                gst_rtsp_stream_transport_filter  (GstRTSPStream *stream,
                                                           GstRTSPStreamTransportFilterFunc func,
                                                           gpointer user_data) ;
 
-#ifdef //////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     
-//////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstRTSPStream, gst_object_unref)
+#ifdef ////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC      
+////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC      (GstRTSPStream, gst_object_unref)
 #endif
 
 

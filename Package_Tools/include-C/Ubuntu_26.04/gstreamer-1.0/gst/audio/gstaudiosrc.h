@@ -105,7 +105,7 @@ struct _GstAudioSrcClass {
 GST_AUDIO_API
 GType gst_audio_src_get_type(void);
 
-//////////G_DEFINE_AUTOPTR_CLEANUP_FUNC     (GstAudioSrc, gst_object_unref)
+////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC      (GstAudioSrc, gst_object_unref)
 
 
 
