@@ -80,7 +80,7 @@ GType gst_trigger_control_source_get_type (void);
 GST_CONTROLLER_API
 GstControlSource *gst_trigger_control_source_new (void) ;
 
-////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC      (GstTriggerControlSource, gst_object_unref)
+//////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC       (GstTriggerControlSource, gst_object_unref)
 
 
 

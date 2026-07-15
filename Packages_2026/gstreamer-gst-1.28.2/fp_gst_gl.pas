@@ -15,22 +15,22 @@ uses
   {$PACKRECORDS C}
   {$ENDIF}
 
-  {$DEFINE read_enum}
-  {$include fp_gst_gl_includes.inc}
-  {$UNDEF read_enum}
-
-  {$DEFINE read_struct}
-  {$include fp_gst_gl_includes.inc}
-  {$UNDEF read_struct}
-
-  {$DEFINE read_function}
-  {$include fp_gst_gl_includes.inc}
-  {$UNDEF read_function}
+  //{$DEFINE read_enum}
+  //{$include fp_gst_gl_includes.inc}
+  //{$UNDEF read_enum}
+  //
+  //{$DEFINE read_struct}
+  //{$include fp_gst_gl_includes.inc}
+  //{$UNDEF read_struct}
+  //
+  //{$DEFINE read_function}
+  //{$include fp_gst_gl_includes.inc}
+  //{$UNDEF read_function}
 
 implementation
-
-{$DEFINE read_implementation}
-{$include fp_gst_gl_includes.inc}
-{$UNDEF read_implementation}
+//
+//{$DEFINE read_implementation}
+//{$include fp_gst_gl_includes.inc}
+//{$UNDEF read_implementation}
 
 end.

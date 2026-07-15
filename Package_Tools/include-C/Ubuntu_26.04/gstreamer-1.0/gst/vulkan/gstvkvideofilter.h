@@ -83,7 +83,7 @@ struct _GstVulkanVideoFilterClass
   gpointer _reserved        [GST_PADDING];
 };
 
-////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC      (GstVulkanVideoFilter, gst_object_unref);
+//////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC       (GstVulkanVideoFilter, gst_object_unref);
 
 GST_VULKAN_API
 GstVulkanInstance *    gst_vulkan_video_filter_get_instance    (GstVulkanVideoFilter * filter) ;

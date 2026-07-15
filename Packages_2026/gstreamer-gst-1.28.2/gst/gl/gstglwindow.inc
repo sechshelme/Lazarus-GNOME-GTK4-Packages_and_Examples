@@ -22,7 +22,7 @@ type
   TGstGLWindow = record
     parent: TGstObject;
     lock: TGMutex;
-    display: PGstGLDisplay;
+    display: Pointer; // PGstGLDisplay;
     context_ref: TGWeakRef;
     is_drawing: Tgboolean;
     draw: TGstGLWindowCB;

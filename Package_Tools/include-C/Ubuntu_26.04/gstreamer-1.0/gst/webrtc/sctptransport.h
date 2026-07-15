@@ -35,7 +35,7 @@ GType gst_webrtc_sctp_transport_get_type(void);
 #define GST_IS_WEBRTC_SCTP_TRANSPORT_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE((klass) ,GST_TYPE_WEBRTC_SCTP_TRANSPORT))
 #define GST_WEBRTC_SCTP_TRANSPORT_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS((obj) ,GST_TYPE_WEBRTC_SCTP_TRANSPORT,GstWebRTCSCTPTransportClass))
 
-////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC      (GstWebRTCSCTPTransport, gst_object_unref)
+//////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC       (GstWebRTCSCTPTransport, gst_object_unref)
 
 
 

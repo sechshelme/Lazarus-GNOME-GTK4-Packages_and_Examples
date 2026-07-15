@@ -39,7 +39,7 @@ GST_WEBRTC_API
 void                        gst_webrtc_rtp_sender_set_priority          (GstWebRTCRTPSender *sender,
                                                                          GstWebRTCPriorityType priority);
 
-////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC      (GstWebRTCRTPSender, gst_object_unref)
+//////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC       (GstWebRTCRTPSender, gst_object_unref)
 
 
 

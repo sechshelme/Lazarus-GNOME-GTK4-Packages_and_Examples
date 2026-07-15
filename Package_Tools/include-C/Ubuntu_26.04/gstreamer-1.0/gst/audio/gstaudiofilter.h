@@ -99,7 +99,7 @@ GST_AUDIO_API
 void    gst_audio_filter_class_add_pad_templates (GstAudioFilterClass * klass,
                                                   GstCaps             * allowed_caps);
 
-////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC      (GstAudioFilter, gst_object_unref)
+//////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC       (GstAudioFilter, gst_object_unref)
 
 
 

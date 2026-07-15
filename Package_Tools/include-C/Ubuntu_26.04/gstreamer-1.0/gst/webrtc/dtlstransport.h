@@ -35,7 +35,7 @@ GType gst_webrtc_dtls_transport_get_type(void);
 #define GST_IS_WEBRTC_DTLS_TRANSPORT_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE((klass) ,GST_TYPE_WEBRTC_DTLS_TRANSPORT))
 #define GST_WEBRTC_DTLS_TRANSPORT_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS((obj) ,GST_TYPE_WEBRTC_DTLS_TRANSPORT,GstWebRTCDTLSTransportClass))
 
-////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC      (GstWebRTCDTLSTransport, gst_object_unref)
+//////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC       (GstWebRTCDTLSTransport, gst_object_unref)
 
 
 

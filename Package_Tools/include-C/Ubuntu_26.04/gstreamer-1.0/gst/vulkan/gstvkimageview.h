@@ -117,7 +117,7 @@ gst_clear_vulkan_image_view (GstVulkanImageView ** view_ptr)
   gst_clear_mini_object ((GstMiniObject **) view_ptr);
 }
 
-////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC      (GstVulkanImageView, gst_vulkan_image_view_unref)
+//////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC       (GstVulkanImageView, gst_vulkan_image_view_unref)
 
 GST_VULKAN_API
 GstVulkanImageView *    gst_vulkan_image_view_new           (GstVulkanImageMemory * image,

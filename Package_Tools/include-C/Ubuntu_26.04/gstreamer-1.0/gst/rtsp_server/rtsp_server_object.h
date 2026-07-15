@@ -202,8 +202,8 @@ GList *                gst_rtsp_server_client_filter    (GstRTSPServer *server,
                                                          GstRTSPServerClientFilterFunc func,
                                                          gpointer user_data) ;
 
-#ifdef ////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC      
-////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC      (GstRTSPServer, gst_object_unref)
+#ifdef //////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC       
+//////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC       (GstRTSPServer, gst_object_unref)
 #endif
 
 

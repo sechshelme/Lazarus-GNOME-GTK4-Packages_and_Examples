@@ -82,8 +82,8 @@ void                  gst_rtsp_media_factory_uri_set_uri  (GstRTSPMediaFactoryUR
 GST_RTSP_SERVER_API
 gchar *               gst_rtsp_media_factory_uri_get_uri  (GstRTSPMediaFactoryURI *factory) ;
 
-#ifdef ////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC      
-////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC      (GstRTSPMediaFactoryURI, gst_object_unref)
+#ifdef //////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC       
+//////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC       (GstRTSPMediaFactoryURI, gst_object_unref)
 #endif
 
 
