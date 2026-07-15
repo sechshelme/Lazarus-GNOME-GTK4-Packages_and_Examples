@@ -5,7 +5,7 @@ unit video_blend;
 interface
 
 uses
-  fp_glib2, fp_gst, video_tile;
+  fp_glib2, fp_gst, video_tile, video_info, video_frame;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

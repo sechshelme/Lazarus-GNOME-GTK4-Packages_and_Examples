@@ -10,20 +10,16 @@ uses
   video_format,
   video_chroma,
   video_anc,
-
-
   video_color,
-
   video_info,
-
-
+  video_frame,
   video_blend,
   video_converter,
+
   videodirection,
   video_dither,
   video_enumtypes,
   video_event,
-  video_frame,
   video_hdr,
   video_info_dma,
   video_multiview,

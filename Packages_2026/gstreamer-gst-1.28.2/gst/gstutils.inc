@@ -129,14 +129,116 @@ function gst_util_ceil_log2(v: Tguint32): Tguint; cdecl; external libgstreamer;
 function gst_util_floor_log2(v: Tguint32): Tguint; cdecl; external libgstreamer;
 function gst_util_filename_compare(a: Pgchar; b: Pgchar): Tgint; cdecl; external libgstreamer;
 procedure gst_call_async(func: TGstCallAsyncFunc; user_data: Tgpointer); cdecl; external libgstreamer;
-{$ENDIF read_function}
 
 // === Konventiert am: 11-7-26 15:53:59 ===
 
-
+function GST_ROUND_UP_2(num: longint): longint;
+function GST_ROUND_UP_4(num: longint): longint;
+function GST_ROUND_UP_8(num: longint): longint;
+function GST_ROUND_UP_16(num: longint): longint;
+function GST_ROUND_UP_32(num: longint): longint;
+function GST_ROUND_UP_64(num: longint): longint;
+function GST_ROUND_UP_128(num: longint): longint;
+function GST_ROUND_UP_N(num, align: longint): longint;
+function GST_ROUND_DOWN_2(num: longint): longint;
+function GST_ROUND_DOWN_4(num: longint): longint;
+function GST_ROUND_DOWN_8(num: longint): longint;
+function GST_ROUND_DOWN_16(num: longint): longint;
+function GST_ROUND_DOWN_32(num: longint): longint;
+function GST_ROUND_DOWN_64(num: longint): longint;
+function GST_ROUND_DOWN_128(num: longint): longint;
+function GST_ROUND_DOWN_N(num, align: longint): longint;
+{$ENDIF read_function}
 
 {$IFDEF read_implementation}
+function gst_gdouble_to_guint64(Value: Tgdouble): Tguint64;
+begin
+  Result := gst_util_gdouble_to_guint64(Value);
+end;
 
+function gst_guint64_to_gdouble(Value: Tguint64): Tgdouble;
+begin
+  Result := gst_util_guint64_to_gdouble(Value);
+end;
 
+function GST_ROUND_UP_2(num: longint): longint;
+begin
+  GST_ROUND_UP_2 := (num + 1) and not 1;
+end;
+
+function GST_ROUND_UP_4(num: longint): longint;
+begin
+  GST_ROUND_UP_4 := (num + 3) and not 3;
+end;
+
+function GST_ROUND_UP_8(num: longint): longint;
+begin
+  GST_ROUND_UP_8 := (num + 7) and not 7;
+end;
+
+function GST_ROUND_UP_16(num: longint): longint;
+begin
+  GST_ROUND_UP_16 := (num + 15) and not 15;
+end;
+
+function GST_ROUND_UP_32(num: longint): longint;
+begin
+  GST_ROUND_UP_32 := (num + 31) and not 31;
+end;
+
+function GST_ROUND_UP_64(num: longint): longint;
+begin
+  GST_ROUND_UP_64 := (num + 63) and not 63;
+end;
+
+function GST_ROUND_UP_128(num: longint): longint;
+begin
+  GST_ROUND_UP_128 := (num + 127) and not 127;
+end;
+
+function GST_ROUND_UP_N(num, align: longint): longint;
+begin
+  GST_ROUND_UP_N := (num + (align - 1)) and not (align - 1);
+end;
+
+function GST_ROUND_DOWN_2(num: longint): longint;
+begin
+  GST_ROUND_DOWN_2 := num and not 1;
+end;
+
+function GST_ROUND_DOWN_4(num: longint): longint;
+begin
+  GST_ROUND_DOWN_4 := num and not 3;
+end;
+
+function GST_ROUND_DOWN_8(num: longint): longint;
+begin
+  GST_ROUND_DOWN_8 := num and not 7;
+end;
+
+function GST_ROUND_DOWN_16(num: longint): longint;
+begin
+  GST_ROUND_DOWN_16 := num and not 15;
+end;
+
+function GST_ROUND_DOWN_32(num: longint): longint;
+begin
+  GST_ROUND_DOWN_32 := num and not 31;
+end;
+
+function GST_ROUND_DOWN_64(num: longint): longint;
+begin
+  GST_ROUND_DOWN_64 := num and not 63;
+end;
+
+function GST_ROUND_DOWN_128(num: longint): longint;
+begin
+  GST_ROUND_DOWN_128 := num and not 127;
+end;
+
+function GST_ROUND_DOWN_N(num, align: longint): longint;
+begin
+  GST_ROUND_DOWN_N := num and not (align - 1);
+end;
 
 {$ENDIF read_implementation}
