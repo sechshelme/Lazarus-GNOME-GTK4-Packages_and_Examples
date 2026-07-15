@@ -62,6 +62,9 @@
       <OtherUnitFiles Value="/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/Ubuntu_26.04/gstreamer-1.0/gst/gl/;../../Package_Tools/include-C/Ubuntu_26.04/gstreamer-1.0/gst/gl/egl;../../Package_Tools/include-C/Ubuntu_26.04/gstreamer-1.0/gst/gl/wayland;../../Package_Tools/include-C/Ubuntu_26.04/gstreamer-1.0/gst/gl/x11"/>
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
+    <CodeGeneration>
+      <TargetOS Value="win64"/>
+    </CodeGeneration>
     <Linking>
       <Debugging>
         <GenerateDebugInfo Value="False"/>

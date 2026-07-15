@@ -119,22 +119,6 @@
         <UnitName Value="fp_gst_insertbin"/>
       </Item>
       <Item>
-        <Filename Value="fp_gst_gl_x11.pas"/>
-        <UnitName Value="fp_gst_gl_x11"/>
-      </Item>
-      <Item>
-        <Filename Value="fp_gst_gl_wayland.pas"/>
-        <UnitName Value="fp_gst_gl_wayland"/>
-      </Item>
-      <Item>
-        <Filename Value="fp_gst_gl_glprototypes.pas"/>
-        <UnitName Value="fp_gst_gl_glprototypes"/>
-      </Item>
-      <Item>
-        <Filename Value="fp_gst_gl_egl.pas"/>
-        <UnitName Value="fp_gst_gl_egl"/>
-      </Item>
-      <Item>
         <Filename Value="fp_gst_gl.pas"/>
         <UnitName Value="fp_gst_gl"/>
       </Item>

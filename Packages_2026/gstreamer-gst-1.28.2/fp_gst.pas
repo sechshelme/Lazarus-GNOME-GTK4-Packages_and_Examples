@@ -149,11 +149,23 @@ type
   TGLsync = pointer;
   PGLsync = ^TGLsync;
 
+  TGLint =LongInt;
+  PGLint=^TGLint;
+
+  TGLuint =UInt32;
+  PGLuint=^TGLuint;
+
   TGLuint64 = uint64;
   PGLuint64 = ^TGLuint64;
 
   TGLint64 = int64;
   PGLint64 = ^TGLint64;
+
+  TGLenum = Longint;
+  PGLenum = ^TGLenum;
+
+  TGLsizei = LongInt;
+  PGLsizei=^TGLsizei;
 
   // /usr/include/KHR/khrplatform.h
   Tkhronos_int32_t = int32;
