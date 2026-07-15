@@ -10,7 +10,12 @@ uses
 
 
 // === Muss bearbeitet werden
-//type
+const
+GST_VIDEO_MAX_PLANES = 4;
+
+
+type
+  TGstVideoChromaSite=Integer;
 //   // gts video
 //   TGstVideoAggregator=Pointer;  // ??????  gst_video         gstvideoaggregator.h
 //   TGstVideoAggregatorClass=Pointer;  // ??????  gst_video         gstvideoaggregator.h

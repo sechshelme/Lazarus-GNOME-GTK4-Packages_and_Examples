@@ -4,8 +4,39 @@ program project1;
 uses
   colorbalancechannel,
   colorbalance,
-
   gstvideoaffinetransformationmeta,
+  video,
+  video_tile,
+  video_format,
+  video_chroma,
+  video_anc,
+
+
+  video_color,
+
+  video_info,
+
+
+  video_blend,
+  video_converter,
+  videodirection,
+  video_dither,
+  video_enumtypes,
+  video_event,
+  video_frame,
+  video_hdr,
+  video_info_dma,
+  video_multiview,
+  videoorientation,
+  videooverlay,
+  video_overlay_composition,
+  video_resampler,
+  video_scaler,
+  video_sei,
+
+
+
+
   gstvideoaggregator,
   gstvideocodecalphameta,
   gstvideodecoder,
@@ -18,29 +49,7 @@ uses
   gstvideotimecode,
   gstvideoutils,
   navigation,
-  video,
-  video_anc,
-  video_blend,
-  video_chroma,
-  video_color,
-  video_converter,
-  videodirection,
-  video_dither,
-  video_enumtypes,
-  video_event,
-  video_format,
-  video_frame,
-  video_hdr,
-  video_info,
-  video_info_dma,
-  video_multiview,
-  videoorientation,
-  videooverlay,
-  video_overlay_composition,
-  video_resampler,
-  video_scaler,
-  video_sei,
-  video_tile,
+
 
 
 

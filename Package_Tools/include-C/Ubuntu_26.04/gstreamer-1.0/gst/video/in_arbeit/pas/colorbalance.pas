@@ -1,5 +1,7 @@
 unit colorbalance;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,13 +12,16 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_enum}
 type
   PGstColorBalanceType = ^TGstColorBalanceType;
   TGstColorBalanceType = longint;
 const
   GST_COLOR_BALANCE_HARDWARE = 0;
   GST_COLOR_BALANCE_SOFTWARE = 1;
+  {$ENDIF read_enum}
 
+  {$IFDEF read_struct}
 type
   PGstColorBalance = type Pointer;
 
@@ -30,7 +35,9 @@ type
     value_changed: procedure(balance: PGstColorBalance; channel: PGstColorBalanceChannel; value: Tgint); cdecl;
     _gst_reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function gst_color_balance_get_type: TGType; cdecl; external libgstvideo;
 function gst_color_balance_list_channels(balance: PGstColorBalance): PGList; cdecl; external libgstvideo;
 procedure gst_color_balance_set_value(balance: PGstColorBalance; channel: PGstColorBalanceChannel; value: Tgint); cdecl; external libgstvideo;
@@ -44,6 +51,7 @@ function GST_TYPE_COLOR_BALANCE: TGType;
 function GST_COLOR_BALANCE(obj: Pointer): PGstColorBalance;
 function GST_IS_COLOR_BALANCE(obj: Pointer): Tgboolean;
 function GST_COLOR_BALANCE_GET_INTERFACE(obj: Pointer): PGstColorBalanceInterface;
+{$ENDIF read_function}
 
 implementation
 
