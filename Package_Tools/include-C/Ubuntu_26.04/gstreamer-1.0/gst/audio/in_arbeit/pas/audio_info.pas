@@ -1,363 +1,178 @@
 unit audio_info;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
-  fp_glib2, fp_gst;
+  fp_glib2, fp_gst, audio_format, audio_channels;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
-{ GStreamer
- * Copyright (C) <1999> Erik Walthinsen <omega@cse.ogi.edu>
- * Library       <2001> Thomas Vander Stichele <thomas@apestaart.org>
- *               <2011> Wim Taymans <wim.taymans@gmail.com>
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Library General Public
- * License as published by the Free Software Foundation; either
- * version 2 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Library General Public License for more details.
- *
- * You should have received a copy of the GNU Library General Public
- * License along with this library; if not, write to the
- * Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
- * Boston, MA 02110-1301, USA.
-  }
-{$ifndef __GST_AUDIO_AUDIO_H__}
-{$include <gst/audio/audio.h>}
-{$endif}
-{$ifndef __GST_AUDIO_INFO_H__}
-{$define __GST_AUDIO_INFO_H__}
+  {$IFDEF read_enum}
 type
-{*
- * GstAudioFlags:
- * @GST_AUDIO_FLAG_NONE: no valid flag
- * @GST_AUDIO_FLAG_UNPOSITIONED: the position array explicitly
- *     contains unpositioned channels.
- *
- * Extra audio flags
-  }
-
   PGstAudioFlags = ^TGstAudioFlags;
-  TGstAudioFlags =  Longint;
-  Const
-    GST_AUDIO_FLAG_NONE = 0;
-    GST_AUDIO_FLAG_UNPOSITIONED = 1 shl 0;
-;
-{*
- * GstAudioInfo:
- * @finfo: the format info of the audio
- * @flags: additional audio flags
- * @layout: audio layout
- * @rate: the audio sample rate
- * @channels: the number of channels
- * @bpf: the number of bytes for one frame, this is the size of one
- *         sample * @channels
- * @position: the positions for each channel
- *
- * Information describing audio properties. This information can be filled
- * in from GstCaps with gst_audio_info_from_caps().
- *
- * Use the provided macros to access the info in this structure.
-  }
-{< private > }
+  TGstAudioFlags = longint;
+const
+  GST_AUDIO_FLAG_NONE = 0;
+  GST_AUDIO_FLAG_UNPOSITIONED = 1 shl 0;
+  {$ENDIF read_enum}
+
+  {$IFDEF read_struct}
 type
   PGstAudioInfo = ^TGstAudioInfo;
   TGstAudioInfo = record
-      finfo : PGstAudioFormatInfo;
-      flags : TGstAudioFlags;
-      layout : TGstAudioLayout;
-      rate : Tgint;
-      channels : Tgint;
-      bpf : Tgint;
-      position : array[0..63] of TGstAudioChannelPosition;
-      _gst_reserved : array[0..(GST_PADDING)-1] of Tgpointer;
-    end;
+    finfo: PGstAudioFormatInfo;
+    flags: TGstAudioFlags;
+    layout: TGstAudioLayout;
+    rate: Tgint;
+    channels: Tgint;
+    bpf: Tgint;
+    position: array[0..63] of TGstAudioChannelPosition;
+    _gst_reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
+  end;
+  {$ENDIF read_struct}
 
-
-{ was #define dname def_expr }
-function GST_TYPE_AUDIO_INFO : longint; { return type might be wrong }
-
-function gst_audio_info_get_type:TGType;cdecl;external libgstaudio;
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_AUDIO_INFO_IS_VALID(i : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_AUDIO_INFO_FORMAT(i : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_AUDIO_INFO_NAME(i : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_AUDIO_INFO_WIDTH(i : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_AUDIO_INFO_DEPTH(i : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_AUDIO_INFO_BPS(obj : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_AUDIO_INFO_IS_INTEGER(i : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_AUDIO_INFO_IS_FLOAT(i : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_AUDIO_INFO_IS_SIGNED(i : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_AUDIO_INFO_ENDIANNESS(i : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_AUDIO_INFO_IS_LITTLE_ENDIAN(i : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_AUDIO_INFO_IS_BIG_ENDIAN(i : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_AUDIO_INFO_FLAGS(obj : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_AUDIO_INFO_IS_UNPOSITIONED(obj : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_AUDIO_INFO_LAYOUT(obj : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_AUDIO_INFO_RATE(obj : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_AUDIO_INFO_CHANNELS(obj : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_AUDIO_INFO_BPF(obj : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_AUDIO_INFO_POSITION(info,c : longint) : longint;
-
-function gst_audio_info_new:PGstAudioInfo;cdecl;external libgstaudio;
-function gst_audio_info_new_from_caps(caps:PGstCaps):PGstAudioInfo;cdecl;external libgstaudio;
-procedure gst_audio_info_init(info:PGstAudioInfo);cdecl;external libgstaudio;
-function gst_audio_info_copy(info:PGstAudioInfo):PGstAudioInfo;cdecl;external libgstaudio;
-procedure gst_audio_info_free(info:PGstAudioInfo);cdecl;external libgstaudio;
-procedure gst_audio_info_set_format(info:PGstAudioInfo; format:TGstAudioFormat; rate:Tgint; channels:Tgint; position:PGstAudioChannelPosition);cdecl;external libgstaudio;
-function gst_audio_info_from_caps(info:PGstAudioInfo; caps:PGstCaps):Tgboolean;cdecl;external libgstaudio;
-function gst_audio_info_to_caps(info:PGstAudioInfo):PGstCaps;cdecl;external libgstaudio;
-function gst_audio_info_convert(info:PGstAudioInfo; src_fmt:TGstFormat; src_val:Tgint64; dest_fmt:TGstFormat; dest_val:Pgint64):Tgboolean;cdecl;external libgstaudio;
-function gst_audio_info_is_equal(info:PGstAudioInfo; other:PGstAudioInfo):Tgboolean;cdecl;external libgstaudio;
-{//////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC        (GstAudioInfo, gst_audio_info_free) }
-{$endif}
-{ __GST_AUDIO_INFO_H__  }
+{$IFDEF read_function}
+function gst_audio_info_get_type: TGType; cdecl; external libgstaudio;
+function gst_audio_info_new: PGstAudioInfo; cdecl; external libgstaudio;
+function gst_audio_info_new_from_caps(caps: PGstCaps): PGstAudioInfo; cdecl; external libgstaudio;
+procedure gst_audio_info_init(info: PGstAudioInfo); cdecl; external libgstaudio;
+function gst_audio_info_copy(info: PGstAudioInfo): PGstAudioInfo; cdecl; external libgstaudio;
+procedure gst_audio_info_free(info: PGstAudioInfo); cdecl; external libgstaudio;
+procedure gst_audio_info_set_format(info: PGstAudioInfo; format: TGstAudioFormat; rate: Tgint; channels: Tgint; position: PGstAudioChannelPosition); cdecl; external libgstaudio;
+function gst_audio_info_from_caps(info: PGstAudioInfo; caps: PGstCaps): Tgboolean; cdecl; external libgstaudio;
+function gst_audio_info_to_caps(info: PGstAudioInfo): PGstCaps; cdecl; external libgstaudio;
+function gst_audio_info_convert(info: PGstAudioInfo; src_fmt: TGstFormat; src_val: Tgint64; dest_fmt: TGstFormat; dest_val: Pgint64): Tgboolean; cdecl; external libgstaudio;
+function gst_audio_info_is_equal(info: PGstAudioInfo; other: PGstAudioInfo): Tgboolean; cdecl; external libgstaudio;
 
 // === Konventiert am: 16-7-26 15:10:27 ===
 
+function GST_TYPE_AUDIO_INFO: TGType;
+function GST_AUDIO_INFO_IS_VALID(i: PGstAudioInfo): Tgboolean;
+function GST_AUDIO_INFO_FORMAT(i: PGstAudioInfo): TGstAudioFormat;
+function GST_AUDIO_INFO_NAME(i: PGstAudioInfo): Pgchar;
+function GST_AUDIO_INFO_WIDTH(i: PGstAudioInfo): Tgint;
+function GST_AUDIO_INFO_DEPTH(i: PGstAudioInfo): Tgint;
+function GST_AUDIO_INFO_BPS(info: PGstAudioInfo): Tgint;
+function GST_AUDIO_INFO_IS_INTEGER(i: PGstAudioInfo): Tgboolean;
+function GST_AUDIO_INFO_IS_FLOAT(i: PGstAudioInfo): Tgboolean;
+function GST_AUDIO_INFO_IS_SIGNED(i: PGstAudioInfo): Tgboolean;
+function GST_AUDIO_INFO_ENDIANNESS(i: PGstAudioInfo): Tgint;
+function GST_AUDIO_INFO_IS_LITTLE_ENDIAN(i: PGstAudioInfo): Tgboolean;
+function GST_AUDIO_INFO_IS_BIG_ENDIAN(i: PGstAudioInfo): Tgboolean;
+function GST_AUDIO_INFO_FLAGS(info: PGstAudioInfo): TGstAudioFlags;
+function GST_AUDIO_INFO_IS_UNPOSITIONED(info: PGstAudioInfo): Tgboolean;
+function GST_AUDIO_INFO_LAYOUT(info: PGstAudioInfo): TGstAudioLayout;
+function GST_AUDIO_INFO_RATE(info: PGstAudioInfo): Tgint;
+function GST_AUDIO_INFO_CHANNELS(info: PGstAudioInfo): Tgint;
+function GST_AUDIO_INFO_BPF(info: PGstAudioInfo): Tgint;
+function GST_AUDIO_INFO_POSITION(info: PGstAudioInfo; c: integer): TGstAudioChannelPosition;
+{$ENDIF read_function}
 
 implementation
 
-
-{ was #define dname def_expr }
-function GST_TYPE_AUDIO_INFO : longint; { return type might be wrong }
-  begin
-    GST_TYPE_AUDIO_INFO:=gst_audio_info_get_type;
-  end;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_AUDIO_INFO_IS_VALID(i : longint) : longint;
+function GST_TYPE_AUDIO_INFO: TGType;
 begin
-  GST_AUDIO_INFO_IS_VALID:=((((i^.finfo)<>(NULL and (@(i^.rate))))>(0 and (@(i^.channels))))>(0 and (@(i^.bpf))))>0;
+  GST_TYPE_AUDIO_INFO := gst_audio_info_get_type;
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_AUDIO_INFO_FORMAT(i : longint) : longint;
+function GST_AUDIO_INFO_IS_VALID(i: PGstAudioInfo): Tgboolean;
 begin
-  GST_AUDIO_INFO_FORMAT:=GST_AUDIO_FORMAT_INFO_FORMAT(i^.finfo);
+  Result := (i^.finfo <> nil) and (i^.rate > 0) and (i^.channels > 0) and (i^.bpf > 0);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_AUDIO_INFO_NAME(i : longint) : longint;
+function GST_AUDIO_INFO_FORMAT(i: PGstAudioInfo): TGstAudioFormat;
 begin
-  GST_AUDIO_INFO_NAME:=GST_AUDIO_FORMAT_INFO_NAME(i^.finfo);
+  GST_AUDIO_INFO_FORMAT := GST_AUDIO_FORMAT_INFO_FORMAT(i^.finfo);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_AUDIO_INFO_WIDTH(i : longint) : longint;
+function GST_AUDIO_INFO_NAME(i: PGstAudioInfo): Pgchar;
 begin
-  GST_AUDIO_INFO_WIDTH:=GST_AUDIO_FORMAT_INFO_WIDTH(i^.finfo);
+  GST_AUDIO_INFO_NAME := GST_AUDIO_FORMAT_INFO_NAME(i^.finfo);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_AUDIO_INFO_DEPTH(i : longint) : longint;
+function GST_AUDIO_INFO_WIDTH(i: PGstAudioInfo): Tgint;
 begin
-  GST_AUDIO_INFO_DEPTH:=GST_AUDIO_FORMAT_INFO_DEPTH(i^.finfo);
+  GST_AUDIO_INFO_WIDTH := GST_AUDIO_FORMAT_INFO_WIDTH(i^.finfo);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_AUDIO_INFO_BPS(obj : longint) : longint;
+function GST_AUDIO_INFO_DEPTH(i: PGstAudioInfo): Tgint;
 begin
-  GST_AUDIO_INFO_BPS:=(GST_AUDIO_INFO_DEPTH(info)) shr 3;
+  GST_AUDIO_INFO_DEPTH := GST_AUDIO_FORMAT_INFO_DEPTH(i^.finfo);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_AUDIO_INFO_IS_INTEGER(i : longint) : longint;
+function GST_AUDIO_INFO_BPS(info: PGstAudioInfo): Tgint;
 begin
-  GST_AUDIO_INFO_IS_INTEGER:=GST_AUDIO_FORMAT_INFO_IS_INTEGER(i^.finfo);
+  GST_AUDIO_INFO_BPS := (GST_AUDIO_INFO_DEPTH(info)) shr 3;
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_AUDIO_INFO_IS_FLOAT(i : longint) : longint;
+function GST_AUDIO_INFO_IS_INTEGER(i: PGstAudioInfo): Tgboolean;
 begin
-  GST_AUDIO_INFO_IS_FLOAT:=GST_AUDIO_FORMAT_INFO_IS_FLOAT(i^.finfo);
+  GST_AUDIO_INFO_IS_INTEGER := GST_AUDIO_FORMAT_INFO_IS_INTEGER(i^.finfo);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_AUDIO_INFO_IS_SIGNED(i : longint) : longint;
+function GST_AUDIO_INFO_IS_FLOAT(i: PGstAudioInfo): Tgboolean;
 begin
-  GST_AUDIO_INFO_IS_SIGNED:=GST_AUDIO_FORMAT_INFO_IS_SIGNED(i^.finfo);
+  GST_AUDIO_INFO_IS_FLOAT := GST_AUDIO_FORMAT_INFO_IS_FLOAT(i^.finfo);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_AUDIO_INFO_ENDIANNESS(i : longint) : longint;
+function GST_AUDIO_INFO_IS_SIGNED(i: PGstAudioInfo): Tgboolean;
 begin
-  GST_AUDIO_INFO_ENDIANNESS:=GST_AUDIO_FORMAT_INFO_ENDIANNESS(i^.finfo);
+  GST_AUDIO_INFO_IS_SIGNED := GST_AUDIO_FORMAT_INFO_IS_SIGNED(i^.finfo);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_AUDIO_INFO_IS_LITTLE_ENDIAN(i : longint) : longint;
+function GST_AUDIO_INFO_ENDIANNESS(i: PGstAudioInfo): Tgint;
 begin
-  GST_AUDIO_INFO_IS_LITTLE_ENDIAN:=GST_AUDIO_FORMAT_INFO_IS_LITTLE_ENDIAN(i^.finfo);
+  GST_AUDIO_INFO_ENDIANNESS := GST_AUDIO_FORMAT_INFO_ENDIANNESS(i^.finfo);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_AUDIO_INFO_IS_BIG_ENDIAN(i : longint) : longint;
+function GST_AUDIO_INFO_IS_LITTLE_ENDIAN(i: PGstAudioInfo): Tgboolean;
 begin
-  GST_AUDIO_INFO_IS_BIG_ENDIAN:=GST_AUDIO_FORMAT_INFO_IS_BIG_ENDIAN(i^.finfo);
+  GST_AUDIO_INFO_IS_LITTLE_ENDIAN := GST_AUDIO_FORMAT_INFO_IS_LITTLE_ENDIAN(i^.finfo);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_AUDIO_INFO_FLAGS(obj : longint) : longint;
+function GST_AUDIO_INFO_IS_BIG_ENDIAN(i: PGstAudioInfo): Tgboolean;
 begin
-  GST_AUDIO_INFO_FLAGS:=info^.flags;
+  GST_AUDIO_INFO_IS_BIG_ENDIAN := GST_AUDIO_FORMAT_INFO_IS_BIG_ENDIAN(i^.finfo);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_AUDIO_INFO_IS_UNPOSITIONED(obj : longint) : longint;
+function GST_AUDIO_INFO_FLAGS(info: PGstAudioInfo): TGstAudioFlags;
 begin
-  GST_AUDIO_INFO_IS_UNPOSITIONED:=((info^.flags) and GST_AUDIO_FLAG_UNPOSITIONED)<>0;
+  GST_AUDIO_INFO_FLAGS := info^.flags;
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_AUDIO_INFO_LAYOUT(obj : longint) : longint;
+function GST_AUDIO_INFO_IS_UNPOSITIONED(info: PGstAudioInfo): Tgboolean;
 begin
-  GST_AUDIO_INFO_LAYOUT:=info^.layout;
+  GST_AUDIO_INFO_IS_UNPOSITIONED := ((info^.flags) and GST_AUDIO_FLAG_UNPOSITIONED) <> 0;
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_AUDIO_INFO_RATE(obj : longint) : longint;
+function GST_AUDIO_INFO_LAYOUT(info: PGstAudioInfo): TGstAudioLayout;
 begin
-  GST_AUDIO_INFO_RATE:=info^.rate;
+  GST_AUDIO_INFO_LAYOUT := info^.layout;
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_AUDIO_INFO_CHANNELS(obj : longint) : longint;
+function GST_AUDIO_INFO_RATE(info: PGstAudioInfo): Tgint;
 begin
-  GST_AUDIO_INFO_CHANNELS:=info^.channels;
+  GST_AUDIO_INFO_RATE := info^.rate;
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_AUDIO_INFO_BPF(obj : longint) : longint;
+function GST_AUDIO_INFO_CHANNELS(info: PGstAudioInfo): Tgint;
 begin
-  GST_AUDIO_INFO_BPF:=info^.bpf;
+  GST_AUDIO_INFO_CHANNELS := info^.channels;
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_AUDIO_INFO_POSITION(info,c : longint) : longint;
+function GST_AUDIO_INFO_BPF(info: PGstAudioInfo): Tgint;
 begin
-  GST_AUDIO_INFO_POSITION:=info^.(position[c]);
+  GST_AUDIO_INFO_BPF := info^.bpf;
 end;
 
+function GST_AUDIO_INFO_POSITION(info: PGstAudioInfo; c: integer): TGstAudioChannelPosition;
+begin
+  GST_AUDIO_INFO_POSITION := info^.position[c];
+end;
 
 end.
