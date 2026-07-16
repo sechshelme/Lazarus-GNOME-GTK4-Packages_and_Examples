@@ -141,7 +141,7 @@ GstClockTime  gst_test_clock_id_list_get_latest_time (const GList * pending_list
 GST_CHECK_API
 gboolean      gst_test_clock_crank (GstTestClock * test_clock);
 
-//////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC       (GstTestClock, gst_object_unref)
+////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC        (GstTestClock, gst_object_unref)
 
 
 

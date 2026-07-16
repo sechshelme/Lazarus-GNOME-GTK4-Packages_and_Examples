@@ -114,8 +114,8 @@ gboolean                 gst_rtsp_session_media_alloc_channels (GstRTSPSessionMe
 GST_RTSP_SERVER_API
 gchar *                  gst_rtsp_session_media_get_rtpinfo    (GstRTSPSessionMedia * media) ;
 
-#ifdef //////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC       
-//////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC       (GstRTSPSessionMedia, gst_object_unref)
+#ifdef ////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC        
+////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC        (GstRTSPSessionMedia, gst_object_unref)
 #endif
 
 

@@ -213,7 +213,7 @@ struct _GstRTPHeaderExtensionClass
   gpointer _gst_reserved[GST_PADDING_LARGE];
 };
 
-//////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC       (GstRTPHeaderExtension, gst_object_unref)
+////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC        (GstRTPHeaderExtension, gst_object_unref)
 
 /**
  * GST_RTP_HEADER_EXTENSION_URI_METADATA_KEY:

@@ -1,0 +1,67 @@
+
+
+  {$IFDEF read_enum}
+type
+  PGstColorBalanceType = ^TGstColorBalanceType;
+  TGstColorBalanceType = longint;
+const
+  GST_COLOR_BALANCE_HARDWARE = 0;
+  GST_COLOR_BALANCE_SOFTWARE = 1;
+  {$ENDIF read_enum}
+
+  {$IFDEF read_struct}
+type
+  PGstColorBalance = type Pointer;
+
+  PGstColorBalanceInterface = ^TGstColorBalanceInterface;
+  TGstColorBalanceInterface = record
+    iface: TGTypeInterface;
+    list_channels: function(balance: PGstColorBalance): PGList; cdecl;
+    set_value: procedure(balance: PGstColorBalance; channel: PGstColorBalanceChannel; value: Tgint); cdecl;
+    get_value: function(balance: PGstColorBalance; channel: PGstColorBalanceChannel): Tgint; cdecl;
+    get_balance_type: function(balance: PGstColorBalance): TGstColorBalanceType; cdecl;
+    value_changed: procedure(balance: PGstColorBalance; channel: PGstColorBalanceChannel; value: Tgint); cdecl;
+    _gst_reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
+  end;
+  {$ENDIF read_struct}
+
+{$IFDEF read_function}
+function gst_color_balance_get_type: TGType; cdecl; external libgstvideo;
+function gst_color_balance_list_channels(balance: PGstColorBalance): PGList; cdecl; external libgstvideo;
+procedure gst_color_balance_set_value(balance: PGstColorBalance; channel: PGstColorBalanceChannel; value: Tgint); cdecl; external libgstvideo;
+function gst_color_balance_get_value(balance: PGstColorBalance; channel: PGstColorBalanceChannel): Tgint; cdecl; external libgstvideo;
+function gst_color_balance_get_balance_type(balance: PGstColorBalance): TGstColorBalanceType; cdecl; external libgstvideo;
+procedure gst_color_balance_value_changed(balance: PGstColorBalance; channel: PGstColorBalanceChannel; value: Tgint); cdecl; external libgstvideo;
+
+// === Konventiert am: 15-7-26 13:23:10 ===
+
+function GST_TYPE_COLOR_BALANCE: TGType;
+function GST_COLOR_BALANCE(obj: Pointer): PGstColorBalance;
+function GST_IS_COLOR_BALANCE(obj: Pointer): Tgboolean;
+function GST_COLOR_BALANCE_GET_INTERFACE(obj: Pointer): PGstColorBalanceInterface;
+{$ENDIF read_function}
+
+
+{$IFDEF read_implementation}
+
+function GST_TYPE_COLOR_BALANCE: TGType;
+begin
+  GST_TYPE_COLOR_BALANCE := gst_color_balance_get_type;
+end;
+
+function GST_COLOR_BALANCE(obj: Pointer): PGstColorBalance;
+begin
+  Result := PGstColorBalance(g_type_check_instance_cast(obj, GST_TYPE_COLOR_BALANCE));
+end;
+
+function GST_IS_COLOR_BALANCE(obj: Pointer): Tgboolean;
+begin
+  Result := g_type_check_instance_is_a(obj, GST_TYPE_COLOR_BALANCE);
+end;
+
+function GST_COLOR_BALANCE_GET_INTERFACE(obj: Pointer): PGstColorBalanceInterface;
+begin
+  Result := g_type_interface_peek(obj, GST_TYPE_COLOR_BALANCE);
+end;
+
+{$ENDIF read_implementation}

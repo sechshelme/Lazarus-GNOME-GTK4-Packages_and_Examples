@@ -140,7 +140,7 @@ struct _GstVulkanWindowClass {
   gpointer _reserved[GST_PADDING];
 };
 
-//////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC       (GstVulkanWindow, gst_object_unref)
+////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC        (GstVulkanWindow, gst_object_unref)
 
 GST_VULKAN_API
 GstVulkanWindow *  gst_vulkan_window_new                            (GstVulkanDisplay *display) ;

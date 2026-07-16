@@ -10,26 +10,6 @@ uses
 
 
 // === Muss bearbeitet werden
-const
-GST_VIDEO_MAX_PLANES = 4;
-
-
-type
-  TGstVideoChromaSite=Integer;
-//   // gts video
-//   TGstVideoAggregator=Pointer;  // ??????  gst_video         gstvideoaggregator.h
-//   TGstVideoAggregatorClass=Pointer;  // ??????  gst_video         gstvideoaggregator.h
-//   TGstVideoAggregatorPad=Pointer;  // ??????  gst_video         gstvideoaggregator.h
-//     TGstVideoAggregatorPadClass=Pointer;  // ??????  gst_video         gstvideoaggregator.h
-//     PGstVideoInfo =^TGstVideoInfo;
-//     TGstVideoInfo=Integer;
-//     TGstVideoFormat=Integer;
-//     TGstVideoAlignment=Integer;
-//     TGstVideoMultiviewMode=Integer;
-//     TGstVideoMultiviewFlags=Integer;
-//     PGstVideoAlignment=Pointer;
-//     PGstVideoAffineTransformationMeta=Pointer;
-//     PGstVideoInfoDmaDrm=Pointer;
 
   // ===============
 

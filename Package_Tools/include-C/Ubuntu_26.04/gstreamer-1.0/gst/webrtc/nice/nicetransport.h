@@ -64,7 +64,7 @@ GstWebRTCNiceTransport * gst_webrtc_nice_transport_new                (GstWebRTC
 
 void                     gst_webrtc_nice_transport_update_buffer_size (GstWebRTCNiceTransport * nice);
 
-//////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC       (GstWebRTCNiceTransport, gst_object_unref)
+////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC        (GstWebRTCNiceTransport, gst_object_unref)
 
 
 

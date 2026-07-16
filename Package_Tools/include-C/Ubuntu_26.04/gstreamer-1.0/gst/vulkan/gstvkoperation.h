@@ -80,7 +80,7 @@ struct _GstVulkanEncodeQueryResult
   guint32 status;
 };
 
-//////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC        (GstVulkanOperation, gst_object_unref)
+////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC         (GstVulkanOperation, gst_object_unref)
 
 GST_VULKAN_API
 GstVulkanOperation *    gst_vulkan_operation_new                (GstVulkanCommandPool * cmd_pool) ;

@@ -60,7 +60,7 @@ struct _GstWebRTCNiceClass
 GST_WEBRTCNICE_API
 GstWebRTCNice *             gst_webrtc_nice_new                      (const gchar * name);
 
-//////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC       (GstWebRTCNice, gst_object_unref)
+////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC        (GstWebRTCNice, gst_object_unref)
 
 
 

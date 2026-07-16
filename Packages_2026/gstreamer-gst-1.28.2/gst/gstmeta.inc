@@ -89,7 +89,7 @@ function gst_meta_get_seqnum(meta: PGstMeta): Tguint64; cdecl; external libgstre
 function gst_meta_compare_seqnum(meta1: PGstMeta; meta2: PGstMeta): Tgint; cdecl; external libgstreamer;
 function gst_meta_serialize(meta: PGstMeta; data: PGstByteArrayInterface): Tgboolean; cdecl; external libgstreamer;
 function gst_meta_serialize_simple(meta: PGstMeta; data: PGByteArray): Tgboolean; cdecl; external libgstreamer;
-function gst_meta_deserialize(buffer: PGstBuffer_; data: Pguint8; size: Tgsize; consumed: Pguint32): PGstMeta; cdecl; external libgstreamer;
+function gst_meta_deserialize(buffer: PGstBuffer; data: Pguint8; size: Tgsize; consumed: Pguint32): PGstMeta; cdecl; external libgstreamer;
 
 function GST_META_TAG_MEMORY: TGQuark;
 
