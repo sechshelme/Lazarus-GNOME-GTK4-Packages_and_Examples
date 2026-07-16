@@ -15,7 +15,6 @@ uses
   video_frame,
   video_blend,
   video_converter,
-
   videodirection,
   video_dither,
   video_enumtypes,
@@ -29,21 +28,17 @@ uses
   video_resampler,
   video_scaler,
   video_sei,
-
-
-
-
   gstvideoaggregator,
   gstvideocodecalphameta,
+  gstvideoutils,
   gstvideodecoder,
+  gstvideopool,
   gstvideodmabufpool,
   gstvideoencoder,
   gstvideofilter,
-  gstvideometa,
-  gstvideopool,
-  gstvideosink,
   gstvideotimecode,
-  gstvideoutils,
+  gstvideometa,
+  gstvideosink,
   navigation,
 
 
@@ -52,6 +47,7 @@ uses
   fp_gst_gl,      // Ausklammerungen entfernen !!!!!!
   fp_gst_base,
   fp_gst,
+
   fp_girepository_2,
   fp_glib_unix,
   fp_gio_unix_2,

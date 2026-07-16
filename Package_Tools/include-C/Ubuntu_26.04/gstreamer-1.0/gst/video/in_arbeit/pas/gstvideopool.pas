@@ -1,133 +1,74 @@
 unit gstvideopool;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
-  fp_glib2, fp_gst;
+  fp_glib2, fp_gst, video;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
-{ GStreamer
- * Copyright (C) <2011> Wim Taymans <wim.taymans@gmail.com>
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Library General Public
- * License as published by the Free Software Foundation; either
- * version 2 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Library General Public License for more details.
- *
- * You should have received a copy of the GNU Library General Public
- * License along with this library; if not, write to the
- * Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
- * Boston, MA 02110-1301, USA.
-  }
-{$ifndef __GST_VIDEO_POOL_H__}
-{$define __GST_VIDEO_POOL_H__}
-{$include <gst/gst.h>}
-{$include <gst/video/video.h>}
-{*
- * GST_BUFFER_POOL_OPTION_VIDEO_META:
- *
- * An option that can be activated on bufferpool to request video metadata
- * on buffers from the pool.
-  }
-
+  {$IFDEF read_enum}
 const
-  GST_BUFFER_POOL_OPTION_VIDEO_META = 'GstBufferPoolOptionVideoMeta';  
-{*
- * GST_BUFFER_POOL_OPTION_VIDEO_ALIGNMENT:
- *
- * A bufferpool option to enable extra padding. When a bufferpool supports this
- * option, gst_buffer_pool_config_set_video_alignment() can be called.
- *
- * When this option is enabled on the bufferpool,
- * #GST_BUFFER_POOL_OPTION_VIDEO_META should also be enabled.
-  }
-  GST_BUFFER_POOL_OPTION_VIDEO_ALIGNMENT = 'GstBufferPoolOptionVideoAlignment';  
-{ setting a bufferpool config  }
+  GST_BUFFER_POOL_OPTION_VIDEO_META = 'GstBufferPoolOptionVideoMeta';
+  GST_BUFFER_POOL_OPTION_VIDEO_ALIGNMENT = 'GstBufferPoolOptionVideoAlignment';
+  {$ENDIF read_enum}
 
-procedure gst_buffer_pool_config_set_video_alignment(config:PGstStructure; align:PGstVideoAlignment);cdecl;external libgstvideo;
-function gst_buffer_pool_config_get_video_alignment(config:PGstStructure; align:PGstVideoAlignment):Tgboolean;cdecl;external libgstvideo;
-{ video bufferpool  }
+  {$IFDEF read_struct}
 type
+  PGstVideoBufferPoolPrivate = type Pointer;
 
-{ was #define dname def_expr }
-function GST_TYPE_VIDEO_BUFFER_POOL : longint; { return type might be wrong }
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_IS_VIDEO_BUFFER_POOL(obj : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_VIDEO_BUFFER_POOL(obj : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-function GST_VIDEO_BUFFER_POOL_CAST(obj : longint) : PGstVideoBufferPool;
-
-type
   PGstVideoBufferPool = ^TGstVideoBufferPool;
   TGstVideoBufferPool = record
-      bufferpool : TGstBufferPool;
-      priv : PGstVideoBufferPoolPrivate;
-    end;
+    bufferpool: TGstBufferPool;
+    priv: PGstVideoBufferPoolPrivate;
+  end;
 
   PGstVideoBufferPoolClass = ^TGstVideoBufferPoolClass;
   TGstVideoBufferPoolClass = record
-      parent_class : TGstBufferPoolClass;
-    end;
+    parent_class: TGstBufferPoolClass;
+  end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
+procedure gst_buffer_pool_config_set_video_alignment(config: PGstStructure; align: PGstVideoAlignment); cdecl; external libgstvideo;
+function gst_buffer_pool_config_get_video_alignment(config: PGstStructure; align: PGstVideoAlignment): Tgboolean; cdecl; external libgstvideo;
 
-function gst_video_buffer_pool_get_type:TGType;cdecl;external libgstvideo;
-function gst_video_buffer_pool_new:PGstBufferPool;cdecl;external libgstvideo;
-{////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC       (GstVideoBufferPool, gst_object_unref) }
-{$endif}
-{ __GST_VIDEO_POOL_H__  }
+function gst_video_buffer_pool_get_type: TGType; cdecl; external libgstvideo;
+function gst_video_buffer_pool_new: PGstBufferPool; cdecl; external libgstvideo;
 
 // === Konventiert am: 15-7-26 13:20:23 ===
 
+function GST_VIDEO_BUFFER_POOL_CAST(obj: Pointer): PGstVideoBufferPool;
+function GST_TYPE_VIDEO_BUFFER_POOL: TGType;
+function GST_VIDEO_BUFFER_POOL(obj: Pointer): PGstVideoBufferPool;
+function GST_IS_VIDEO_BUFFER_POOL(obj: Pointer): Tgboolean;
+{$ENDIF read_function}
 
 implementation
 
-
-{ was #define dname def_expr }
-function GST_TYPE_VIDEO_BUFFER_POOL : longint; { return type might be wrong }
-  begin
-    GST_TYPE_VIDEO_BUFFER_POOL:=gst_video_buffer_pool_get_type;
-  end;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_IS_VIDEO_BUFFER_POOL(obj : longint) : longint;
+function GST_TYPE_VIDEO_BUFFER_POOL: TGType;
 begin
-  GST_IS_VIDEO_BUFFER_POOL:=G_TYPE_CHECK_INSTANCE_TYPE(obj,GST_TYPE_VIDEO_BUFFER_POOL);
+  GST_TYPE_VIDEO_BUFFER_POOL := gst_video_buffer_pool_get_type;
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_VIDEO_BUFFER_POOL(obj : longint) : longint;
+function GST_VIDEO_BUFFER_POOL(obj: Pointer): PGstVideoBufferPool;
 begin
-  GST_VIDEO_BUFFER_POOL:=G_TYPE_CHECK_INSTANCE_CAST(obj,GST_TYPE_VIDEO_BUFFER_POOL,GstVideoBufferPool);
+  Result := PGstVideoBufferPool(g_type_check_instance_cast(obj, GST_TYPE_VIDEO_BUFFER_POOL));
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-function GST_VIDEO_BUFFER_POOL_CAST(obj : longint) : PGstVideoBufferPool;
+function GST_IS_VIDEO_BUFFER_POOL(obj: Pointer): Tgboolean;
 begin
-  GST_VIDEO_BUFFER_POOL_CAST:=PGstVideoBufferPool(obj);
+  Result := g_type_check_instance_is_a(obj, GST_TYPE_VIDEO_BUFFER_POOL);
 end;
 
+function GST_VIDEO_BUFFER_POOL_CAST(obj: Pointer): PGstVideoBufferPool;
+begin
+  GST_VIDEO_BUFFER_POOL_CAST := PGstVideoBufferPool(obj);
+end;
 
 end.

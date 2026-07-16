@@ -1,16 +1,39 @@
 unit gstvideoaggregator;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
-  fp_glib2, fp_gst, fp_gst_base;
+  fp_glib2, fp_gst, fp_gst_base, video_info, video_frame;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
+  PGstVideoAggregatorPrivate = type Pointer;
+
+  PGstVideoAggregator = ^TGstVideoAggregator;
+  TGstVideoAggregator = record
+    aggregator: TGstAggregator;
+    info: TGstVideoInfo;
+    priv: PGstVideoAggregatorPrivate;
+    _gst_reserved: array[0..(GST_PADDING_LARGE) - 1] of Tgpointer;
+  end;
+
+  PGstVideoAggregatorClass = ^TGstVideoAggregatorClass;
+  TGstVideoAggregatorClass = record
+    parent_class: TGstAggregatorClass;
+    update_caps: function(videoaggregator: PGstVideoAggregator; caps: PGstCaps): PGstCaps; cdecl;
+    aggregate_frames: function(videoaggregator: PGstVideoAggregator; outbuffer: PGstBuffer): TGstFlowReturn; cdecl;
+    create_output_buffer: function(videoaggregator: PGstVideoAggregator; outbuffer: PPGstBuffer): TGstFlowReturn; cdecl;
+    find_best_format: procedure(vagg: PGstVideoAggregator; downstream_caps: PGstCaps; best_info: PGstVideoInfo; at_least_one_alpha: Pgboolean); cdecl;
+    _gst_reserved: array[0..(GST_PADDING_LARGE) - 1] of Tgpointer;
+  end;
+
   PGstVideoAggregatorPadPrivate = type Pointer;
 
   PGstVideoAggregatorPad = ^TGstVideoAggregatorPad;
@@ -32,13 +55,8 @@ type
     _gst_reserved: array[0..(GST_PADDING_LARGE - 2) - 1] of Tgpointer;
   end;
 
-function gst_video_aggregator_pad_get_type: TGType; cdecl; external libgstvideo;
-function gst_video_aggregator_pad_has_current_buffer(pad: PGstVideoAggregatorPad): Tgboolean; cdecl; external libgstvideo;
-function gst_video_aggregator_pad_get_current_buffer(pad: PGstVideoAggregatorPad): PGstBuffer; cdecl; external libgstvideo;
-function gst_video_aggregator_pad_get_prepared_frame(pad: PGstVideoAggregatorPad): PGstVideoFrame; cdecl; external libgstvideo;
-procedure gst_video_aggregator_pad_set_needs_alpha(pad: PGstVideoAggregatorPad; needs_alpha: Tgboolean); cdecl; external libgstvideo;
+  PGstVideoAggregatorConvertPadPrivate = type Pointer;
 
-type
   PGstVideoAggregatorConvertPad = ^TGstVideoAggregatorConvertPad;
   TGstVideoAggregatorConvertPad = record
     parent: TGstVideoAggregatorPad;
@@ -53,42 +71,31 @@ type
     _gst_reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
   end;
 
+  PGstVideoAggregatorParallelConvertPad = type Pointer;
 
-function gst_video_aggregator_convert_pad_get_type: TGType; cdecl; external libgstvideo;
-procedure gst_video_aggregator_convert_pad_update_conversion_info(pad: PGstVideoAggregatorConvertPad); cdecl; external libgstvideo;
-
-type
   PGstVideoAggregatorParallelConvertPadClass = ^TGstVideoAggregatorParallelConvertPadClass;
   TGstVideoAggregatorParallelConvertPadClass = record
     parent_class: TGstVideoAggregatorConvertPadClass;
     _gst_reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
   end;
+  {$ENDIF read_struct}
 
-type
-  PGstVideoAggregator = ^TGstVideoAggregator;
-  TGstVideoAggregator = record
-    aggregator: TGstAggregator;
-    info: TGstVideoInfo;
-    priv: PGstVideoAggregatorPrivate;
-    _gst_reserved: array[0..(GST_PADDING_LARGE) - 1] of Tgpointer;
-  end;
+{$IFDEF read_function}
+function gst_video_aggregator_parallel_convert_pad_get_type: TGType; cdecl; external libgstvideo;
 
-  PGstVideoAggregatorClass = ^TGstVideoAggregatorClass;
-  TGstVideoAggregatorClass = record
-    parent_class: TGstAggregatorClass;
-    update_caps: function(videoaggregator: PGstVideoAggregator; caps: PGstCaps): PGstCaps; cdecl;
-    aggregate_frames: function(videoaggregator: PGstVideoAggregator; outbuffer: PGstBuffer): TGstFlowReturn; cdecl;
-    create_output_buffer: function(videoaggregator: PGstVideoAggregator; outbuffer: PPGstBuffer): TGstFlowReturn; cdecl;
-    find_best_format: procedure(vagg: PGstVideoAggregator; downstream_caps: PGstCaps; best_info: PGstVideoInfo; at_least_one_alpha: Pgboolean); cdecl;
-    _gst_reserved: array[0..(GST_PADDING_LARGE) - 1] of Tgpointer;
-  end;
+function gst_video_aggregator_pad_get_type: TGType; cdecl; external libgstvideo;
+function gst_video_aggregator_pad_has_current_buffer(pad: PGstVideoAggregatorPad): Tgboolean; cdecl; external libgstvideo;
+function gst_video_aggregator_pad_get_current_buffer(pad: PGstVideoAggregatorPad): PGstBuffer; cdecl; external libgstvideo;
+function gst_video_aggregator_pad_get_prepared_frame(pad: PGstVideoAggregatorPad): PGstVideoFrame; cdecl; external libgstvideo;
+procedure gst_video_aggregator_pad_set_needs_alpha(pad: PGstVideoAggregatorPad; needs_alpha: Tgboolean); cdecl; external libgstvideo;
 
+function gst_video_aggregator_convert_pad_get_type: TGType; cdecl; external libgstvideo;
+procedure gst_video_aggregator_convert_pad_update_conversion_info(pad: PGstVideoAggregatorConvertPad); cdecl; external libgstvideo;
 
 function gst_video_aggregator_get_type: TGType; cdecl; external libgstvideo;
 function gst_video_aggregator_get_execution_task_pool(vagg: PGstVideoAggregator): PGstTaskPool; cdecl; external libgstvideo;
 
 // === Konventiert am: 15-7-26 13:21:57 ===
-
 
 function GST_TYPE_VIDEO_AGGREGATOR_PAD: TGType;
 function GST_VIDEO_AGGREGATOR_PAD(obj: Pointer): PGstVideoAggregatorPad;
@@ -119,6 +126,7 @@ function GST_VIDEO_AGGREGATOR_CLASS(klass: Pointer): PGstVideoAggregatorClass;
 function GST_IS_VIDEO_AGGREGATOR(obj: Pointer): Tgboolean;
 function GST_IS_VIDEO_AGGREGATOR_CLASS(klass: Pointer): Tgboolean;
 function GST_VIDEO_AGGREGATOR_GET_CLASS(obj: Pointer): PGstVideoAggregatorClass;
+{$ENDIF read_function}
 
 implementation
 
