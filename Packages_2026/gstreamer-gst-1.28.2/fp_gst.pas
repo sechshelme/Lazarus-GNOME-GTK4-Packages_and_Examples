@@ -11,6 +11,18 @@ uses
 
 // === Muss bearbeitet werden
 
+type
+TVkSemaphore = uint64;
+
+TVkDevice = type Pointer;
+TVkInstance = type Pointer;
+
+type
+  PVkPhysicalDeviceType = ^TVkPhysicalDeviceType;
+  TVkPhysicalDeviceType = longint;
+
+
+
   // ===============
 
 const

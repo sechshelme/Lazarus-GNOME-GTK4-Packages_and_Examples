@@ -383,7 +383,6 @@ begin
     idle := idle_song_loader_new;
     g_signal_connect(idle, 'triggered', G_CALLBACK(@loadsong_triggered_cp), Result);
 
-
     // === Self
     gtk_window_set_title(GTK_WINDOW(Result), 'GTK4 / GST Media Player');
     gtk_window_set_default_size(GTK_WINDOW(Result), 1024, 768);
