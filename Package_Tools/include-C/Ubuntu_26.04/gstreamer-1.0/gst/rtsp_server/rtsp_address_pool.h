@@ -192,12 +192,12 @@ GstRTSPAddressPoolResult  gst_rtsp_address_pool_reserve_address (GstRTSPAddressP
 GST_RTSP_SERVER_API
 gboolean               gst_rtsp_address_pool_has_unicast_addresses (GstRTSPAddressPool * pool);
 
-#ifdef ////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC        
-////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC        (GstRTSPAddress, gst_rtsp_address_free)
+#ifdef //////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC         
+//////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC         (GstRTSPAddress, gst_rtsp_address_free)
 #endif
 
-#ifdef ////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC        
-////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC        (GstRTSPAddressPool, gst_object_unref)
+#ifdef //////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC         
+//////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC         (GstRTSPAddressPool, gst_object_unref)
 #endif
 
 

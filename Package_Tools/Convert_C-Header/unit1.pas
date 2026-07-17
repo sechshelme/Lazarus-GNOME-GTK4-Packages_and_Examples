@@ -130,7 +130,7 @@ begin
       slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_FORMAT', ';//', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_ALLOC_SIZE', ';//', [rfReplaceAll]);
 
-            slHeader[j] := StringReplace(slHeader[j], 'GST_AUDIO_API', 'extern', [rfReplaceAll]);
+            slHeader[j] := StringReplace(slHeader[j], 'GST_VULKAN_API', 'extern', [rfReplaceAll]);
 
 
       slHeader[j] := checkAvaiables(slHeader[j]);

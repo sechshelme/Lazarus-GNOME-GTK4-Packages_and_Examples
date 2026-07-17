@@ -31,7 +31,7 @@
 
 
 #define GST_TYPE_VULKAN_DISPLAY_WAYLAND             (gst_vulkan_display_wayland_get_type())
-GST_VULKAN_API
+extern
 GType gst_vulkan_display_wayland_get_type (void);
 
 #define GST_VULKAN_DISPLAY_WAYLAND(obj)             (G_TYPE_CHECK_INSTANCE_CAST((obj),GST_TYPE_VULKAN_DISPLAY_WAYLAND,GstVulkanDisplayWayland))
@@ -87,9 +87,9 @@ struct _GstVulkanDisplayWaylandClass
  */
 #define GST_VULKAN_DISPLAY_WAYLAND_DISPLAY(display_) (GST_VULKAN_DISPLAY_WAYLAND (display_)->display)
 
-GST_VULKAN_API
+extern
 GstVulkanDisplayWayland *gst_vulkan_display_wayland_new (const gchar * name) ;
-GST_VULKAN_API
+extern
 GstVulkanDisplayWayland *gst_vulkan_display_wayland_new_with_display (struct wl_display *display) ;
 
 

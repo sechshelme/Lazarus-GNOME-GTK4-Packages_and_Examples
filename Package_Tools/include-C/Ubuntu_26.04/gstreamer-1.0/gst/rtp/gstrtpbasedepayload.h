@@ -144,7 +144,7 @@ GST_RTP_API
 void            gst_rtp_base_depayload_set_aggregate_hdrext_enabled (GstRTPBaseDepayload * depayload,
                                                                      gboolean enable);
 
-////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC        (GstRTPBaseDepayload, gst_object_unref)
+//////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC         (GstRTPBaseDepayload, gst_object_unref)
 
 
 

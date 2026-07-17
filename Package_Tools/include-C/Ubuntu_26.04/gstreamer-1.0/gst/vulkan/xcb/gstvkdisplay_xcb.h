@@ -30,7 +30,7 @@
 
 
 
-GST_VULKAN_API
+extern
 GType gst_vulkan_display_xcb_get_type (void);
 
 #define GST_TYPE_VULKAN_DISPLAY_XCB             (gst_vulkan_display_xcb_get_type())
@@ -85,9 +85,9 @@ struct _GstVulkanDisplayXCBClass
   gpointer _reserved        [GST_PADDING];
 };
 
-GST_VULKAN_API
+extern
 GstVulkanDisplayXCB * gst_vulkan_display_xcb_new                    (const gchar * name);
-GST_VULKAN_API
+extern
 GstVulkanDisplayXCB * gst_vulkan_display_xcb_new_with_connection    (xcb_connection_t * connection,
                                                                      int screen_no);
 
