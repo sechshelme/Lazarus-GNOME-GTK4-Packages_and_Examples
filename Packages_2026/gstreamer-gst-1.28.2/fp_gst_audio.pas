@@ -13,10 +13,17 @@ uses
   {$PACKRECORDS C}
   {$ENDIF}
 
-  {$DEFINE read_interface}
+  {$DEFINE read_enum}
   {$include fp_gst_audio_includes.inc}
-  {$UNDEF read_interface}
+  {$UNDEF read_enum}
 
+  {$DEFINE read_struct}
+  {$include fp_gst_audio_includes.inc}
+  {$UNDEF read_struct}
+
+  {$DEFINE read_function}
+  {$include fp_gst_audio_includes.inc}
+  {$UNDEF read_function}
 
 implementation
 

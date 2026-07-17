@@ -15,8 +15,6 @@ uses
 
   // === GST_video
 
-
-
   {$DEFINE read_enum}
   {$include fp_gst_video_includes.inc}
   {$UNDEF read_enum}
@@ -28,7 +26,6 @@ uses
   {$DEFINE read_function}
   {$include fp_gst_video_includes.inc}
   {$UNDEF read_function}
-
 
 implementation
 
