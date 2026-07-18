@@ -1,5 +1,7 @@
 unit gstvkqueue;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,27 +12,25 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_enum}
 const
   GST_VULKAN_QUEUE_CONTEXT_TYPE_STR = 'gst.vulkan.queue';
+  {$ENDIF read_enum}
 
+  {$IFDEF read_struct}
 type
-  PGstVulkanQueue = ^TGstVulkanQueue;
-  TGstVulkanQueue = record
-    parent: TGstObject;
-    device: PGstVulkanDevice;
-    queue: TVkQueue;
-    family: Tguint32;
-    index: Tguint32;
-    _reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
-  end;
+  PPGstVulkanQueue = ^PGstVulkanQueue;
+  PGstVulkanQueue = type Pointer;
 
   PGstVulkanQueueClass = ^TGstVulkanQueueClass;
   TGstVulkanQueueClass = record
     parent_class: TGstObjectClass;
     _reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
   end;
+  {$ENDIF read_struct}
 
-  function gst_vulkan_queue_get_type: TGType; cdecl; external libgstvulkan;
+{$IFDEF read_function}
+function gst_vulkan_queue_get_type: TGType; cdecl; external libgstvulkan;
 function gst_vulkan_queue_get_device(queue: PGstVulkanQueue): PGstVulkanDevice; cdecl; external libgstvulkan;
 function gst_vulkan_queue_create_command_pool(queue: PGstVulkanQueue; error: PPGError): PGstVulkanCommandPool; cdecl; external libgstvulkan;
 procedure gst_vulkan_queue_submit_lock(queue: PGstVulkanQueue); cdecl; external libgstvulkan;
@@ -48,6 +48,7 @@ function GST_VULKAN_QUEUE_CLASS(klass: Pointer): PGstVulkanQueueClass;
 function GST_IS_VULKAN_QUEUE(obj: Pointer): Tgboolean;
 function GST_IS_VULKAN_QUEUE_CLASS(klass: Pointer): Tgboolean;
 function GST_VULKAN_QUEUE_GET_CLASS(obj: Pointer): PGstVulkanQueueClass;
+{$ENDIF read_function}
 
 implementation
 

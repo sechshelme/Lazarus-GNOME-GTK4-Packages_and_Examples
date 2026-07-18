@@ -1,225 +1,103 @@
 unit gstvkmemory;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
   fp_glib2, fp_gst;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
-{
- * GStreamer
- * Copyright (C) 2015 Matthew Waters <matthew@centricular.com>
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Library General Public
- * License as published by the Free Software Foundation; either
- * version 2 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Library General Public License for more details.
- *
- * You should have received a copy of the GNU Library General Public
- * License along with this library; if not, write to the
- * Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
- * Boston, MA 02110-1301, USA.
-  }
-{$ifndef __GST_VULKAN_BASE_BUFFER_H__}
-{$define __GST_VULKAN_BASE_BUFFER_H__}
-{$include <gst/gst.h>}
-{$include <gst/gstallocator.h>}
-{$include <gst/gstmemory.h>}
-{$include <gst/vulkan/vulkan.h>}
-
-{ was #define dname def_expr }
-function GST_TYPE_VULKAN_MEMORY_ALLOCATOR : longint; { return type might be wrong }
-
-function gst_vulkan_memory_allocator_get_type:TGType;cdecl;external libgstvulkan;
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_IS_VULKAN_MEMORY_ALLOCATOR(obj : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_IS_VULKAN_MEMORY_ALLOCATOR_CLASS(klass : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_VULKAN_MEMORY_ALLOCATOR_GET_CLASS(obj : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_VULKAN_MEMORY_ALLOCATOR(obj : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_VULKAN_MEMORY_ALLOCATOR_CLASS(klass : longint) : longint;
-
-{*
- * GST_VULKAN_MEMORY_ALLOCATOR_CAST:
- *
- * Since: 1.18
-  }
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-function GST_VULKAN_MEMORY_ALLOCATOR_CAST(obj : longint) : PGstVulkanMemoryAllocator;
-
-{*
- * GST_VULKAN_MEMORY_ALLOCATOR_NAME:
- *
- * Since: 1.18
-  }
+  {$IFDEF read_enum}
 const
-  GST_VULKAN_MEMORY_ALLOCATOR_NAME = 'Vulkan';  
-{*
- * GstVulkanMemory:
- * @mem: the parent #GstMemory
- * @device: the #GstVulkanDevice this memory is allocated from
- * @mem_ptr: the vulkan memory handle
- * @lock: lock for accessing/changing memory informat
- * @map_count: number of times this memory is mapped
- * @mapping: internal pointer to already mapped memory
- *
- * Since: 1.18
-  }
-{ <protected>  }
-{*
-   * GstVulkanMemory.mapping:
-   *
-   * internal pointer to already mapped memory
-   *
-   * Since: 1.24
-    }
-{ <private>  }
-{ we need our own offset because GstMemory's is used to offset into the
-   * mapped pointer which when suballocating, we need to avoid.  This in
-   * relation to the root memory  }
-{ <private>  }
+  GST_VULKAN_MEMORY_ALLOCATOR_NAME = 'Vulkan';
+  {$ENDIF read_enum}
+
+  {$IFDEF read_struct}
 type
   PGstVulkanMemory = ^TGstVulkanMemory;
   TGstVulkanMemory = record
-      mem : TGstMemory;
-      device : PGstVulkanDevice;
-      mem_ptr : TVkDeviceMemory;
-      lock : TGMutex;
-      map_count : Tguint;
-      mapping : Tgpointer;
-      notify : TGDestroyNotify;
-      user_data : Tgpointer;
-      alloc_info : TVkMemoryAllocateInfo;
-      properties : TVkMemoryPropertyFlags;
-      vk_offset : Tguint64;
-      wrapped : Tgboolean;
-      _reserved : array[0..(GST_PADDING)-1] of Tgpointer;
-    end;
+    mem: TGstMemory;
+    device: PGstVulkanDevice;
+    mem_ptr: TVkDeviceMemory;
+    lock: TGMutex;
+    map_count: Tguint;
+    mapping: Tgpointer;
+    notify: TGDestroyNotify;
+    user_data: Tgpointer;
+    alloc_info: array[0..31] of byte; //  TVkMemoryAllocateInfo;
+    properties: TVkMemoryPropertyFlags;
+    vk_offset: Tguint64;
+    wrapped: Tgboolean;
+    _reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
+  end;
 
-{*
- * GstVulkanMemoryAllocator
- * @parent: the parent #GstAllocator
- *
- * Opaque #GstVulkanMemoryAllocator struct
- *
- * Since: 1.18
-  }
-{ <private>  }
-  PGstVulkanMemoryAllocator = ^TGstVulkanMemoryAllocator;
-  TGstVulkanMemoryAllocator = record
-      parent : TGstAllocator;
-      _reserved : array[0..(GST_PADDING)-1] of Tgpointer;
-    end;
+  PGstVulkanMemoryAllocator = type Pointer;
 
-{*
- * GstVulkanMemoryAllocatorClass:
- * @parent_class: the parent #GstAllocatorClass
- *
- * The #GstVulkanMemoryAllocatorClass only contains private data
- *
- * Since: 1.18
-  }
-{ <private>  }
   PGstVulkanMemoryAllocatorClass = ^TGstVulkanMemoryAllocatorClass;
   TGstVulkanMemoryAllocatorClass = record
-      parent_class : TGstAllocatorClass;
-      _reserved : array[0..(GST_PADDING)-1] of Tgpointer;
-    end;
+    parent_class: TGstAllocatorClass;
+    _reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
+  end;
+  {$ENDIF read_struct}
 
-{////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC         (GstVulkanMemoryAllocator, gst_object_unref); }
-
-procedure gst_vulkan_memory_init_once;cdecl;external libgstvulkan;
-function gst_is_vulkan_memory(mem:PGstMemory):Tgboolean;cdecl;external libgstvulkan;
-function gst_vulkan_memory_alloc(device:PGstVulkanDevice; memory_type_index:Tguint32; params:PGstAllocationParams; size:Tgsize; mem_prop_flags:TVkMemoryPropertyFlags):PGstMemory;cdecl;external libgstvulkan;
-function gst_vulkan_memory_find_memory_type_index_with_requirements(device:PGstVulkanDevice; req:PVkMemoryRequirements; properties:TVkMemoryPropertyFlags; type_index:Pguint32):Tgboolean;cdecl;external libgstvulkan;
-{$endif}
-{ _GST_VULKAN_BASE_BUFFER_H_  }
+{$IFDEF read_function}
+function gst_vulkan_memory_allocator_get_type: TGType; cdecl; external libgstvulkan;
+procedure gst_vulkan_memory_init_once; cdecl; external libgstvulkan;
+function gst_is_vulkan_memory(mem: PGstMemory): Tgboolean; cdecl; external libgstvulkan;
+function gst_vulkan_memory_alloc(device: PGstVulkanDevice; memory_type_index: Tguint32; params: PGstAllocationParams; size: Tgsize; mem_prop_flags: TVkMemoryPropertyFlags): PGstMemory; cdecl; external libgstvulkan;
+function gst_vulkan_memory_find_memory_type_index_with_requirements(device: PGstVulkanDevice; req: PVkMemoryRequirements; properties: TVkMemoryPropertyFlags; type_index: Pguint32): Tgboolean; cdecl; external libgstvulkan;
 
 // === Konventiert am: 17-7-26 15:46:58 ===
 
+function GST_VULKAN_MEMORY_ALLOCATOR_CAST(obj: Pointer): PGstVulkanMemoryAllocator;
+function GST_TYPE_VULKAN_MEMORY_ALLOCATOR: TGType;
+function GST_VULKAN_MEMORY_ALLOCATOR(obj: Pointer): PGstVulkanMemoryAllocator;
+function GST_VULKAN_MEMORY_ALLOCATOR_CLASS(klass: Pointer): PGstVulkanMemoryAllocatorClass;
+function GST_IS_VULKAN_MEMORY_ALLOCATOR(obj: Pointer): Tgboolean;
+function GST_IS_VULKAN_MEMORY_ALLOCATOR_CLASS(klass: Pointer): Tgboolean;
+function GST_VULKAN_MEMORY_ALLOCATOR_GET_CLASS(obj: Pointer): PGstVulkanMemoryAllocatorClass;
+{$ENDIF read_function}
 
 implementation
 
-
-{ was #define dname def_expr }
-function GST_TYPE_VULKAN_MEMORY_ALLOCATOR : longint; { return type might be wrong }
-  begin
-    GST_TYPE_VULKAN_MEMORY_ALLOCATOR:=gst_vulkan_memory_allocator_get_type;
-  end;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_IS_VULKAN_MEMORY_ALLOCATOR(obj : longint) : longint;
+function GST_TYPE_VULKAN_MEMORY_ALLOCATOR: TGType;
 begin
-  GST_IS_VULKAN_MEMORY_ALLOCATOR:=G_TYPE_CHECK_INSTANCE_TYPE(obj,GST_TYPE_VULKAN_MEMORY_ALLOCATOR);
+  GST_TYPE_VULKAN_MEMORY_ALLOCATOR := gst_vulkan_memory_allocator_get_type;
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_IS_VULKAN_MEMORY_ALLOCATOR_CLASS(klass : longint) : longint;
+function GST_VULKAN_MEMORY_ALLOCATOR(obj: Pointer): PGstVulkanMemoryAllocator;
 begin
-  GST_IS_VULKAN_MEMORY_ALLOCATOR_CLASS:=G_TYPE_CHECK_CLASS_TYPE(klass,GST_TYPE_VULKAN_MEMORY_ALLOCATOR);
+  Result := PGstVulkanMemoryAllocator(g_type_check_instance_cast(obj, GST_TYPE_VULKAN_MEMORY_ALLOCATOR));
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_VULKAN_MEMORY_ALLOCATOR_GET_CLASS(obj : longint) : longint;
+function GST_VULKAN_MEMORY_ALLOCATOR_CLASS(klass: Pointer): PGstVulkanMemoryAllocatorClass;
 begin
-  GST_VULKAN_MEMORY_ALLOCATOR_GET_CLASS:=G_TYPE_INSTANCE_GET_CLASS(obj,GST_TYPE_VULKAN_MEMORY_ALLOCATOR,GstVulkanMemoryAllocatorClass);
+  Result := PGstVulkanMemoryAllocatorClass(g_type_check_class_cast(klass, GST_TYPE_VULKAN_MEMORY_ALLOCATOR));
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_VULKAN_MEMORY_ALLOCATOR(obj : longint) : longint;
+function GST_IS_VULKAN_MEMORY_ALLOCATOR(obj: Pointer): Tgboolean;
 begin
-  GST_VULKAN_MEMORY_ALLOCATOR:=G_TYPE_CHECK_INSTANCE_CAST(obj,GST_TYPE_VULKAN_MEMORY_ALLOCATOR,GstVulkanMemoryAllocator);
+  Result := g_type_check_instance_is_a(obj, GST_TYPE_VULKAN_MEMORY_ALLOCATOR);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_VULKAN_MEMORY_ALLOCATOR_CLASS(klass : longint) : longint;
+function GST_IS_VULKAN_MEMORY_ALLOCATOR_CLASS(klass: Pointer): Tgboolean;
 begin
-  GST_VULKAN_MEMORY_ALLOCATOR_CLASS:=G_TYPE_CHECK_CLASS_CAST(klass,GST_TYPE_VULKAN_MEMORY_ALLOCATOR,GstVulkanMemoryAllocatorClass);
+  Result := g_type_check_class_is_a(klass, GST_TYPE_VULKAN_MEMORY_ALLOCATOR);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-function GST_VULKAN_MEMORY_ALLOCATOR_CAST(obj : longint) : PGstVulkanMemoryAllocator;
+function GST_VULKAN_MEMORY_ALLOCATOR_GET_CLASS(obj: Pointer): PGstVulkanMemoryAllocatorClass;
 begin
-  GST_VULKAN_MEMORY_ALLOCATOR_CAST:=PGstVulkanMemoryAllocator(obj);
+  Result := PGstVulkanMemoryAllocatorClass(PGTypeInstance(obj)^.g_class);
 end;
 
+function GST_VULKAN_MEMORY_ALLOCATOR_CAST(obj: Pointer): PGstVulkanMemoryAllocator;
+begin
+  GST_VULKAN_MEMORY_ALLOCATOR_CAST := PGstVulkanMemoryAllocator(obj);
+end;
 
 end.

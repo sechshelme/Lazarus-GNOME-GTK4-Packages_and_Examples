@@ -1,30 +1,26 @@
 unit gstvkdevice;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
-  fp_glib2, fp_gst;
+  fp_glib2, fp_gst, gstvkqueue, gstvkphysicaldevice, gstvkinstance, gstvkfence;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}
 
 
+  {$IFDEF read_enum}
 const
   GST_VULKAN_DEVICE_CONTEXT_TYPE_STR = 'gst.vulkan.device';
+  {$ENDIF read_enum}
 
+  {$IFDEF read_struct}
 type
-  PGstVulkanDevice = ^TGstVulkanDevice;
-
-  TGstVulkanDeviceForEachQueueFunc = function(device: PGstVulkanDevice; queue: PGstVulkanQueue; user_data: Tgpointer): Tgboolean; cdecl;
-
-  TGstVulkanDevice = record
-    parent: TGstObject;
-    instance: PGstVulkanInstance;
-    physical_device: PGstVulkanPhysicalDevice;
-    device: TVkDevice;
-    _reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
-  end;
+  PGstVulkanDevice = type Pointer;
+  PPGstVulkanDevice = ^PGstVulkanDevice;
 
   PGstVulkanDeviceClass = ^TGstVulkanDeviceClass;
   TGstVulkanDeviceClass = record
@@ -32,6 +28,10 @@ type
     _reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
   end;
 
+  TGstVulkanDeviceForEachQueueFunc = function(device: PGstVulkanDevice; queue: PGstVulkanQueue; user_data: Tgpointer): Tgboolean; cdecl;
+  {$ENDIF read_struct}
+
+{$IFDEF read_function}
 function gst_vulkan_device_get_type: TGType; cdecl; external libgstvulkan;
 function gst_vulkan_device_new(physical_device: PGstVulkanPhysicalDevice): PGstVulkanDevice; cdecl; external libgstvulkan;
 function gst_vulkan_device_new_with_index(instance: PGstVulkanInstance; device_index: Tguint): PGstVulkanDevice; cdecl; external libgstvulkan;
@@ -62,6 +62,7 @@ function GST_VULKAN_DEVICE_CLASS(klass: Pointer): PGstVulkanDeviceClass;
 function GST_IS_VULKAN_DEVICE(obj: Pointer): Tgboolean;
 function GST_IS_VULKAN_DEVICE_CLASS(klass: Pointer): Tgboolean;
 function GST_VULKAN_DEVICE_GET_CLASS(obj: Pointer): PGstVulkanDeviceClass;
+{$ENDIF read_function}
 
 implementation
 

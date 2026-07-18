@@ -16,10 +16,42 @@ TVkSemaphore = uint64;
 
 TVkDevice = type Pointer;
 TVkInstance = type Pointer;
+TVkQueue = type Pointer;
+PVkMemoryRequirements=type Pointer;
+PVkBufferCreateInfo=type Pointer;
+
+TVkPhysicalDevice = type Pointer;
+PVkPhysicalDevice = ^TVkPhysicalDevice;
+
+TVkFence = uint64;
+TVkDeviceSize = uint64;
+TVkBuffer = uint64;
+TVkDeviceMemory = uint64;
+
+
 
 type
+  PVkFlags = ^TVkFlags;
+  TVkFlags = uint32;
+
+  PVkBufferUsageFlags = ^TVkBufferUsageFlags;
+  TVkBufferUsageFlags = TVkFlags;
+
+  PVkMemoryPropertyFlags = ^TVkMemoryPropertyFlags;
+  TVkMemoryPropertyFlags = TVkFlags;
+
+  PVkQueueFlagBits = ^TVkQueueFlagBits;
+  TVkQueueFlagBits = longint;
+
   PVkPhysicalDeviceType = ^TVkPhysicalDeviceType;
   TVkPhysicalDeviceType = longint;
+
+  // ===============
+
+  PGstVulkanDevice=Pointer;
+  PPGstVulkanDevice = ^PGstVulkanDevice;
+
+  PGstVulkanCommandPool=Pointer;
 
 
 

@@ -1,5 +1,7 @@
 unit gstvkinstance;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,28 +12,25 @@ uses
   {$ENDIF}
 
 
-function gst_vulkan_instance_get_type: TGType; cdecl; external libgstvulkan;
-
+  {$IFDEF read_enum}
 const
   GST_VULKAN_INSTANCE_CONTEXT_TYPE_STR = 'gst.vulkan.instance';
+  {$ENDIF read_enum}
 
+  {$IFDEF read_struct}
 type
   PPGstVulkanInstance = ^PGstVulkanInstance;
-  PGstVulkanInstance = ^TGstVulkanInstance;
-  TGstVulkanInstance = record
-    parent: TGstObject;
-    instance: TVkInstance;
-    physical_devices: PVkPhysicalDevice;
-    n_physical_devices: Tguint32;
-    _reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
-  end;
+  PGstVulkanInstance = type Pointer;
 
   PGstVulkanInstanceClass = ^TGstVulkanInstanceClass;
   TGstVulkanInstanceClass = record
     parent_class: TGstObjectClass;
     _reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
+function gst_vulkan_instance_get_type: TGType; cdecl; external libgstvulkan;
 function gst_vulkan_instance_new: PGstVulkanInstance; cdecl; external libgstvulkan;
 function gst_vulkan_instance_fill_info(instance: PGstVulkanInstance; error: PPGError): Tgboolean; cdecl; external libgstvulkan;
 function gst_vulkan_instance_open(instance: PGstVulkanInstance; error: PPGError): Tgboolean; cdecl; external libgstvulkan;
@@ -62,6 +61,7 @@ function GST_VULKAN_INSTANCE_CLASS(klass: Pointer): PGstVulkanInstanceClass;
 function GST_IS_VULKAN_INSTANCE(obj: Pointer): Tgboolean;
 function GST_IS_VULKAN_INSTANCE_CLASS(klass: Pointer): Tgboolean;
 function GST_VULKAN_INSTANCE_GET_CLASS(obj: Pointer): PGstVulkanInstanceClass;
+{$ENDIF read_function}
 
 implementation
 

@@ -1,15 +1,18 @@
 unit gstvkbarrier;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
-  fp_glib2, fp_gst;
+  fp_glib2, fp_gst, gstvkqueue;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}
 
 
+  {$IFDEF read_enum}
 type
   PGstVulkanBarrierType = ^TGstVulkanBarrierType;
   TGstVulkanBarrierType = longint;
@@ -24,7 +27,9 @@ type
   TGstVulkanBarrierFlags = longint;
 const
   GST_VULKAN_BARRIER_FLAG_NONE = 0;
+  {$ENDIF read_enum}
 
+  {$IFDEF read_struct}
 type
   PGstVulkanBarrierMemoryInfo = ^TGstVulkanBarrierMemoryInfo;
   TGstVulkanBarrierMemoryInfo = record
@@ -37,6 +42,7 @@ type
     semaphore_value: Tguint64;
     _reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
   end;
+  {$ENDIF read_struct}
 
 
   // === Konventiert am: 17-7-26 15:38:01 ===

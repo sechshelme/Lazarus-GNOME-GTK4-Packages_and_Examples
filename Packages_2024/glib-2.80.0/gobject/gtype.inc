@@ -91,7 +91,7 @@ type
   end;
   PGTypeQuery = ^TGTypeQuery;
 
-type // GOBJECT_DEPRECATED_TYPE_IN_2_36;
+type
   PGTypeDebugFlags = ^TGTypeDebugFlags;
   TGTypeDebugFlags = longint;
 
