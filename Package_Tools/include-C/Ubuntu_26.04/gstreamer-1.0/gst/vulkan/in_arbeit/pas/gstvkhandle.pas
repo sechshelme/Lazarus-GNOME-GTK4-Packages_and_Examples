@@ -37,6 +37,7 @@ type
   TGstVulkanHandleTypedef = uint64;
 
   PGstVulkanHandle = ^TGstVulkanHandle;
+  PPGstVulkanHandle = ^PGstVulkanHandle;
 
   TGstVulkanHandleDestroyNotify = procedure(handle: PGstVulkanHandle; user_data: Tgpointer); cdecl;
 

@@ -17,16 +17,28 @@ TVkSemaphore = uint64;
 TVkDevice = type Pointer;
 TVkInstance = type Pointer;
 TVkQueue = type Pointer;
-PVkMemoryRequirements=type Pointer;
-PVkBufferCreateInfo=type Pointer;
+TVkCommandBuffer = type Pointer;
+
 
 TVkPhysicalDevice = type Pointer;
 PVkPhysicalDevice = ^TVkPhysicalDevice;
+
+PVkMemoryRequirements=type Pointer;
+PVkBufferCreateInfo=type Pointer;
+
 
 TVkFence = uint64;
 TVkDeviceSize = uint64;
 TVkBuffer = uint64;
 TVkDeviceMemory = uint64;
+TVkCommandPool = uint64;
+TVkDescriptorPool = uint64;
+TVkDescriptorSet = uint64;
+TVkSurfaceKHR = uint64;
+
+
+
+
 
 
 
@@ -34,11 +46,26 @@ type
   PVkFlags = ^TVkFlags;
   TVkFlags = uint32;
 
+  PVkSampleCountFlags = ^TVkSampleCountFlags;
+  TVkSampleCountFlags = TVkFlags;
+
+  PVkQueueFlags = ^TVkQueueFlags;
+  TVkQueueFlags = TVkFlags;
+
+  PVkMemoryHeapFlags = ^TVkMemoryHeapFlags;
+  TVkMemoryHeapFlags = TVkFlags;
+
   PVkBufferUsageFlags = ^TVkBufferUsageFlags;
   TVkBufferUsageFlags = TVkFlags;
 
   PVkMemoryPropertyFlags = ^TVkMemoryPropertyFlags;
   TVkMemoryPropertyFlags = TVkFlags;
+
+  PVkImageAspectFlags = ^TVkImageAspectFlags;
+  TVkImageAspectFlags = TVkFlags;
+
+  PVkImageUsageFlags = ^TVkImageUsageFlags;
+  TVkImageUsageFlags = TVkFlags;
 
   PVkQueueFlagBits = ^TVkQueueFlagBits;
   TVkQueueFlagBits = longint;
@@ -46,12 +73,33 @@ type
   PVkPhysicalDeviceType = ^TVkPhysicalDeviceType;
   TVkPhysicalDeviceType = longint;
 
+  PVkCommandBufferLevel = ^TVkCommandBufferLevel;
+  TVkCommandBufferLevel = longint;
+
+  PVkPresentModeKHR = ^TVkPresentModeKHR;
+  TVkPresentModeKHR = longint;
+
+  PVkResult = ^TVkResult;
+  TVkResult = longint;
+
+  PVkFormat = ^TVkFormat;
+  TVkFormat = longint;
+
+  PVkImageTiling = ^TVkImageTiling;
+  TVkImageTiling = longint;
+
+
+
   // ===============
 
   PGstVulkanDevice=Pointer;
   PPGstVulkanDevice = ^PGstVulkanDevice;
 
   PGstVulkanCommandPool=Pointer;
+  PGstVulkanCommandBuffer=Pointer;
+  PGstVulkanDescriptorSet=Pointer;
+  PGstVulkanDescriptorPool=Pointer;
+  PGstVulkanDisplay=Pointer;
 
 
 
