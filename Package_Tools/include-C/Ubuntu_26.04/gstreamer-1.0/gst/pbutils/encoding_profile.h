@@ -279,13 +279,13 @@ void gst_encoding_profile_set_element_properties          (GstEncodingProfile *s
 GST_PBUTILS_API
 GstStructure *gst_encoding_profile_get_element_properties (GstEncodingProfile *self) ;
 
-//////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC         (GstEncodingAudioProfile, gst_object_unref)
+////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC          (GstEncodingAudioProfile, gst_object_unref)
 
-//////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC         (GstEncodingContainerProfile, gst_object_unref)
+////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC          (GstEncodingContainerProfile, gst_object_unref)
 
-//////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC         (GstEncodingProfile, gst_object_unref)
+////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC          (GstEncodingProfile, gst_object_unref)
 
-//////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC         (GstEncodingVideoProfile, gst_object_unref)
+////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC          (GstEncodingVideoProfile, gst_object_unref)
 
 
 

@@ -160,8 +160,8 @@ guint                 gst_rtsp_session_pool_cleanup           (GstRTSPSessionPoo
 GST_RTSP_SERVER_API
 GSource *             gst_rtsp_session_pool_create_watch      (GstRTSPSessionPool *pool) ;
 
-#ifdef //////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC         
-//////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC         (GstRTSPSessionPool, gst_object_unref)
+#ifdef ////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC          
+////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC          (GstRTSPSessionPool, gst_object_unref)
 #endif
 
 

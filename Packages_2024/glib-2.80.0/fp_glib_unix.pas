@@ -3,7 +3,6 @@ unit fp_glib_unix;
 interface
 
 uses
-  ctypes,
   fp_glib2;
 
   {$IFDEF FPC}
@@ -83,7 +82,7 @@ end;
 
 procedure g_unix_pipe_clear(pipe: PGUnixPipe);
 var
-  errsv: cint;
+  errsv: Integer;
 begin
   //errsv := errno;
   //

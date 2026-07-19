@@ -3,9 +3,7 @@ unit fp_gio_unix_2;
 interface
 
 uses
-  fp_glib2,
-  Strings,
-  ctypes;
+  fp_glib2;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

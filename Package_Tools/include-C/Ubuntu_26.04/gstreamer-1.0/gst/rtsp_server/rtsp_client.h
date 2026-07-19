@@ -300,8 +300,8 @@ GstRTSPStreamTransport * gst_rtsp_client_get_stream_transport (GstRTSPClient *cl
                                                                guint8 channel);
 
 
-#ifdef //////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC         
-//////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC         (GstRTSPClient, gst_object_unref)
+#ifdef ////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC          
+////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC          (GstRTSPClient, gst_object_unref)
 #endif
 
 
