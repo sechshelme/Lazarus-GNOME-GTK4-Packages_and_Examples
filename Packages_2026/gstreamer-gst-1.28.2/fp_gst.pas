@@ -18,6 +18,7 @@ TVkDevice = type Pointer;
 TVkInstance = type Pointer;
 TVkQueue = type Pointer;
 TVkCommandBuffer = type Pointer;
+PVkImageCreateInfo = type Pointer;
 
 
 TVkPhysicalDevice = type Pointer;
@@ -35,6 +36,9 @@ TVkCommandPool = uint64;
 TVkDescriptorPool = uint64;
 TVkDescriptorSet = uint64;
 TVkSurfaceKHR = uint64;
+TVkImage = uint64;
+TVkImageView = uint64;
+
 
 
 
@@ -87,6 +91,15 @@ type
 
   PVkImageTiling = ^TVkImageTiling;
   TVkImageTiling = longint;
+
+  PVkBlendOp = ^TVkBlendOp;
+  TVkBlendOp = longint;
+
+   PVkBlendFactor = ^TVkBlendFactor;
+  TVkBlendFactor = longint;
+
+  PVkImageLayout = ^TVkImageLayout;
+  TVkImageLayout = longint;
 
 
 

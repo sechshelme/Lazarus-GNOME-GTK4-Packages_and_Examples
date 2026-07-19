@@ -1,139 +1,64 @@
 unit gstvkimagebufferpool;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
   fp_glib2, fp_gst;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
-{
- * GStreamer
- * Copyright (C) 2016 Matthew Waters <matthew@centricular.com>
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Library General Public
- * License as published by the Free Software Foundation; either
- * version 2 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Library General Public License for more details.
- *
- * You should have received a copy of the GNU Library General Public
- * License along with this library; if not, write to the
- * Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
- * Boston, MA 02110-1301, USA.
-  }
-{$ifndef __GST_VULKAN_IMAGE_BUFFER_POOL_H__}
-{$define __GST_VULKAN_IMAGE_BUFFER_POOL_H__}
-{$include <gst/video/video.h>}
-{$include <gst/video/gstvideometa.h>}
-{$include <gst/video/gstvideopool.h>}
-{$include <gst/vulkan/vulkan.h>}
-
-function gst_vulkan_image_buffer_pool_get_type:TGType;cdecl;external libgstvulkan;
-{ was #define dname def_expr }
-function GST_TYPE_VULKAN_IMAGE_BUFFER_POOL : longint; { return type might be wrong }
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_IS_VULKAN_IMAGE_BUFFER_POOL(obj : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_VULKAN_IMAGE_BUFFER_POOL(obj : longint) : longint;
-
-{*
- * GST_VULKAN_IMAGE_BUFFER_POOL_CAST:
- *
- * Since: 1.18
-  }
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-function GST_VULKAN_IMAGE_BUFFER_POOL_CAST(obj : longint) : PGstVulkanImageBufferPool;
-
-{*
- * GstVulkanImageBufferPool:
- * @bufferpool: parent #GstBufferPool
- * @device: the #GstVulkanDevice to allocate images from
- *
- * Since: 1.18
-  }
-{ <private>  }
+  {$IFDEF read_struct}
 type
-  PGstVulkanImageBufferPool = ^TGstVulkanImageBufferPool;
-  TGstVulkanImageBufferPool = record
-      bufferpool : TGstBufferPool;
-      device : PGstVulkanDevice;
-      _reserved : array[0..(GST_PADDING)-1] of Tgpointer;
-    end;
+  PGstVulkanImageBufferPool = type Pointer;
 
-{*
- * GstVulkanImageBufferPoolClass:
- * @parent_class: parent #GstBufferPoolClass
- *
- * The #GstVulkanImageBufferPoolClass structure contains only private data
- *
- * Since: 1.18
-  }
-{ <private>  }
   PGstVulkanImageBufferPoolClass = ^TGstVulkanImageBufferPoolClass;
   TGstVulkanImageBufferPoolClass = record
-      parent_class : TGstBufferPoolClass;
-      _reserved : array[0..(GST_PADDING)-1] of Tgpointer;
-    end;
+    parent_class: TGstBufferPoolClass;
+    _reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
+  end;
+  {$ENDIF read_struct}
 
-{////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC         (GstVulkanImageBufferPool, gst_object_unref); }
-
-function gst_vulkan_image_buffer_pool_new(device:PGstVulkanDevice):PGstBufferPool;cdecl;external libgstvulkan;
-procedure gst_vulkan_image_buffer_pool_config_set_allocation_params(config:PGstStructure; usage:TVkImageUsageFlags; mem_properties:TVkMemoryPropertyFlags; initial_layout:TVkImageLayout; initial_access:Tguint64);cdecl;external libgstvulkan;
-procedure gst_vulkan_image_buffer_pool_config_get_allocation_params(config:PGstStructure; usage:PVkImageUsageFlags; mem_props:PVkMemoryPropertyFlags; initial_layout:PVkImageLayout; initial_access:Pguint64);cdecl;external libgstvulkan;
-procedure gst_vulkan_image_buffer_pool_config_set_decode_caps(config:PGstStructure; caps:PGstCaps);cdecl;external libgstvulkan;
-procedure gst_vulkan_image_buffer_pool_config_set_encode_caps(config:PGstStructure; caps:PGstCaps);cdecl;external libgstvulkan;
-{$endif}
-{ __GST_VULKAN_IMAGE_BUFFER_POOL_H__  }
+{$IFDEF read_function}
+function gst_vulkan_image_buffer_pool_get_type: TGType; cdecl; external libgstvulkan;
+function gst_vulkan_image_buffer_pool_new(device: PGstVulkanDevice): PGstBufferPool; cdecl; external libgstvulkan;
+procedure gst_vulkan_image_buffer_pool_config_set_allocation_params(config: PGstStructure; usage: TVkImageUsageFlags; mem_properties: TVkMemoryPropertyFlags; initial_layout: TVkImageLayout; initial_access: Tguint64); cdecl; external libgstvulkan;
+procedure gst_vulkan_image_buffer_pool_config_get_allocation_params(config: PGstStructure; usage: PVkImageUsageFlags; mem_props: PVkMemoryPropertyFlags; initial_layout: PVkImageLayout; initial_access: Pguint64); cdecl; external libgstvulkan;
+procedure gst_vulkan_image_buffer_pool_config_set_decode_caps(config: PGstStructure; caps: PGstCaps); cdecl; external libgstvulkan;
+procedure gst_vulkan_image_buffer_pool_config_set_encode_caps(config: PGstStructure; caps: PGstCaps); cdecl; external libgstvulkan;
 
 // === Konventiert am: 17-7-26 15:42:15 ===
 
+function GST_VULKAN_IMAGE_BUFFER_POOL_CAST(obj: Pointer): PGstVulkanImageBufferPool;
+function GST_TYPE_VULKAN_IMAGE_BUFFER_POOL: TGType;
+function GST_VULKAN_IMAGE_BUFFER_POOL(obj: Pointer): PGstVulkanImageBufferPool;
+function GST_IS_VULKAN_IMAGE_BUFFER_POOL(obj: Pointer): Tgboolean;
+{$ENDIF read_function}
 
 implementation
 
-
-{ was #define dname def_expr }
-function GST_TYPE_VULKAN_IMAGE_BUFFER_POOL : longint; { return type might be wrong }
-  begin
-    GST_TYPE_VULKAN_IMAGE_BUFFER_POOL:=gst_vulkan_image_buffer_pool_get_type;
-  end;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_IS_VULKAN_IMAGE_BUFFER_POOL(obj : longint) : longint;
+function GST_TYPE_VULKAN_IMAGE_BUFFER_POOL: TGType;
 begin
-  GST_IS_VULKAN_IMAGE_BUFFER_POOL:=G_TYPE_CHECK_INSTANCE_TYPE(obj,GST_TYPE_VULKAN_IMAGE_BUFFER_POOL);
+  GST_TYPE_VULKAN_IMAGE_BUFFER_POOL := gst_vulkan_image_buffer_pool_get_type;
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_VULKAN_IMAGE_BUFFER_POOL(obj : longint) : longint;
+function GST_VULKAN_IMAGE_BUFFER_POOL(obj: Pointer): PGstVulkanImageBufferPool;
 begin
-  GST_VULKAN_IMAGE_BUFFER_POOL:=G_TYPE_CHECK_INSTANCE_CAST(obj,GST_TYPE_VULKAN_IMAGE_BUFFER_POOL,GstVulkanImageBufferPool);
+  Result := PGstVulkanImageBufferPool(g_type_check_instance_cast(obj, GST_TYPE_VULKAN_IMAGE_BUFFER_POOL));
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-function GST_VULKAN_IMAGE_BUFFER_POOL_CAST(obj : longint) : PGstVulkanImageBufferPool;
+function GST_IS_VULKAN_IMAGE_BUFFER_POOL(obj: Pointer): Tgboolean;
 begin
-  GST_VULKAN_IMAGE_BUFFER_POOL_CAST:=PGstVulkanImageBufferPool(obj);
+  Result := g_type_check_instance_is_a(obj, GST_TYPE_VULKAN_IMAGE_BUFFER_POOL);
 end;
 
+function GST_VULKAN_IMAGE_BUFFER_POOL_CAST(obj: Pointer): PGstVulkanImageBufferPool;
+begin
+  GST_VULKAN_IMAGE_BUFFER_POOL_CAST := PGstVulkanImageBufferPool(obj);
+end;
 
 end.

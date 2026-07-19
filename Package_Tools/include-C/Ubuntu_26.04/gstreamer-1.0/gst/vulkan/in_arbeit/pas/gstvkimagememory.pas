@@ -1,132 +1,41 @@
 unit gstvkimagememory;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
-  fp_glib2, fp_gst;
+  fp_glib2, fp_gst, gstvkbarrier, gstvkmemory;
 
 {$IFDEF FPC}
 {$PACKRECORDS C}
 {$ENDIF}
 
 
-{
- * GStreamer
- * Copyright (C) 2015 Matthew Waters <matthew@centricular.com>
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Library General Public
- * License as published by the Free Software Foundation; either
- * version 2 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Library General Public License for more details.
- *
- * You should have received a copy of the GNU Library General Public
- * License along with this library; if not, write to the
- * Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
- * Boston, MA 02110-1301, USA.
-  }
-{$ifndef __GST_VULKAN_IMAGE_MEMORY_H__}
-{$define __GST_VULKAN_IMAGE_MEMORY_H__}
-{$include <gst/vulkan/gstvkbarrier.h>}
-{$include <gst/vulkan/gstvkdevice.h>}
-{$include <gst/video/video.h>}
-
-{ was #define dname def_expr }
-function GST_TYPE_VULKAN_IMAGE_MEMORY_ALLOCATOR : longint; { return type might be wrong }
-
-function gst_vulkan_image_memory_allocator_get_type:TGType;cdecl;external libgstvulkan;
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_IS_VULKAN_IMAGE_MEMORY_ALLOCATOR(obj : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_IS_VULKAN_IMAGE_MEMORY_ALLOCATOR_CLASS(klass : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_VULKAN_IMAGE_MEMORY_ALLOCATOR_GET_CLASS(obj : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_VULKAN_IMAGE_MEMORY_ALLOCATOR(obj : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_VULKAN_IMAGE_MEMORY_ALLOCATOR_CLASS(klass : longint) : longint;
-
-{*
- * GST_VULKAN_IMAGE_MEMORY_ALLOCATOR_CAST:
- *
- * Since: 1.18
-  }
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-function GST_VULKAN_IMAGE_MEMORY_ALLOCATOR_CAST(obj : longint) : PGstVulkanImageMemoryAllocator;
-
-{*
- * GST_VULKAN_IMAGE_MEMORY_ALLOCATOR_NAME:
- *
- * Since: 1.18
-  }
+{$IFDEF read_enum}
 const
   GST_VULKAN_IMAGE_MEMORY_ALLOCATOR_NAME = 'VulkanImage';  
-{*
- * GST_CAPS_FEATURE_MEMORY_VULKAN_IMAGE:
- *
- * Since: 1.18
-  }
-  GST_CAPS_FEATURE_MEMORY_VULKAN_IMAGE = 'memory:VulkanImage';  
-{*
- * GstVulkanBarrierImageInfo:
- * @parent: parent #GstVulkanBarrierMemoryInfo
- * @image_layout: the image layout of this barrier
- * @subresource_range: what subresource the barrier applies to
- *
- * Since: 1.18
-  }
-{ FIXME: multiple layers or mipmap levels may require multiple barriers  }
+  GST_CAPS_FEATURE_MEMORY_VULKAN_IMAGE = 'memory:VulkanImage';
+  {$ENDIF read_enum}
+
+  {$IFDEF read_struct}
 type
   PGstVulkanBarrierImageInfo = ^TGstVulkanBarrierImageInfo;
   TGstVulkanBarrierImageInfo = record
       parent : TGstVulkanBarrierMemoryInfo;
       image_layout : TVkImageLayout;
-      subresource_range : TVkImageSubresourceRange;
+      subresource_range : array[0..19] of Byte; // TVkImageSubresourceRange;
     end;
 
-{*
- * GstVulkanImageMemory:
- * @parent: parent #GstMemory
- * @device: the #GstVulkanDevice to allocate images from
- * @image: the Vulkan image handle
- * @vk_mem: the backing #GstVulkanMemory for @image
- * @create_info: creation information for @image
- * @requirements: memory requirements for @image
- * @format_properties: format properties
- * @usage: intended usage for @image
- * @barrier: last set barrier for @image
- *
- * Since: 1.18
-  }
-{ <private>  }
   PGstVulkanImageMemory = ^TGstVulkanImageMemory;
   TGstVulkanImageMemory = record
       parent : TGstMemory;
       device : PGstVulkanDevice;
       image : TVkImage;
       vk_mem : PGstVulkanMemory;
-      create_info : TVkImageCreateInfo;
-      requirements : TVkMemoryRequirements;
-      format_properties : TVkImageFormatProperties;
+      create_info       : array[0..87] of Byte;    // TVkImageCreateInfo
+      requirements      : array[0..23] of Byte;    // TVkMemoryRequirements
+      format_properties : array[0..35] of Byte;    // TVkImageFormatProperties
       usage : TVkImageUsageFlags;
       barrier : TGstVulkanBarrierImageInfo;
       lock : TGMutex;
@@ -138,48 +47,19 @@ type
       _padding : array[0..(GST_PADDING)-1] of Tgpointer;
     end;
 
-{*
- * GstVulkanImageMemoryFindViewFunc:
- *
- * Function definition used to find views.  Return %TRUE if @view matches the
- * criteria.
- *
- * Since: 1.18
-  }
-
   TGstVulkanImageMemoryFindViewFunc = function (view:PGstVulkanImageView; user_data:Tgpointer):Tgboolean;cdecl;
-{*
- * GstVulkanImageMemoryAllocator
- * @parent: the parent #GstAllocator
- *
- * Opaque #GstVulkanImageMemoryAllocator struct
- *
- * Since: 1.18
-  }
-{ <private>  }
-  PGstVulkanImageMemoryAllocator = ^TGstVulkanImageMemoryAllocator;
-  TGstVulkanImageMemoryAllocator = record
-      parent : TGstAllocator;cdecl;
-      _reserved : array[0..(GST_PADDING)-1] of Tgpointer;
-    end;
 
-{*
- * GstVulkanImageMemoryAllocatorClass:
- * @parent_class: the parent #GstAllocatorClass
- *
- * The #GstVulkanImageMemoryAllocatorClass only contains private data
- *
- * Since: 1.18
-  }
-{ <private>  }
+  PGstVulkanImageMemoryAllocator = type Pointer;
+
   PGstVulkanImageMemoryAllocatorClass = ^TGstVulkanImageMemoryAllocatorClass;
   TGstVulkanImageMemoryAllocatorClass = record
       parent_class : TGstAllocatorClass;
       _reserved : array[0..(GST_PADDING)-1] of Tgpointer;
     end;
+  {$ENDIF read_struct}
 
-{////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC         (GstVulkanImageMemoryAllocator, gst_object_unref); }
-
+  {$IFDEF read_function}
+  function gst_vulkan_image_memory_allocator_get_type:TGType;cdecl;external libgstvulkan;
 procedure gst_vulkan_image_memory_init_once;cdecl;external libgstvulkan;
 function gst_is_vulkan_image_memory(mem:PGstMemory):Tgboolean;cdecl;external libgstvulkan;
 function gst_vulkan_image_memory_init(mem:PGstVulkanImageMemory; allocator:PGstAllocator; parent:PGstMemory; device:PGstVulkanDevice; format:TVkFormat; 
@@ -194,67 +74,53 @@ function gst_vulkan_image_memory_get_width(image:PGstVulkanImageMemory):Tguint32
 function gst_vulkan_image_memory_get_height(image:PGstVulkanImageMemory):Tguint32;cdecl;external libgstvulkan;
 function gst_vulkan_image_memory_find_view(image:PGstVulkanImageMemory; find_func:TGstVulkanImageMemoryFindViewFunc; user_data:Tgpointer):PGstVulkanImageView;cdecl;external libgstvulkan;
 procedure gst_vulkan_image_memory_add_view(image:PGstVulkanImageMemory; view:PGstVulkanImageView);cdecl;external libgstvulkan;
-{$endif}
-{ __GST_VULKAN_IMAGE_MEMORY_H__  }
 
 // === Konventiert am: 17-7-26 15:42:11 ===
 
+function GST_VULKAN_IMAGE_MEMORY_ALLOCATOR_CAST(obj: Pointer): PGstVulkanImageMemoryAllocator;
+function GST_TYPE_VULKAN_IMAGE_MEMORY_ALLOCATOR: TGType;
+function GST_VULKAN_IMAGE_MEMORY_ALLOCATOR(obj: Pointer): PGstVulkanImageMemoryAllocator;
+function GST_VULKAN_IMAGE_MEMORY_ALLOCATOR_CLASS(klass: Pointer): PGstVulkanImageMemoryAllocatorClass;
+function GST_IS_VULKAN_IMAGE_MEMORY_ALLOCATOR(obj: Pointer): Tgboolean;
+function GST_IS_VULKAN_IMAGE_MEMORY_ALLOCATOR_CLASS(klass: Pointer): Tgboolean;
+function GST_VULKAN_IMAGE_MEMORY_ALLOCATOR_GET_CLASS(obj: Pointer): PGstVulkanImageMemoryAllocatorClass;
+{$ENDIF read_function}
 
 implementation
 
-
-{ was #define dname def_expr }
-function GST_TYPE_VULKAN_IMAGE_MEMORY_ALLOCATOR : longint; { return type might be wrong }
-  begin
-    GST_TYPE_VULKAN_IMAGE_MEMORY_ALLOCATOR:=gst_vulkan_image_memory_allocator_get_type;
-  end;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_IS_VULKAN_IMAGE_MEMORY_ALLOCATOR(obj : longint) : longint;
+function GST_TYPE_VULKAN_IMAGE_MEMORY_ALLOCATOR: TGType;
 begin
-  GST_IS_VULKAN_IMAGE_MEMORY_ALLOCATOR:=G_TYPE_CHECK_INSTANCE_TYPE(obj,GST_TYPE_VULKAN_IMAGE_MEMORY_ALLOCATOR);
+  GST_TYPE_VULKAN_IMAGE_MEMORY_ALLOCATOR := gst_vulkan_image_memory_allocator_get_type;
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_IS_VULKAN_IMAGE_MEMORY_ALLOCATOR_CLASS(klass : longint) : longint;
+function GST_VULKAN_IMAGE_MEMORY_ALLOCATOR(obj: Pointer): PGstVulkanImageMemoryAllocator;
 begin
-  GST_IS_VULKAN_IMAGE_MEMORY_ALLOCATOR_CLASS:=G_TYPE_CHECK_CLASS_TYPE(klass,GST_TYPE_VULKAN_IMAGE_MEMORY_ALLOCATOR);
+  Result := PGstVulkanImageMemoryAllocator(g_type_check_instance_cast(obj, GST_TYPE_VULKAN_IMAGE_MEMORY_ALLOCATOR));
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_VULKAN_IMAGE_MEMORY_ALLOCATOR_GET_CLASS(obj : longint) : longint;
+function GST_VULKAN_IMAGE_MEMORY_ALLOCATOR_CLASS(klass: Pointer): PGstVulkanImageMemoryAllocatorClass;
 begin
-  GST_VULKAN_IMAGE_MEMORY_ALLOCATOR_GET_CLASS:=G_TYPE_INSTANCE_GET_CLASS(obj,GST_TYPE_VULKAN_MEMORY_ALLOCATOR,GstVulkanImageMemoryAllocatorClass);
+  Result := PGstVulkanImageMemoryAllocatorClass(g_type_check_class_cast(klass, GST_TYPE_VULKAN_IMAGE_MEMORY_ALLOCATOR));
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_VULKAN_IMAGE_MEMORY_ALLOCATOR(obj : longint) : longint;
+function GST_IS_VULKAN_IMAGE_MEMORY_ALLOCATOR(obj: Pointer): Tgboolean;
 begin
-  GST_VULKAN_IMAGE_MEMORY_ALLOCATOR:=G_TYPE_CHECK_INSTANCE_CAST(obj,GST_TYPE_VULKAN_MEMORY_ALLOCATOR,GstVulkanImageMemoryAllocator);
+  Result := g_type_check_instance_is_a(obj, GST_TYPE_VULKAN_IMAGE_MEMORY_ALLOCATOR);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_VULKAN_IMAGE_MEMORY_ALLOCATOR_CLASS(klass : longint) : longint;
+function GST_IS_VULKAN_IMAGE_MEMORY_ALLOCATOR_CLASS(klass: Pointer): Tgboolean;
 begin
-  GST_VULKAN_IMAGE_MEMORY_ALLOCATOR_CLASS:=G_TYPE_CHECK_CLASS_CAST(klass,GST_TYPE_VULKAN_MEMORY_ALLOCATOR,GstVulkanImageMemoryAllocatorClass);
+  Result := g_type_check_class_is_a(klass, GST_TYPE_VULKAN_IMAGE_MEMORY_ALLOCATOR);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-function GST_VULKAN_IMAGE_MEMORY_ALLOCATOR_CAST(obj : longint) : PGstVulkanImageMemoryAllocator;
+function GST_VULKAN_IMAGE_MEMORY_ALLOCATOR_GET_CLASS(obj: Pointer): PGstVulkanImageMemoryAllocatorClass;
 begin
-  GST_VULKAN_IMAGE_MEMORY_ALLOCATOR_CAST:=PGstVulkanImageMemoryAllocator(obj);
+  Result := PGstVulkanImageMemoryAllocatorClass(PGTypeInstance(obj)^.g_class);
 end;
 
+function GST_VULKAN_IMAGE_MEMORY_ALLOCATOR_CAST(obj: Pointer): PGstVulkanImageMemoryAllocator;
+begin
+  GST_VULKAN_IMAGE_MEMORY_ALLOCATOR_CAST := PGstVulkanImageMemoryAllocator(obj);
+end;
 
 end.

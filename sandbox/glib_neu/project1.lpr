@@ -25,11 +25,12 @@ uses
   gstvkdisplay,
   gstvkerror,
   gstvkformat,
-
   gstvkfullscreenquad,
   gstvkimagebufferpool,
+
   gstvkimagememory,
   gstvkimageview,
+
   gstvkoperation,
   gstvkswapper,
   gstvktrash,
