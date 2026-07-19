@@ -27,16 +27,13 @@ uses
   gstvkformat,
   gstvkfullscreenquad,
   gstvkimagebufferpool,
-
-  gstvkimagememory,
   gstvkimageview,
-
+  gstvkimagememory,
   gstvkoperation,
   gstvkswapper,
   gstvktrash,
   gstvkutils,
   gstvkvideofilter,
-  vulkan_fwd,
 
 
   fp_gst_audio,

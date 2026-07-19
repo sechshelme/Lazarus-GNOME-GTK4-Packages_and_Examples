@@ -21,14 +21,7 @@ type
     _reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
   end;
 
-  PGstVulkanFence = ^TGstVulkanFence;
-  TGstVulkanFence = record
-    parent: TGstMiniObject;
-    device: PGstVulkanDevice;
-    cache: PGstVulkanFenceCache;
-    fence: TVkFence;
-    _reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
-  end;
+  PGstVulkanFence = type Pointer;
   {$ENDIF read_struct}
 
 {$IFDEF read_function}
@@ -47,7 +40,6 @@ procedure gst_vulkan_fence_unref(fence: PGstVulkanFence);
 
 // === Konventiert am: 17-7-26 15:43:05 ===
 
-function GST_VULKAN_FENCE_FENCE(f: PGstVulkanFence): TVkFence;
 function GST_TYPE_VULKAN_FENCE: TGType;
 function GST_VULKAN_FENCE_CAST(f: Pointer): PGstVulkanFence;
 function GST_TYPE_VULKAN_FENCE_CACHE: TGType;
@@ -100,11 +92,6 @@ begin
   GST_VULKAN_FENCE_CAST := PGstVulkanFence(f);
 end;
 
-
-function GST_VULKAN_FENCE_FENCE(f: PGstVulkanFence): TVkFence;
-begin
-  GST_VULKAN_FENCE_FENCE := (GST_VULKAN_FENCE_CAST(f))^.fence;
-end;
 
 function gst_vulkan_fence_ref(fence: PGstVulkanFence): PGstVulkanFence;
 begin

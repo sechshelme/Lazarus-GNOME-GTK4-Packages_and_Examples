@@ -36,20 +36,10 @@ const
 type
   TGstVulkanHandleTypedef = uint64;
 
-  PGstVulkanHandle = ^TGstVulkanHandle;
+  PGstVulkanHandle = type Pointer;
   PPGstVulkanHandle = ^PGstVulkanHandle;
 
   TGstVulkanHandleDestroyNotify = procedure(handle: PGstVulkanHandle; user_data: Tgpointer); cdecl;
-
-  TGstVulkanHandle = record
-    parent: TGstMiniObject;
-    device: PGstVulkanDevice;
-    _type: TGstVulkanHandleType;
-    handle: TGstVulkanHandleTypedef;
-    notify: TGstVulkanHandleDestroyNotify;
-    user_data: Tgpointer;
-    _reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
-  end;
   {$ENDIF read_struct}
 
 {$IFDEF read_function}

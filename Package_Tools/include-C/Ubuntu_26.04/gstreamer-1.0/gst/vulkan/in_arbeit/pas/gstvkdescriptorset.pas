@@ -15,16 +15,7 @@ uses
   {$IFDEF read_struct}
 type
   PPGstVulkanDescriptorSet = ^PGstVulkanDescriptorSet;
-  PGstVulkanDescriptorSet = ^TGstVulkanDescriptorSet;
-  TGstVulkanDescriptorSet = record
-    parent: TGstMiniObject;
-    set_: TVkDescriptorSet;
-    pool: PGstVulkanDescriptorPool;
-    cache: PGstVulkanDescriptorCache;
-    n_layouts: Tguint;
-    layouts: ^PGstVulkanHandle;
-    _reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
-  end;
+  PGstVulkanDescriptorSet = type Pointer;
   {$ENDIF read_struct}
 
 {$IFDEF read_function}

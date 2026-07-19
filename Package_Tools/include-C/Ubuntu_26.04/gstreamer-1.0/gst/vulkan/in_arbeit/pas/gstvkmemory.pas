@@ -19,22 +19,7 @@ const
 
   {$IFDEF read_struct}
 type
-  PGstVulkanMemory = ^TGstVulkanMemory;
-  TGstVulkanMemory = record
-    mem: TGstMemory;
-    device: PGstVulkanDevice;
-    mem_ptr: TVkDeviceMemory;
-    lock: TGMutex;
-    map_count: Tguint;
-    mapping: Tgpointer;
-    notify: TGDestroyNotify;
-    user_data: Tgpointer;
-    alloc_info: array[0..31] of byte; //  TVkMemoryAllocateInfo;
-    properties: TVkMemoryPropertyFlags;
-    vk_offset: Tguint64;
-    wrapped: Tgboolean;
-    _reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
-  end;
+  PGstVulkanMemory = type Pointer;
 
   PGstVulkanMemoryAllocator = type Pointer;
 

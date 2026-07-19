@@ -27,6 +27,10 @@ PVkPhysicalDevice = ^TVkPhysicalDevice;
 PVkMemoryRequirements=type Pointer;
 PVkBufferCreateInfo=type Pointer;
 
+PVkImageViewCreateInfo=type Pointer;
+
+PVkBaseInStructure=type Pointer;
+
 
 TVkFence = uint64;
 TVkDeviceSize = uint64;
@@ -101,6 +105,10 @@ type
   PVkImageLayout = ^TVkImageLayout;
   TVkImageLayout = longint;
 
+  PVkQueryType = ^TVkQueryType;
+  TVkQueryType = longint;
+
+
 
 
   // ===============
@@ -113,6 +121,8 @@ type
   PGstVulkanDescriptorSet=Pointer;
   PGstVulkanDescriptorPool=Pointer;
   PGstVulkanDisplay=Pointer;
+  PGstVulkanImageMemory=Pointer;
+
 
 
 

@@ -13,6 +13,7 @@ uses
 
   {$IFDEF read_struct}
 type
+  PPGstVulkanCommandBuffer = ^PGstVulkanCommandBuffer;
   PGstVulkanCommandBuffer = ^TGstVulkanCommandBuffer;
   TGstVulkanCommandBuffer = record
     parent: TGstMiniObject;
@@ -33,8 +34,7 @@ procedure gst_vulkan_command_buffer_lock(cmd: PGstVulkanCommandBuffer);
 procedure gst_vulkan_command_buffer_unlock(cmd: PGstVulkanCommandBuffer);
 function gst_vulkan_command_buffer_ref(cmd: PGstVulkanCommandBuffer): PGstVulkanCommandBuffer; inline;
 procedure gst_vulkan_command_buffer_unref(cmd: PGstVulkanCommandBuffer); inline;
-procedure gst_clear_vulkan_command_buffer(var cmd_ptr: PGstVulkanCommandBuffer); inline;
-
+procedure gst_clear_vulkan_command_buffer(cmd_ptr: PPGstVulkanCommandBuffer); inline;
 
 function GST_TYPE_VULKAN_COMMAND_BUFFER: TGType;
 {$ENDIF read_function}
@@ -66,9 +66,9 @@ begin
   gst_mini_object_unref(PGstMiniObject(cmd));
 end;
 
-procedure gst_clear_vulkan_command_buffer(var cmd_ptr: PGstVulkanCommandBuffer);
+procedure gst_clear_vulkan_command_buffer(cmd_ptr: PPGstVulkanCommandBuffer);
 begin
-  gst_clear_mini_object(PPGstMiniObject(@cmd_ptr));
+  gst_clear_mini_object(PPGstMiniObject(cmd_ptr));
 end;
 
 end.

@@ -27,26 +27,9 @@ type
     size: TVkDeviceSize;
   end;
 
-  PGstVulkanBufferMemory = ^TGstVulkanBufferMemory;
-  TGstVulkanBufferMemory = record
-    parent: TGstMemory;
-    device: PGstVulkanDevice;
-    buffer: TVkBuffer;
-    vk_mem: PGstVulkanMemory;
-    requirements: array[0..23] of byte;  // TVkMemoryRequirements;
-    usage: TVkBufferUsageFlags;
-    barrier: TGstVulkanBarrierBufferInfo;
-    lock: TGMutex;
-    wrapped: Tgboolean;
-    notify: TGDestroyNotify;
-    user_data: Tgpointer;
-  end;
+  PGstVulkanBufferMemory = type Pointer;
 
-  PGstVulkanBufferMemoryAllocator = ^TGstVulkanBufferMemoryAllocator;
-  TGstVulkanBufferMemoryAllocator = record
-    parent: TGstAllocator;
-    _reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
-  end;
+  PGstVulkanBufferMemoryAllocator = type Pointer;
 
   PGstVulkanBufferMemoryAllocatorClass = ^TGstVulkanBufferMemoryAllocatorClass;
   TGstVulkanBufferMemoryAllocatorClass = record
