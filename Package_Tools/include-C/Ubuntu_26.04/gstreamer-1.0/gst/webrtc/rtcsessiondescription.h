@@ -54,7 +54,7 @@ GST_WEBRTC_API
 void                                gst_webrtc_session_description_free     (GstWebRTCSessionDescription * desc);
 
 
-////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC          (GstWebRTCSessionDescription, gst_webrtc_session_description_free)
+//////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC           (GstWebRTCSessionDescription, gst_webrtc_session_description_free)
 
 
 

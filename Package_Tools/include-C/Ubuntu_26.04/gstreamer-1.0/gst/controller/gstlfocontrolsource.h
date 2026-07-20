@@ -95,7 +95,7 @@ GType gst_lfo_control_source_get_type (void);
 GST_CONTROLLER_API
 GstControlSource *gst_lfo_control_source_new (void) ;
 
-////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC          (GstLFOControlSource, gst_object_unref)
+//////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC           (GstLFOControlSource, gst_object_unref)
 
 
 

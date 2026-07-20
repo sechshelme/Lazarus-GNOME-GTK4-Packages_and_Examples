@@ -27,14 +27,6 @@
         <UnitName Value="fp_gst_wayland"/>
       </Item>
       <Item>
-        <Filename Value="fp_gst_vulkan_xcb.pas"/>
-        <UnitName Value="fp_gst_vulkan_xcb"/>
-      </Item>
-      <Item>
-        <Filename Value="fp_gst_vulkan_wayland.pas"/>
-        <UnitName Value="fp_gst_vulkan_wayland"/>
-      </Item>
-      <Item>
         <Filename Value="fp_gst_vulkan.pas"/>
         <UnitName Value="fp_gst_vulkan"/>
       </Item>

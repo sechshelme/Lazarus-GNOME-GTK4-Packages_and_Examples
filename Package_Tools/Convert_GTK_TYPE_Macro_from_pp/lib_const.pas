@@ -314,7 +314,6 @@ const
     (libs: 'libgstinsertbin'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstwebrtc'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstwebrtcnice'; units: 'fp_glib2, fp_gst'),
-    (libs: 'libgstsdp'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstmpegts'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgsttag'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstfft'; units: 'fp_glib2, fp_gst'),
@@ -341,8 +340,9 @@ const
     (libs: 'libgstaudio'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstvulkan'; units: 'fp_glib2, fp_gst'),
 
-    (libs: 'libgstrtsp'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstrtp'; units: 'fp_glib2, fp_gst'),
+    (libs: 'libgstsdp'; units: 'fp_glib2, fp_gst'),
+    (libs: 'libgstrtsp'; units: 'fp_glib2, fp_gst'),
 
 
 

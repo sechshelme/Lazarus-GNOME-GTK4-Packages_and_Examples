@@ -1,0 +1,109 @@
+/* GStreamer
+ * Copyright (C) 2010 Wim Taymans <wim.taymans at gmail.com>
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Library General Public License for more details.
+ *
+ * You should have received a copy of the GNU Library General Public
+ * License along with this library; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
+ * Boston, MA 02110-1301, USA.
+ */
+
+#include <gst/gst.h>
+
+#ifndef __GST_RTSP_PERMISSIONS_H__
+#define __GST_RTSP_PERMISSIONS_H__
+
+#include "rtsp-server-prelude.h"
+
+typedef struct _GstRTSPPermissions GstRTSPPermissions;
+
+
+
+extern
+GType gst_rtsp_permissions_get_type (void);
+
+#define GST_TYPE_RTSP_PERMISSIONS        (gst_rtsp_permissions_get_type ())
+#define GST_IS_RTSP_PERMISSIONS(obj)     (GST_IS_MINI_OBJECT_TYPE (obj, GST_TYPE_RTSP_PERMISSIONS))
+#define GST_RTSP_PERMISSIONS_CAST(obj)   ((GstRTSPPermissions*)(obj))
+#define GST_RTSP_PERMISSIONS(obj)        (GST_RTSP_PERMISSIONS_CAST(obj))
+
+/**
+ * GstRTSPPermissions:
+ *
+ * The opaque permissions structure. It is used to define the permissions
+ * of objects in different roles.
+ */
+struct _GstRTSPPermissions {
+  GstMiniObject mini_object;
+};
+
+/** xxxx
+static inline GstRTSPPermissions *
+gst_rtsp_permissions_ref (GstRTSPPermissions * permissions)
+{
+  return (GstRTSPPermissions *) gst_mini_object_ref (GST_MINI_OBJECT_CAST (permissions));
+}
+
+static inline void
+gst_rtsp_permissions_unref (GstRTSPPermissions * permissions)
+{
+  gst_mini_object_unref (GST_MINI_OBJECT_CAST (permissions));
+}
+ */
+
+
+extern
+GstRTSPPermissions *  gst_rtsp_permissions_new             (void) ;
+
+extern
+void                  gst_rtsp_permissions_add_role        (GstRTSPPermissions *permissions,
+                                                            const gchar *role,
+                                                            const gchar *fieldname, ...);
+
+extern
+void                  gst_rtsp_permissions_add_role_valist (GstRTSPPermissions *permissions,
+                                                            const gchar *role,
+                                                            const gchar *fieldname,
+                                                            va_list var_args);
+
+extern
+void                  gst_rtsp_permissions_add_role_empty  (GstRTSPPermissions * permissions,
+                                                            const gchar * role);
+
+extern
+void                  gst_rtsp_permissions_add_role_from_structure (GstRTSPPermissions * permissions,
+                                                            GstStructure *structure);
+extern
+void                  gst_rtsp_permissions_add_permission_for_role (GstRTSPPermissions * permissions,
+                                                            const gchar * role,
+                                                            const gchar * permission,
+                                                            gboolean      allowed);
+
+extern
+void                  gst_rtsp_permissions_remove_role     (GstRTSPPermissions *permissions,
+                                                            const gchar *role);
+
+extern
+const GstStructure *  gst_rtsp_permissions_get_role        (GstRTSPPermissions *permissions,
+                                                            const gchar *role);
+
+extern
+gboolean              gst_rtsp_permissions_is_allowed      (GstRTSPPermissions *permissions,
+                                                            const gchar *role, const gchar *permission);
+
+#ifdef //////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC           
+//////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC           (GstRTSPPermissions, gst_rtsp_permissions_unref)
+#endif
+
+
+
+#endif /* __GST_RTSP_PERMISSIONS_H__ */

@@ -122,7 +122,7 @@ GST_CONTROLLER_API
 GstControlBinding * gst_direct_control_binding_new_absolute (GstObject * object, const gchar * property_name, 
                                                     GstControlSource * cs) ;
 
-////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC          (GstDirectControlBinding, gst_object_unref)
+//////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC           (GstDirectControlBinding, gst_object_unref)
 
 
 

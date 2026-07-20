@@ -9,12 +9,6 @@ uses
   fp_glib2;
 
 
-// === muss bereingigt werden
-type
-  PGstSDPMessage=Pointer;
-  PGstSDPMedia=Pointer;
-
-
   // ===============
 
 const

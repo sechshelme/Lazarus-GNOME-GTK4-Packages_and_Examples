@@ -53,7 +53,7 @@ GST_WEBRTC_DEPRECATED_FOR(gst_webrtc_data_channel_send_string_full)
 void gst_webrtc_data_channel_send_string (GstWebRTCDataChannel * channel, const gchar * str);
 #endif
 
-////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC          (GstWebRTCDataChannel, g_object_unref)
+//////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC           (GstWebRTCDataChannel, g_object_unref)
 
 
 
