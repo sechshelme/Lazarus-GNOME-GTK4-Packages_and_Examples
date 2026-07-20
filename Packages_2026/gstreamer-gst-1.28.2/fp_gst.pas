@@ -9,6 +9,19 @@ uses
   fp_glib2;
 
 
+// ==== Muss aufgeräumt werden
+
+type
+  // fremd
+  PGstSDPMessage=Pointer;
+  PGstRTSPToken=Pointer;
+
+
+  // eigen
+  PGstRTSPMedia=type Pointer;
+  PGstRTSPStream=Pointer;
+  PGstRTSPStreamTransport=Pointer;
+
   // ===============
 
 const

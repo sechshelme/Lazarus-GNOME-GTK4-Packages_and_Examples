@@ -1,183 +1,102 @@
 unit rtsp_session_media;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
-  fp_glib2, fp_gst;
+  fp_glib2, fp_gst, fp_gst_rtsp;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
-{ GStreamer
- * Copyright (C) 2008 Wim Taymans <wim.taymans at gmail.com>
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Library General Public
- * License as published by the Free Software Foundation; either
- * version 2 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Library General Public License for more details.
- *
- * You should have received a copy of the GNU Library General Public
- * License along with this library; if not, write to the
- * Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
- * Boston, MA 02110-1301, USA.
-  }
-{$include <gst/gst.h>}
-{$include <gst/rtsp/gstrtsptransport.h>}
-{$ifndef __GST_RTSP_SESSION_MEDIA_H__}
-{$define __GST_RTSP_SESSION_MEDIA_H__}
-{$include "rtsp-server-prelude.h"}
-
-{ was #define dname def_expr }
-function GST_TYPE_RTSP_SESSION_MEDIA : longint; { return type might be wrong }
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_IS_RTSP_SESSION_MEDIA(obj : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_IS_RTSP_SESSION_MEDIA_CLASS(klass : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_RTSP_SESSION_MEDIA_GET_CLASS(obj : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_RTSP_SESSION_MEDIA(obj : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_RTSP_SESSION_MEDIA_CLASS(klass : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-function GST_RTSP_SESSION_MEDIA_CAST(obj : longint) : PGstRTSPSessionMedia;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-function GST_RTSP_SESSION_MEDIA_CLASS_CAST(klass : longint) : PGstRTSPSessionMediaClass;
-
+  {$IFDEF read_struct}
 type
-{*
- * GstRTSPSessionMedia:
- *
- * State of a client session regarding a specific media identified by path.
-  }
-{< private > }
+  PGstRTSPSessionMediaPrivate = type Pointer;
+
   PGstRTSPSessionMedia = ^TGstRTSPSessionMedia;
   TGstRTSPSessionMedia = record
-      parent : TGObject;
-      priv : PGstRTSPSessionMediaPrivate;
-      _gst_reserved : array[0..(GST_PADDING)-1] of Tgpointer;
-    end;
+    parent: TGObject;
+    priv: PGstRTSPSessionMediaPrivate;
+    _gst_reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
+  end;
 
-{< private > }
   PGstRTSPSessionMediaClass = ^TGstRTSPSessionMediaClass;
   TGstRTSPSessionMediaClass = record
-      parent_class : TGObjectClass;
-      _gst_reserved : array[0..(GST_PADDING)-1] of Tgpointer;
-    end;
+    parent_class: TGObjectClass;
+    _gst_reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
+  end;
+  {$ENDIF read_struct}
 
-
-function gst_rtsp_session_media_get_type:TGType;cdecl;external libgstrtsp;
-function gst_rtsp_session_media_new(path:Pgchar; media:PGstRTSPMedia):PGstRTSPSessionMedia;cdecl;external libgstrtsp;
-function gst_rtsp_session_media_matches(media:PGstRTSPSessionMedia; path:Pgchar; matched:Pgint):Tgboolean;cdecl;external libgstrtsp;
-function gst_rtsp_session_media_get_media(media:PGstRTSPSessionMedia):PGstRTSPMedia;cdecl;external libgstrtsp;
-function gst_rtsp_session_media_get_base_time(media:PGstRTSPSessionMedia):TGstClockTime;cdecl;external libgstrtsp;
-{ control media  }
-function gst_rtsp_session_media_set_state(media:PGstRTSPSessionMedia; state:TGstState):Tgboolean;cdecl;external libgstrtsp;
-procedure gst_rtsp_session_media_set_rtsp_state(media:PGstRTSPSessionMedia; state:TGstRTSPState);cdecl;external libgstrtsp;
-function gst_rtsp_session_media_get_rtsp_state(media:PGstRTSPSessionMedia):TGstRTSPState;cdecl;external libgstrtsp;
-{ get stream transport config  }
-function gst_rtsp_session_media_set_transport(media:PGstRTSPSessionMedia; stream:PGstRTSPStream; tr:PGstRTSPTransport):PGstRTSPStreamTransport;cdecl;external libgstrtsp;
-function gst_rtsp_session_media_get_transport(media:PGstRTSPSessionMedia; idx:Tguint):PGstRTSPStreamTransport;cdecl;external libgstrtsp;
-function gst_rtsp_session_media_get_transports(media:PGstRTSPSessionMedia):PGPtrArray;cdecl;external libgstrtsp;
-function gst_rtsp_session_media_alloc_channels(media:PGstRTSPSessionMedia; range:PGstRTSPRange):Tgboolean;cdecl;external libgstrtsp;
-function gst_rtsp_session_media_get_rtpinfo(media:PGstRTSPSessionMedia):Pgchar;cdecl;external libgstrtsp;
-{$ifdef //////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC           }
-{////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC           (GstRTSPSessionMedia, gst_object_unref) }
-{$endif}
-{$endif}
-{ __GST_RTSP_SESSION_MEDIA_H__  }
+{$IFDEF read_function}
+function gst_rtsp_session_media_get_type: TGType; cdecl; external libgstrtsp;
+function gst_rtsp_session_media_new(path: Pgchar; media: PGstRTSPMedia): PGstRTSPSessionMedia; cdecl; external libgstrtsp;
+function gst_rtsp_session_media_matches(media: PGstRTSPSessionMedia; path: Pgchar; matched: Pgint): Tgboolean; cdecl; external libgstrtsp;
+function gst_rtsp_session_media_get_media(media: PGstRTSPSessionMedia): PGstRTSPMedia; cdecl; external libgstrtsp;
+function gst_rtsp_session_media_get_base_time(media: PGstRTSPSessionMedia): TGstClockTime; cdecl; external libgstrtsp;
+function gst_rtsp_session_media_set_state(media: PGstRTSPSessionMedia; state: TGstState): Tgboolean; cdecl; external libgstrtsp;
+procedure gst_rtsp_session_media_set_rtsp_state(media: PGstRTSPSessionMedia; state: TGstRTSPState); cdecl; external libgstrtsp;
+function gst_rtsp_session_media_get_rtsp_state(media: PGstRTSPSessionMedia): TGstRTSPState; cdecl; external libgstrtsp;
+function gst_rtsp_session_media_set_transport(media: PGstRTSPSessionMedia; stream: PGstRTSPStream; tr: PGstRTSPTransport): PGstRTSPStreamTransport; cdecl; external libgstrtsp;
+function gst_rtsp_session_media_get_transport(media: PGstRTSPSessionMedia; idx: Tguint): PGstRTSPStreamTransport; cdecl; external libgstrtsp;
+function gst_rtsp_session_media_get_transports(media: PGstRTSPSessionMedia): PGPtrArray; cdecl; external libgstrtsp;
+function gst_rtsp_session_media_alloc_channels(media: PGstRTSPSessionMedia; range: PGstRTSPRange): Tgboolean; cdecl; external libgstrtsp;
+function gst_rtsp_session_media_get_rtpinfo(media: PGstRTSPSessionMedia): Pgchar; cdecl; external libgstrtsp;
 
 // === Konventiert am: 20-7-26 13:44:10 ===
 
+function GST_TYPE_RTSP_SESSION_MEDIA: TGType;
+function GST_RTSP_SESSION_MEDIA(obj: Pointer): PGstRTSPSessionMedia;
+function GST_RTSP_SESSION_MEDIA_CLASS(klass: Pointer): PGstRTSPSessionMediaClass;
+function GST_IS_RTSP_SESSION_MEDIA(obj: Pointer): Tgboolean;
+function GST_IS_RTSP_SESSION_MEDIA_CLASS(klass: Pointer): Tgboolean;
+function GST_RTSP_SESSION_MEDIA_GET_CLASS(obj: Pointer): PGstRTSPSessionMediaClass;
+function GST_RTSP_SESSION_MEDIA_CAST(obj: Pointer): PGstRTSPSessionMedia;
+function GST_RTSP_SESSION_MEDIA_CLASS_CAST(klass: Pointer): PGstRTSPSessionMediaClass;
+{$ENDIF read_function}
 
 implementation
 
-
-{ was #define dname def_expr }
-function GST_TYPE_RTSP_SESSION_MEDIA : longint; { return type might be wrong }
-  begin
-    GST_TYPE_RTSP_SESSION_MEDIA:=gst_rtsp_session_media_get_type;
-  end;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_IS_RTSP_SESSION_MEDIA(obj : longint) : longint;
+function GST_TYPE_RTSP_SESSION_MEDIA: TGType;
 begin
-  GST_IS_RTSP_SESSION_MEDIA:=G_TYPE_CHECK_INSTANCE_TYPE(obj,GST_TYPE_RTSP_SESSION_MEDIA);
+  Result := gst_rtsp_session_media_get_type;
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_IS_RTSP_SESSION_MEDIA_CLASS(klass : longint) : longint;
+function GST_RTSP_SESSION_MEDIA(obj: Pointer): PGstRTSPSessionMedia;
 begin
-  GST_IS_RTSP_SESSION_MEDIA_CLASS:=G_TYPE_CHECK_CLASS_TYPE(klass,GST_TYPE_RTSP_SESSION_MEDIA);
+  Result := PGstRTSPSessionMedia(g_type_check_instance_cast(obj, GST_TYPE_RTSP_SESSION_MEDIA));
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_RTSP_SESSION_MEDIA_GET_CLASS(obj : longint) : longint;
+function GST_RTSP_SESSION_MEDIA_CLASS(klass: Pointer): PGstRTSPSessionMediaClass;
 begin
-  GST_RTSP_SESSION_MEDIA_GET_CLASS:=G_TYPE_INSTANCE_GET_CLASS(obj,GST_TYPE_RTSP_SESSION_MEDIA,GstRTSPSessionMediaClass);
+  Result := PGstRTSPSessionMediaClass(g_type_check_class_cast(klass, GST_TYPE_RTSP_SESSION_MEDIA));
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_RTSP_SESSION_MEDIA(obj : longint) : longint;
+function GST_IS_RTSP_SESSION_MEDIA(obj: Pointer): Tgboolean;
 begin
-  GST_RTSP_SESSION_MEDIA:=G_TYPE_CHECK_INSTANCE_CAST(obj,GST_TYPE_RTSP_SESSION_MEDIA,GstRTSPSessionMedia);
+  Result := g_type_check_instance_is_a(obj, GST_TYPE_RTSP_SESSION_MEDIA);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_RTSP_SESSION_MEDIA_CLASS(klass : longint) : longint;
+function GST_IS_RTSP_SESSION_MEDIA_CLASS(klass: Pointer): Tgboolean;
 begin
-  GST_RTSP_SESSION_MEDIA_CLASS:=G_TYPE_CHECK_CLASS_CAST(klass,GST_TYPE_RTSP_SESSION_MEDIA,GstRTSPSessionMediaClass);
+  Result := g_type_check_class_is_a(klass, GST_TYPE_RTSP_SESSION_MEDIA);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-function GST_RTSP_SESSION_MEDIA_CAST(obj : longint) : PGstRTSPSessionMedia;
+function GST_RTSP_SESSION_MEDIA_GET_CLASS(obj: Pointer): PGstRTSPSessionMediaClass;
 begin
-  GST_RTSP_SESSION_MEDIA_CAST:=PGstRTSPSessionMedia(obj);
+  Result := PGstRTSPSessionMediaClass(PGTypeInstance(obj)^.g_class);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-function GST_RTSP_SESSION_MEDIA_CLASS_CAST(klass : longint) : PGstRTSPSessionMediaClass;
+function GST_RTSP_SESSION_MEDIA_CAST(obj: Pointer): PGstRTSPSessionMedia;
 begin
-  GST_RTSP_SESSION_MEDIA_CLASS_CAST:=PGstRTSPSessionMediaClass(klass);
+  Result := PGstRTSPSessionMedia(obj);
 end;
 
+function GST_RTSP_SESSION_MEDIA_CLASS_CAST(klass: Pointer): PGstRTSPSessionMediaClass;
+begin
+  Result := PGstRTSPSessionMediaClass(klass);
+end;
 
 end.
