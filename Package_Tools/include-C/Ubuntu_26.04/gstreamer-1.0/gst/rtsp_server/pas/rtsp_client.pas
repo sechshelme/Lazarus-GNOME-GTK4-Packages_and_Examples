@@ -5,7 +5,7 @@ unit rtsp_client;
 interface
 
 uses
-  fp_glib2, fp_gst, fp_gst_rtsp, rtsp_context, rtsp_session, rtsp_session_pool;
+  fp_glib2, fp_gst, fp_gst_rtsp, rtsp_context, rtsp_session, rtsp_session_pool, rtsp_mount_points, rtsp_thread_pool;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -72,7 +72,7 @@ type
   end;
   {$ENDIF read_struct}
 
-  {$IFDEF read_function}
+{$IFDEF read_function}
 function gst_rtsp_client_get_type: TGType; cdecl; external libgstrtsp;
 function gst_rtsp_client_new: PGstRTSPClient; cdecl; external libgstrtsp;
 procedure gst_rtsp_client_set_session_pool(client: PGstRTSPClient; pool: PGstRTSPSessionPool); cdecl; external libgstrtsp;
@@ -99,56 +99,56 @@ function gst_rtsp_client_get_stream_transport(client: PGstRTSPClient; channel: T
 
 // === Konventiert am: 20-7-26 13:45:46 ===
 
-function GST_TYPE_RTSP_SERVER: TGType;
-function GST_RTSP_SERVER(obj: Pointer): PGstRTSPServer;
-function GST_RTSP_SERVER_CLASS(klass: Pointer): PGstRTSPServerClass;
-function GST_IS_RTSP_SERVER(obj: Pointer): Tgboolean;
-function GST_IS_RTSP_SERVER_CLASS(klass: Pointer): Tgboolean;
-function GST_RTSP_SERVER_GET_CLASS(obj: Pointer): PGstRTSPServerClass;
-function GST_RTSP_SERVER_CAST(obj: Pointer): PGstRTSPServer;
-function GST_RTSP_SERVER_CLASS_CAST(klass: Pointer): PGstRTSPServerClass;
+function GST_TYPE_RTSP_CLIENT: TGType;
+function GST_RTSP_CLIENT(obj: Pointer): PGstRTSPClient;
+function GST_RTSP_CLIENT_CLASS(klass: Pointer): PGstRTSPClientClass;
+function GST_IS_RTSP_CLIENT(obj: Pointer): Tgboolean;
+function GST_IS_RTSP_CLIENT_CLASS(klass: Pointer): Tgboolean;
+function GST_RTSP_CLIENT_GET_CLASS(obj: Pointer): PGstRTSPClientClass;
+function GST_RTSP_CLIENT_CAST(obj: Pointer): PGstRTSPClient;
+function GST_RTSP_CLIENT_CLASS_CAST(klass: Pointer): PGstRTSPClientClass;
 {$ENDIF read_function}
 
 implementation
 
-function GST_TYPE_RTSP_SERVER: TGType;
+function GST_TYPE_RTSP_CLIENT: TGType;
 begin
-  Result := gst_rtsp_server_get_type;
+  Result := gst_rtsp_client_get_type;
 end;
 
-function GST_RTSP_SERVER(obj: Pointer): PGstRTSPServer;
+function GST_RTSP_CLIENT(obj: Pointer): PGstRTSPClient;
 begin
-  Result := PGstRTSPServer(g_type_check_instance_cast(obj, GST_TYPE_RTSP_SERVER));
+  Result := PGstRTSPClient(g_type_check_instance_cast(obj, GST_TYPE_RTSP_CLIENT));
 end;
 
-function GST_RTSP_SERVER_CLASS(klass: Pointer): PGstRTSPServerClass;
+function GST_RTSP_CLIENT_CLASS(klass: Pointer): PGstRTSPClientClass;
 begin
-  Result := PGstRTSPServerClass(g_type_check_class_cast(klass, GST_TYPE_RTSP_SERVER));
+  Result := PGstRTSPClientClass(g_type_check_class_cast(klass, GST_TYPE_RTSP_CLIENT));
 end;
 
-function GST_IS_RTSP_SERVER(obj: Pointer): Tgboolean;
+function GST_IS_RTSP_CLIENT(obj: Pointer): Tgboolean;
 begin
-  Result := g_type_check_instance_is_a(obj, GST_TYPE_RTSP_SERVER);
+  Result := g_type_check_instance_is_a(obj, GST_TYPE_RTSP_CLIENT);
 end;
 
-function GST_IS_RTSP_SERVER_CLASS(klass: Pointer): Tgboolean;
+function GST_IS_RTSP_CLIENT_CLASS(klass: Pointer): Tgboolean;
 begin
-  Result := g_type_check_class_is_a(klass, GST_TYPE_RTSP_SERVER);
+  Result := g_type_check_class_is_a(klass, GST_TYPE_RTSP_CLIENT);
 end;
 
-function GST_RTSP_SERVER_GET_CLASS(obj: Pointer): PGstRTSPServerClass;
+function GST_RTSP_CLIENT_GET_CLASS(obj: Pointer): PGstRTSPClientClass;
 begin
-  Result := PGstRTSPServerClass(PGTypeInstance(obj)^.g_class);
+  Result := PGstRTSPClientClass(PGTypeInstance(obj)^.g_class);
 end;
 
-function GST_RTSP_SERVER_CAST(obj: Pointer): PGstRTSPServer;
+function GST_RTSP_CLIENT_CAST(obj: Pointer): PGstRTSPClient;
 begin
-  Result := PGstRTSPServer(obj);
+  Result := PGstRTSPClient(obj);
 end;
 
-function GST_RTSP_SERVER_CLASS_CAST(klass: Pointer): PGstRTSPServerClass;
+function GST_RTSP_CLIENT_CLASS_CAST(klass: Pointer): PGstRTSPClientClass;
 begin
-  Result := PGstRTSPServerClass(klass);
+  Result := PGstRTSPClientClass(klass);
 end;
 
 end.

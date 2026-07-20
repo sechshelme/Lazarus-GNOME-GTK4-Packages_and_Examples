@@ -1,15 +1,18 @@
 unit rtsp_server_object;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
-  fp_glib2, fp_gst;
+  fp_glib2, fp_gst, rtsp_client, rtsp_session_pool, rtsp_mount_points, rtsp_thread_pool, rtsp_session;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGstRTSPServerPrivate = type Pointer;
 
@@ -26,8 +29,13 @@ type
     create_client: function(server: PGstRTSPServer): PGstRTSPClient; cdecl;
     client_connected: procedure(server: PGstRTSPServer; client: PGstRTSPClient); cdecl;
     _gst_reserved: array[0..(GST_PADDING_LARGE) - 1] of Tgpointer;
+
   end;
 
+  TGstRTSPServerClientFilterFunc = function(server: PGstRTSPServer; client: PGstRTSPClient; user_data: Tgpointer): TGstRTSPFilterResult; cdecl;
+  {$ENDIF read_struct}
+
+{$IFDEF read_function}
 function gst_rtsp_server_get_type: TGType; cdecl; external libgstrtsp;
 function gst_rtsp_server_new: PGstRTSPServer; cdecl; external libgstrtsp;
 procedure gst_rtsp_server_set_address(server: PGstRTSPServer; address: Pgchar); cdecl; external libgstrtsp;
@@ -52,10 +60,6 @@ function gst_rtsp_server_io_func(socket: PGSocket; condition: TGIOCondition; ser
 function gst_rtsp_server_create_socket(server: PGstRTSPServer; cancellable: PGCancellable; error: PPGError): PGSocket; cdecl; external libgstrtsp;
 function gst_rtsp_server_create_source(server: PGstRTSPServer; cancellable: PGCancellable; error: PPGError): PGSource; cdecl; external libgstrtsp;
 function gst_rtsp_server_attach(server: PGstRTSPServer; context: PGMainContext): Tguint; cdecl; external libgstrtsp;
-
-type
-  TGstRTSPServerClientFilterFunc = function(server: PGstRTSPServer; client: PGstRTSPClient; user_data: Tgpointer): TGstRTSPFilterResult; cdecl;
-
 function gst_rtsp_server_client_filter(server: PGstRTSPServer; func: TGstRTSPServerClientFilterFunc; user_data: Tgpointer): PGList; cdecl; external libgstrtsp;
 
 // === Konventiert am: 20-7-26 13:44:21 ===
@@ -68,6 +72,7 @@ function GST_IS_RTSP_SERVER_CLASS(klass: Pointer): Tgboolean;
 function GST_RTSP_SERVER_GET_CLASS(obj: Pointer): PGstRTSPServerClass;
 function GST_RTSP_SERVER_CAST(obj: Pointer): PGstRTSPServer;
 function GST_RTSP_SERVER_CLASS_CAST(klass: Pointer): PGstRTSPServerClass;
+{$ENDIF read_struct}
 
 implementation
 

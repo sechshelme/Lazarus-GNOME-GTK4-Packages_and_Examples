@@ -10,36 +10,22 @@ uses
   rtsp_session_media,
   rtsp_session,
   rtsp_session_pool,
-
+  rtsp_permissions,
+  rtsp_media_factory,
   rtsp_mount_points,
-
-
   rtsp_client,
-
   rtsp_stream_transport,
   rtsp_stream,
-
   rtsp_sdp,
-
-
   rtsp_media,
-
-
-
   rtsp_server_object,
-
-
-
   rtsp_auth,
-  rtsp_media_factory,
   rtsp_media_factory_uri,
   rtsp_onvif_client,
   rtsp_onvif_media,
   rtsp_onvif_media_factory,
   rtsp_onvif_server,
   rtsp_params,
-  rtsp_permissions,
-  rtsp_server,
   rtsp_token,
 
 

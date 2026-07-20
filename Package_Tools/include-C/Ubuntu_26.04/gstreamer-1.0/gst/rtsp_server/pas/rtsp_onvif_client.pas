@@ -1,165 +1,88 @@
 unit rtsp_onvif_client;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
-  fp_glib2, fp_gst;
+  fp_glib2, fp_gst, rtsp_client;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
-{ GStreamer
- * Copyright (C) 2017 Sebastian Dröge <sebastian@centricular.com>
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Library General Public
- * License as published by the Free Software Foundation; either
- * version 2 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Library General Public License for more details.
- *
- * You should have received a copy of the GNU Library General Public
- * License along with this library; if not, write to the
- * Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
- * Boston, MA 02110-1301, USA.
-  }
-{$ifndef __GST_RTSP_ONVIF_CLIENT_H__}
-{$define __GST_RTSP_ONVIF_CLIENT_H__}
-{$include <gst/gst.h>}
-{$include "rtsp-client.h"}
-
-{ was #define dname def_expr }
-function GST_TYPE_RTSP_ONVIF_CLIENT : longint; { return type might be wrong }
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_IS_RTSP_ONVIF_CLIENT(obj : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_IS_RTSP_ONVIF_CLIENT_CLASS(klass : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_RTSP_ONVIF_CLIENT_GET_CLASS(obj : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_RTSP_ONVIF_CLIENT(obj : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_RTSP_ONVIF_CLIENT_CLASS(klass : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-function GST_RTSP_ONVIF_CLIENT_CAST(obj : longint) : PGstRTSPOnvifClient;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-function GST_RTSP_ONVIF_CLIENT_CLASS_CAST(klass : longint) : PGstRTSPOnvifClientClass;
-
+  {$IFDEF read_struct}
 type
-{*
- * GstRTSPOnvifClient:
- *
- * Since: 1.14
-  }
-{< private > }
   PGstRTSPOnvifClientClass = ^TGstRTSPOnvifClientClass;
   TGstRTSPOnvifClientClass = record
-      parent : TGstRTSPClientClass;
-      _gst_reserved : array[0..(GST_PADDING_LARGE)-1] of Tgpointer;
-    end;
+    parent: TGstRTSPClientClass;
+    _gst_reserved: array[0..(GST_PADDING_LARGE) - 1] of Tgpointer;
+  end;
 
-{< private > }
   PGstRTSPOnvifClient = ^TGstRTSPOnvifClient;
   TGstRTSPOnvifClient = record
-      parent : TGstRTSPClient;
-      _gst_reserved : array[0..(GST_PADDING)-1] of Tgpointer;
-    end;
+    parent: TGstRTSPClient;
+    _gst_reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
+  end;
+  {$ENDIF read_struct}
 
-
-function gst_rtsp_onvif_client_get_type:TGType;cdecl;external libgstrtsp;
-function gst_rtsp_onvif_client_new:PGstRTSPClient;cdecl;external libgstrtsp;
-{$endif}
-{ __GST_RTSP_ONVIF_CLIENT_H__  }
+{$IFDEF read_function}
+function gst_rtsp_onvif_client_get_type: TGType; cdecl; external libgstrtsp;
+function gst_rtsp_onvif_client_new: PGstRTSPClient; cdecl; external libgstrtsp;
 
 // === Konventiert am: 20-7-26 13:45:14 ===
 
+function GST_TYPE_RTSP_ONVIF_CLIENT: TGType;
+function GST_RTSP_ONVIF_CLIENT(obj: Pointer): PGstRTSPOnvifClient;
+function GST_RTSP_ONVIF_CLIENT_CLASS(klass: Pointer): PGstRTSPOnvifClientClass;
+function GST_IS_RTSP_ONVIF_CLIENT(obj: Pointer): Tgboolean;
+function GST_IS_RTSP_ONVIF_CLIENT_CLASS(klass: Pointer): Tgboolean;
+function GST_RTSP_ONVIF_CLIENT_GET_CLASS(obj: Pointer): PGstRTSPOnvifClientClass;
+function GST_RTSP_ONVIF_CLIENT_CAST(obj: Pointer): PGstRTSPOnvifClient;
+function GST_RTSP_ONVIF_CLIENT_CLASS_CAST(klass: Pointer): PGstRTSPOnvifClientClass;
+{$ENDIF read_function}
 
 implementation
 
-
-{ was #define dname def_expr }
-function GST_TYPE_RTSP_ONVIF_CLIENT : longint; { return type might be wrong }
-  begin
-    GST_TYPE_RTSP_ONVIF_CLIENT:=gst_rtsp_onvif_client_get_type;
-  end;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_IS_RTSP_ONVIF_CLIENT(obj : longint) : longint;
+function GST_TYPE_RTSP_ONVIF_CLIENT: TGType;
 begin
-  GST_IS_RTSP_ONVIF_CLIENT:=G_TYPE_CHECK_INSTANCE_TYPE(obj,GST_TYPE_RTSP_ONVIF_CLIENT);
+  Result := gst_rtsp_onvif_client_get_type;
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_IS_RTSP_ONVIF_CLIENT_CLASS(klass : longint) : longint;
+function GST_RTSP_ONVIF_CLIENT(obj: Pointer): PGstRTSPOnvifClient;
 begin
-  GST_IS_RTSP_ONVIF_CLIENT_CLASS:=G_TYPE_CHECK_CLASS_TYPE(klass,GST_TYPE_RTSP_ONVIF_CLIENT);
+  Result := PGstRTSPOnvifClient(g_type_check_instance_cast(obj, GST_TYPE_RTSP_ONVIF_CLIENT));
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_RTSP_ONVIF_CLIENT_GET_CLASS(obj : longint) : longint;
+function GST_RTSP_ONVIF_CLIENT_CLASS(klass: Pointer): PGstRTSPOnvifClientClass;
 begin
-  GST_RTSP_ONVIF_CLIENT_GET_CLASS:=G_TYPE_INSTANCE_GET_CLASS(obj,GST_TYPE_RTSP_ONVIF_CLIENT,GstRTSPOnvifClientClass);
+  Result := PGstRTSPOnvifClientClass(g_type_check_class_cast(klass, GST_TYPE_RTSP_ONVIF_CLIENT));
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_RTSP_ONVIF_CLIENT(obj : longint) : longint;
+function GST_IS_RTSP_ONVIF_CLIENT(obj: Pointer): Tgboolean;
 begin
-  GST_RTSP_ONVIF_CLIENT:=G_TYPE_CHECK_INSTANCE_CAST(obj,GST_TYPE_RTSP_ONVIF_CLIENT,GstRTSPOnvifClient);
+  Result := g_type_check_instance_is_a(obj, GST_TYPE_RTSP_ONVIF_CLIENT);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_RTSP_ONVIF_CLIENT_CLASS(klass : longint) : longint;
+function GST_IS_RTSP_ONVIF_CLIENT_CLASS(klass: Pointer): Tgboolean;
 begin
-  GST_RTSP_ONVIF_CLIENT_CLASS:=G_TYPE_CHECK_CLASS_CAST(klass,GST_TYPE_RTSP_ONVIF_CLIENT,GstRTSPOnvifClientClass);
+  Result := g_type_check_class_is_a(klass, GST_TYPE_RTSP_ONVIF_CLIENT);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-function GST_RTSP_ONVIF_CLIENT_CAST(obj : longint) : PGstRTSPOnvifClient;
+function GST_RTSP_ONVIF_CLIENT_GET_CLASS(obj: Pointer): PGstRTSPOnvifClientClass;
 begin
-  GST_RTSP_ONVIF_CLIENT_CAST:=PGstRTSPOnvifClient(obj);
+  Result := PGstRTSPOnvifClientClass(PGTypeInstance(obj)^.g_class);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-function GST_RTSP_ONVIF_CLIENT_CLASS_CAST(klass : longint) : PGstRTSPOnvifClientClass;
+function GST_RTSP_ONVIF_CLIENT_CAST(obj: Pointer): PGstRTSPOnvifClient;
 begin
-  GST_RTSP_ONVIF_CLIENT_CLASS_CAST:=PGstRTSPOnvifClientClass(klass);
+  Result := PGstRTSPOnvifClient(obj);
 end;
 
+function GST_RTSP_ONVIF_CLIENT_CLASS_CAST(klass: Pointer): PGstRTSPOnvifClientClass;
+begin
+  Result := PGstRTSPOnvifClientClass(klass);
+end;
 
 end.

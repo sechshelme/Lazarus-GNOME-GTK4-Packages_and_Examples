@@ -5,7 +5,7 @@ unit rtsp_stream;
 interface
 
 uses
-  fp_glib2, fp_gst, rtsp_stream_transport;
+  fp_glib2, fp_gst, fp_gst_rtsp, rtsp_stream_transport, rtsp_session, rtsp_address_pool;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

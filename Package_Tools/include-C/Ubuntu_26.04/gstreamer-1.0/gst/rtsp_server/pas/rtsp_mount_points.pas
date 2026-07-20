@@ -1,183 +1,96 @@
 unit rtsp_mount_points;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
-  fp_glib2, fp_gst;
+  fp_glib2, fp_gst, fp_gst_rtsp, rtsp_media_factory;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
-{ GStreamer
- * Copyright (C) 2008 Wim Taymans <wim.taymans at gmail.com>
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Library General Public
- * License as published by the Free Software Foundation; either
- * version 2 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Library General Public License for more details.
- *
- * You should have received a copy of the GNU Library General Public
- * License along with this library; if not, write to the
- * Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
- * Boston, MA 02110-1301, USA.
-  }
-{$include <gst/gst.h>}
-{$include "rtsp-media-factory.h"}
-{$ifndef __GST_RTSP_MOUNT_POINTS_H__}
-{$define __GST_RTSP_MOUNT_POINTS_H__}
-
-{ was #define dname def_expr }
-function GST_TYPE_RTSP_MOUNT_POINTS : longint; { return type might be wrong }
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_IS_RTSP_MOUNT_POINTS(obj : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_IS_RTSP_MOUNT_POINTS_CLASS(klass : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_RTSP_MOUNT_POINTS_GET_CLASS(obj : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_RTSP_MOUNT_POINTS(obj : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_RTSP_MOUNT_POINTS_CLASS(klass : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-function GST_RTSP_MOUNT_POINTS_CAST(obj : longint) : PGstRTSPMountPoints;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-function GST_RTSP_MOUNT_POINTS_CLASS_CAST(klass : longint) : PGstRTSPMountPointsClass;
-
+  {$IFDEF read_struct}
 type
-{*
- * GstRTSPMountPoints:
- *
- * Creates a #GstRTSPMediaFactory object for a given url.
-  }
-{< private > }
+  PGstRTSPMountPointsPrivate = type Pointer;
+
   PGstRTSPMountPoints = ^TGstRTSPMountPoints;
   TGstRTSPMountPoints = record
-      parent : TGObject;
-      priv : PGstRTSPMountPointsPrivate;
-      _gst_reserved : array[0..(GST_PADDING)-1] of Tgpointer;
-    end;
+    parent: TGObject;
+    priv: PGstRTSPMountPointsPrivate;
+    _gst_reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
+  end;
 
-{*
- * GstRTSPMountPointsClass:
- * @make_path: make a path from the given url.
- *
- * The class for the media mounts object.
-  }
-{< private > }
   PGstRTSPMountPointsClass = ^TGstRTSPMountPointsClass;
   TGstRTSPMountPointsClass = record
-      parent_class : TGObjectClass;
-      make_path : function (mounts:PGstRTSPMountPoints; url:PGstRTSPUrl):Pgchar;cdecl;
-      _gst_reserved : array[0..(GST_PADDING)-1] of Tgpointer;
-    end;
+    parent_class: TGObjectClass;
+    make_path: function(mounts: PGstRTSPMountPoints; url: PGstRTSPUrl): Pgchar; cdecl;
+    _gst_reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
+  end;
+  {$ENDIF read_struct}
 
-
-function gst_rtsp_mount_points_get_type:TGType;cdecl;external libgstrtsp;
-{ creating a mount points  }
-function gst_rtsp_mount_points_new:PGstRTSPMountPoints;cdecl;external libgstrtsp;
-function gst_rtsp_mount_points_make_path(mounts:PGstRTSPMountPoints; url:PGstRTSPUrl):Pgchar;cdecl;external libgstrtsp;
-{ finding a media factory  }
-function gst_rtsp_mount_points_match(mounts:PGstRTSPMountPoints; path:Pgchar; matched:Pgint):PGstRTSPMediaFactory;cdecl;external libgstrtsp;
-{ managing media to a mount point  }
-procedure gst_rtsp_mount_points_add_factory(mounts:PGstRTSPMountPoints; path:Pgchar; factory:PGstRTSPMediaFactory);cdecl;external libgstrtsp;
-procedure gst_rtsp_mount_points_remove_factory(mounts:PGstRTSPMountPoints; path:Pgchar);cdecl;external libgstrtsp;
-{$ifdef //////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC           }
-{////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC           (GstRTSPMountPoints, gst_object_unref) }
-{$endif}
-{$endif}
-{ __GST_RTSP_MOUNT_POINTS_H__  }
+{$IFDEF read_function}
+function gst_rtsp_mount_points_get_type: TGType; cdecl; external libgstrtsp;
+function gst_rtsp_mount_points_new: PGstRTSPMountPoints; cdecl; external libgstrtsp;
+function gst_rtsp_mount_points_make_path(mounts: PGstRTSPMountPoints; url: PGstRTSPUrl): Pgchar; cdecl; external libgstrtsp;
+function gst_rtsp_mount_points_match(mounts: PGstRTSPMountPoints; path: Pgchar; matched: Pgint): PGstRTSPMediaFactory; cdecl; external libgstrtsp;
+procedure gst_rtsp_mount_points_add_factory(mounts: PGstRTSPMountPoints; path: Pgchar; factory: PGstRTSPMediaFactory); cdecl; external libgstrtsp;
+procedure gst_rtsp_mount_points_remove_factory(mounts: PGstRTSPMountPoints; path: Pgchar); cdecl; external libgstrtsp;
 
 // === Konventiert am: 20-7-26 13:45:20 ===
 
+function GST_TYPE_RTSP_MOUNT_POINTS: TGType;
+function GST_RTSP_MOUNT_POINTS(obj: Pointer): PGstRTSPMountPoints;
+function GST_RTSP_MOUNT_POINTS_CLASS(klass: Pointer): PGstRTSPMountPointsClass;
+function GST_IS_RTSP_MOUNT_POINTS(obj: Pointer): Tgboolean;
+function GST_IS_RTSP_MOUNT_POINTS_CLASS(klass: Pointer): Tgboolean;
+function GST_RTSP_MOUNT_POINTS_GET_CLASS(obj: Pointer): PGstRTSPMountPointsClass;
+function GST_RTSP_MOUNT_POINTS_CAST(obj: Pointer): PGstRTSPMountPoints;
+function GST_RTSP_MOUNT_POINTS_CLASS_CAST(klass: Pointer): PGstRTSPMountPointsClass;
+{$ENDIF read_function}
 
 implementation
 
-
-{ was #define dname def_expr }
-function GST_TYPE_RTSP_MOUNT_POINTS : longint; { return type might be wrong }
-  begin
-    GST_TYPE_RTSP_MOUNT_POINTS:=gst_rtsp_mount_points_get_type;
-  end;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_IS_RTSP_MOUNT_POINTS(obj : longint) : longint;
+function GST_TYPE_RTSP_MOUNT_POINTS: TGType;
 begin
-  GST_IS_RTSP_MOUNT_POINTS:=G_TYPE_CHECK_INSTANCE_TYPE(obj,GST_TYPE_RTSP_MOUNT_POINTS);
+  Result := gst_rtsp_mount_points_get_type;
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_IS_RTSP_MOUNT_POINTS_CLASS(klass : longint) : longint;
+function GST_RTSP_MOUNT_POINTS(obj: Pointer): PGstRTSPMountPoints;
 begin
-  GST_IS_RTSP_MOUNT_POINTS_CLASS:=G_TYPE_CHECK_CLASS_TYPE(klass,GST_TYPE_RTSP_MOUNT_POINTS);
+  Result := PGstRTSPMountPoints(g_type_check_instance_cast(obj, GST_TYPE_RTSP_MOUNT_POINTS));
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_RTSP_MOUNT_POINTS_GET_CLASS(obj : longint) : longint;
+function GST_RTSP_MOUNT_POINTS_CLASS(klass: Pointer): PGstRTSPMountPointsClass;
 begin
-  GST_RTSP_MOUNT_POINTS_GET_CLASS:=G_TYPE_INSTANCE_GET_CLASS(obj,GST_TYPE_RTSP_MOUNT_POINTS,GstRTSPMountPointsClass);
+  Result := PGstRTSPMountPointsClass(g_type_check_class_cast(klass, GST_TYPE_RTSP_MOUNT_POINTS));
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_RTSP_MOUNT_POINTS(obj : longint) : longint;
+function GST_IS_RTSP_MOUNT_POINTS(obj: Pointer): Tgboolean;
 begin
-  GST_RTSP_MOUNT_POINTS:=G_TYPE_CHECK_INSTANCE_CAST(obj,GST_TYPE_RTSP_MOUNT_POINTS,GstRTSPMountPoints);
+  Result := g_type_check_instance_is_a(obj, GST_TYPE_RTSP_MOUNT_POINTS);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_RTSP_MOUNT_POINTS_CLASS(klass : longint) : longint;
+function GST_IS_RTSP_MOUNT_POINTS_CLASS(klass: Pointer): Tgboolean;
 begin
-  GST_RTSP_MOUNT_POINTS_CLASS:=G_TYPE_CHECK_CLASS_CAST(klass,GST_TYPE_RTSP_MOUNT_POINTS,GstRTSPMountPointsClass);
+  Result := g_type_check_class_is_a(klass, GST_TYPE_RTSP_MOUNT_POINTS);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-function GST_RTSP_MOUNT_POINTS_CAST(obj : longint) : PGstRTSPMountPoints;
+function GST_RTSP_MOUNT_POINTS_GET_CLASS(obj: Pointer): PGstRTSPMountPointsClass;
 begin
-  GST_RTSP_MOUNT_POINTS_CAST:=PGstRTSPMountPoints(obj);
+  Result := PGstRTSPMountPointsClass(PGTypeInstance(obj)^.g_class);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-function GST_RTSP_MOUNT_POINTS_CLASS_CAST(klass : longint) : PGstRTSPMountPointsClass;
+function GST_RTSP_MOUNT_POINTS_CAST(obj: Pointer): PGstRTSPMountPoints;
 begin
-  GST_RTSP_MOUNT_POINTS_CLASS_CAST:=PGstRTSPMountPointsClass(klass);
+  Result := PGstRTSPMountPoints(obj);
 end;
 
+function GST_RTSP_MOUNT_POINTS_CLASS_CAST(klass: Pointer): PGstRTSPMountPointsClass;
+begin
+  Result := PGstRTSPMountPointsClass(klass);
+end;
 
 end.

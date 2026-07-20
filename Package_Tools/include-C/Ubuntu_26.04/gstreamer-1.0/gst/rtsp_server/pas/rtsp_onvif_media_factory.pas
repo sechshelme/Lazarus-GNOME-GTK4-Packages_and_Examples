@@ -1,197 +1,101 @@
 unit rtsp_onvif_media_factory;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
-  fp_glib2, fp_gst;
+  fp_glib2, fp_gst, rtsp_media_factory, rtsp_onvif_media, rtsp_context;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
-{ GStreamer
- * Copyright (C) 2017 Sebastian Dröge <sebastian@centricular.com>
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Library General Public
- * License as published by the Free Software Foundation; either
- * version 2 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Library General Public License for more details.
- *
- * You should have received a copy of the GNU Library General Public
- * License along with this library; if not, write to the
- * Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
- * Boston, MA 02110-1301, USA.
-  }
-{$ifndef __GST_RTSP_ONVIF_MEDIA_FACTORY_H__}
-{$define __GST_RTSP_ONVIF_MEDIA_FACTORY_H__}
-{$include <gst/gst.h>}
-{$include "rtsp-media-factory.h"}
-{$include "rtsp-onvif-media.h"}
-
-{ was #define dname def_expr }
-function GST_TYPE_RTSP_ONVIF_MEDIA_FACTORY : longint; { return type might be wrong }
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_IS_RTSP_ONVIF_MEDIA_FACTORY(obj : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_IS_RTSP_ONVIF_MEDIA_FACTORY_CLASS(klass : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_RTSP_ONVIF_MEDIA_FACTORY_GET_CLASS(obj : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_RTSP_ONVIF_MEDIA_FACTORY(obj : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_RTSP_ONVIF_MEDIA_FACTORY_CLASS(klass : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-function GST_RTSP_ONVIF_MEDIA_FACTORY_CAST(obj : longint) : PGstRTSPOnvifMediaFactory;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-function GST_RTSP_ONVIF_MEDIA_FACTORY_CLASS_CAST(klass : longint) : PGstRTSPOnvifMediaFactoryClass;
-
+  {$IFDEF read_struct}
 type
-{*
- * GstRTSPOnvifMediaFactory:
- *
- * Since: 1.14
-  }
-{*
-   * GstRTSPOnvifMediaFactoryClass::create_backchannel_stream:
-   * @factory: a #GstRTSPOnvifMediaFactory
-   * @media: a #GstRTSPOnvifMedia
-   * @ctx: a #GstRTSPContext
-   *
-   * Called by the factory from #GstRTSPMediaFactoryClass::construct(). The default implementation
-   * creates the * #GstRTSPStream for the backchannel receiver by calling
-   * gst_rtsp_onvif_media_collect_backchannel (media). Implementations
-   * that want to create the backchannel later should return TRUE here
-   * and call gst_rtsp_onvif_media_collect_backchannel() later, but must
-   * do so before the media finishes preparing.
-   *
-   * Returns: TRUE on success. FALSE on a fatal error.
-   *
-   * Since: 1.26
-    }
-{< private > }
-  PGstRTSPOnvifMediaFactoryClass = ^TGstRTSPOnvifMediaFactoryClass;
-  TGstRTSPOnvifMediaFactoryClass = record
-      parent : TGstRTSPMediaFactoryClass;
-      has_backchannel_support : function (factory:PGstRTSPOnvifMediaFactory):Tgboolean;cdecl;
-      create_backchannel_stream : function (factory:PGstRTSPOnvifMediaFactory; media:PGstRTSPOnvifMedia; ctx:PGstRTSPContext):Tgboolean;cdecl;
-      _gst_reserved : array[0..(GST_PADDING_LARGE-1)-1] of Tgpointer;
-    end;
+  PGstRTSPOnvifMediaFactoryPrivate = type Pointer;
 
-{< private > }
   PGstRTSPOnvifMediaFactory = ^TGstRTSPOnvifMediaFactory;
   TGstRTSPOnvifMediaFactory = record
-      parent : TGstRTSPMediaFactory;
-      priv : PGstRTSPOnvifMediaFactoryPrivate;
-      _gst_reserved : array[0..(GST_PADDING)-1] of Tgpointer;
-    end;
+    parent: TGstRTSPMediaFactory;
+    priv: PGstRTSPOnvifMediaFactoryPrivate;
+    _gst_reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
+  end;
 
+  PGstRTSPOnvifMediaFactoryClass = ^TGstRTSPOnvifMediaFactoryClass;
+  TGstRTSPOnvifMediaFactoryClass = record
+    parent: TGstRTSPMediaFactoryClass;
+    has_backchannel_support: function(factory: PGstRTSPOnvifMediaFactory): Tgboolean; cdecl;
+    create_backchannel_stream: function(factory: PGstRTSPOnvifMediaFactory; media: PGstRTSPOnvifMedia; ctx: PGstRTSPContext): Tgboolean; cdecl;
+    _gst_reserved: array[0..(GST_PADDING_LARGE - 1) - 1] of Tgpointer;
+  end;
+  {$ENDIF read_struct}
 
-function gst_rtsp_onvif_media_factory_get_type:TGType;cdecl;external libgstrtsp;
-function gst_rtsp_onvif_media_factory_new:PGstRTSPMediaFactory;cdecl;external libgstrtsp;
-procedure gst_rtsp_onvif_media_factory_set_backchannel_launch(factory:PGstRTSPOnvifMediaFactory; launch:Pgchar);cdecl;external libgstrtsp;
-function gst_rtsp_onvif_media_factory_get_backchannel_launch(factory:PGstRTSPOnvifMediaFactory):Pgchar;cdecl;external libgstrtsp;
-function gst_rtsp_onvif_media_factory_has_backchannel_support(factory:PGstRTSPOnvifMediaFactory):Tgboolean;cdecl;external libgstrtsp;
-function gst_rtsp_onvif_media_factory_has_replay_support(factory:PGstRTSPOnvifMediaFactory):Tgboolean;cdecl;external libgstrtsp;
-procedure gst_rtsp_onvif_media_factory_set_replay_support(factory:PGstRTSPOnvifMediaFactory; has_replay_support:Tgboolean);cdecl;external libgstrtsp;
-procedure gst_rtsp_onvif_media_factory_set_backchannel_bandwidth(factory:PGstRTSPOnvifMediaFactory; bandwidth:Tguint);cdecl;external libgstrtsp;
-function gst_rtsp_onvif_media_factory_get_backchannel_bandwidth(factory:PGstRTSPOnvifMediaFactory):Tguint;cdecl;external libgstrtsp;
-function gst_rtsp_onvif_media_factory_requires_backchannel(factory:PGstRTSPMediaFactory; ctx:PGstRTSPContext):Tgboolean;cdecl;external libgstrtsp;
-{$ifdef //////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC           }
-{////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC           (GstRTSPOnvifMediaFactory, gst_object_unref) }
-{$endif}
-{$endif}
-{ __GST_RTSP_ONVIF_MEDIA_FACTORY_H__  }
+{$IFDEF read_function}
+function gst_rtsp_onvif_media_factory_get_type: TGType; cdecl; external libgstrtsp;
+function gst_rtsp_onvif_media_factory_new: PGstRTSPMediaFactory; cdecl; external libgstrtsp;
+procedure gst_rtsp_onvif_media_factory_set_backchannel_launch(factory: PGstRTSPOnvifMediaFactory; launch: Pgchar); cdecl; external libgstrtsp;
+function gst_rtsp_onvif_media_factory_get_backchannel_launch(factory: PGstRTSPOnvifMediaFactory): Pgchar; cdecl; external libgstrtsp;
+function gst_rtsp_onvif_media_factory_has_backchannel_support(factory: PGstRTSPOnvifMediaFactory): Tgboolean; cdecl; external libgstrtsp;
+function gst_rtsp_onvif_media_factory_has_replay_support(factory: PGstRTSPOnvifMediaFactory): Tgboolean; cdecl; external libgstrtsp;
+procedure gst_rtsp_onvif_media_factory_set_replay_support(factory: PGstRTSPOnvifMediaFactory; has_replay_support: Tgboolean); cdecl; external libgstrtsp;
+procedure gst_rtsp_onvif_media_factory_set_backchannel_bandwidth(factory: PGstRTSPOnvifMediaFactory; bandwidth: Tguint); cdecl; external libgstrtsp;
+function gst_rtsp_onvif_media_factory_get_backchannel_bandwidth(factory: PGstRTSPOnvifMediaFactory): Tguint; cdecl; external libgstrtsp;
+function gst_rtsp_onvif_media_factory_requires_backchannel(factory: PGstRTSPMediaFactory; ctx: PGstRTSPContext): Tgboolean; cdecl; external libgstrtsp;
 
 // === Konventiert am: 20-7-26 13:45:01 ===
 
+function GST_TYPE_RTSP_ONVIF_MEDIA_FACTORY: TGType;
+function GST_RTSP_ONVIF_MEDIA_FACTORY(obj: Pointer): PGstRTSPOnvifMediaFactory;
+function GST_RTSP_ONVIF_MEDIA_FACTORY_CLASS(klass: Pointer): PGstRTSPOnvifMediaFactoryClass;
+function GST_IS_RTSP_ONVIF_MEDIA_FACTORY(obj: Pointer): Tgboolean;
+function GST_IS_RTSP_ONVIF_MEDIA_FACTORY_CLASS(klass: Pointer): Tgboolean;
+function GST_RTSP_ONVIF_MEDIA_FACTORY_GET_CLASS(obj: Pointer): PGstRTSPOnvifMediaFactoryClass;
+function GST_RTSP_ONVIF_MEDIA_FACTORY_CAST(obj: Pointer): PGstRTSPOnvifMediaFactory;
+function GST_RTSP_ONVIF_MEDIA_FACTORY_CLASS_CAST(klass: Pointer): PGstRTSPOnvifMediaFactoryClass;
+{$ENDIF read_function}
 
 implementation
 
-
-{ was #define dname def_expr }
-function GST_TYPE_RTSP_ONVIF_MEDIA_FACTORY : longint; { return type might be wrong }
-  begin
-    GST_TYPE_RTSP_ONVIF_MEDIA_FACTORY:=gst_rtsp_onvif_media_factory_get_type;
-  end;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_IS_RTSP_ONVIF_MEDIA_FACTORY(obj : longint) : longint;
+function GST_TYPE_RTSP_ONVIF_MEDIA_FACTORY: TGType;
 begin
-  GST_IS_RTSP_ONVIF_MEDIA_FACTORY:=G_TYPE_CHECK_INSTANCE_TYPE(obj,GST_TYPE_RTSP_ONVIF_MEDIA_FACTORY);
+  Result := gst_rtsp_onvif_media_factory_get_type;
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_IS_RTSP_ONVIF_MEDIA_FACTORY_CLASS(klass : longint) : longint;
+function GST_RTSP_ONVIF_MEDIA_FACTORY(obj: Pointer): PGstRTSPOnvifMediaFactory;
 begin
-  GST_IS_RTSP_ONVIF_MEDIA_FACTORY_CLASS:=G_TYPE_CHECK_CLASS_TYPE(klass,GST_TYPE_RTSP_ONVIF_MEDIA_FACTORY);
+  Result := PGstRTSPOnvifMediaFactory(g_type_check_instance_cast(obj, GST_TYPE_RTSP_ONVIF_MEDIA_FACTORY));
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_RTSP_ONVIF_MEDIA_FACTORY_GET_CLASS(obj : longint) : longint;
+function GST_RTSP_ONVIF_MEDIA_FACTORY_CLASS(klass: Pointer): PGstRTSPOnvifMediaFactoryClass;
 begin
-  GST_RTSP_ONVIF_MEDIA_FACTORY_GET_CLASS:=G_TYPE_INSTANCE_GET_CLASS(obj,GST_TYPE_RTSP_ONVIF_MEDIA_FACTORY,GstRTSPOnvifMediaFactoryClass);
+  Result := PGstRTSPOnvifMediaFactoryClass(g_type_check_class_cast(klass, GST_TYPE_RTSP_ONVIF_MEDIA_FACTORY));
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_RTSP_ONVIF_MEDIA_FACTORY(obj : longint) : longint;
+function GST_IS_RTSP_ONVIF_MEDIA_FACTORY(obj: Pointer): Tgboolean;
 begin
-  GST_RTSP_ONVIF_MEDIA_FACTORY:=G_TYPE_CHECK_INSTANCE_CAST(obj,GST_TYPE_RTSP_ONVIF_MEDIA_FACTORY,GstRTSPOnvifMediaFactory);
+  Result := g_type_check_instance_is_a(obj, GST_TYPE_RTSP_ONVIF_MEDIA_FACTORY);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GST_RTSP_ONVIF_MEDIA_FACTORY_CLASS(klass : longint) : longint;
+function GST_IS_RTSP_ONVIF_MEDIA_FACTORY_CLASS(klass: Pointer): Tgboolean;
 begin
-  GST_RTSP_ONVIF_MEDIA_FACTORY_CLASS:=G_TYPE_CHECK_CLASS_CAST(klass,GST_TYPE_RTSP_ONVIF_MEDIA_FACTORY,GstRTSPOnvifMediaFactoryClass);
+  Result := g_type_check_class_is_a(klass, GST_TYPE_RTSP_ONVIF_MEDIA_FACTORY);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-function GST_RTSP_ONVIF_MEDIA_FACTORY_CAST(obj : longint) : PGstRTSPOnvifMediaFactory;
+function GST_RTSP_ONVIF_MEDIA_FACTORY_GET_CLASS(obj: Pointer): PGstRTSPOnvifMediaFactoryClass;
 begin
-  GST_RTSP_ONVIF_MEDIA_FACTORY_CAST:=PGstRTSPOnvifMediaFactory(obj);
+  Result := PGstRTSPOnvifMediaFactoryClass(PGTypeInstance(obj)^.g_class);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-function GST_RTSP_ONVIF_MEDIA_FACTORY_CLASS_CAST(klass : longint) : PGstRTSPOnvifMediaFactoryClass;
+function GST_RTSP_ONVIF_MEDIA_FACTORY_CAST(obj: Pointer): PGstRTSPOnvifMediaFactory;
 begin
-  GST_RTSP_ONVIF_MEDIA_FACTORY_CLASS_CAST:=PGstRTSPOnvifMediaFactoryClass(klass);
+  Result := PGstRTSPOnvifMediaFactory(obj);
 end;
 
+function GST_RTSP_ONVIF_MEDIA_FACTORY_CLASS_CAST(klass: Pointer): PGstRTSPOnvifMediaFactoryClass;
+begin
+  Result := PGstRTSPOnvifMediaFactoryClass(klass);
+end;
 
 end.

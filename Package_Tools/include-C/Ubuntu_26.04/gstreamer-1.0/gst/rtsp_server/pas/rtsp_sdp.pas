@@ -5,7 +5,7 @@ unit rtsp_sdp;
 interface
 
 uses
-  fp_glib2, fp_gst;
+  fp_glib2, fp_gst, fp_gst_rtsp;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

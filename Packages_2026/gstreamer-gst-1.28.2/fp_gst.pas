@@ -15,12 +15,20 @@ type
   // fremd
   PGstSDPMessage=Pointer;
   PGstRTSPToken=Pointer;
+  PGstRTSPAuth=Pointer;
+
+  // fremd net
+  PGstNetTimeProvider=Pointer;
 
 
   // eigen
   PGstRTSPMedia=type Pointer;
   PGstRTSPStream=Pointer;
   PGstRTSPStreamTransport=Pointer;
+
+  TGstRTSPSuspendMode=LongInt;
+  TGstRTSPTransportMode=LongInt;
+  TGstRTSPPublishClockMode=LongInt;
 
   // ===============
 

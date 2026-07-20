@@ -1,15 +1,18 @@
 unit rtsp_auth;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
-  fp_glib2, fp_gst;
+  fp_glib2, fp_gst, fp_gst_rtsp, fp_gst_controller, rtsp_context;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGstRTSPAuthPrivate = type Pointer;
 
@@ -29,7 +32,22 @@ type
     accept_certificate: function(auth: PGstRTSPAuth; connection: PGTlsConnection; peer_cert: PGTlsCertificate; errors: TGTlsCertificateFlags): Tgboolean; cdecl;
     _gst_reserved: array[0..(GST_PADDING - 1) - 1] of Tgpointer;
   end;
+  {$ENDIF read_struct}
 
+  {$IFDEF read_enum}
+const
+  GST_RTSP_AUTH_CHECK_CONNECT = 'auth.check.connect';
+  GST_RTSP_AUTH_CHECK_URL = 'auth.check.url';
+  GST_RTSP_AUTH_CHECK_MEDIA_FACTORY_ACCESS = 'auth.check.media.factory.access';
+  GST_RTSP_AUTH_CHECK_MEDIA_FACTORY_CONSTRUCT = 'auth.check.media.factory.construct';
+  GST_RTSP_AUTH_CHECK_TRANSPORT_CLIENT_SETTINGS = 'auth.check.transport.client-settings';
+  GST_RTSP_TOKEN_MEDIA_FACTORY_ROLE = 'media.factory.role';
+  GST_RTSP_TOKEN_TRANSPORT_CLIENT_SETTINGS = 'transport.client-settings';
+  GST_RTSP_PERM_MEDIA_FACTORY_ACCESS = 'media.factory.access';
+  GST_RTSP_PERM_MEDIA_FACTORY_CONSTRUCT = 'media.factory.construct';
+  {$ENDIF read_enum}
+
+{$IFDEF read_function}
 function gst_rtsp_auth_get_type: TGType; cdecl; external libgstrtsp;
 function gst_rtsp_auth_new: PGstRTSPAuth; cdecl; external libgstrtsp;
 procedure gst_rtsp_auth_set_tls_certificate(auth: PGstRTSPAuth; cert: PGTlsCertificate); cdecl; external libgstrtsp;
@@ -52,18 +70,7 @@ procedure gst_rtsp_auth_set_realm(auth: PGstRTSPAuth; realm: Pgchar); cdecl; ext
 function gst_rtsp_auth_get_realm(auth: PGstRTSPAuth): Pgchar; cdecl; external libgstrtsp;
 function gst_rtsp_auth_make_basic(user: Pgchar; pass: Pgchar): Pgchar; cdecl; external libgstrtsp;
 
-const
-  GST_RTSP_AUTH_CHECK_CONNECT = 'auth.check.connect';
-  GST_RTSP_AUTH_CHECK_URL = 'auth.check.url';
-  GST_RTSP_AUTH_CHECK_MEDIA_FACTORY_ACCESS = 'auth.check.media.factory.access';
-  GST_RTSP_AUTH_CHECK_MEDIA_FACTORY_CONSTRUCT = 'auth.check.media.factory.construct';
-  GST_RTSP_AUTH_CHECK_TRANSPORT_CLIENT_SETTINGS = 'auth.check.transport.client-settings';
-  GST_RTSP_TOKEN_MEDIA_FACTORY_ROLE = 'media.factory.role';
-  GST_RTSP_TOKEN_TRANSPORT_CLIENT_SETTINGS = 'transport.client-settings';
-  GST_RTSP_PERM_MEDIA_FACTORY_ACCESS = 'media.factory.access';
-  GST_RTSP_PERM_MEDIA_FACTORY_CONSTRUCT = 'media.factory.construct';
-
-  // === Konventiert am: 20-7-26 13:45:51 ===
+// === Konventiert am: 20-7-26 13:45:51 ===
 
 function GST_TYPE_RTSP_AUTH: TGType;
 function GST_RTSP_AUTH(obj: Pointer): PGstRTSPAuth;
@@ -73,6 +80,7 @@ function GST_IS_RTSP_AUTH_CLASS(klass: Pointer): Tgboolean;
 function GST_RTSP_AUTH_GET_CLASS(obj: Pointer): PGstRTSPAuthClass;
 function GST_RTSP_AUTH_CAST(obj: Pointer): PGstRTSPAuth;
 function GST_RTSP_AUTH_CLASS_CAST(klass: Pointer): PGstRTSPAuthClass;
+{$ENDIF read_function}
 
 implementation
 
