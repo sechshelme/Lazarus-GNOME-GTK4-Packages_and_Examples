@@ -166,6 +166,10 @@
         <Filename Value="fp_ges.pas"/>
         <UnitName Value="fp_ges"/>
       </Item>
+      <Item>
+        <Filename Value="fp_gst_rtsp_server.pas"/>
+        <UnitName Value="fp_gst_rtsp_server"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>

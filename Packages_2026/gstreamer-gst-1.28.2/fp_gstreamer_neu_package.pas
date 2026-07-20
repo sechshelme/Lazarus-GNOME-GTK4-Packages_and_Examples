@@ -16,7 +16,8 @@ uses
   fp_gst_isoff, fp_gst_insertbin, fp_gst_gl, fp_gst_fft, fp_gst_cuda, 
   fp_gst_controller, fp_gst_codecparsers, fp_gst_check, 
   fp_gst_basecamerabinsrc, fp_gst_audio, fp_gst_app, fp_gst_analytics, 
-  fp_gst_allocators, fp_gst, fp_gst_interfaces, fp_ges, LazarusPackageIntf;
+  fp_gst_allocators, fp_gst, fp_gst_interfaces, fp_ges, fp_gst_rtsp_server, 
+  LazarusPackageIntf;
 
 implementation
 
