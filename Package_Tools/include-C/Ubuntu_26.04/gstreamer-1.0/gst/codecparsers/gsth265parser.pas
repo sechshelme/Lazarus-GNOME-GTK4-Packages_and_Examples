@@ -1,4 +1,16 @@
-/* Gstreamer H.265 bitstream parser
+unit gsth265parser;
+
+interface
+
+uses
+  fp_glib2, fp_gst;
+
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{ Gstreamer H.265 bitstream parser
  * Copyright (C) 2013 Intel Corporation
  * Copyright (C) 2013 Sreerenj Balachandran <sreerenj.balachandran@intel.com>
  *
@@ -18,97 +30,100 @@
  * License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
  * Boston, MA 02110-1301, USA.
- */
+  }
+{$ifndef __GST_H265_PARSER_H__}
+{$define __GST_H265_PARSER_H__}
+{$include <gst/gst.h>}
+{$include <gst/codecparsers/codecparsers-prelude.h>}
 
-#ifndef __GST_H265_PARSER_H__
-#define __GST_H265_PARSER_H__
+const
+  GST_H265_MAX_SUB_LAYERS = 8;  
+  GST_H265_MAX_VPS_COUNT = 16;  
+  GST_H265_MAX_SPS_COUNT = 16;  
+  GST_H265_MAX_PPS_COUNT = 64;  
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
 
-#ifndef GST_USE_UNSTABLE_API
-#warning "The H.265 parsing library is unstable API and may change in future."
-#warning "You can define GST_USE_UNSTABLE_API to avoid this warning."
-#endif
+function GST_H265_IS_B_SLICE(slice : longint) : longint;
 
-#include <gst/gst.h>
-#include <gst/codecparsers/codecparsers-prelude.h>
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function GST_H265_IS_P_SLICE(slice : longint) : longint;
 
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function GST_H265_IS_I_SLICE(slice : longint) : longint;
 
-
-#define GST_H265_MAX_SUB_LAYERS   8
-#define GST_H265_MAX_VPS_COUNT   16
-#define GST_H265_MAX_SPS_COUNT   16
-#define GST_H265_MAX_PPS_COUNT   64
-
-#define GST_H265_IS_B_SLICE(slice)  ((slice)->type == GST_H265_B_SLICE)
-#define GST_H265_IS_P_SLICE(slice)  ((slice)->type == GST_H265_P_SLICE)
-#define GST_H265_IS_I_SLICE(slice)  ((slice)->type == GST_H265_I_SLICE)
-
-/**
+{*
  * GST_H265_IS_NAL_TYPE_IDR:
  * @nal_type: a #GstH265NalUnitType
  *
  * Check whether @nal_type is IDR or not
  *
  * Since: 1.18
- */
-#define GST_H265_IS_NAL_TYPE_IDR(nal_type) \
-  ((nal_type) == GST_H265_NAL_SLICE_IDR_W_RADL || (nal_type) == GST_H265_NAL_SLICE_IDR_N_LP)
-
-/**
+  }
+{xxxx  #define GST_H265_IS_NAL_TYPE_IDR(nal_type)   ((nal_type) == GST_H265_NAL_SLICE_IDR_W_RADL || (nal_type) == GST_H265_NAL_SLICE_IDR_N_LP) }
+{*
  * GST_H265_IS_NAL_TYPE_IRAP:
  * @nal_type: a #GstH265NalUnitType
  *
  * Check whether @nal_type is IRAP or not
  *
  * Since: 1.18
- */
-#define GST_H265_IS_NAL_TYPE_IRAP(nal_type) \
-  ((nal_type) >= GST_H265_NAL_SLICE_BLA_W_LP && (nal_type) <= GST_H265_RESERVED_IRAP_NAL_TYPE_MAX)
+  }
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function GST_H265_IS_NAL_TYPE_IRAP(nal_type : longint) : longint;
 
-/**
+{*
  * GST_H265_IS_NAL_TYPE_BLA:
  * @nal_type: a #GstH265NalUnitType
  *
  * Check whether @nal_type is BLA or not
  *
  * Since: 1.18
- */
-#define GST_H265_IS_NAL_TYPE_BLA(nal_type) \
-  ((nal_type) >= GST_H265_NAL_SLICE_BLA_W_LP && (nal_type) <= GST_H265_NAL_SLICE_BLA_N_LP)
+  }
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function GST_H265_IS_NAL_TYPE_BLA(nal_type : longint) : longint;
 
-/**
+{*
  * GST_H265_IS_NAL_TYPE_CRA:
  * @nal_type: a #GstH265NalUnitType
  *
  * Check whether @nal_type is CRA or not
  *
  * Since: 1.18
- */
-#define GST_H265_IS_NAL_TYPE_CRA(nal_type) \
-  ((nal_type) == GST_H265_NAL_SLICE_CRA_NUT)
+  }
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function GST_H265_IS_NAL_TYPE_CRA(nal_type : longint) : longint;
 
-/**
+{*
  * GST_H265_IS_NAL_TYPE_RADL:
  * @nal_type: a #GstH265NalUnitType
  *
  * Check whether @nal_type is RADL or not
  *
  * Since: 1.18
- */
-#define GST_H265_IS_NAL_TYPE_RADL(nal_type) \
-  ((nal_type) == GST_H265_NAL_SLICE_RADL_N || (nal_type) == GST_H265_NAL_SLICE_RADL_R)
-
-/**
+  }
+{xxxxxxxxx #define GST_H265_IS_NAL_TYPE_RADL(nal_type) \  ((nal_type) == GST_H265_NAL_SLICE_RADL_N || (nal_type) == GST_H265_NAL_SLICE_RADL_R) }
+{*
  * GST_H265_IS_NAL_TYPE_RASL:
  * @nal_type: a #GstH265NalUnitType
  *
  * Check whether @nal_type is RASL or not
  *
  * Since: 1.18
- */
-#define GST_H265_IS_NAL_TYPE_RASL(nal_type) \
-  ((nal_type) == GST_H265_NAL_SLICE_RASL_N || (nal_type) == GST_H265_NAL_SLICE_RASL_R)
-
-/**
+  }
+{xxxx #define GST_H265_IS_NAL_TYPE_RASL(nal_type) \  ((nal_type) == GST_H265_NAL_SLICE_RASL_N || (nal_type) == GST_H265_NAL_SLICE_RASL_R) }
+{*
  * GstH265Profile:
  * @GST_H265_PROFILE_MAIN: Main profile (A.3.2)
  * @GST_H265_PROFILE_MAIN_10: Main 10 profile (A.3.3)
@@ -156,58 +171,59 @@
  *
  * H.265 Profiles.
  *
- */
-typedef enum {
-  GST_H265_PROFILE_INVALID              = -1,
-  GST_H265_PROFILE_MAIN                 = 1,
-  GST_H265_PROFILE_MAIN_10              = 2,
-  GST_H265_PROFILE_MAIN_STILL_PICTURE   = 3,
-  GST_H265_PROFILE_MONOCHROME,
-  GST_H265_PROFILE_MONOCHROME_12,
-  GST_H265_PROFILE_MONOCHROME_16,
-  GST_H265_PROFILE_MAIN_12,
-  GST_H265_PROFILE_MAIN_422_10,
-  GST_H265_PROFILE_MAIN_422_12,
-  GST_H265_PROFILE_MAIN_444,
-  GST_H265_PROFILE_MAIN_444_10,
-  GST_H265_PROFILE_MAIN_444_12,
-  GST_H265_PROFILE_MAIN_INTRA,
-  GST_H265_PROFILE_MAIN_10_INTRA,
-  GST_H265_PROFILE_MAIN_12_INTRA,
-  GST_H265_PROFILE_MAIN_422_10_INTRA,
-  GST_H265_PROFILE_MAIN_422_12_INTRA,
-  GST_H265_PROFILE_MAIN_444_INTRA,
-  GST_H265_PROFILE_MAIN_444_10_INTRA,
-  GST_H265_PROFILE_MAIN_444_12_INTRA,
-  GST_H265_PROFILE_MAIN_444_16_INTRA,
-  GST_H265_PROFILE_MAIN_444_STILL_PICTURE,
-  GST_H265_PROFILE_MAIN_444_16_STILL_PICTURE,
-  GST_H265_PROFILE_MONOCHROME_10,
-  GST_H265_PROFILE_HIGH_THROUGHPUT_444,
-  GST_H265_PROFILE_HIGH_THROUGHPUT_444_10,
-  GST_H265_PROFILE_HIGH_THROUGHPUT_444_14,
-  GST_H265_PROFILE_HIGH_THROUGHPUT_444_16_INTRA,
-  GST_H265_PROFILE_SCREEN_EXTENDED_MAIN,
-  GST_H265_PROFILE_SCREEN_EXTENDED_MAIN_10,
-  GST_H265_PROFILE_SCREEN_EXTENDED_MAIN_444,
-  GST_H265_PROFILE_SCREEN_EXTENDED_MAIN_444_10,
-  GST_H265_PROFILE_SCREEN_EXTENDED_HIGH_THROUGHPUT_444,
-  GST_H265_PROFILE_SCREEN_EXTENDED_HIGH_THROUGHPUT_444_10,
-  GST_H265_PROFILE_SCREEN_EXTENDED_HIGH_THROUGHPUT_444_14,
-  GST_H265_PROFILE_MULTIVIEW_MAIN,
-  GST_H265_PROFILE_SCALABLE_MAIN,
-  GST_H265_PROFILE_SCALABLE_MAIN_10,
-  GST_H265_PROFILE_SCALABLE_MONOCHROME,
-  GST_H265_PROFILE_SCALABLE_MONOCHROME_12,
-  GST_H265_PROFILE_SCALABLE_MONOCHROME_16,
-  GST_H265_PROFILE_SCALABLE_MAIN_444,
-  GST_H265_PROFILE_3D_MAIN,
-
-  /* end of the profiles */
-  GST_H265_PROFILE_MAX
-} GstH265Profile;
-
-/**
+  }
+{ end of the profiles  }
+type
+  PGstH265Profile = ^TGstH265Profile;
+  TGstH265Profile =  Longint;
+  Const
+    GST_H265_PROFILE_INVALID = -(1);
+    GST_H265_PROFILE_MAIN = 1;
+    GST_H265_PROFILE_MAIN_10 = 2;
+    GST_H265_PROFILE_MAIN_STILL_PICTURE = 3;
+    GST_H265_PROFILE_MONOCHROME = 4;
+    GST_H265_PROFILE_MONOCHROME_12 = 5;
+    GST_H265_PROFILE_MONOCHROME_16 = 6;
+    GST_H265_PROFILE_MAIN_12 = 7;
+    GST_H265_PROFILE_MAIN_422_10 = 8;
+    GST_H265_PROFILE_MAIN_422_12 = 9;
+    GST_H265_PROFILE_MAIN_444 = 10;
+    GST_H265_PROFILE_MAIN_444_10 = 11;
+    GST_H265_PROFILE_MAIN_444_12 = 12;
+    GST_H265_PROFILE_MAIN_INTRA = 13;
+    GST_H265_PROFILE_MAIN_10_INTRA = 14;
+    GST_H265_PROFILE_MAIN_12_INTRA = 15;
+    GST_H265_PROFILE_MAIN_422_10_INTRA = 16;
+    GST_H265_PROFILE_MAIN_422_12_INTRA = 17;
+    GST_H265_PROFILE_MAIN_444_INTRA = 18;
+    GST_H265_PROFILE_MAIN_444_10_INTRA = 19;
+    GST_H265_PROFILE_MAIN_444_12_INTRA = 20;
+    GST_H265_PROFILE_MAIN_444_16_INTRA = 21;
+    GST_H265_PROFILE_MAIN_444_STILL_PICTURE = 22;
+    GST_H265_PROFILE_MAIN_444_16_STILL_PICTURE = 23;
+    GST_H265_PROFILE_MONOCHROME_10 = 24;
+    GST_H265_PROFILE_HIGH_THROUGHPUT_444 = 25;
+    GST_H265_PROFILE_HIGH_THROUGHPUT_444_10 = 26;
+    GST_H265_PROFILE_HIGH_THROUGHPUT_444_14 = 27;
+    GST_H265_PROFILE_HIGH_THROUGHPUT_444_16_INTRA = 28;
+    GST_H265_PROFILE_SCREEN_EXTENDED_MAIN = 29;
+    GST_H265_PROFILE_SCREEN_EXTENDED_MAIN_10 = 30;
+    GST_H265_PROFILE_SCREEN_EXTENDED_MAIN_444 = 31;
+    GST_H265_PROFILE_SCREEN_EXTENDED_MAIN_444_10 = 32;
+    GST_H265_PROFILE_SCREEN_EXTENDED_HIGH_THROUGHPUT_444 = 33;
+    GST_H265_PROFILE_SCREEN_EXTENDED_HIGH_THROUGHPUT_444_10 = 34;
+    GST_H265_PROFILE_SCREEN_EXTENDED_HIGH_THROUGHPUT_444_14 = 35;
+    GST_H265_PROFILE_MULTIVIEW_MAIN = 36;
+    GST_H265_PROFILE_SCALABLE_MAIN = 37;
+    GST_H265_PROFILE_SCALABLE_MAIN_10 = 38;
+    GST_H265_PROFILE_SCALABLE_MONOCHROME = 39;
+    GST_H265_PROFILE_SCALABLE_MONOCHROME_12 = 40;
+    GST_H265_PROFILE_SCALABLE_MONOCHROME_16 = 41;
+    GST_H265_PROFILE_SCALABLE_MAIN_444 = 42;
+    GST_H265_PROFILE_3D_MAIN = 43;
+    GST_H265_PROFILE_MAX = 44;
+;
+{*
  * GstH265ProfileIDC:
  * @GST_H265_PROFILE_IDC_MAIN: Main profile (A.3.2)
  * @GST_H265_PROFILE_IDC_MAIN_10: Main 10 profile (A.3.3)
@@ -225,22 +241,24 @@ typedef enum {
  * #GstH265Profile as an extension idc can be used to encode a whole variety of
  * profiles.
  *
- */
-typedef enum {
-  GST_H265_PROFILE_IDC_MAIN                   = 1,
-  GST_H265_PROFILE_IDC_MAIN_10                = 2,
-  GST_H265_PROFILE_IDC_MAIN_STILL_PICTURE     = 3,
-  GST_H265_PROFILE_IDC_FORMAT_RANGE_EXTENSION = 4,
-  GST_H265_PROFILE_IDC_HIGH_THROUGHPUT        = 5,
-  GST_H265_PROFILE_IDC_MULTIVIEW_MAIN         = 6,
-  GST_H265_PROFILE_IDC_SCALABLE_MAIN          = 7,
-  GST_H265_PROFILE_IDC_3D_MAIN                = 8,
-  GST_H265_PROFILE_IDC_SCREEN_CONTENT_CODING  = 9,
-  GST_H265_PROFILE_IDC_SCALABLE_FORMAT_RANGE_EXTENSION = 10,
-  GST_H265_PROFILE_IDC_HIGH_THROUGHPUT_SCREEN_CONTENT_CODING_EXTENSION = 11,
-} GstH265ProfileIDC;
-
-/**
+  }
+type
+  PGstH265ProfileIDC = ^TGstH265ProfileIDC;
+  TGstH265ProfileIDC =  Longint;
+  Const
+    GST_H265_PROFILE_IDC_MAIN = 1;
+    GST_H265_PROFILE_IDC_MAIN_10 = 2;
+    GST_H265_PROFILE_IDC_MAIN_STILL_PICTURE = 3;
+    GST_H265_PROFILE_IDC_FORMAT_RANGE_EXTENSION = 4;
+    GST_H265_PROFILE_IDC_HIGH_THROUGHPUT = 5;
+    GST_H265_PROFILE_IDC_MULTIVIEW_MAIN = 6;
+    GST_H265_PROFILE_IDC_SCALABLE_MAIN = 7;
+    GST_H265_PROFILE_IDC_3D_MAIN = 8;
+    GST_H265_PROFILE_IDC_SCREEN_CONTENT_CODING = 9;
+    GST_H265_PROFILE_IDC_SCALABLE_FORMAT_RANGE_EXTENSION = 10;
+    GST_H265_PROFILE_IDC_HIGH_THROUGHPUT_SCREEN_CONTENT_CODING_EXTENSION = 11;
+;
+{*
  * GstH265NalUnitType:
  * @GST_H265_NAL_SLICE_TRAIL_N: Slice nal of a non-TSA, non-STSA trailing picture
  * @GST_H265_NAL_SLICE_TRAIL_R: Slice nal of a non-TSA, non-STSA trailing picture
@@ -269,52 +287,48 @@ typedef enum {
  * @GST_H265_NAL_SUFFIX_SEI: Suppliemental enhancement information suffix nal unit
  *
  * Indicates the type of H265 Nal Units
- */
-typedef enum
-{
-  GST_H265_NAL_SLICE_TRAIL_N    = 0,
-  GST_H265_NAL_SLICE_TRAIL_R    = 1,
-  GST_H265_NAL_SLICE_TSA_N      = 2,
-  GST_H265_NAL_SLICE_TSA_R      = 3,
-  GST_H265_NAL_SLICE_STSA_N     = 4,
-  GST_H265_NAL_SLICE_STSA_R     = 5,
-  GST_H265_NAL_SLICE_RADL_N     = 6,
-  GST_H265_NAL_SLICE_RADL_R     = 7,
-  GST_H265_NAL_SLICE_RASL_N     = 8,
-  GST_H265_NAL_SLICE_RASL_R     = 9,
-  GST_H265_NAL_SLICE_BLA_W_LP   = 16,
-  GST_H265_NAL_SLICE_BLA_W_RADL = 17,
-  GST_H265_NAL_SLICE_BLA_N_LP   = 18,
-  GST_H265_NAL_SLICE_IDR_W_RADL = 19,
-  GST_H265_NAL_SLICE_IDR_N_LP   = 20,
-  GST_H265_NAL_SLICE_CRA_NUT    = 21,
-  GST_H265_NAL_VPS              = 32,
-  GST_H265_NAL_SPS              = 33,
-  GST_H265_NAL_PPS              = 34,
-  GST_H265_NAL_AUD              = 35,
-  GST_H265_NAL_EOS              = 36,
-  GST_H265_NAL_EOB              = 37,
-  GST_H265_NAL_FD               = 38,
-  GST_H265_NAL_PREFIX_SEI       = 39,
-  GST_H265_NAL_SUFFIX_SEI       = 40
-} GstH265NalUnitType;
-
-#define GST_H265_RESERVED_NON_IRAP_SUBLAYER_NAL_TYPE_MIN 10
-#define GST_H265_RESERVED_NON_IRAP_SUBLAYER_NAL_TYPE_MAX 15
-
-#define GST_H265_RESERVED_IRAP_NAL_TYPE_MIN 22
-#define GST_H265_RESERVED_IRAP_NAL_TYPE_MAX 23
-
-#define GST_H265_RESERVED_NON_IRAP_NAL_TYPE_MIN 24
-#define GST_H265_RESERVED_NON_IRAP_NAL_TYPE_MAX 31
-
-#define GST_H265_RESERVED_NON_VCL_NAL_TYPE_MIN 41
-#define GST_H265_RESERVED_NON_VCL_NAL_TYPE_MAX 47
-
-#define GST_H265_UNSPECIFIED_NON_VCL_NAL_TYPE_MIN 48
-#define GST_H265_UNSPECIFIED_NON_VCL_NAL_TYPE_MAX 63
-
-/**
+  }
+type
+  PGstH265NalUnitType = ^TGstH265NalUnitType;
+  TGstH265NalUnitType =  Longint;
+  Const
+    GST_H265_NAL_SLICE_TRAIL_N = 0;
+    GST_H265_NAL_SLICE_TRAIL_R = 1;
+    GST_H265_NAL_SLICE_TSA_N = 2;
+    GST_H265_NAL_SLICE_TSA_R = 3;
+    GST_H265_NAL_SLICE_STSA_N = 4;
+    GST_H265_NAL_SLICE_STSA_R = 5;
+    GST_H265_NAL_SLICE_RADL_N = 6;
+    GST_H265_NAL_SLICE_RADL_R = 7;
+    GST_H265_NAL_SLICE_RASL_N = 8;
+    GST_H265_NAL_SLICE_RASL_R = 9;
+    GST_H265_NAL_SLICE_BLA_W_LP = 16;
+    GST_H265_NAL_SLICE_BLA_W_RADL = 17;
+    GST_H265_NAL_SLICE_BLA_N_LP = 18;
+    GST_H265_NAL_SLICE_IDR_W_RADL = 19;
+    GST_H265_NAL_SLICE_IDR_N_LP = 20;
+    GST_H265_NAL_SLICE_CRA_NUT = 21;
+    GST_H265_NAL_VPS = 32;
+    GST_H265_NAL_SPS = 33;
+    GST_H265_NAL_PPS = 34;
+    GST_H265_NAL_AUD = 35;
+    GST_H265_NAL_EOS = 36;
+    GST_H265_NAL_EOB = 37;
+    GST_H265_NAL_FD = 38;
+    GST_H265_NAL_PREFIX_SEI = 39;
+    GST_H265_NAL_SUFFIX_SEI = 40;
+;
+  GST_H265_RESERVED_NON_IRAP_SUBLAYER_NAL_TYPE_MIN = 10;  
+  GST_H265_RESERVED_NON_IRAP_SUBLAYER_NAL_TYPE_MAX = 15;  
+  GST_H265_RESERVED_IRAP_NAL_TYPE_MIN = 22;  
+  GST_H265_RESERVED_IRAP_NAL_TYPE_MAX = 23;  
+  GST_H265_RESERVED_NON_IRAP_NAL_TYPE_MIN = 24;  
+  GST_H265_RESERVED_NON_IRAP_NAL_TYPE_MAX = 31;  
+  GST_H265_RESERVED_NON_VCL_NAL_TYPE_MIN = 41;  
+  GST_H265_RESERVED_NON_VCL_NAL_TYPE_MAX = 47;  
+  GST_H265_UNSPECIFIED_NON_VCL_NAL_TYPE_MIN = 48;  
+  GST_H265_UNSPECIFIED_NON_VCL_NAL_TYPE_MAX = 63;  
+{*
  * GstH265ParserResult:
  * @GST_H265_PARSER_OK: The parsing succeeded
  * @GST_H265_PARSER_BROKEN_DATA: The data to parse is broken
@@ -324,18 +338,19 @@ typedef enum
  * @GST_H265_PARSER_NO_NAL_END: Start of the nal found, but not the end.
  *
  * The result of parsing H265 data.
- */
-typedef enum
-{
-  GST_H265_PARSER_OK,
-  GST_H265_PARSER_BROKEN_DATA,
-  GST_H265_PARSER_BROKEN_LINK,
-  GST_H265_PARSER_ERROR,
-  GST_H265_PARSER_NO_NAL,
-  GST_H265_PARSER_NO_NAL_END
-} GstH265ParserResult;
-
-/**
+  }
+type
+  PGstH265ParserResult = ^TGstH265ParserResult;
+  TGstH265ParserResult =  Longint;
+  Const
+    GST_H265_PARSER_OK = 0;
+    GST_H265_PARSER_BROKEN_DATA = 1;
+    GST_H265_PARSER_BROKEN_LINK = 2;
+    GST_H265_PARSER_ERROR = 3;
+    GST_H265_PARSER_NO_NAL = 4;
+    GST_H265_PARSER_NO_NAL_END = 5;
+;
+{*
  * GstH265SEIPayloadType:
  * @GST_H265_SEI_BUF_PERIOD: Buffering Period SEI Message
  * @GST_H265_SEI_PIC_TIMING: Picture Timing SEI Message
@@ -347,28 +362,29 @@ typedef enum
  * ...
  *
  * The type of SEI message.
- */
-/**
+  }
+{*
  * GST_H265_SEI_USER_DATA_UNREGISTERED
  *
  * User data unregistered (D.2.7)
  *
  * Since: 1.24
- */
-typedef enum
-{
-  GST_H265_SEI_BUF_PERIOD = 0,
-  GST_H265_SEI_PIC_TIMING = 1,
-  GST_H265_SEI_REGISTERED_USER_DATA = 4,
-  GST_H265_SEI_USER_DATA_UNREGISTERED = 5,
-  GST_H265_SEI_RECOVERY_POINT = 6,
-  GST_H265_SEI_TIME_CODE = 136,
-  GST_H265_SEI_MASTERING_DISPLAY_COLOUR_VOLUME = 137,
-  GST_H265_SEI_CONTENT_LIGHT_LEVEL = 144,
-      /* and more...  */
-} GstH265SEIPayloadType;
-
-/**
+  }
+{ and more...   }
+type
+  PGstH265SEIPayloadType = ^TGstH265SEIPayloadType;
+  TGstH265SEIPayloadType =  Longint;
+  Const
+    GST_H265_SEI_BUF_PERIOD = 0;
+    GST_H265_SEI_PIC_TIMING = 1;
+    GST_H265_SEI_REGISTERED_USER_DATA = 4;
+    GST_H265_SEI_USER_DATA_UNREGISTERED = 5;
+    GST_H265_SEI_RECOVERY_POINT = 6;
+    GST_H265_SEI_TIME_CODE = 136;
+    GST_H265_SEI_MASTERING_DISPLAY_COLOUR_VOLUME = 137;
+    GST_H265_SEI_CONTENT_LIGHT_LEVEL = 144;
+;
+{*
  * GstH265SEIPicStructType:
  * @GST_H265_SEI_PIC_STRUCT_FRAME: Picture is a frame
  * @GST_H265_SEI_PIC_STRUCT_TOP_FIELD: Top field of frame
@@ -391,47 +407,48 @@ typedef enum
  *  next top field in output order
  *
  * SEI pic_struct type
- */
-typedef enum
-{
-  GST_H265_SEI_PIC_STRUCT_FRAME                         = 0,
-  GST_H265_SEI_PIC_STRUCT_TOP_FIELD                     = 1,
-  GST_H265_SEI_PIC_STRUCT_BOTTOM_FIELD                  = 2,
-  GST_H265_SEI_PIC_STRUCT_TOP_BOTTOM                    = 3,
-  GST_H265_SEI_PIC_STRUCT_BOTTOM_TOP                    = 4,
-  GST_H265_SEI_PIC_STRUCT_TOP_BOTTOM_TOP                = 5,
-  GST_H265_SEI_PIC_STRUCT_BOTTOM_TOP_BOTTOM             = 6,
-  GST_H265_SEI_PIC_STRUCT_FRAME_DOUBLING                = 7,
-  GST_H265_SEI_PIC_STRUCT_FRAME_TRIPLING                = 8,
-  GST_H265_SEI_PIC_STRUCT_TOP_PAIRED_PREVIOUS_BOTTOM    = 9,
-  GST_H265_SEI_PIC_STRUCT_BOTTOM_PAIRED_PREVIOUS_TOP    = 10,
-  GST_H265_SEI_PIC_STRUCT_TOP_PAIRED_NEXT_BOTTOM        = 11,
-  GST_H265_SEI_PIC_STRUCT_BOTTOM_PAIRED_NEXT_TOP        = 12
-} GstH265SEIPicStructType;
-
-/**
+  }
+type
+  PGstH265SEIPicStructType = ^TGstH265SEIPicStructType;
+  TGstH265SEIPicStructType =  Longint;
+  Const
+    GST_H265_SEI_PIC_STRUCT_FRAME = 0;
+    GST_H265_SEI_PIC_STRUCT_TOP_FIELD = 1;
+    GST_H265_SEI_PIC_STRUCT_BOTTOM_FIELD = 2;
+    GST_H265_SEI_PIC_STRUCT_TOP_BOTTOM = 3;
+    GST_H265_SEI_PIC_STRUCT_BOTTOM_TOP = 4;
+    GST_H265_SEI_PIC_STRUCT_TOP_BOTTOM_TOP = 5;
+    GST_H265_SEI_PIC_STRUCT_BOTTOM_TOP_BOTTOM = 6;
+    GST_H265_SEI_PIC_STRUCT_FRAME_DOUBLING = 7;
+    GST_H265_SEI_PIC_STRUCT_FRAME_TRIPLING = 8;
+    GST_H265_SEI_PIC_STRUCT_TOP_PAIRED_PREVIOUS_BOTTOM = 9;
+    GST_H265_SEI_PIC_STRUCT_BOTTOM_PAIRED_PREVIOUS_TOP = 10;
+    GST_H265_SEI_PIC_STRUCT_TOP_PAIRED_NEXT_BOTTOM = 11;
+    GST_H265_SEI_PIC_STRUCT_BOTTOM_PAIRED_NEXT_TOP = 12;
+;
+{*
  * GstH265SliceType:
  *
  * Type of Picture slice
- */
-
-typedef enum
-{
-  GST_H265_B_SLICE    = 0,
-  GST_H265_P_SLICE    = 1,
-  GST_H265_I_SLICE    = 2
-} GstH265SliceType;
-
-typedef enum
-{
-  GST_H265_QUANT_MATIX_4X4   = 0,
-  GST_H265_QUANT_MATIX_8X8   = 1,
-  GST_H265_QUANT_MATIX_16X16 = 2,
-  GST_H265_QUANT_MATIX_32X32 = 3
-} GstH265QuantMatrixSize;
-
-
-/**
+  }
+type
+  PGstH265SliceType = ^TGstH265SliceType;
+  TGstH265SliceType =  Longint;
+  Const
+    GST_H265_B_SLICE = 0;
+    GST_H265_P_SLICE = 1;
+    GST_H265_I_SLICE = 2;
+;
+type
+  PGstH265QuantMatrixSize = ^TGstH265QuantMatrixSize;
+  TGstH265QuantMatrixSize =  Longint;
+  Const
+    GST_H265_QUANT_MATIX_4X4 = 0;
+    GST_H265_QUANT_MATIX_8X8 = 1;
+    GST_H265_QUANT_MATIX_16X16 = 2;
+    GST_H265_QUANT_MATIX_32X32 = 3;
+;
+{*
  * GstH265Level:
  * @GST_H265_LEVEL_L1: Level 1
  * @GST_H265_LEVEL_L2: Level 2
@@ -450,61 +467,27 @@ typedef enum
  * H.265 level
  *
  * Since: 1.24
- */
-typedef enum
-{
-  GST_H265_LEVEL_L1 = 30,
-  GST_H265_LEVEL_L2 = 60,
-  GST_H265_LEVEL_L2_1 = 63,
-  GST_H265_LEVEL_L3 = 90,
-  GST_H265_LEVEL_L3_1 = 93,
-  GST_H265_LEVEL_L4 = 120,
-  GST_H265_LEVEL_L4_1 = 123,
-  GST_H265_LEVEL_L5 = 150,
-  GST_H265_LEVEL_L5_1 = 153,
-  GST_H265_LEVEL_L5_2 = 156,
-  GST_H265_LEVEL_L6 = 180,
-  GST_H265_LEVEL_L6_1 = 183,
-  GST_H265_LEVEL_L6_2 = 186,
-} GstH265Level;
-
-typedef struct _GstH265Parser                   GstH265Parser;
-
-typedef struct _GstH265NalUnit                  GstH265NalUnit;
-
-typedef struct _GstH265VPS                      GstH265VPS;
-typedef struct _GstH265SPS                      GstH265SPS;
-typedef struct _GstH265SPSEXT                   GstH265SPSEXT;
-typedef struct _GstH265PPS                      GstH265PPS;
-typedef struct _GstH265ProfileTierLevel         GstH265ProfileTierLevel;
-typedef struct _GstH265SubLayerHRDParams        GstH265SubLayerHRDParams;
-typedef struct _GstH265HRDParams                GstH265HRDParams;
-typedef struct _GstH265VUIParams                GstH265VUIParams;
-typedef struct _GstH265SPSExtensionParams       GstH265SPSExtensionParams;
-typedef struct _GstH265SPSSccExtensionParams    GstH265SPSSccExtensionParams;
-typedef struct _GstH265PPSExtensionParams       GstH265PPSExtensionParams;
-typedef struct _GstH265PPSSccExtensionParams    GstH265PPSSccExtensionParams;
-
-typedef struct _GstH265ScalingList              GstH265ScalingList;
-typedef struct _GstH265RefPicListModification   GstH265RefPicListModification;
-typedef struct _GstH265PredWeightTable          GstH265PredWeightTable;
-typedef struct _GstH265ShortTermRefPicSet       GstH265ShortTermRefPicSet;
-typedef struct _GstH265ShortTermRefPicSetExt    GstH265ShortTermRefPicSetExt;
-typedef struct _GstH265SliceHdr                 GstH265SliceHdr;
-
-typedef struct _GstH265PicTiming                GstH265PicTiming;
-typedef struct _GstH265RegisteredUserData     	GstH265RegisteredUserData;
-typedef struct _GstH265UserDataUnregistered     GstH265UserDataUnregistered;
-typedef struct _GstH265BufferingPeriod          GstH265BufferingPeriod;
-typedef struct _GstH265RecoveryPoint            GstH265RecoveryPoint;
-typedef struct _GstH265TimeCode                 GstH265TimeCode;
-typedef struct _GstH265MasteringDisplayColourVolume GstH265MasteringDisplayColourVolume;
-typedef struct _GstH265ContentLightLevel        GstH265ContentLightLevel;
-typedef struct _GstH265SEIMessage               GstH265SEIMessage;
-typedef struct _GstH265DecoderConfigRecordNalUnitArray GstH265DecoderConfigRecordNalUnitArray;
-typedef struct _GstH265DecoderConfigRecord      GstH265DecoderConfigRecord;
-
-/**
+  }
+type
+  PGstH265Level = ^TGstH265Level;
+  TGstH265Level =  Longint;
+  Const
+    GST_H265_LEVEL_L1 = 30;
+    GST_H265_LEVEL_L2 = 60;
+    GST_H265_LEVEL_L2_1 = 63;
+    GST_H265_LEVEL_L3 = 90;
+    GST_H265_LEVEL_L3_1 = 93;
+    GST_H265_LEVEL_L4 = 120;
+    GST_H265_LEVEL_L4_1 = 123;
+    GST_H265_LEVEL_L5 = 150;
+    GST_H265_LEVEL_L5_1 = 153;
+    GST_H265_LEVEL_L5_2 = 156;
+    GST_H265_LEVEL_L6 = 180;
+    GST_H265_LEVEL_L6_1 = 183;
+    GST_H265_LEVEL_L6_2 = 186;
+;
+type
+{*
  * GstH265NalUnit:
  * @type: A #GstH265NalUnitType
  * @layer_id: A nal unit layer id
@@ -517,24 +500,22 @@ typedef struct _GstH265DecoderConfigRecord      GstH265DecoderConfigRecord;
  * @data: The data from which the Nalu has been parsed
  *
  * Structure defining the Nal unit headers
- */
-struct _GstH265NalUnit
-{
-  guint8 type;
-  guint8 layer_id;
-  guint8 temporal_id_plus1;
+  }
+{ calculated values  }
+  PGstH265NalUnit = ^TGstH265NalUnit;
+  TGstH265NalUnit = record
+      _type : Tguint8;
+      layer_id : Tguint8;
+      temporal_id_plus1 : Tguint8;
+      size : Tguint;
+      offset : Tguint;
+      sc_offset : Tguint;
+      valid : Tgboolean;
+      data : Pguint8;
+      header_bytes : Tguint8;
+    end;
 
-  /* calculated values */
-  guint size;
-  guint offset;
-  guint sc_offset;
-  gboolean valid;
-
-  guint8 *data;
-  guint8 header_bytes;
-};
-
-/**
+{*
  * GstH265ProfileTierLevel:
  * @profile_space: specifies the context for the interpretation of
  *   general_profile_idc and general_profile_combatibility_flag
@@ -572,47 +553,42 @@ struct _GstH265NalUnit
  * @sub_layer_level_idc:indicate the sublayer specific level
  *
  * Define ProfileTierLevel parameters
- */
-struct _GstH265ProfileTierLevel {
-  guint8 profile_space;
-  guint8 tier_flag;
-  guint8 profile_idc;
+  }
+  PGstH265ProfileTierLevel = ^TGstH265ProfileTierLevel;
+  TGstH265ProfileTierLevel = record
+      profile_space : Tguint8;
+      tier_flag : Tguint8;
+      profile_idc : Tguint8;
+      profile_compatibility_flag : array[0..31] of Tguint8;
+      progressive_source_flag : Tguint8;
+      interlaced_source_flag : Tguint8;
+      non_packed_constraint_flag : Tguint8;
+      frame_only_constraint_flag : Tguint8;
+      max_12bit_constraint_flag : Tguint8;
+      max_10bit_constraint_flag : Tguint8;
+      max_8bit_constraint_flag : Tguint8;
+      max_422chroma_constraint_flag : Tguint8;
+      max_420chroma_constraint_flag : Tguint8;
+      max_monochrome_constraint_flag : Tguint8;
+      intra_constraint_flag : Tguint8;
+      one_picture_only_constraint_flag : Tguint8;
+      lower_bit_rate_constraint_flag : Tguint8;
+      max_14bit_constraint_flag : Tguint8;
+      level_idc : Tguint8;
+      sub_layer_profile_present_flag : array[0..5] of Tguint8;
+      sub_layer_level_present_flag : array[0..5] of Tguint8;
+      sub_layer_profile_space : array[0..5] of Tguint8;
+      sub_layer_tier_flag : array[0..5] of Tguint8;
+      sub_layer_profile_idc : array[0..5] of Tguint8;
+      sub_layer_profile_compatibility_flag : array[0..5] of array[0..31] of Tguint8;
+      sub_layer_progressive_source_flag : array[0..5] of Tguint8;
+      sub_layer_interlaced_source_flag : array[0..5] of Tguint8;
+      sub_layer_non_packed_constraint_flag : array[0..5] of Tguint8;
+      sub_layer_frame_only_constraint_flag : array[0..5] of Tguint8;
+      sub_layer_level_idc : array[0..5] of Tguint8;
+    end;
 
-  guint8 profile_compatibility_flag[32];
-
-  guint8 progressive_source_flag;
-  guint8 interlaced_source_flag;
-  guint8 non_packed_constraint_flag;
-  guint8 frame_only_constraint_flag;
-
-  guint8 max_12bit_constraint_flag;
-  guint8 max_10bit_constraint_flag;
-  guint8 max_8bit_constraint_flag;
-  guint8 max_422chroma_constraint_flag;
-  guint8 max_420chroma_constraint_flag;
-  guint8 max_monochrome_constraint_flag;
-  guint8 intra_constraint_flag;
-  guint8 one_picture_only_constraint_flag;
-  guint8 lower_bit_rate_constraint_flag;
-  guint8 max_14bit_constraint_flag;
-
-  guint8 level_idc;
-
-  guint8 sub_layer_profile_present_flag[6];
-  guint8 sub_layer_level_present_flag[6];
-
-  guint8 sub_layer_profile_space[6];
-  guint8 sub_layer_tier_flag[6];
-  guint8 sub_layer_profile_idc[6];
-  guint8 sub_layer_profile_compatibility_flag[6][32];
-  guint8 sub_layer_progressive_source_flag[6];
-  guint8 sub_layer_interlaced_source_flag[6];
-  guint8 sub_layer_non_packed_constraint_flag[6];
-  guint8 sub_layer_frame_only_constraint_flag[6];
-  guint8 sub_layer_level_idc[6];
-};
-
-/**
+{*
  * GstH265SubLayerHRDParams:
  * @bit_rate_value_minus1:togeter with bit_rate_scale, it specifies
  *   the maximum input bitrate when the CPB operates at the access
@@ -630,19 +606,17 @@ struct _GstH265ProfileTierLevel {
  *   mode or constant bit rate mode.
  *
  * Defines the Sublayer HRD parameters
- */
-struct _GstH265SubLayerHRDParams
-{
-  guint32 bit_rate_value_minus1[32];
-  guint32 cpb_size_value_minus1[32];
+  }
+  PGstH265SubLayerHRDParams = ^TGstH265SubLayerHRDParams;
+  TGstH265SubLayerHRDParams = record
+      bit_rate_value_minus1 : array[0..31] of Tguint32;
+      cpb_size_value_minus1 : array[0..31] of Tguint32;
+      cpb_size_du_value_minus1 : array[0..31] of Tguint32;
+      bit_rate_du_value_minus1 : array[0..31] of Tguint32;
+      cbr_flag : array[0..31] of Tguint8;
+    end;
 
-  guint32 cpb_size_du_value_minus1[32];
-  guint32 bit_rate_du_value_minus1[32];
-
-  guint8 cbr_flag[32];
-};
-
-/**
+{*
  * GstH265HRDParams:
  * @nal_hrd_parameters_present_flag: indicate the presence of NAL HRD parameters
  * @vcl_hrd_parameters_present_flag: indicate the presence of VCL HRD parameters
@@ -674,36 +648,31 @@ struct _GstH265SubLayerHRDParams
  * @sublayer_hrd_params: Sublayer HRD parameters.
  *
  * Defines the HRD parameters
- */
-struct _GstH265HRDParams
-{
-  guint8 nal_hrd_parameters_present_flag;
-  guint8 vcl_hrd_parameters_present_flag;
-  guint8 sub_pic_hrd_params_present_flag;
+  }
+  PGstH265HRDParams = ^TGstH265HRDParams;
+  TGstH265HRDParams = record
+      nal_hrd_parameters_present_flag : Tguint8;
+      vcl_hrd_parameters_present_flag : Tguint8;
+      sub_pic_hrd_params_present_flag : Tguint8;
+      tick_divisor_minus2 : Tguint8;
+      du_cpb_removal_delay_increment_length_minus1 : Tguint8;
+      sub_pic_cpb_params_in_pic_timing_sei_flag : Tguint8;
+      dpb_output_delay_du_length_minus1 : Tguint8;
+      bit_rate_scale : Tguint8;
+      cpb_size_scale : Tguint8;
+      cpb_size_du_scale : Tguint8;
+      initial_cpb_removal_delay_length_minus1 : Tguint8;
+      au_cpb_removal_delay_length_minus1 : Tguint8;
+      dpb_output_delay_length_minus1 : Tguint8;
+      fixed_pic_rate_general_flag : array[0..6] of Tguint8;
+      fixed_pic_rate_within_cvs_flag : array[0..6] of Tguint8;
+      elemental_duration_in_tc_minus1 : array[0..6] of Tguint16;
+      low_delay_hrd_flag : array[0..6] of Tguint8;
+      cpb_cnt_minus1 : array[0..6] of Tguint8;
+      sublayer_hrd_params : array[0..6] of TGstH265SubLayerHRDParams;
+    end;
 
-  guint8 tick_divisor_minus2;
-  guint8 du_cpb_removal_delay_increment_length_minus1;
-  guint8 sub_pic_cpb_params_in_pic_timing_sei_flag;
-  guint8 dpb_output_delay_du_length_minus1;
-
-  guint8 bit_rate_scale;
-  guint8 cpb_size_scale;
-  guint8 cpb_size_du_scale;
-
-  guint8 initial_cpb_removal_delay_length_minus1;
-  guint8 au_cpb_removal_delay_length_minus1;
-  guint8 dpb_output_delay_length_minus1;
-
-  guint8 fixed_pic_rate_general_flag [7];
-  guint8 fixed_pic_rate_within_cvs_flag [7];
-  guint16 elemental_duration_in_tc_minus1 [7];
-  guint8 low_delay_hrd_flag [7];
-  guint8 cpb_cnt_minus1[7];
-
-  GstH265SubLayerHRDParams sublayer_hrd_params[7];
-};
-
-/**
+{*
  * GstH265VPS:
  * @id: vps id
  * @base_layer_internal_flag and @base_layer_available_flag:
@@ -742,45 +711,37 @@ struct _GstH265HRDParams
  * @hrd_params: the GstH265HRDParams list
  *
  * Defines the VPS parameters
- */
-struct _GstH265VPS {
-  guint8 id;
+  }
+{ FIXME: following HRD related info should be an array  }
+  PGstH265VPS = ^TGstH265VPS;
+  TGstH265VPS = record
+      id : Tguint8;
+      base_layer_internal_flag : Tguint8;
+      base_layer_available_flag : Tguint8;
+      max_layers_minus1 : Tguint8;
+      max_sub_layers_minus1 : Tguint8;
+      temporal_id_nesting_flag : Tguint8;
+      profile_tier_level : TGstH265ProfileTierLevel;
+      sub_layer_ordering_info_present_flag : Tguint8;
+      max_dec_pic_buffering_minus1 : array[0..(GST_H265_MAX_SUB_LAYERS)-1] of Tguint8;
+      max_num_reorder_pics : array[0..(GST_H265_MAX_SUB_LAYERS)-1] of Tguint8;
+      max_latency_increase_plus1 : array[0..(GST_H265_MAX_SUB_LAYERS)-1] of Tguint32;
+      max_layer_id : Tguint8;
+      num_layer_sets_minus1 : Tguint16;
+      timing_info_present_flag : Tguint8;
+      num_units_in_tick : Tguint32;
+      time_scale : Tguint32;
+      poc_proportional_to_timing_flag : Tguint8;
+      num_ticks_poc_diff_one_minus1 : Tguint32;
+      num_hrd_parameters : Tguint16;
+      hrd_layer_set_idx : Tguint16;
+      cprms_present_flag : Tguint8;
+      hrd_params : TGstH265HRDParams;
+      vps_extension : Tguint8;
+      valid : Tgboolean;
+    end;
 
-  guint8 base_layer_internal_flag;
-  guint8 base_layer_available_flag;
-
-  guint8 max_layers_minus1;
-  guint8 max_sub_layers_minus1;
-  guint8 temporal_id_nesting_flag;
-
-  GstH265ProfileTierLevel profile_tier_level;
-
-  guint8 sub_layer_ordering_info_present_flag;
-  guint8 max_dec_pic_buffering_minus1[GST_H265_MAX_SUB_LAYERS];
-  guint8 max_num_reorder_pics[GST_H265_MAX_SUB_LAYERS];
-  guint32 max_latency_increase_plus1[GST_H265_MAX_SUB_LAYERS];
-
-  guint8 max_layer_id;
-  guint16 num_layer_sets_minus1;
-
-  guint8 timing_info_present_flag;
-  guint32 num_units_in_tick;
-  guint32 time_scale;
-  guint8 poc_proportional_to_timing_flag;
-  guint32 num_ticks_poc_diff_one_minus1;
-
-  guint16 num_hrd_parameters;
-
-  /* FIXME: following HRD related info should be an array */
-  guint16 hrd_layer_set_idx;
-  guint8 cprms_present_flag;
-  GstH265HRDParams hrd_params;
-
-  guint8 vps_extension;
-
-  gboolean valid;
-};
-/**
+{*
  * GstH265ShortTermRefPicSet:
  * @inter_ref_pic_set_prediction_flag: %TRUE specifies that the stRpsIdx-th candidate
  *  short-term RPS is predicted from another candidate short-term RPS
@@ -818,26 +779,25 @@ struct _GstH265VPS {
  *  this value should be ignored (Since: 1.18)
  *
  * Defines the #GstH265ShortTermRefPicSet params
- */
-struct _GstH265ShortTermRefPicSet
-{
-  guint8 inter_ref_pic_set_prediction_flag;
-  guint8 delta_idx_minus1;
-  guint8 delta_rps_sign;
-  guint16 abs_delta_rps_minus1;
+  }
+{ calculated values  }
+  PGstH265ShortTermRefPicSet = ^TGstH265ShortTermRefPicSet;
+  TGstH265ShortTermRefPicSet = record
+      inter_ref_pic_set_prediction_flag : Tguint8;
+      delta_idx_minus1 : Tguint8;
+      delta_rps_sign : Tguint8;
+      abs_delta_rps_minus1 : Tguint16;
+      NumDeltaPocs : Tguint8;
+      NumNegativePics : Tguint8;
+      NumPositivePics : Tguint8;
+      UsedByCurrPicS0 : array[0..15] of Tguint8;
+      UsedByCurrPicS1 : array[0..15] of Tguint8;
+      DeltaPocS0 : array[0..15] of Tgint32;
+      DeltaPocS1 : array[0..15] of Tgint32;
+      NumDeltaPocsOfRefRpsIdx : Tguint8;
+    end;
 
-  /* calculated values */
-  guint8 NumDeltaPocs;
-  guint8 NumNegativePics;
-  guint8 NumPositivePics;
-  guint8 UsedByCurrPicS0[16];
-  guint8 UsedByCurrPicS1[16];
-  gint32 DeltaPocS0[16];
-  gint32 DeltaPocS1[16];
-  guint8 NumDeltaPocsOfRefRpsIdx;
-};
-
-/**
+{*
  * GstH265ShortTermRefPicSetExt:
  * @use_delta_flag: Bit j equals to 1 specifies that the j-th entry in the source candidate
  *  short-term RPS is included in this candidate short-term RPS.
@@ -852,16 +812,16 @@ struct _GstH265ShortTermRefPicSet
  * Defines the extended #GstH265ShortTermRefPicSetExt params
  *
  * Since: 1.28
- */
-struct _GstH265ShortTermRefPicSetExt
-{
-  guint8 use_delta_flag[16];
-  guint8 used_by_curr_pic_flag[16];
-  guint32 delta_poc_s0_minus1[16];
-  guint32 delta_poc_s1_minus1[16];
-};
+  }
+  PGstH265ShortTermRefPicSetExt = ^TGstH265ShortTermRefPicSetExt;
+  TGstH265ShortTermRefPicSetExt = record
+      use_delta_flag : array[0..15] of Tguint8;
+      used_by_curr_pic_flag : array[0..15] of Tguint8;
+      delta_poc_s0_minus1 : array[0..15] of Tguint32;
+      delta_poc_s1_minus1 : array[0..15] of Tguint32;
+    end;
 
-/**
+{*
  * GstH265VUIParams:
  * @parsed: %TRUE indicate that VUI parameters have been parsed (Since: 1.22)
  * @aspect_ratio_info_present_flag: %TRUE specifies that aspect_ratio_idc is present.
@@ -929,76 +889,69 @@ struct _GstH265ShortTermRefPicSetExt
  *  motion vector component
  *
  * The structure representing the VUI parameters.
- */
-struct _GstH265VUIParams
-{
-  /**
+  }
+{*
    * _GstH265VUIParams.parsed:
    *
    * %TRUE indicate that VUI parameters have been parsed.
    *
    * Since: 1.22
-   */
-  gboolean parsed;
-  guint8 aspect_ratio_info_present_flag;
-  guint8 aspect_ratio_idc;
-  /* if aspect_ratio_idc == 255 */
-  guint16 sar_width;
-  guint16 sar_height;
+    }
+{ if aspect_ratio_idc == 255  }
+{ if overscan_info_present_flag  }
+{ if timing_info_present_flag  }
+{ if poc_proportional_to_timing_flag  }
+{if hrd_parameters_present_flat  }
+{  if bitstream_restriction_flag  }
+{ calculated values  }
+  PGstH265VUIParams = ^TGstH265VUIParams;
+  TGstH265VUIParams = record
+      parsed : Tgboolean;
+      aspect_ratio_info_present_flag : Tguint8;
+      aspect_ratio_idc : Tguint8;
+      sar_width : Tguint16;
+      sar_height : Tguint16;
+      overscan_info_present_flag : Tguint8;
+      overscan_appropriate_flag : Tguint8;
+      video_signal_type_present_flag : Tguint8;
+      video_format : Tguint8;
+      video_full_range_flag : Tguint8;
+      colour_description_present_flag : Tguint8;
+      colour_primaries : Tguint8;
+      transfer_characteristics : Tguint8;
+      matrix_coefficients : Tguint8;
+      chroma_loc_info_present_flag : Tguint8;
+      chroma_sample_loc_type_top_field : Tguint8;
+      chroma_sample_loc_type_bottom_field : Tguint8;
+      neutral_chroma_indication_flag : Tguint8;
+      field_seq_flag : Tguint8;
+      frame_field_info_present_flag : Tguint8;
+      default_display_window_flag : Tguint8;
+      def_disp_win_left_offset : Tguint32;
+      def_disp_win_right_offset : Tguint32;
+      def_disp_win_top_offset : Tguint32;
+      def_disp_win_bottom_offset : Tguint32;
+      timing_info_present_flag : Tguint8;
+      num_units_in_tick : Tguint32;
+      time_scale : Tguint32;
+      poc_proportional_to_timing_flag : Tguint8;
+      num_ticks_poc_diff_one_minus1 : Tguint32;
+      hrd_parameters_present_flag : Tguint8;
+      hrd_params : TGstH265HRDParams;
+      bitstream_restriction_flag : Tguint8;
+      tiles_fixed_structure_flag : Tguint8;
+      motion_vectors_over_pic_boundaries_flag : Tguint8;
+      restricted_ref_pic_lists_flag : Tguint8;
+      min_spatial_segmentation_idc : Tguint16;
+      max_bytes_per_pic_denom : Tguint8;
+      max_bits_per_min_cu_denom : Tguint8;
+      log2_max_mv_length_horizontal : Tguint8;
+      log2_max_mv_length_vertical : Tguint8;
+      par_n : Tguint;
+      par_d : Tguint;
+    end;
 
-  guint8 overscan_info_present_flag;
-  /* if overscan_info_present_flag */
-  guint8 overscan_appropriate_flag;
-
-  guint8 video_signal_type_present_flag;
-  guint8 video_format;
-  guint8 video_full_range_flag;
-  guint8 colour_description_present_flag;
-  guint8 colour_primaries;
-  guint8 transfer_characteristics;
-  guint8 matrix_coefficients;
-
-  guint8 chroma_loc_info_present_flag;
-  guint8 chroma_sample_loc_type_top_field;
-  guint8 chroma_sample_loc_type_bottom_field;
-
-  guint8 neutral_chroma_indication_flag;
-  guint8 field_seq_flag;
-  guint8 frame_field_info_present_flag;
-  guint8 default_display_window_flag;
-  guint32 def_disp_win_left_offset;
-  guint32 def_disp_win_right_offset;
-  guint32 def_disp_win_top_offset;
-  guint32 def_disp_win_bottom_offset;
-
-  guint8 timing_info_present_flag;
-  /* if timing_info_present_flag */
-  guint32 num_units_in_tick;
-  guint32 time_scale;
-  guint8 poc_proportional_to_timing_flag;
-  /* if poc_proportional_to_timing_flag */
-  guint32 num_ticks_poc_diff_one_minus1;
-  guint8 hrd_parameters_present_flag;
-  /*if hrd_parameters_present_flat */
-  GstH265HRDParams hrd_params;
-
-  guint8 bitstream_restriction_flag;
-  /*  if bitstream_restriction_flag */
-  guint8 tiles_fixed_structure_flag;
-  guint8 motion_vectors_over_pic_boundaries_flag;
-  guint8 restricted_ref_pic_lists_flag;
-  guint16 min_spatial_segmentation_idc;
-  guint8 max_bytes_per_pic_denom;
-  guint8 max_bits_per_min_cu_denom;
-  guint8 log2_max_mv_length_horizontal;
-  guint8 log2_max_mv_length_vertical;
-
-  /* calculated values */
-  guint par_n;
-  guint par_d;
-};
-
-/**
+{*
  * GstH265SPSExtensionParams:
  * @transform_skip_rotation_enabled_flag: %TRUE specifies that a rotation is applied to
  *   the residual data block from intra 4X4 blocks coded using a transform skip operation.
@@ -1023,20 +976,21 @@ struct _GstH265VUIParams
  *   elements coeff_sign_flag[] and coeff_abs_level_remaining[]
  *
  * Defines the GstH265SPSExtensionParams
- */
-struct _GstH265SPSExtensionParams {
-  guint8 transform_skip_rotation_enabled_flag;
-  guint8 transform_skip_context_enabled_flag;
-  guint8 implicit_rdpcm_enabled_flag;
-  guint8 explicit_rdpcm_enabled_flag;
-  guint8 extended_precision_processing_flag;
-  guint8 intra_smoothing_disabled_flag;
-  guint8 high_precision_offsets_enabled_flag;
-  guint8 persistent_rice_adaptation_enabled_flag;
-  guint8 cabac_bypass_alignment_enabled_flag;
-};
+  }
+  PGstH265SPSExtensionParams = ^TGstH265SPSExtensionParams;
+  TGstH265SPSExtensionParams = record
+      transform_skip_rotation_enabled_flag : Tguint8;
+      transform_skip_context_enabled_flag : Tguint8;
+      implicit_rdpcm_enabled_flag : Tguint8;
+      explicit_rdpcm_enabled_flag : Tguint8;
+      extended_precision_processing_flag : Tguint8;
+      intra_smoothing_disabled_flag : Tguint8;
+      high_precision_offsets_enabled_flag : Tguint8;
+      persistent_rice_adaptation_enabled_flag : Tguint8;
+      cabac_bypass_alignment_enabled_flag : Tguint8;
+    end;
 
-/**
+{*
  * GstH265SPSSccExtensionParams:
  * @sps_curr_pic_ref_enabled_flag: equal to 1 specifies that a picture in the CVS may be
  *   included in a reference picture list of a slice of the picture itself.
@@ -1060,20 +1014,21 @@ struct _GstH265SPSExtensionParams {
  * Defines the _GstH265SPSSccExtensionParams
  *
  * Since: 1.18
- */
-struct _GstH265SPSSccExtensionParams {
-  guint8 sps_curr_pic_ref_enabled_flag;
-  guint8 palette_mode_enabled_flag;
-  guint8 palette_max_size;
-  guint8 delta_palette_max_predictor_size;
-  guint8 sps_palette_predictor_initializers_present_flag;
-  guint8 sps_num_palette_predictor_initializer_minus1;
-  guint32 sps_palette_predictor_initializer[3][128];
-  guint8 motion_vector_resolution_control_idc;
-  guint8 intra_boundary_filtering_disabled_flag;
-};
+  }
+  PGstH265SPSSccExtensionParams = ^TGstH265SPSSccExtensionParams;
+  TGstH265SPSSccExtensionParams = record
+      sps_curr_pic_ref_enabled_flag : Tguint8;
+      palette_mode_enabled_flag : Tguint8;
+      palette_max_size : Tguint8;
+      delta_palette_max_predictor_size : Tguint8;
+      sps_palette_predictor_initializers_present_flag : Tguint8;
+      sps_num_palette_predictor_initializer_minus1 : Tguint8;
+      sps_palette_predictor_initializer : array[0..2] of array[0..127] of Tguint32;
+      motion_vector_resolution_control_idc : Tguint8;
+      intra_boundary_filtering_disabled_flag : Tguint8;
+    end;
 
-/**
+{*
  * GstH265PPSExtensionParams:
  * @log2_max_transform_skip_block_size_minus2: plus 2 specifies the maximum transform block size for which
  *   transform_skip_flag may be present in coded pictures referring to the PPS.
@@ -1093,20 +1048,21 @@ struct _GstH265SPSSccExtensionParams {
  *   offset values for chroma samples.
  *
  * Defines the GstH265SPSExtensionParams
- */
-struct _GstH265PPSExtensionParams {
-  guint32 log2_max_transform_skip_block_size_minus2;
-  guint8 cross_component_prediction_enabled_flag;
-  guint8 chroma_qp_offset_list_enabled_flag;
-  guint8 diff_cu_chroma_qp_offset_depth;
-  guint8 chroma_qp_offset_list_len_minus1;
-  gint8 cb_qp_offset_list[6];
-  gint8 cr_qp_offset_list[6];
-  guint8 log2_sao_offset_scale_luma;
-  guint8 log2_sao_offset_scale_chroma;
-};
+  }
+  PGstH265PPSExtensionParams = ^TGstH265PPSExtensionParams;
+  TGstH265PPSExtensionParams = record
+      log2_max_transform_skip_block_size_minus2 : Tguint32;
+      cross_component_prediction_enabled_flag : Tguint8;
+      chroma_qp_offset_list_enabled_flag : Tguint8;
+      diff_cu_chroma_qp_offset_depth : Tguint8;
+      chroma_qp_offset_list_len_minus1 : Tguint8;
+      cb_qp_offset_list : array[0..5] of Tgint8;
+      cr_qp_offset_list : array[0..5] of Tgint8;
+      log2_sao_offset_scale_luma : Tguint8;
+      log2_sao_offset_scale_chroma : Tguint8;
+    end;
 
-/**
+{*
  * GstH265PPSSccExtensionParams:
  * @pps_curr_pic_ref_enabled_flag: equal to 1 specifies that a picture referring to the PPS may
  *   be included in a reference picture list of a slice of the picture itself.
@@ -1135,23 +1091,24 @@ struct _GstH265PPSExtensionParams {
  * Defines the _GstH265PPSSccExtensionParams
  *
  * Since: 1.18
- */
-struct _GstH265PPSSccExtensionParams {
-  guint8 pps_curr_pic_ref_enabled_flag;
-  guint8 residual_adaptive_colour_transform_enabled_flag;
-  guint8 pps_slice_act_qp_offsets_present_flag;
-  guint8 pps_act_y_qp_offset_plus5;
-  guint8 pps_act_cb_qp_offset_plus5;
-  guint8 pps_act_cr_qp_offset_plus3;
-  guint8 pps_palette_predictor_initializers_present_flag;
-  guint8 pps_num_palette_predictor_initializer;
-  guint8 monochrome_palette_flag;
-  guint8 luma_bit_depth_entry_minus8;
-  guint32 chroma_bit_depth_entry_minus8;
-  guint32 pps_palette_predictor_initializer[3][128];
-};
+  }
+  PGstH265PPSSccExtensionParams = ^TGstH265PPSSccExtensionParams;
+  TGstH265PPSSccExtensionParams = record
+      pps_curr_pic_ref_enabled_flag : Tguint8;
+      residual_adaptive_colour_transform_enabled_flag : Tguint8;
+      pps_slice_act_qp_offsets_present_flag : Tguint8;
+      pps_act_y_qp_offset_plus5 : Tguint8;
+      pps_act_cb_qp_offset_plus5 : Tguint8;
+      pps_act_cr_qp_offset_plus3 : Tguint8;
+      pps_palette_predictor_initializers_present_flag : Tguint8;
+      pps_num_palette_predictor_initializer : Tguint8;
+      monochrome_palette_flag : Tguint8;
+      luma_bit_depth_entry_minus8 : Tguint8;
+      chroma_bit_depth_entry_minus8 : Tguint32;
+      pps_palette_predictor_initializer : array[0..2] of array[0..127] of Tguint32;
+    end;
 
-/**
+{*
  * GstH265ScalingList:
  * @scaling_list_dc_coef_minus8_16x16: this plus 8 specifies the DC
  *   Coefficient values for 16x16 scaling list
@@ -1163,257 +1120,228 @@ struct _GstH265PPSSccExtensionParams {
  * @guint8 scaling_lists_32x32: 32x32 scaling list
  *
  * Defines the GstH265ScalingList
- */
-struct _GstH265ScalingList {
+  }
+  PGstH265ScalingList = ^TGstH265ScalingList;
+  TGstH265ScalingList = record
+      scaling_list_dc_coef_minus8_16x16 : array[0..5] of Tgint16;
+      scaling_list_dc_coef_minus8_32x32 : array[0..1] of Tgint16;
+      scaling_lists_4x4 : array[0..5] of array[0..15] of Tguint8;
+      scaling_lists_8x8 : array[0..5] of array[0..63] of Tguint8;
+      scaling_lists_16x16 : array[0..5] of array[0..63] of Tguint8;
+      scaling_lists_32x32 : array[0..1] of array[0..63] of Tguint8;
+    end;
 
-  gint16 scaling_list_dc_coef_minus8_16x16[6];
-  gint16 scaling_list_dc_coef_minus8_32x32[2];
-
-  guint8 scaling_lists_4x4 [6][16];
-  guint8 scaling_lists_8x8 [6][64];
-  guint8 scaling_lists_16x16 [6][64];
-  guint8 scaling_lists_32x32 [2][64];
-};
-
-/**
+{*
  * GstH265SPS:
  * @id: The ID of the sequence parameter set
  * @profile_idc: indicate the profile to which the coded video sequence conforms
  *
  * H265 Sequence Parameter Set (SPS)
- */
-struct _GstH265SPS
-{
-  guint8 id;
-
-  /**
+  }
+{*
    * _GstH265SPS.vps_id:
    *
    * The ID of the VPS. This is used to store the ID until the VPS is
    * parsed in case its placed after the SPS.
    * Since: 1.22
-   */
-  guint8 vps_id;
-  GstH265VPS *vps;
-
-  guint8 max_sub_layers_minus1;
-  guint8 temporal_id_nesting_flag;
-
-  GstH265ProfileTierLevel profile_tier_level;
-
-  guint8 chroma_format_idc;
-  guint8 separate_colour_plane_flag;
-  guint16 pic_width_in_luma_samples;
-  guint16 pic_height_in_luma_samples;
-
-  guint8 conformance_window_flag;
-  /* if conformance_window_flag */
-  guint32 conf_win_left_offset;
-  guint32 conf_win_right_offset;
-  guint32 conf_win_top_offset;
-  guint32 conf_win_bottom_offset;
-
-  guint8 bit_depth_luma_minus8;
-  guint8 bit_depth_chroma_minus8;
-  guint8 log2_max_pic_order_cnt_lsb_minus4;
-
-  guint8 sub_layer_ordering_info_present_flag;
-  guint8 max_dec_pic_buffering_minus1[GST_H265_MAX_SUB_LAYERS];
-  guint8 max_num_reorder_pics[GST_H265_MAX_SUB_LAYERS];
-  guint8 max_latency_increase_plus1[GST_H265_MAX_SUB_LAYERS];
-
-  guint8 log2_min_luma_coding_block_size_minus3;
-  guint8 log2_diff_max_min_luma_coding_block_size;
-  guint8 log2_min_transform_block_size_minus2;
-  guint8 log2_diff_max_min_transform_block_size;
-  guint8 max_transform_hierarchy_depth_inter;
-  guint8 max_transform_hierarchy_depth_intra;
-
-  guint8 scaling_list_enabled_flag;
-  /* if scaling_list_enabled_flag */
-  guint8 scaling_list_data_present_flag;
-
-  GstH265ScalingList scaling_list;
-
-  guint8 amp_enabled_flag;
-  guint8 sample_adaptive_offset_enabled_flag;
-  guint8 pcm_enabled_flag;
-  /* if pcm_enabled_flag */
-  guint8 pcm_sample_bit_depth_luma_minus1;
-  guint8 pcm_sample_bit_depth_chroma_minus1;
-  guint8 log2_min_pcm_luma_coding_block_size_minus3;
-  guint8 log2_diff_max_min_pcm_luma_coding_block_size;
-  guint8 pcm_loop_filter_disabled_flag;
-
-  guint8 num_short_term_ref_pic_sets;
-  GstH265ShortTermRefPicSet short_term_ref_pic_set[65];
-
-  guint8 long_term_ref_pics_present_flag;
-  /* if long_term_ref_pics_present_flag */
-  guint8 num_long_term_ref_pics_sps;
-  guint16 lt_ref_pic_poc_lsb_sps[32];
-  guint8 used_by_curr_pic_lt_sps_flag[32];
-
-  guint8 temporal_mvp_enabled_flag;
-  guint8 strong_intra_smoothing_enabled_flag;
-  guint8 vui_parameters_present_flag;
-
-  /* if vui_parameters_present_flag */
-  GstH265VUIParams vui_params;
-
-  guint8 sps_extension_flag;
-
-  /* if sps_extension_present_flag */
-  guint8 sps_range_extension_flag;
-  guint8 sps_multilayer_extension_flag;
-  guint8 sps_3d_extension_flag;
-  guint8 sps_scc_extension_flag;
-  guint8 sps_extension_4bits;
-
-  /* if sps_range_extension_flag */
-  /**
+    }
+{ if conformance_window_flag  }
+{ if scaling_list_enabled_flag  }
+{ if pcm_enabled_flag  }
+{ if long_term_ref_pics_present_flag  }
+{ if vui_parameters_present_flag  }
+{ if sps_extension_present_flag  }
+{ if sps_range_extension_flag  }
+{*
    * _GstH265SPS.sps_extension_params:
    *
    * Since: 1.22
-   */
-  GstH265SPSExtensionParams sps_extension_params;
-  /* if sps_scc_extension_flag */
-  GstH265SPSSccExtensionParams sps_scc_extension_params;
+    }
+{ if sps_scc_extension_flag  }
+{ calculated values  }
+  PGstH265SPS = ^TGstH265SPS;
+  TGstH265SPS = record
+      id : Tguint8;
+      vps_id : Tguint8;
+      vps : PGstH265VPS;
+      max_sub_layers_minus1 : Tguint8;
+      temporal_id_nesting_flag : Tguint8;
+      profile_tier_level : TGstH265ProfileTierLevel;
+      chroma_format_idc : Tguint8;
+      separate_colour_plane_flag : Tguint8;
+      pic_width_in_luma_samples : Tguint16;
+      pic_height_in_luma_samples : Tguint16;
+      conformance_window_flag : Tguint8;
+      conf_win_left_offset : Tguint32;
+      conf_win_right_offset : Tguint32;
+      conf_win_top_offset : Tguint32;
+      conf_win_bottom_offset : Tguint32;
+      bit_depth_luma_minus8 : Tguint8;
+      bit_depth_chroma_minus8 : Tguint8;
+      log2_max_pic_order_cnt_lsb_minus4 : Tguint8;
+      sub_layer_ordering_info_present_flag : Tguint8;
+      max_dec_pic_buffering_minus1 : array[0..(GST_H265_MAX_SUB_LAYERS)-1] of Tguint8;
+      max_num_reorder_pics : array[0..(GST_H265_MAX_SUB_LAYERS)-1] of Tguint8;
+      max_latency_increase_plus1 : array[0..(GST_H265_MAX_SUB_LAYERS)-1] of Tguint8;
+      log2_min_luma_coding_block_size_minus3 : Tguint8;
+      log2_diff_max_min_luma_coding_block_size : Tguint8;
+      log2_min_transform_block_size_minus2 : Tguint8;
+      log2_diff_max_min_transform_block_size : Tguint8;
+      max_transform_hierarchy_depth_inter : Tguint8;
+      max_transform_hierarchy_depth_intra : Tguint8;
+      scaling_list_enabled_flag : Tguint8;
+      scaling_list_data_present_flag : Tguint8;
+      scaling_list : TGstH265ScalingList;
+      amp_enabled_flag : Tguint8;
+      sample_adaptive_offset_enabled_flag : Tguint8;
+      pcm_enabled_flag : Tguint8;
+      pcm_sample_bit_depth_luma_minus1 : Tguint8;
+      pcm_sample_bit_depth_chroma_minus1 : Tguint8;
+      log2_min_pcm_luma_coding_block_size_minus3 : Tguint8;
+      log2_diff_max_min_pcm_luma_coding_block_size : Tguint8;
+      pcm_loop_filter_disabled_flag : Tguint8;
+      num_short_term_ref_pic_sets : Tguint8;
+      short_term_ref_pic_set : array[0..64] of TGstH265ShortTermRefPicSet;
+      long_term_ref_pics_present_flag : Tguint8;
+      num_long_term_ref_pics_sps : Tguint8;
+      lt_ref_pic_poc_lsb_sps : array[0..31] of Tguint16;
+      used_by_curr_pic_lt_sps_flag : array[0..31] of Tguint8;
+      temporal_mvp_enabled_flag : Tguint8;
+      strong_intra_smoothing_enabled_flag : Tguint8;
+      vui_parameters_present_flag : Tguint8;
+      vui_params : TGstH265VUIParams;
+      sps_extension_flag : Tguint8;
+      sps_range_extension_flag : Tguint8;
+      sps_multilayer_extension_flag : Tguint8;
+      sps_3d_extension_flag : Tguint8;
+      sps_scc_extension_flag : Tguint8;
+      sps_extension_4bits : Tguint8;
+      sps_extension_params : TGstH265SPSExtensionParams;
+      sps_scc_extension_params : TGstH265SPSSccExtensionParams;
+      chroma_array_type : Tguint8;
+      width : Tgint;
+      height : Tgint;
+      crop_rect_width : Tgint;
+      crop_rect_height : Tgint;
+      crop_rect_x : Tgint;
+      crop_rect_y : Tgint;
+      fps_num : Tgint;
+      fps_den : Tgint;
+      valid : Tgboolean;
+    end;
 
-  /* calculated values */
-  guint8 chroma_array_type;
-  gint width, height;
-  gint crop_rect_width, crop_rect_height;
-  gint crop_rect_x, crop_rect_y;
-  gint fps_num, fps_den;
-  gboolean valid;
-};
-
-/**
+{*
  * GstH265SPSEXT:
  *
  * H265 Sequence Parameter Set extension
  *
  * Since: 1.28
- */
-struct _GstH265SPSEXT {
-  GstH265ShortTermRefPicSetExt short_term_ref_pic_set_ext[65];
-};
+  }
+  PGstH265SPSEXT = ^TGstH265SPSEXT;
+  TGstH265SPSEXT = record
+      short_term_ref_pic_set_ext : array[0..64] of TGstH265ShortTermRefPicSetExt;
+    end;
 
-/**
+{*
  * GstH265PPS:
  *
  * H265 Picture Parameter Set
- */
-struct _GstH265PPS
-{
-  guint id;
-
-  /**
+  }
+{*
    * _GstH265PPS.sps_id:
    *
    * The ID of the SPS. This is used to store the ID until the SPS is
    * parsed in case its placed after the PPS.
    *
    * Since: 1.22
-   */
-  guint sps_id;
-  GstH265SPS *sps;
+    }
+{if cu_qp_delta_enabled_flag  }
+{ if pps_extension_flag }
+{ if pps_range_extension_flag }
+{ if pps_scc_extension_flag }
+{ calculated values  }
+  PGstH265PPS = ^TGstH265PPS;
+  TGstH265PPS = record
+      id : Tguint;
+      sps_id : Tguint;
+      sps : PGstH265SPS;
+      dependent_slice_segments_enabled_flag : Tguint8;
+      output_flag_present_flag : Tguint8;
+      num_extra_slice_header_bits : Tguint8;
+      sign_data_hiding_enabled_flag : Tguint8;
+      cabac_init_present_flag : Tguint8;
+      num_ref_idx_l0_default_active_minus1 : Tguint8;
+      num_ref_idx_l1_default_active_minus1 : Tguint8;
+      init_qp_minus26 : Tgint8;
+      constrained_intra_pred_flag : Tguint8;
+      transform_skip_enabled_flag : Tguint8;
+      cu_qp_delta_enabled_flag : Tguint8;
+      diff_cu_qp_delta_depth : Tguint8;
+      cb_qp_offset : Tgint8;
+      cr_qp_offset : Tgint8;
+      slice_chroma_qp_offsets_present_flag : Tguint8;
+      weighted_pred_flag : Tguint8;
+      weighted_bipred_flag : Tguint8;
+      transquant_bypass_enabled_flag : Tguint8;
+      tiles_enabled_flag : Tguint8;
+      entropy_coding_sync_enabled_flag : Tguint8;
+      num_tile_columns_minus1 : Tguint8;
+      num_tile_rows_minus1 : Tguint8;
+      uniform_spacing_flag : Tguint8;
+      column_width_minus1 : array[0..19] of Tguint32;
+      row_height_minus1 : array[0..21] of Tguint32;
+      loop_filter_across_tiles_enabled_flag : Tguint8;
+      loop_filter_across_slices_enabled_flag : Tguint8;
+      deblocking_filter_control_present_flag : Tguint8;
+      deblocking_filter_override_enabled_flag : Tguint8;
+      deblocking_filter_disabled_flag : Tguint8;
+      beta_offset_div2 : Tgint8;
+      tc_offset_div2 : Tgint8;
+      scaling_list_data_present_flag : Tguint8;
+      scaling_list : TGstH265ScalingList;
+      lists_modification_present_flag : Tguint8;
+      log2_parallel_merge_level_minus2 : Tguint8;
+      slice_segment_header_extension_present_flag : Tguint8;
+      pps_extension_flag : Tguint8;
+      pps_range_extension_flag : Tguint8;
+      pps_multilayer_extension_flag : Tguint8;
+      pps_3d_extension_flag : Tguint8;
+      pps_scc_extension_flag : Tguint8;
+      pps_extension_4bits : Tguint8;
+      pps_extension_params : TGstH265PPSExtensionParams;
+      pps_scc_extension_params : TGstH265PPSSccExtensionParams;
+      PicWidthInCtbsY : Tguint32;
+      PicHeightInCtbsY : Tguint32;
+      valid : Tgboolean;
+    end;
 
-  guint8 dependent_slice_segments_enabled_flag;
-  guint8 output_flag_present_flag;
-  guint8 num_extra_slice_header_bits;
-  guint8 sign_data_hiding_enabled_flag;
-  guint8 cabac_init_present_flag;
-  guint8 num_ref_idx_l0_default_active_minus1;
-  guint8 num_ref_idx_l1_default_active_minus1;
-  gint8 init_qp_minus26;
-  guint8 constrained_intra_pred_flag;
-  guint8 transform_skip_enabled_flag;
-  guint8 cu_qp_delta_enabled_flag;
-  /*if cu_qp_delta_enabled_flag */
-  guint8 diff_cu_qp_delta_depth;
+  PGstH265RefPicListModification = ^TGstH265RefPicListModification;
+  TGstH265RefPicListModification = record
+      ref_pic_list_modification_flag_l0 : Tguint8;
+      list_entry_l0 : array[0..14] of Tguint32;
+      ref_pic_list_modification_flag_l1 : Tguint8;
+      list_entry_l1 : array[0..14] of Tguint32;
+    end;
 
-  gint8 cb_qp_offset;
-  gint8 cr_qp_offset;
-  guint8 slice_chroma_qp_offsets_present_flag;
-  guint8 weighted_pred_flag;
-  guint8 weighted_bipred_flag;
-  guint8 transquant_bypass_enabled_flag;
-  guint8 tiles_enabled_flag;
-  guint8 entropy_coding_sync_enabled_flag;
+  PGstH265PredWeightTable = ^TGstH265PredWeightTable;
+  TGstH265PredWeightTable = record
+      luma_log2_weight_denom : Tguint8;
+      delta_chroma_log2_weight_denom : Tgint8;
+      luma_weight_l0_flag : array[0..14] of Tguint8;
+      chroma_weight_l0_flag : array[0..14] of Tguint8;
+      delta_luma_weight_l0 : array[0..14] of Tgint8;
+      luma_offset_l0 : array[0..14] of Tgint8;
+      delta_chroma_weight_l0 : array[0..14] of array[0..1] of Tgint8;
+      delta_chroma_offset_l0 : array[0..14] of array[0..1] of Tgint16;
+      luma_weight_l1_flag : array[0..14] of Tguint8;
+      chroma_weight_l1_flag : array[0..14] of Tguint8;
+      delta_luma_weight_l1 : array[0..14] of Tgint8;
+      luma_offset_l1 : array[0..14] of Tgint8;
+      delta_chroma_weight_l1 : array[0..14] of array[0..1] of Tgint8;
+      delta_chroma_offset_l1 : array[0..14] of array[0..1] of Tgint16;
+    end;
 
-  guint8 num_tile_columns_minus1;
-  guint8 num_tile_rows_minus1;
-  guint8 uniform_spacing_flag;
-  guint32 column_width_minus1[20];
-  guint32 row_height_minus1[22];
-  guint8 loop_filter_across_tiles_enabled_flag;
-
-  guint8 loop_filter_across_slices_enabled_flag;
-  guint8 deblocking_filter_control_present_flag;
-  guint8 deblocking_filter_override_enabled_flag;
-  guint8 deblocking_filter_disabled_flag;
-  gint8 beta_offset_div2;
-  gint8 tc_offset_div2;
-
-  guint8 scaling_list_data_present_flag;
-
-  GstH265ScalingList scaling_list;
-
-  guint8 lists_modification_present_flag;
-  guint8 log2_parallel_merge_level_minus2;
-  guint8 slice_segment_header_extension_present_flag;
-
-  guint8 pps_extension_flag;
-
-  /* if pps_extension_flag*/
-  guint8 pps_range_extension_flag;
-  guint8 pps_multilayer_extension_flag;
-  guint8 pps_3d_extension_flag;
-  guint8 pps_scc_extension_flag;
-  guint8 pps_extension_4bits;
-
-  /* if pps_range_extension_flag*/
-  GstH265PPSExtensionParams pps_extension_params;
-  /* if pps_scc_extension_flag*/
-  GstH265PPSSccExtensionParams pps_scc_extension_params;
-
-  /* calculated values */
-  guint32 PicWidthInCtbsY;
-  guint32 PicHeightInCtbsY;
-  gboolean valid;
-};
-
-struct _GstH265RefPicListModification
-{
-  guint8 ref_pic_list_modification_flag_l0;
-  guint32 list_entry_l0[15];
-  guint8 ref_pic_list_modification_flag_l1;
-  guint32 list_entry_l1[15];
-};
-
-struct _GstH265PredWeightTable
-{
-  guint8 luma_log2_weight_denom;
-  gint8 delta_chroma_log2_weight_denom;
-
-  guint8 luma_weight_l0_flag[15];
-  guint8  chroma_weight_l0_flag[15];
-  gint8 delta_luma_weight_l0[15];
-  gint8 luma_offset_l0[15];
-  gint8 delta_chroma_weight_l0 [15][2];
-  gint16 delta_chroma_offset_l0 [15][2];
-
-  guint8 luma_weight_l1_flag[15];
-  guint8 chroma_weight_l1_flag[15];
-  gint8 delta_luma_weight_l1[15];
-  gint8 luma_offset_l1[15];
-  gint8 delta_chroma_weight_l1[15][2];
-  gint16 delta_chroma_offset_l1[15][2];
-};
-
-/**
+{*
  * GstH265SliceHdr:
  * @first_slice_segment_in_pic_flag: equal to 1 if this slice segment is
  *   the first slice segment of the picture in decoding order
@@ -1504,153 +1432,128 @@ struct _GstH265PredWeightTable
  * @long_term_ref_pic_set_size: the calculated size of the branch
  *   `if( long_term_ref_pics_present_flag )` `inside slice_segment_header()` syntax
  *   in bits. (Since: 1.22)
- */
-struct _GstH265SliceHdr
-{
-  guint8 first_slice_segment_in_pic_flag;
-  guint8 no_output_of_prior_pics_flag;
-
-  GstH265PPS *pps;
-
-  guint8 dependent_slice_segment_flag;
-  guint32 segment_address;
-
-  guint8 type;
-
-  guint8 pic_output_flag;
-  guint8 colour_plane_id;
-  guint16 pic_order_cnt_lsb;
-
-  guint8  short_term_ref_pic_set_sps_flag;
-  GstH265ShortTermRefPicSet short_term_ref_pic_sets;
-  guint8 short_term_ref_pic_set_idx;
-
-  guint8 num_long_term_sps;
-  guint8 num_long_term_pics;
-  guint8 lt_idx_sps[16];
-  guint32 poc_lsb_lt[16];
-  guint8 used_by_curr_pic_lt_flag[16];
-  guint8 delta_poc_msb_present_flag[16];
-  guint32 delta_poc_msb_cycle_lt[16];
-
-  guint8 temporal_mvp_enabled_flag;
-  guint8 sao_luma_flag;
-  guint8 sao_chroma_flag;
-  guint8 num_ref_idx_active_override_flag;
-  guint8 num_ref_idx_l0_active_minus1;
-  guint8 num_ref_idx_l1_active_minus1;
-
-  GstH265RefPicListModification ref_pic_list_modification;
-
-  guint8 mvd_l1_zero_flag;
-  guint8 cabac_init_flag;
-  guint8 collocated_from_l0_flag;
-  guint8 collocated_ref_idx;
-
-  GstH265PredWeightTable pred_weight_table;
-
-  guint8 five_minus_max_num_merge_cand;
-  guint8 use_integer_mv_flag;
-
-  gint8 qp_delta;
-  gint8 cb_qp_offset;
-  gint8 cr_qp_offset;
-  gint8 slice_act_y_qp_offset;
-  gint8 slice_act_cb_qp_offset;
-  gint8 slice_act_cr_qp_offset;
-
-  guint8 cu_chroma_qp_offset_enabled_flag;
-
-  guint8 deblocking_filter_override_flag;
-  guint8 deblocking_filter_disabled_flag;
-  gint8 beta_offset_div2;
-  gint8 tc_offset_div2;
-
-  guint8 loop_filter_across_slices_enabled_flag;
-
-  guint32 num_entry_point_offsets;
-  guint8 offset_len_minus1;
-  guint32 *entry_point_offset_minus1;
-
-  /* calculated values */
-
-  gint NumPocTotalCurr;
-  /* Size of the slice_header() in bits */
-  guint header_size;
-  /* Number of emulation prevention bytes (EPB) in this slice_header() */
-  guint n_emulation_prevention_bytes;
-
-  /* Size of short_term_ref_pic_set() after emulation preventation bytes are
-   * removed, in bits */
-  guint short_term_ref_pic_set_size;
-
-  /**
+  }
+{ calculated values  }
+{ Size of the slice_header() in bits  }
+{ Number of emulation prevention bytes (EPB) in this slice_header()  }
+{ Size of short_term_ref_pic_set() after emulation preventation bytes are
+   * removed, in bits  }
+{*
    * _GstH265SliceHdr.long_term_ref_pic_set_size:
    *
    * The calculated size of the branch `if( long_term_ref_pics_present_flag )`
    * inside `slice_segment_header()` syntax in bits.
    *
    * Since: 1.22
-   */
-  guint long_term_ref_pic_set_size;
-
-  /**
+    }
+{*
    * _GstH265SliceHdr.pps_id:
    *
    * PPS id
    *
    * Since: 1.28
-   */
-  guint pps_id;
-};
+    }
+  PGstH265SliceHdr = ^TGstH265SliceHdr;
+  TGstH265SliceHdr = record
+      first_slice_segment_in_pic_flag : Tguint8;
+      no_output_of_prior_pics_flag : Tguint8;
+      pps : PGstH265PPS;
+      dependent_slice_segment_flag : Tguint8;
+      segment_address : Tguint32;
+      _type : Tguint8;
+      pic_output_flag : Tguint8;
+      colour_plane_id : Tguint8;
+      pic_order_cnt_lsb : Tguint16;
+      short_term_ref_pic_set_sps_flag : Tguint8;
+      short_term_ref_pic_sets : TGstH265ShortTermRefPicSet;
+      short_term_ref_pic_set_idx : Tguint8;
+      num_long_term_sps : Tguint8;
+      num_long_term_pics : Tguint8;
+      lt_idx_sps : array[0..15] of Tguint8;
+      poc_lsb_lt : array[0..15] of Tguint32;
+      used_by_curr_pic_lt_flag : array[0..15] of Tguint8;
+      delta_poc_msb_present_flag : array[0..15] of Tguint8;
+      delta_poc_msb_cycle_lt : array[0..15] of Tguint32;
+      temporal_mvp_enabled_flag : Tguint8;
+      sao_luma_flag : Tguint8;
+      sao_chroma_flag : Tguint8;
+      num_ref_idx_active_override_flag : Tguint8;
+      num_ref_idx_l0_active_minus1 : Tguint8;
+      num_ref_idx_l1_active_minus1 : Tguint8;
+      ref_pic_list_modification : TGstH265RefPicListModification;
+      mvd_l1_zero_flag : Tguint8;
+      cabac_init_flag : Tguint8;
+      collocated_from_l0_flag : Tguint8;
+      collocated_ref_idx : Tguint8;
+      pred_weight_table : TGstH265PredWeightTable;
+      five_minus_max_num_merge_cand : Tguint8;
+      use_integer_mv_flag : Tguint8;
+      qp_delta : Tgint8;
+      cb_qp_offset : Tgint8;
+      cr_qp_offset : Tgint8;
+      slice_act_y_qp_offset : Tgint8;
+      slice_act_cb_qp_offset : Tgint8;
+      slice_act_cr_qp_offset : Tgint8;
+      cu_chroma_qp_offset_enabled_flag : Tguint8;
+      deblocking_filter_override_flag : Tguint8;
+      deblocking_filter_disabled_flag : Tguint8;
+      beta_offset_div2 : Tgint8;
+      tc_offset_div2 : Tgint8;
+      loop_filter_across_slices_enabled_flag : Tguint8;
+      num_entry_point_offsets : Tguint32;
+      offset_len_minus1 : Tguint8;
+      entry_point_offset_minus1 : Pguint32;
+      NumPocTotalCurr : Tgint;
+      header_size : Tguint;
+      n_emulation_prevention_bytes : Tguint;
+      short_term_ref_pic_set_size : Tguint;
+      long_term_ref_pic_set_size : Tguint;
+      pps_id : Tguint;
+    end;
 
-struct _GstH265PicTiming
-{
-  guint8 pic_struct;
-  guint8 source_scan_type;
-  guint8 duplicate_flag;
+  PGstH265PicTiming = ^TGstH265PicTiming;
+  TGstH265PicTiming = record
+      pic_struct : Tguint8;
+      source_scan_type : Tguint8;
+      duplicate_flag : Tguint8;
+      au_cpb_removal_delay_minus1 : Tguint8;
+      pic_dpb_output_delay : Tguint8;
+      pic_dpb_output_du_delay : Tguint8;
+      num_decoding_units_minus1 : Tguint32;
+      du_common_cpb_removal_delay_flag : Tguint8;
+      du_common_cpb_removal_delay_increment_minus1 : Tguint8;
+      num_nalus_in_du_minus1 : Pguint32;
+      du_cpb_removal_delay_increment_minus1 : Pguint8;
+    end;
 
-  guint8 au_cpb_removal_delay_minus1;
-  guint8 pic_dpb_output_delay;
-  guint8 pic_dpb_output_du_delay;
-  guint32 num_decoding_units_minus1;
-  guint8 du_common_cpb_removal_delay_flag;
-  guint8 du_common_cpb_removal_delay_increment_minus1;
-  guint32 *num_nalus_in_du_minus1;
-  guint8 *du_cpb_removal_delay_increment_minus1;
-};
+{ seq->vui_parameters->nal_hrd_parameters_present_flag  }
+{ seq->vui_parameters->vcl_hrd_parameters_present_flag  }
+  PGstH265BufferingPeriod = ^TGstH265BufferingPeriod;
+  TGstH265BufferingPeriod = record
+      sps : PGstH265SPS;
+      irap_cpb_params_present_flag : Tguint8;
+      cpb_delay_offset : Tguint8;
+      dpb_delay_offset : Tguint8;
+      concatenation_flag : Tguint8;
+      au_cpb_removal_delay_delta_minus1 : Tguint8;
+      nal_initial_cpb_removal_delay : array[0..31] of Tguint8;
+      nal_initial_cpb_removal_offset : array[0..31] of Tguint8;
+      nal_initial_alt_cpb_removal_delay : array[0..31] of Tguint8;
+      nal_initial_alt_cpb_removal_offset : array[0..31] of Tguint8;
+      vcl_initial_cpb_removal_delay : array[0..31] of Tguint8;
+      vcl_initial_cpb_removal_offset : array[0..31] of Tguint8;
+      vcl_initial_alt_cpb_removal_delay : array[0..31] of Tguint8;
+      vcl_initial_alt_cpb_removal_offset : array[0..31] of Tguint8;
+    end;
 
-struct _GstH265BufferingPeriod
-{
-  GstH265SPS *sps;
+  PGstH265RecoveryPoint = ^TGstH265RecoveryPoint;
+  TGstH265RecoveryPoint = record
+      recovery_poc_cnt : Tgint32;
+      exact_match_flag : Tguint8;
+      broken_link_flag : Tguint8;
+    end;
 
-  guint8 irap_cpb_params_present_flag;
-  guint8 cpb_delay_offset;
-  guint8 dpb_delay_offset;
-  guint8 concatenation_flag;
-  guint8 au_cpb_removal_delay_delta_minus1;
-
-  /* seq->vui_parameters->nal_hrd_parameters_present_flag */
-  guint8 nal_initial_cpb_removal_delay[32];
-  guint8 nal_initial_cpb_removal_offset[32];
-  guint8 nal_initial_alt_cpb_removal_delay[32];
-  guint8 nal_initial_alt_cpb_removal_offset [32];
-
-  /* seq->vui_parameters->vcl_hrd_parameters_present_flag */
-  guint8 vcl_initial_cpb_removal_delay[32];
-  guint8 vcl_initial_cpb_removal_offset[32];
-  guint8 vcl_initial_alt_cpb_removal_delay[32];
-  guint8 vcl_initial_alt_cpb_removal_offset[32];
-};
-
-struct _GstH265RecoveryPoint
-{
-  gint32 recovery_poc_cnt;
-  guint8 exact_match_flag;
-  guint8 broken_link_flag;
-};
-
-/**
+{*
  * GstH265RegisteredUserData:
  * The User data registered by Rec. ITU-T T.35 SEI message.
  * @country_code: an itu_t_t35_country_code.
@@ -1661,16 +1564,16 @@ struct _GstH265RecoveryPoint
  * @size: the size of @data in bytes
  *
  * Since: 1.18
- */
-struct _GstH265RegisteredUserData
-{
-  guint8 country_code;
-  guint8 country_code_extension;
-  const guint8 *data;
-  guint size;
-};
+  }
+  PGstH265RegisteredUserData = ^TGstH265RegisteredUserData;
+  TGstH265RegisteredUserData = record
+      country_code : Tguint8;
+      country_code_extension : Tguint8;
+      data : Pguint8;
+      size : Tguint;
+    end;
 
-/**
+{*
  * GstH265UserDataUnregistered:
  * @uuid: an uuid_iso_iec_11578.
  * @data: the data of user_data_payload_byte
@@ -1679,15 +1582,15 @@ struct _GstH265RegisteredUserData
  * The User data unregistered SEI message syntax.
  *
  * Since: 1.24
- */
-struct _GstH265UserDataUnregistered
-{
-  guint8 uuid[16];
-  const guint8 *data;
-  guint size;
-};
+  }
+  PGstH265UserDataUnregistered = ^TGstH265UserDataUnregistered;
+  TGstH265UserDataUnregistered = record
+      uuid : array[0..15] of Tguint8;
+      data : Pguint8;
+      size : Tguint;
+    end;
 
-/**
+{*
  * GstH265TimeCode:
  * The time code SEI message provides time code information similar to that
  * defined by SMPTE ST 12-1 (2014) for field(s) or frame(s) of the current
@@ -1696,28 +1599,28 @@ struct _GstH265UserDataUnregistered
  * D.2.27
  *
  * Since: 1.16
- */
-struct _GstH265TimeCode
-{
-  guint8 num_clock_ts;
-  guint8 clock_timestamp_flag[3];
-  guint8 units_field_based_flag[3];
-  guint8 counting_type[3];
-  guint8 full_timestamp_flag[3];
-  guint8 discontinuity_flag[3];
-  guint8 cnt_dropped_flag[3];
-  guint16 n_frames[3];
-  guint8 seconds_flag[3];
-  guint8 seconds_value[3];
-  guint8 minutes_flag[3];
-  guint8 minutes_value[3];
-  guint8 hours_flag[3];
-  guint8 hours_value[3];
-  guint8 time_offset_length[3];
-  guint32 time_offset_value[3];
-};
+  }
+  PGstH265TimeCode = ^TGstH265TimeCode;
+  TGstH265TimeCode = record
+      num_clock_ts : Tguint8;
+      clock_timestamp_flag : array[0..2] of Tguint8;
+      units_field_based_flag : array[0..2] of Tguint8;
+      counting_type : array[0..2] of Tguint8;
+      full_timestamp_flag : array[0..2] of Tguint8;
+      discontinuity_flag : array[0..2] of Tguint8;
+      cnt_dropped_flag : array[0..2] of Tguint8;
+      n_frames : array[0..2] of Tguint16;
+      seconds_flag : array[0..2] of Tguint8;
+      seconds_value : array[0..2] of Tguint8;
+      minutes_flag : array[0..2] of Tguint8;
+      minutes_value : array[0..2] of Tguint8;
+      hours_flag : array[0..2] of Tguint8;
+      hours_value : array[0..2] of Tguint8;
+      time_offset_length : array[0..2] of Tguint8;
+      time_offset_value : array[0..2] of Tguint32;
+    end;
 
-/**
+{*
  * GstH265MasteringDisplayColourVolume:
  * The colour volume (primaries, white point and luminance range) of display
  * defined by SMPTE ST 2086.
@@ -1725,18 +1628,18 @@ struct _GstH265TimeCode
  * D.2.28
  *
  * Since: 1.18
- */
-struct _GstH265MasteringDisplayColourVolume
-{
-  guint16 display_primaries_x[3];
-  guint16 display_primaries_y[3];
-  guint16 white_point_x;
-  guint16 white_point_y;
-  guint32 max_display_mastering_luminance;
-  guint32 min_display_mastering_luminance;
-};
+  }
+  PGstH265MasteringDisplayColourVolume = ^TGstH265MasteringDisplayColourVolume;
+  TGstH265MasteringDisplayColourVolume = record
+      display_primaries_x : array[0..2] of Tguint16;
+      display_primaries_y : array[0..2] of Tguint16;
+      white_point_x : Tguint16;
+      white_point_y : Tguint16;
+      max_display_mastering_luminance : Tguint32;
+      min_display_mastering_luminance : Tguint32;
+    end;
 
-/**
+{*
  * GstH265ContentLightLevel:
  * The upper bounds for the nominal target brightness light level
  * as specified in CEA-861.3
@@ -1744,313 +1647,250 @@ struct _GstH265MasteringDisplayColourVolume
  * D.2.35
  *
  * Since: 1.18
- */
-struct _GstH265ContentLightLevel
-{
-  guint16 max_content_light_level;
-  guint16 max_pic_average_light_level;
-};
+  }
+  PGstH265ContentLightLevel = ^TGstH265ContentLightLevel;
+  TGstH265ContentLightLevel = record
+      max_content_light_level : Tguint16;
+      max_pic_average_light_level : Tguint16;
+    end;
 
-/**
+{*
  * GstH265SEIMessage:
  * @payloadType: #GstH265SEIPayloadType
  * @payload: union of all possible SEI message data types
  *
  * Constains information about SEI message. The content depends on the
  * @payloadType.
- */
-struct _GstH265SEIMessage
-{
-  GstH265SEIPayloadType payloadType;
-
-  union {
-    GstH265BufferingPeriod buffering_period;
-    GstH265PicTiming pic_timing;
-    GstH265RegisteredUserData registered_user_data;
-    GstH265RecoveryPoint recovery_point;
-    GstH265TimeCode time_code;
-    GstH265MasteringDisplayColourVolume mastering_display_colour_volume;
-    GstH265ContentLightLevel content_light_level;
-
-    /**
+  }
+{*
      * GstH265SEIMessage.user_data_unregistered:
      *
      * User Data Unregistered
      *
      * Since: 1.24
-     */
-    GstH265UserDataUnregistered user_data_unregistered;
-    /* ... could implement more */
-  } payload;
-};
+      }
+{ ... could implement more  }
+  PGstH265SEIMessage = ^TGstH265SEIMessage;
+  TGstH265SEIMessage = record
+      payloadType : TGstH265SEIPayloadType;
+      payload : record
+          case longint of
+            0 : ( buffering_period : TGstH265BufferingPeriod );
+            1 : ( pic_timing : TGstH265PicTiming );
+            2 : ( registered_user_data : TGstH265RegisteredUserData );
+            3 : ( recovery_point : TGstH265RecoveryPoint );
+            4 : ( time_code : TGstH265TimeCode );
+            5 : ( mastering_display_colour_volume : TGstH265MasteringDisplayColourVolume );
+            6 : ( content_light_level : TGstH265ContentLightLevel );
+            7 : ( user_data_unregistered : TGstH265UserDataUnregistered );
+          end;
+    end;
 
-/**
+{*
  * GstH265DecoderConfigRecordNalUnitArray:
  *
  * Contains NAL Unit array data as defined in ISO/IEC 14496-15
  *
  * Since: 1.24
- */
-struct _GstH265DecoderConfigRecordNalUnitArray
-{
-  /**
+  }
+{*
    * GstH265DecoderConfigRecordNalUnitArray.array_completeness:
    *
    * 1: all NAL units of the given type are in this array and none
    *   are in the stream.
    * 0: additional NAL units of the indicated type may be in the stream
-   */
-  guint8 array_completeness;
-
-  /**
+    }
+{*
    * GstH265DecoderConfigRecordNalUnitArray.nal_unit_type:
    *
    * Indicates the type of the NAL units in the following array.
    * Shall be VPS, SPS, PPS, prefix SEI or suffix SEI
-   */
-  GstH265NalUnitType nal_unit_type;
-
-  /**
+    }
+{*
    * GstH265DecoderConfigRecordNalUnitArray.nalu:
    *
    * Array of identified #GstH265NalUnit
-   */
-  GArray *nalu;
-};
+    }
+  PGstH265DecoderConfigRecordNalUnitArray = ^TGstH265DecoderConfigRecordNalUnitArray;
+  TGstH265DecoderConfigRecordNalUnitArray = record
+      array_completeness : Tguint8;
+      nal_unit_type : TGstH265NalUnitType;
+      nalu : PGArray;
+    end;
 
-/**
+{*
  * GstH265DecoderConfigRecord:
  *
  * Contains HEVCDecoderConfigurationRecord data as defined in ISO/IEC 14496-15
  *
  * Since: 1.24
- */
-struct _GstH265DecoderConfigRecord
-{
-  /**
+  }
+{*
    * GstH265DecoderConfigRecord.configuration_version:
    *
    * Indicates configurationVersion, must be 1
-   */
-  guint8 configuration_version;
-
-  /**
+    }
+{*
    * GstH265DecoderConfigRecord.general_profile_space:
    *
    * general profile space
-   */
-  guint8 general_profile_space;
-
-  /**
+    }
+{*
    * GstH265DecoderConfigRecord.general_tier_flag:
    *
    * general tier flag
-   */
-  guint8 general_tier_flag;
-
-  /**
+    }
+{*
    * GstH265DecoderConfigRecord.general_profile_idc:
    *
    * general profile indiction
-   */
-  guint8 general_profile_idc;
-
-  /**
+    }
+{*
    * GstH265DecoderConfigRecord.general_profile_compatibility_flags:
    *
    * general profile compatibility flags
-   */
-  guint8 general_profile_compatibility_flags[32];
-
-  /**
+    }
+{*
    * GstH265DecoderConfigRecord.general_progressive_source_flag:
    *
    * general_progressive_source_flag parsed from
    * HEVCDecoderConfigurationRecord.general_constraint_indicator_flags
-   */
-  guint8 general_progressive_source_flag;
-
-  /**
+    }
+{*
    * GstH265DecoderConfigRecord.general_interlaced_source_flag:
    *
    * general_interlaced_source_flag parsed from
    * HEVCDecoderConfigurationRecord.general_constraint_indicator_flags
-   */
-  guint8 general_interlaced_source_flag;
-
-  /**
+    }
+{*
    * GstH265DecoderConfigRecord.general_non_packed_constraint_flag:
    *
    * general_non_packed_constraint_flag parsed from
    * HEVCDecoderConfigurationRecord.general_constraint_indicator_flags
-   */
-  guint8 general_non_packed_constraint_flag;
-
-  /**
+    }
+{*
    * GstH265DecoderConfigRecord.general_frame_only_constraint_flag:
    *
    * general_frame_only_constraint_flag parsed from
    * HEVCDecoderConfigurationRecord.general_constraint_indicator_flags
-   */
-  guint8 general_frame_only_constraint_flag;
-
-  /**
+    }
+{*
    * GstH265DecoderConfigRecord.general_max_12bit_constraint_flag:
    *
    * general_max_12bit_constraint_flag parsed from
    * HEVCDecoderConfigurationRecord.general_constraint_indicator_flags
-   */
-  guint8 general_max_12bit_constraint_flag;
-
-  /**
+    }
+{*
    * GstH265DecoderConfigRecord.general_max_10bit_constraint_flag:
    *
    * general_max_10bit_constraint_flag parsed from
    * HEVCDecoderConfigurationRecord.general_constraint_indicator_flags
-   */
-  guint8 general_max_10bit_constraint_flag;
-
-  /**
+    }
+{*
    * GstH265DecoderConfigRecord.general_max_8bit_constraint_flag:
    *
    * general_max_8bit_constraint_flag parsed from
    * HEVCDecoderConfigurationRecord.general_constraint_indicator_flags
-   */
-  guint8 general_max_8bit_constraint_flag;
-
-  /**
+    }
+{*
    * GstH265DecoderConfigRecord.general_max_422chroma_constraint_flag:
    *
    * general_max_422chroma_constraint_flag parsed from
    * HEVCDecoderConfigurationRecord.general_constraint_indicator_flags
-   */
-  guint8 general_max_422chroma_constraint_flag;
-
-  /**
+    }
+{*
    * GstH265DecoderConfigRecord.general_max_420chroma_constraint_flag:
    *
    * general_max_420chroma_constraint_flag parsed from
    * HEVCDecoderConfigurationRecord.general_constraint_indicator_flags
-   */
-  guint8 general_max_420chroma_constraint_flag;
-
-  /**
+    }
+{*
    * GstH265DecoderConfigRecord.general_max_monochrome_constraint_flag:
    *
    * general_max_monochrome_constraint_flag parsed from
    * HEVCDecoderConfigurationRecord.general_constraint_indicator_flags
-   */
-  guint8 general_max_monochrome_constraint_flag;
-
-  /**
+    }
+{*
    * GstH265DecoderConfigRecord.general_intra_constraint_flag:
    *
    * general_intra_constraint_flag parsed from
    * HEVCDecoderConfigurationRecord.general_constraint_indicator_flags
-   */
-  guint8 general_intra_constraint_flag;
-
-  /**
+    }
+{*
    * GstH265DecoderConfigRecord.general_one_picture_only_constraint_flag:
    *
    * general_one_picture_only_constraint_flag parsed from
    * HEVCDecoderConfigurationRecord.general_constraint_indicator_flags
-   */
-  guint8 general_one_picture_only_constraint_flag;
-
-  /**
+    }
+{*
    * GstH265DecoderConfigRecord.general_lower_bit_rate_constraint_flag:
    *
    * general_lower_bit_rate_constraint_flag parsed from
    * HEVCDecoderConfigurationRecord.general_constraint_indicator_flags
-   */
-  guint8 general_lower_bit_rate_constraint_flag;
-
-  /**
+    }
+{*
    * GstH265DecoderConfigRecord.general_max_14bit_constraint_flag:
    *
    * general_max_14bit_constraint_flag parsed from
    * HEVCDecoderConfigurationRecord.general_constraint_indicator_flags
-   */
-  guint8 general_max_14bit_constraint_flag;
-
-  /**
+    }
+{*
    * GstH265DecoderConfigRecord.general_inbld_flag:
    *
    * general_inbld_flag parsed from
    * HEVCDecoderConfigurationRecord.general_constraint_indicator_flags
-   */
-  guint8 general_inbld_flag;
-
-  /**
+    }
+{*
    * GstH265DecoderConfigRecord.general_level_idc:
    *
    * general level indication
-   */
-  guint8 general_level_idc;
-
-  /**
+    }
+{*
    * GstH265DecoderConfigRecord.min_spatial_segmentation_idc:
    *
    * min spatial segmentation indication
-   */
-  guint16 min_spatial_segmentation_idc;
-
-  /**
+    }
+{*
    * GstH265DecoderConfigRecord.parallelism_type:
    *
    * parallelism type
-   */
-  guint8 parallelism_type;
-
-  /**
+    }
+{*
    * GstH265DecoderConfigRecord.chroma_format_idc:
    *
    * chroma format indication
-   */
-  guint8 chroma_format_idc;
-
-  /**
+    }
+{*
    * GstH265DecoderConfigRecord.bit_depth_luma_minus8:
    *
    * bit depth luma minus 8
-   */
-  guint8 bit_depth_luma_minus8;
-
-  /**
+    }
+{*
    * GstH265DecoderConfigRecord.bit_depth_chroma_minus8:
    *
    * bit depth chroma minus 8
-   */
-  guint8 bit_depth_chroma_minus8;
-
-  /**
+    }
+{*
    * GstH265DecoderConfigRecord.avg_frame_rate:
    *
    * average frame rate in units of frames per 256 seconds,
    * or 0 when unspecified
-   */
-  guint16 avg_frame_rate;
-
-  /**
+    }
+{*
    * GstH265DecoderConfigRecord.constant_frame_rate:
    *
    * constant frame rate.
    * 1: stream to which this configuration record applies is constante frame rate
    * 2: representation of each temporal layer in the stream is constant frame rate
    * 0: unspecified
-   */
-  guint8 constant_frame_rate;
-
-  /**
+    }
+{*
    * GstH265DecoderConfigRecord.num_temporal_layers:
    *
    * 0: unknown whether the stream is temporally scalable
    * otherwise: the number of temporal layers
-   */
-  guint8 num_temporal_layers;
-
-  /**
+    }
+{*
    * GstH265DecoderConfigRecord.temporal_id_nested:
    *
    * 1: all SPSs that activated when the stream to this configuration record
@@ -2058,272 +1898,188 @@ struct _GstH265DecoderConfigRecord
    *   and temporal sub-layer up-switching to any higher temporal layer can
    *   be performed at any semple
    * 0: unknown
-   */
-  guint8 temporal_id_nested;
-
-  /**
+    }
+{*
    * GstH265DecoderConfigRecord.length_size_minus_one:
    *
    * indicates the length in bytes of nal unit length field.
    * This value shall be one of 0, 1, or 3 corresponding to a length
    * encoded with 1, 2, or 4 bytes, respectively
-   */
-  guint8 length_size_minus_one;
-
-  /**
+    }
+{*
    * GstH265DecoderConfigRecord.nalu_array:
    *
    * Array of #GstH265DecoderConfigRecordNalUnitArray
-   */
-  GArray *nalu_array;
+    }
+{< private > }
+  PGstH265DecoderConfigRecord = ^TGstH265DecoderConfigRecord;
+  TGstH265DecoderConfigRecord = record
+      configuration_version : Tguint8;
+      general_profile_space : Tguint8;
+      general_tier_flag : Tguint8;
+      general_profile_idc : Tguint8;
+      general_profile_compatibility_flags : array[0..31] of Tguint8;
+      general_progressive_source_flag : Tguint8;
+      general_interlaced_source_flag : Tguint8;
+      general_non_packed_constraint_flag : Tguint8;
+      general_frame_only_constraint_flag : Tguint8;
+      general_max_12bit_constraint_flag : Tguint8;
+      general_max_10bit_constraint_flag : Tguint8;
+      general_max_8bit_constraint_flag : Tguint8;
+      general_max_422chroma_constraint_flag : Tguint8;
+      general_max_420chroma_constraint_flag : Tguint8;
+      general_max_monochrome_constraint_flag : Tguint8;
+      general_intra_constraint_flag : Tguint8;
+      general_one_picture_only_constraint_flag : Tguint8;
+      general_lower_bit_rate_constraint_flag : Tguint8;
+      general_max_14bit_constraint_flag : Tguint8;
+      general_inbld_flag : Tguint8;
+      general_level_idc : Tguint8;
+      min_spatial_segmentation_idc : Tguint16;
+      parallelism_type : Tguint8;
+      chroma_format_idc : Tguint8;
+      bit_depth_luma_minus8 : Tguint8;
+      bit_depth_chroma_minus8 : Tguint8;
+      avg_frame_rate : Tguint16;
+      constant_frame_rate : Tguint8;
+      num_temporal_layers : Tguint8;
+      temporal_id_nested : Tguint8;
+      length_size_minus_one : Tguint8;
+      nalu_array : PGArray;
+      _gst_reserved : array[0..(GST_PADDING)-1] of Tgpointer;
+    end;
 
-  /*< private >*/
-  gpointer _gst_reserved[GST_PADDING];
-};
-
-/**
+{*
  * GstH265Parser:
  *
  * H265 NAL Parser (opaque structure).
- */
-struct _GstH265Parser
-{
-  /*< private >*/
-  GstH265VPS vps[GST_H265_MAX_VPS_COUNT];
-  GstH265SPS sps[GST_H265_MAX_SPS_COUNT];
-  GstH265PPS pps[GST_H265_MAX_PPS_COUNT];
-  GstH265VPS *last_vps;
-  GstH265SPS *last_sps;
-  GstH265PPS *last_pps;
-};
-
-GST_CODEC_PARSERS_API
-GstH265Parser *     gst_h265_parser_new               (void);
-
-GST_CODEC_PARSERS_API
-GstH265ParserResult gst_h265_parser_identify_nalu      (GstH265Parser  * parser,
-                                                        const guint8   * data,
-                                                        guint            offset,
-                                                        gsize            size,
-                                                        GstH265NalUnit * nalu);
-
-GST_CODEC_PARSERS_API
-GstH265ParserResult gst_h265_parser_identify_nalu_unchecked (GstH265Parser * parser,
-                                                        const guint8   * data,
-                                                        guint            offset,
-                                                        gsize            size,
-                                                        GstH265NalUnit * nalu);
-
-GST_CODEC_PARSERS_API
-GstH265ParserResult gst_h265_parser_identify_nalu_hevc (GstH265Parser  * parser,
-                                                        const guint8   * data,
-                                                        guint            offset,
-                                                        gsize            size,
-                                                        guint8           nal_length_size,
-                                                        GstH265NalUnit * nalu);
-
-GST_CODEC_PARSERS_API
-GstH265ParserResult gst_h265_parser_identify_and_split_nalu_hevc (GstH265Parser * parser,
-                                                                  const guint8 * data,
-                                                                  guint offset,
-                                                                  gsize size,
-                                                                  guint8 nal_length_size,
-                                                                  GArray * nalus,
-                                                                  gsize * consumed);
-
-GST_CODEC_PARSERS_API
-GstH265ParserResult gst_h265_parser_parse_nal       (GstH265Parser   * parser,
-                                                     GstH265NalUnit  * nalu);
-
-GST_CODEC_PARSERS_API
-GstH265ParserResult gst_h265_parser_parse_slice_hdr (GstH265Parser   * parser,
-                                                     GstH265NalUnit  * nalu,
-                                                     GstH265SliceHdr * slice);
-
-GST_CODEC_PARSERS_API
-GstH265ParserResult gst_h265_parser_parse_slice_hdr_ext (GstH265Parser   * parser,
-                                                         GstH265NalUnit  * nalu,
-                                                         GstH265SliceHdr * slice,
-                                                         GstH265SPSEXT   * sps_ext);
-
-GST_CODEC_PARSERS_API
-GstH265ParserResult gst_h265_parser_parse_vps       (GstH265Parser   * parser,
-                                                     GstH265NalUnit  * nalu,
-                                                     GstH265VPS      * vps);
-
-GST_CODEC_PARSERS_API
-GstH265ParserResult gst_h265_parser_parse_sps       (GstH265Parser   * parser,
-                                                     GstH265NalUnit  * nalu,
-                                                     GstH265SPS      * sps,
-                                                     gboolean          parse_vui_params);
-
-GST_CODEC_PARSERS_API
-GstH265ParserResult gst_h265_parser_parse_sps_ext   (GstH265Parser   * parser,
-                                                     GstH265NalUnit  * nalu,
-                                                     GstH265SPS      * sps,
-                                                     GstH265SPSEXT   * sps_ext,
-                                                     gboolean          parse_vui_params);
-GST_CODEC_PARSERS_API
-GstH265ParserResult gst_h265_parser_parse_pps       (GstH265Parser   * parser,
-                                                     GstH265NalUnit  * nalu,
-                                                     GstH265PPS      * pps);
-
-GST_CODEC_PARSERS_API
-GstH265ParserResult gst_h265_parser_parse_sei       (GstH265Parser   * parser,
-                                                     GstH265NalUnit  * nalu,
-                                                     GArray **messages);
-
-GST_CODEC_PARSERS_API
-GstH265ParserResult gst_h265_parser_update_vps      (GstH265Parser   * parser,
-                                                     GstH265VPS      * vps);
-
-GST_CODEC_PARSERS_API
-GstH265ParserResult gst_h265_parser_update_sps      (GstH265Parser   * parser,
-                                                     GstH265SPS      * sps);
-
-GST_CODEC_PARSERS_API
-GstH265ParserResult gst_h265_parser_update_pps      (GstH265Parser   * parser,
-                                                     GstH265PPS      * pps);
-
-GST_CODEC_PARSERS_API
-GstH265ParserResult gst_h265_parser_link_slice_hdr  (GstH265Parser * parser,
-                                                     GstH265SliceHdr * slice);
-
-GST_CODEC_PARSERS_API
-void                gst_h265_parser_free            (GstH265Parser  * parser);
-
-GST_CODEC_PARSERS_API
-GstH265ParserResult gst_h265_parse_vps              (GstH265NalUnit * nalu,
-                                                     GstH265VPS     * vps);
-
-GST_CODEC_PARSERS_API
-GstH265ParserResult gst_h265_parse_sps              (GstH265Parser  * parser,
-                                                     GstH265NalUnit * nalu,
-                                                     GstH265SPS     * sps,
-                                                     gboolean         parse_vui_params);
-
-GST_CODEC_PARSERS_API
-GstH265ParserResult gst_h265_parse_sps_ext          (GstH265Parser  * parser,
-                                                     GstH265NalUnit * nalu,
-                                                     GstH265SPS     * sps,
-                                                     GstH265SPSEXT  * sps_ext,
-                                                     gboolean         parse_vui_params);
-
-GST_CODEC_PARSERS_API
-GstH265ParserResult gst_h265_parse_pps              (GstH265Parser  * parser,
-                                                     GstH265NalUnit * nalu,
-                                                     GstH265PPS     * pps);
-
-GST_CODEC_PARSERS_API
-gboolean            gst_h265_slice_hdr_copy (GstH265SliceHdr       * dst_slice,
-                                             const GstH265SliceHdr * src_slice);
-
-GST_CODEC_PARSERS_API
-void                gst_h265_slice_hdr_free (GstH265SliceHdr * slice_hdr);
-
-GST_CODEC_PARSERS_API
-gboolean            gst_h265_sei_copy       (GstH265SEIMessage       * dest_sei,
-                                             const GstH265SEIMessage * src_sei);
-
-GST_CODEC_PARSERS_API
-void                gst_h265_sei_free       (GstH265SEIMessage * sei);
-
-GST_CODEC_PARSERS_API
-void    gst_h265_quant_matrix_4x4_get_zigzag_from_raster (guint8 out_quant[16],
-                                                          const guint8 quant[16]);
-
-GST_CODEC_PARSERS_API
-void    gst_h265_quant_matrix_4x4_get_raster_from_zigzag (guint8 out_quant[16],
-                                                          const guint8 quant[16]);
-
-GST_CODEC_PARSERS_API
-void    gst_h265_quant_matrix_8x8_get_zigzag_from_raster (guint8 out_quant[64],
-                                                          const guint8 quant[64]);
-
-GST_CODEC_PARSERS_API
-void    gst_h265_quant_matrix_8x8_get_raster_from_zigzag (guint8 out_quant[64],
-                                                          const guint8 quant[64]);
-
-#define gst_h265_quant_matrix_16x16_get_zigzag_from_raster \
-        gst_h265_quant_matrix_8x8_get_zigzag_from_raster
-#define gst_h265_quant_matrix_16x16_get_raster_from_zigzag \
-        gst_h265_quant_matrix_8x8_get_raster_from_zigzag
-#define gst_h265_quant_matrix_32x32_get_zigzag_from_raster \
-        gst_h265_quant_matrix_8x8_get_zigzag_from_raster
-#define gst_h265_quant_matrix_32x32_get_raster_from_zigzag \
-        gst_h265_quant_matrix_8x8_get_raster_from_zigzag
-
-GST_CODEC_PARSERS_API
-void    gst_h265_quant_matrix_4x4_get_uprightdiagonal_from_raster (guint8 out_quant[16],
-                                                          const guint8 quant[16]);
-
-GST_CODEC_PARSERS_API
-void    gst_h265_quant_matrix_4x4_get_raster_from_uprightdiagonal (guint8 out_quant[16],
-                                                          const guint8 quant[16]);
-
-GST_CODEC_PARSERS_API
-void    gst_h265_quant_matrix_8x8_get_uprightdiagonal_from_raster (guint8 out_quant[64],
-                                                          const guint8 quant[64]);
-
-GST_CODEC_PARSERS_API
-void    gst_h265_quant_matrix_8x8_get_raster_from_uprightdiagonal (guint8 out_quant[64],
-                                                          const guint8 quant[64]);
-
-#define gst_h265_quant_matrix_16x16_get_uprightdiagonal_from_raster \
-        gst_h265_quant_matrix_8x8_get_uprightdiagonal_from_raster
-#define gst_h265_quant_matrix_16x16_get_raster_from_uprightdiagonal\
-        gst_h265_quant_matrix_8x8_get_raster_from_uprightdiagonal
-#define gst_h265_quant_matrix_32x32_get_uprightdiagonal_from_raster \
-        gst_h265_quant_matrix_8x8_get_uprightdiagonal_from_raster
-#define gst_h265_quant_matrix_32x32_get_raster_from_uprightdiagonal\
-        gst_h265_quant_matrix_8x8_get_raster_from_uprightdiagonal
-
-GST_CODEC_PARSERS_API
-GstH265Profile gst_h265_profile_tier_level_get_profile (const GstH265ProfileTierLevel * ptl);
-
-GST_CODEC_PARSERS_API
-const gchar * gst_h265_profile_to_string (GstH265Profile profile);
-
-GST_CODEC_PARSERS_API
-GstH265Profile gst_h265_profile_from_string (const gchar * string);
-
-GST_CODEC_PARSERS_API
-const gchar * gst_h265_slice_type_to_string (GstH265SliceType slice_type);
-
-GST_CODEC_PARSERS_API
-GstMemory * gst_h265_create_sei_memory (guint8 layer_id,
-                                        guint8 temporal_id_plus1,
-                                        guint8 start_code_prefix_length,
-                                        GArray * messages);
-
-GST_CODEC_PARSERS_API
-GstMemory * gst_h265_create_sei_memory_hevc (guint8 layer_id,
-                                             guint8 temporal_id_plus1,
-                                             guint8 nal_length_size,
-                                             GArray * messages);
-
-GST_CODEC_PARSERS_API
-GstBuffer * gst_h265_parser_insert_sei (GstH265Parser * parser,
-                                        GstBuffer * au,
-                                        GstMemory * sei);
-
-GST_CODEC_PARSERS_API
-GstBuffer * gst_h265_parser_insert_sei_hevc (GstH265Parser * parser,
-                                             guint8 nal_length_size,
-                                             GstBuffer * au,
-                                             GstMemory * sei);
-
-GST_CODEC_PARSERS_API
-GstH265Profile gst_h265_get_profile_from_sps (GstH265SPS * sps);
-
-GST_CODEC_PARSERS_API
-void           gst_h265_decoder_config_record_free (GstH265DecoderConfigRecord * config);
-
-GST_CODEC_PARSERS_API
-GstH265ParserResult gst_h265_parser_parse_decoder_config_record (GstH265Parser * parser,
-                                                                 const guint8 * data,
-                                                                 gsize size,
-                                                                 GstH265DecoderConfigRecord ** config);
+  }
+{< private > }
+  PGstH265Parser = ^TGstH265Parser;
+  TGstH265Parser = record
+      vps : array[0..(GST_H265_MAX_VPS_COUNT)-1] of TGstH265VPS;
+      sps : array[0..(GST_H265_MAX_SPS_COUNT)-1] of TGstH265SPS;
+      pps : array[0..(GST_H265_MAX_PPS_COUNT)-1] of TGstH265PPS;
+      last_vps : PGstH265VPS;
+      last_sps : PGstH265SPS;
+      last_pps : PGstH265PPS;
+    end;
 
 
-#endif
+function gst_h265_parser_new:PGstH265Parser;cdecl;external libgstcodecparsers;
+function gst_h265_parser_identify_nalu(parser:PGstH265Parser; data:Pguint8; offset:Tguint; size:Tgsize; nalu:PGstH265NalUnit):TGstH265ParserResult;cdecl;external libgstcodecparsers;
+function gst_h265_parser_identify_nalu_unchecked(parser:PGstH265Parser; data:Pguint8; offset:Tguint; size:Tgsize; nalu:PGstH265NalUnit):TGstH265ParserResult;cdecl;external libgstcodecparsers;
+function gst_h265_parser_identify_nalu_hevc(parser:PGstH265Parser; data:Pguint8; offset:Tguint; size:Tgsize; nal_length_size:Tguint8; 
+           nalu:PGstH265NalUnit):TGstH265ParserResult;cdecl;external libgstcodecparsers;
+function gst_h265_parser_identify_and_split_nalu_hevc(parser:PGstH265Parser; data:Pguint8; offset:Tguint; size:Tgsize; nal_length_size:Tguint8; 
+           nalus:PGArray; consumed:Pgsize):TGstH265ParserResult;cdecl;external libgstcodecparsers;
+function gst_h265_parser_parse_nal(parser:PGstH265Parser; nalu:PGstH265NalUnit):TGstH265ParserResult;cdecl;external libgstcodecparsers;
+function gst_h265_parser_parse_slice_hdr(parser:PGstH265Parser; nalu:PGstH265NalUnit; slice:PGstH265SliceHdr):TGstH265ParserResult;cdecl;external libgstcodecparsers;
+function gst_h265_parser_parse_slice_hdr_ext(parser:PGstH265Parser; nalu:PGstH265NalUnit; slice:PGstH265SliceHdr; sps_ext:PGstH265SPSEXT):TGstH265ParserResult;cdecl;external libgstcodecparsers;
+function gst_h265_parser_parse_vps(parser:PGstH265Parser; nalu:PGstH265NalUnit; vps:PGstH265VPS):TGstH265ParserResult;cdecl;external libgstcodecparsers;
+function gst_h265_parser_parse_sps(parser:PGstH265Parser; nalu:PGstH265NalUnit; sps:PGstH265SPS; parse_vui_params:Tgboolean):TGstH265ParserResult;cdecl;external libgstcodecparsers;
+function gst_h265_parser_parse_sps_ext(parser:PGstH265Parser; nalu:PGstH265NalUnit; sps:PGstH265SPS; sps_ext:PGstH265SPSEXT; parse_vui_params:Tgboolean):TGstH265ParserResult;cdecl;external libgstcodecparsers;
+function gst_h265_parser_parse_pps(parser:PGstH265Parser; nalu:PGstH265NalUnit; pps:PGstH265PPS):TGstH265ParserResult;cdecl;external libgstcodecparsers;
+function gst_h265_parser_parse_sei(parser:PGstH265Parser; nalu:PGstH265NalUnit; messages:PPGArray):TGstH265ParserResult;cdecl;external libgstcodecparsers;
+function gst_h265_parser_update_vps(parser:PGstH265Parser; vps:PGstH265VPS):TGstH265ParserResult;cdecl;external libgstcodecparsers;
+function gst_h265_parser_update_sps(parser:PGstH265Parser; sps:PGstH265SPS):TGstH265ParserResult;cdecl;external libgstcodecparsers;
+function gst_h265_parser_update_pps(parser:PGstH265Parser; pps:PGstH265PPS):TGstH265ParserResult;cdecl;external libgstcodecparsers;
+function gst_h265_parser_link_slice_hdr(parser:PGstH265Parser; slice:PGstH265SliceHdr):TGstH265ParserResult;cdecl;external libgstcodecparsers;
+procedure gst_h265_parser_free(parser:PGstH265Parser);cdecl;external libgstcodecparsers;
+function gst_h265_parse_vps(nalu:PGstH265NalUnit; vps:PGstH265VPS):TGstH265ParserResult;cdecl;external libgstcodecparsers;
+function gst_h265_parse_sps(parser:PGstH265Parser; nalu:PGstH265NalUnit; sps:PGstH265SPS; parse_vui_params:Tgboolean):TGstH265ParserResult;cdecl;external libgstcodecparsers;
+function gst_h265_parse_sps_ext(parser:PGstH265Parser; nalu:PGstH265NalUnit; sps:PGstH265SPS; sps_ext:PGstH265SPSEXT; parse_vui_params:Tgboolean):TGstH265ParserResult;cdecl;external libgstcodecparsers;
+function gst_h265_parse_pps(parser:PGstH265Parser; nalu:PGstH265NalUnit; pps:PGstH265PPS):TGstH265ParserResult;cdecl;external libgstcodecparsers;
+function gst_h265_slice_hdr_copy(dst_slice:PGstH265SliceHdr; src_slice:PGstH265SliceHdr):Tgboolean;cdecl;external libgstcodecparsers;
+procedure gst_h265_slice_hdr_free(slice_hdr:PGstH265SliceHdr);cdecl;external libgstcodecparsers;
+function gst_h265_sei_copy(dest_sei:PGstH265SEIMessage; src_sei:PGstH265SEIMessage):Tgboolean;cdecl;external libgstcodecparsers;
+procedure gst_h265_sei_free(sei:PGstH265SEIMessage);cdecl;external libgstcodecparsers;
+procedure gst_h265_quant_matrix_4x4_get_zigzag_from_raster(out_quant:array[0..15] of Tguint8; quant:array[0..15] of Tguint8);cdecl;external libgstcodecparsers;
+procedure gst_h265_quant_matrix_4x4_get_raster_from_zigzag(out_quant:array[0..15] of Tguint8; quant:array[0..15] of Tguint8);cdecl;external libgstcodecparsers;
+procedure gst_h265_quant_matrix_8x8_get_zigzag_from_raster(out_quant:array[0..63] of Tguint8; quant:array[0..63] of Tguint8);cdecl;external libgstcodecparsers;
+procedure gst_h265_quant_matrix_8x8_get_raster_from_zigzag(out_quant:array[0..63] of Tguint8; quant:array[0..63] of Tguint8);cdecl;external libgstcodecparsers;
+const
+  gst_h265_quant_matrix_16x16_get_zigzag_from_raster = gst_h265_quant_matrix_8x8_get_zigzag_from_raster;  
+  gst_h265_quant_matrix_16x16_get_raster_from_zigzag = gst_h265_quant_matrix_8x8_get_raster_from_zigzag;  
+  gst_h265_quant_matrix_32x32_get_zigzag_from_raster = gst_h265_quant_matrix_8x8_get_zigzag_from_raster;  
+  gst_h265_quant_matrix_32x32_get_raster_from_zigzag = gst_h265_quant_matrix_8x8_get_raster_from_zigzag;  
+
+procedure gst_h265_quant_matrix_4x4_get_uprightdiagonal_from_raster(out_quant:array[0..15] of Tguint8; quant:array[0..15] of Tguint8);cdecl;external libgstcodecparsers;
+procedure gst_h265_quant_matrix_4x4_get_raster_from_uprightdiagonal(out_quant:array[0..15] of Tguint8; quant:array[0..15] of Tguint8);cdecl;external libgstcodecparsers;
+procedure gst_h265_quant_matrix_8x8_get_uprightdiagonal_from_raster(out_quant:array[0..63] of Tguint8; quant:array[0..63] of Tguint8);cdecl;external libgstcodecparsers;
+procedure gst_h265_quant_matrix_8x8_get_raster_from_uprightdiagonal(out_quant:array[0..63] of Tguint8; quant:array[0..63] of Tguint8);cdecl;external libgstcodecparsers;
+const
+  gst_h265_quant_matrix_16x16_get_uprightdiagonal_from_raster = gst_h265_quant_matrix_8x8_get_uprightdiagonal_from_raster;  
+  gst_h265_quant_matrix_16x16_get_raster_from_uprightdiagonal = gst_h265_quant_matrix_8x8_get_raster_from_uprightdiagonal;  
+  gst_h265_quant_matrix_32x32_get_uprightdiagonal_from_raster = gst_h265_quant_matrix_8x8_get_uprightdiagonal_from_raster;  
+  gst_h265_quant_matrix_32x32_get_raster_from_uprightdiagonal = gst_h265_quant_matrix_8x8_get_raster_from_uprightdiagonal;  
+
+function gst_h265_profile_tier_level_get_profile(ptl:PGstH265ProfileTierLevel):TGstH265Profile;cdecl;external libgstcodecparsers;
+function gst_h265_profile_to_string(profile:TGstH265Profile):Pgchar;cdecl;external libgstcodecparsers;
+function gst_h265_profile_from_string(_string:Pgchar):TGstH265Profile;cdecl;external libgstcodecparsers;
+function gst_h265_slice_type_to_string(slice_type:TGstH265SliceType):Pgchar;cdecl;external libgstcodecparsers;
+function gst_h265_create_sei_memory(layer_id:Tguint8; temporal_id_plus1:Tguint8; start_code_prefix_length:Tguint8; messages:PGArray):PGstMemory;cdecl;external libgstcodecparsers;
+function gst_h265_create_sei_memory_hevc(layer_id:Tguint8; temporal_id_plus1:Tguint8; nal_length_size:Tguint8; messages:PGArray):PGstMemory;cdecl;external libgstcodecparsers;
+function gst_h265_parser_insert_sei(parser:PGstH265Parser; au:PGstBuffer; sei:PGstMemory):PGstBuffer;cdecl;external libgstcodecparsers;
+function gst_h265_parser_insert_sei_hevc(parser:PGstH265Parser; nal_length_size:Tguint8; au:PGstBuffer; sei:PGstMemory):PGstBuffer;cdecl;external libgstcodecparsers;
+function gst_h265_get_profile_from_sps(sps:PGstH265SPS):TGstH265Profile;cdecl;external libgstcodecparsers;
+procedure gst_h265_decoder_config_record_free(config:PGstH265DecoderConfigRecord);cdecl;external libgstcodecparsers;
+function gst_h265_parser_parse_decoder_config_record(parser:PGstH265Parser; data:Pguint8; size:Tgsize; config:PPGstH265DecoderConfigRecord):TGstH265ParserResult;cdecl;external libgstcodecparsers;
+{$endif}
+
+// === Konventiert am: 21-7-26 17:02:08 ===
+
+
+implementation
+
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function GST_H265_IS_B_SLICE(slice : longint) : longint;
+begin
+  GST_H265_IS_B_SLICE:=(slice^._type)=GST_H265_B_SLICE;
+end;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function GST_H265_IS_P_SLICE(slice : longint) : longint;
+begin
+  GST_H265_IS_P_SLICE:=(slice^._type)=GST_H265_P_SLICE;
+end;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function GST_H265_IS_I_SLICE(slice : longint) : longint;
+begin
+  GST_H265_IS_I_SLICE:=(slice^._type)=GST_H265_I_SLICE;
+end;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function GST_H265_IS_NAL_TYPE_IRAP(nal_type : longint) : longint;
+begin
+  GST_H265_IS_NAL_TYPE_IRAP:=(nal_type>=(GST_H265_NAL_SLICE_BLA_W_LP and (@(nal_type))))<=GST_H265_RESERVED_IRAP_NAL_TYPE_MAX;
+end;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function GST_H265_IS_NAL_TYPE_BLA(nal_type : longint) : longint;
+begin
+  GST_H265_IS_NAL_TYPE_BLA:=(nal_type>=(GST_H265_NAL_SLICE_BLA_W_LP and (@(nal_type))))<=GST_H265_NAL_SLICE_BLA_N_LP;
+end;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function GST_H265_IS_NAL_TYPE_CRA(nal_type : longint) : longint;
+begin
+  GST_H265_IS_NAL_TYPE_CRA:=nal_type=GST_H265_NAL_SLICE_CRA_NUT;
+end;
+
+
+end.

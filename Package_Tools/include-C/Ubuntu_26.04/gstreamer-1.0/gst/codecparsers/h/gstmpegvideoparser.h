@@ -26,10 +26,6 @@
 #ifndef __GST_MPEG_VIDEO_UTILS_H__
 #define __GST_MPEG_VIDEO_UTILS_H__
 
-#ifndef GST_USE_UNSTABLE_API
-#warning "The Mpeg video parsing library is unstable API and may change in future."
-#warning "You can define GST_USE_UNSTABLE_API to avoid this warning."
-#endif
 
 #include <gst/gst.h>
 #include <gst/codecparsers/codecparsers-prelude.h>
@@ -509,59 +505,59 @@ struct _GstMpegVideoPacket
   gint   size;
 };
 
-GST_CODEC_PARSERS_API
+extern
 gboolean gst_mpeg_video_parse                         (GstMpegVideoPacket * packet,
                                                        const guint8 * data, gsize size, guint offset);
 
-GST_CODEC_PARSERS_API
+extern
 gboolean gst_mpeg_video_packet_parse_sequence_header    (const GstMpegVideoPacket * packet,
                                                          GstMpegVideoSequenceHdr * seqhdr);
 
-GST_CODEC_PARSERS_API
+extern
 gboolean gst_mpeg_video_packet_parse_sequence_extension (const GstMpegVideoPacket * packet,
                                                          GstMpegVideoSequenceExt * seqext);
 
-GST_CODEC_PARSERS_API
+extern
 gboolean gst_mpeg_video_packet_parse_sequence_display_extension (const GstMpegVideoPacket * packet,
                                                          GstMpegVideoSequenceDisplayExt * seqdisplayext);
 
-GST_CODEC_PARSERS_API
+extern
 gboolean gst_mpeg_video_packet_parse_sequence_scalable_extension (const GstMpegVideoPacket * packet,
                                                          GstMpegVideoSequenceScalableExt * seqscaleext);
 
-GST_CODEC_PARSERS_API
+extern
 gboolean gst_mpeg_video_packet_parse_picture_header     (const GstMpegVideoPacket * packet,
                                                          GstMpegVideoPictureHdr* pichdr);
 
-GST_CODEC_PARSERS_API
+extern
 gboolean gst_mpeg_video_packet_parse_picture_extension  (const GstMpegVideoPacket * packet,
                                                          GstMpegVideoPictureExt *picext);
 
-GST_CODEC_PARSERS_API
+extern
 gboolean gst_mpeg_video_packet_parse_gop                (const GstMpegVideoPacket * packet,
                                                          GstMpegVideoGop * gop);
 
-GST_CODEC_PARSERS_API
+extern
 gboolean gst_mpeg_video_packet_parse_slice_header       (const GstMpegVideoPacket * packet,
                                                          GstMpegVideoSliceHdr * slice_hdr,
                                                          GstMpegVideoSequenceHdr * seq_hdr,
                                                          GstMpegVideoSequenceScalableExt * seqscaleext);
 
-GST_CODEC_PARSERS_API
+extern
 gboolean gst_mpeg_video_packet_parse_quant_matrix_extension (const GstMpegVideoPacket * packet,
                                                          GstMpegVideoQuantMatrixExt * quant);
 
 /* seqext and displayext may be NULL if not received */
 
-GST_CODEC_PARSERS_API
+extern
 gboolean gst_mpeg_video_finalise_mpeg2_sequence_header (GstMpegVideoSequenceHdr *hdr,
    GstMpegVideoSequenceExt *seqext, GstMpegVideoSequenceDisplayExt *displayext);
 
-GST_CODEC_PARSERS_API
+extern
 void     gst_mpeg_video_quant_matrix_get_raster_from_zigzag (guint8 out_quant[64],
                                                              const guint8 quant[64]);
 
-GST_CODEC_PARSERS_API
+extern
 void     gst_mpeg_video_quant_matrix_get_zigzag_from_raster (guint8 out_quant[64],
                                                              const guint8 quant[64]);
 

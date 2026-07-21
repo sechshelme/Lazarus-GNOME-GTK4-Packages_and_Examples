@@ -317,7 +317,6 @@ const
     (libs: 'libgstmpegts'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgsttag'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstfft'; units: 'fp_glib2, fp_gst'),
-    (libs: 'libgstcodecparsers'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstcontroller'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstwayland'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstva'; units: 'fp_glib2, fp_gst'),
@@ -343,6 +342,7 @@ const
     (libs: 'libgstsdp'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstrtsp'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstrtp'; units: 'fp_glib2, fp_gst'),
+    (libs: 'libgstcodecparsers'; units: 'fp_glib2, fp_gst'),
 
 
 

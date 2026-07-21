@@ -30,10 +30,6 @@
 #ifndef __GST_H264_PARSER_H__
 #define __GST_H264_PARSER_H__
 
-#ifndef GST_USE_UNSTABLE_API
-#warning "The H.264 parsing library is unstable API and may change in future."
-#warning "You can define GST_USE_UNSTABLE_API to avoid this warning."
-#endif
 
 #include <gst/gst.h>
 #include <gst/codecparsers/codecparsers-prelude.h>
@@ -45,19 +41,13 @@
 #define GST_H264_MAX_VIEW_COUNT  1024
 #define GST_H264_MAX_VIEW_ID     (GST_H264_MAX_VIEW_COUNT - 1)
 
+/*xxxxxxxx
 #define GST_H264_IS_P_SLICE(slice)  (((slice)->type % 5) == GST_H264_P_SLICE)
 #define GST_H264_IS_B_SLICE(slice)  (((slice)->type % 5) == GST_H264_B_SLICE)
 #define GST_H264_IS_I_SLICE(slice)  (((slice)->type % 5) == GST_H264_I_SLICE)
 #define GST_H264_IS_SP_SLICE(slice) (((slice)->type % 5) == GST_H264_SP_SLICE)
 #define GST_H264_IS_SI_SLICE(slice) (((slice)->type % 5) == GST_H264_SI_SLICE)
 
-/**
- * GST_H264_IS_SVC_NALU:
- * @nalu: a #GstH264NalUnit
- *
- * Check if @nalu is a scalable extension NAL unit.
- *
- * Since: 1.6
  */
 #define GST_H264_IS_SVC_NALU(nalu) \
   ((nalu)->extension_type == GST_H264_NAL_EXTENSION_SVC)
@@ -1469,25 +1459,25 @@ struct _GstH264NalParser
   GstH264PPS *last_pps;
 };
 
-GST_CODEC_PARSERS_API
+extern
 GstH264NalParser *gst_h264_nal_parser_new             (void);
 
-GST_CODEC_PARSERS_API
+extern
 GstH264ParserResult gst_h264_parser_identify_nalu     (GstH264NalParser *nalparser,
                                                        const guint8 *data, guint offset,
                                                        gsize size, GstH264NalUnit *nalu);
 
-GST_CODEC_PARSERS_API
+extern
 GstH264ParserResult gst_h264_parser_identify_nalu_unchecked (GstH264NalParser *nalparser,
                                                        const guint8 *data, guint offset,
                                                        gsize size, GstH264NalUnit *nalu);
 
-GST_CODEC_PARSERS_API
+extern
 GstH264ParserResult gst_h264_parser_identify_nalu_avc (GstH264NalParser *nalparser, const guint8 *data,
                                                        guint offset, gsize size, guint8 nal_length_size,
                                                        GstH264NalUnit *nalu);
 
-GST_CODEC_PARSERS_API
+extern
 GstH264ParserResult gst_h264_parser_identify_and_split_nalu_avc (GstH264NalParser *nalparser,
                                                                  const guint8 *data,
                                                                  guint offset,
@@ -1496,114 +1486,114 @@ GstH264ParserResult gst_h264_parser_identify_and_split_nalu_avc (GstH264NalParse
                                                                  GArray * nalus,
                                                                  gsize * consumed);
 
-GST_CODEC_PARSERS_API
+extern
 GstH264ParserResult gst_h264_parser_parse_nal         (GstH264NalParser *nalparser,
                                                        GstH264NalUnit *nalu);
 
-GST_CODEC_PARSERS_API
+extern
 GstH264ParserResult gst_h264_parser_parse_slice_hdr   (GstH264NalParser *nalparser, GstH264NalUnit *nalu,
                                                        GstH264SliceHdr *slice, gboolean parse_pred_weight_table,
                                                        gboolean parse_dec_ref_pic_marking);
 
-GST_CODEC_PARSERS_API
+extern
 GstH264ParserResult gst_h264_parser_parse_subset_sps  (GstH264NalParser *nalparser, GstH264NalUnit *nalu,
                                                        GstH264SPS *sps);
 
-GST_CODEC_PARSERS_API
+extern
 GstH264ParserResult gst_h264_parser_parse_sps         (GstH264NalParser *nalparser, GstH264NalUnit *nalu,
                                                        GstH264SPS *sps);
 
-GST_CODEC_PARSERS_API
+extern
 GstH264ParserResult gst_h264_parser_parse_pps         (GstH264NalParser *nalparser,
                                                        GstH264NalUnit *nalu, GstH264PPS *pps);
 
-GST_CODEC_PARSERS_API
+extern
 GstH264ParserResult gst_h264_parser_parse_sei         (GstH264NalParser *nalparser,
                                                        GstH264NalUnit *nalu, GArray ** messages);
 
-GST_CODEC_PARSERS_API
+extern
 GstH264ParserResult gst_h264_parser_update_sps        (GstH264NalParser *nalparser,
                                                        GstH264SPS *sps);
 
-GST_CODEC_PARSERS_API
+extern
 GstH264ParserResult gst_h264_parser_update_pps        (GstH264NalParser *nalparser,
                                                        GstH264PPS *pps);
 
-GST_CODEC_PARSERS_API
+extern
 void gst_h264_nal_parser_free                         (GstH264NalParser *nalparser);
 
-GST_CODEC_PARSERS_API
+extern
 GstH264ParserResult gst_h264_parse_subset_sps         (GstH264NalUnit *nalu,
                                                        GstH264SPS *sps);
 
-GST_CODEC_PARSERS_API
+extern
 GstH264ParserResult gst_h264_parse_sps                (GstH264NalUnit *nalu,
                                                        GstH264SPS *sps);
 
-GST_CODEC_PARSERS_API
+extern
 GstH264ParserResult gst_h264_parse_pps                (GstH264NalParser *nalparser,
                                                        GstH264NalUnit *nalu, GstH264PPS *pps);
 
-GST_CODEC_PARSERS_API
+extern
 void                gst_h264_sps_clear                (GstH264SPS *sps);
 
-GST_CODEC_PARSERS_API
+extern
 void                gst_h264_pps_clear                (GstH264PPS *pps);
 
-GST_CODEC_PARSERS_API
+extern
 void                gst_h264_sei_clear                (GstH264SEIMessage *sei);
 
-GST_CODEC_PARSERS_API
+extern
 void    gst_h264_quant_matrix_8x8_get_zigzag_from_raster (guint8 out_quant[64],
                                                           const guint8 quant[64]);
 
-GST_CODEC_PARSERS_API
+extern
 void    gst_h264_quant_matrix_8x8_get_raster_from_zigzag (guint8 out_quant[64],
                                                           const guint8 quant[64]);
 
-GST_CODEC_PARSERS_API
+extern
 void    gst_h264_quant_matrix_4x4_get_zigzag_from_raster (guint8 out_quant[16],
                                                           const guint8 quant[16]);
 
-GST_CODEC_PARSERS_API
+extern
 void    gst_h264_quant_matrix_4x4_get_raster_from_zigzag (guint8 out_quant[16],
                                                           const guint8 quant[16]);
 
-GST_CODEC_PARSERS_API
+extern
 void gst_h264_video_calculate_framerate (const GstH264SPS * sps, guint field_pic_flag,
     guint pic_struct, gint * fps_num, gint * fps_den);
 
-GST_CODEC_PARSERS_API
+extern
 GstMemory * gst_h264_create_sei_memory (guint8 start_code_prefix_length,
                                         GArray * messages);
 
-GST_CODEC_PARSERS_API
+extern
 GstMemory * gst_h264_create_sei_memory_avc (guint8 nal_length_size,
                                             GArray * messages);
 
-GST_CODEC_PARSERS_API
+extern
 GstBuffer * gst_h264_parser_insert_sei (GstH264NalParser * nalparser,
                                         GstBuffer * au,
                                         GstMemory * sei);
 
-GST_CODEC_PARSERS_API
+extern
 GstBuffer * gst_h264_parser_insert_sei_avc (GstH264NalParser * nalparser,
                                             guint8 nal_length_size,
                                             GstBuffer * au,
                                             GstMemory * sei);
 
-GST_CODEC_PARSERS_API
+extern
 void        gst_h264_decoder_config_record_free (GstH264DecoderConfigRecord * config);
 
-GST_CODEC_PARSERS_API
+extern
 GstH264ParserResult gst_h264_parser_parse_decoder_config_record (GstH264NalParser * nalparser,
                                                                  const guint8 * data,
                                                                  gsize size,
                                                                  GstH264DecoderConfigRecord ** config);
-GST_CODEC_PARSERS_API
+extern
 GstH264Profile gst_h264_profile_from_string (const gchar * profile);
 
-GST_CODEC_PARSERS_API
+extern
 const gchar *   gst_h264_slice_type_to_string      (GstH264SliceType slice_type);
 
 

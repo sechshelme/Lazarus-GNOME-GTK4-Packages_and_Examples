@@ -1,4 +1,83 @@
-/*
+
+unit gstav1parser;
+interface
+
+{
+  Automatically converted by H2Pas 1.0.0 from gstav1parser.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    gstav1parser.h
+}
+
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
+
+Type
+PGstAV1CDEFParams  = ^GstAV1CDEFParams;
+PGstAV1ChromaSamplePositions  = ^GstAV1ChromaSamplePositions;
+PGstAV1ColorConfig  = ^GstAV1ColorConfig;
+PGstAV1ColorPrimaries  = ^GstAV1ColorPrimaries;
+PGstAV1DecoderModelInfo  = ^GstAV1DecoderModelInfo;
+PGstAV1FilmGrainParams  = ^GstAV1FilmGrainParams;
+PGstAV1FrameHeaderOBU  = ^GstAV1FrameHeaderOBU;
+PGstAV1FrameOBU  = ^GstAV1FrameOBU;
+PGstAV1FrameRestorationType  = ^GstAV1FrameRestorationType;
+PGstAV1FrameType  = ^GstAV1FrameType;
+PGstAV1GlobalMotionParams  = ^GstAV1GlobalMotionParams;
+PGstAV1InterpolationFilter  = ^GstAV1InterpolationFilter;
+PGstAV1LoopFilterParams  = ^GstAV1LoopFilterParams;
+PGstAV1LoopRestorationParams  = ^GstAV1LoopRestorationParams;
+PGstAV1MatrixCoefficients  = ^GstAV1MatrixCoefficients;
+PGstAV1MetadataHdrCll  = ^GstAV1MetadataHdrCll;
+PGstAV1MetadataHdrMdcv  = ^GstAV1MetadataHdrMdcv;
+PGstAV1MetadataITUT_T35  = ^GstAV1MetadataITUT_T35;
+PGstAV1MetadataOBU  = ^GstAV1MetadataOBU;
+PGstAV1MetadataScalability  = ^GstAV1MetadataScalability;
+PGstAV1MetadataTimecode  = ^GstAV1MetadataTimecode;
+PGstAV1MetadataType  = ^GstAV1MetadataType;
+PGstAV1OBU  = ^GstAV1OBU;
+PGstAV1OBUHeader  = ^GstAV1OBUHeader;
+PGstAV1OBUType  = ^GstAV1OBUType;
+PGstAV1OperatingPoint  = ^GstAV1OperatingPoint;
+PGstAV1Parser  = ^GstAV1Parser;
+PGstAV1ParserResult  = ^GstAV1ParserResult;
+PGstAV1ParserState  = ^GstAV1ParserState;
+PGstAV1Profile  = ^GstAV1Profile;
+PGstAV1QuantizationParams  = ^GstAV1QuantizationParams;
+PGstAV1ReferenceFrame  = ^GstAV1ReferenceFrame;
+PGstAV1ReferenceFrameInfo  = ^GstAV1ReferenceFrameInfo;
+PGstAV1ReferenceFrameInfoEntry  = ^GstAV1ReferenceFrameInfoEntry;
+PGstAV1ScalabilityModes  = ^GstAV1ScalabilityModes;
+PGstAV1SegmentationParams  = ^GstAV1SegmentationParams;
+PGstAV1SeqLevels  = ^GstAV1SeqLevels;
+PGstAV1SequenceHeaderOBU  = ^GstAV1SequenceHeaderOBU;
+PGstAV1TileGroupOBU  = ^GstAV1TileGroupOBU;
+PGstAV1TileGroupOBUEntry  = ^GstAV1TileGroupOBUEntry;
+PGstAV1TileInfo  = ^GstAV1TileInfo;
+PGstAV1TileListOBU  = ^GstAV1TileListOBU;
+PGstAV1TileListOBUEntry  = ^GstAV1TileListOBUEntry;
+PGstAV1TimingInfo  = ^GstAV1TimingInfo;
+PGstAV1TransferCharacteristics  = ^GstAV1TransferCharacteristics;
+PGstAV1TXModes  = ^GstAV1TXModes;
+PGstAV1WarpModelType  = ^GstAV1WarpModelType;
+Pguint32  = ^guint32;
+Pguint8  = ^guint8;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{
  * gstav1parser.h
  *
  *  Copyright (C) 2018 Georg Ottinger
@@ -21,114 +100,69 @@
  * License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
  * Boston, MA 02110-1301, USA.
- */
+  }
+{$ifndef __GST_AV1_PARSER_H__}
+{$define __GST_AV1_PARSER_H__}
+{$include <gst/gst.h>}
+{$include <gst/codecparsers/codecparsers-prelude.h>}
 
-#ifndef __GST_AV1_PARSER_H__
-#define __GST_AV1_PARSER_H__
-
-#ifndef GST_USE_UNSTABLE_API
-#warning "The AV1 parsing library is unstable API and may change in future."
-#warning "You can define GST_USE_UNSTABLE_API to avoid this warning."
-#endif
-
-#include <gst/gst.h>
-#include <gst/codecparsers/codecparsers-prelude.h>
-
-
-
-#define GST_AV1_MAX_NUM_TEMPORAL_LAYERS        8
-#define GST_AV1_MAX_NUM_SPATIAL_LAYERS         4
-#define GST_AV1_MAX_TILE_WIDTH                 4096
-#define GST_AV1_MAX_TILE_AREA                  (4096 * 2304)
-#define GST_AV1_TOTAL_REFS_PER_FRAME           8
-#define GST_AV1_MAX_SEGMENTS                   8
-#define GST_AV1_SEG_LVL_MAX                    8
-#define GST_AV1_MAX_TILE_COLS                  64
-#define GST_AV1_MAX_TILE_ROWS                  64
-
-#define GST_AV1_REFS_PER_FRAME                 7
-#define GST_AV1_PRIMARY_REF_NONE               7
-#define GST_AV1_SUPERRES_NUM                   8
-#define GST_AV1_SUPERRES_DENOM_MIN             9
-#define GST_AV1_SUPERRES_DENOM_BITS            3
-#define GST_AV1_MAX_LOOP_FILTER                63
-#define GST_AV1_GM_ABS_TRANS_BITS              12
-#define GST_AV1_GM_ABS_TRANS_ONLY_BITS         9
-#define GST_AV1_GM_ABS_ALPHA_BITS              12
-#define GST_AV1_GM_ALPHA_PREC_BITS             15
-#define GST_AV1_GM_TRANS_PREC_BITS             6
-#define GST_AV1_GM_TRANS_ONLY_PREC_BITS        3
-#define GST_AV1_WARPEDMODEL_PREC_BITS          16
-#define GST_AV1_WARP_PARAM_REDUCE_BITS         6
-#define GST_AV1_SELECT_SCREEN_CONTENT_TOOLS    2
-#define GST_AV1_SELECT_INTEGER_MV              2
-#define GST_AV1_RESTORATION_TILESIZE_MAX       256
-#define GST_AV1_SEG_LVL_ALT_Q                  0
-#define GST_AV1_SEG_LVL_REF_FRAME              5
-/* Following defines are derived from the spec, but not mentioned by
- * this particular name in the spec */
-#define GST_AV1_CDEF_MAX                       (1 << 3)
-#define GST_AV1_MAX_TILE_COUNT                 512
-#define GST_AV1_MAX_OPERATING_POINTS    \
-  (GST_AV1_MAX_NUM_TEMPORAL_LAYERS * GST_AV1_MAX_NUM_SPATIAL_LAYERS)
-#define GST_AV1_MAX_TEMPORAL_GROUP_SIZE        255
-#define GST_AV1_MAX_TEMPORAL_GROUP_REFERENCES  7
-#define GST_AV1_MAX_NUM_Y_POINTS               16
-#define GST_AV1_MAX_NUM_CB_POINTS              16
-#define GST_AV1_MAX_NUM_CR_POINTS              16
-#define GST_AV1_MAX_NUM_POS_LUMA               25
-#define GST_AV1_MAX_NUM_PLANES                 3
-
-#define GST_AV1_DIV_LUT_PREC_BITS              14
-#define GST_AV1_DIV_LUT_BITS                   8
-#define GST_AV1_DIV_LUT_NUM                    (1 << GST_AV1_DIV_LUT_BITS)
-
-
-typedef struct _GstAV1Parser GstAV1Parser;
-typedef struct _GstAV1ParserState GstAV1ParserState;
-
-typedef struct _GstAV1OBUHeader GstAV1OBUHeader;
-typedef struct _GstAV1OBU GstAV1OBU;
-
-typedef struct _GstAV1SequenceHeaderOBU GstAV1SequenceHeaderOBU;
-typedef struct _GstAV1MetadataOBU GstAV1MetadataOBU;
-typedef struct _GstAV1FrameHeaderOBU GstAV1FrameHeaderOBU;
-typedef struct _GstAV1TileListOBU GstAV1TileListOBU;
-typedef struct _GstAV1TileListOBUEntry GstAV1TileListOBUEntry;
-typedef struct _GstAV1TileGroupOBU GstAV1TileGroupOBU;
-typedef struct _GstAV1TileGroupOBUEntry GstAV1TileGroupOBUEntry;
-typedef struct _GstAV1FrameOBU GstAV1FrameOBU;
-
-typedef struct _GstAV1OperatingPoint GstAV1OperatingPoint;
-typedef struct _GstAV1DecoderModelInfo GstAV1DecoderModelInfo;
-typedef struct _GstAV1TimingInfo GstAV1TimingInfo;
-typedef struct _GstAV1ColorConfig GstAV1ColorConfig;
-typedef struct _GstAV1MetadataITUT_T35 GstAV1MetadataITUT_T35;
-typedef struct _GstAV1MetadataHdrCll GstAV1MetadataHdrCll;
-typedef struct _GstAV1MetadataHdrMdcv GstAV1MetadataHdrMdcv;
-typedef struct _GstAV1MetadataScalability GstAV1MetadataScalability;
-typedef struct _GstAV1MetadataTimecode GstAV1MetadataTimecode;
-typedef struct _GstAV1LoopFilterParams GstAV1LoopFilterParams;
-typedef struct _GstAV1QuantizationParams GstAV1QuantizationParams;
-typedef struct _GstAV1SegmentationParams GstAV1SegmentationParams;
-/**
+const
+  GST_AV1_MAX_NUM_TEMPORAL_LAYERS = 8;  
+  GST_AV1_MAX_NUM_SPATIAL_LAYERS = 4;  
+  GST_AV1_MAX_TILE_WIDTH = 4096;  
+  GST_AV1_MAX_TILE_AREA = 4096*2304;  
+  GST_AV1_TOTAL_REFS_PER_FRAME = 8;  
+  GST_AV1_MAX_SEGMENTS = 8;  
+  GST_AV1_SEG_LVL_MAX = 8;  
+  GST_AV1_MAX_TILE_COLS = 64;  
+  GST_AV1_MAX_TILE_ROWS = 64;  
+  GST_AV1_REFS_PER_FRAME = 7;  
+  GST_AV1_PRIMARY_REF_NONE = 7;  
+  GST_AV1_SUPERRES_NUM = 8;  
+  GST_AV1_SUPERRES_DENOM_MIN = 9;  
+  GST_AV1_SUPERRES_DENOM_BITS = 3;  
+  GST_AV1_MAX_LOOP_FILTER = 63;  
+  GST_AV1_GM_ABS_TRANS_BITS = 12;  
+  GST_AV1_GM_ABS_TRANS_ONLY_BITS = 9;  
+  GST_AV1_GM_ABS_ALPHA_BITS = 12;  
+  GST_AV1_GM_ALPHA_PREC_BITS = 15;  
+  GST_AV1_GM_TRANS_PREC_BITS = 6;  
+  GST_AV1_GM_TRANS_ONLY_PREC_BITS = 3;  
+  GST_AV1_WARPEDMODEL_PREC_BITS = 16;  
+  GST_AV1_WARP_PARAM_REDUCE_BITS = 6;  
+  GST_AV1_SELECT_SCREEN_CONTENT_TOOLS = 2;  
+  GST_AV1_SELECT_INTEGER_MV = 2;  
+  GST_AV1_RESTORATION_TILESIZE_MAX = 256;  
+  GST_AV1_SEG_LVL_ALT_Q = 0;  
+  GST_AV1_SEG_LVL_REF_FRAME = 5;  
+{ Following defines are derived from the spec, but not mentioned by
+ * this particular name in the spec  }
+  GST_AV1_CDEF_MAX = 1 shl 3;  
+  GST_AV1_MAX_TILE_COUNT = 512;  
+{xxxxx #define GST_AV1_MAX_OPERATING_POINTS    GST_AV1_MAX_NUM_TEMPORAL_LAYERS * GST_AV1_MAX_NUM_SPATIAL_LAYERS) }
+  GST_AV1_MAX_TEMPORAL_GROUP_SIZE = 255;  
+  GST_AV1_MAX_TEMPORAL_GROUP_REFERENCES = 7;  
+  GST_AV1_MAX_NUM_Y_POINTS = 16;  
+  GST_AV1_MAX_NUM_CB_POINTS = 16;  
+  GST_AV1_MAX_NUM_CR_POINTS = 16;  
+  GST_AV1_MAX_NUM_POS_LUMA = 25;  
+  GST_AV1_MAX_NUM_PLANES = 3;  
+  GST_AV1_DIV_LUT_PREC_BITS = 14;  
+  GST_AV1_DIV_LUT_BITS = 8;  
+  GST_AV1_DIV_LUT_NUM = 1 shl GST_AV1_DIV_LUT_BITS;  
+type
+{*
  * GstAV1SegmenationParams:
  *
  * Deprecated: 1.28: Use GstAV1SegmentationParams.
- */
-#ifndef GST_DISABLE_DEPRECATED
-#define GstAV1SegmenationParams GstAV1SegmentationParams
-#endif
-typedef struct _GstAV1TileInfo GstAV1TileInfo;
-typedef struct _GstAV1CDEFParams GstAV1CDEFParams;
-typedef struct _GstAV1LoopRestorationParams GstAV1LoopRestorationParams;
-typedef struct _GstAV1GlobalMotionParams GstAV1GlobalMotionParams;
-typedef struct _GstAV1FilmGrainParams GstAV1FilmGrainParams;
+  }
+{$ifndef GST_DISABLE_DEPRECATED}
 
-typedef struct _GstAV1ReferenceFrameInfo GstAV1ReferenceFrameInfo;
-typedef struct _GstAV1ReferenceFrameInfoEntry GstAV1ReferenceFrameInfoEntry;
-
-/**
+const
+  GstAV1SegmenationParams = GstAV1SegmentationParams;  
+{$endif}
+type
+{*
  * GstAV1ParserResult:
  * @GST_AV1_PARSER_OK: successful return
  * @GST_AV1_PARSER_NO_MORE_DATA: the parser needs more data for one OBU
@@ -138,17 +172,19 @@ typedef struct _GstAV1ReferenceFrameInfoEntry GstAV1ReferenceFrameInfoEntry;
  * @GST_AV1_PARSER_INVALID_OPERATION: something like invalid parameters
  *
  * Defines the result of parser process
- */
-typedef enum {
-  GST_AV1_PARSER_OK = 0,
-  GST_AV1_PARSER_NO_MORE_DATA = 1,
-  GST_AV1_PARSER_DROP = 2,
-  GST_AV1_PARSER_BITSTREAM_ERROR = 3,
-  GST_AV1_PARSER_MISSING_OBU_REFERENCE = 4,
-  GST_AV1_PARSER_INVALID_OPERATION = 5,
-} GstAV1ParserResult;
+  }
 
-/**
+  PGstAV1ParserResult = ^TGstAV1ParserResult;
+  TGstAV1ParserResult =  Longint;
+  Const
+    GST_AV1_PARSER_OK = 0;
+    GST_AV1_PARSER_NO_MORE_DATA = 1;
+    GST_AV1_PARSER_DROP = 2;
+    GST_AV1_PARSER_BITSTREAM_ERROR = 3;
+    GST_AV1_PARSER_MISSING_OBU_REFERENCE = 4;
+    GST_AV1_PARSER_INVALID_OPERATION = 5;
+;
+{*
  * GstAV1Profile:
  * @GST_AV1_PROFILE_0: 8-bit and 10-bit 4:2:0 and 4:0:0 only.
  * @GST_AV1_PROFILE_1: 8-bit and 10-bit 4:4:4.
@@ -156,22 +192,24 @@ typedef enum {
  * @GST_AV1_PROFILE_UNDEFINED: unknow AV1 profile (Since: 1.20)
  *
  * Defines the AV1 profiles
- */
-/**
+  }
+{*
  * GST_AV1_PROFILE_UNDEFINED:
  *
  * unknow AV1 profile
  *
  * Since: 1.20
- */
-typedef enum {
-  GST_AV1_PROFILE_0 = 0,
-  GST_AV1_PROFILE_1 = 1,
-  GST_AV1_PROFILE_2 = 2,
-  GST_AV1_PROFILE_UNDEFINED,
-} GstAV1Profile;
-
-/**
+  }
+type
+  PGstAV1Profile = ^TGstAV1Profile;
+  TGstAV1Profile =  Longint;
+  Const
+    GST_AV1_PROFILE_0 = 0;
+    GST_AV1_PROFILE_1 = 1;
+    GST_AV1_PROFILE_2 = 2;
+    GST_AV1_PROFILE_UNDEFINED = 3;
+;
+{*
  * GstAV1OBUType:
  * @GST_AV1_OBU_RESERVED_0: Reserved 0
  * @GST_AV1_OBU_SEQUENCE_HEADER: Sequence Header OBU
@@ -191,27 +229,29 @@ typedef enum {
  * @GST_AV1_OBU_PADDING: Padding
  *
  * Defines all the possible OBU types
- */
-typedef enum {
-  GST_AV1_OBU_RESERVED_0 = 0,
-  GST_AV1_OBU_SEQUENCE_HEADER = 1,
-  GST_AV1_OBU_TEMPORAL_DELIMITER = 2,
-  GST_AV1_OBU_FRAME_HEADER = 3,
-  GST_AV1_OBU_TILE_GROUP = 4,
-  GST_AV1_OBU_METADATA = 5,
-  GST_AV1_OBU_FRAME = 6,
-  GST_AV1_OBU_REDUNDANT_FRAME_HEADER = 7,
-  GST_AV1_OBU_TILE_LIST = 8,
-  GST_AV1_OBU_RESERVED_9 = 9,
-  GST_AV1_OBU_RESERVED_10 = 10,
-  GST_AV1_OBU_RESERVED_11 = 11,
-  GST_AV1_OBU_RESERVED_12 = 12,
-  GST_AV1_OBU_RESERVED_13 = 13,
-  GST_AV1_OBU_RESERVED_14 = 14,
-  GST_AV1_OBU_PADDING = 15,
-} GstAV1OBUType;
-
-/**
+  }
+type
+  PGstAV1OBUType = ^TGstAV1OBUType;
+  TGstAV1OBUType =  Longint;
+  Const
+    GST_AV1_OBU_RESERVED_0 = 0;
+    GST_AV1_OBU_SEQUENCE_HEADER = 1;
+    GST_AV1_OBU_TEMPORAL_DELIMITER = 2;
+    GST_AV1_OBU_FRAME_HEADER = 3;
+    GST_AV1_OBU_TILE_GROUP = 4;
+    GST_AV1_OBU_METADATA = 5;
+    GST_AV1_OBU_FRAME = 6;
+    GST_AV1_OBU_REDUNDANT_FRAME_HEADER = 7;
+    GST_AV1_OBU_TILE_LIST = 8;
+    GST_AV1_OBU_RESERVED_9 = 9;
+    GST_AV1_OBU_RESERVED_10 = 10;
+    GST_AV1_OBU_RESERVED_11 = 11;
+    GST_AV1_OBU_RESERVED_12 = 12;
+    GST_AV1_OBU_RESERVED_13 = 13;
+    GST_AV1_OBU_RESERVED_14 = 14;
+    GST_AV1_OBU_PADDING = 15;
+;
+{*
  * GstAV1SeqLevels:
  * @GST_AV1_SEQ_LEVEL_2_0: Level 2.0
  * @GST_AV1_SEQ_LEVEL_2_1: Level 2.1
@@ -241,37 +281,39 @@ typedef enum {
  * @GST_AV1_SEQ_LEVEL_MAX: Maximum parameters
  *
  * Defines all the possible OBU types
- */
-typedef enum {
-  GST_AV1_SEQ_LEVEL_2_0 = 0,
-  GST_AV1_SEQ_LEVEL_2_1 = 1,
-  GST_AV1_SEQ_LEVEL_2_2 = 2,
-  GST_AV1_SEQ_LEVEL_2_3 = 3,
-  GST_AV1_SEQ_LEVEL_3_0 = 4,
-  GST_AV1_SEQ_LEVEL_3_1 = 5,
-  GST_AV1_SEQ_LEVEL_3_2 = 6,
-  GST_AV1_SEQ_LEVEL_3_3 = 7,
-  GST_AV1_SEQ_LEVEL_4_0 = 8,
-  GST_AV1_SEQ_LEVEL_4_1 = 9,
-  GST_AV1_SEQ_LEVEL_4_2 = 10,
-  GST_AV1_SEQ_LEVEL_4_3 = 11,
-  GST_AV1_SEQ_LEVEL_5_0 = 12,
-  GST_AV1_SEQ_LEVEL_5_1 = 13,
-  GST_AV1_SEQ_LEVEL_5_2 = 14,
-  GST_AV1_SEQ_LEVEL_5_3 = 15,
-  GST_AV1_SEQ_LEVEL_6_0 = 16,
-  GST_AV1_SEQ_LEVEL_6_1 = 17,
-  GST_AV1_SEQ_LEVEL_6_2 = 18,
-  GST_AV1_SEQ_LEVEL_6_3 = 19,
-  GST_AV1_SEQ_LEVEL_7_0 = 20,
-  GST_AV1_SEQ_LEVEL_7_1 = 21,
-  GST_AV1_SEQ_LEVEL_7_2 = 22,
-  GST_AV1_SEQ_LEVEL_7_3 = 23,
-  GST_AV1_SEQ_LEVELS,
-  GST_AV1_SEQ_LEVEL_MAX = 31
-} GstAV1SeqLevels;
-
-/**
+  }
+type
+  PGstAV1SeqLevels = ^TGstAV1SeqLevels;
+  TGstAV1SeqLevels =  Longint;
+  Const
+    GST_AV1_SEQ_LEVEL_2_0 = 0;
+    GST_AV1_SEQ_LEVEL_2_1 = 1;
+    GST_AV1_SEQ_LEVEL_2_2 = 2;
+    GST_AV1_SEQ_LEVEL_2_3 = 3;
+    GST_AV1_SEQ_LEVEL_3_0 = 4;
+    GST_AV1_SEQ_LEVEL_3_1 = 5;
+    GST_AV1_SEQ_LEVEL_3_2 = 6;
+    GST_AV1_SEQ_LEVEL_3_3 = 7;
+    GST_AV1_SEQ_LEVEL_4_0 = 8;
+    GST_AV1_SEQ_LEVEL_4_1 = 9;
+    GST_AV1_SEQ_LEVEL_4_2 = 10;
+    GST_AV1_SEQ_LEVEL_4_3 = 11;
+    GST_AV1_SEQ_LEVEL_5_0 = 12;
+    GST_AV1_SEQ_LEVEL_5_1 = 13;
+    GST_AV1_SEQ_LEVEL_5_2 = 14;
+    GST_AV1_SEQ_LEVEL_5_3 = 15;
+    GST_AV1_SEQ_LEVEL_6_0 = 16;
+    GST_AV1_SEQ_LEVEL_6_1 = 17;
+    GST_AV1_SEQ_LEVEL_6_2 = 18;
+    GST_AV1_SEQ_LEVEL_6_3 = 19;
+    GST_AV1_SEQ_LEVEL_7_0 = 20;
+    GST_AV1_SEQ_LEVEL_7_1 = 21;
+    GST_AV1_SEQ_LEVEL_7_2 = 22;
+    GST_AV1_SEQ_LEVEL_7_3 = 23;
+    GST_AV1_SEQ_LEVELS = 24;
+    GST_AV1_SEQ_LEVEL_MAX = 31;
+;
+{*
  * GstAV1MetadataType:
  * @GST_AV1_METADATA_TYPE_RESERVED_0: Reserved 0
  * @GST_AV1_METADATA_TYPE_HDR_CLL: Metadata high dynamic range content
@@ -281,17 +323,19 @@ typedef enum {
  * @GST_AV1_METADATA_TYPE_SCALABILITY: Metadata scalability semantics
  * @GST_AV1_METADATA_TYPE_ITUT_T35: Metadata ITUT T35 semantics
  * @GST_AV1_METADATA_TYPE_TIMECODE: Timecode semantics
- */
-typedef enum {
-  GST_AV1_METADATA_TYPE_RESERVED_0 = 0,
-  GST_AV1_METADATA_TYPE_HDR_CLL = 1,
-  GST_AV1_METADATA_TYPE_HDR_MDCV = 2,
-  GST_AV1_METADATA_TYPE_SCALABILITY = 3,
-  GST_AV1_METADATA_TYPE_ITUT_T35 = 4,
-  GST_AV1_METADATA_TYPE_TIMECODE = 5,
-} GstAV1MetadataType;
-
-/**
+  }
+type
+  PGstAV1MetadataType = ^TGstAV1MetadataType;
+  TGstAV1MetadataType =  Longint;
+  Const
+    GST_AV1_METADATA_TYPE_RESERVED_0 = 0;
+    GST_AV1_METADATA_TYPE_HDR_CLL = 1;
+    GST_AV1_METADATA_TYPE_HDR_MDCV = 2;
+    GST_AV1_METADATA_TYPE_SCALABILITY = 3;
+    GST_AV1_METADATA_TYPE_ITUT_T35 = 4;
+    GST_AV1_METADATA_TYPE_TIMECODE = 5;
+;
+{*
  * GstAV1ScalabilityModes:
  * @GST_AV1_SCALABILITY_L1T2: 1 spatial layer, 2 temporal layers
  * @GST_AV1_SCALABILITY_L1T3: 1 spatial layer, 3 temporal layers
@@ -314,26 +358,28 @@ typedef enum {
  * @GST_AV1_SCALABILITY_S2T2h: 2 spatial layer (ratio 1.5:1), 2 temporal layer
  * @GST_AV1_SCALABILITY_S2T3h: 2 spatial layer (ratio 1.5:1), 3 temporal layer
  * @GST_AV1_SCALABILITY_SS: Use scalability structure #GstAV1MetadataScalability
- */
-typedef enum {
-  GST_AV1_SCALABILITY_L1T2 = 0,
-  GST_AV1_SCALABILITY_L1T3 = 1,
-  GST_AV1_SCALABILITY_L2T1 = 2,
-  GST_AV1_SCALABILITY_L2T2 = 3,
-  GST_AV1_SCALABILITY_L2T3 = 4,
-  GST_AV1_SCALABILITY_S2T1 = 5,
-  GST_AV1_SCALABILITY_S2T2 = 6,
-  GST_AV1_SCALABILITY_S2T3 = 7,
-  GST_AV1_SCALABILITY_L2T1h = 8,
-  GST_AV1_SCALABILITY_L2T2h = 9,
-  GST_AV1_SCALABILITY_L2T3h = 10,
-  GST_AV1_SCALABILITY_S2T1h = 11,
-  GST_AV1_SCALABILITY_S2T2h = 12,
-  GST_AV1_SCALABILITY_S2T3h = 13,
-  GST_AV1_SCALABILITY_SS = 14,
-} GstAV1ScalabilityModes;
-
-/**
+  }
+type
+  PGstAV1ScalabilityModes = ^TGstAV1ScalabilityModes;
+  TGstAV1ScalabilityModes =  Longint;
+  Const
+    GST_AV1_SCALABILITY_L1T2 = 0;
+    GST_AV1_SCALABILITY_L1T3 = 1;
+    GST_AV1_SCALABILITY_L2T1 = 2;
+    GST_AV1_SCALABILITY_L2T2 = 3;
+    GST_AV1_SCALABILITY_L2T3 = 4;
+    GST_AV1_SCALABILITY_S2T1 = 5;
+    GST_AV1_SCALABILITY_S2T2 = 6;
+    GST_AV1_SCALABILITY_S2T3 = 7;
+    GST_AV1_SCALABILITY_L2T1h = 8;
+    GST_AV1_SCALABILITY_L2T2h = 9;
+    GST_AV1_SCALABILITY_L2T3h = 10;
+    GST_AV1_SCALABILITY_S2T1h = 11;
+    GST_AV1_SCALABILITY_S2T2h = 12;
+    GST_AV1_SCALABILITY_S2T3h = 13;
+    GST_AV1_SCALABILITY_SS = 14;
+;
+{*
  * GstAV1ColorPrimaries:
  * @GST_AV1_CP_BT_709: BT.709
  * @GST_AV1_CP_UNSPECIFIED: Unspecified
@@ -347,23 +393,25 @@ typedef enum {
  * @GST_AV1_CP_SMPTE_431: SMPTE RP 431-2
  * @GST_AV1_CP_SMPTE_432: SMPTE EG 432-1
  * @GST_AV1_CP_EBU_3213: EBU Tech. 3213-E
- */
-typedef enum {
-  GST_AV1_CP_BT_709 = 1,
-  GST_AV1_CP_UNSPECIFIED = 2,
-  GST_AV1_CP_BT_470_M = 4,
-  GST_AV1_CP_BT_470_B_G = 5,
-  GST_AV1_CP_BT_601 = 6,
-  GST_AV1_CP_SMPTE_240 = 7,
-  GST_AV1_CP_GENERIC_FILM = 8,
-  GST_AV1_CP_BT_2020 = 9,
-  GST_AV1_CP_XYZ = 10,
-  GST_AV1_CP_SMPTE_431 = 11,
-  GST_AV1_CP_SMPTE_432 = 12,
-  GST_AV1_CP_EBU_3213 = 22,
-} GstAV1ColorPrimaries;
-
-/**
+  }
+type
+  PGstAV1ColorPrimaries = ^TGstAV1ColorPrimaries;
+  TGstAV1ColorPrimaries =  Longint;
+  Const
+    GST_AV1_CP_BT_709 = 1;
+    GST_AV1_CP_UNSPECIFIED = 2;
+    GST_AV1_CP_BT_470_M = 4;
+    GST_AV1_CP_BT_470_B_G = 5;
+    GST_AV1_CP_BT_601 = 6;
+    GST_AV1_CP_SMPTE_240 = 7;
+    GST_AV1_CP_GENERIC_FILM = 8;
+    GST_AV1_CP_BT_2020 = 9;
+    GST_AV1_CP_XYZ = 10;
+    GST_AV1_CP_SMPTE_431 = 11;
+    GST_AV1_CP_SMPTE_432 = 12;
+    GST_AV1_CP_EBU_3213 = 22;
+;
+{*
  * GstAV1TransferCharacteristics:
  * @GST_AV1_TC_RESERVED_0: For future use
  * @GST_AV1_TC_BT_709: BT.709
@@ -384,30 +432,32 @@ typedef enum {
  * @GST_AV1_TC_SMPTE_2084: SMPTE ST 2084, ITU BT.2100 PQ
  * @GST_AV1_TC_SMPTE_428: SMPTE ST 428
  * @GST_AV1_TC_HLG: BT.2100 HLG, ARIB STD-B67
- */
-typedef enum {
-  GST_AV1_TC_RESERVED_0 = 0,
-  GST_AV1_TC_BT_709 = 1,
-  GST_AV1_TC_UNSPECIFIED = 2,
-  GST_AV1_TC_RESERVED_3 = 3,
-  GST_AV1_TC_BT_470_M = 4,
-  GST_AV1_TC_BT_470_B_G = 5,
-  GST_AV1_TC_BT_601 = 6,
-  GST_AV1_TC_SMPTE_240 = 7,
-  GST_AV1_TC_LINEAR = 8,
-  GST_AV1_TC_LOG_100 = 9,
-  GST_AV1_TC_LOG_100_SQRT10 = 10,
-  GST_AV1_TC_IEC_61966 = 11,
-  GST_AV1_TC_BT_1361 = 12,
-  GST_AV1_TC_SRGB = 13,
-  GST_AV1_TC_BT_2020_10_BIT = 14,
-  GST_AV1_TC_BT_2020_12_BIT = 15,
-  GST_AV1_TC_SMPTE_2084 = 16,
-  GST_AV1_TC_SMPTE_428 = 17,
-  GST_AV1_TC_HLG = 18,
-} GstAV1TransferCharacteristics;
-
-/**
+  }
+type
+  PGstAV1TransferCharacteristics = ^TGstAV1TransferCharacteristics;
+  TGstAV1TransferCharacteristics =  Longint;
+  Const
+    GST_AV1_TC_RESERVED_0 = 0;
+    GST_AV1_TC_BT_709 = 1;
+    GST_AV1_TC_UNSPECIFIED = 2;
+    GST_AV1_TC_RESERVED_3 = 3;
+    GST_AV1_TC_BT_470_M = 4;
+    GST_AV1_TC_BT_470_B_G = 5;
+    GST_AV1_TC_BT_601 = 6;
+    GST_AV1_TC_SMPTE_240 = 7;
+    GST_AV1_TC_LINEAR = 8;
+    GST_AV1_TC_LOG_100 = 9;
+    GST_AV1_TC_LOG_100_SQRT10 = 10;
+    GST_AV1_TC_IEC_61966 = 11;
+    GST_AV1_TC_BT_1361 = 12;
+    GST_AV1_TC_SRGB = 13;
+    GST_AV1_TC_BT_2020_10_BIT = 14;
+    GST_AV1_TC_BT_2020_12_BIT = 15;
+    GST_AV1_TC_SMPTE_2084 = 16;
+    GST_AV1_TC_SMPTE_428 = 17;
+    GST_AV1_TC_HLG = 18;
+;
+{*
  * GstAV1MatrixCoefficients:
  * @GST_AV1_MC_IDENTITY: Identity matrix
  * @GST_AV1_MC_BT_709: BT.709
@@ -424,26 +474,28 @@ typedef enum {
  * @GST_AV1_MC_CHROMAT_NCL: Chromaticity-derived non-constant luminance
  * @GST_AV1_MC_CHROMAT_CL: Chromaticity-derived constant luminancw
  * @GST_AV1_MC_ICTCP: BT.2100 ICtCp
- */
-typedef enum {
-  GST_AV1_MC_IDENTITY = 0,
-  GST_AV1_MC_BT_709 = 1,
-  GST_AV1_MC_UNSPECIFIED = 2,
-  GST_AV1_MC_RESERVED_3 = 3,
-  GST_AV1_MC_FCC = 4,
-  GST_AV1_MC_BT_470_B_G = 5,
-  GST_AV1_MC_BT_601 = 6,
-  GST_AV1_MC_SMPTE_240 = 7,
-  GST_AV1_MC_SMPTE_YCGCO = 8,
-  GST_AV1_MC_BT_2020_NCL = 9,
-  GST_AV1_MC_BT_2020_CL = 10,
-  GST_AV1_MC_SMPTE_2085 = 11,
-  GST_AV1_MC_CHROMAT_NCL = 12,
-  GST_AV1_MC_CHROMAT_CL = 13,
-  GST_AV1_MC_ICTCP = 14,
-} GstAV1MatrixCoefficients;
-
-/**
+  }
+type
+  PGstAV1MatrixCoefficients = ^TGstAV1MatrixCoefficients;
+  TGstAV1MatrixCoefficients =  Longint;
+  Const
+    GST_AV1_MC_IDENTITY = 0;
+    GST_AV1_MC_BT_709 = 1;
+    GST_AV1_MC_UNSPECIFIED = 2;
+    GST_AV1_MC_RESERVED_3 = 3;
+    GST_AV1_MC_FCC = 4;
+    GST_AV1_MC_BT_470_B_G = 5;
+    GST_AV1_MC_BT_601 = 6;
+    GST_AV1_MC_SMPTE_240 = 7;
+    GST_AV1_MC_SMPTE_YCGCO = 8;
+    GST_AV1_MC_BT_2020_NCL = 9;
+    GST_AV1_MC_BT_2020_CL = 10;
+    GST_AV1_MC_SMPTE_2085 = 11;
+    GST_AV1_MC_CHROMAT_NCL = 12;
+    GST_AV1_MC_CHROMAT_CL = 13;
+    GST_AV1_MC_ICTCP = 14;
+;
+{*
  * GstAV1ChromaSamplePositions:
  * @GST_AV1_CSP_UNKNOWN: Unknown (in this case the source video transfer
  *  function must be signaled outside the AV1 bitstream).
@@ -451,73 +503,83 @@ typedef enum {
  *  vertical position in the middle between two luma samples.
  * @GST_AV1_CSP_COLOCATED: co-located with (0, 0) luma sample.
  * @GST_AV1_CSP_RESERVED: For future use.
- */
-typedef enum {
-  GST_AV1_CSP_UNKNOWN = 0,
-  GST_AV1_CSP_VERTICAL = 1,
-  GST_AV1_CSP_COLOCATED = 2,
-  GST_AV1_CSP_RESERVED = 3,
-} GstAV1ChromaSamplePositions;
-
-/**
+  }
+type
+  PGstAV1ChromaSamplePositions = ^TGstAV1ChromaSamplePositions;
+  TGstAV1ChromaSamplePositions =  Longint;
+  Const
+    GST_AV1_CSP_UNKNOWN = 0;
+    GST_AV1_CSP_VERTICAL = 1;
+    GST_AV1_CSP_COLOCATED = 2;
+    GST_AV1_CSP_RESERVED = 3;
+;
+{*
  * GstAV1FrameType:
  * @GST_AV1_KEY_FRAME: Key Frame
  * @GST_AV1_INTER_FRAME: InterFrame
  * @GST_AV1_INTRA_ONLY_FRAME: Intra-Only Frame
  * @GST_AV1_SWITCH_FRAME: Switch Frame
- */
-typedef enum {
-  GST_AV1_KEY_FRAME = 0,
-  GST_AV1_INTER_FRAME = 1,
-  GST_AV1_INTRA_ONLY_FRAME = 2,
-  GST_AV1_SWITCH_FRAME = 3,
-} GstAV1FrameType;
-
-/**
+  }
+type
+  PGstAV1FrameType = ^TGstAV1FrameType;
+  TGstAV1FrameType =  Longint;
+  Const
+    GST_AV1_KEY_FRAME = 0;
+    GST_AV1_INTER_FRAME = 1;
+    GST_AV1_INTRA_ONLY_FRAME = 2;
+    GST_AV1_SWITCH_FRAME = 3;
+;
+{*
  * GstAV1InterpolationFilter:
  * @GST_AV1_INTERPOLATION_FILTER_EIGHTTAP: Eighttap
  * @GST_AV1_INTERPOLATION_FILTER_EIGHTTAP_SMOOTH: Eighttap Smooth
  * @GST_AV1_INTERPOLATION_FILTER_EIGHTTAP_SHARP: Eighttap Sharp
  * @GST_AV1_INTERPOLATION_FILTER_BILINEAR: Bilinear
  * @GST_AV1_INTERPOLATION_FILTER_SWITCHABLE: Filter is swichtable
- */
-typedef enum {
-  GST_AV1_INTERPOLATION_FILTER_EIGHTTAP = 0,
-  GST_AV1_INTERPOLATION_FILTER_EIGHTTAP_SMOOTH = 1,
-  GST_AV1_INTERPOLATION_FILTER_EIGHTTAP_SHARP = 2,
-  GST_AV1_INTERPOLATION_FILTER_BILINEAR = 3,
-  GST_AV1_INTERPOLATION_FILTER_SWITCHABLE = 4,
-} GstAV1InterpolationFilter;
-
-/**
+  }
+type
+  PGstAV1InterpolationFilter = ^TGstAV1InterpolationFilter;
+  TGstAV1InterpolationFilter =  Longint;
+  Const
+    GST_AV1_INTERPOLATION_FILTER_EIGHTTAP = 0;
+    GST_AV1_INTERPOLATION_FILTER_EIGHTTAP_SMOOTH = 1;
+    GST_AV1_INTERPOLATION_FILTER_EIGHTTAP_SHARP = 2;
+    GST_AV1_INTERPOLATION_FILTER_BILINEAR = 3;
+    GST_AV1_INTERPOLATION_FILTER_SWITCHABLE = 4;
+;
+{*
  * GstAV1TXModes:
  * @GST_AV1_TX_MODE_ONLY_4x4: the inverse transform will use only 4x4 transforms.
  * @GST_AV1_TX_MODE_LARGEST: the inverse transform will use the largest transform
  *   size that fits inside the block.
  * @GST_AV1_TX_MODE_SELECT: the choice of transform size is specified explicitly
  *   for each block.
- */
-typedef enum {
-  GST_AV1_TX_MODE_ONLY_4x4 = 0,
-  GST_AV1_TX_MODE_LARGEST = 1,
-  GST_AV1_TX_MODE_SELECT = 2,
-} GstAV1TXModes;
-
-/**
+  }
+type
+  PGstAV1TXModes = ^TGstAV1TXModes;
+  TGstAV1TXModes =  Longint;
+  Const
+    GST_AV1_TX_MODE_ONLY_4x4 = 0;
+    GST_AV1_TX_MODE_LARGEST = 1;
+    GST_AV1_TX_MODE_SELECT = 2;
+;
+{*
  * GstAV1FrameRestorationType:
  * @GST_AV1_FRAME_RESTORE_NONE: no filtering is applied
  * @GST_AV1_FRAME_RESTORE_WIENER: Wiener filter process is invoked
  * @GST_AV1_FRAME_RESTORE_SGRPROJ: self guided filter proces is invoked
  * @GST_AV1_FRAME_RESTORE_SWITCHABLE: restoration filter is swichtable
- */
-typedef enum {
-  GST_AV1_FRAME_RESTORE_NONE = 0,
-  GST_AV1_FRAME_RESTORE_WIENER = 1,
-  GST_AV1_FRAME_RESTORE_SGRPROJ = 2,
-  GST_AV1_FRAME_RESTORE_SWITCHABLE = 3,
-} GstAV1FrameRestorationType;
-
-/**
+  }
+type
+  PGstAV1FrameRestorationType = ^TGstAV1FrameRestorationType;
+  TGstAV1FrameRestorationType =  Longint;
+  Const
+    GST_AV1_FRAME_RESTORE_NONE = 0;
+    GST_AV1_FRAME_RESTORE_WIENER = 1;
+    GST_AV1_FRAME_RESTORE_SGRPROJ = 2;
+    GST_AV1_FRAME_RESTORE_SWITCHABLE = 3;
+;
+{*
  * GstAV1ReferenceFrame:
  * @GST_AV1_REF_INTRA_FRAME: Intra Frame Reference
  * @GST_AV1_REF_LAST_FRAME: Last Reference Frame
@@ -528,35 +590,39 @@ typedef enum {
  * @GST_AV1_REF_ALTREF2_FRAME: Alternative2 Reference Frame
  * @GST_AV1_REF_ALTREF_FRAME: Alternative Reference Frame
  * @GST_AV1_NUM_REF_FRAMES: Total Reference Frame Number
- */
-typedef enum {
-  GST_AV1_REF_INTRA_FRAME = 0,
-  GST_AV1_REF_LAST_FRAME = 1,
-  GST_AV1_REF_LAST2_FRAME = 2,
-  GST_AV1_REF_LAST3_FRAME = 3,
-  GST_AV1_REF_GOLDEN_FRAME = 4,
-  GST_AV1_REF_BWDREF_FRAME = 5,
-  GST_AV1_REF_ALTREF2_FRAME = 6,
-  GST_AV1_REF_ALTREF_FRAME = 7,
-  GST_AV1_NUM_REF_FRAMES
-} GstAV1ReferenceFrame;
-
-/**
+  }
+type
+  PGstAV1ReferenceFrame = ^TGstAV1ReferenceFrame;
+  TGstAV1ReferenceFrame =  Longint;
+  Const
+    GST_AV1_REF_INTRA_FRAME = 0;
+    GST_AV1_REF_LAST_FRAME = 1;
+    GST_AV1_REF_LAST2_FRAME = 2;
+    GST_AV1_REF_LAST3_FRAME = 3;
+    GST_AV1_REF_GOLDEN_FRAME = 4;
+    GST_AV1_REF_BWDREF_FRAME = 5;
+    GST_AV1_REF_ALTREF2_FRAME = 6;
+    GST_AV1_REF_ALTREF_FRAME = 7;
+    GST_AV1_NUM_REF_FRAMES = 8;
+;
+{*
  * GstAV1WarpModelType:
  * @GST_AV1_WARP_MODEL_IDENTITY: Warp model is just an identity transform
  * @GST_AV1_WARP_MODEL_TRANSLATION: Warp model is a pure translation
  * @GST_AV1_WARP_MODEL_ROTZOOM: Warp model is a rotation + symmetric zoom
  *     + translation
  * @GST_AV1_WARP_MODEL_AFFINE: Warp model is a general affine transform
- */
-typedef enum {
-  GST_AV1_WARP_MODEL_IDENTITY = 0,
-  GST_AV1_WARP_MODEL_TRANSLATION = 1,
-  GST_AV1_WARP_MODEL_ROTZOOM = 2,
-  GST_AV1_WARP_MODEL_AFFINE = 3,
-} GstAV1WarpModelType;
-
-/**
+  }
+type
+  PGstAV1WarpModelType = ^TGstAV1WarpModelType;
+  TGstAV1WarpModelType =  Longint;
+  Const
+    GST_AV1_WARP_MODEL_IDENTITY = 0;
+    GST_AV1_WARP_MODEL_TRANSLATION = 1;
+    GST_AV1_WARP_MODEL_ROTZOOM = 2;
+    GST_AV1_WARP_MODEL_AFFINE = 3;
+;
+{*
  * GstAV1OBUHeader:
  * @obu_type: the type of data structure contained in the OBU payload.
  * @obu_extention_flag: indicates if OBU header extention is present.
@@ -568,16 +634,18 @@ typedef enum {
  *
  * Collect info for OBU header and OBU extension header if
  * obu_extension_flag == 1.
- */
-struct _GstAV1OBUHeader {
-  GstAV1OBUType obu_type;
-  gboolean obu_extention_flag;
-  gboolean obu_has_size_field;
-  guint8 obu_temporal_id;
-  guint8 obu_spatial_id;
-};
+  }
+type
+  PGstAV1OBUHeader = ^TGstAV1OBUHeader;
+  TGstAV1OBUHeader = record
+      obu_type : TGstAV1OBUType;
+      obu_extention_flag : Tgboolean;
+      obu_has_size_field : Tgboolean;
+      obu_temporal_id : Tguint8;
+      obu_spatial_id : Tguint8;
+    end;
 
-/**
+{*
  * GstAV1OBU:
  * @header: a #GstAV1OBUHeader OBU Header
  * @obu_type: the type of data structure contained in the OBU payload.
@@ -586,15 +654,16 @@ struct _GstAV1OBUHeader {
  *
  * It is the general representation of AV1 OBU (Open Bitstream
  * Unit). One OBU include its header and payload.
- */
-struct _GstAV1OBU {
-  GstAV1OBUHeader header;
-  GstAV1OBUType obu_type;
-  guint8 *data;
-  guint32 obu_size;
-};
+  }
+  PGstAV1OBU = ^TGstAV1OBU;
+  TGstAV1OBU = record
+      header : TGstAV1OBUHeader;
+      obu_type : TGstAV1OBUType;
+      data : Pguint8;
+      obu_size : Tguint32;
+    end;
 
-/**
+{*
  * GstAV1OperatingPoint:
  * @seq_level_idx: specifies the level that the coded video sequence conforms to.
  * @seq_tier: specifies the tier that the coded video sequence conforms to.
@@ -625,20 +694,21 @@ struct _GstAV1OBU {
  *   decoded frames that should be present in the buffer pool before the first presentable
  *   frame is displayed. This will ensure that all presentable frames in the sequence can
  *   be decoded at or before the time that they are scheduled for display.
- */
-struct _GstAV1OperatingPoint {
-  guint8 seq_level_idx;
-  guint8 seq_tier;
-  guint16 idc;
-  gboolean decoder_model_present_for_this_op;
-  guint8 decoder_buffer_delay;
-  guint8 encoder_buffer_delay;
-  gboolean low_delay_mode_flag;
-  gboolean initial_display_delay_present_for_this_op;
-  guint8 initial_display_delay_minus_1;
-};
+  }
+  PGstAV1OperatingPoint = ^TGstAV1OperatingPoint;
+  TGstAV1OperatingPoint = record
+      seq_level_idx : Tguint8;
+      seq_tier : Tguint8;
+      idc : Tguint16;
+      decoder_model_present_for_this_op : Tgboolean;
+      decoder_buffer_delay : Tguint8;
+      encoder_buffer_delay : Tguint8;
+      low_delay_mode_flag : Tgboolean;
+      initial_display_delay_present_for_this_op : Tgboolean;
+      initial_display_delay_minus_1 : Tguint8;
+    end;
 
-/**
+{*
  * GstAV1DecoderModelInfo:
  * @buffer_delay_length_minus_1: plus 1 specifies the length of the
  *   @decoder_buffer_delay and the @encoder_buffer_delay syntax elements,
@@ -650,15 +720,16 @@ struct _GstAV1OperatingPoint {
  *   @buffer_removal_time syntax element, in bits.
  * @frame_presentation_time_length_minus_1: plus 1 specifies the length of the
  *   @frame_presentation_time syntax element, in bits.
- */
-struct _GstAV1DecoderModelInfo {
-  guint8 buffer_delay_length_minus_1;
-  guint32 num_units_in_decoding_tick;
-  guint8 buffer_removal_time_length_minus_1;
-  guint8 frame_presentation_time_length_minus_1;
-};
+  }
+  PGstAV1DecoderModelInfo = ^TGstAV1DecoderModelInfo;
+  TGstAV1DecoderModelInfo = record
+      buffer_delay_length_minus_1 : Tguint8;
+      num_units_in_decoding_tick : Tguint32;
+      buffer_removal_time_length_minus_1 : Tguint8;
+      frame_presentation_time_length_minus_1 : Tguint8;
+    end;
 
-/**
+{*
  * GstAV1TimingInfo:
  * @num_units_in_display_tick: is the number of time units of a clock operating at the
  *   frequency @time_scale Hz that corresponds to one increment of a clock tick counter.
@@ -675,15 +746,16 @@ struct _GstAV1DecoderModelInfo {
  *   to output time between two consecutive pictures in the output order. It is a requirement
  *   of bitstream conformance that the value of @num_ticks_per_picture_minus_1 shall be in the
  *   range of 0 to (1 << 32) - 2, inclusive.
- */
-struct _GstAV1TimingInfo {
-  guint32 num_units_in_display_tick;
-  guint32 time_scale;
-  gboolean equal_picture_interval;
-  guint32 num_ticks_per_picture_minus_1;
-};
+  }
+  PGstAV1TimingInfo = ^TGstAV1TimingInfo;
+  TGstAV1TimingInfo = record
+      num_units_in_display_tick : Tguint32;
+      time_scale : Tguint32;
+      equal_picture_interval : Tgboolean;
+      num_ticks_per_picture_minus_1 : Tguint32;
+    end;
 
-/**
+{*
  * GstAV1ColorConfig:
  * @high_bitdepth: syntax element which, together with @seq_profile, determine the bit depth.
  * @twelve_bit: is syntax elements which, together with @seq_profile and @high_bitdepth,
@@ -711,23 +783,24 @@ struct _GstAV1TimingInfo {
  * @separate_uv_delta_q: equal to 1 indicates that the U and V planes may have separate
  *  delta quantizer values. @separate_uv_delta_q equal to 0 indicates that the U and V
  *  planes will share the same delta quantizer value.
- */
-struct _GstAV1ColorConfig {
-  gboolean high_bitdepth;
-  gboolean twelve_bit;
-  gboolean mono_chrome;
-  gboolean color_description_present_flag;
-  GstAV1ColorPrimaries color_primaries;
-  GstAV1TransferCharacteristics transfer_characteristics;
-  GstAV1MatrixCoefficients matrix_coefficients;
-  gboolean color_range;
-  guint8 subsampling_x;
-  guint8 subsampling_y;
-  GstAV1ChromaSamplePositions chroma_sample_position;
-  gboolean separate_uv_delta_q;
-};
+  }
+  PGstAV1ColorConfig = ^TGstAV1ColorConfig;
+  TGstAV1ColorConfig = record
+      high_bitdepth : Tgboolean;
+      twelve_bit : Tgboolean;
+      mono_chrome : Tgboolean;
+      color_description_present_flag : Tgboolean;
+      color_primaries : TGstAV1ColorPrimaries;
+      transfer_characteristics : TGstAV1TransferCharacteristics;
+      matrix_coefficients : TGstAV1MatrixCoefficients;
+      color_range : Tgboolean;
+      subsampling_x : Tguint8;
+      subsampling_y : Tguint8;
+      chroma_sample_position : TGstAV1ChromaSamplePositions;
+      separate_uv_delta_q : Tgboolean;
+    end;
 
-/**
+{*
  * GstAV1SequenceHeaderOBU:
  * @seq_profile: specifies the features that can be used in the coded video sequence
  * @still_picture: equal to 1 specifies that the bitstream contains only one coded frame.
@@ -810,62 +883,56 @@ struct _GstAV1ColorConfig {
  * @order_hint_bits: specifies the number of bits used for the order_hint syntax element.
  * @bit_depth: the bit depth of the stream.
  * @num_planes: the YUV plane number.
- */
-struct _GstAV1SequenceHeaderOBU {
-  GstAV1Profile seq_profile;
-  gboolean still_picture;
-  guint8 reduced_still_picture_header;
+  }
+{ Global var calculated by sequence  }
+{ OrderHintBits  }
+{ BitDepth  }
+{ NumPlanes  }
+  PGstAV1SequenceHeaderOBU = ^TGstAV1SequenceHeaderOBU;
+  TGstAV1SequenceHeaderOBU = record
+      seq_profile : TGstAV1Profile;
+      still_picture : Tgboolean;
+      reduced_still_picture_header : Tguint8;
+      frame_width_bits_minus_1 : Tguint8;
+      frame_height_bits_minus_1 : Tguint8;
+      max_frame_width_minus_1 : Tguint16;
+      max_frame_height_minus_1 : Tguint16;
+      frame_id_numbers_present_flag : Tgboolean;
+      delta_frame_id_length_minus_2 : Tguint8;
+      additional_frame_id_length_minus_1 : Tguint8;
+      use_128x128_superblock : Tgboolean;
+      enable_filter_intra : Tgboolean;
+      enable_intra_edge_filter : Tgboolean;
+      enable_interintra_compound : Tgboolean;
+      enable_masked_compound : Tgboolean;
+      enable_warped_motion : Tgboolean;
+      enable_order_hint : Tgboolean;
+      enable_dual_filter : Tgboolean;
+      enable_jnt_comp : Tgboolean;
+      enable_ref_frame_mvs : Tgboolean;
+      seq_choose_screen_content_tools : Tgboolean;
+      seq_force_screen_content_tools : Tguint8;
+      seq_choose_integer_mv : Tgboolean;
+      seq_force_integer_mv : Tguint8;
+      order_hint_bits_minus_1 : Tgint8;
+      enable_superres : Tgboolean;
+      enable_cdef : Tgboolean;
+      enable_restoration : Tgboolean;
+      film_grain_params_present : Tguint8;
+      operating_points_cnt_minus_1 : Tguint8;
+      operating_points : array[0..(GST_AV1_MAX_OPERATING_POINTS)-1] of TGstAV1OperatingPoint;
+      decoder_model_info_present_flag : Tgboolean;
+      decoder_model_info : TGstAV1DecoderModelInfo;
+      initial_display_delay_present_flag : Tguint8;
+      timing_info_present_flag : Tgboolean;
+      timing_info : TGstAV1TimingInfo;
+      color_config : TGstAV1ColorConfig;
+      order_hint_bits : Tguint8;
+      bit_depth : Tguint8;
+      num_planes : Tguint8;
+    end;
 
-  guint8 frame_width_bits_minus_1;
-  guint8 frame_height_bits_minus_1;
-  guint16 max_frame_width_minus_1;
-  guint16 max_frame_height_minus_1;
-
-  gboolean frame_id_numbers_present_flag;
-  guint8 delta_frame_id_length_minus_2;
-  guint8 additional_frame_id_length_minus_1;
-
-  gboolean use_128x128_superblock;
-  gboolean enable_filter_intra;
-  gboolean enable_intra_edge_filter;
-  gboolean enable_interintra_compound;
-  gboolean enable_masked_compound;
-  gboolean enable_warped_motion;
-  gboolean enable_order_hint;
-  gboolean enable_dual_filter;
-  gboolean enable_jnt_comp;
-  gboolean enable_ref_frame_mvs;
-  gboolean seq_choose_screen_content_tools;
-  guint8 seq_force_screen_content_tools;
-  gboolean seq_choose_integer_mv;
-  guint8 seq_force_integer_mv;
-  gint8 order_hint_bits_minus_1;
-
-  gboolean enable_superres;
-  gboolean enable_cdef;
-  gboolean enable_restoration;
-
-  guint8 film_grain_params_present;
-
-  guint8 operating_points_cnt_minus_1;
-  GstAV1OperatingPoint operating_points[GST_AV1_MAX_OPERATING_POINTS];
-
-  gboolean decoder_model_info_present_flag;
-  GstAV1DecoderModelInfo decoder_model_info;
-  guint8 initial_display_delay_present_flag;
-
-  gboolean timing_info_present_flag;
-  GstAV1TimingInfo timing_info;
-
-  GstAV1ColorConfig color_config;
-
-  /* Global var calculated by sequence */
-  guint8 order_hint_bits; /* OrderHintBits */
-  guint8 bit_depth; /* BitDepth */
-  guint8 num_planes; /* NumPlanes */
-};
-
-/**
+{*
  * GstAV1MetadataITUT_T35:
  * @itu_t_t35_country_code: shall be a byte having a value specified as a country code by
  *   Annex A of Recommendation ITU-T T.35.
@@ -873,27 +940,29 @@ struct _GstAV1SequenceHeaderOBU {
  *   country code by Annex B of Recommendation ITU-T T.35.
  * @itu_t_t35_payload_bytes: shall be bytes containing data registered as specified in
  *   Recommendation ITU-T T.35.
- */
-struct _GstAV1MetadataITUT_T35 {
-  guint8 itu_t_t35_country_code;
-  guint8 itu_t_t35_country_code_extention_byte;
-  /* itu_t_t35_payload_bytes - not specified at this spec */
-  guint8 *itu_t_t35_payload_bytes;
-};
+  }
+{ itu_t_t35_payload_bytes - not specified at this spec  }
+  PGstAV1MetadataITUT_T35 = ^TGstAV1MetadataITUT_T35;
+  TGstAV1MetadataITUT_T35 = record
+      itu_t_t35_country_code : Tguint8;
+      itu_t_t35_country_code_extention_byte : Tguint8;
+      itu_t_t35_payload_bytes : Pguint8;
+    end;
 
-/**
+{*
  * GstAV1MetadataHdrCll:
  * @max_cll: specifies the maximum content light level as specified in CEA-861.3, Appendix A.
  * @max_fall: specifies the maximum frame-average light level as specified in CEA-861.3, Appendix A.
  *
  * High Dynamic Range content light level syntax metadata.
- */
-struct _GstAV1MetadataHdrCll {
-  guint16 max_cll;
-  guint16 max_fall;
-};
+  }
+  PGstAV1MetadataHdrCll = ^TGstAV1MetadataHdrCll;
+  TGstAV1MetadataHdrCll = record
+      max_cll : Tguint16;
+      max_fall : Tguint16;
+    end;
 
-/**
+{*
  * GstAV1MetadataHdrMdcv:
  * @primary_chromaticity_x: specifies a 0.16 fixed-point X chromaticity coordinate as
  *   defined by CIE 1931, where i = 0,1,2 specifies Red, Green, Blue respectively.
@@ -909,17 +978,18 @@ struct _GstAV1MetadataHdrCll {
  *   square meter.
  *
  *  High Dynamic Range mastering display color volume metadata.
- */
-struct _GstAV1MetadataHdrMdcv {
-  guint16 primary_chromaticity_x[3];
-  guint16 primary_chromaticity_y[3];
-  guint16 white_point_chromaticity_x;
-  guint16 white_point_chromaticity_y;
-  guint32 luminance_max;
-  guint32 luminance_min;
-};
+  }
+  PGstAV1MetadataHdrMdcv = ^TGstAV1MetadataHdrMdcv;
+  TGstAV1MetadataHdrMdcv = record
+      primary_chromaticity_x : array[0..2] of Tguint16;
+      primary_chromaticity_y : array[0..2] of Tguint16;
+      white_point_chromaticity_x : Tguint16;
+      white_point_chromaticity_y : Tguint16;
+      luminance_max : Tguint32;
+      luminance_min : Tguint32;
+    end;
 
-/**
+{*
  * GstAV1MetadataScalability:
  * @scalability_mode_idc: indicates the picture prediction structure of the bitstream.
  * @spatial_layers_cnt_minus_1: indicates the number of spatial layers present in the video
@@ -972,27 +1042,26 @@ struct _GstAV1MetadataHdrMdcv {
  *
  * The scalability metadata OBU is intended for use by intermediate
  * processing entities that may perform selective layer elimination.
- */
-struct _GstAV1MetadataScalability {
-  GstAV1ScalabilityModes scalability_mode_idc;
-  guint8 spatial_layers_cnt_minus_1;
-  gboolean spatial_layer_dimensions_present_flag;
-  gboolean spatial_layer_description_present_flag;
-  gboolean temporal_group_description_present_flag;
-  guint16 spatial_layer_max_width[GST_AV1_MAX_NUM_SPATIAL_LAYERS];
-  guint16 spatial_layer_max_height[GST_AV1_MAX_NUM_SPATIAL_LAYERS];
-  guint8 spatial_layer_ref_id[GST_AV1_MAX_NUM_SPATIAL_LAYERS];
-  guint8 temporal_group_size;
+  }
+  PGstAV1MetadataScalability = ^TGstAV1MetadataScalability;
+  TGstAV1MetadataScalability = record
+      scalability_mode_idc : TGstAV1ScalabilityModes;
+      spatial_layers_cnt_minus_1 : Tguint8;
+      spatial_layer_dimensions_present_flag : Tgboolean;
+      spatial_layer_description_present_flag : Tgboolean;
+      temporal_group_description_present_flag : Tgboolean;
+      spatial_layer_max_width : array[0..(GST_AV1_MAX_NUM_SPATIAL_LAYERS)-1] of Tguint16;
+      spatial_layer_max_height : array[0..(GST_AV1_MAX_NUM_SPATIAL_LAYERS)-1] of Tguint16;
+      spatial_layer_ref_id : array[0..(GST_AV1_MAX_NUM_SPATIAL_LAYERS)-1] of Tguint8;
+      temporal_group_size : Tguint8;
+      temporal_group_temporal_id : array[0..(GST_AV1_MAX_TEMPORAL_GROUP_SIZE)-1] of Tguint8;
+      temporal_group_temporal_switching_up_point_flag : array[0..(GST_AV1_MAX_TEMPORAL_GROUP_SIZE)-1] of Tguint8;
+      temporal_group_spatial_switching_up_point_flag : array[0..(GST_AV1_MAX_TEMPORAL_GROUP_SIZE)-1] of Tguint8;
+      temporal_group_ref_cnt : array[0..(GST_AV1_MAX_TEMPORAL_GROUP_SIZE)-1] of Tguint8;
+      temporal_group_ref_pic_diff : array[0..(GST_AV1_MAX_TEMPORAL_GROUP_SIZE)-1] of array[0..(GST_AV1_MAX_TEMPORAL_GROUP_REFERENCES)-1] of Tguint8;
+    end;
 
-  guint8 temporal_group_temporal_id[GST_AV1_MAX_TEMPORAL_GROUP_SIZE];
-  guint8 temporal_group_temporal_switching_up_point_flag[GST_AV1_MAX_TEMPORAL_GROUP_SIZE];
-  guint8 temporal_group_spatial_switching_up_point_flag[GST_AV1_MAX_TEMPORAL_GROUP_SIZE];
-  guint8 temporal_group_ref_cnt[GST_AV1_MAX_TEMPORAL_GROUP_SIZE];
-  guint8 temporal_group_ref_pic_diff[GST_AV1_MAX_TEMPORAL_GROUP_SIZE]
-                                    [GST_AV1_MAX_TEMPORAL_GROUP_REFERENCES];
-};
-
-/**
+{*
  * GstAV1MetadataTimecode:
  * @counting_type: specifies the method of dropping values of the n_frames syntax element as
  *   specified in AV1 Spec 6.1.1. @counting_type should be the same for all pictures in the
@@ -1041,24 +1110,26 @@ struct _GstAV1MetadataScalability {
  * @time_offset_value: is used to compute clockTimestamp. The number of bits used to represent
  *   @time_offset_value is equal to @time_offset_length. When @time_offset_value is not present,
  *   its value is inferred to be equal to 0.
- */
-struct _GstAV1MetadataTimecode {
-  guint8 counting_type;       /* candidate for sperate Type GstAV1TimecodeCountingType */
-  gboolean full_timestamp_flag;
-  gboolean discontinuity_flag;
-  gboolean cnt_dropped_flag;
-  guint8 n_frames;
-  gboolean seconds_flag;
-  guint8 seconds_value;
-  gboolean minutes_flag;
-  guint8 minutes_value;
-  gboolean hours_flag;
-  guint8 hours_value;
-  guint8 time_offset_length;
-  guint32 time_offset_value;
-};
+  }
+{ candidate for sperate Type GstAV1TimecodeCountingType  }
+  PGstAV1MetadataTimecode = ^TGstAV1MetadataTimecode;
+  TGstAV1MetadataTimecode = record
+      counting_type : Tguint8;
+      full_timestamp_flag : Tgboolean;
+      discontinuity_flag : Tgboolean;
+      cnt_dropped_flag : Tgboolean;
+      n_frames : Tguint8;
+      seconds_flag : Tgboolean;
+      seconds_value : Tguint8;
+      minutes_flag : Tgboolean;
+      minutes_value : Tguint8;
+      hours_flag : Tgboolean;
+      hours_value : Tguint8;
+      time_offset_length : Tguint8;
+      time_offset_value : Tguint32;
+    end;
 
-/**
+{*
  * GstAV1MetadataOBU:
  * @metadata_type: type of metadata
  * @itut_t35: ITUT T35 metadata
@@ -1066,19 +1137,21 @@ struct _GstAV1MetadataTimecode {
  * @hdrcmdcv: high dynamic range mastering display color volume metadata_type
  * @scalability: Scalability metadata
  * @timecode: Timecode metadata
- */
-struct _GstAV1MetadataOBU {
-  GstAV1MetadataType metadata_type;
-  union {
-    GstAV1MetadataITUT_T35 itut_t35;
-    GstAV1MetadataHdrCll hdr_cll;
-    GstAV1MetadataHdrMdcv hdr_mdcv;
-    GstAV1MetadataScalability scalability;
-    GstAV1MetadataTimecode timecode;
-  };
-};
+  }
+  PGstAV1MetadataOBU = ^TGstAV1MetadataOBU;
+  TGstAV1MetadataOBU = record
+      metadata_type : TGstAV1MetadataType;
+      xxxxxx : record
+          case longint of
+            0 : ( itut_t35 : TGstAV1MetadataITUT_T35 );
+            1 : ( hdr_cll : TGstAV1MetadataHdrCll );
+            2 : ( hdr_mdcv : TGstAV1MetadataHdrMdcv );
+            3 : ( scalability : TGstAV1MetadataScalability );
+            4 : ( timecode : TGstAV1MetadataTimecode );
+          end;
+    end;
 
-/**
+{*
  * GstAV1LoopFilterParams:
  * @loop_filter_level: is an array containing loop filter strength values. Different loop
  *   filter strength values from the array are used depending on the image plane being
@@ -1105,22 +1178,21 @@ struct _GstAV1MetadataOBU {
  * @delta_lf_multi: equal to 1 specifies that separate loop filter deltas are sent for
  *   horizontal luma edges, vertical luma edges, the U edges, and the V edges. @delta_lf_multi
  *   equal to 0 specifies that the same loop filter delta is used for all edges.
- */
-struct _GstAV1LoopFilterParams {
-  guint8 loop_filter_level[4];
-  guint8 loop_filter_sharpness;
-  gboolean loop_filter_delta_enabled;
-  gboolean loop_filter_delta_update;
+  }
+  PGstAV1LoopFilterParams = ^TGstAV1LoopFilterParams;
+  TGstAV1LoopFilterParams = record
+      loop_filter_level : array[0..3] of Tguint8;
+      loop_filter_sharpness : Tguint8;
+      loop_filter_delta_enabled : Tgboolean;
+      loop_filter_delta_update : Tgboolean;
+      loop_filter_ref_deltas : array[0..(GST_AV1_TOTAL_REFS_PER_FRAME)-1] of Tgint8;
+      loop_filter_mode_deltas : array[0..1] of Tgint8;
+      delta_lf_present : Tgboolean;
+      delta_lf_res : Tguint8;
+      delta_lf_multi : Tguint8;
+    end;
 
-  gint8 loop_filter_ref_deltas[GST_AV1_TOTAL_REFS_PER_FRAME];
-  gint8 loop_filter_mode_deltas[2];
-
-  gboolean delta_lf_present;
-  guint8 delta_lf_res;
-  guint8 delta_lf_multi;
-};
-
-/**
+{*
  * GstAV1QuantizationParams:
  * @base_q_idx: indicates the base frame qindex. This is used for Y AC coefficients and as
  *   the base value for the other quantizers.
@@ -1139,26 +1211,30 @@ struct _GstAV1LoopFilterParams {
  * @delta_q_u_ac: indicates the U AC quantizer relative to base_q_idx.
  * @delta_q_v_dc: indicates the V DC quantizer relative to base_q_idx.
  * @delta_q_v_ac: indicates the V AC quantizer relative to base_q_idx.
- */
-struct _GstAV1QuantizationParams {
-  guint8 base_q_idx;
-  gboolean diff_uv_delta;
-  gboolean using_qmatrix;
-  guint8 qm_y;
-  guint8 qm_u;
-  guint8 qm_v;
+  }
+{ DeltaQYDc  }
+{ DeltaQUDc  }
+{ DeltaQUAc  }
+{ DeltaQVDc  }
+{ DeltaQVAc  }
+  PGstAV1QuantizationParams = ^TGstAV1QuantizationParams;
+  TGstAV1QuantizationParams = record
+      base_q_idx : Tguint8;
+      diff_uv_delta : Tgboolean;
+      using_qmatrix : Tgboolean;
+      qm_y : Tguint8;
+      qm_u : Tguint8;
+      qm_v : Tguint8;
+      delta_q_present : Tgboolean;
+      delta_q_res : Tguint8;
+      delta_q_y_dc : Tgint8;
+      delta_q_u_dc : Tgint8;
+      delta_q_u_ac : Tgint8;
+      delta_q_v_dc : Tgint8;
+      delta_q_v_ac : Tgint8;
+    end;
 
-  gboolean delta_q_present;
-  guint8 delta_q_res;
-
-  gint8 delta_q_y_dc; /* DeltaQYDc */
-  gint8 delta_q_u_dc; /* DeltaQUDc */
-  gint8 delta_q_u_ac; /* DeltaQUAc */
-  gint8 delta_q_v_dc; /* DeltaQVDc */
-  gint8 delta_q_v_ac; /* DeltaQVAc */
-};
-
-/**
+{*
  * GstAV1SegmentationParams:
  * @segmentation_enabled: equal to 1 indicates that this frame makes use of the segmentation
  *   tool; @segmentation_enabled equal to 0 indicates that the frame does not use segmentation.
@@ -1180,20 +1256,24 @@ struct _GstAV1QuantizationParams {
  * @last_active_seg_id: indicates the highest numbered segment id that has some enabled feature.
  *   This is used when decoding the segment id to only decode choices corresponding to used
  *   segments.
- */
-struct _GstAV1SegmentationParams {
-  gboolean segmentation_enabled;
-  guint8 segmentation_update_map;
-  guint8 segmentation_temporal_update;
-  guint8 segmentation_update_data;
+  }
+{ FeatureEnabled  }
+{ FeatureData  }
+{ SegIdPreSkip  }
+{ LastActiveSegId  }
+  PGstAV1SegmentationParams = ^TGstAV1SegmentationParams;
+  TGstAV1SegmentationParams = record
+      segmentation_enabled : Tgboolean;
+      segmentation_update_map : Tguint8;
+      segmentation_temporal_update : Tguint8;
+      segmentation_update_data : Tguint8;
+      feature_enabled : array[0..(GST_AV1_MAX_SEGMENTS)-1] of array[0..(GST_AV1_SEG_LVL_MAX)-1] of Tgint8;
+      feature_data : array[0..(GST_AV1_MAX_SEGMENTS)-1] of array[0..(GST_AV1_SEG_LVL_MAX)-1] of Tgint16;
+      seg_id_pre_skip : Tguint8;
+      last_active_seg_id : Tguint8;
+    end;
 
-  gint8 feature_enabled[GST_AV1_MAX_SEGMENTS][GST_AV1_SEG_LVL_MAX]; /* FeatureEnabled */
-  gint16 feature_data[GST_AV1_MAX_SEGMENTS][GST_AV1_SEG_LVL_MAX]; /* FeatureData */
-  guint8 seg_id_pre_skip; /* SegIdPreSkip */
-  guint8 last_active_seg_id; /* LastActiveSegId */
-};
-
-/**
+{*
  * GstAV1TileInfo:
  * @uniform_tile_spacing_flag: equal to 1 means that the tiles are uniformly spaced across the
  *   frame. (In other words, all tiles are the same size except for the ones at the right and
@@ -1215,25 +1295,32 @@ struct _GstAV1SegmentationParams {
  * @tile_rows: specifies the number of tiles down the frame. It is a requirement of bitstream
  *   conformance that @tile_rows is less than or equal to GST_AV1_MAX_TILE_ROWS.
  * @tile_size_bytes: specifies the number of bytes needed to code each tile size.
- */
-struct _GstAV1TileInfo {
-  guint8 uniform_tile_spacing_flag;
-  gint increment_tile_rows_log2;
-  gint width_in_sbs_minus_1[GST_AV1_MAX_TILE_COLS];
-  gint height_in_sbs_minus_1[GST_AV1_MAX_TILE_ROWS];
-  gint tile_size_bytes_minus_1;
-  guint8 context_update_tile_id;
+  }
+{ MiColStarts  }
+{ MiRowStarts  }
+{ TileColsLog2  }
+{ TileCols  }
+{ TileRowsLog2  }
+{ TileRows  }
+{ TileSizeBytes  }
+  PGstAV1TileInfo = ^TGstAV1TileInfo;
+  TGstAV1TileInfo = record
+      uniform_tile_spacing_flag : Tguint8;
+      increment_tile_rows_log2 : Tgint;
+      width_in_sbs_minus_1 : array[0..(GST_AV1_MAX_TILE_COLS)-1] of Tgint;
+      height_in_sbs_minus_1 : array[0..(GST_AV1_MAX_TILE_ROWS)-1] of Tgint;
+      tile_size_bytes_minus_1 : Tgint;
+      context_update_tile_id : Tguint8;
+      mi_col_starts : array[0..(GST_AV1_MAX_TILE_COLS+1)-1] of Tguint32;
+      mi_row_starts : array[0..(GST_AV1_MAX_TILE_ROWS+1)-1] of Tguint32;
+      tile_cols_log2 : Tguint8;
+      tile_cols : Tguint8;
+      tile_rows_log2 : Tguint8;
+      tile_rows : Tguint8;
+      tile_size_bytes : Tguint8;
+    end;
 
-  guint32 mi_col_starts[GST_AV1_MAX_TILE_COLS + 1]; /* MiColStarts */
-  guint32 mi_row_starts[GST_AV1_MAX_TILE_ROWS + 1]; /* MiRowStarts */
-  guint8 tile_cols_log2; /* TileColsLog2 */
-  guint8 tile_cols; /* TileCols */
-  guint8 tile_rows_log2; /* TileRowsLog2 */
-  guint8 tile_rows; /* TileRows */
-  guint8 tile_size_bytes; /* TileSizeBytes */
-};
-
-/**
+{*
  * GstAV1CDEFParams:
  * @cdef_damping: controls the amount of damping in the deringing filter.
  * @cdef_bits: specifies the number of bits needed to specify which CDEF filter to apply.
@@ -1243,17 +1330,18 @@ struct _GstAV1TileInfo {
  * @cdef_uv_sec_strength: specify the strength of the secondary filter (UV components).
  *
  * Parameters of Constrained Directional Enhancement Filter (CDEF).
- */
-struct _GstAV1CDEFParams {
-  guint8 cdef_damping;
-  guint8 cdef_bits;
-  guint8 cdef_y_pri_strength[GST_AV1_CDEF_MAX];
-  guint8 cdef_y_sec_strength[GST_AV1_CDEF_MAX];
-  guint8 cdef_uv_pri_strength[GST_AV1_CDEF_MAX];
-  guint8 cdef_uv_sec_strength[GST_AV1_CDEF_MAX];
-};
+  }
+  PGstAV1CDEFParams = ^TGstAV1CDEFParams;
+  TGstAV1CDEFParams = record
+      cdef_damping : Tguint8;
+      cdef_bits : Tguint8;
+      cdef_y_pri_strength : array[0..(GST_AV1_CDEF_MAX)-1] of Tguint8;
+      cdef_y_sec_strength : array[0..(GST_AV1_CDEF_MAX)-1] of Tguint8;
+      cdef_uv_pri_strength : array[0..(GST_AV1_CDEF_MAX)-1] of Tguint8;
+      cdef_uv_sec_strength : array[0..(GST_AV1_CDEF_MAX)-1] of Tguint8;
+    end;
 
-/**
+{*
  * GstAV1LoopRestorationParams:
  * @lr_unit_shift: specifies if the luma restoration size should be halved.
  * @lr_uv_shift: is only present for 4:2:0 formats and specifies if the chroma size should be
@@ -1262,17 +1350,20 @@ struct _GstAV1CDEFParams {
  * @loop_restoration_size: specifies the size of loop restoration units in units of samples in
  *   the current plane.
  * @uses_lr: indicates if any plane uses loop restoration.
- */
-struct _GstAV1LoopRestorationParams {
-  guint8 lr_unit_shift;
-  gboolean lr_uv_shift;
+  }
+{ FrameRestorationType  }
+{ LoopRestorationSize  }
+{ UsesLr  }
+  PGstAV1LoopRestorationParams = ^TGstAV1LoopRestorationParams;
+  TGstAV1LoopRestorationParams = record
+      lr_unit_shift : Tguint8;
+      lr_uv_shift : Tgboolean;
+      frame_restoration_type : array[0..(GST_AV1_MAX_NUM_PLANES)-1] of TGstAV1FrameRestorationType;
+      loop_restoration_size : array[0..(GST_AV1_MAX_NUM_PLANES)-1] of Tguint32;
+      uses_lr : Tguint8;
+    end;
 
-  GstAV1FrameRestorationType frame_restoration_type[GST_AV1_MAX_NUM_PLANES]; /* FrameRestorationType */
-  guint32 loop_restoration_size[GST_AV1_MAX_NUM_PLANES]; /* LoopRestorationSize */
-  guint8 uses_lr; /* UsesLr */
-};
-
-/**
+{*
  * GstAV1GlobalMotionParams:
  * @is_global: specifies whether global motion parameters are present for a particular
  *   reference frame.
@@ -1284,25 +1375,26 @@ struct _GstAV1LoopRestorationParams {
  *   ref = LAST_FRAME..ALTREF_FRAME, for j = 0..5.
  * @gm_type: specifying the type of global motion.
  * @invalid: whether this global motion parameters is invalid. (Since: 1.20)
- */
-/**
+  }
+{*
  * _GstAV1GlobalMotionParams.invalid:
  *
  * whether this global motion parameters is invalid.
  *
  * Since: 1.20
- */
-struct _GstAV1GlobalMotionParams {
-  gboolean is_global[GST_AV1_NUM_REF_FRAMES];
-  gboolean is_rot_zoom[GST_AV1_NUM_REF_FRAMES];
-  gboolean is_translation[GST_AV1_NUM_REF_FRAMES];
-  gint32 gm_params[GST_AV1_NUM_REF_FRAMES][6];
+  }
+{ GmType  }
+  PGstAV1GlobalMotionParams = ^TGstAV1GlobalMotionParams;
+  TGstAV1GlobalMotionParams = record
+      is_global : array[0..(GST_AV1_NUM_REF_FRAMES)-1] of Tgboolean;
+      is_rot_zoom : array[0..(GST_AV1_NUM_REF_FRAMES)-1] of Tgboolean;
+      is_translation : array[0..(GST_AV1_NUM_REF_FRAMES)-1] of Tgboolean;
+      gm_params : array[0..(GST_AV1_NUM_REF_FRAMES)-1] of array[0..5] of Tgint32;
+      gm_type : array[0..(GST_AV1_NUM_REF_FRAMES)-1] of TGstAV1WarpModelType;
+      invalid : array[0..(GST_AV1_NUM_REF_FRAMES)-1] of Tgboolean;
+    end;
 
-  GstAV1WarpModelType gm_type[GST_AV1_NUM_REF_FRAMES]; /* GmType */
-  gboolean invalid[GST_AV1_NUM_REF_FRAMES];
-};
-
-/**
+{*
  * GstAV1FilmGrainParams:
  * @apply_grain: equal to 1 specifies that film grain should be added to this frame.
  *   apply_grain equal to 0 specifies that film grain should not be added.
@@ -1379,40 +1471,41 @@ struct _GstAV1GlobalMotionParams {
  *   semantics for color_range for an explanation of studio swing). clip_to_restricted_range
  *   equal to 0 indicates that clipping to the full range shall be applied to the sample
  *   values after adding the film grain.
- */
-struct _GstAV1FilmGrainParams {
-  gboolean apply_grain;
-  guint16 grain_seed;
-  gboolean update_grain;
-  guint8 film_grain_params_ref_idx;
-  guint8 num_y_points;
-  guint8 point_y_value[GST_AV1_MAX_NUM_Y_POINTS];
-  guint8 point_y_scaling[GST_AV1_MAX_NUM_Y_POINTS];
-  guint8 chroma_scaling_from_luma;
-  guint8 num_cb_points;
-  guint8 point_cb_value[GST_AV1_MAX_NUM_CB_POINTS];
-  guint8 point_cb_scaling[GST_AV1_MAX_NUM_CB_POINTS];
-  guint8 num_cr_points;
-  guint8 point_cr_value[GST_AV1_MAX_NUM_CR_POINTS];
-  guint8 point_cr_scaling[GST_AV1_MAX_NUM_CR_POINTS];
-  guint8 grain_scaling_minus_8;
-  guint8 ar_coeff_lag;
-  guint8 ar_coeffs_y_plus_128[GST_AV1_MAX_NUM_POS_LUMA];
-  guint8 ar_coeffs_cb_plus_128[GST_AV1_MAX_NUM_POS_LUMA];
-  guint8 ar_coeffs_cr_plus_128[GST_AV1_MAX_NUM_POS_LUMA];
-  guint8 ar_coeff_shift_minus_6;
-  guint8 grain_scale_shift;
-  guint8 cb_mult;
-  guint8 cb_luma_mult;
-  guint16 cb_offset;
-  guint8 cr_mult;
-  guint8 cr_luma_mult;
-  guint16 cr_offset;
-  gboolean overlap_flag;
-  gboolean clip_to_restricted_range;
-};
+  }
+  PGstAV1FilmGrainParams = ^TGstAV1FilmGrainParams;
+  TGstAV1FilmGrainParams = record
+      apply_grain : Tgboolean;
+      grain_seed : Tguint16;
+      update_grain : Tgboolean;
+      film_grain_params_ref_idx : Tguint8;
+      num_y_points : Tguint8;
+      point_y_value : array[0..(GST_AV1_MAX_NUM_Y_POINTS)-1] of Tguint8;
+      point_y_scaling : array[0..(GST_AV1_MAX_NUM_Y_POINTS)-1] of Tguint8;
+      chroma_scaling_from_luma : Tguint8;
+      num_cb_points : Tguint8;
+      point_cb_value : array[0..(GST_AV1_MAX_NUM_CB_POINTS)-1] of Tguint8;
+      point_cb_scaling : array[0..(GST_AV1_MAX_NUM_CB_POINTS)-1] of Tguint8;
+      num_cr_points : Tguint8;
+      point_cr_value : array[0..(GST_AV1_MAX_NUM_CR_POINTS)-1] of Tguint8;
+      point_cr_scaling : array[0..(GST_AV1_MAX_NUM_CR_POINTS)-1] of Tguint8;
+      grain_scaling_minus_8 : Tguint8;
+      ar_coeff_lag : Tguint8;
+      ar_coeffs_y_plus_128 : array[0..(GST_AV1_MAX_NUM_POS_LUMA)-1] of Tguint8;
+      ar_coeffs_cb_plus_128 : array[0..(GST_AV1_MAX_NUM_POS_LUMA)-1] of Tguint8;
+      ar_coeffs_cr_plus_128 : array[0..(GST_AV1_MAX_NUM_POS_LUMA)-1] of Tguint8;
+      ar_coeff_shift_minus_6 : Tguint8;
+      grain_scale_shift : Tguint8;
+      cb_mult : Tguint8;
+      cb_luma_mult : Tguint8;
+      cb_offset : Tguint16;
+      cr_mult : Tguint8;
+      cr_luma_mult : Tguint8;
+      cr_offset : Tguint16;
+      overlap_flag : Tgboolean;
+      clip_to_restricted_range : Tgboolean;
+    end;
 
-/**
+{*
  * GstAV1FrameHeaderOBU:
  * @show_existing_frame: equal to 1, indicates the frame indexed by @frame_to_show_map_idx is
  *   to be output; @show_existing_frame equal to 0 indicates that further processing is required.
@@ -1549,144 +1642,170 @@ struct _GstAV1FilmGrainParams {
  * @skip_mode_frame: specifies the frames to use for compound prediction when @skip_mode is 1.
  * @expected_frame_id: specifies the frame id for each frame used for reference. (Since: 1.24)
  * @ref_global_motion_params: specifies the global motion parameters of the reference. (Since: 1.24)
- */
-struct _GstAV1FrameHeaderOBU {
-  gboolean show_existing_frame;
-  gint8 frame_to_show_map_idx;
-  guint32 frame_presentation_time;
-  guint32 tu_presentation_delay;
-  guint32 display_frame_id;
-  GstAV1FrameType frame_type;
-  gboolean show_frame;
-  gboolean showable_frame;
-  gboolean error_resilient_mode;
-  gboolean disable_cdf_update;
-  guint8 allow_screen_content_tools;
-  gboolean force_integer_mv;
-  guint32 current_frame_id;
-  gboolean frame_size_override_flag;
-  guint32 order_hint;
-  guint8 primary_ref_frame;
-  gboolean buffer_removal_time_present_flag;
-  guint32 buffer_removal_time[GST_AV1_MAX_OPERATING_POINTS];
-  guint8 refresh_frame_flags;
-  guint32 ref_order_hint[GST_AV1_NUM_REF_FRAMES];
-  gboolean allow_intrabc;
-  gboolean frame_refs_short_signaling;
-  gint8 last_frame_idx;
-  gint8 gold_frame_idx;
-  gint8 ref_frame_idx[GST_AV1_REFS_PER_FRAME];
-  gboolean allow_high_precision_mv;
-  gboolean is_motion_mode_switchable;
-  gboolean use_ref_frame_mvs;
-  gboolean disable_frame_end_update_cdf;
-  gboolean allow_warped_motion;
-  gboolean reduced_tx_set;
-  gboolean render_and_frame_size_different;
-  gboolean use_superres;
-  gboolean is_filter_switchable;
-  GstAV1InterpolationFilter interpolation_filter;
-  GstAV1LoopFilterParams loop_filter_params;
-  GstAV1QuantizationParams quantization_params;
-  GstAV1SegmentationParams segmentation_params;
-  GstAV1TileInfo tile_info;
-  GstAV1CDEFParams cdef_params;
-  GstAV1LoopRestorationParams loop_restoration_params;
-  gboolean tx_mode_select;
-  gboolean skip_mode_present;
-  gboolean reference_select;
-  GstAV1GlobalMotionParams global_motion_params;
-  GstAV1FilmGrainParams film_grain_params;
-
-  /* Global vars set by frame header */
-  guint32 superres_denom; /* SuperresDenom */
-  guint8 frame_is_intra; /* FrameIsIntra */
-  guint32 order_hints[GST_AV1_NUM_REF_FRAMES]; /* OrderHints */
-  guint32 ref_frame_sign_bias[GST_AV1_NUM_REF_FRAMES]; /* RefFrameSignBias */
-
-  guint8 coded_lossless; /* CodedLossless */
-  guint8 all_lossless; /* AllLossless */
-  guint8 lossless_array[GST_AV1_MAX_SEGMENTS]; /* LosslessArray */
-  guint8 seg_qm_Level[3][GST_AV1_MAX_SEGMENTS]; /* SegQMLevel */
-
-  guint32 upscaled_width; /* UpscaledWidth */
-  guint32 frame_width; /* FrameWidth */
-  guint32 frame_height; /* FrameHeight */
-  guint32 render_width;  /* RenderWidth */
-  guint32 render_height; /* RenderHeight */
-
-  GstAV1TXModes tx_mode; /* TxMode */
-
-  guint8 skip_mode_frame[2]; /* SkipModeFrame */
-
-  /**
+  }
+{ Global vars set by frame header  }
+{ SuperresDenom  }
+{ FrameIsIntra  }
+{ OrderHints  }
+{ RefFrameSignBias  }
+{ CodedLossless  }
+{ AllLossless  }
+{ LosslessArray  }
+{ SegQMLevel  }
+{ UpscaledWidth  }
+{ FrameWidth  }
+{ FrameHeight  }
+{ RenderWidth  }
+{ RenderHeight  }
+{ TxMode  }
+{ SkipModeFrame  }
+{*
    * _GstAV1FrameHeaderOBU.expected_frame_id:
    *
    * Specifies the frames to use for compound prediction.
    *
    * Since: 1.24
-   */
-  gint32 expected_frame_id[GST_AV1_REFS_PER_FRAME];
-
-  /**
+    }
+{*
    * _GstAV1FrameHeaderOBU.ref_global_motion_params:
    *
    * Specifies the global motion parameters of the reference.
    *
    * Since: 1.24
-   */
-  GstAV1GlobalMotionParams ref_global_motion_params;
-};
+    }
+  PGstAV1FrameHeaderOBU = ^TGstAV1FrameHeaderOBU;
+  TGstAV1FrameHeaderOBU = record
+      show_existing_frame : Tgboolean;
+      frame_to_show_map_idx : Tgint8;
+      frame_presentation_time : Tguint32;
+      tu_presentation_delay : Tguint32;
+      display_frame_id : Tguint32;
+      frame_type : TGstAV1FrameType;
+      show_frame : Tgboolean;
+      showable_frame : Tgboolean;
+      error_resilient_mode : Tgboolean;
+      disable_cdf_update : Tgboolean;
+      allow_screen_content_tools : Tguint8;
+      force_integer_mv : Tgboolean;
+      current_frame_id : Tguint32;
+      frame_size_override_flag : Tgboolean;
+      order_hint : Tguint32;
+      primary_ref_frame : Tguint8;
+      buffer_removal_time_present_flag : Tgboolean;
+      buffer_removal_time : array[0..(GST_AV1_MAX_OPERATING_POINTS)-1] of Tguint32;
+      refresh_frame_flags : Tguint8;
+      ref_order_hint : array[0..(GST_AV1_NUM_REF_FRAMES)-1] of Tguint32;
+      allow_intrabc : Tgboolean;
+      frame_refs_short_signaling : Tgboolean;
+      last_frame_idx : Tgint8;
+      gold_frame_idx : Tgint8;
+      ref_frame_idx : array[0..(GST_AV1_REFS_PER_FRAME)-1] of Tgint8;
+      allow_high_precision_mv : Tgboolean;
+      is_motion_mode_switchable : Tgboolean;
+      use_ref_frame_mvs : Tgboolean;
+      disable_frame_end_update_cdf : Tgboolean;
+      allow_warped_motion : Tgboolean;
+      reduced_tx_set : Tgboolean;
+      render_and_frame_size_different : Tgboolean;
+      use_superres : Tgboolean;
+      is_filter_switchable : Tgboolean;
+      interpolation_filter : TGstAV1InterpolationFilter;
+      loop_filter_params : TGstAV1LoopFilterParams;
+      quantization_params : TGstAV1QuantizationParams;
+      segmentation_params : TGstAV1SegmentationParams;
+      tile_info : TGstAV1TileInfo;
+      cdef_params : TGstAV1CDEFParams;
+      loop_restoration_params : TGstAV1LoopRestorationParams;
+      tx_mode_select : Tgboolean;
+      skip_mode_present : Tgboolean;
+      reference_select : Tgboolean;
+      global_motion_params : TGstAV1GlobalMotionParams;
+      film_grain_params : TGstAV1FilmGrainParams;
+      superres_denom : Tguint32;
+      frame_is_intra : Tguint8;
+      order_hints : array[0..(GST_AV1_NUM_REF_FRAMES)-1] of Tguint32;
+      ref_frame_sign_bias : array[0..(GST_AV1_NUM_REF_FRAMES)-1] of Tguint32;
+      coded_lossless : Tguint8;
+      all_lossless : Tguint8;
+      lossless_array : array[0..(GST_AV1_MAX_SEGMENTS)-1] of Tguint8;
+      seg_qm_Level : array[0..2] of array[0..(GST_AV1_MAX_SEGMENTS)-1] of Tguint8;
+      upscaled_width : Tguint32;
+      frame_width : Tguint32;
+      frame_height : Tguint32;
+      render_width : Tguint32;
+      render_height : Tguint32;
+      tx_mode : TGstAV1TXModes;
+      skip_mode_frame : array[0..1] of Tguint8;
+      expected_frame_id : array[0..(GST_AV1_REFS_PER_FRAME)-1] of Tgint32;
+      ref_global_motion_params : TGstAV1GlobalMotionParams;
+    end;
 
-/**
+{*
  * GstAV1ReferenceFrameInfoEntry:
  *
- */
-struct _GstAV1ReferenceFrameInfoEntry {
-  gboolean ref_valid;             /* RefValid */
-  guint32 ref_frame_id;           /* RefFrameId */
-  guint32 ref_upscaled_width;     /* RefUpscaledWidth */
-  guint32 ref_frame_width;        /* RefFrameWidth */
-  guint32 ref_frame_height;       /* RefFrameHeight */
-  guint32 ref_render_width;       /* RefRenderWidth */
-  guint32 ref_render_height;      /* RefRenderHeight */
-  guint32 ref_mi_cols;            /* RefMiCols */
-  guint32 ref_mi_rows;            /* RefMiRows */
-  GstAV1FrameType ref_frame_type; /* RefFrameType */
-  guint8 ref_subsampling_x;       /* RefSubsamplingX */
-  guint8 ref_subsampling_y;       /* RefSubsamplingY */
-  guint8 ref_bit_depth;           /* RefBitDepth */
-  guint32 ref_order_hint;         /* RefOrderHint */
-  GstAV1SegmentationParams ref_segmentation_params;
-  GstAV1GlobalMotionParams ref_global_motion_params;
-  GstAV1LoopFilterParams ref_lf_params;
-  GstAV1FilmGrainParams ref_film_grain_params;
-  GstAV1TileInfo ref_tile_info;
-};
+  }
+{ RefValid  }
+{ RefFrameId  }
+{ RefUpscaledWidth  }
+{ RefFrameWidth  }
+{ RefFrameHeight  }
+{ RefRenderWidth  }
+{ RefRenderHeight  }
+{ RefMiCols  }
+{ RefMiRows  }
+{ RefFrameType  }
+{ RefSubsamplingX  }
+{ RefSubsamplingY  }
+{ RefBitDepth  }
+{ RefOrderHint  }
+  PGstAV1ReferenceFrameInfoEntry = ^TGstAV1ReferenceFrameInfoEntry;
+  TGstAV1ReferenceFrameInfoEntry = record
+      ref_valid : Tgboolean;
+      ref_frame_id : Tguint32;
+      ref_upscaled_width : Tguint32;
+      ref_frame_width : Tguint32;
+      ref_frame_height : Tguint32;
+      ref_render_width : Tguint32;
+      ref_render_height : Tguint32;
+      ref_mi_cols : Tguint32;
+      ref_mi_rows : Tguint32;
+      ref_frame_type : TGstAV1FrameType;
+      ref_subsampling_x : Tguint8;
+      ref_subsampling_y : Tguint8;
+      ref_bit_depth : Tguint8;
+      ref_order_hint : Tguint32;
+      ref_segmentation_params : TGstAV1SegmentationParams;
+      ref_global_motion_params : TGstAV1GlobalMotionParams;
+      ref_lf_params : TGstAV1LoopFilterParams;
+      ref_film_grain_params : TGstAV1FilmGrainParams;
+      ref_tile_info : TGstAV1TileInfo;
+    end;
 
-/**
+{*
  * GstAV1ReferenceFrameInfo:
  *
  * All the info related to a reference frames.
- */
-struct _GstAV1ReferenceFrameInfo {
-  GstAV1ReferenceFrameInfoEntry entry[GST_AV1_NUM_REF_FRAMES];
-};
+  }
+  PGstAV1ReferenceFrameInfo = ^TGstAV1ReferenceFrameInfo;
+  TGstAV1ReferenceFrameInfo = record
+      entry : array[0..(GST_AV1_NUM_REF_FRAMES)-1] of TGstAV1ReferenceFrameInfoEntry;
+    end;
 
-/**
+{*
  * GstAV1TileListOBUEntry:
  *
- */
-struct _GstAV1TileListOBUEntry {
-  gint8 anchor_frame_idx;
-  guint8 anchor_tile_row;
-  guint8 anchor_tile_col;
-  guint16 tile_data_size_minus_1;
-  /* Just refer to obu's data, invalid after OBU data released */
-  guint8 *coded_tile_data;
-};
+  }
+{ Just refer to obu's data, invalid after OBU data released  }
+  PGstAV1TileListOBUEntry = ^TGstAV1TileListOBUEntry;
+  TGstAV1TileListOBUEntry = record
+      anchor_frame_idx : Tgint8;
+      anchor_tile_row : Tguint8;
+      anchor_tile_col : Tguint8;
+      tile_data_size_minus_1 : Tguint16;
+      coded_tile_data : Pguint8;
+    end;
 
-/**
+{*
  * GstAV1TileListOBU:
  * @output_frame_width_in_tiles_minus_1: plus one is the width of the output frame, in tile units.
  * @output_frame_height_in_tiles_minus_1: plus one is the height of the output frame, in tile units.
@@ -1703,31 +1822,41 @@ struct _GstAV1TileListOBUEntry {
  *   units. It is a requirement of bitstream conformance that @anchor_tile_col is less than @tile_cols.
  * @tile_data_size_minus_1: plus one is the size of the coded tile data, @coded_tile_data, in bytes.
  * @coded_tile_data: are the @tile_data_size_minus_1 + 1 bytes of the coded tile.
- */
-struct _GstAV1TileListOBU {
-  guint8 output_frame_width_in_tiles_minus_1;
-  guint8 output_frame_height_in_tiles_minus_1;
-  guint16 tile_count_minus_1;
-  GstAV1TileListOBUEntry entry[GST_AV1_MAX_TILE_COUNT];
-};
+  }
+  PGstAV1TileListOBU = ^TGstAV1TileListOBU;
+  TGstAV1TileListOBU = record
+      output_frame_width_in_tiles_minus_1 : Tguint8;
+      output_frame_height_in_tiles_minus_1 : Tguint8;
+      tile_count_minus_1 : Tguint16;
+      entry : array[0..(GST_AV1_MAX_TILE_COUNT)-1] of TGstAV1TileListOBUEntry;
+    end;
 
-/**
+{*
  * GstAV1TileGroupOBUEntry:
  *
- */
-struct _GstAV1TileGroupOBUEntry {
-  guint32 tile_offset; /* Tile data offset from the OBU data. */
-  guint32 tile_size;   /* Data size of this tile */
-  guint32 tile_row;    /* tileRow */
-  guint32 tile_col;    /* tileCol */
-  /* global varialbes */
-  guint32 mi_row_start; /* MiRowStart */
-  guint32 mi_row_end;   /* MiRowEnd */
-  guint32 mi_col_start; /* MiColStart */
-  guint32 mi_col_end;   /* MiColEnd */
-};
+  }
+{ Tile data offset from the OBU data.  }
+{ Data size of this tile  }
+{ tileRow  }
+{ tileCol  }
+{ global varialbes  }
+{ MiRowStart  }
+{ MiRowEnd  }
+{ MiColStart  }
+{ MiColEnd  }
+  PGstAV1TileGroupOBUEntry = ^TGstAV1TileGroupOBUEntry;
+  TGstAV1TileGroupOBUEntry = record
+      tile_offset : Tguint32;
+      tile_size : Tguint32;
+      tile_row : Tguint32;
+      tile_col : Tguint32;
+      mi_row_start : Tguint32;
+      mi_row_end : Tguint32;
+      mi_col_start : Tguint32;
+      mi_col_end : Tguint32;
+    end;
 
-/**
+{*
  * GstAV1TileGroupOBU:
  * @tile_start_and_end_present_flag: specifies whether @tg_start and @tg_end are present
  *   in the bitstream. If @tg_start and @tg_end are not present in the bitstream, this
@@ -1750,146 +1879,123 @@ struct _GstAV1TileGroupOBUEntry {
  * @mi_col_start: start position in mi cols
  * @mi_col_end: end position in mi cols
  * @num_tiles: specifies the total number of tiles in the frame.
- */
-struct _GstAV1TileGroupOBU {
-  gboolean tile_start_and_end_present_flag;
-  guint8 tg_start;
-  guint8 tg_end;
-  GstAV1TileGroupOBUEntry entry[GST_AV1_MAX_TILE_COUNT];
+  }
+{ NumTiles  }
+  PGstAV1TileGroupOBU = ^TGstAV1TileGroupOBU;
+  TGstAV1TileGroupOBU = record
+      tile_start_and_end_present_flag : Tgboolean;
+      tg_start : Tguint8;
+      tg_end : Tguint8;
+      entry : array[0..(GST_AV1_MAX_TILE_COUNT)-1] of TGstAV1TileGroupOBUEntry;
+      num_tiles : Tguint32;
+    end;
 
-  guint32 num_tiles; /* NumTiles */
-};
-
-/**
+{*
  * GstAV1FrameOBU:
  * @frame_header: a #GstAV1FrameHeaderOBU holding frame_header data.
  * @tile_group: a #GstAV1TileGroupOBU holding tile_group data.
- */
-struct _GstAV1FrameOBU {
-  GstAV1TileGroupOBU tile_group;
-  GstAV1FrameHeaderOBU frame_header;
-};
+  }
+  PGstAV1FrameOBU = ^TGstAV1FrameOBU;
+  TGstAV1FrameOBU = record
+      tile_group : TGstAV1TileGroupOBU;
+      frame_header : TGstAV1FrameHeaderOBU;
+    end;
 
-/**
+{*
  * GstAV1ParserState:
  *
- */
-struct _GstAV1ParserState {
-  guint32 operating_point;     /* Set by choose_operating_point() */
-  guint8 seen_frame_header;    /* SeenFrameHeader */
-  guint32 operating_point_idc; /* OperatingPointIdc */
-  gboolean sequence_changed;   /* Received a new sequence */
-  gboolean begin_first_frame;  /* already find the first frame */
+  }
+{ Set by choose_operating_point()  }
+{ SeenFrameHeader  }
+{ OperatingPointIdc  }
+{ Received a new sequence  }
+{ already find the first frame  }
+{ frame  }
+{ UpscaledWidth  }
+{ FrameWidth  }
+{ FrameHeight  }
+{ MiCols  }
+{ MiRows  }
+{ RenderWidth  }
+{ RenderHeight  }
+{ PrevFrameID  }
+{ the current frame ID  }
+{ RefInfo  }
+{ MiColStarts  }
+{ MiRowStarts  }
+{ TileColsLog2  }
+{ TileCols  }
+{ TileRowsLog2  }
+{ TileRows  }
+{ TileSizeBytes  }
+  PGstAV1ParserState = ^TGstAV1ParserState;
+  TGstAV1ParserState = record
+      operating_point : Tguint32;
+      seen_frame_header : Tguint8;
+      operating_point_idc : Tguint32;
+      sequence_changed : Tgboolean;
+      begin_first_frame : Tgboolean;
+      upscaled_width : Tguint32;
+      frame_width : Tguint32;
+      frame_height : Tguint32;
+      mi_cols : Tguint32;
+      mi_rows : Tguint32;
+      render_width : Tguint32;
+      render_height : Tguint32;
+      prev_frame_id : Tguint32;
+      current_frame_id : Tguint32;
+      ref_info : TGstAV1ReferenceFrameInfo;
+      mi_col_starts : array[0..(GST_AV1_MAX_TILE_COLS+1)-1] of Tguint32;
+      mi_row_starts : array[0..(GST_AV1_MAX_TILE_ROWS+1)-1] of Tguint32;
+      tile_cols_log2 : Tguint8;
+      tile_cols : Tguint8;
+      tile_rows_log2 : Tguint8;
+      tile_rows : Tguint8;
+      tile_size_bytes : Tguint8;
+    end;
 
-  /* frame */
-  guint32 upscaled_width;            /* UpscaledWidth */
-  guint32 frame_width;               /* FrameWidth */
-  guint32 frame_height;              /* FrameHeight */
-  guint32 mi_cols;                   /* MiCols */
-  guint32 mi_rows;                   /* MiRows */
-  guint32 render_width;              /* RenderWidth */
-  guint32 render_height;             /* RenderHeight */
-  guint32 prev_frame_id;             /* PrevFrameID */
-  guint32 current_frame_id;          /* the current frame ID */
-  GstAV1ReferenceFrameInfo ref_info; /* RefInfo */
-
-  guint32 mi_col_starts[GST_AV1_MAX_TILE_COLS + 1]; /* MiColStarts */
-  guint32 mi_row_starts[GST_AV1_MAX_TILE_ROWS + 1]; /* MiRowStarts */
-  guint8 tile_cols_log2;                            /* TileColsLog2 */
-  guint8 tile_cols;                                 /* TileCols */
-  guint8 tile_rows_log2;                            /* TileRowsLog2 */
-  guint8 tile_rows;                                 /* TileRows */
-  guint8 tile_size_bytes;                           /* TileSizeBytes */
-};
-
-/**
+{*
  * GstAV1Parser:
  *
  * #GstAV1Parser opaque structure
  *
  * Instantiante it with gst_av1_parser_new() and destroy it with
  * gst_av1_parser_free()
- */
-struct _GstAV1Parser
-{
-  /*< private >*/
-  GstAV1ParserState state;
-
-  gboolean annex_b;
-  guint32 temporal_unit_size;
-  /* consumed of this temporal unit */
-  guint32 temporal_unit_consumed;
-  guint32 frame_unit_size;
-  /* consumed of this frame unit */
-  guint32 frame_unit_consumed;
-
-  GstAV1SequenceHeaderOBU *seq_header;
-};
-
-GST_CODEC_PARSERS_API
-void
-gst_av1_parser_reset (GstAV1Parser * parser, gboolean annex_b);
-
-GST_CODEC_PARSERS_API
-void
-gst_av1_parser_reset_annex_b (GstAV1Parser * parser);
-
-GST_CODEC_PARSERS_API
-GstAV1ParserResult
-gst_av1_parser_identify_one_obu (GstAV1Parser * parser, const guint8 * data,
-    guint32 size, GstAV1OBU * obu, guint32 * consumed);
-
-GST_CODEC_PARSERS_API
-GstAV1ParserResult
-gst_av1_parser_parse_sequence_header_obu (GstAV1Parser * parser,
-    GstAV1OBU * obu, GstAV1SequenceHeaderOBU * seq_header);
-
-GST_CODEC_PARSERS_API
-GstAV1ParserResult
-gst_av1_parser_parse_temporal_delimiter_obu (GstAV1Parser * parser,
-    GstAV1OBU * obu);
-
-GST_CODEC_PARSERS_API
-GstAV1ParserResult
-gst_av1_parser_parse_metadata_obu (GstAV1Parser * parser, GstAV1OBU * obu,
-    GstAV1MetadataOBU * metadata);
-
-GST_CODEC_PARSERS_API
-GstAV1ParserResult
-gst_av1_parser_parse_tile_list_obu (GstAV1Parser * parser, GstAV1OBU * obu,
-    GstAV1TileListOBU * tile_list);
-
-GST_CODEC_PARSERS_API
-GstAV1ParserResult
-gst_av1_parser_parse_tile_group_obu (GstAV1Parser * parser, GstAV1OBU * obu,
-    GstAV1TileGroupOBU * tile_group);
-
-GST_CODEC_PARSERS_API
-GstAV1ParserResult
-gst_av1_parser_parse_frame_header_obu (GstAV1Parser * parser, GstAV1OBU * obu,
-    GstAV1FrameHeaderOBU * frame_header);
-
-GST_CODEC_PARSERS_API
-GstAV1ParserResult
-gst_av1_parser_parse_frame_obu (GstAV1Parser * parser, GstAV1OBU * obu,
-    GstAV1FrameOBU * frame);
-
-GST_CODEC_PARSERS_API
-GstAV1ParserResult
-gst_av1_parser_reference_frame_update (GstAV1Parser * parser,
-    GstAV1FrameHeaderOBU * frame_header);
-
-GST_CODEC_PARSERS_API
-GstAV1ParserResult
-gst_av1_parser_set_operating_point (GstAV1Parser * parser,
-    gint32 operating_point);
-
-GST_CODEC_PARSERS_API
-GstAV1Parser * gst_av1_parser_new (void);
-
-GST_CODEC_PARSERS_API
-void gst_av1_parser_free (GstAV1Parser * parser);
+  }
+{< private > }
+{ consumed of this temporal unit  }
+{ consumed of this frame unit  }
+  PGstAV1Parser = ^TGstAV1Parser;
+  TGstAV1Parser = record
+      state : TGstAV1ParserState;
+      annex_b : Tgboolean;
+      temporal_unit_size : Tguint32;
+      temporal_unit_consumed : Tguint32;
+      frame_unit_size : Tguint32;
+      frame_unit_consumed : Tguint32;
+      seq_header : PGstAV1SequenceHeaderOBU;
+    end;
 
 
+procedure gst_av1_parser_reset(parser:PGstAV1Parser; annex_b:Tgboolean);cdecl;external;
+procedure gst_av1_parser_reset_annex_b(parser:PGstAV1Parser);cdecl;external;
+(* Const before type ignored *)
+function gst_av1_parser_identify_one_obu(parser:PGstAV1Parser; data:Pguint8; size:Tguint32; obu:PGstAV1OBU; consumed:Pguint32):TGstAV1ParserResult;cdecl;external;
+function gst_av1_parser_parse_sequence_header_obu(parser:PGstAV1Parser; obu:PGstAV1OBU; seq_header:PGstAV1SequenceHeaderOBU):TGstAV1ParserResult;cdecl;external;
+function gst_av1_parser_parse_temporal_delimiter_obu(parser:PGstAV1Parser; obu:PGstAV1OBU):TGstAV1ParserResult;cdecl;external;
+function gst_av1_parser_parse_metadata_obu(parser:PGstAV1Parser; obu:PGstAV1OBU; metadata:PGstAV1MetadataOBU):TGstAV1ParserResult;cdecl;external;
+function gst_av1_parser_parse_tile_list_obu(parser:PGstAV1Parser; obu:PGstAV1OBU; tile_list:PGstAV1TileListOBU):TGstAV1ParserResult;cdecl;external;
+function gst_av1_parser_parse_tile_group_obu(parser:PGstAV1Parser; obu:PGstAV1OBU; tile_group:PGstAV1TileGroupOBU):TGstAV1ParserResult;cdecl;external;
+function gst_av1_parser_parse_frame_header_obu(parser:PGstAV1Parser; obu:PGstAV1OBU; frame_header:PGstAV1FrameHeaderOBU):TGstAV1ParserResult;cdecl;external;
+function gst_av1_parser_parse_frame_obu(parser:PGstAV1Parser; obu:PGstAV1OBU; frame:PGstAV1FrameOBU):TGstAV1ParserResult;cdecl;external;
+function gst_av1_parser_reference_frame_update(parser:PGstAV1Parser; frame_header:PGstAV1FrameHeaderOBU):TGstAV1ParserResult;cdecl;external;
+function gst_av1_parser_set_operating_point(parser:PGstAV1Parser; operating_point:Tgint32):TGstAV1ParserResult;cdecl;external;
+function gst_av1_parser_new:PGstAV1Parser;cdecl;external;
+procedure gst_av1_parser_free(parser:PGstAV1Parser);cdecl;external;
+{$endif}
+{ __GST_AV1_PARSER_H__  }
 
-#endif /* __GST_AV1_PARSER_H__ */
+implementation
+
+
+end.

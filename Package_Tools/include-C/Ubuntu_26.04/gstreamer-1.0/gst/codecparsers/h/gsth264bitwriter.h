@@ -45,17 +45,17 @@ typedef enum
   GST_H264_BIT_WRITER_ERROR
 } GstH264BitWriterResult;
 
-GST_CODEC_PARSERS_API
+extern
 GstH264BitWriterResult     gst_h264_bit_writer_sps       (const GstH264SPS * sps,
                                                           gboolean start_code,
                                                           guint8 * data,
                                                           guint * size);
-GST_CODEC_PARSERS_API
+extern
 GstH264BitWriterResult     gst_h264_bit_writer_pps       (const GstH264PPS * pps,
                                                           gboolean start_code,
                                                           guint8 * data,
                                                           guint * size);
-GST_CODEC_PARSERS_API
+extern
 GstH264BitWriterResult     gst_h264_bit_writer_slice_hdr (const GstH264SliceHdr * slice,
                                                           gboolean start_code,
                                                           GstH264NalUnitType nal_type,
@@ -63,22 +63,22 @@ GstH264BitWriterResult     gst_h264_bit_writer_slice_hdr (const GstH264SliceHdr 
                                                           guint8 * data,
                                                           guint * size,
                                                           guint * trail_bits_num);
-GST_CODEC_PARSERS_API
+extern
 GstH264BitWriterResult     gst_h264_bit_writer_sei       (GArray * sei_messages,
                                                           gboolean start_code,
                                                           guint8 * data,
                                                           guint * size);
-GST_CODEC_PARSERS_API
+extern
 GstH264BitWriterResult     gst_h264_bit_writer_aud       (guint8 primary_pic_type,
                                                           gboolean start_code,
                                                           guint8 * data,
                                                           guint * size);
-GST_CODEC_PARSERS_API
+extern
 GstH264BitWriterResult     gst_h264_bit_writer_filler    (gboolean start_code,
                                                           guint num,
                                                           guint8 * data,
                                                           guint * size);
-GST_CODEC_PARSERS_API
+extern
 GstH264BitWriterResult     gst_h264_bit_writer_convert_to_nal (guint nal_prefix_size,
                                                                gboolean packetized,
                                                                gboolean has_startcode,

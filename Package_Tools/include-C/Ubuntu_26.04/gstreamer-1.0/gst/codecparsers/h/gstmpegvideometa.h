@@ -20,10 +20,6 @@
 #ifndef __GST_MPEG_VIDEO_META_H__
 #define __GST_MPEG_VIDEO_META_H__
 
-#ifndef GST_USE_UNSTABLE_API
-#warning "The Mpeg video parsing library is unstable API and may change in future."
-#warning "You can define GST_USE_UNSTABLE_API to avoid this warning."
-#endif
 
 #include <gst/gst.h>
 #include <gst/codecparsers/gstmpegvideoparser.h>
@@ -32,11 +28,11 @@
 
 typedef struct _GstMpegVideoMeta GstMpegVideoMeta;
 
-GST_CODEC_PARSERS_API
+extern
 GType gst_mpeg_video_meta_api_get_type (void);
 #define GST_MPEG_VIDEO_META_API_TYPE  (gst_mpeg_video_meta_api_get_type())
 #define GST_MPEG_VIDEO_META_INFO  (gst_mpeg_video_meta_get_info())
-GST_CODEC_PARSERS_API
+extern
 const GstMetaInfo * gst_mpeg_video_meta_get_info (void);
 
 /**
@@ -77,7 +73,7 @@ struct _GstMpegVideoMeta {
 
 #define gst_buffer_get_mpeg_video_meta(b) ((GstMpegVideoMeta*)gst_buffer_get_meta((b),GST_MPEG_VIDEO_META_API_TYPE))
 
-GST_CODEC_PARSERS_API
+extern
 GstMpegVideoMeta *
 gst_buffer_add_mpeg_video_meta (GstBuffer * buffer, 
                                 const GstMpegVideoSequenceHdr *seq_hdr,

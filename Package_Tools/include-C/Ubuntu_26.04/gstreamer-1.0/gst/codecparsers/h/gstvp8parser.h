@@ -27,10 +27,6 @@
 #include <gst/gst.h>
 #include <gst/codecparsers/codecparsers-prelude.h>
 
-#ifndef GST_USE_UNSTABLE_API
-#warning "The VP8 parsing library is unstable API and may change in future."
-#warning "You can define GST_USE_UNSTABLE_API to avoid this warning."
-#endif
 
 
 
@@ -368,10 +364,10 @@ struct _GstVp8Parser
   GstVp8ModeProbs mode_probs;
 };
 
-GST_CODEC_PARSERS_API
+extern
 void                gst_vp8_parser_init (GstVp8Parser * parser);
 
-GST_CODEC_PARSERS_API
+extern
 GstVp8ParserResult  gst_vp8_parser_parse_frame_header (GstVp8Parser   * parser,
                                                        GstVp8FrameHdr * frame_hdr,
                                                        const guint8   * data,

@@ -48,19 +48,19 @@ struct _GstLcevcMeta {
   GstBuffer *enhancement_data;
 };
 
-GST_CODEC_PARSERS_API
+extern
 GType gst_lcevc_meta_api_get_type (void);
 
-GST_CODEC_PARSERS_API
+extern
 const GstMetaInfo * gst_lcevc_meta_get_info (void);
 
-GST_CODEC_PARSERS_API
+extern
 GstLcevcMeta * gst_buffer_get_lcevc_meta (GstBuffer *buffer);
 
-GST_CODEC_PARSERS_API
+extern
 GstLcevcMeta * gst_buffer_get_lcevc_meta_id (GstBuffer *buffer, gint id);
 
-GST_CODEC_PARSERS_API
+extern
 GstLcevcMeta * gst_buffer_add_lcevc_meta (GstBuffer *buffer,
     GstBuffer *enhancement_data);
 

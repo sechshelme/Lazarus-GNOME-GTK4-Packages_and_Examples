@@ -1,4 +1,37 @@
-/* GStreamer JPEG 2000 Sampling
+
+unit gstjpeg2000sampling;
+interface
+
+{
+  Automatically converted by H2Pas 1.0.0 from gstjpeg2000sampling.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    gstjpeg2000sampling.h
+}
+
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
+
+Type
+Pgchar  = ^gchar;
+PGstJPEG2000Colorspace  = ^GstJPEG2000Colorspace;
+PGstJPEG2000Sampling  = ^GstJPEG2000Sampling;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{ GStreamer JPEG 2000 Sampling
  * Copyright (C) <2016> Grok Image Compression Inc.
  *  @author Aaron Boxer <boxerab@gmail.com>
  *
@@ -16,15 +49,12 @@
  * License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
  * Boston, MA 02110-1301, USA.
- */
-
-#ifndef __GST_JPEG2000_SAMPLING_H__
-#define __GST_JPEG2000_SAMPLING_H__
-
-#include <gst/gst.h>
-#include <gst/codecparsers/codecparsers-prelude.h>
-
-/**
+  }
+{$ifndef __GST_JPEG2000_SAMPLING_H__}
+{$define __GST_JPEG2000_SAMPLING_H__}
+{$include <gst/gst.h>}
+{$include <gst/codecparsers/codecparsers-prelude.h>}
+{*
  * GstJPEG2000Sampling:
  * @GST_JPEG2000_SAMPLING_NONE: no sampling
  * @GST_JPEG2000_SAMPLING_RGB: standard Red, Green, Blue color space.
@@ -41,75 +71,64 @@
  *
  * Sampling values from RF 5371 for JPEG 2000 over RTP : https://datatracker.ietf.org/doc/rfc5371/C
  * Note: sampling extensions that are not listed in the RFC are signified by an _EXT at the end of the enum
- */
-
-/**
+  }
+{*
  * GST_JPEG2000_SAMPLING_YBR411:
  *
  * standard YCbCr color space; Cb and Cr are subsampled vertically by 1/4
  *
  * Since: 1.20
- */
-typedef enum
-{
-  GST_JPEG2000_SAMPLING_NONE,
-  GST_JPEG2000_SAMPLING_RGB,
-  GST_JPEG2000_SAMPLING_BGR,
-  GST_JPEG2000_SAMPLING_RGBA,
-  GST_JPEG2000_SAMPLING_BGRA,
-  GST_JPEG2000_SAMPLING_YBR444,
-  GST_JPEG2000_SAMPLING_YBR422,
-  GST_JPEG2000_SAMPLING_YBR420,
-  GST_JPEG2000_SAMPLING_YBR410,
-  GST_JPEG2000_SAMPLING_GRAYSCALE,
-  GST_JPEG2000_SAMPLING_YBRA4444_EXT,
-  GST_JPEG2000_SAMPLING_YBR411
-} GstJPEG2000Sampling;
+  }
+type
+  PGstJPEG2000Sampling = ^TGstJPEG2000Sampling;
+  TGstJPEG2000Sampling =  Longint;
+  Const
+    GST_JPEG2000_SAMPLING_NONE = 0;
+    GST_JPEG2000_SAMPLING_RGB = 1;
+    GST_JPEG2000_SAMPLING_BGR = 2;
+    GST_JPEG2000_SAMPLING_RGBA = 3;
+    GST_JPEG2000_SAMPLING_BGRA = 4;
+    GST_JPEG2000_SAMPLING_YBR444 = 5;
+    GST_JPEG2000_SAMPLING_YBR422 = 6;
+    GST_JPEG2000_SAMPLING_YBR420 = 7;
+    GST_JPEG2000_SAMPLING_YBR410 = 8;
+    GST_JPEG2000_SAMPLING_GRAYSCALE = 9;
+    GST_JPEG2000_SAMPLING_YBRA4444_EXT = 10;
+    GST_JPEG2000_SAMPLING_YBR411 = 11;
+;
+(* Const before type ignored *)
 
-/* GST_JPEG2000_SAMPLING_LIST: sampling strings in list form, for use in caps */
-#define GST_JPEG2000_SAMPLING_LIST "sampling = (string) {\"RGB\", \"BGR\", \"RGBA\", \"BGRA\", \"YCbCr-4:4:4\", \"YCbCr-4:2:2\", \"YCbCr-4:2:0\", \"YCbCr-4:1:1\", \"YCbCr-4:1:0\", \"GRAYSCALE\" , \"YCbCrA-4:4:4:4\"}"
-
-GST_CODEC_PARSERS_API
-const gchar *gst_jpeg2000_sampling_to_string (GstJPEG2000Sampling sampling);
-
-GST_CODEC_PARSERS_API
-GstJPEG2000Sampling gst_jpeg2000_sampling_from_string (const gchar *
-    sampling_string);
-
-GST_CODEC_PARSERS_API
-gboolean gst_jpeg2000_sampling_is_rgb (GstJPEG2000Sampling sampling);
-
-GST_CODEC_PARSERS_API
-gboolean gst_jpeg2000_sampling_is_yuv (GstJPEG2000Sampling sampling);
-
-GST_CODEC_PARSERS_API
-gboolean gst_jpeg2000_sampling_is_mono (GstJPEG2000Sampling sampling);
-
-
-/**
+function gst_jpeg2000_sampling_to_string(sampling:TGstJPEG2000Sampling):Pgchar;cdecl;external;
+(* Const before type ignored *)
+function gst_jpeg2000_sampling_from_string(sampling_string:Pgchar):TGstJPEG2000Sampling;cdecl;external;
+function gst_jpeg2000_sampling_is_rgb(sampling:TGstJPEG2000Sampling):Tgboolean;cdecl;external;
+function gst_jpeg2000_sampling_is_yuv(sampling:TGstJPEG2000Sampling):Tgboolean;cdecl;external;
+function gst_jpeg2000_sampling_is_mono(sampling:TGstJPEG2000Sampling):Tgboolean;cdecl;external;
+{*
  * GstJPEG2000Colorspace:
  * @GST_JPEG2000_COLORSPACE_NONE: no color space
  * @GST_JPEG2000_COLORSPACE_RGB: standard RGB color space
  * @GST_JPEG2000_COLORSPACE_YUV: standard YUV color space
  * @GST_JPEG2000_COLORSPACE_GRAY: monochrome color space
- */
-typedef enum
-{
-  GST_JPEG2000_COLORSPACE_NONE,
-  GST_JPEG2000_COLORSPACE_RGB,
-  GST_JPEG2000_COLORSPACE_YUV,
-  GST_JPEG2000_COLORSPACE_GRAY
-} GstJPEG2000Colorspace;
+  }
+type
+  PGstJPEG2000Colorspace = ^TGstJPEG2000Colorspace;
+  TGstJPEG2000Colorspace =  Longint;
+  Const
+    GST_JPEG2000_COLORSPACE_NONE = 0;
+    GST_JPEG2000_COLORSPACE_RGB = 1;
+    GST_JPEG2000_COLORSPACE_YUV = 2;
+    GST_JPEG2000_COLORSPACE_GRAY = 3;
+;
+(* Const before type ignored *)
 
-GST_CODEC_PARSERS_API
-const gchar *gst_jpeg2000_colorspace_to_string (GstJPEG2000Colorspace
-    colorspace);
+function gst_jpeg2000_colorspace_to_string(colorspace:TGstJPEG2000Colorspace):Pgchar;cdecl;external;
+(* Const before type ignored *)
+function gst_jpeg2000_colorspace_from_string(colorspace_string:Pgchar):TGstJPEG2000Colorspace;cdecl;external;
+{ GST_JPEG2000_COLORSPACE_LIST: color space strings in list form, for use in caps  }
+{$endif}
 
-GST_CODEC_PARSERS_API
-GstJPEG2000Colorspace gst_jpeg2000_colorspace_from_string (const gchar *
-    colorspace_string);
+implementation
 
-/* GST_JPEG2000_COLORSPACE_LIST: color space strings in list form, for use in caps */
-#define GST_JPEG2000_COLORSPACE_LIST "colorspace = (string) { \"sRGB\", \"sYUV\", \"GRAY\" }"
 
-#endif
+end.

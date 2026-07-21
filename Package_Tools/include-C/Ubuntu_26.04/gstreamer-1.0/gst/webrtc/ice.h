@@ -470,7 +470,7 @@ void                        gst_webrtc_ice_candidate_stats_free     (GstWebRTCIC
 GST_WEBRTC_API
 GType                       gst_webrtc_ice_candidate_stats_get_type (void);
 
-////////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC            (GstWebRTCICE, gst_object_unref)
+//////////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC             (GstWebRTCICE, gst_object_unref)
 
 GST_WEBRTC_API
 GstWebRTCICECandidateStats * gst_webrtc_ice_candidate_stats_copy   (GstWebRTCICECandidateStats *stats) ;

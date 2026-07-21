@@ -1,4 +1,81 @@
-/* Gstreamer H.266 bitstream parser
+
+unit gsth266parser;
+interface
+
+{
+  Automatically converted by H2Pas 1.0.0 from gsth266parser.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    gsth266parser.h
+}
+
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
+
+Type
+PGArray  = ^GArray;
+Pgchar  = ^gchar;
+Pgsize  = ^gsize;
+PGstH266ALF  = ^GstH266ALF;
+PGstH266APS  = ^GstH266APS;
+PGstH266APSType  = ^GstH266APSType;
+PGstH266AUD  = ^GstH266AUD;
+PGstH266BufferingPeriod  = ^GstH266BufferingPeriod;
+PGstH266DCI  = ^GstH266DCI;
+PGstH266DecoderConfigRecord  = ^GstH266DecoderConfigRecord;
+PGstH266DecoderConfigRecordNalUnitArray  = ^GstH266DecoderConfigRecordNalUnitArray;
+PGstH266DPBParameters  = ^GstH266DPBParameters;
+PGstH266DUInfo  = ^GstH266DUInfo;
+PGstH266FrameFieldInfo  = ^GstH266FrameFieldInfo;
+PGstH266GeneralConstraintsInfo  = ^GstH266GeneralConstraintsInfo;
+PGstH266GeneralHRDParameters  = ^GstH266GeneralHRDParameters;
+PGstH266Level  = ^GstH266Level;
+PGstH266LMCS  = ^GstH266LMCS;
+PGstH266NalUnit  = ^GstH266NalUnit;
+PGstH266NalUnitType  = ^GstH266NalUnitType;
+PGstH266OLSHRDParameters  = ^GstH266OLSHRDParameters;
+PGstH266OPI  = ^GstH266OPI;
+PGstH266Parser  = ^GstH266Parser;
+PGstH266ParserResult  = ^GstH266ParserResult;
+PGstH266PicHdr  = ^GstH266PicHdr;
+PGstH266PicTiming  = ^GstH266PicTiming;
+PGstH266PPS  = ^GstH266PPS;
+PGstH266PredWeightTable  = ^GstH266PredWeightTable;
+PGstH266Profile  = ^GstH266Profile;
+PGstH266ProfileTierLevel  = ^GstH266ProfileTierLevel;
+PGstH266PTLRecord  = ^GstH266PTLRecord;
+PGstH266RefPicLists  = ^GstH266RefPicLists;
+PGstH266RefPicListStruct  = ^GstH266RefPicListStruct;
+PGstH266RegisteredUserData  = ^GstH266RegisteredUserData;
+PGstH266ScalableNesting  = ^GstH266ScalableNesting;
+PGstH266ScalingList  = ^GstH266ScalingList;
+PGstH266SEIMessage  = ^GstH266SEIMessage;
+PGstH266SEIPayloadType  = ^GstH266SEIPayloadType;
+PGstH266SliceHdr  = ^GstH266SliceHdr;
+PGstH266SliceType  = ^GstH266SliceType;
+PGstH266SPS  = ^GstH266SPS;
+PGstH266SPSRangeExtensionParams  = ^GstH266SPSRangeExtensionParams;
+PGstH266SubLayerHRDParameters  = ^GstH266SubLayerHRDParameters;
+PGstH266SubPicLevelInfo  = ^GstH266SubPicLevelInfo;
+PGstH266VPS  = ^GstH266VPS;
+PGstH266VUIParams  = ^GstH266VUIParams;
+Pguint8  = ^guint8;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{ Gstreamer H.266 bitstream parser
  *
  * Copyright (C) 2023 Intel Corporation
  *    Author: Zhong Hongcheng <spartazhc@gmail.com>
@@ -18,174 +95,160 @@
  * License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
  * Boston, MA 02110-1301, USA.
- */
+  }
+(** unsupported pragma#pragma once*)
+{$include <gst/gst.h>}
+{$include <gst/codecparsers/codecparsers-prelude.h>}
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
 
-#pragma once
+function GST_H266_IS_B_SLICE(slice : longint) : longint;
 
-#ifndef GST_USE_UNSTABLE_API
-#warning "The H.266 parsing library is unstable API and may change in future."
-#warning "You can define GST_USE_UNSTABLE_API to avoid this warning."
-#endif
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function GST_H266_IS_P_SLICE(slice : longint) : longint;
 
-#include <gst/gst.h>
-#include <gst/codecparsers/codecparsers-prelude.h>
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function GST_H266_IS_I_SLICE(slice : longint) : longint;
 
-
-
-#define GST_H266_IS_B_SLICE(slice)  ((slice)->slice_type == GST_H266_B_SLICE)
-#define GST_H266_IS_P_SLICE(slice)  ((slice)->slice_type == GST_H266_P_SLICE)
-#define GST_H266_IS_I_SLICE(slice)  ((slice)->slice_type == GST_H266_I_SLICE)
-
-/* 6.2 we can have 3 sample arrays */
-#define GST_H266_MAX_SAMPLE_ARRAYS 3
-/* 7.4.3.3 vps_max_layers_minus1 is u(6) */
-#define GST_H266_MAX_LAYERS 64
-/* 7.4.3.3 The value of vps_max_sublayers_minus1
- * shall be in the range of 0 to 6, inclusive */
-#define GST_H266_MAX_SUBLAYERS 7
-/* 3-bit minus1 value, so max is 7+1 */
-#define GST_H266_MAX_SLI_REF_LEVELS 8
-/* 7.4.3.3 vps_num_output_layer_sets_minus2 is u(8) */
-#define GST_H266_MAX_TOTAL_NUM_OLSS 257
-/* 7.4.3.3 vps_num_ptls_minus1 shall be less than TotalNumOlss,
- * which is MAX(GST_H266_MAX_LAYERS, GST_H266_MAX_TOTAL_NUM_OLSS) */
-#define GST_H266_MAX_PTLS GST_H266_MAX_TOTAL_NUM_OLSS
-/* 7.3.2.3: vps_video_parameter_set_id is u(4). */
-#define GST_H266_MAX_VPS_COUNT 16
-/* 7.3.2.4: sps_seq_parameter_set_id is u(4) */
-#define GST_H266_MAX_SPS_COUNT 16
-/* 7.3.2.5: pps_pic_parameter_set_id is u(6) */
-#define GST_H266_MAX_PPS_COUNT 64
-/* 7.3.2.7: the value of aps_adaptation_parameter_set_id shall be in
+{ 6.2 we can have 3 sample arrays  }
+const
+  GST_H266_MAX_SAMPLE_ARRAYS = 3;  
+{ 7.4.3.3 vps_max_layers_minus1 is u(6)  }
+  GST_H266_MAX_LAYERS = 64;  
+{ 7.4.3.3 The value of vps_max_sublayers_minus1
+ * shall be in the range of 0 to 6, inclusive  }
+  GST_H266_MAX_SUBLAYERS = 7;  
+{ 3-bit minus1 value, so max is 7+1  }
+  GST_H266_MAX_SLI_REF_LEVELS = 8;  
+{ 7.4.3.3 vps_num_output_layer_sets_minus2 is u(8)  }
+  GST_H266_MAX_TOTAL_NUM_OLSS = 257;  
+{ 7.4.3.3 vps_num_ptls_minus1 shall be less than TotalNumOlss,
+ * which is MAX(GST_H266_MAX_LAYERS, GST_H266_MAX_TOTAL_NUM_OLSS)  }
+  GST_H266_MAX_PTLS = GST_H266_MAX_TOTAL_NUM_OLSS;  
+{ 7.3.2.3: vps_video_parameter_set_id is u(4).  }
+  GST_H266_MAX_VPS_COUNT = 16;  
+{ 7.3.2.4: sps_seq_parameter_set_id is u(4)  }
+  GST_H266_MAX_SPS_COUNT = 16;  
+{ 7.3.2.5: pps_pic_parameter_set_id is u(6)  }
+  GST_H266_MAX_PPS_COUNT = 64;  
+{ 7.3.2.7: the value of aps_adaptation_parameter_set_id shall be in
  * the range of 0 to 7 or in the range of 0 to 3 inclusive, depending
- * on the aps_params_type. */
-#define GST_H266_MAX_APS_COUNT 8
-/* 7.4.4.1: ptl_num_sub_profiles is u(8) */
-#define GST_H266_MAX_SUB_PROFILES 256
-/* A.4.2: MaxDpbSize is bounded above by 2*maxDpbPicBuf(8) */
-#define GST_H266_MAX_DPB_SIZE 16
-/* 7.4.3.4: sps_num_ref_pic_lists in range [0, 64] */
-#define GST_H266_MAX_REF_PIC_LISTS 64
-/* 7.4.3.18: NumAlfFilters is 25 */
-#define GST_H266_NUM_ALF_FILTERS 25
-/* 7.4.11: num_ref_entries in range [0, MaxDpbSize + 13] */
-#define GST_H266_MAX_REF_ENTRIES (GST_H266_MAX_DPB_SIZE + 13)
-/* 7.4.3.3 sps_num_points_in_qp_table_minus1[i] in range
+ * on the aps_params_type.  }
+  GST_H266_MAX_APS_COUNT = 8;  
+{ 7.4.4.1: ptl_num_sub_profiles is u(8)  }
+  GST_H266_MAX_SUB_PROFILES = 256;  
+{ A.4.2: MaxDpbSize is bounded above by 2*maxDpbPicBuf(8)  }
+  GST_H266_MAX_DPB_SIZE = 16;  
+{ 7.4.3.4: sps_num_ref_pic_lists in range [0, 64]  }
+  GST_H266_MAX_REF_PIC_LISTS = 64;  
+{ 7.4.3.18: NumAlfFilters is 25  }
+  GST_H266_NUM_ALF_FILTERS = 25;  
+{ 7.4.11: num_ref_entries in range [0, MaxDpbSize + 13]  }
+  GST_H266_MAX_REF_ENTRIES = GST_H266_MAX_DPB_SIZE+13;  
+{ 7.4.3.3 sps_num_points_in_qp_table_minus1[i] in range
  * [0, 36 - sps_qp_table_start_minus26[i]], and sps_qp_table_start_minus26[i]
  * in range [-26 - QpBdOffset, 36]. For 16 bits QpBdOffset is 6*8,
- * so sps_num_points_in_qp_table_minus1[i] in range [0, 110] */
-#define GST_H266_MAX_POINTS_IN_QP_TABLE 111
-/* 7.4.6.1: hrd_cpb_cnt_minus1 is in [0, 31]. */
-#define GST_H266_MAX_CPB_CNT 32
-/* A.4.1: the highest level allows a MaxLumaPs of 35 651 584. */
-#define GST_H266_MAX_LUMA_PS 35651584
-/* A.4.1: pic_width_in_luma_samples and pic_height_in_luma_samples are
+ * so sps_num_points_in_qp_table_minus1[i] in range [0, 110]  }
+  GST_H266_MAX_POINTS_IN_QP_TABLE = 111;  
+{ 7.4.6.1: hrd_cpb_cnt_minus1 is in [0, 31].  }
+  GST_H266_MAX_CPB_CNT = 32;  
+{ A.4.1: the highest level allows a MaxLumaPs of 35 651 584.  }
+  GST_H266_MAX_LUMA_PS = 35651584;  
+{ A.4.1: pic_width_in_luma_samples and pic_height_in_luma_samples are
  * constrained to be not greater than sqrt(MaxLumaPs * 8).  Hence height/
- * width are bounded above by sqrt(8 * 35651584) = 16888.2 samples. */
-#define GST_H266_MAX_WIDTH 16888
-#define GST_H266_MAX_HEIGHT 16888
-/* A.4.1: table A.1 allows at most 440 tiles per au for any level. */
-#define GST_H266_MAX_TILES_PER_AU 440
-/* A.4.1: table A.1 did not define max tile rows. */
-/* in worest a case, we can have 1x440 tiles picture. */
-#define GST_H266_MAX_TILE_ROWS GST_H266_MAX_TILES_PER_AU
-/* A.4.1: table A.1 allows at most 20 tile columns for any level. */
-#define GST_H266_MAX_TILE_COLUMNS 20
-/* A.4.1 table A.1 allows at most 1000 slice for any level. */
-#define GST_H266_MAX_SLICES_PER_AU 1000
-/* 7.4.8: in the worst case (!pps_no_pic_partition_flag and
- * sps_entropy_coding_sync_enabled_flag are both true), entry points can be
- * placed at the beginning of every Ctb row in every tile, giving an
- * upper bound of (num_tile_columns_minus1 + 1) * PicHeightInCtbsY - 1.
- * Only a stream with very high resolution and perverse parameters could
- * get near that, though, so set a lower limit here with the maximum
- * possible value for 8K video (at most 135 32x32 Ctb rows). */
-#define GST_H266_MAX_ENTRY_POINTS (GST_H266_MAX_TILE_COLUMNS * 135)
-/* Use MaxLumaPs of level 6.3 in Table A.2.
-   The min coding block size is 8, so min width or height is 8.
-   The min CTU size is 32. */
-#define GST_H266_MAX_CTUS_IN_PICTURE (80216064 / 8 / 32)
-/* Practical limit for number of decoding units per picture.
+ * width are bounded above by sqrt(8 * 35651584) = 16888.2 samples.  }
+  GST_H266_MAX_WIDTH = 16888;  
+  GST_H266_MAX_HEIGHT = 16888;  
+{ A.4.1: table A.1 allows at most 440 tiles per au for any level.  }
+  GST_H266_MAX_TILES_PER_AU = 440;  
+{ A.4.1: table A.1 did not define max tile rows.  }
+{ in worest a case, we can have 1x440 tiles picture.  }
+  GST_H266_MAX_TILE_ROWS = GST_H266_MAX_TILES_PER_AU;  
+{ A.4.1: table A.1 allows at most 20 tile columns for any level.  }
+  GST_H266_MAX_TILE_COLUMNS = 20;  
+{ A.4.1 table A.1 allows at most 1000 slice for any level.  }
+  GST_H266_MAX_SLICES_PER_AU = 1000;  
+{xxxxxx #define GST_H266_MAX_ENTRY_POINTS (GST_H266_MAX_TILE_COLUMNS * 135) }
+  GST_H266_MAX_CTUS_IN_PICTURE = (80216064/8)/32;  
+{ Practical limit for number of decoding units per picture.
    The spec allows up to PicSizeInCtbsY which could be very large,
    but 600 is a reasonable practical limit matching the array sizes
-   in GstH266PicTiming. */
-#define GST_H266_MAX_DECODING_UNITS_IN_PIC_TIMING 600
-
-/**
- * GST_H266_IS_NAL_TYPE_IDR:
- * @nal_type: a #GstH266NalUnitType
- *
- * Check whether @nal_type is IDR or not.
- *
- * Since: 1.26
- */
+   in GstH266PicTiming.  }
+  GST_H266_MAX_DECODING_UNITS_IN_PIC_TIMING = 600;  
+{*xxxxxxx
 #define GST_H266_IS_NAL_TYPE_IDR(nal_type) \
   ((nal_type) == GST_H266_NAL_SLICE_IDR_N_LP || \
    (nal_type) == GST_H266_NAL_SLICE_IDR_W_RADL)
+  }
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
 
-/**
- * GST_H266_IS_NAL_TYPE_GDR:
- * @nal_type: a #GstH266NalUnitType
- *
- * Check whether @nal_type is GDR or not.
- *
- * Since: 1.26
- */
-#define GST_H266_IS_NAL_TYPE_GDR(nal_type) ((nal_type) == GST_H266_NAL_SLICE_GDR)
+function GST_H266_IS_NAL_TYPE_GDR(nal_type : longint) : longint;
 
-/**
+{*
  * GST_H266_IS_NAL_TYPE_CRA:
  * @nal_type: a #GstH266NalUnitType
  *
  * Check whether @nal_type is CRA or not.
  *
  * Since: 1.26
- */
-#define GST_H266_IS_NAL_TYPE_CRA(nal_type) ((nal_type) == GST_H266_NAL_SLICE_CRA)
+  }
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function GST_H266_IS_NAL_TYPE_CRA(nal_type : longint) : longint;
 
-/**
+{*
  * GST_H266_IS_NAL_TYPE_IRAP:
  * @nal_type: a #GstH266NalUnitType
  *
  * Check whether @nal_type is IRAP or not.
  *
  * Since: 1.26
- */
-#define GST_H266_IS_NAL_TYPE_IRAP(nal_type) \
-  (GST_H266_IS_NAL_TYPE_IDR (nal_type) || GST_H266_IS_NAL_TYPE_CRA (nal_type))
-
-/**
+  }
+{ xxxxx #define GST_H266_IS_NAL_TYPE_IRAP(nal_type)   (GST_H266_IS_NAL_TYPE_IDR (nal_type) || GST_H266_IS_NAL_TYPE_CRA (nal_type)) }
+{*
  * GST_H266_IS_NAL_TYPE_CVSS:
  * @nal_type: a #GstH266NalUnitType
  *
  * Check whether @nal_type is coded video sequence start or not.
  *
  * Since: 1.26
- */
-#define GST_H266_IS_NAL_TYPE_CVSS(nal_type) \
-  (GST_H266_IS_NAL_TYPE_IRAP(nal_type) || GST_H266_IS_NAL_TYPE_GDR(nal_type))
-
-/**
+  }
+{ xxxx #define GST_H266_IS_NAL_TYPE_CVSS(nal_type)   (GST_H266_IS_NAL_TYPE_IRAP(nal_type) || GST_H266_IS_NAL_TYPE_GDR(nal_type)) }
+{*
  * GST_H266_IS_NAL_TYPE_RADL:
  * @nal_type: a #GstH266NalUnitType
  *
  * Check whether @nal_type is RADL or not.
  *
  * Since: 1.26
- */
-#define GST_H266_IS_NAL_TYPE_RADL(nal_type) ((nal_type) == GST_H266_NAL_SLICE_RADL)
+  }
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function GST_H266_IS_NAL_TYPE_RADL(nal_type : longint) : longint;
 
-/**
+{*
  * GST_H266_IS_NAL_TYPE_RASL:
  * @nal_type: a #GstH266NalUnitType
  *
  * Check whether @nal_type is RASL or not.
  *
  * Since: 1.26
- */
-#define GST_H266_IS_NAL_TYPE_RASL(nal_type) ((nal_type) == GST_H266_NAL_SLICE_RASL)
+  }
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function GST_H266_IS_NAL_TYPE_RASL(nal_type : longint) : longint;
 
-/**
+{*
  * GstH266ParserResult:
  * @GST_H266_PARSER_OK: The parsing succeeded.
  * @GST_H266_PARSER_BROKEN_DATA: The data to parse is broken.
@@ -198,18 +261,19 @@
  * The result of parsing H266 data.
  *
  * Since: 1.26
- */
-typedef enum
-{
-  GST_H266_PARSER_OK,
-  GST_H266_PARSER_BROKEN_DATA,
-  GST_H266_PARSER_BROKEN_LINK,
-  GST_H266_PARSER_ERROR,
-  GST_H266_PARSER_NO_NAL,
-  GST_H266_PARSER_NO_NAL_END
-} GstH266ParserResult;
-
-/**
+  }
+type
+  PGstH266ParserResult = ^TGstH266ParserResult;
+  TGstH266ParserResult =  Longint;
+  Const
+    GST_H266_PARSER_OK = 0;
+    GST_H266_PARSER_BROKEN_DATA = 1;
+    GST_H266_PARSER_BROKEN_LINK = 2;
+    GST_H266_PARSER_ERROR = 3;
+    GST_H266_PARSER_NO_NAL = 4;
+    GST_H266_PARSER_NO_NAL_END = 5;
+;
+{*
  * GstH266Profile:
  * @GST_H266_PROFILE_MAIN_10: Main 10 profile (A.3.1).
  * @GST_H266_PROFILE_MAIN_10_STILL_PICTURE: Main 10 Still Picture profile (A.3.1).
@@ -238,62 +302,62 @@ typedef enum
  * H.266 Profiles.
  *
  * Since: 1.26
- */
-typedef enum {
-  GST_H266_PROFILE_INVALID                              = -1,
-  GST_H266_PROFILE_NONE                                 = 0,
-
-  GST_H266_PROFILE_INTRA                                = 8,
-  GST_H266_PROFILE_STILL_PICTURE                        = 64,
-
-  GST_H266_PROFILE_MAIN_10                              = 1,
-  GST_H266_PROFILE_MAIN_10_STILL_PICTURE                = GST_H266_PROFILE_MAIN_10 | GST_H266_PROFILE_STILL_PICTURE,
-  GST_H266_PROFILE_MULTILAYER_MAIN_10                   = 17,
-  GST_H266_PROFILE_MULTILAYER_MAIN_10_STILL_PICTURE     = GST_H266_PROFILE_MULTILAYER_MAIN_10 | GST_H266_PROFILE_STILL_PICTURE,
-  GST_H266_PROFILE_MAIN_10_444                          = 33,
-  GST_H266_PROFILE_MAIN_10_444_STILL_PICTURE            = GST_H266_PROFILE_MAIN_10_444 | GST_H266_PROFILE_STILL_PICTURE,
-  GST_H266_PROFILE_MULTILAYER_MAIN_10_444               = 49,
-  GST_H266_PROFILE_MULTILAYER_MAIN_10_444_STILL_PICTURE = GST_H266_PROFILE_MULTILAYER_MAIN_10_444 | GST_H266_PROFILE_STILL_PICTURE,
-  GST_H266_PROFILE_MAIN_12                              = 2,
-  GST_H266_PROFILE_MAIN_12_444                          = 34,
-  GST_H266_PROFILE_MAIN_16_444                          = 35,
-  GST_H266_PROFILE_MAIN_12_INTRA                        = GST_H266_PROFILE_MAIN_12 | GST_H266_PROFILE_INTRA,
-  GST_H266_PROFILE_MAIN_12_444_INTRA                    = GST_H266_PROFILE_MAIN_12_444 | GST_H266_PROFILE_INTRA,
-  GST_H266_PROFILE_MAIN_16_444_INTRA                    = GST_H266_PROFILE_MAIN_16_444 | GST_H266_PROFILE_INTRA,
-  GST_H266_PROFILE_MAIN_12_STILL_PICTURE                = GST_H266_PROFILE_MAIN_12 | GST_H266_PROFILE_STILL_PICTURE,
-  GST_H266_PROFILE_MAIN_12_444_STILL_PICTURE            = GST_H266_PROFILE_MAIN_12_444 | GST_H266_PROFILE_STILL_PICTURE,
-  GST_H266_PROFILE_MAIN_16_444_STILL_PICTURE            = GST_H266_PROFILE_MAIN_16_444 | GST_H266_PROFILE_STILL_PICTURE,
-
-  /* end of the profiles */
-  GST_H266_PROFILE_MAX
-} GstH266Profile;
-
-/**
+  }
+{ end of the profiles  }
+type
+  PGstH266Profile = ^TGstH266Profile;
+  TGstH266Profile =  Longint;
+  Const
+    GST_H266_PROFILE_INVALID = -(1);
+    GST_H266_PROFILE_NONE = 0;
+    GST_H266_PROFILE_INTRA = 8;
+    GST_H266_PROFILE_STILL_PICTURE = 64;
+    GST_H266_PROFILE_MAIN_10 = 1;
+    GST_H266_PROFILE_MAIN_10_STILL_PICTURE = GST_H266_PROFILE_MAIN_10 or GST_H266_PROFILE_STILL_PICTURE;
+    GST_H266_PROFILE_MULTILAYER_MAIN_10 = 17;
+    GST_H266_PROFILE_MULTILAYER_MAIN_10_STILL_PICTURE = GST_H266_PROFILE_MULTILAYER_MAIN_10 or GST_H266_PROFILE_STILL_PICTURE;
+    GST_H266_PROFILE_MAIN_10_444 = 33;
+    GST_H266_PROFILE_MAIN_10_444_STILL_PICTURE = GST_H266_PROFILE_MAIN_10_444 or GST_H266_PROFILE_STILL_PICTURE;
+    GST_H266_PROFILE_MULTILAYER_MAIN_10_444 = 49;
+    GST_H266_PROFILE_MULTILAYER_MAIN_10_444_STILL_PICTURE = GST_H266_PROFILE_MULTILAYER_MAIN_10_444 or GST_H266_PROFILE_STILL_PICTURE;
+    GST_H266_PROFILE_MAIN_12 = 2;
+    GST_H266_PROFILE_MAIN_12_444 = 34;
+    GST_H266_PROFILE_MAIN_16_444 = 35;
+    GST_H266_PROFILE_MAIN_12_INTRA = GST_H266_PROFILE_MAIN_12 or GST_H266_PROFILE_INTRA;
+    GST_H266_PROFILE_MAIN_12_444_INTRA = GST_H266_PROFILE_MAIN_12_444 or GST_H266_PROFILE_INTRA;
+    GST_H266_PROFILE_MAIN_16_444_INTRA = GST_H266_PROFILE_MAIN_16_444 or GST_H266_PROFILE_INTRA;
+    GST_H266_PROFILE_MAIN_12_STILL_PICTURE = GST_H266_PROFILE_MAIN_12 or GST_H266_PROFILE_STILL_PICTURE;
+    GST_H266_PROFILE_MAIN_12_444_STILL_PICTURE = GST_H266_PROFILE_MAIN_12_444 or GST_H266_PROFILE_STILL_PICTURE;
+    GST_H266_PROFILE_MAIN_16_444_STILL_PICTURE = GST_H266_PROFILE_MAIN_16_444 or GST_H266_PROFILE_STILL_PICTURE;
+    GST_H266_PROFILE_MAX = (GST_H266_PROFILE_MAIN_16_444 or GST_H266_PROFILE_STILL_PICTURE)+1;
+;
+{*
  * GstH266Level:
  *
  * H.266 level.
  *
  * Since: 1.26
- */
-typedef enum
-{
-  GST_H266_LEVEL_L1_0 = 16,
-  GST_H266_LEVEL_L2_0 = 32,
-  GST_H266_LEVEL_L2_1 = 35,
-  GST_H266_LEVEL_L3_0 = 48,
-  GST_H266_LEVEL_L3_1 = 51,
-  GST_H266_LEVEL_L4_0 = 64,
-  GST_H266_LEVEL_L4_1 = 67,
-  GST_H266_LEVEL_L5_0 = 80,
-  GST_H266_LEVEL_L5_1 = 83,
-  GST_H266_LEVEL_L5_2 = 86,
-  GST_H266_LEVEL_L6_0 = 96,
-  GST_H266_LEVEL_L6_1 = 99,
-  GST_H266_LEVEL_L6_2 = 102,
-  GST_H266_LEVEL_L6_3 = 105,
-} GstH266Level;
-
-/**
+  }
+type
+  PGstH266Level = ^TGstH266Level;
+  TGstH266Level =  Longint;
+  Const
+    GST_H266_LEVEL_L1_0 = 16;
+    GST_H266_LEVEL_L2_0 = 32;
+    GST_H266_LEVEL_L2_1 = 35;
+    GST_H266_LEVEL_L3_0 = 48;
+    GST_H266_LEVEL_L3_1 = 51;
+    GST_H266_LEVEL_L4_0 = 64;
+    GST_H266_LEVEL_L4_1 = 67;
+    GST_H266_LEVEL_L5_0 = 80;
+    GST_H266_LEVEL_L5_1 = 83;
+    GST_H266_LEVEL_L5_2 = 86;
+    GST_H266_LEVEL_L6_0 = 96;
+    GST_H266_LEVEL_L6_1 = 99;
+    GST_H266_LEVEL_L6_2 = 102;
+    GST_H266_LEVEL_L6_3 = 105;
+;
+{*
  * GstH266NalUnitType:
  * @GST_H266_NAL_SLICE_TRAIL: Coded slice of a trailing picture or subpicture.
  * @GST_H266_NAL_SLICE_STSA: Coded slice of an STSA picture or subpicture.
@@ -322,34 +386,35 @@ typedef enum
  * table 5 - NAL unit type codes and NAL unit type classes.
  *
  * Since: 1.26
- */
-typedef enum
-{
-  GST_H266_NAL_SLICE_TRAIL      = 0,
-  GST_H266_NAL_SLICE_STSA       = 1,
-  GST_H266_NAL_SLICE_RADL       = 2,
-  GST_H266_NAL_SLICE_RASL       = 3,
-  GST_H266_NAL_SLICE_IDR_W_RADL = 7,
-  GST_H266_NAL_SLICE_IDR_N_LP   = 8,
-  GST_H266_NAL_SLICE_CRA        = 9,
-  GST_H266_NAL_SLICE_GDR        = 10,
-  GST_H266_NAL_OPI              = 12,
-  GST_H266_NAL_DCI              = 13,
-  GST_H266_NAL_VPS              = 14,
-  GST_H266_NAL_SPS              = 15,
-  GST_H266_NAL_PPS              = 16,
-  GST_H266_NAL_PREFIX_APS       = 17,
-  GST_H266_NAL_SUFFIX_APS       = 18,
-  GST_H266_NAL_PH               = 19,
-  GST_H266_NAL_AUD              = 20,
-  GST_H266_NAL_EOS              = 21,
-  GST_H266_NAL_EOB              = 22,
-  GST_H266_NAL_PREFIX_SEI       = 23,
-  GST_H266_NAL_SUFFIX_SEI       = 24,
-  GST_H266_NAL_FD               = 25,
-} GstH266NalUnitType;
-
-/**
+  }
+type
+  PGstH266NalUnitType = ^TGstH266NalUnitType;
+  TGstH266NalUnitType =  Longint;
+  Const
+    GST_H266_NAL_SLICE_TRAIL = 0;
+    GST_H266_NAL_SLICE_STSA = 1;
+    GST_H266_NAL_SLICE_RADL = 2;
+    GST_H266_NAL_SLICE_RASL = 3;
+    GST_H266_NAL_SLICE_IDR_W_RADL = 7;
+    GST_H266_NAL_SLICE_IDR_N_LP = 8;
+    GST_H266_NAL_SLICE_CRA = 9;
+    GST_H266_NAL_SLICE_GDR = 10;
+    GST_H266_NAL_OPI = 12;
+    GST_H266_NAL_DCI = 13;
+    GST_H266_NAL_VPS = 14;
+    GST_H266_NAL_SPS = 15;
+    GST_H266_NAL_PPS = 16;
+    GST_H266_NAL_PREFIX_APS = 17;
+    GST_H266_NAL_SUFFIX_APS = 18;
+    GST_H266_NAL_PH = 19;
+    GST_H266_NAL_AUD = 20;
+    GST_H266_NAL_EOS = 21;
+    GST_H266_NAL_EOB = 22;
+    GST_H266_NAL_PREFIX_SEI = 23;
+    GST_H266_NAL_SUFFIX_SEI = 24;
+    GST_H266_NAL_FD = 25;
+;
+{*
  * GstH266SEIPayloadType:
  * @GST_H266_SEI_BUF_PERIOD: Buffering Period SEI Message.
  * @GST_H266_SEI_PIC_TIMING: Picture Timing SEI Message.
@@ -364,21 +429,22 @@ typedef enum
  * More other SEIs are specified in Rec.ITU-T H.274 | ISO/IEC 23002-7.
  *
  * Since: 1.26
- */
-typedef enum
-{
-  GST_H266_SEI_BUF_PERIOD = 0,
-  GST_H266_SEI_PIC_TIMING = 1,
-  GST_H266_SEI_REGISTERED_USER_DATA = 4,
-  GST_H266_SEI_USER_DATA_UNREGISTERED = 5,
-  GST_H266_SEI_DU_INFO = 130,
-  GST_H266_SEI_SCALABLE_NESTING = 133,
-  GST_H266_SEI_FRAME_FIELD_INFO = 168,
-  GST_H266_SEI_SUBPIC_LEVEL_INFO = 203,
-  /* and more...  */
-} GstH266SEIPayloadType;
-
-/**
+  }
+{ and more...   }
+type
+  PGstH266SEIPayloadType = ^TGstH266SEIPayloadType;
+  TGstH266SEIPayloadType =  Longint;
+  Const
+    GST_H266_SEI_BUF_PERIOD = 0;
+    GST_H266_SEI_PIC_TIMING = 1;
+    GST_H266_SEI_REGISTERED_USER_DATA = 4;
+    GST_H266_SEI_USER_DATA_UNREGISTERED = 5;
+    GST_H266_SEI_DU_INFO = 130;
+    GST_H266_SEI_SCALABLE_NESTING = 133;
+    GST_H266_SEI_FRAME_FIELD_INFO = 168;
+    GST_H266_SEI_SUBPIC_LEVEL_INFO = 203;
+;
+{*
  * GstH266SliceType:
  * @GST_H266_B_SLICE: B slice type.
  * @GST_H266_P_SLICE: P slice type.
@@ -387,15 +453,16 @@ typedef enum
  * Types of Picture slice.
  *
  * Since: 1.26
- */
-typedef enum
-{
-  GST_H266_B_SLICE = 0,
-  GST_H266_P_SLICE = 1,
-  GST_H266_I_SLICE = 2
-} GstH266SliceType;
-
-/**
+  }
+type
+  PGstH266SliceType = ^TGstH266SliceType;
+  TGstH266SliceType =  Longint;
+  Const
+    GST_H266_B_SLICE = 0;
+    GST_H266_P_SLICE = 1;
+    GST_H266_I_SLICE = 2;
+;
+{*
  * GstH266APSType:
  * @GST_H266_ALF_APS: ALF parameters.
  * @GST_H266_LMCS_APS: LMCS parameters.
@@ -405,59 +472,19 @@ typedef enum
  * Table 6 - APS parameters type codes and types of APS parameters.
  *
  * Since: 1.26
- */
-typedef enum
-{
-  GST_H266_ALF_APS      = 0,
-  GST_H266_LMCS_APS     = 1,
-  GST_H266_SCALING_APS  = 2,
-  /* end of the aps type */
-  GST_H266_APS_TYPE_MAX = 3
-} GstH266APSType;
-
-typedef struct _GstH266Parser                   GstH266Parser;
-typedef struct _GstH266NalUnit                  GstH266NalUnit;
-
-typedef struct _GstH266VPS                      GstH266VPS;
-typedef struct _GstH266SPS                      GstH266SPS;
-typedef struct _GstH266PPS                      GstH266PPS;
-typedef struct _GstH266APS                      GstH266APS;
-typedef struct _GstH266ProfileTierLevel         GstH266ProfileTierLevel;
-typedef struct _GstH266GeneralConstraintsInfo   GstH266GeneralConstraintsInfo;
-typedef struct _GstH266DPBParameters            GstH266DPBParameters;
-typedef struct _GstH266GeneralHRDParameters     GstH266GeneralHRDParameters;
-typedef struct _GstH266OLSHRDParameters         GstH266OLSHRDParameters;
-typedef struct _GstH266SubLayerHRDParameters    GstH266SubLayerHRDParameters;
-typedef struct _GstH266HRDParams                GstH266HRDParams;
-typedef struct _GstH266VUIParams                GstH266VUIParams;
-typedef struct _GstH266SPSRangeExtensionParams  GstH266SPSRangeExtensionParams;
-
-typedef struct _GstH266ALF                      GstH266ALF;
-typedef struct _GstH266LMCS                     GstH266LMCS;
-typedef struct _GstH266ScalingList              GstH266ScalingList;
-
-typedef struct _GstH266PredWeightTable          GstH266PredWeightTable;
-typedef struct _GstH266RefPicListStruct         GstH266RefPicListStruct;
-typedef struct _GstH266RefPicLists              GstH266RefPicLists;
-typedef struct _GstH266SliceHdr                 GstH266SliceHdr;
-typedef struct _GstH266PicHdr                   GstH266PicHdr;
-typedef struct _GstH266AUD                      GstH266AUD;
-typedef struct _GstH266OPI                      GstH266OPI;
-typedef struct _GstH266DCI                      GstH266DCI;
-
-typedef struct _GstH266BufferingPeriod          GstH266BufferingPeriod;
-typedef struct _GstH266PicTiming                GstH266PicTiming;
-typedef struct _GstH266RegisteredUserData       GstH266RegisteredUserData;
-typedef struct _GstH266DUInfo                   GstH266DUInfo;
-typedef struct _GstH266ScalableNesting          GstH266ScalableNesting;
-typedef struct _GstH266SubPicLevelInfo          GstH266SubPicLevelInfo;
-typedef struct _GstH266FrameFieldInfo           GstH266FrameFieldInfo;
-typedef struct _GstH266SEIMessage               GstH266SEIMessage;
-typedef struct _GstH266DecoderConfigRecordNalUnitArray GstH266DecoderConfigRecordNalUnitArray;
-typedef struct _GstH266PTLRecord                GstH266PTLRecord;
-typedef struct _GstH266DecoderConfigRecord      GstH266DecoderConfigRecord;
-
-/**
+  }
+{ end of the aps type  }
+type
+  PGstH266APSType = ^TGstH266APSType;
+  TGstH266APSType =  Longint;
+  Const
+    GST_H266_ALF_APS = 0;
+    GST_H266_LMCS_APS = 1;
+    GST_H266_SCALING_APS = 2;
+    GST_H266_APS_TYPE_MAX = 3;
+;
+type
+{*
  * GstH266NalUnit:
  * @type: A #GstH266NalUnitType.
  * @layer_id: A nal unit layer id.
@@ -473,24 +500,22 @@ typedef struct _GstH266DecoderConfigRecord      GstH266DecoderConfigRecord;
  * Structure defining the H266 Nal unit headers.
  *
  * Since: 1.26
- */
-struct _GstH266NalUnit
-{
-  guint8 type;
-  guint8 layer_id;
-  guint8 temporal_id_plus1;
+  }
+{ calculated values  }
+  PGstH266NalUnit = ^TGstH266NalUnit;
+  TGstH266NalUnit = record
+      _type : Tguint8;
+      layer_id : Tguint8;
+      temporal_id_plus1 : Tguint8;
+      size : Tguint;
+      offset : Tguint;
+      sc_offset : Tguint;
+      valid : Tgboolean;
+      data : Pguint8;
+      header_bytes : Tguint8;
+    end;
 
-  /* calculated values */
-  guint size;
-  guint offset;
-  guint sc_offset;
-  gboolean valid;
-
-  guint8 *data;
-  guint8 header_bytes;
-};
-
-/**
+{*
  * GstH266GeneralConstraintsInfo:
  * @present_flag: specifies whether additional syntax elements are present.
  * @intra_only_constraint_flag: specifies whether sh_slice_type for all slices
@@ -674,97 +699,97 @@ struct _GstH266NalUnit
  * Structure defining the H266 general constraints info.
  *
  * Since: 1.26
- */
-struct _GstH266GeneralConstraintsInfo {
-  guint8 present_flag;
+  }
+{ general  }
+{ picture format  }
+{ NAL unit type related  }
+{ tile, slice, subpicture partitioning  }
+{ CTU and block partitioning  }
+{ intra  }
+{ inter  }
+{ transform, quantization, residual  }
+{ loop fitler  }
+{ additional bits  }
+{ reserved for future use  }
+  PGstH266GeneralConstraintsInfo = ^TGstH266GeneralConstraintsInfo;
+  TGstH266GeneralConstraintsInfo = record
+      present_flag : Tguint8;
+      intra_only_constraint_flag : Tguint8;
+      all_layers_independent_constraint_flag : Tguint8;
+      one_au_only_constraint_flag : Tguint8;
+      sixteen_minus_max_bitdepth_constraint_idc : Tguint8;
+      three_minus_max_chroma_format_constraint_idc : Tguint8;
+      no_mixed_nalu_types_in_pic_constraint_flag : Tguint8;
+      no_trail_constraint_flag : Tguint8;
+      no_stsa_constraint_flag : Tguint8;
+      no_rasl_constraint_flag : Tguint8;
+      no_radl_constraint_flag : Tguint8;
+      no_idr_constraint_flag : Tguint8;
+      no_cra_constraint_flag : Tguint8;
+      no_gdr_constraint_flag : Tguint8;
+      no_aps_constraint_flag : Tguint8;
+      no_idr_rpl_constraint_flag : Tguint8;
+      one_tile_per_pic_constraint_flag : Tguint8;
+      pic_header_in_slice_header_constraint_flag : Tguint8;
+      one_slice_per_pic_constraint_flag : Tguint8;
+      no_rectangular_slice_constraint_flag : Tguint8;
+      one_slice_per_subpic_constraint_flag : Tguint8;
+      no_subpic_info_constraint_flag : Tguint8;
+      three_minus_max_log2_ctu_size_constraint_idc : Tguint8;
+      no_partition_constraints_override_constraint_flag : Tguint8;
+      no_mtt_constraint_flag : Tguint8;
+      no_qtbtt_dual_tree_intra_constraint_flag : Tguint8;
+      no_palette_constraint_flag : Tguint8;
+      no_ibc_constraint_flag : Tguint8;
+      no_isp_constraint_flag : Tguint8;
+      no_mrl_constraint_flag : Tguint8;
+      no_mip_constraint_flag : Tguint8;
+      no_cclm_constraint_flag : Tguint8;
+      no_ref_pic_resampling_constraint_flag : Tguint8;
+      no_res_change_in_clvs_constraint_flag : Tguint8;
+      no_weighted_prediction_constraint_flag : Tguint8;
+      no_ref_wraparound_constraint_flag : Tguint8;
+      no_temporal_mvp_constraint_flag : Tguint8;
+      no_sbtmvp_constraint_flag : Tguint8;
+      no_amvr_constraint_flag : Tguint8;
+      no_bdof_constraint_flag : Tguint8;
+      no_smvd_constraint_flag : Tguint8;
+      no_dmvr_constraint_flag : Tguint8;
+      no_mmvd_constraint_flag : Tguint8;
+      no_affine_motion_constraint_flag : Tguint8;
+      no_prof_constraint_flag : Tguint8;
+      no_bcw_constraint_flag : Tguint8;
+      no_ciip_constraint_flag : Tguint8;
+      no_gpm_constraint_flag : Tguint8;
+      no_luma_transform_size_64_constraint_flag : Tguint8;
+      no_transform_skip_constraint_flag : Tguint8;
+      no_bdpcm_constraint_flag : Tguint8;
+      no_mts_constraint_flag : Tguint8;
+      no_lfnst_constraint_flag : Tguint8;
+      no_joint_cbcr_constraint_flag : Tguint8;
+      no_sbt_constraint_flag : Tguint8;
+      no_act_constraint_flag : Tguint8;
+      no_explicit_scaling_list_constraint_flag : Tguint8;
+      no_dep_quant_constraint_flag : Tguint8;
+      no_sign_data_hiding_constraint_flag : Tguint8;
+      no_cu_qp_delta_constraint_flag : Tguint8;
+      no_chroma_qp_offset_constraint_flag : Tguint8;
+      no_sao_constraint_flag : Tguint8;
+      no_alf_constraint_flag : Tguint8;
+      no_ccalf_constraint_flag : Tguint8;
+      no_lmcs_constraint_flag : Tguint8;
+      no_ladf_constraint_flag : Tguint8;
+      no_virtual_boundaries_constraint_flag : Tguint8;
+      all_rap_pictures_constraint_flag : Tguint8;
+      no_extended_precision_processing_constraint_flag : Tguint8;
+      no_ts_residual_coding_rice_constraint_flag : Tguint8;
+      no_rrc_rice_extension_constraint_flag : Tguint8;
+      no_persistent_rice_adaptation_constraint_flag : Tguint8;
+      no_reverse_last_sig_coeff_constraint_flag : Tguint8;
+      reserved_zero_bit : array[0..63] of Tguint8;
+    end;
 
-  /* general */
-  guint8 intra_only_constraint_flag;
-  guint8 all_layers_independent_constraint_flag;
-  guint8 one_au_only_constraint_flag;
-  /* picture format */
-  guint8 sixteen_minus_max_bitdepth_constraint_idc;
-  guint8 three_minus_max_chroma_format_constraint_idc;
-  /* NAL unit type related */
-  guint8 no_mixed_nalu_types_in_pic_constraint_flag;
-  guint8 no_trail_constraint_flag;
-  guint8 no_stsa_constraint_flag;
-  guint8 no_rasl_constraint_flag;
-  guint8 no_radl_constraint_flag;
-  guint8 no_idr_constraint_flag;
-  guint8 no_cra_constraint_flag;
-  guint8 no_gdr_constraint_flag;
-  guint8 no_aps_constraint_flag;
-  guint8 no_idr_rpl_constraint_flag;
-  /* tile, slice, subpicture partitioning */
-  guint8 one_tile_per_pic_constraint_flag;
-  guint8 pic_header_in_slice_header_constraint_flag;
-  guint8 one_slice_per_pic_constraint_flag;
-  guint8 no_rectangular_slice_constraint_flag;
-  guint8 one_slice_per_subpic_constraint_flag;
-  guint8 no_subpic_info_constraint_flag;
-  /* CTU and block partitioning */
-  guint8 three_minus_max_log2_ctu_size_constraint_idc;
-  guint8 no_partition_constraints_override_constraint_flag;
-  guint8 no_mtt_constraint_flag;
-  guint8 no_qtbtt_dual_tree_intra_constraint_flag;
-  /* intra */
-  guint8 no_palette_constraint_flag;
-  guint8 no_ibc_constraint_flag;
-  guint8 no_isp_constraint_flag;
-  guint8 no_mrl_constraint_flag;
-  guint8 no_mip_constraint_flag;
-  guint8 no_cclm_constraint_flag;
-  /* inter */
-  guint8 no_ref_pic_resampling_constraint_flag;
-  guint8 no_res_change_in_clvs_constraint_flag;
-  guint8 no_weighted_prediction_constraint_flag;
-  guint8 no_ref_wraparound_constraint_flag;
-  guint8 no_temporal_mvp_constraint_flag;
-  guint8 no_sbtmvp_constraint_flag;
-  guint8 no_amvr_constraint_flag;
-  guint8 no_bdof_constraint_flag;
-  guint8 no_smvd_constraint_flag;
-  guint8 no_dmvr_constraint_flag;
-  guint8 no_mmvd_constraint_flag;
-  guint8 no_affine_motion_constraint_flag;
-  guint8 no_prof_constraint_flag;
-  guint8 no_bcw_constraint_flag;
-  guint8 no_ciip_constraint_flag;
-  guint8 no_gpm_constraint_flag;
-  /* transform, quantization, residual */
-  guint8 no_luma_transform_size_64_constraint_flag;
-  guint8 no_transform_skip_constraint_flag;
-  guint8 no_bdpcm_constraint_flag;
-  guint8 no_mts_constraint_flag;
-  guint8 no_lfnst_constraint_flag;
-  guint8 no_joint_cbcr_constraint_flag;
-  guint8 no_sbt_constraint_flag;
-  guint8 no_act_constraint_flag;
-  guint8 no_explicit_scaling_list_constraint_flag;
-  guint8 no_dep_quant_constraint_flag;
-  guint8 no_sign_data_hiding_constraint_flag;
-  guint8 no_cu_qp_delta_constraint_flag;
-  guint8 no_chroma_qp_offset_constraint_flag;
-  /* loop fitler */
-  guint8 no_sao_constraint_flag;
-  guint8 no_alf_constraint_flag;
-  guint8 no_ccalf_constraint_flag;
-  guint8 no_lmcs_constraint_flag;
-  guint8 no_ladf_constraint_flag;
-  guint8 no_virtual_boundaries_constraint_flag;
-  /* additional bits */
-  guint8 all_rap_pictures_constraint_flag;
-  guint8 no_extended_precision_processing_constraint_flag;
-  guint8 no_ts_residual_coding_rice_constraint_flag;
-  guint8 no_rrc_rice_extension_constraint_flag;
-  guint8 no_persistent_rice_adaptation_constraint_flag;
-  guint8 no_reverse_last_sig_coeff_constraint_flag;
-  /* reserved for future use */
-  guint8 reserved_zero_bit[64];
-};
-
-/**
+{*
  * GstH266ProfileTierLevel:
  * @profile_idc: the profile id.
  * @tier_flag: specifies the main tier or high tier.
@@ -787,25 +812,23 @@ struct _GstH266GeneralConstraintsInfo {
  * Structure defining the H266 profile, tier and level.
  *
  * Since: 1.26
- */
-struct _GstH266ProfileTierLevel {
-  GstH266Profile profile_idc;
-  guint8 tier_flag;
-  guint8 level_idc;
-  guint8 frame_only_constraint_flag;
-  guint8 multilayer_enabled_flag;
+  }
+  PGstH266ProfileTierLevel = ^TGstH266ProfileTierLevel;
+  TGstH266ProfileTierLevel = record
+      profile_idc : TGstH266Profile;
+      tier_flag : Tguint8;
+      level_idc : Tguint8;
+      frame_only_constraint_flag : Tguint8;
+      multilayer_enabled_flag : Tguint8;
+      general_constraints_info : TGstH266GeneralConstraintsInfo;
+      sublayer_level_present_flag : array[0..(GST_H266_MAX_SUBLAYERS-1)-1] of Tguint8;
+      sublayer_level_idc : array[0..(GST_H266_MAX_SUBLAYERS-1)-1] of Tguint8;
+      num_sub_profiles : Tguint8;
+      sub_profile_idc : array[0..(GST_H266_MAX_SUB_PROFILES)-1] of TGstH266Profile;
+      ptl_reserved_zero_bit : Tguint8;
+    end;
 
-  GstH266GeneralConstraintsInfo general_constraints_info;
-
-  guint8 sublayer_level_present_flag[GST_H266_MAX_SUBLAYERS - 1];
-  guint8 sublayer_level_idc[GST_H266_MAX_SUBLAYERS - 1];
-  guint8 num_sub_profiles;
-  GstH266Profile sub_profile_idc[GST_H266_MAX_SUB_PROFILES];
-
-  guint8 ptl_reserved_zero_bit;
-};
-
-/**
+{*
  * GstH266DPBParameters:
  * @max_dec_pic_buffering_minus1: specifies the maximum required size of the
  *  DPB in units of picture storage buffers.
@@ -818,15 +841,15 @@ struct _GstH266ProfileTierLevel {
  * Structure defining the H266 DPB parameters.
  *
  * Since: 1.26
- */
-struct _GstH266DPBParameters
-{
-  guint8 max_dec_pic_buffering_minus1[GST_H266_MAX_SUBLAYERS];
-  guint8 max_num_reorder_pics[GST_H266_MAX_SUBLAYERS];
-  guint8 max_latency_increase_plus1[GST_H266_MAX_SUBLAYERS];
-};
+  }
+  PGstH266DPBParameters = ^TGstH266DPBParameters;
+  TGstH266DPBParameters = record
+      max_dec_pic_buffering_minus1 : array[0..(GST_H266_MAX_SUBLAYERS)-1] of Tguint8;
+      max_num_reorder_pics : array[0..(GST_H266_MAX_SUBLAYERS)-1] of Tguint8;
+      max_latency_increase_plus1 : array[0..(GST_H266_MAX_SUBLAYERS)-1] of Tguint8;
+    end;
 
-/**
+{*
  * GstH266GeneralHRDParameters:
  * @num_units_in_tick: the number of time units of a clock operating at the
  *  frequency time_scale.
@@ -850,23 +873,23 @@ struct _GstH266DPBParameters
  * Structure defining the H266 HDR parameters.
  *
  * Since: 1.26
- */
-struct _GstH266GeneralHRDParameters
-{
-  guint32 num_units_in_tick;
-  guint32 time_scale;
-  guint8 general_nal_hrd_params_present_flag;
-  guint8 general_vcl_hrd_params_present_flag;
-  guint8 general_same_pic_timing_in_all_ols_flag;
-  guint8 general_du_hrd_params_present_flag;
-  guint8 tick_divisor_minus2;
-  guint8 bit_rate_scale;
-  guint8 cpb_size_scale;
-  guint8 cpb_size_du_scale;
-  guint8 hrd_cpb_cnt_minus1;
-};
+  }
+  PGstH266GeneralHRDParameters = ^TGstH266GeneralHRDParameters;
+  TGstH266GeneralHRDParameters = record
+      num_units_in_tick : Tguint32;
+      time_scale : Tguint32;
+      general_nal_hrd_params_present_flag : Tguint8;
+      general_vcl_hrd_params_present_flag : Tguint8;
+      general_same_pic_timing_in_all_ols_flag : Tguint8;
+      general_du_hrd_params_present_flag : Tguint8;
+      tick_divisor_minus2 : Tguint8;
+      bit_rate_scale : Tguint8;
+      cpb_size_scale : Tguint8;
+      cpb_size_du_scale : Tguint8;
+      hrd_cpb_cnt_minus1 : Tguint8;
+    end;
 
-/**
+{*
  * GstH266SubLayerHRDParameters:
  * @bit_rate_value_minus1: specifies the maximum input bit rate for the CPB.
  * @cpb_size_value_minus1: together with cpb_size_scale to specify the CPB size.
@@ -881,20 +904,20 @@ struct _GstH266GeneralHRDParameters
  * Structure defining the H266 sub layer HDR parameters.
  *
  * Since: 1.26
- */
-struct _GstH266SubLayerHRDParameters
-{
-  guint32 bit_rate_value_minus1[GST_H266_MAX_CPB_CNT];
-  guint32 cpb_size_value_minus1[GST_H266_MAX_CPB_CNT];
-  guint32 cpb_size_du_value_minus1[GST_H266_MAX_CPB_CNT];
-  guint32 bit_rate_du_value_minus1[GST_H266_MAX_CPB_CNT];
-  guint8 cbr_flag[GST_H266_MAX_CPB_CNT];
-  /* calculated values */
-  guint32 bit_rate[GST_H266_MAX_CPB_CNT];
-  guint32 cpb_size[GST_H266_MAX_CPB_CNT];
-};
+  }
+{ calculated values  }
+  PGstH266SubLayerHRDParameters = ^TGstH266SubLayerHRDParameters;
+  TGstH266SubLayerHRDParameters = record
+      bit_rate_value_minus1 : array[0..(GST_H266_MAX_CPB_CNT)-1] of Tguint32;
+      cpb_size_value_minus1 : array[0..(GST_H266_MAX_CPB_CNT)-1] of Tguint32;
+      cpb_size_du_value_minus1 : array[0..(GST_H266_MAX_CPB_CNT)-1] of Tguint32;
+      bit_rate_du_value_minus1 : array[0..(GST_H266_MAX_CPB_CNT)-1] of Tguint32;
+      cbr_flag : array[0..(GST_H266_MAX_CPB_CNT)-1] of Tguint8;
+      bit_rate : array[0..(GST_H266_MAX_CPB_CNT)-1] of Tguint32;
+      cpb_size : array[0..(GST_H266_MAX_CPB_CNT)-1] of Tguint32;
+    end;
 
-/**
+{*
  * GstH266OLSHRDParameters:
  * @fixed_pic_rate_general_flag: indicates the temporal distance between the
  *  HRD output times of consecutive pictures in output order is constrained as
@@ -913,18 +936,18 @@ struct _GstH266SubLayerHRDParameters
  * Structure defining the H266 OLS HDR parameters.
  *
  * Since: 1.26
- */
-struct _GstH266OLSHRDParameters
-{
-  guint8 fixed_pic_rate_general_flag[GST_H266_MAX_SUBLAYERS];
-  guint8 fixed_pic_rate_within_cvs_flag[GST_H266_MAX_SUBLAYERS];
-  guint16 elemental_duration_in_tc_minus1[GST_H266_MAX_SUBLAYERS];
-  guint8 low_delay_hrd_flag[GST_H266_MAX_SUBLAYERS];
-  GstH266SubLayerHRDParameters nal_sub_layer_hrd_parameters[GST_H266_MAX_SUBLAYERS];
-  GstH266SubLayerHRDParameters vcl_sub_layer_hrd_parameters[GST_H266_MAX_SUBLAYERS];
-};
+  }
+  PGstH266OLSHRDParameters = ^TGstH266OLSHRDParameters;
+  TGstH266OLSHRDParameters = record
+      fixed_pic_rate_general_flag : array[0..(GST_H266_MAX_SUBLAYERS)-1] of Tguint8;
+      fixed_pic_rate_within_cvs_flag : array[0..(GST_H266_MAX_SUBLAYERS)-1] of Tguint8;
+      elemental_duration_in_tc_minus1 : array[0..(GST_H266_MAX_SUBLAYERS)-1] of Tguint16;
+      low_delay_hrd_flag : array[0..(GST_H266_MAX_SUBLAYERS)-1] of Tguint8;
+      nal_sub_layer_hrd_parameters : array[0..(GST_H266_MAX_SUBLAYERS)-1] of TGstH266SubLayerHRDParameters;
+      vcl_sub_layer_hrd_parameters : array[0..(GST_H266_MAX_SUBLAYERS)-1] of TGstH266SubLayerHRDParameters;
+    end;
 
-/**
+{*
  * GstH266VPS:
  * @vps_id: provides an identifier for the VPS for reference by other syntax
  *  elements.
@@ -1022,66 +1045,59 @@ struct _GstH266OLSHRDParameters
  * Structure defining the H266 VPS.
  *
  * Since: 1.26
- */
-struct _GstH266VPS {
-  guint8 vps_id;
+  }
+{ Reserve some data for future usage.  }
+  PGstH266VPS = ^TGstH266VPS;
+  TGstH266VPS = record
+      vps_id : Tguint8;
+      max_layers_minus1 : Tguint8;
+      max_sublayers_minus1 : Tguint8;
+      default_ptl_dpb_hrd_max_tid_flag : Tguint8;
+      all_independent_layers_flag : Tguint8;
+      layer_id : array[0..(GST_H266_MAX_LAYERS)-1] of Tguint8;
+      independent_layer_flag : array[0..(GST_H266_MAX_LAYERS)-1] of Tguint8;
+      max_tid_ref_present_flag : array[0..(GST_H266_MAX_LAYERS)-1] of Tguint8;
+      direct_ref_layer_flag : array[0..(GST_H266_MAX_LAYERS)-1] of array[0..(GST_H266_MAX_LAYERS)-1] of Tguint8;
+      max_tid_il_ref_pics_plus1 : array[0..(GST_H266_MAX_LAYERS)-1] of array[0..(GST_H266_MAX_LAYERS)-1] of Tguint8;
+      each_layer_is_an_ols_flag : Tguint8;
+      ols_mode_idc : Tguint8;
+      total_num_olss : Tguint;
+      num_multi_layer_olss : Tguint;
+      multi_layer_ols_idx : array[0..(GST_H266_MAX_TOTAL_NUM_OLSS)-1] of Tguint16;
+      num_layers_in_ols : array[0..(GST_H266_MAX_TOTAL_NUM_OLSS)-1] of Tguint16;
+      layer_id_in_ols : array[0..(GST_H266_MAX_TOTAL_NUM_OLSS)-1] of array[0..(GST_H266_MAX_LAYERS)-1] of Tguint8;
+      num_output_layer_sets_minus2 : Tguint8;
+      ols_output_layer_flag : array[0..(GST_H266_MAX_TOTAL_NUM_OLSS)-1] of array[0..(GST_H266_MAX_LAYERS)-1] of Tguint8;
+      num_output_layers_in_ols : array[0..(GST_H266_MAX_TOTAL_NUM_OLSS)-1] of Tguint16;
+      output_layer_id_in_ols : array[0..(GST_H266_MAX_TOTAL_NUM_OLSS)-1] of array[0..(GST_H266_MAX_LAYERS)-1] of Tguint8;
+      num_sub_layers_in_layer_in_ols : array[0..(GST_H266_MAX_TOTAL_NUM_OLSS)-1] of array[0..(GST_H266_MAX_LAYERS)-1] of Tguint8;
+      num_ptls_minus1 : Tguint8;
+      pt_present_flag : array[0..(GST_H266_MAX_PTLS)-1] of Tguint8;
+      ptl_max_tid : array[0..(GST_H266_MAX_PTLS)-1] of Tguint8;
+      profile_tier_level : array[0..(GST_H266_MAX_PTLS)-1] of TGstH266ProfileTierLevel;
+      ols_ptl_idx : array[0..(GST_H266_MAX_TOTAL_NUM_OLSS)-1] of Tguint8;
+      num_dpb_params_minus1 : Tguint8;
+      sublayer_dpb_params_present_flag : Tguint8;
+      dpb_max_tid : array[0..(GST_H266_MAX_TOTAL_NUM_OLSS)-1] of Tguint8;
+      dpb : array[0..(GST_H266_MAX_TOTAL_NUM_OLSS)-1] of TGstH266DPBParameters;
+      ols_dpb_pic_width : array[0..(GST_H266_MAX_TOTAL_NUM_OLSS)-1] of Tguint16;
+      ols_dpb_pic_height : array[0..(GST_H266_MAX_TOTAL_NUM_OLSS)-1] of Tguint16;
+      ols_dpb_chroma_format : array[0..(GST_H266_MAX_TOTAL_NUM_OLSS)-1] of Tguint8;
+      ols_dpb_bitdepth_minus8 : array[0..(GST_H266_MAX_TOTAL_NUM_OLSS)-1] of Tguint8;
+      ols_dpb_params_idx : array[0..(GST_H266_MAX_TOTAL_NUM_OLSS)-1] of Tguint8;
+      timing_hrd_params_present_flag : Tguint8;
+      general_hrd_params : TGstH266GeneralHRDParameters;
+      sublayer_cpb_params_present_flag : Tguint8;
+      num_ols_timing_hrd_params_minus1 : Tguint8;
+      hrd_max_tid : array[0..(GST_H266_MAX_TOTAL_NUM_OLSS)-1] of Tguint8;
+      ols_hrd_params : array[0..(GST_H266_MAX_TOTAL_NUM_OLSS)-1] of TGstH266OLSHRDParameters;
+      ols_timing_hrd_idx : array[0..(GST_H266_MAX_TOTAL_NUM_OLSS)-1] of Tguint8;
+      extension_flag : Tguint8;
+      extension_data : array[0..63] of Tguint8;
+      valid : Tgboolean;
+    end;
 
-  guint8 max_layers_minus1;
-  guint8 max_sublayers_minus1;
-
-  guint8 default_ptl_dpb_hrd_max_tid_flag;
-  guint8 all_independent_layers_flag;
-
-  guint8 layer_id[GST_H266_MAX_LAYERS];
-  guint8 independent_layer_flag[GST_H266_MAX_LAYERS];
-  guint8 max_tid_ref_present_flag[GST_H266_MAX_LAYERS];
-  guint8 direct_ref_layer_flag[GST_H266_MAX_LAYERS][GST_H266_MAX_LAYERS];
-  guint8 max_tid_il_ref_pics_plus1[GST_H266_MAX_LAYERS][GST_H266_MAX_LAYERS];
-  guint8 each_layer_is_an_ols_flag;
-  guint8 ols_mode_idc;
-  guint total_num_olss;
-  guint num_multi_layer_olss;
-  guint16 multi_layer_ols_idx[GST_H266_MAX_TOTAL_NUM_OLSS];
-  guint16 num_layers_in_ols[GST_H266_MAX_TOTAL_NUM_OLSS];
-  guint8 layer_id_in_ols[GST_H266_MAX_TOTAL_NUM_OLSS][GST_H266_MAX_LAYERS];
-  guint8 num_output_layer_sets_minus2;
-  guint8 ols_output_layer_flag[GST_H266_MAX_TOTAL_NUM_OLSS][GST_H266_MAX_LAYERS];
-  guint16 num_output_layers_in_ols[GST_H266_MAX_TOTAL_NUM_OLSS];
-  guint8 output_layer_id_in_ols[GST_H266_MAX_TOTAL_NUM_OLSS][GST_H266_MAX_LAYERS];
-  guint8 num_sub_layers_in_layer_in_ols[GST_H266_MAX_TOTAL_NUM_OLSS][GST_H266_MAX_LAYERS];
-
-  guint8 num_ptls_minus1;
-  guint8 pt_present_flag[GST_H266_MAX_PTLS];
-  guint8 ptl_max_tid[GST_H266_MAX_PTLS];
-  GstH266ProfileTierLevel profile_tier_level[GST_H266_MAX_PTLS];
-  guint8 ols_ptl_idx[GST_H266_MAX_TOTAL_NUM_OLSS];
-
-  guint8 num_dpb_params_minus1;
-  guint8 sublayer_dpb_params_present_flag;
-  guint8 dpb_max_tid[GST_H266_MAX_TOTAL_NUM_OLSS];
-  GstH266DPBParameters dpb[GST_H266_MAX_TOTAL_NUM_OLSS];
-  guint16 ols_dpb_pic_width[GST_H266_MAX_TOTAL_NUM_OLSS];
-  guint16 ols_dpb_pic_height[GST_H266_MAX_TOTAL_NUM_OLSS];
-  guint8 ols_dpb_chroma_format[GST_H266_MAX_TOTAL_NUM_OLSS];
-  guint8 ols_dpb_bitdepth_minus8[GST_H266_MAX_TOTAL_NUM_OLSS];
-  guint8 ols_dpb_params_idx[GST_H266_MAX_TOTAL_NUM_OLSS];
-
-  guint8 timing_hrd_params_present_flag;
-  GstH266GeneralHRDParameters general_hrd_params;
-  guint8 sublayer_cpb_params_present_flag;
-  guint8 num_ols_timing_hrd_params_minus1;
-  guint8 hrd_max_tid[GST_H266_MAX_TOTAL_NUM_OLSS];
-  GstH266OLSHRDParameters ols_hrd_params[GST_H266_MAX_TOTAL_NUM_OLSS];
-  guint8 ols_timing_hrd_idx[GST_H266_MAX_TOTAL_NUM_OLSS];
-
-  /* Reserve some data for future usage. */
-  guint8 extension_flag;
-  guint8 extension_data[64];
-
-  gboolean valid;
-};
-
-/**
+{*
  * GstH266RefPicListStruct:
  * @num_ref_entries: specifies the number of entries in the
  *  ref_pic_list_struct(listIdx, rplsIdx) syntax structure.
@@ -1108,23 +1124,24 @@ struct _GstH266VPS {
  * Structure defining the H266 reference picture list.
  *
  * Since: 1.26
- */
-struct _GstH266RefPicListStruct {
-  guint8 num_ref_entries;
-  guint8 ltrp_in_header_flag;
-  guint8 inter_layer_ref_pic_flag[GST_H266_MAX_REF_ENTRIES];
-  guint8 st_ref_pic_flag[GST_H266_MAX_REF_ENTRIES];
-  guint16 abs_delta_poc_st[GST_H266_MAX_REF_ENTRIES];
-  guint8 strp_entry_sign_flag[GST_H266_MAX_REF_ENTRIES];
-  guint8 rpls_poc_lsb_lt[GST_H266_MAX_REF_ENTRIES];
-  guint8 ilrp_idx[GST_H266_MAX_REF_ENTRIES];
-  guint num_short_term_pic;
-  guint num_long_term_pic;
-  guint num_inter_layer_pic;
-  gint16 delta_poc_val_st[GST_H266_MAX_REF_ENTRIES];
-};
+  }
+  PGstH266RefPicListStruct = ^TGstH266RefPicListStruct;
+  TGstH266RefPicListStruct = record
+      num_ref_entries : Tguint8;
+      ltrp_in_header_flag : Tguint8;
+      inter_layer_ref_pic_flag : array[0..(GST_H266_MAX_REF_ENTRIES)-1] of Tguint8;
+      st_ref_pic_flag : array[0..(GST_H266_MAX_REF_ENTRIES)-1] of Tguint8;
+      abs_delta_poc_st : array[0..(GST_H266_MAX_REF_ENTRIES)-1] of Tguint16;
+      strp_entry_sign_flag : array[0..(GST_H266_MAX_REF_ENTRIES)-1] of Tguint8;
+      rpls_poc_lsb_lt : array[0..(GST_H266_MAX_REF_ENTRIES)-1] of Tguint8;
+      ilrp_idx : array[0..(GST_H266_MAX_REF_ENTRIES)-1] of Tguint8;
+      num_short_term_pic : Tguint;
+      num_long_term_pic : Tguint;
+      num_inter_layer_pic : Tguint;
+      delta_poc_val_st : array[0..(GST_H266_MAX_REF_ENTRIES)-1] of Tgint16;
+    end;
 
-/**
+{*
  * GstH266RefPicLists:
  * @rpl_sps_flag: specifies whether RPL i in ref_pic_lists is derived based
  *  on one of the ref_pic_list_struct(listIdx, rplsIdx) syntax structures
@@ -1141,17 +1158,18 @@ struct _GstH266RefPicListStruct {
  * Structure defining the H266 reference picture lists.
  *
  * Since: 1.26
- */
-struct _GstH266RefPicLists {
-  guint8 rpl_sps_flag[2];
-  guint8 rpl_idx[2];
-  GstH266RefPicListStruct rpl_ref_list[2];
-  guint16 poc_lsb_lt[2][GST_H266_MAX_REF_ENTRIES];
-  guint8  delta_poc_msb_cycle_present_flag[2][GST_H266_MAX_REF_ENTRIES];
-  guint16 delta_poc_msb_cycle_lt[2][GST_H266_MAX_REF_ENTRIES];
-};
+  }
+  PGstH266RefPicLists = ^TGstH266RefPicLists;
+  TGstH266RefPicLists = record
+      rpl_sps_flag : array[0..1] of Tguint8;
+      rpl_idx : array[0..1] of Tguint8;
+      rpl_ref_list : array[0..1] of TGstH266RefPicListStruct;
+      poc_lsb_lt : array[0..1] of array[0..(GST_H266_MAX_REF_ENTRIES)-1] of Tguint16;
+      delta_poc_msb_cycle_present_flag : array[0..1] of array[0..(GST_H266_MAX_REF_ENTRIES)-1] of Tguint8;
+      delta_poc_msb_cycle_lt : array[0..1] of array[0..(GST_H266_MAX_REF_ENTRIES)-1] of Tguint16;
+    end;
 
-/**
+{*
  * GstH266VUIParams:
  * @progressive_source_flag: flag to indicate the progressive type of stream.
  * @interlaced_source_flag: flag to indicate the interlaced type of stream.
@@ -1191,43 +1209,36 @@ struct _GstH266RefPicLists {
  * Structure defining the H266 VUI parameters.
  *
  * Since: 1.26
- */
-struct _GstH266VUIParams
-{
-  guint8 progressive_source_flag;
-  guint8 interlaced_source_flag;
-  guint8 non_packed_constraint_flag;
-  guint8 non_projected_constraint_flag;
+  }
+{ extension_data  }
+{ calculated values  }
+  PGstH266VUIParams = ^TGstH266VUIParams;
+  TGstH266VUIParams = record
+      progressive_source_flag : Tguint8;
+      interlaced_source_flag : Tguint8;
+      non_packed_constraint_flag : Tguint8;
+      non_projected_constraint_flag : Tguint8;
+      aspect_ratio_info_present_flag : Tguint8;
+      aspect_ratio_constant_flag : Tguint8;
+      aspect_ratio_idc : Tguint8;
+      sar_width : Tguint16;
+      sar_height : Tguint16;
+      overscan_info_present_flag : Tguint8;
+      overscan_appropriate_flag : Tguint8;
+      colour_description_present_flag : Tguint8;
+      colour_primaries : Tguint8;
+      transfer_characteristics : Tguint8;
+      matrix_coeffs : Tguint8;
+      full_range_flag : Tguint8;
+      chroma_loc_info_present_flag : Tguint8;
+      chroma_sample_loc_type_frame : Tguint8;
+      chroma_sample_loc_type_top_field : Tguint8;
+      chroma_sample_loc_type_bottom_field : Tguint8;
+      par_n : Tguint;
+      par_d : Tguint;
+    end;
 
-  guint8 aspect_ratio_info_present_flag;
-  guint8 aspect_ratio_constant_flag;
-  guint8 aspect_ratio_idc;
-
-  guint16 sar_width;
-  guint16 sar_height;
-
-  guint8 overscan_info_present_flag;
-  guint8 overscan_appropriate_flag;
-
-  guint8 colour_description_present_flag;
-  guint8 colour_primaries;
-  guint8 transfer_characteristics;
-  guint8 matrix_coeffs;
-  guint8 full_range_flag;
-
-  guint8 chroma_loc_info_present_flag;
-  guint8 chroma_sample_loc_type_frame;
-  guint8 chroma_sample_loc_type_top_field;
-  guint8 chroma_sample_loc_type_bottom_field;
-
-  /* extension_data */
-
-  /* calculated values */
-  guint par_n;
-  guint par_d;
-};
-
-/**
+{*
  * GstH266SPSRangeExtensionParams:
  * @extended_precision_flag: specifies whether an extended dynamic range is
  *  used for transform coefficients.
@@ -1246,16 +1257,17 @@ struct _GstH266VUIParams
  * Structure defining the H266 SPS range extension parameters.
  *
  * Since: 1.26
- */
-struct _GstH266SPSRangeExtensionParams {
-  guint8 extended_precision_flag;
-  guint8 ts_residual_coding_rice_present_in_sh_flag;
-  guint8 rrc_rice_extension_flag;
-  guint8 persistent_rice_adaptation_enabled_flag;
-  guint8 reverse_last_sig_coeff_enabled_flag;
-};
+  }
+  PGstH266SPSRangeExtensionParams = ^TGstH266SPSRangeExtensionParams;
+  TGstH266SPSRangeExtensionParams = record
+      extended_precision_flag : Tguint8;
+      ts_residual_coding_rice_present_in_sh_flag : Tguint8;
+      rrc_rice_extension_flag : Tguint8;
+      persistent_rice_adaptation_enabled_flag : Tguint8;
+      reverse_last_sig_coeff_enabled_flag : Tguint8;
+    end;
 
-/**
+{*
  * GstH266SPS:
  * @nuh_layer_id: specifies the identifier of the layer to which a VCL NAL unit
  *  belongs or the identifier of a layer to which a non-VCL NAL unit applies.
@@ -1605,199 +1617,174 @@ struct _GstH266SPSRangeExtensionParams {
  * Structure defining the H266 SPS.
  *
  * Since: 1.26
- */
-struct _GstH266SPS
-{
-  guint8 nuh_layer_id;
-  guint8 sps_id;
-  guint8 vps_id;
+  }
+{ calculated values  }
+  PGstH266SPS = ^TGstH266SPS;
+  TGstH266SPS = record
+      nuh_layer_id : Tguint8;
+      sps_id : Tguint8;
+      vps_id : Tguint8;
+      vps : PGstH266VPS;
+      max_sublayers_minus1 : Tguint8;
+      chroma_format_idc : Tguint8;
+      log2_ctu_size_minus5 : Tguint8;
+      ctu_size : Tguint;
+      ptl_dpb_hrd_params_present_flag : Tguint8;
+      dpb : TGstH266DPBParameters;
+      profile_tier_level : TGstH266ProfileTierLevel;
+      general_hrd_params : TGstH266GeneralHRDParameters;
+      ols_hrd_params : TGstH266OLSHRDParameters;
+      gdr_enabled_flag : Tguint8;
+      res_change_in_clvs_allowed_flag : Tguint8;
+      ref_pic_resampling_enabled_flag : Tguint8;
+      pic_width_max_in_luma_samples : Tguint16;
+      pic_height_max_in_luma_samples : Tguint16;
+      conformance_window_flag : Tguint8;
+      conf_win_left_offset : Tguint16;
+      conf_win_right_offset : Tguint16;
+      conf_win_top_offset : Tguint16;
+      conf_win_bottom_offset : Tguint16;
+      subpic_info_present_flag : Tguint8;
+      num_subpics_minus1 : Tguint16;
+      independent_subpics_flag : Tguint8;
+      subpic_same_size_flag : Tguint8;
+      subpic_ctu_top_left_x : array[0..(GST_H266_MAX_SLICES_PER_AU)-1] of Tguint16;
+      subpic_ctu_top_left_y : array[0..(GST_H266_MAX_SLICES_PER_AU)-1] of Tguint16;
+      subpic_width_minus1 : array[0..(GST_H266_MAX_SLICES_PER_AU)-1] of Tguint16;
+      subpic_height_minus1 : array[0..(GST_H266_MAX_SLICES_PER_AU)-1] of Tguint16;
+      subpic_treated_as_pic_flag : array[0..(GST_H266_MAX_SLICES_PER_AU)-1] of Tguint8;
+      loop_filter_across_subpic_enabled_flag : array[0..(GST_H266_MAX_SLICES_PER_AU)-1] of Tguint8;
+      subpic_id : array[0..(GST_H266_MAX_SLICES_PER_AU)-1] of Tguint32;
+      subpic_id_len_minus1 : Tguint8;
+      subpic_id_mapping_explicitly_signalled_flag : Tguint8;
+      subpic_id_mapping_present_flag : Tguint8;
+      bitdepth_minus8 : Tguint8;
+      entropy_coding_sync_enabled_flag : Tguint8;
+      entry_point_offsets_present_flag : Tguint8;
+      log2_max_pic_order_cnt_lsb_minus4 : Tguint8;
+      poc_msb_cycle_flag : Tguint8;
+      poc_msb_cycle_len_minus1 : Tguint8;
+      num_extra_ph_bytes : Tguint8;
+      extra_ph_bit_present_flag : array[0..15] of Tguint8;
+      num_extra_sh_bytes : Tguint8;
+      extra_sh_bit_present_flag : array[0..15] of Tguint8;
+      sublayer_dpb_params_flag : Tguint8;
+      log2_min_luma_coding_block_size_minus2 : Tguint8;
+      partition_constraints_override_enabled_flag : Tguint8;
+      log2_diff_min_qt_min_cb_intra_slice_luma : Tguint8;
+      max_mtt_hierarchy_depth_intra_slice_luma : Tguint8;
+      log2_diff_max_bt_min_qt_intra_slice_luma : Tguint8;
+      log2_diff_max_tt_min_qt_intra_slice_luma : Tguint8;
+      qtbtt_dual_tree_intra_flag : Tguint8;
+      log2_diff_min_qt_min_cb_intra_slice_chroma : Tguint8;
+      max_mtt_hierarchy_depth_intra_slice_chroma : Tguint8;
+      log2_diff_max_bt_min_qt_intra_slice_chroma : Tguint8;
+      log2_diff_max_tt_min_qt_intra_slice_chroma : Tguint8;
+      log2_diff_min_qt_min_cb_inter_slice : Tguint8;
+      max_mtt_hierarchy_depth_inter_slice : Tguint8;
+      log2_diff_max_bt_min_qt_inter_slice : Tguint8;
+      log2_diff_max_tt_min_qt_inter_slice : Tguint8;
+      max_luma_transform_size_64_flag : Tguint8;
+      transform_skip_enabled_flag : Tguint8;
+      log2_transform_skip_max_size_minus2 : Tguint8;
+      bdpcm_enabled_flag : Tguint8;
+      mts_enabled_flag : Tguint8;
+      explicit_mts_intra_enabled_flag : Tguint8;
+      explicit_mts_inter_enabled_flag : Tguint8;
+      lfnst_enabled_flag : Tguint8;
+      joint_cbcr_enabled_flag : Tguint8;
+      same_qp_table_for_chroma_flag : Tguint8;
+      qp_table_start_minus26 : array[0..(GST_H266_MAX_SAMPLE_ARRAYS)-1] of Tgint8;
+      num_points_in_qp_table_minus1 : array[0..(GST_H266_MAX_SAMPLE_ARRAYS)-1] of Tguint8;
+      delta_qp_in_val_minus1 : array[0..(GST_H266_MAX_SAMPLE_ARRAYS)-1] of array[0..(GST_H266_MAX_POINTS_IN_QP_TABLE)-1] of Tguint8;
+      delta_qp_diff_val : array[0..(GST_H266_MAX_SAMPLE_ARRAYS)-1] of array[0..(GST_H266_MAX_POINTS_IN_QP_TABLE)-1] of Tguint8;
+      sao_enabled_flag : Tguint8;
+      alf_enabled_flag : Tguint8;
+      ccalf_enabled_flag : Tguint8;
+      lmcs_enabled_flag : Tguint8;
+      weighted_pred_flag : Tguint8;
+      weighted_bipred_flag : Tguint8;
+      long_term_ref_pics_flag : Tguint8;
+      inter_layer_prediction_enabled_flag : Tguint8;
+      idr_rpl_present_flag : Tguint8;
+      rpl1_same_as_rpl0_flag : Tguint8;
+      num_ref_pic_lists : array[0..1] of Tguint8;
+      ref_pic_list_struct : array[0..1] of array[0..(GST_H266_MAX_REF_PIC_LISTS)-1] of TGstH266RefPicListStruct;
+      ref_wraparound_enabled_flag : Tguint8;
+      temporal_mvp_enabled_flag : Tguint8;
+      sbtmvp_enabled_flag : Tguint8;
+      amvr_enabled_flag : Tguint8;
+      bdof_enabled_flag : Tguint8;
+      bdof_control_present_in_ph_flag : Tguint8;
+      smvd_enabled_flag : Tguint8;
+      dmvr_enabled_flag : Tguint8;
+      dmvr_control_present_in_ph_flag : Tguint8;
+      mmvd_enabled_flag : Tguint8;
+      mmvd_fullpel_only_enabled_flag : Tguint8;
+      six_minus_max_num_merge_cand : Tguint8;
+      sbt_enabled_flag : Tguint8;
+      affine_enabled_flag : Tguint8;
+      five_minus_max_num_subblock_merge_cand : Tguint8;
+      sps_6param_affine_enabled_flag : Tguint8;
+      affine_amvr_enabled_flag : Tguint8;
+      affine_prof_enabled_flag : Tguint8;
+      prof_control_present_in_ph_flag : Tguint8;
+      bcw_enabled_flag : Tguint8;
+      ciip_enabled_flag : Tguint8;
+      gpm_enabled_flag : Tguint8;
+      max_num_merge_cand_minus_max_num_gpm_cand : Tguint8;
+      log2_parallel_merge_level_minus2 : Tguint8;
+      isp_enabled_flag : Tguint8;
+      mrl_enabled_flag : Tguint8;
+      mip_enabled_flag : Tguint8;
+      cclm_enabled_flag : Tguint8;
+      chroma_horizontal_collocated_flag : Tguint8;
+      chroma_vertical_collocated_flag : Tguint8;
+      palette_enabled_flag : Tguint8;
+      act_enabled_flag : Tguint8;
+      min_qp_prime_ts : Tguint8;
+      ibc_enabled_flag : Tguint8;
+      six_minus_max_num_ibc_merge_cand : Tguint8;
+      ladf_enabled_flag : Tguint8;
+      num_ladf_intervals_minus2 : Tguint8;
+      ladf_lowest_interval_qp_offset : Tgint8;
+      ladf_qp_offset : array[0..3] of Tgint8;
+      ladf_delta_threshold_minus1 : array[0..3] of Tguint16;
+      explicit_scaling_list_enabled_flag : Tguint8;
+      scaling_matrix_for_lfnst_disabled_flag : Tguint8;
+      scaling_matrix_for_alternative_colour_space_disabled_flag : Tguint8;
+      scaling_matrix_designated_colour_space_flag : Tguint8;
+      dep_quant_enabled_flag : Tguint8;
+      sign_data_hiding_enabled_flag : Tguint8;
+      virtual_boundaries_enabled_flag : Tguint8;
+      virtual_boundaries_present_flag : Tguint8;
+      num_ver_virtual_boundaries : Tguint32;
+      virtual_boundary_pos_x_minus1 : array[0..2] of Tguint16;
+      num_hor_virtual_boundaries : Tguint32;
+      virtual_boundary_pos_y_minus1 : array[0..2] of Tguint16;
+      timing_hrd_params_present_flag : Tguint8;
+      sublayer_cpb_params_present_flag : Tguint8;
+      field_seq_flag : Tguint8;
+      vui_parameters_present_flag : Tguint8;
+      vui_payload_size_minus1 : Tguint16;
+      vui_params : TGstH266VUIParams;
+      extension_flag : Tguint8;
+      range_extension_flag : Tguint8;
+      extension_7_flags : array[0..6] of Tguint8;
+      range_params : TGstH266SPSRangeExtensionParams;
+      max_width : Tgint;
+      max_height : Tgint;
+      crop_rect_width : Tgint;
+      crop_rect_height : Tgint;
+      crop_rect_x : Tgint;
+      crop_rect_y : Tgint;
+      fps_num : Tgint;
+      fps_den : Tgint;
+      chroma_qp_table : array[0..(GST_H266_MAX_SAMPLE_ARRAYS)-1] of array[0..(GST_H266_MAX_POINTS_IN_QP_TABLE)-1] of Tgint;
+      valid : Tgboolean;
+    end;
 
-  GstH266VPS *vps;
-
-  guint8 max_sublayers_minus1;
-  guint8 chroma_format_idc;
-  guint8 log2_ctu_size_minus5;
-  guint ctu_size;
-
-  guint8 ptl_dpb_hrd_params_present_flag;
-  GstH266DPBParameters dpb;
-  GstH266ProfileTierLevel profile_tier_level;
-  GstH266GeneralHRDParameters general_hrd_params;
-  GstH266OLSHRDParameters ols_hrd_params;
-
-  guint8 gdr_enabled_flag;
-  guint8 res_change_in_clvs_allowed_flag;
-  guint8 ref_pic_resampling_enabled_flag;
-
-  guint16 pic_width_max_in_luma_samples;
-  guint16 pic_height_max_in_luma_samples;
-
-  guint8 conformance_window_flag;
-  guint16 conf_win_left_offset;
-  guint16 conf_win_right_offset;
-  guint16 conf_win_top_offset;
-  guint16 conf_win_bottom_offset;
-
-  guint8 subpic_info_present_flag;
-  guint16 num_subpics_minus1;
-  guint8 independent_subpics_flag;
-  guint8 subpic_same_size_flag;
-  guint16 subpic_ctu_top_left_x[GST_H266_MAX_SLICES_PER_AU];
-  guint16 subpic_ctu_top_left_y[GST_H266_MAX_SLICES_PER_AU];
-  guint16 subpic_width_minus1[GST_H266_MAX_SLICES_PER_AU];
-  guint16 subpic_height_minus1[GST_H266_MAX_SLICES_PER_AU];
-  guint8 subpic_treated_as_pic_flag[GST_H266_MAX_SLICES_PER_AU];
-  guint8 loop_filter_across_subpic_enabled_flag[GST_H266_MAX_SLICES_PER_AU];
-  guint32 subpic_id[GST_H266_MAX_SLICES_PER_AU];
-  guint8 subpic_id_len_minus1;
-  guint8 subpic_id_mapping_explicitly_signalled_flag;
-  guint8 subpic_id_mapping_present_flag;
-
-  guint8 bitdepth_minus8;
-  guint8 entropy_coding_sync_enabled_flag;
-  guint8 entry_point_offsets_present_flag;
-
-  guint8 log2_max_pic_order_cnt_lsb_minus4;
-  guint8 poc_msb_cycle_flag;
-  guint8 poc_msb_cycle_len_minus1;
-
-  guint8 num_extra_ph_bytes;
-  guint8 extra_ph_bit_present_flag[16];
-  guint8 num_extra_sh_bytes;
-  guint8 extra_sh_bit_present_flag[16];
-
-  guint8 sublayer_dpb_params_flag;
-
-  guint8 log2_min_luma_coding_block_size_minus2;
-  guint8 partition_constraints_override_enabled_flag;
-  guint8 log2_diff_min_qt_min_cb_intra_slice_luma;
-  guint8 max_mtt_hierarchy_depth_intra_slice_luma;
-  guint8 log2_diff_max_bt_min_qt_intra_slice_luma;
-  guint8 log2_diff_max_tt_min_qt_intra_slice_luma;
-
-  guint8 qtbtt_dual_tree_intra_flag;
-  guint8 log2_diff_min_qt_min_cb_intra_slice_chroma;
-  guint8 max_mtt_hierarchy_depth_intra_slice_chroma;
-  guint8 log2_diff_max_bt_min_qt_intra_slice_chroma;
-  guint8 log2_diff_max_tt_min_qt_intra_slice_chroma;
-
-  guint8 log2_diff_min_qt_min_cb_inter_slice;
-  guint8 max_mtt_hierarchy_depth_inter_slice;
-  guint8 log2_diff_max_bt_min_qt_inter_slice;
-  guint8 log2_diff_max_tt_min_qt_inter_slice;
-
-  guint8 max_luma_transform_size_64_flag;
-
-  guint8 transform_skip_enabled_flag;
-  guint8 log2_transform_skip_max_size_minus2;
-  guint8 bdpcm_enabled_flag;
-
-  guint8 mts_enabled_flag;
-  guint8 explicit_mts_intra_enabled_flag;
-  guint8 explicit_mts_inter_enabled_flag;
-
-  guint8 lfnst_enabled_flag;
-
-  guint8 joint_cbcr_enabled_flag;
-  guint8 same_qp_table_for_chroma_flag;
-
-  gint8 qp_table_start_minus26[GST_H266_MAX_SAMPLE_ARRAYS];
-  guint8 num_points_in_qp_table_minus1[GST_H266_MAX_SAMPLE_ARRAYS];
-  guint8 delta_qp_in_val_minus1[GST_H266_MAX_SAMPLE_ARRAYS][GST_H266_MAX_POINTS_IN_QP_TABLE];
-  guint8 delta_qp_diff_val[GST_H266_MAX_SAMPLE_ARRAYS][GST_H266_MAX_POINTS_IN_QP_TABLE];
-
-  guint8 sao_enabled_flag;
-  guint8 alf_enabled_flag;
-  guint8 ccalf_enabled_flag;
-  guint8 lmcs_enabled_flag;
-  guint8 weighted_pred_flag;
-  guint8 weighted_bipred_flag;
-
-  guint8 long_term_ref_pics_flag;
-  guint8 inter_layer_prediction_enabled_flag;
-  guint8 idr_rpl_present_flag;
-  guint8 rpl1_same_as_rpl0_flag;
-  guint8 num_ref_pic_lists[2];
-  GstH266RefPicListStruct ref_pic_list_struct[2][GST_H266_MAX_REF_PIC_LISTS];
-
-  guint8 ref_wraparound_enabled_flag;
-  guint8 temporal_mvp_enabled_flag;
-  guint8 sbtmvp_enabled_flag;
-  guint8 amvr_enabled_flag;
-  guint8 bdof_enabled_flag;
-  guint8 bdof_control_present_in_ph_flag;
-  guint8 smvd_enabled_flag;
-  guint8 dmvr_enabled_flag;
-  guint8 dmvr_control_present_in_ph_flag;
-  guint8 mmvd_enabled_flag;
-  guint8 mmvd_fullpel_only_enabled_flag;
-  guint8 six_minus_max_num_merge_cand;
-  guint8 sbt_enabled_flag;
-  guint8 affine_enabled_flag;
-  guint8 five_minus_max_num_subblock_merge_cand;
-  guint8 sps_6param_affine_enabled_flag;
-  guint8 affine_amvr_enabled_flag;
-  guint8 affine_prof_enabled_flag;
-  guint8 prof_control_present_in_ph_flag;
-  guint8 bcw_enabled_flag;
-  guint8 ciip_enabled_flag;
-  guint8 gpm_enabled_flag;
-  guint8 max_num_merge_cand_minus_max_num_gpm_cand;
-  guint8 log2_parallel_merge_level_minus2;
-  guint8 isp_enabled_flag;
-  guint8 mrl_enabled_flag;
-  guint8 mip_enabled_flag;
-  guint8 cclm_enabled_flag;
-  guint8 chroma_horizontal_collocated_flag;
-  guint8 chroma_vertical_collocated_flag;
-  guint8 palette_enabled_flag;
-  guint8 act_enabled_flag;
-  guint8 min_qp_prime_ts;
-  guint8 ibc_enabled_flag;
-  guint8 six_minus_max_num_ibc_merge_cand;
-  guint8 ladf_enabled_flag;
-  guint8 num_ladf_intervals_minus2;
-  gint8 ladf_lowest_interval_qp_offset;
-  gint8 ladf_qp_offset[4];
-  guint16 ladf_delta_threshold_minus1[4];
-
-  guint8 explicit_scaling_list_enabled_flag;
-  guint8 scaling_matrix_for_lfnst_disabled_flag;
-  guint8 scaling_matrix_for_alternative_colour_space_disabled_flag;
-  guint8 scaling_matrix_designated_colour_space_flag;
-  guint8 dep_quant_enabled_flag;
-  guint8 sign_data_hiding_enabled_flag;
-
-  guint8 virtual_boundaries_enabled_flag;
-  guint8 virtual_boundaries_present_flag;
-  guint32 num_ver_virtual_boundaries;
-  guint16 virtual_boundary_pos_x_minus1[3];
-  guint32 num_hor_virtual_boundaries;
-  guint16 virtual_boundary_pos_y_minus1[3];
-
-  guint8 timing_hrd_params_present_flag;
-  guint8 sublayer_cpb_params_present_flag;
-
-  guint8 field_seq_flag;
-  guint8 vui_parameters_present_flag;
-  guint16 vui_payload_size_minus1;
-  GstH266VUIParams vui_params;
-
-  guint8 extension_flag;
-  guint8 range_extension_flag;
-  guint8 extension_7_flags[7];
-  GstH266SPSRangeExtensionParams range_params;
-
-  /* calculated values */
-  gint max_width, max_height;
-  gint crop_rect_width, crop_rect_height;
-  gint crop_rect_x, crop_rect_y;
-  gint fps_num, fps_den;
-  gint chroma_qp_table[GST_H266_MAX_SAMPLE_ARRAYS][GST_H266_MAX_POINTS_IN_QP_TABLE];
-  gboolean valid;
-};
-
-/**
+{*
  * GstH266PPS:
  * @pps_id: provides an identifier for the PPS for reference by other
  *  syntax elements.
@@ -1977,123 +1964,111 @@ struct _GstH266SPS
  * Structure defining the H266 PPS.
  *
  * Since: 1.26
- */
-struct _GstH266PPS
-{
-  guint8 pps_id;
-  guint8 sps_id;
+  }
+{ extension_data  }
+{ calculated value  }
+  PGstH266PPS = ^TGstH266PPS;
+  TGstH266PPS = record
+      pps_id : Tguint8;
+      sps_id : Tguint8;
+      sps : PGstH266SPS;
+      mixed_nalu_types_in_pic_flag : Tguint8;
+      pic_width_in_luma_samples : Tguint16;
+      pic_height_in_luma_samples : Tguint16;
+      conformance_window_flag : Tguint8;
+      conf_win_left_offset : Tguint16;
+      conf_win_right_offset : Tguint16;
+      conf_win_top_offset : Tguint16;
+      conf_win_bottom_offset : Tguint16;
+      scaling_window_explicit_signalling_flag : Tguint8;
+      scaling_win_left_offset : Tgint32;
+      scaling_win_right_offset : Tgint32;
+      scaling_win_top_offset : Tgint32;
+      scaling_win_bottom_offset : Tgint32;
+      output_flag_present_flag : Tguint8;
+      no_pic_partition_flag : Tguint8;
+      subpic_id_mapping_present_flag : Tguint8;
+      num_subpics_minus1 : Tguint32;
+      subpic_id_len_minus1 : Tguint32;
+      subpic_id : array[0..(GST_H266_MAX_SLICES_PER_AU)-1] of Tguint16;
+      log2_ctu_size_minus5 : Tguint8;
+      num_exp_tile_columns_minus1 : Tguint8;
+      num_exp_tile_rows_minus1 : Tguint8;
+      tile_column_width_minus1 : array[0..(GST_H266_MAX_TILE_COLUMNS)-1] of Tguint16;
+      tile_row_height_minus1 : array[0..(GST_H266_MAX_TILE_ROWS)-1] of Tguint16;
+      loop_filter_across_tiles_enabled_flag : Tguint8;
+      rect_slice_flag : Tguint8;
+      single_slice_per_subpic_flag : Tguint8;
+      num_slices_in_pic_minus1 : Tguint16;
+      tile_idx_delta_present_flag : Tguint8;
+      slice_width_in_tiles_minus1 : array[0..(GST_H266_MAX_SLICES_PER_AU)-1] of Tguint16;
+      slice_height_in_tiles_minus1 : array[0..(GST_H266_MAX_SLICES_PER_AU)-1] of Tguint16;
+      num_exp_slices_in_tile : array[0..(GST_H266_MAX_SLICES_PER_AU)-1] of Tguint16;
+      exp_slice_height_in_ctus_minus1 : array[0..(GST_H266_MAX_SLICES_PER_AU)-1] of array[0..(GST_H266_MAX_TILE_ROWS)-1] of Tguint16;
+      tile_idx_delta_val : array[0..(GST_H266_MAX_SLICES_PER_AU)-1] of Tgint16;
+      loop_filter_across_slices_enabled_flag : Tguint8;
+      cabac_init_present_flag : Tguint8;
+      num_ref_idx_default_active_minus1 : array[0..1] of Tguint8;
+      rpl1_idx_present_flag : Tguint8;
+      weighted_pred_flag : Tguint8;
+      weighted_bipred_flag : Tguint8;
+      ref_wraparound_enabled_flag : Tguint8;
+      pic_width_minus_wraparound_offset : Tguint16;
+      init_qp_minus26 : Tgint8;
+      cu_qp_delta_enabled_flag : Tguint8;
+      chroma_tool_offsets_present_flag : Tguint8;
+      cb_qp_offset : Tgint8;
+      cr_qp_offset : Tgint8;
+      joint_cbcr_qp_offset_present_flag : Tguint8;
+      joint_cbcr_qp_offset_value : Tgint8;
+      slice_chroma_qp_offsets_present_flag : Tguint8;
+      cu_chroma_qp_offset_list_enabled_flag : Tguint8;
+      chroma_qp_offset_list_len_minus1 : Tguint8;
+      cb_qp_offset_list : array[0..5] of Tguint8;
+      cr_qp_offset_list : array[0..5] of Tguint8;
+      joint_cbcr_qp_offset_list : array[0..5] of Tguint8;
+      deblocking_filter_control_present_flag : Tguint8;
+      deblocking_filter_override_enabled_flag : Tguint8;
+      deblocking_filter_disabled_flag : Tguint8;
+      dbf_info_in_ph_flag : Tguint8;
+      luma_beta_offset_div2 : Tgint8;
+      luma_tc_offset_div2 : Tgint8;
+      cb_beta_offset_div2 : Tgint8;
+      cb_tc_offset_div2 : Tgint8;
+      cr_beta_offset_div2 : Tgint8;
+      cr_tc_offset_div2 : Tgint8;
+      rpl_info_in_ph_flag : Tguint8;
+      sao_info_in_ph_flag : Tguint8;
+      alf_info_in_ph_flag : Tguint8;
+      wp_info_in_ph_flag : Tguint8;
+      qp_delta_info_in_ph_flag : Tguint8;
+      picture_header_extension_present_flag : Tguint8;
+      slice_header_extension_present_flag : Tguint8;
+      extension_flag : Tguint8;
+      extension_data_flag : Tguint8;
+      width : Tgint;
+      height : Tgint;
+      crop_rect_width : Tgint;
+      crop_rect_height : Tgint;
+      crop_rect_x : Tgint;
+      crop_rect_y : Tgint;
+      pic_width_in_ctbs_y : Tguint32;
+      pic_height_in_ctbs_y : Tguint32;
+      pic_size_in_ctbs_y : Tguint32;
+      num_tile_columns : Tguint32;
+      num_tile_rows : Tguint32;
+      num_tiles_in_pic : Tguint32;
+      tile_col_bd_val : array[0..(GST_H266_MAX_TILE_COLUMNS+1)-1] of Tguint32;
+      tile_row_bd_val : array[0..(GST_H266_MAX_TILE_ROWS+1)-1] of Tguint32;
+      slice_top_left_tile_idx : array[0..(GST_H266_MAX_SLICES_PER_AU)-1] of Tguint32;
+      slice_top_left_ctu_x : array[0..(GST_H266_MAX_SLICES_PER_AU)-1] of Tguint32;
+      slice_top_left_ctu_y : array[0..(GST_H266_MAX_SLICES_PER_AU)-1] of Tguint32;
+      slice_height_in_ctus : array[0..(GST_H266_MAX_SLICES_PER_AU)-1] of Tguint32;
+      num_slices_in_subpic : array[0..(GST_H266_MAX_SLICES_PER_AU)-1] of Tguint32;
+      valid : Tgboolean;
+    end;
 
-  GstH266SPS *sps;
-
-  guint8 mixed_nalu_types_in_pic_flag;
-  guint16 pic_width_in_luma_samples;
-  guint16 pic_height_in_luma_samples;
-
-  guint8 conformance_window_flag;
-  guint16 conf_win_left_offset;
-  guint16 conf_win_right_offset;
-  guint16 conf_win_top_offset;
-  guint16 conf_win_bottom_offset;
-
-  guint8 scaling_window_explicit_signalling_flag;
-  gint32 scaling_win_left_offset;
-  gint32 scaling_win_right_offset;
-  gint32 scaling_win_top_offset;
-  gint32 scaling_win_bottom_offset;
-
-  guint8 output_flag_present_flag;
-  guint8 no_pic_partition_flag;
-
-  guint8 subpic_id_mapping_present_flag;
-  guint32 num_subpics_minus1;
-  guint32 subpic_id_len_minus1;
-  guint16 subpic_id[GST_H266_MAX_SLICES_PER_AU];
-
-  guint8 log2_ctu_size_minus5;
-  guint8 num_exp_tile_columns_minus1;
-  guint8 num_exp_tile_rows_minus1;
-  guint16 tile_column_width_minus1[GST_H266_MAX_TILE_COLUMNS];
-  guint16 tile_row_height_minus1[GST_H266_MAX_TILE_ROWS];
-
-  guint8 loop_filter_across_tiles_enabled_flag;
-  guint8 rect_slice_flag;
-  guint8 single_slice_per_subpic_flag;
-
-  guint16 num_slices_in_pic_minus1;
-  guint8 tile_idx_delta_present_flag;
-  guint16 slice_width_in_tiles_minus1[GST_H266_MAX_SLICES_PER_AU];
-  guint16 slice_height_in_tiles_minus1[GST_H266_MAX_SLICES_PER_AU];
-  guint16 num_exp_slices_in_tile[GST_H266_MAX_SLICES_PER_AU];
-  guint16 exp_slice_height_in_ctus_minus1[GST_H266_MAX_SLICES_PER_AU][GST_H266_MAX_TILE_ROWS];
-  gint16 tile_idx_delta_val[GST_H266_MAX_SLICES_PER_AU];
-
-  guint8 loop_filter_across_slices_enabled_flag;
-  guint8 cabac_init_present_flag;
-  guint8 num_ref_idx_default_active_minus1[2];
-  guint8 rpl1_idx_present_flag;
-  guint8 weighted_pred_flag;
-  guint8 weighted_bipred_flag;
-  guint8 ref_wraparound_enabled_flag;
-  guint16 pic_width_minus_wraparound_offset;
-  gint8 init_qp_minus26;
-  guint8 cu_qp_delta_enabled_flag;
-  guint8 chroma_tool_offsets_present_flag;
-  gint8 cb_qp_offset;
-  gint8 cr_qp_offset;
-  guint8 joint_cbcr_qp_offset_present_flag;
-  gint8 joint_cbcr_qp_offset_value;
-  guint8 slice_chroma_qp_offsets_present_flag;
-  guint8 cu_chroma_qp_offset_list_enabled_flag;
-  guint8 chroma_qp_offset_list_len_minus1;
-  guint8 cb_qp_offset_list[6];
-  guint8 cr_qp_offset_list[6];
-  guint8 joint_cbcr_qp_offset_list[6];
-  guint8 deblocking_filter_control_present_flag;
-  guint8 deblocking_filter_override_enabled_flag;
-  guint8 deblocking_filter_disabled_flag;
-  guint8 dbf_info_in_ph_flag;
-
-  gint8 luma_beta_offset_div2;
-  gint8 luma_tc_offset_div2;
-  gint8 cb_beta_offset_div2;
-  gint8 cb_tc_offset_div2;
-  gint8 cr_beta_offset_div2;
-  gint8 cr_tc_offset_div2;
-
-  guint8 rpl_info_in_ph_flag;
-  guint8 sao_info_in_ph_flag;
-  guint8 alf_info_in_ph_flag;
-  guint8 wp_info_in_ph_flag;
-  guint8 qp_delta_info_in_ph_flag;
-
-  guint8 picture_header_extension_present_flag;
-  guint8 slice_header_extension_present_flag;
-  guint8 extension_flag;
-  guint8 extension_data_flag;
-
-  /* extension_data */
-
-  /* calculated value */
-  gint width, height;
-  gint crop_rect_width, crop_rect_height;
-  gint crop_rect_x, crop_rect_y;
-  guint32 pic_width_in_ctbs_y, pic_height_in_ctbs_y;
-  guint32 pic_size_in_ctbs_y;
-  guint32 num_tile_columns;
-  guint32 num_tile_rows;
-  guint32 num_tiles_in_pic;
-  guint32 tile_col_bd_val[GST_H266_MAX_TILE_COLUMNS + 1];
-  guint32 tile_row_bd_val[GST_H266_MAX_TILE_ROWS + 1];
-  guint32 slice_top_left_tile_idx[GST_H266_MAX_SLICES_PER_AU];
-  guint32 slice_top_left_ctu_x[GST_H266_MAX_SLICES_PER_AU];
-  guint32 slice_top_left_ctu_y[GST_H266_MAX_SLICES_PER_AU];
-  guint32 slice_height_in_ctus[GST_H266_MAX_SLICES_PER_AU];
-  guint32 num_slices_in_subpic[GST_H266_MAX_SLICES_PER_AU];
-
-  gboolean valid;
-};
-
-/**
+{*
  * GstH266ALF:
  * @luma_filter_signal_flag: specifies whether a luma filter set is signalled.
  * @chroma_filter_signal_flag: specifies whether a chroma filter is signalled.
@@ -2142,33 +2117,33 @@ struct _GstH266PPS
  * Structure defining the H266 ALF parameters.
  *
  * Since: 1.26
- */
-struct _GstH266ALF
-{
-  guint8 luma_filter_signal_flag;
-  guint8 chroma_filter_signal_flag;
-  guint8 cc_cb_filter_signal_flag;
-  guint8 cc_cr_filter_signal_flag;
-  guint8 luma_clip_flag;
-  guint8 luma_num_filters_signalled_minus1;
-  guint8 luma_coeff_delta_idx[GST_H266_NUM_ALF_FILTERS];
-  guint8 luma_coeff_abs[GST_H266_NUM_ALF_FILTERS][12];
-  guint8 luma_coeff_sign[GST_H266_NUM_ALF_FILTERS][12];
-  guint8 luma_clip_idx[GST_H266_NUM_ALF_FILTERS][12];
-  guint8 chroma_clip_flag;
-  guint8 chroma_num_alt_filters_minus1;
-  guint8 chroma_coeff_abs[8][6];
-  guint8 chroma_coeff_sign[8][6];
-  guint8 chroma_clip_idx[8][6];
-  guint8 cc_cb_filters_signalled_minus1;
-  guint8 cc_cb_mapped_coeff_abs[4][7];
-  guint8 cc_cb_coeff_sign[4][7];
-  guint8 cc_cr_filters_signalled_minus1;
-  guint8 cc_cr_mapped_coeff_abs[4][7];
-  guint8 cc_cr_coeff_sign[4][7];
-};
+  }
+  PGstH266ALF = ^TGstH266ALF;
+  TGstH266ALF = record
+      luma_filter_signal_flag : Tguint8;
+      chroma_filter_signal_flag : Tguint8;
+      cc_cb_filter_signal_flag : Tguint8;
+      cc_cr_filter_signal_flag : Tguint8;
+      luma_clip_flag : Tguint8;
+      luma_num_filters_signalled_minus1 : Tguint8;
+      luma_coeff_delta_idx : array[0..(GST_H266_NUM_ALF_FILTERS)-1] of Tguint8;
+      luma_coeff_abs : array[0..(GST_H266_NUM_ALF_FILTERS)-1] of array[0..11] of Tguint8;
+      luma_coeff_sign : array[0..(GST_H266_NUM_ALF_FILTERS)-1] of array[0..11] of Tguint8;
+      luma_clip_idx : array[0..(GST_H266_NUM_ALF_FILTERS)-1] of array[0..11] of Tguint8;
+      chroma_clip_flag : Tguint8;
+      chroma_num_alt_filters_minus1 : Tguint8;
+      chroma_coeff_abs : array[0..7] of array[0..5] of Tguint8;
+      chroma_coeff_sign : array[0..7] of array[0..5] of Tguint8;
+      chroma_clip_idx : array[0..7] of array[0..5] of Tguint8;
+      cc_cb_filters_signalled_minus1 : Tguint8;
+      cc_cb_mapped_coeff_abs : array[0..3] of array[0..6] of Tguint8;
+      cc_cb_coeff_sign : array[0..3] of array[0..6] of Tguint8;
+      cc_cr_filters_signalled_minus1 : Tguint8;
+      cc_cr_mapped_coeff_abs : array[0..3] of array[0..6] of Tguint8;
+      cc_cr_coeff_sign : array[0..3] of array[0..6] of Tguint8;
+    end;
 
-/**
+{*
  * GstH266LMCS:
  * @min_bin_idx: minimum bin index used in the luma mapping with chroma scaling
  *  construction process.
@@ -2186,19 +2161,19 @@ struct _GstH266ALF
  * Structure defining the H266 LMCS parameters.
  *
  * Since: 1.26
- */
-struct _GstH266LMCS
-{
-  guint8 min_bin_idx;
-  guint8 delta_max_bin_idx;
-  guint8 delta_cw_prec_minus1;
-  guint8 delta_abs_cw[16];
-  guint8 delta_sign_cw_flag[16];
-  guint8 delta_abs_crs;
-  guint8 delta_sign_crs_flag;
-};
+  }
+  PGstH266LMCS = ^TGstH266LMCS;
+  TGstH266LMCS = record
+      min_bin_idx : Tguint8;
+      delta_max_bin_idx : Tguint8;
+      delta_cw_prec_minus1 : Tguint8;
+      delta_abs_cw : array[0..15] of Tguint8;
+      delta_sign_cw_flag : array[0..15] of Tguint8;
+      delta_abs_crs : Tguint8;
+      delta_sign_crs_flag : Tguint8;
+    end;
 
-/**
+{*
  * GstH266ScalingList:
  * @copy_mode_flag: specifies whether the values of the scaling list are the
  *  same as the values of a reference scaling list.
@@ -2215,19 +2190,19 @@ struct _GstH266LMCS
  * Structure defining the H266 scaling list parameters.
  *
  * Since: 1.26
- */
-struct _GstH266ScalingList
-{
-  guint8 copy_mode_flag[28];
-  guint8 pred_mode_flag[28];
-  guint8 pred_id_delta[28];
-  gint8 dc_coef[14];
-  gint8 delta_coef[28][64];
-  guint8 scaling_list_DC[14];
-  guint8 scaling_list[28][64];
-};
+  }
+  PGstH266ScalingList = ^TGstH266ScalingList;
+  TGstH266ScalingList = record
+      copy_mode_flag : array[0..27] of Tguint8;
+      pred_mode_flag : array[0..27] of Tguint8;
+      pred_id_delta : array[0..27] of Tguint8;
+      dc_coef : array[0..13] of Tgint8;
+      delta_coef : array[0..27] of array[0..63] of Tgint8;
+      scaling_list_DC : array[0..13] of Tguint8;
+      scaling_list : array[0..27] of array[0..63] of Tguint8;
+    end;
 
-/**
+{*
  * GstH266APS:
  * @params_type: specifies the type of APS parameters carried in the APS as
  *  specified in Table 6.
@@ -2248,25 +2223,24 @@ struct _GstH266ScalingList
  * Structure defining the H266 Adaptation Parameter Set.
  *
  * Since: 1.26
- */
-struct _GstH266APS
-{
-  GstH266APSType params_type;
-  guint8 aps_id;
-  guint8 chroma_present_flag;
+  }
+  PGstH266APS = ^TGstH266APS;
+  TGstH266APS = record
+      params_type : TGstH266APSType;
+      aps_id : Tguint8;
+      chroma_present_flag : Tguint8;
+      xxxxxx : record
+          case longint of
+            0 : ( alf : TGstH266ALF );
+            1 : ( lmcs : TGstH266LMCS );
+            2 : ( sl : TGstH266ScalingList );
+          end;
+      extension_flag : Tguint8;
+      extension_data_flag : Tguint8;
+      valid : Tgboolean;
+    end;
 
-  union {
-    GstH266ALF alf;
-    GstH266LMCS lmcs;
-    GstH266ScalingList sl;
-  };
-
-  guint8 extension_flag;
-  guint8 extension_data_flag;
-  gboolean valid;
-};
-
-/**
+{*
  * GstH266PredWeightTable:
  * @luma_log2_weight_denom: the base 2 logarithm of the denominator for all
  *  luma weighting factors.
@@ -2304,30 +2278,28 @@ struct _GstH266APS
  * Structure defining the H266 weight table parameters.
  *
  * Since: 1.26
- */
-struct _GstH266PredWeightTable
-{
-  guint8 luma_log2_weight_denom;
-  gint8 delta_chroma_log2_weight_denom;
+  }
+  PGstH266PredWeightTable = ^TGstH266PredWeightTable;
+  TGstH266PredWeightTable = record
+      luma_log2_weight_denom : Tguint8;
+      delta_chroma_log2_weight_denom : Tgint8;
+      num_l0_weights : Tguint8;
+      luma_weight_l0_flag : array[0..14] of Tguint8;
+      chroma_weight_l0_flag : array[0..14] of Tguint8;
+      delta_luma_weight_l0 : array[0..14] of Tgint8;
+      luma_offset_l0 : array[0..14] of Tgint8;
+      delta_chroma_weight_l0 : array[0..14] of array[0..1] of Tgint8;
+      delta_chroma_offset_l0 : array[0..14] of array[0..1] of Tgint16;
+      num_l1_weights : Tguint8;
+      luma_weight_l1_flag : array[0..14] of Tguint8;
+      chroma_weight_l1_flag : array[0..14] of Tguint8;
+      delta_luma_weight_l1 : array[0..14] of Tgint8;
+      luma_offset_l1 : array[0..14] of Tgint8;
+      delta_chroma_weight_l1 : array[0..14] of array[0..1] of Tgint8;
+      delta_chroma_offset_l1 : array[0..14] of array[0..1] of Tgint16;
+    end;
 
-  guint8 num_l0_weights;
-  guint8 luma_weight_l0_flag[15];
-  guint8 chroma_weight_l0_flag[15];
-  gint8 delta_luma_weight_l0[15];
-  gint8 luma_offset_l0[15];
-  gint8 delta_chroma_weight_l0[15][2];
-  gint16 delta_chroma_offset_l0[15][2];
-
-  guint8 num_l1_weights;
-  guint8 luma_weight_l1_flag[15];
-  guint8 chroma_weight_l1_flag[15];
-  gint8 delta_luma_weight_l1[15];
-  gint8 luma_offset_l1[15];
-  gint8 delta_chroma_weight_l1[15][2];
-  gint16 delta_chroma_offset_l1[15][2];
-};
-
-/**
+{*
  * GstH266PicHdr:
  * @gdr_or_irap_pic_flag: specifies whethers the current picture is a GDR or
  *  IRAP picture.
@@ -2499,103 +2471,87 @@ struct _GstH266PredWeightTable
  * Structure defining the H266 picture header.
  *
  * Since: 1.26
- */
-struct _GstH266PicHdr {
-  guint8 gdr_or_irap_pic_flag;
-  guint8 non_ref_pic_flag;
-  guint8 gdr_pic_flag;
-  guint8 inter_slice_allowed_flag;
-  guint8 intra_slice_allowed_flag;
+  }
+  PGstH266PicHdr = ^TGstH266PicHdr;
+  TGstH266PicHdr = record
+      gdr_or_irap_pic_flag : Tguint8;
+      non_ref_pic_flag : Tguint8;
+      gdr_pic_flag : Tguint8;
+      inter_slice_allowed_flag : Tguint8;
+      intra_slice_allowed_flag : Tguint8;
+      pps_id : Tguint8;
+      pps : PGstH266PPS;
+      pic_order_cnt_lsb : Tguint16;
+      recovery_poc_cnt : Tguint8;
+      extra_bit : array[0..15] of Tguint8;
+      poc_msb_cycle_present_flag : Tguint8;
+      poc_msb_cycle_val : Tguint8;
+      alf_enabled_flag : Tguint8;
+      num_alf_aps_ids_luma : Tguint8;
+      alf_aps_id_luma : array[0..7] of Tguint8;
+      alf_cb_enabled_flag : Tguint8;
+      alf_cr_enabled_flag : Tguint8;
+      alf_aps_id_chroma : Tguint8;
+      alf_cc_cb_enabled_flag : Tguint8;
+      alf_cc_cb_aps_id : Tguint8;
+      alf_cc_cr_enabled_flag : Tguint8;
+      alf_cc_cr_aps_id : Tguint8;
+      lmcs_enabled_flag : Tguint8;
+      lmcs_aps_id : Tguint8;
+      chroma_residual_scale_flag : Tguint8;
+      explicit_scaling_list_enabled_flag : Tguint8;
+      scaling_list_aps_id : Tguint8;
+      virtual_boundaries_present_flag : Tguint8;
+      num_ver_virtual_boundaries : Tguint8;
+      virtual_boundary_pos_x_minus1 : array[0..2] of Tguint16;
+      num_hor_virtual_boundaries : Tguint8;
+      virtual_boundary_pos_y_minus1 : array[0..2] of Tguint16;
+      pic_output_flag : Tguint8;
+      ref_pic_lists : TGstH266RefPicLists;
+      partition_constraints_override_flag : Tguint8;
+      log2_diff_min_qt_min_cb_intra_slice_luma : Tguint8;
+      max_mtt_hierarchy_depth_intra_slice_luma : Tguint8;
+      log2_diff_max_bt_min_qt_intra_slice_luma : Tguint8;
+      log2_diff_max_tt_min_qt_intra_slice_luma : Tguint8;
+      log2_diff_min_qt_min_cb_intra_slice_chroma : Tguint8;
+      max_mtt_hierarchy_depth_intra_slice_chroma : Tguint8;
+      log2_diff_max_bt_min_qt_intra_slice_chroma : Tguint8;
+      log2_diff_max_tt_min_qt_intra_slice_chroma : Tguint8;
+      cu_qp_delta_subdiv_intra_slice : Tguint8;
+      cu_chroma_qp_offset_subdiv_intra_slice : Tguint8;
+      log2_diff_min_qt_min_cb_inter_slice : Tguint8;
+      max_mtt_hierarchy_depth_inter_slice : Tguint8;
+      log2_diff_max_bt_min_qt_inter_slice : Tguint8;
+      log2_diff_max_tt_min_qt_inter_slice : Tguint8;
+      cu_qp_delta_subdiv_inter_slice : Tguint8;
+      cu_chroma_qp_offset_subdiv_inter_slice : Tguint8;
+      temporal_mvp_enabled_flag : Tguint8;
+      collocated_from_l0_flag : Tguint8;
+      collocated_ref_idx : Tguint8;
+      mmvd_fullpel_only_flag : Tguint8;
+      mvd_l1_zero_flag : Tguint8;
+      bdof_disabled_flag : Tguint8;
+      dmvr_disabled_flag : Tguint8;
+      prof_disabled_flag : Tguint8;
+      pred_weight_table : TGstH266PredWeightTable;
+      qp_delta : Tgint8;
+      joint_cbcr_sign_flag : Tguint8;
+      sao_luma_enabled_flag : Tguint8;
+      sao_chroma_enabled_flag : Tguint8;
+      deblocking_params_present_flag : Tguint8;
+      deblocking_filter_disabled_flag : Tguint8;
+      luma_beta_offset_div2 : Tgint8;
+      luma_tc_offset_div2 : Tgint8;
+      cb_beta_offset_div2 : Tgint8;
+      cb_tc_offset_div2 : Tgint8;
+      cr_beta_offset_div2 : Tgint8;
+      cr_tc_offset_div2 : Tgint8;
+      extension_length : Tguint8;
+      extension_data_byte : array[0..255] of Tguint8;
+      valid : Tgboolean;
+    end;
 
-  guint8 pps_id;
-  GstH266PPS *pps;
-
-  guint16 pic_order_cnt_lsb;
-  guint8 recovery_poc_cnt;
-  guint8 extra_bit[16];
-  guint8 poc_msb_cycle_present_flag;
-  guint8 poc_msb_cycle_val;
-
-  guint8 alf_enabled_flag;
-  guint8 num_alf_aps_ids_luma;
-  guint8 alf_aps_id_luma[8];
-  guint8 alf_cb_enabled_flag;
-  guint8 alf_cr_enabled_flag;
-  guint8 alf_aps_id_chroma;
-  guint8 alf_cc_cb_enabled_flag;
-  guint8 alf_cc_cb_aps_id;
-  guint8 alf_cc_cr_enabled_flag;
-  guint8 alf_cc_cr_aps_id;
-
-  guint8 lmcs_enabled_flag;
-  guint8 lmcs_aps_id;
-  guint8 chroma_residual_scale_flag;
-  guint8 explicit_scaling_list_enabled_flag;
-  guint8 scaling_list_aps_id;
-
-  guint8 virtual_boundaries_present_flag;
-  guint8 num_ver_virtual_boundaries;
-  guint16 virtual_boundary_pos_x_minus1[3];
-  guint8 num_hor_virtual_boundaries;
-  guint16 virtual_boundary_pos_y_minus1[3];
-
-  guint8 pic_output_flag;
-  GstH266RefPicLists ref_pic_lists;
-
-  guint8 partition_constraints_override_flag;
-
-  guint8 log2_diff_min_qt_min_cb_intra_slice_luma;
-  guint8 max_mtt_hierarchy_depth_intra_slice_luma;
-  guint8 log2_diff_max_bt_min_qt_intra_slice_luma;
-  guint8 log2_diff_max_tt_min_qt_intra_slice_luma;
-  guint8 log2_diff_min_qt_min_cb_intra_slice_chroma;
-
-  guint8 max_mtt_hierarchy_depth_intra_slice_chroma;
-  guint8 log2_diff_max_bt_min_qt_intra_slice_chroma;
-  guint8 log2_diff_max_tt_min_qt_intra_slice_chroma;
-
-  guint8 cu_qp_delta_subdiv_intra_slice;
-  guint8 cu_chroma_qp_offset_subdiv_intra_slice;
-
-  guint8 log2_diff_min_qt_min_cb_inter_slice;
-  guint8 max_mtt_hierarchy_depth_inter_slice;
-  guint8 log2_diff_max_bt_min_qt_inter_slice;
-  guint8 log2_diff_max_tt_min_qt_inter_slice;
-  guint8 cu_qp_delta_subdiv_inter_slice;
-  guint8 cu_chroma_qp_offset_subdiv_inter_slice;
-
-  guint8 temporal_mvp_enabled_flag;
-  guint8 collocated_from_l0_flag;
-  guint8 collocated_ref_idx;
-  guint8 mmvd_fullpel_only_flag;
-  guint8 mvd_l1_zero_flag;
-  guint8 bdof_disabled_flag;
-  guint8 dmvr_disabled_flag;
-  guint8 prof_disabled_flag;
-
-  GstH266PredWeightTable pred_weight_table;
-
-  gint8 qp_delta;
-  guint8 joint_cbcr_sign_flag;
-  guint8 sao_luma_enabled_flag;
-  guint8 sao_chroma_enabled_flag;
-
-  guint8 deblocking_params_present_flag;
-  guint8 deblocking_filter_disabled_flag;
-  gint8 luma_beta_offset_div2;
-  gint8 luma_tc_offset_div2;
-  gint8 cb_beta_offset_div2;
-  gint8 cb_tc_offset_div2;
-  gint8 cr_beta_offset_div2;
-  gint8 cr_tc_offset_div2;
-
-  guint8 extension_length;
-  guint8 extension_data_byte[256];
-
-  gboolean valid;
-};
-
-/**
+{*
  * GstH266SliceHdr:
  * @gdr_or_irap_pic_flag: specifies that the PH syntax structure is present in
  *  the slice header.
@@ -2701,84 +2657,71 @@ struct _GstH266PicHdr {
  * Structure defining the H266 slice header.
  *
  * Since: 1.26
- */
-struct _GstH266SliceHdr
-{
-  guint8 picture_header_in_slice_header_flag;
-  GstH266PicHdr picture_header;
+  }
+{ Size of the slice_header() in bits  }
+{ Number of emulation prevention bytes (EPB) in this slice_header()  }
+  PGstH266SliceHdr = ^TGstH266SliceHdr;
+  TGstH266SliceHdr = record
+      picture_header_in_slice_header_flag : Tguint8;
+      picture_header : TGstH266PicHdr;
+      subpic_id : Tguint16;
+      slice_address : Tguint16;
+      extra_bit : array[0..15] of Tguint8;
+      num_tiles_in_slice_minus1 : Tguint8;
+      slice_type : Tguint8;
+      no_output_of_prior_pics_flag : Tguint8;
+      alf_enabled_flag : Tguint8;
+      num_alf_aps_ids_luma : Tguint8;
+      alf_aps_id_luma : array[0..7] of Tguint8;
+      alf_cb_enabled_flag : Tguint8;
+      alf_cr_enabled_flag : Tguint8;
+      alf_aps_id_chroma : Tguint8;
+      alf_cc_cb_enabled_flag : Tguint8;
+      alf_cc_cb_aps_id : Tguint8;
+      alf_cc_cr_enabled_flag : Tguint8;
+      alf_cc_cr_aps_id : Tguint8;
+      lmcs_used_flag : Tguint8;
+      explicit_scaling_list_used_flag : Tguint8;
+      ref_pic_lists : TGstH266RefPicLists;
+      num_ref_idx_active_override_flag : Tguint8;
+      num_ref_idx_active_minus1 : array[0..1] of Tguint8;
+      num_ref_idx_active : array[0..1] of Tguint8;
+      cabac_init_flag : Tguint8;
+      collocated_from_l0_flag : Tguint8;
+      collocated_ref_idx : Tguint8;
+      pred_weight_table : TGstH266PredWeightTable;
+      slice_qp_y : Tgint8;
+      qp_delta : Tgint8;
+      cb_qp_offset : Tgint8;
+      cr_qp_offset : Tgint8;
+      joint_cbcr_qp_offset : Tgint8;
+      cu_chroma_qp_offset_enabled_flag : Tguint8;
+      sao_luma_used_flag : Tguint8;
+      sao_chroma_used_flag : Tguint8;
+      deblocking_params_present_flag : Tguint8;
+      deblocking_filter_disabled_flag : Tguint8;
+      luma_beta_offset_div2 : Tgint8;
+      luma_tc_offset_div2 : Tgint8;
+      cb_beta_offset_div2 : Tgint8;
+      cb_tc_offset_div2 : Tgint8;
+      cr_beta_offset_div2 : Tgint8;
+      cr_tc_offset_div2 : Tgint8;
+      dep_quant_used_flag : Tguint8;
+      sign_data_hiding_used_flag : Tguint8;
+      ts_residual_coding_disabled_flag : Tguint8;
+      ts_residual_coding_rice_idx_minus1 : Tguint8;
+      reverse_last_sig_coeff_flag : Tguint8;
+      slice_header_extension_length : Tguint16;
+      slice_header_extension_data_byte : array[0..255] of Tguint8;
+      num_entry_points : Tguint16;
+      entry_point_start_ctu : array[0..(GST_H266_MAX_ENTRY_POINTS)-1] of Tguint16;
+      entry_offset_len_minus1 : Tguint8;
+      entry_point_offset_minus1 : array[0..(GST_H266_MAX_ENTRY_POINTS)-1] of Tguint32;
+      header_size : Tguint;
+      n_emulation_prevention_bytes : Tguint;
+    end;
 
-  guint16 subpic_id;
-  guint16 slice_address;
-  guint8 extra_bit[16];
-  guint8 num_tiles_in_slice_minus1;
-  guint8 slice_type;
-  guint8 no_output_of_prior_pics_flag;
-
-  guint8 alf_enabled_flag;
-  guint8 num_alf_aps_ids_luma;
-  guint8 alf_aps_id_luma[8];
-  guint8 alf_cb_enabled_flag;
-  guint8 alf_cr_enabled_flag;
-  guint8 alf_aps_id_chroma;
-  guint8 alf_cc_cb_enabled_flag;
-  guint8 alf_cc_cb_aps_id;
-  guint8 alf_cc_cr_enabled_flag;
-  guint8 alf_cc_cr_aps_id;
-
-  guint8 lmcs_used_flag;
-  guint8 explicit_scaling_list_used_flag;
-
-  GstH266RefPicLists ref_pic_lists;
-
-  guint8 num_ref_idx_active_override_flag;
-  guint8 num_ref_idx_active_minus1[2];
-  guint8 num_ref_idx_active[2];
-  guint8 cabac_init_flag;
-  guint8 collocated_from_l0_flag;
-  guint8 collocated_ref_idx;
-
-  GstH266PredWeightTable pred_weight_table;
-
-  gint8 slice_qp_y;
-  gint8 qp_delta;
-  gint8 cb_qp_offset;
-  gint8 cr_qp_offset;
-  gint8 joint_cbcr_qp_offset;
-  guint8 cu_chroma_qp_offset_enabled_flag;
-
-  guint8 sao_luma_used_flag;
-  guint8 sao_chroma_used_flag;
-
-  guint8 deblocking_params_present_flag;
-  guint8 deblocking_filter_disabled_flag;
-  gint8 luma_beta_offset_div2;
-  gint8 luma_tc_offset_div2;
-  gint8 cb_beta_offset_div2;
-  gint8 cb_tc_offset_div2;
-  gint8 cr_beta_offset_div2;
-  gint8 cr_tc_offset_div2;
-  guint8 dep_quant_used_flag;
-
-  guint8 sign_data_hiding_used_flag;
-  guint8 ts_residual_coding_disabled_flag;
-  guint8 ts_residual_coding_rice_idx_minus1;
-  guint8 reverse_last_sig_coeff_flag;
-
-  guint16 slice_header_extension_length;
-  guint8 slice_header_extension_data_byte[256];
-
-  guint16 num_entry_points;
-  guint16 entry_point_start_ctu[GST_H266_MAX_ENTRY_POINTS];
-  guint8 entry_offset_len_minus1;
-  guint32 entry_point_offset_minus1[GST_H266_MAX_ENTRY_POINTS];
-
-  /* Size of the slice_header() in bits */
-  guint header_size;
-  /* Number of emulation prevention bytes (EPB) in this slice_header() */
-  guint n_emulation_prevention_bytes;
-};
-
-/**
+{*
  * GstH266AUD:
  * @irap_or_gdr_flag: specifies whether the AU containing the AU delimiter is
  *  an IRAP or GDR AU.
@@ -2787,13 +2730,14 @@ struct _GstH266SliceHdr
  * Structure defining the H266 AU delimiter.
  *
  * Since: 1.26
- */
-struct _GstH266AUD {
-  guint8 irap_or_gdr_flag;
-  guint8 pic_type;
-};
+  }
+  PGstH266AUD = ^TGstH266AUD;
+  TGstH266AUD = record
+      irap_or_gdr_flag : Tguint8;
+      pic_type : Tguint8;
+    end;
 
-/**
+{*
  * GstH266OPI:
  * @ols_info_present_flag: specifies whether opi_ols_idx is present in the OPI.
  * @htid_info_present_flag: specifies whether opi_htid_plus1 is present.
@@ -2812,19 +2756,19 @@ struct _GstH266AUD {
  * Structure defining the H266 operating point information.
  *
  * Since: 1.26
- */
-struct _GstH266OPI {
-  guint8 ols_info_present_flag;
-  guint8 htid_info_present_flag;
-  guint ols_idx;
-  guint8 htid_plus1;
-  guint8 extension_flag;
-  guint8 extension_data_flag;
+  }
+{ extension_data  }
+  PGstH266OPI = ^TGstH266OPI;
+  TGstH266OPI = record
+      ols_info_present_flag : Tguint8;
+      htid_info_present_flag : Tguint8;
+      ols_idx : Tguint;
+      htid_plus1 : Tguint8;
+      extension_flag : Tguint8;
+      extension_data_flag : Tguint8;
+    end;
 
-  /* extension_data */
-};
-
-/**
+{*
  * GstH266DCI:
  * @num_ptls_minus1: specifies the number of profile_tier_level syntax
  *  structures in the DCI NAL unit.
@@ -2835,17 +2779,17 @@ struct _GstH266OPI {
  * Structure defining the H266 decoding capability information.
  *
  * Since: 1.26
- */
-struct _GstH266DCI {
-  guint8 num_ptls_minus1;
-  GstH266ProfileTierLevel profile_tier_level[15];
-  guint8 extension_flag;
-  guint8 extension_data_flag;
+  }
+{ extension_data  }
+  PGstH266DCI = ^TGstH266DCI;
+  TGstH266DCI = record
+      num_ptls_minus1 : Tguint8;
+      profile_tier_level : array[0..14] of TGstH266ProfileTierLevel;
+      extension_flag : Tguint8;
+      extension_data_flag : Tguint8;
+    end;
 
-  /* extension_data */
-};
-
-/**
+{*
  * GstH266BufferingPeriod:
  * @nal_hrd_params_present_flag: specifies whether a list of syntax element
  *  pairs bp_nal_initial_cpb_removal_delay and bp_nal_initial_cpb_removal_offset
@@ -2927,43 +2871,44 @@ struct _GstH266DCI {
  * Structure defining the H266 buffering period.
  *
  * Since: 1.26
- */
-struct _GstH266BufferingPeriod {
-  guint8 nal_hrd_params_present_flag;
-  guint8 vcl_hrd_params_present_flag;
-  guint8 cpb_initial_removal_delay_length_minus1;
-  guint8 cpb_removal_delay_length_minus1;
-  guint8 dpb_output_delay_length_minus1;
-  guint8 du_hrd_params_present_flag;
-  guint8 du_cpb_removal_delay_increment_length_minus1;
-  guint8 dpb_output_delay_du_length_minus1;
-  guint8 du_cpb_params_in_pic_timing_sei_flag;
-  guint8 du_dpb_params_in_pic_timing_sei_flag;
-  guint8 concatenation_flag;
-  guint8 additional_concatenation_info_present_flag;
-  guint8 max_initial_removal_delay_for_concatenation;
-  guint8 cpb_removal_delay_delta_minus1;
-  guint8 max_sublayers_minus1;
-  guint8 cpb_removal_delay_deltas_present_flag;
-  guint8 num_cpb_removal_delay_deltas_minus1;
-  guint8 cpb_removal_delay_delta_val[16];
-  guint8 cpb_cnt_minus1;
-  guint8 sublayer_initial_cpb_removal_delay_present_flag;
-  guint8 nal_initial_cpb_removal_delay[8][32];
-  guint8 nal_initial_cpb_removal_offset[8][32];
-  guint8 nal_initial_alt_cpb_removal_delay[8][32];
-  guint8 nal_initial_alt_cpb_removal_offset[8][32];
-  guint8 vcl_initial_cpb_removal_delay[8][32];
-  guint8 vcl_initial_cpb_removal_offset[8][32];
-  guint8 vcl_initial_alt_cpb_removal_delay[8][32];
-  guint8 vcl_initial_alt_cpb_removal_offset[8][32];
-  guint8 sublayer_dpb_output_offsets_present_flag;
-  guint32 dpb_output_tid_offset[8];
-  guint8 alt_cpb_params_present_flag;
-  guint8 use_alt_cpb_params_flag;
-};
+  }
+  PGstH266BufferingPeriod = ^TGstH266BufferingPeriod;
+  TGstH266BufferingPeriod = record
+      nal_hrd_params_present_flag : Tguint8;
+      vcl_hrd_params_present_flag : Tguint8;
+      cpb_initial_removal_delay_length_minus1 : Tguint8;
+      cpb_removal_delay_length_minus1 : Tguint8;
+      dpb_output_delay_length_minus1 : Tguint8;
+      du_hrd_params_present_flag : Tguint8;
+      du_cpb_removal_delay_increment_length_minus1 : Tguint8;
+      dpb_output_delay_du_length_minus1 : Tguint8;
+      du_cpb_params_in_pic_timing_sei_flag : Tguint8;
+      du_dpb_params_in_pic_timing_sei_flag : Tguint8;
+      concatenation_flag : Tguint8;
+      additional_concatenation_info_present_flag : Tguint8;
+      max_initial_removal_delay_for_concatenation : Tguint8;
+      cpb_removal_delay_delta_minus1 : Tguint8;
+      max_sublayers_minus1 : Tguint8;
+      cpb_removal_delay_deltas_present_flag : Tguint8;
+      num_cpb_removal_delay_deltas_minus1 : Tguint8;
+      cpb_removal_delay_delta_val : array[0..15] of Tguint8;
+      cpb_cnt_minus1 : Tguint8;
+      sublayer_initial_cpb_removal_delay_present_flag : Tguint8;
+      nal_initial_cpb_removal_delay : array[0..7] of array[0..31] of Tguint8;
+      nal_initial_cpb_removal_offset : array[0..7] of array[0..31] of Tguint8;
+      nal_initial_alt_cpb_removal_delay : array[0..7] of array[0..31] of Tguint8;
+      nal_initial_alt_cpb_removal_offset : array[0..7] of array[0..31] of Tguint8;
+      vcl_initial_cpb_removal_delay : array[0..7] of array[0..31] of Tguint8;
+      vcl_initial_cpb_removal_offset : array[0..7] of array[0..31] of Tguint8;
+      vcl_initial_alt_cpb_removal_delay : array[0..7] of array[0..31] of Tguint8;
+      vcl_initial_alt_cpb_removal_offset : array[0..7] of array[0..31] of Tguint8;
+      sublayer_dpb_output_offsets_present_flag : Tguint8;
+      dpb_output_tid_offset : array[0..7] of Tguint32;
+      alt_cpb_params_present_flag : Tguint8;
+      use_alt_cpb_params_flag : Tguint8;
+    end;
 
-/**
+{*
  * GstH266PicTiming:
  * @cpb_removal_delay_minus: calculate the number of clock ticks between the
  *  nominal CPB removal times of the AU associated with the PT SEI message.
@@ -3018,35 +2963,36 @@ struct _GstH266BufferingPeriod {
  * Structure defining the H266 picture timing.
  *
  * Since: 1.26
- */
-struct _GstH266PicTiming {
-  guint8 cpb_removal_delay_minus;
-  guint8 sublayer_delays_present_flag[8];
-  guint8 cpb_removal_delay_delta_enabled_flag[8];
-  guint8 cpb_removal_delay_delta_idx[8];
-  guint8 cpb_removal_delay_minus1[8];
-  guint8 dpb_output_delay;
-  guint8 cpb_alt_timing_info_present_flag;
-  guint8 nal_cpb_alt_initial_removal_delay_delta[8][32];
-  guint8 nal_cpb_alt_initial_removal_offset_delta[8][32];
-  guint8 nal_cpb_delay_offset[8];
-  guint8 nal_dpb_delay_offset[8];
-  guint8 vcl_cpb_alt_initial_removal_delay_delta[8][32];
-  guint8 vcl_cpb_alt_initial_removal_offset_delta[8][32];
-  guint8 vcl_cpb_delay_offset[8];
-  guint8 vcl_dpb_delay_offset[8];
-  guint8 dpb_output_du_delay;
-  guint32 num_decoding_units_minus1;
-  guint8 du_common_cpb_removal_delay_flag;
-  guint8 du_common_cpb_removal_delay_increment_minus1[8];
-  /* TODO: PicSizeInCtbsY could be very large */
-  guint32 num_nalus_in_du_minus1[GST_H266_MAX_DECODING_UNITS_IN_PIC_TIMING];
-  guint8 du_cpb_removal_delay_increment_minus1[GST_H266_MAX_DECODING_UNITS_IN_PIC_TIMING][8];
-  guint8 delay_for_concatenation_ensured_flag;
-  guint8 display_elemental_periods_minus1;
-};
+  }
+{ TODO: PicSizeInCtbsY could be very large  }
+  PGstH266PicTiming = ^TGstH266PicTiming;
+  TGstH266PicTiming = record
+      cpb_removal_delay_minus : Tguint8;
+      sublayer_delays_present_flag : array[0..7] of Tguint8;
+      cpb_removal_delay_delta_enabled_flag : array[0..7] of Tguint8;
+      cpb_removal_delay_delta_idx : array[0..7] of Tguint8;
+      cpb_removal_delay_minus1 : array[0..7] of Tguint8;
+      dpb_output_delay : Tguint8;
+      cpb_alt_timing_info_present_flag : Tguint8;
+      nal_cpb_alt_initial_removal_delay_delta : array[0..7] of array[0..31] of Tguint8;
+      nal_cpb_alt_initial_removal_offset_delta : array[0..7] of array[0..31] of Tguint8;
+      nal_cpb_delay_offset : array[0..7] of Tguint8;
+      nal_dpb_delay_offset : array[0..7] of Tguint8;
+      vcl_cpb_alt_initial_removal_delay_delta : array[0..7] of array[0..31] of Tguint8;
+      vcl_cpb_alt_initial_removal_offset_delta : array[0..7] of array[0..31] of Tguint8;
+      vcl_cpb_delay_offset : array[0..7] of Tguint8;
+      vcl_dpb_delay_offset : array[0..7] of Tguint8;
+      dpb_output_du_delay : Tguint8;
+      num_decoding_units_minus1 : Tguint32;
+      du_common_cpb_removal_delay_flag : Tguint8;
+      du_common_cpb_removal_delay_increment_minus1 : array[0..7] of Tguint8;
+      num_nalus_in_du_minus1 : array[0..(GST_H266_MAX_DECODING_UNITS_IN_PIC_TIMING)-1] of Tguint32;
+      du_cpb_removal_delay_increment_minus1 : array[0..(GST_H266_MAX_DECODING_UNITS_IN_PIC_TIMING)-1] of array[0..7] of Tguint8;
+      delay_for_concatenation_ensured_flag : Tguint8;
+      display_elemental_periods_minus1 : Tguint8;
+    end;
 
-/**
+{*
  * GstH266RegisteredUserData:
  * @country_code: an itu_t_t35_country_code.
  * @country_code_extension: an itu_t_t35_country_code_extension_byte.
@@ -3058,16 +3004,17 @@ struct _GstH266PicTiming {
  * The User data registered by Rec. ITU-T T.35 SEI message.
  *
  * Since: 1.28
- */
-struct _GstH266RegisteredUserData
-{
-  guint8 country_code;
-  guint8 country_code_extension;
-  guint size;
-  const guint8 *data;
-};
+  }
+(* Const before type ignored *)
+  PGstH266RegisteredUserData = ^TGstH266RegisteredUserData;
+  TGstH266RegisteredUserData = record
+      country_code : Tguint8;
+      country_code_extension : Tguint8;
+      size : Tguint;
+      data : Pguint8;
+    end;
 
-/**
+{*
  * GstH266DUInfo:
  * @decoding_unit_idx: specifies the index to the list of DUs in the current AU.
  * @sublayer_delays_present_flag: specifies whether
@@ -3081,16 +3028,17 @@ struct _GstH266RegisteredUserData
  * Structure defining the H266 decoding unit info.
  *
  * Since: 1.26
- */
-struct _GstH266DUInfo {
-  guint32 decoding_unit_idx;
-  guint8 sublayer_delays_present_flag[8];
-  guint8 du_cpb_removal_delay_increment[8];
-  guint8 dpb_output_du_delay_present_flag;
-  guint8 dpb_output_du_delay;
-};
+  }
+  PGstH266DUInfo = ^TGstH266DUInfo;
+  TGstH266DUInfo = record
+      decoding_unit_idx : Tguint32;
+      sublayer_delays_present_flag : array[0..7] of Tguint8;
+      du_cpb_removal_delay_increment : array[0..7] of Tguint8;
+      dpb_output_du_delay_present_flag : Tguint8;
+      dpb_output_du_delay : Tguint8;
+    end;
 
-/**
+{*
  * GstH266ScalableNesting:
  * @ols_flag: specifies whether the scalable-nested SEI messages apply to
  *  specific OLSs.
@@ -3118,22 +3066,23 @@ struct _GstH266DUInfo {
  * Structure defining the H266 scalable nesting.
  *
  * Since: 1.26
- */
-struct _GstH266ScalableNesting {
-  guint8 ols_flag;
-  guint8 subpic_flag;
-  guint8 num_olss_minus1;
-  guint8 ols_idx_delta_minus1[GST_H266_MAX_TOTAL_NUM_OLSS];
-  guint8 all_layers_flag;
-  guint8 num_layers_minus1;
-  guint8 layer_id[GST_H266_MAX_LAYERS];
-  guint16 num_subpics_minus1;
-  guint8 subpic_id_len_minus1;
-  guint8 subpic_id[GST_H266_MAX_SLICES_PER_AU];
-  guint8 num_seis_minus1;
-};
+  }
+  PGstH266ScalableNesting = ^TGstH266ScalableNesting;
+  TGstH266ScalableNesting = record
+      ols_flag : Tguint8;
+      subpic_flag : Tguint8;
+      num_olss_minus1 : Tguint8;
+      ols_idx_delta_minus1 : array[0..(GST_H266_MAX_TOTAL_NUM_OLSS)-1] of Tguint8;
+      all_layers_flag : Tguint8;
+      num_layers_minus1 : Tguint8;
+      layer_id : array[0..(GST_H266_MAX_LAYERS)-1] of Tguint8;
+      num_subpics_minus1 : Tguint16;
+      subpic_id_len_minus1 : Tguint8;
+      subpic_id : array[0..(GST_H266_MAX_SLICES_PER_AU)-1] of Tguint8;
+      num_seis_minus1 : Tguint8;
+    end;
 
-/**
+{*
  * GstH266SubPicLevelInfo:
  * @num_ref_levels_minus1: specifies the number of reference levels signalled
  *  for each subpicture sequences.
@@ -3157,20 +3106,21 @@ struct _GstH266ScalableNesting {
  * Structure defining the H266 subpicture level information.
  *
  * Since: 1.26
- */
-struct _GstH266SubPicLevelInfo {
-  guint8 num_ref_levels_minus1;
-  guint8 cbr_constraint_flag;
-  guint8 explicit_fraction_present_flag;
-  guint16 num_subpics_minus1;
-  guint8 max_sublayers_minus1;
-  guint8 sublayer_info_present_flag;
-  guint8 non_subpic_layers_fraction[GST_H266_MAX_SLI_REF_LEVELS][GST_H266_MAX_SUBLAYERS];
-  guint8 ref_level_idc[GST_H266_MAX_SLI_REF_LEVELS][GST_H266_MAX_SUBLAYERS];
-  guint8 ref_level_fraction_minus1[GST_H266_MAX_SLI_REF_LEVELS][GST_H266_MAX_SLICES_PER_AU][GST_H266_MAX_SUBLAYERS];
-};
+  }
+  PGstH266SubPicLevelInfo = ^TGstH266SubPicLevelInfo;
+  TGstH266SubPicLevelInfo = record
+      num_ref_levels_minus1 : Tguint8;
+      cbr_constraint_flag : Tguint8;
+      explicit_fraction_present_flag : Tguint8;
+      num_subpics_minus1 : Tguint16;
+      max_sublayers_minus1 : Tguint8;
+      sublayer_info_present_flag : Tguint8;
+      non_subpic_layers_fraction : array[0..(GST_H266_MAX_SLI_REF_LEVELS)-1] of array[0..(GST_H266_MAX_SUBLAYERS)-1] of Tguint8;
+      ref_level_idc : array[0..(GST_H266_MAX_SLI_REF_LEVELS)-1] of array[0..(GST_H266_MAX_SUBLAYERS)-1] of Tguint8;
+      ref_level_fraction_minus1 : array[0..(GST_H266_MAX_SLI_REF_LEVELS)-1] of array[0..(GST_H266_MAX_SLICES_PER_AU)-1] of array[0..(GST_H266_MAX_SUBLAYERS)-1] of Tguint8;
+    end;
 
-/**
+{*
  * GstH266FrameFieldInfo:
  * @field_pic_flag: indicates whether the display model considers the current
  *  picture as a field.
@@ -3197,21 +3147,22 @@ struct _GstH266SubPicLevelInfo {
  * Structure defining the H266 frame field information.
  *
  * Since: 1.26
- */
-struct _GstH266FrameFieldInfo {
-  guint8 field_pic_flag;
-  guint8 bottom_field_flag;
-  guint8 pairing_indicated_flag;
-  guint8 paired_with_next_field_flag;
-  guint8 display_fields_from_frame_flag;
-  guint8 top_field_first_flag;
-  guint8 display_elemental_periods_minus1;
-  guint8 source_scan_type;
-  guint8 duplicate_flag;
-  gboolean valid;
-};
+  }
+  PGstH266FrameFieldInfo = ^TGstH266FrameFieldInfo;
+  TGstH266FrameFieldInfo = record
+      field_pic_flag : Tguint8;
+      bottom_field_flag : Tguint8;
+      pairing_indicated_flag : Tguint8;
+      paired_with_next_field_flag : Tguint8;
+      display_fields_from_frame_flag : Tguint8;
+      top_field_first_flag : Tguint8;
+      display_elemental_periods_minus1 : Tguint8;
+      source_scan_type : Tguint8;
+      duplicate_flag : Tguint8;
+      valid : Tgboolean;
+    end;
 
-/**
+{*
  * GstH266SEIMessage:
  * @payloadType: the payload type of #GstH266SEIPayloadType.
  * @buffering_period: buffering period sei of #GstH266BufferingPeriod.
@@ -3225,70 +3176,65 @@ struct _GstH266FrameFieldInfo {
  * Structure defining the H266 sei message.
  *
  * Since: 1.26
- */
-struct _GstH266SEIMessage
-{
-  GstH266SEIPayloadType payloadType;
-
-  union {
-    GstH266BufferingPeriod buffering_period;
-    GstH266PicTiming pic_timing;
-    GstH266DUInfo du_info;
-    GstH266ScalableNesting scalable_nesting;
-    GstH266SubPicLevelInfo subpic_level_info;
-    GstH266FrameFieldInfo frame_field_info;
-
-    /**
+  }
+{*
      * GstH266SEIMessage.registered_user_data:
      *
      * Registered user data sei of #GstH266RegisteredUserData.
      *
      * Since: 1.28
-     */
-    GstH266RegisteredUserData registered_user_data;
+      }
+{ ... could implement more  }
+{< private > }
+  PGstH266SEIMessage = ^TGstH266SEIMessage;
+  TGstH266SEIMessage = record
+      payloadType : TGstH266SEIPayloadType;
+      payload : record
+          case longint of
+            0 : ( buffering_period : TGstH266BufferingPeriod );
+            1 : ( pic_timing : TGstH266PicTiming );
+            2 : ( du_info : TGstH266DUInfo );
+            3 : ( scalable_nesting : TGstH266ScalableNesting );
+            4 : ( subpic_level_info : TGstH266SubPicLevelInfo );
+            5 : ( frame_field_info : TGstH266FrameFieldInfo );
+            6 : ( registered_user_data : TGstH266RegisteredUserData );
+            7 : ( padding : array[0..(GST_PADDING_LARGE)-1] of Tgpointer );
+          end;
+    end;
 
-    /* ... could implement more */
-
-    /*< private >*/
-    gpointer padding[GST_PADDING_LARGE];
-  } payload;
-};
-
-/**
+{*
   * GstH266DecoderConfigRecordNalUnitArray:
   *
   * Contains NAL Unit array data as defined in ISO/IEC 14496-15
   *
   * Since: 1.26
- */
-struct _GstH266DecoderConfigRecordNalUnitArray
-{
-  /**
+  }
+{*
    * GstH266DecoderConfigRecordNalUnitArray.array_completeness:
    *
    * 1: all NAL units of the given type are in this array and none
    *   are in the stream.
    * 0: additional NAL units of the indicated type may be in the stream
-   */
-  guint8 array_completeness;
-
-  /**
+    }
+{*
    * GstH266DecoderConfigRecordNalUnitArray.nal_unit_type:
    *
    * Indicates the type of the NAL units in the following array.
    * Shall be VPS, SPS, PPS, prefix APS or suffix APS
-   */
-  GstH266NalUnitType nal_unit_type;
-
-  /**
+    }
+{*
    * GstH266DecoderConfigRecordNalUnitArray.nalu:
    *
    * Array of identified #GstH266NalUnit
-   */
-  GArray *nalu;
-};
+    }
+  PGstH266DecoderConfigRecordNalUnitArray = ^TGstH266DecoderConfigRecordNalUnitArray;
+  TGstH266DecoderConfigRecordNalUnitArray = record
+      array_completeness : Tguint8;
+      nal_unit_type : TGstH266NalUnitType;
+      nalu : PGArray;
+    end;
 
-/**
+{*
  * GstH266PTLRecord:
  * @num_bytes_constraint_info: Number of bytes for constraint information.
  * @general_profile_idc: General profile id.
@@ -3305,256 +3251,233 @@ struct _GstH266DecoderConfigRecordNalUnitArray
  * Contains VvcPTLRecord data as defined in ISO/IEC 14496-15
  *
  * Since: 1.26
- */
-struct _GstH266PTLRecord {
-  guint8 num_bytes_constraint_info;
-  guint8 general_profile_idc;
-  guint8 general_tier_flag;
-  guint8 general_level_idc;
-  guint8 ptl_frame_only_constraint_flag;
-  guint8 ptl_multilayer_enabled_flag;
-  guint8 general_constraint_info[63];
-  guint8 ptl_sublayer_level_present_flag[7];
-  guint8 sublayer_level_idc[7];
-  guint8 ptl_num_sub_profiles;
-  guint32 general_sub_profile_idc[255];
-};
+  }
+  PGstH266PTLRecord = ^TGstH266PTLRecord;
+  TGstH266PTLRecord = record
+      num_bytes_constraint_info : Tguint8;
+      general_profile_idc : Tguint8;
+      general_tier_flag : Tguint8;
+      general_level_idc : Tguint8;
+      ptl_frame_only_constraint_flag : Tguint8;
+      ptl_multilayer_enabled_flag : Tguint8;
+      general_constraint_info : array[0..62] of Tguint8;
+      ptl_sublayer_level_present_flag : array[0..6] of Tguint8;
+      sublayer_level_idc : array[0..6] of Tguint8;
+      ptl_num_sub_profiles : Tguint8;
+      general_sub_profile_idc : array[0..254] of Tguint32;
+    end;
 
-/**
+{*
  * GstH266DecoderConfigRecord:
  *
  * Contains VVCDecoderConfigurationRecord data as defined in ISO/IEC 14496-15
  *
  * Since: 1.26
- */
-struct _GstH266DecoderConfigRecord
-{
-  /**
+  }
+{*
    * GstH266DecoderConfigRecord.length_size_minus_one:
    *
    * indicates the length in bytes of nal unit length field.
    * This value shall be one of 0, 1, or 3 corresponding to a length
    * encoded with 1, 2, or 4 bytes, respectively
-   */
-  guint8 length_size_minus_one;
-
-  /**
+    }
+{*
    * GstH266DecoderConfigRecord.ptl_present_flag:
    *
    * true: profile, tier and level information is present
-   */
-  guint8 ptl_present_flag;
-
-  /**
+    }
+{*
    * GstH266DecoderConfigRecord.ols_idx:
    *
    * Operating point layer set index
-   */
-  guint16 ols_idx;
-
-  /**
+    }
+{*
    * GstH266DecoderConfigRecord.num_sublayers:
    *
    * Number of sublayers
-   */
-  guint8 num_sublayers;
-
-  /**
+    }
+{*
    * GstH266DecoderConfigRecord.constant_frame_rate:
    *
    * Indicates if the frame rate is constant
-   */
-  guint8 constant_frame_rate;
-
-  /**
+    }
+{*
    * GstH266DecoderConfigRecord.chroma_format_idc:
    *
    * Chroma format indicator
-   */
-  guint8 chroma_format_idc;
-
-  /**
+    }
+{*
    * GstH266DecoderConfigRecord.bit_depth_minus8:
    *
    * Bit depth minus 8
-   */
-  guint8 bit_depth_minus8;
-
-  /**
+    }
+{*
     * GstH266DecoderConfigRecord.native_ptl:
     *
     * Profile, tier and level information
-   */
-  GstH266PTLRecord native_ptl;
-
-  /**
+    }
+{*
    * GstH266DecoderConfigRecord.max_picture_width:
    *
    * Maximum picture width
-   */
-  guint16 max_picture_width;
-
-  /**
+    }
+{*
    * GstH266DecoderConfigRecord.max_picture_height:
    *
    * Maximum picture height
-   */
-  guint16 max_picture_height;
-
-  /**
+    }
+{*
    * GstH266DecoderConfigRecord.avg_frame_rate:
    *
    * Average frame rate
-   */
-  guint16 avg_frame_rate;
-
-  /**
+    }
+{*
    * GstH266DecoderConfigRecord.nalu_array:
    *
    * Array of #GstH266DecoderConfigRecordNalUnitArray
-   */
-  GArray *nalu_array;
+    }
+{< private > }
+  PGstH266DecoderConfigRecord = ^TGstH266DecoderConfigRecord;
+  TGstH266DecoderConfigRecord = record
+      length_size_minus_one : Tguint8;
+      ptl_present_flag : Tguint8;
+      ols_idx : Tguint16;
+      num_sublayers : Tguint8;
+      constant_frame_rate : Tguint8;
+      chroma_format_idc : Tguint8;
+      bit_depth_minus8 : Tguint8;
+      native_ptl : TGstH266PTLRecord;
+      max_picture_width : Tguint16;
+      max_picture_height : Tguint16;
+      avg_frame_rate : Tguint16;
+      nalu_array : PGArray;
+      _gst_reserved : array[0..(GST_PADDING)-1] of Tgpointer;
+    end;
 
-  /*< private >*/
-  gpointer _gst_reserved[GST_PADDING];
-};
-
-/**
+{*
  * GstH266Parser:
  *
  * H266 NAL Parser (opaque structure).
  *
  * Since: 1.26
- */
-struct _GstH266Parser
-{
-  /*< private >*/
-  GstH266VPS vps[GST_H266_MAX_VPS_COUNT];
-  GstH266SPS sps[GST_H266_MAX_SPS_COUNT];
-  GstH266PPS pps[GST_H266_MAX_PPS_COUNT];
-  GstH266APS aps[GST_H266_APS_TYPE_MAX][GST_H266_MAX_APS_COUNT];
-  GstH266VPS *last_vps;
-  GstH266SPS *last_sps;
-  GstH266PPS *last_pps;
-  GstH266APS *last_aps[GST_H266_APS_TYPE_MAX];
-  GstH266PicHdr ph;
-  GstH266SEIMessage buffering_period;
-  GstH266SEIMessage *last_buffering_period;
-
-  GstH266VPS *active_vps;
-  GstH266SPS *active_sps;
-  GstH266PPS *active_pps;
-
-  guint16 ctb_addr_in_slice[GST_H266_MAX_CTUS_IN_PICTURE];
-  guint16 slice_start_offset[GST_H266_MAX_SLICES_PER_AU];
-  guint16 num_ctus_in_slice[GST_H266_MAX_SLICES_PER_AU];
-  guint16 ctb_to_tile_col_bd[GST_H266_MAX_CTUS_IN_PICTURE];
-  guint16 ctb_to_tile_row_bd[GST_H266_MAX_CTUS_IN_PICTURE];
-};
-
-GST_CODEC_PARSERS_API
-GstH266Parser *     gst_h266_parser_new                (void);
-GST_CODEC_PARSERS_API
-GstH266ParserResult gst_h266_parser_identify_nalu      (GstH266Parser * parser,
-                                                        const guint8 * data,
-                                                        guint offset,
-                                                        gsize size,
-                                                        GstH266NalUnit * nalu);
-GST_CODEC_PARSERS_API
-GstH266ParserResult gst_h266_parser_identify_nalu_unchecked (GstH266Parser * parser,
-                                                             const guint8 * data,
-                                                             guint offset,
-                                                             gsize size,
-                                                             GstH266NalUnit * nalu);
-GST_CODEC_PARSERS_API
-GstH266ParserResult gst_h266_parser_identify_nalu_vvc  (GstH266Parser * parser,
-                                                        const guint8 * data,
-                                                        guint offset,
-                                                        gsize size,
-                                                        guint8 nal_length_size,
-                                                        GstH266NalUnit * nalu);
-
-GST_CODEC_PARSERS_API
-GstH266ParserResult gst_h266_parser_identify_and_split_nalu_vvc (GstH266Parser * parser,
-                                                                 const guint8 * data,
-                                                                 guint offset,
-                                                                 gsize size,
-                                                                 guint8 nal_length_size,
-                                                                 GArray * nalus,
-                                                                 gsize * consumed);
-
-GST_CODEC_PARSERS_API
-GstH266ParserResult gst_h266_parser_parse_nal          (GstH266Parser * parser,
-                                                        GstH266NalUnit * nalu);
-GST_CODEC_PARSERS_API
-GstH266ParserResult gst_h266_parser_parse_aud          (GstH266Parser * parser,
-                                                        GstH266NalUnit * nalu,
-                                                        GstH266AUD * aud);
-GST_CODEC_PARSERS_API
-GstH266ParserResult gst_h266_parser_parse_opi          (GstH266Parser * parser,
-                                                        GstH266NalUnit * nalu,
-                                                        GstH266OPI * opi);
-GST_CODEC_PARSERS_API
-GstH266ParserResult gst_h266_parser_parse_dci          (GstH266Parser * parser,
-                                                        GstH266NalUnit * nalu,
-                                                        GstH266DCI * dci);
-GST_CODEC_PARSERS_API
-GstH266ParserResult gst_h266_parser_parse_picture_hdr  (GstH266Parser * parser,
-                                                        GstH266NalUnit * nalu,
-                                                        GstH266PicHdr * picture);
-GST_CODEC_PARSERS_API
-GstH266ParserResult gst_h266_parser_parse_slice_hdr    (GstH266Parser * parser,
-                                                        GstH266NalUnit * nalu,
-                                                        GstH266SliceHdr * slice);
-GST_CODEC_PARSERS_API
-GstH266ParserResult gst_h266_parser_parse_vps          (GstH266Parser * parser,
-                                                        GstH266NalUnit * nalu,
-                                                        GstH266VPS * vps);
-GST_CODEC_PARSERS_API
-GstH266ParserResult gst_h266_parser_parse_sps          (GstH266Parser * parser,
-                                                        GstH266NalUnit * nalu,
-                                                        GstH266SPS * sps);
-GST_CODEC_PARSERS_API
-GstH266ParserResult gst_h266_parser_parse_pps          (GstH266Parser * parser,
-                                                        GstH266NalUnit * nalu,
-                                                        GstH266PPS * pps);
-GST_CODEC_PARSERS_API
-GstH266ParserResult gst_h266_parser_parse_aps          (GstH266Parser * parser,
-                                                        GstH266NalUnit * nalu,
-                                                        GstH266APS * aps);
-GST_CODEC_PARSERS_API
-GstH266ParserResult gst_h266_parser_parse_sei          (GstH266Parser * parser,
-                                                        GstH266NalUnit * nalu,
-                                                        GArray ** messages);
-GST_CODEC_PARSERS_API
-void                gst_h266_parser_free               (GstH266Parser * parser);
-GST_CODEC_PARSERS_API
-GstH266ParserResult gst_h266_parse_vps                 (GstH266NalUnit * nalu,
-                                                        GstH266VPS * vps);
-GST_CODEC_PARSERS_API
-GstH266ParserResult gst_h266_parse_sps                 (GstH266Parser * parser,
-                                                        GstH266NalUnit * nalu,
-                                                        GstH266SPS * sps);
-GST_CODEC_PARSERS_API
-GstH266ParserResult gst_h266_parse_pps                 (GstH266Parser * parser,
-                                                        GstH266NalUnit * nalu,
-                                                        GstH266PPS * pps);
-GST_CODEC_PARSERS_API
-GstH266ParserResult gst_h266_parse_aps                 (GstH266Parser * parser,
-                                                        GstH266NalUnit * nalu,
-                                                        GstH266APS * aps);
-GST_CODEC_PARSERS_API
-const gchar *       gst_h266_profile_to_string         (GstH266Profile profile);
-GST_CODEC_PARSERS_API
-GstH266Profile      gst_h266_profile_from_string       (const gchar * string);
-
-GST_CODEC_PARSERS_API
-void                gst_h266_decoder_config_record_free (GstH266DecoderConfigRecord * config);
-
-GST_CODEC_PARSERS_API
-GstH266ParserResult gst_h266_parser_parse_decoder_config_record (GstH266Parser * parser,
-                                                                 const guint8 * data,
-                                                                 gsize size,
-                                                                 GstH266DecoderConfigRecord ** config);
+  }
+{< private > }
+  PGstH266Parser = ^TGstH266Parser;
+  TGstH266Parser = record
+      vps : array[0..(GST_H266_MAX_VPS_COUNT)-1] of TGstH266VPS;
+      sps : array[0..(GST_H266_MAX_SPS_COUNT)-1] of TGstH266SPS;
+      pps : array[0..(GST_H266_MAX_PPS_COUNT)-1] of TGstH266PPS;
+      aps : array[0..(GST_H266_APS_TYPE_MAX)-1] of array[0..(GST_H266_MAX_APS_COUNT)-1] of TGstH266APS;
+      last_vps : PGstH266VPS;
+      last_sps : PGstH266SPS;
+      last_pps : PGstH266PPS;
+      last_aps : array[0..(GST_H266_APS_TYPE_MAX)-1] of PGstH266APS;
+      ph : TGstH266PicHdr;
+      buffering_period : TGstH266SEIMessage;
+      last_buffering_period : PGstH266SEIMessage;
+      active_vps : PGstH266VPS;
+      active_sps : PGstH266SPS;
+      active_pps : PGstH266PPS;
+      ctb_addr_in_slice : array[0..(GST_H266_MAX_CTUS_IN_PICTURE)-1] of Tguint16;
+      slice_start_offset : array[0..(GST_H266_MAX_SLICES_PER_AU)-1] of Tguint16;
+      num_ctus_in_slice : array[0..(GST_H266_MAX_SLICES_PER_AU)-1] of Tguint16;
+      ctb_to_tile_col_bd : array[0..(GST_H266_MAX_CTUS_IN_PICTURE)-1] of Tguint16;
+      ctb_to_tile_row_bd : array[0..(GST_H266_MAX_CTUS_IN_PICTURE)-1] of Tguint16;
+    end;
 
 
+function gst_h266_parser_new:PGstH266Parser;cdecl;external;
+(* Const before type ignored *)
+function gst_h266_parser_identify_nalu(parser:PGstH266Parser; data:Pguint8; offset:Tguint; size:Tgsize; nalu:PGstH266NalUnit):TGstH266ParserResult;cdecl;external;
+(* Const before type ignored *)
+function gst_h266_parser_identify_nalu_unchecked(parser:PGstH266Parser; data:Pguint8; offset:Tguint; size:Tgsize; nalu:PGstH266NalUnit):TGstH266ParserResult;cdecl;external;
+(* Const before type ignored *)
+function gst_h266_parser_identify_nalu_vvc(parser:PGstH266Parser; data:Pguint8; offset:Tguint; size:Tgsize; nal_length_size:Tguint8; 
+           nalu:PGstH266NalUnit):TGstH266ParserResult;cdecl;external;
+(* Const before type ignored *)
+function gst_h266_parser_identify_and_split_nalu_vvc(parser:PGstH266Parser; data:Pguint8; offset:Tguint; size:Tgsize; nal_length_size:Tguint8; 
+           nalus:PGArray; consumed:Pgsize):TGstH266ParserResult;cdecl;external;
+function gst_h266_parser_parse_nal(parser:PGstH266Parser; nalu:PGstH266NalUnit):TGstH266ParserResult;cdecl;external;
+function gst_h266_parser_parse_aud(parser:PGstH266Parser; nalu:PGstH266NalUnit; aud:PGstH266AUD):TGstH266ParserResult;cdecl;external;
+function gst_h266_parser_parse_opi(parser:PGstH266Parser; nalu:PGstH266NalUnit; opi:PGstH266OPI):TGstH266ParserResult;cdecl;external;
+function gst_h266_parser_parse_dci(parser:PGstH266Parser; nalu:PGstH266NalUnit; dci:PGstH266DCI):TGstH266ParserResult;cdecl;external;
+function gst_h266_parser_parse_picture_hdr(parser:PGstH266Parser; nalu:PGstH266NalUnit; picture:PGstH266PicHdr):TGstH266ParserResult;cdecl;external;
+function gst_h266_parser_parse_slice_hdr(parser:PGstH266Parser; nalu:PGstH266NalUnit; slice:PGstH266SliceHdr):TGstH266ParserResult;cdecl;external;
+function gst_h266_parser_parse_vps(parser:PGstH266Parser; nalu:PGstH266NalUnit; vps:PGstH266VPS):TGstH266ParserResult;cdecl;external;
+function gst_h266_parser_parse_sps(parser:PGstH266Parser; nalu:PGstH266NalUnit; sps:PGstH266SPS):TGstH266ParserResult;cdecl;external;
+function gst_h266_parser_parse_pps(parser:PGstH266Parser; nalu:PGstH266NalUnit; pps:PGstH266PPS):TGstH266ParserResult;cdecl;external;
+function gst_h266_parser_parse_aps(parser:PGstH266Parser; nalu:PGstH266NalUnit; aps:PGstH266APS):TGstH266ParserResult;cdecl;external;
+function gst_h266_parser_parse_sei(parser:PGstH266Parser; nalu:PGstH266NalUnit; messages:PPGArray):TGstH266ParserResult;cdecl;external;
+procedure gst_h266_parser_free(parser:PGstH266Parser);cdecl;external;
+function gst_h266_parse_vps(nalu:PGstH266NalUnit; vps:PGstH266VPS):TGstH266ParserResult;cdecl;external;
+function gst_h266_parse_sps(parser:PGstH266Parser; nalu:PGstH266NalUnit; sps:PGstH266SPS):TGstH266ParserResult;cdecl;external;
+function gst_h266_parse_pps(parser:PGstH266Parser; nalu:PGstH266NalUnit; pps:PGstH266PPS):TGstH266ParserResult;cdecl;external;
+function gst_h266_parse_aps(parser:PGstH266Parser; nalu:PGstH266NalUnit; aps:PGstH266APS):TGstH266ParserResult;cdecl;external;
+(* Const before type ignored *)
+function gst_h266_profile_to_string(profile:TGstH266Profile):Pgchar;cdecl;external;
+(* Const before type ignored *)
+function gst_h266_profile_from_string(_string:Pgchar):TGstH266Profile;cdecl;external;
+procedure gst_h266_decoder_config_record_free(config:PGstH266DecoderConfigRecord);cdecl;external;
+(* Const before type ignored *)
+function gst_h266_parser_parse_decoder_config_record(parser:PGstH266Parser; data:Pguint8; size:Tgsize; config:PPGstH266DecoderConfigRecord):TGstH266ParserResult;cdecl;external;
+
+implementation
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function GST_H266_IS_B_SLICE(slice : longint) : longint;
+begin
+  GST_H266_IS_B_SLICE:=(slice^.slice_type)=GST_H266_B_SLICE;
+end;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function GST_H266_IS_P_SLICE(slice : longint) : longint;
+begin
+  GST_H266_IS_P_SLICE:=(slice^.slice_type)=GST_H266_P_SLICE;
+end;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function GST_H266_IS_I_SLICE(slice : longint) : longint;
+begin
+  GST_H266_IS_I_SLICE:=(slice^.slice_type)=GST_H266_I_SLICE;
+end;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function GST_H266_IS_NAL_TYPE_GDR(nal_type : longint) : longint;
+begin
+  GST_H266_IS_NAL_TYPE_GDR:=nal_type=GST_H266_NAL_SLICE_GDR;
+end;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function GST_H266_IS_NAL_TYPE_CRA(nal_type : longint) : longint;
+begin
+  GST_H266_IS_NAL_TYPE_CRA:=nal_type=GST_H266_NAL_SLICE_CRA;
+end;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function GST_H266_IS_NAL_TYPE_RADL(nal_type : longint) : longint;
+begin
+  GST_H266_IS_NAL_TYPE_RADL:=nal_type=GST_H266_NAL_SLICE_RADL;
+end;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function GST_H266_IS_NAL_TYPE_RASL(nal_type : longint) : longint;
+begin
+  GST_H266_IS_NAL_TYPE_RASL:=nal_type=GST_H266_NAL_SLICE_RASL;
+end;
+
+
+end.

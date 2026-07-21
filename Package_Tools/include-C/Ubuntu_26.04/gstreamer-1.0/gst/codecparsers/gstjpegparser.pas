@@ -1,4 +1,16 @@
-/*  GStreamer JPEG parser
+unit gstjpegparser;
+
+interface
+
+uses
+  fp_glib2, fp_gst;
+
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{  GStreamer JPEG parser
  *  Copyright (C) 2011-2012 Intel Corporation
  *  Copyright (C) 2015 Tim-Philipp Müller <tim@centricular.com>
  *
@@ -16,59 +28,39 @@
  *  License along with this library; if not, write to the Free
  *  Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  *  Boston, MA 02110-1301 USA
- */
-
-#ifndef GST_JPEG_PARSER_H
-#define GST_JPEG_PARSER_H
-
-#ifndef GST_USE_UNSTABLE_API
-#  warning "The JPEG parsing library is unstable API and may change in future."
-#  warning "You can define GST_USE_UNSTABLE_API to avoid this warning."
-#endif
-
-#include <gst/gst.h>
-#include <gst/codecparsers/codecparsers-prelude.h>
-
-
-
-/**
+  }
+{$ifndef GST_JPEG_PARSER_H}
+{$define GST_JPEG_PARSER_H}
+{$include <gst/gst.h>}
+{$include <gst/codecparsers/codecparsers-prelude.h>}
+{*
  * GST_JPEG_MAX_FRAME_COMPONENTS:
  *
  * Maximum number of image components in a frame (Nf).
  *
  * Since: 1.6
- */
-#define GST_JPEG_MAX_FRAME_COMPONENTS   256
+  }
 
-/**
+const
+  GST_JPEG_MAX_FRAME_COMPONENTS = 256;  
+{*
  * GST_JPEG_MAX_SCAN_COMPONENTS:
  *
  * Maximum number of image components in a scan (Ns).
  *
  * Since: 1.6
- */
-#define GST_JPEG_MAX_SCAN_COMPONENTS    4
-
-/**
+  }
+  GST_JPEG_MAX_SCAN_COMPONENTS = 4;  
+{*
  * GST_JPEG_MAX_QUANT_ELEMENTS:
  *
  * Number of elements in the quantization table.
  *
  * Since: 1.6
- */
-#define GST_JPEG_MAX_QUANT_ELEMENTS     64
-
-typedef struct _GstJpegQuantTable       GstJpegQuantTable;
-typedef struct _GstJpegQuantTables      GstJpegQuantTables;
-typedef struct _GstJpegHuffmanTable     GstJpegHuffmanTable;
-typedef struct _GstJpegHuffmanTables    GstJpegHuffmanTables;
-typedef struct _GstJpegScanComponent    GstJpegScanComponent;
-typedef struct _GstJpegScanHdr          GstJpegScanHdr;
-typedef struct _GstJpegFrameComponent   GstJpegFrameComponent;
-typedef struct _GstJpegFrameHdr         GstJpegFrameHdr;
-typedef struct _GstJpegSegment          GstJpegSegment;
-
-/**
+  }
+  GST_JPEG_MAX_QUANT_ELEMENTS = 64;  
+type
+{*
  * GstJpegMarker:
  * @GST_JPEG_MARKER_SOF0: Start of frame marker code (Baseline)
  * @GST_JPEG_MARKER_SOF1: Start of frame marker code (Extended Sequential, Huffman)
@@ -114,69 +106,68 @@ typedef struct _GstJpegSegment          GstJpegSegment;
  * Indicates the type of JPEG segment.
  *
  * Since: 1.6
- */
-typedef enum {
-  GST_JPEG_MARKER_SOF0          = 0xC0,
-  GST_JPEG_MARKER_SOF1          = 0xC1,
-  GST_JPEG_MARKER_SOF2          = 0xC2,
-  GST_JPEG_MARKER_SOF3          = 0xC3,
-  /* 0xC4 = DHT see below */
-  GST_JPEG_MARKER_SOF5          = 0xC5,
-  GST_JPEG_MARKER_SOF6          = 0xC6,
-  GST_JPEG_MARKER_SOF7          = 0xC7,
-  /* 0xC8 = reserved */
-  GST_JPEG_MARKER_SOF9          = 0xC9,
-  GST_JPEG_MARKER_SOF10         = 0xCA,
-  GST_JPEG_MARKER_SOF11         = 0xCB,
-  /* 0xCC = DAC see below */
-  GST_JPEG_MARKER_SOF13         = 0xCD,
-  GST_JPEG_MARKER_SOF14         = 0xCE,
-  GST_JPEG_MARKER_SOF15         = 0xCF,
-  GST_JPEG_MARKER_DHT           = 0xC4,
-  GST_JPEG_MARKER_DAC           = 0xCC,
-  GST_JPEG_MARKER_RST0          = 0xD0,
-  GST_JPEG_MARKER_RST1          = 0xD1,
-  GST_JPEG_MARKER_RST2          = 0xD2,
-  GST_JPEG_MARKER_RST3          = 0xD3,
-  GST_JPEG_MARKER_RST4          = 0xD4,
-  GST_JPEG_MARKER_RST5          = 0xD5,
-  GST_JPEG_MARKER_RST6          = 0xD6,
-  GST_JPEG_MARKER_RST7          = 0xD7,
-  GST_JPEG_MARKER_SOI           = 0xD8,
-  GST_JPEG_MARKER_EOI           = 0xD9,
-  GST_JPEG_MARKER_SOS           = 0xDA,
-  GST_JPEG_MARKER_DQT           = 0xDB,
-  GST_JPEG_MARKER_DNL           = 0xDC,
-  GST_JPEG_MARKER_DRI           = 0xDD,
-  GST_JPEG_MARKER_APP0          = 0xE0,
-  GST_JPEG_MARKER_APP1          = 0xE1,
-  GST_JPEG_MARKER_APP2          = 0xE2,
-  GST_JPEG_MARKER_APP3          = 0xE3,
-  GST_JPEG_MARKER_APP4          = 0xE4,
-  GST_JPEG_MARKER_APP5          = 0xE5,
-  GST_JPEG_MARKER_APP6          = 0xE6,
-  GST_JPEG_MARKER_APP7          = 0xE7,
-  GST_JPEG_MARKER_APP8          = 0xE8,
-  GST_JPEG_MARKER_APP9          = 0xE9,
-  GST_JPEG_MARKER_APP10         = 0xEA,
-  GST_JPEG_MARKER_APP11         = 0xEB,
-  GST_JPEG_MARKER_APP12         = 0xEC,
-  GST_JPEG_MARKER_APP13         = 0xED,
-  GST_JPEG_MARKER_APP14         = 0xEE,
-  GST_JPEG_MARKER_APP15         = 0xEF,
-  GST_JPEG_MARKER_COM           = 0xFE,
-} GstJpegMarker;
+  }
+{ 0xC4 = DHT see below  }
+{ 0xC8 = reserved  }
+{ 0xCC = DAC see below  }
 
-#define GST_JPEG_MARKER_SOF_MIN GST_JPEG_MARKER_SOF0
-#define GST_JPEG_MARKER_SOF_MAX GST_JPEG_MARKER_SOF15
-
-#define GST_JPEG_MARKER_APP_MIN GST_JPEG_MARKER_APP0
-#define GST_JPEG_MARKER_APP_MAX GST_JPEG_MARKER_APP15
-
-#define GST_JPEG_MARKER_RST_MIN GST_JPEG_MARKER_RST0
-#define GST_JPEG_MARKER_RST_MAX GST_JPEG_MARKER_RST7
-
-/**
+  PGstJpegMarker = ^TGstJpegMarker;
+  TGstJpegMarker =  Longint;
+  Const
+    GST_JPEG_MARKER_SOF0 = $C0;
+    GST_JPEG_MARKER_SOF1 = $C1;
+    GST_JPEG_MARKER_SOF2 = $C2;
+    GST_JPEG_MARKER_SOF3 = $C3;
+    GST_JPEG_MARKER_SOF5 = $C5;
+    GST_JPEG_MARKER_SOF6 = $C6;
+    GST_JPEG_MARKER_SOF7 = $C7;
+    GST_JPEG_MARKER_SOF9 = $C9;
+    GST_JPEG_MARKER_SOF10 = $CA;
+    GST_JPEG_MARKER_SOF11 = $CB;
+    GST_JPEG_MARKER_SOF13 = $CD;
+    GST_JPEG_MARKER_SOF14 = $CE;
+    GST_JPEG_MARKER_SOF15 = $CF;
+    GST_JPEG_MARKER_DHT = $C4;
+    GST_JPEG_MARKER_DAC = $CC;
+    GST_JPEG_MARKER_RST0 = $D0;
+    GST_JPEG_MARKER_RST1 = $D1;
+    GST_JPEG_MARKER_RST2 = $D2;
+    GST_JPEG_MARKER_RST3 = $D3;
+    GST_JPEG_MARKER_RST4 = $D4;
+    GST_JPEG_MARKER_RST5 = $D5;
+    GST_JPEG_MARKER_RST6 = $D6;
+    GST_JPEG_MARKER_RST7 = $D7;
+    GST_JPEG_MARKER_SOI = $D8;
+    GST_JPEG_MARKER_EOI = $D9;
+    GST_JPEG_MARKER_SOS = $DA;
+    GST_JPEG_MARKER_DQT = $DB;
+    GST_JPEG_MARKER_DNL = $DC;
+    GST_JPEG_MARKER_DRI = $DD;
+    GST_JPEG_MARKER_APP0 = $E0;
+    GST_JPEG_MARKER_APP1 = $E1;
+    GST_JPEG_MARKER_APP2 = $E2;
+    GST_JPEG_MARKER_APP3 = $E3;
+    GST_JPEG_MARKER_APP4 = $E4;
+    GST_JPEG_MARKER_APP5 = $E5;
+    GST_JPEG_MARKER_APP6 = $E6;
+    GST_JPEG_MARKER_APP7 = $E7;
+    GST_JPEG_MARKER_APP8 = $E8;
+    GST_JPEG_MARKER_APP9 = $E9;
+    GST_JPEG_MARKER_APP10 = $EA;
+    GST_JPEG_MARKER_APP11 = $EB;
+    GST_JPEG_MARKER_APP12 = $EC;
+    GST_JPEG_MARKER_APP13 = $ED;
+    GST_JPEG_MARKER_APP14 = $EE;
+    GST_JPEG_MARKER_APP15 = $EF;
+    GST_JPEG_MARKER_COM = $FE;
+;
+  GST_JPEG_MARKER_SOF_MIN = GST_JPEG_MARKER_SOF0;  
+  GST_JPEG_MARKER_SOF_MAX = GST_JPEG_MARKER_SOF15;  
+  GST_JPEG_MARKER_APP_MIN = GST_JPEG_MARKER_APP0;  
+  GST_JPEG_MARKER_APP_MAX = GST_JPEG_MARKER_APP15;  
+  GST_JPEG_MARKER_RST_MIN = GST_JPEG_MARKER_RST0;  
+  GST_JPEG_MARKER_RST_MAX = GST_JPEG_MARKER_RST7;  
+{*
  * GstJpegProfile:
  * @GST_JPEG_PROFILE_BASELINE: Baseline DCT
  * @GST_JPEG_PROFILE_EXTENDED: Extended sequential DCT
@@ -186,15 +177,17 @@ typedef enum {
  * JPEG encoding processes.
  *
  * Since: 1.6
- */
-typedef enum {
-  GST_JPEG_PROFILE_BASELINE     = 0x00,
-  GST_JPEG_PROFILE_EXTENDED     = 0x01,
-  GST_JPEG_PROFILE_PROGRESSIVE  = 0x02,
-  GST_JPEG_PROFILE_LOSSLESS     = 0x03,
-} GstJpegProfile;
-
-/**
+  }
+type
+  PGstJpegProfile = ^TGstJpegProfile;
+  TGstJpegProfile =  Longint;
+  Const
+    GST_JPEG_PROFILE_BASELINE = $00;
+    GST_JPEG_PROFILE_EXTENDED = $01;
+    GST_JPEG_PROFILE_PROGRESSIVE = $02;
+    GST_JPEG_PROFILE_LOSSLESS = $03;
+;
+{*
  * GstJpegEntropyCodingMode:
  * @GST_JPEG_ENTROPY_CODING_HUFFMAN: Huffman coding
  * @GST_JPEG_ENTROPY_CODING_ARITHMETIC: arithmetic coding
@@ -202,13 +195,15 @@ typedef enum {
  * JPEG entropy coding mode.
  *
  * Since: 1.6
- */
-typedef enum {
-  GST_JPEG_ENTROPY_CODING_HUFFMAN       = 0x00,
-  GST_JPEG_ENTROPY_CODING_ARITHMETIC    = 0x08
-} GstJpegEntropyCodingMode;
-
-/**
+  }
+type
+  PGstJpegEntropyCodingMode = ^TGstJpegEntropyCodingMode;
+  TGstJpegEntropyCodingMode =  Longint;
+  Const
+    GST_JPEG_ENTROPY_CODING_HUFFMAN = $00;
+    GST_JPEG_ENTROPY_CODING_ARITHMETIC = $08;
+;
+{*
  * GstJpegQuantTable:
  * @quant_precision: Quantization table element precision (Pq)
  * @quant_table: Quantization table elements (Qk)
@@ -218,15 +213,16 @@ typedef enum {
  * Quantization table.
  *
  * Since: 1.6
- */
-struct _GstJpegQuantTable
-{
-  guint8 quant_precision;
-  guint16 quant_table[GST_JPEG_MAX_QUANT_ELEMENTS];
-  gboolean valid;
-};
+  }
+type
+  PGstJpegQuantTable = ^TGstJpegQuantTable;
+  TGstJpegQuantTable = record
+      quant_precision : Tguint8;
+      quant_table : array[0..(GST_JPEG_MAX_QUANT_ELEMENTS)-1] of Tguint16;
+      valid : Tgboolean;
+    end;
 
-/**
+{*
  * GstJpegQuantTables:
  * @quant_tables: All quantization tables
  *
@@ -234,13 +230,13 @@ struct _GstJpegQuantTable
  * decode an image.
  *
  * Since: 1.6
- */
-struct _GstJpegQuantTables
-{
-  GstJpegQuantTable quant_tables[GST_JPEG_MAX_SCAN_COMPONENTS];
-};
+  }
+  PGstJpegQuantTables = ^TGstJpegQuantTables;
+  TGstJpegQuantTables = record
+      quant_tables : array[0..(GST_JPEG_MAX_SCAN_COMPONENTS)-1] of TGstJpegQuantTable;
+    end;
 
-/**
+{*
  * GstJpegHuffmanTable:
  * @huf_bits: Number of Huffman codes of length i + 1 (Li)
  * @huf_vales: Value associated with each Huffman code (Vij)
@@ -250,15 +246,15 @@ struct _GstJpegQuantTables
  * Huffman table.
  *
  * Since: 1.6
- */
-struct _GstJpegHuffmanTable
-{
-  guint8 huf_bits[16];
-  guint8 huf_values[256];
-  gboolean valid;
-};
+  }
+  PGstJpegHuffmanTable = ^TGstJpegHuffmanTable;
+  TGstJpegHuffmanTable = record
+      huf_bits : array[0..15] of Tguint8;
+      huf_values : array[0..255] of Tguint8;
+      valid : Tgboolean;
+    end;
 
-/**
+{*
  * GstJpegHuffmanTables:
  * @dc_tables: DC Huffman tables
  * @ac_tables: AC Huffman tables
@@ -267,14 +263,14 @@ struct _GstJpegHuffmanTable
  * decode an image.
  *
  * Since: 1.6
- */
-struct _GstJpegHuffmanTables
-{
-  GstJpegHuffmanTable dc_tables[GST_JPEG_MAX_SCAN_COMPONENTS];
-  GstJpegHuffmanTable ac_tables[GST_JPEG_MAX_SCAN_COMPONENTS];
-};
+  }
+  PGstJpegHuffmanTables = ^TGstJpegHuffmanTables;
+  TGstJpegHuffmanTables = record
+      dc_tables : array[0..(GST_JPEG_MAX_SCAN_COMPONENTS)-1] of TGstJpegHuffmanTable;
+      ac_tables : array[0..(GST_JPEG_MAX_SCAN_COMPONENTS)-1] of TGstJpegHuffmanTable;
+    end;
 
-/**
+{*
  * GstJpegScanComponent:
  * @component_selector: Scan component selector (Csj)
  * @dc_selector: DC entropy coding table destination selector (Tdj)
@@ -283,15 +279,18 @@ struct _GstJpegHuffmanTables
  * Component-specification parameters.
  *
  * Since: 1.6
- */
-struct _GstJpegScanComponent
-{
-    guint8 component_selector;          /* 0 .. 255     */
-    guint8 dc_selector;                 /* 0 .. 3       */
-    guint8 ac_selector;                 /* 0 .. 3       */
-};
+  }
+{ 0 .. 255      }
+{ 0 .. 3        }
+{ 0 .. 3        }
+  PGstJpegScanComponent = ^TGstJpegScanComponent;
+  TGstJpegScanComponent = record
+      component_selector : Tguint8;
+      dc_selector : Tguint8;
+      ac_selector : Tguint8;
+    end;
 
-/**
+{*
  * GstJpegScanHdr:
  * @num_components: Number of image components in scan (Ns)
  * @components: Image components
@@ -299,20 +298,24 @@ struct _GstJpegScanComponent
  * Scan header.
  *
  * Since: 1.6
- */
-struct _GstJpegScanHdr
-{
-  guint8 num_components;                /* 1 .. 4       */
-  GstJpegScanComponent components[GST_JPEG_MAX_SCAN_COMPONENTS];
+  }
+{ 1 .. 4        }
+{< private > }
+{ Ss  }
+{ Se  }
+{ Al  }
+{ Ah  }
+  PGstJpegScanHdr = ^TGstJpegScanHdr;
+  TGstJpegScanHdr = record
+      num_components : Tguint8;
+      components : array[0..(GST_JPEG_MAX_SCAN_COMPONENTS)-1] of TGstJpegScanComponent;
+      _reserved1 : Tguint8;
+      _reserved2 : Tguint8;
+      _reserved3 : Tguint8;
+      _reserved4 : Tguint8;
+    end;
 
-  /*< private >*/
-  guint8 _reserved1; /* Ss */
-  guint8 _reserved2; /* Se */
-  guint8 _reserved3; /* Al */
-  guint8 _reserved4; /* Ah */
-};
-
-/**
+{*
  * GstJpegFrameComponent:
  * @identifier: Component identifier (Ci)
  * @horizontal_factor: Horizontal sampling factor (Hi)
@@ -322,16 +325,20 @@ struct _GstJpegScanHdr
  * Component-specification parameters.
  *
  * Since: 1.6
- */
-struct _GstJpegFrameComponent
-{
-  guint8 identifier;                    /* 0 .. 255     */
-  guint8 horizontal_factor;             /* 1 .. 4       */
-  guint8 vertical_factor;               /* 1 .. 4       */
-  guint8 quant_table_selector;          /* 0 .. 3       */
-};
+  }
+{ 0 .. 255      }
+{ 1 .. 4        }
+{ 1 .. 4        }
+{ 0 .. 3        }
+  PGstJpegFrameComponent = ^TGstJpegFrameComponent;
+  TGstJpegFrameComponent = record
+      identifier : Tguint8;
+      horizontal_factor : Tguint8;
+      vertical_factor : Tguint8;
+      quant_table_selector : Tguint8;
+    end;
 
-/**
+{*
  * GstJpegFrameHdr:
  * @sample_precision: Sample precision (P)
  * @height: Number of lines (Y)
@@ -343,17 +350,21 @@ struct _GstJpegFrameComponent
  * Frame header.
  *
  * Since: 1.6
- */
-struct _GstJpegFrameHdr
-{
-  guint8 sample_precision;              /* 2 .. 16      */
-  guint16 width;                        /* 1 .. 65535   */
-  guint16 height;                       /* 0 .. 65535   */
-  guint8 num_components;                /* 1 .. 255     */
-  GstJpegFrameComponent components[GST_JPEG_MAX_FRAME_COMPONENTS];
-};
+  }
+{ 2 .. 16       }
+{ 1 .. 65535    }
+{ 0 .. 65535    }
+{ 1 .. 255      }
+  PGstJpegFrameHdr = ^TGstJpegFrameHdr;
+  TGstJpegFrameHdr = record
+      sample_precision : Tguint8;
+      width : Tguint16;
+      height : Tguint16;
+      num_components : Tguint8;
+      components : array[0..(GST_JPEG_MAX_FRAME_COMPONENTS)-1] of TGstJpegFrameComponent;
+    end;
 
-/**
+{*
  * GstJpegSegment:
  * @marker: The type of the segment that starts at @offset
  * @data: the data containing the jpeg segment starting at @offset
@@ -366,47 +377,32 @@ struct _GstJpegFrameHdr
  * A structure that contains the type of a segment, its offset and its size.
  *
  * Since: 1.6
- */
-struct _GstJpegSegment
-{
-  GstJpegMarker marker;
-  const guint8 *data;
-  guint offset;
-  gssize size;
-};
+  }
+  PGstJpegSegment = ^TGstJpegSegment;
+  TGstJpegSegment = record
+      marker : TGstJpegMarker;
+      data : Pguint8;
+      offset : Tguint;
+      size : Tgssize;
+    end;
 
-GST_CODEC_PARSERS_API
-gboolean  gst_jpeg_parse (GstJpegSegment * seg,
-                          const guint8   * data,
-                          gsize            size,
-                          guint            offset);
 
-GST_CODEC_PARSERS_API
-gboolean  gst_jpeg_segment_parse_frame_header  (const GstJpegSegment  * segment,
-                                                GstJpegFrameHdr       * frame_hdr);
+function gst_jpeg_parse(seg:PGstJpegSegment; data:Pguint8; size:Tgsize; offset:Tguint):Tgboolean;cdecl;external libgstcodecparsers;
+function gst_jpeg_segment_parse_frame_header(segment:PGstJpegSegment; frame_hdr:PGstJpegFrameHdr):Tgboolean;cdecl;external libgstcodecparsers;
+function gst_jpeg_segment_parse_scan_header(segment:PGstJpegSegment; scan_hdr:PGstJpegScanHdr):Tgboolean;cdecl;external libgstcodecparsers;
+function gst_jpeg_segment_parse_huffman_table(segment:PGstJpegSegment; huff_tables:PGstJpegHuffmanTables):Tgboolean;cdecl;external libgstcodecparsers;
+function gst_jpeg_segment_parse_restart_interval(segment:PGstJpegSegment; interval:Pguint):Tgboolean;cdecl;external libgstcodecparsers;
+function gst_jpeg_segment_parse_quantization_table(segment:PGstJpegSegment; quant_tables:PGstJpegQuantTables):Tgboolean;cdecl;external libgstcodecparsers;
+procedure gst_jpeg_get_default_quantization_tables(quant_tables:PGstJpegQuantTables);cdecl;external libgstcodecparsers;
+procedure gst_jpeg_get_default_huffman_tables(huff_tables:PGstJpegHuffmanTables);cdecl;external libgstcodecparsers;
+{$endif}
+{ GST_JPEG_PARSER_H  }
 
-GST_CODEC_PARSERS_API
-gboolean  gst_jpeg_segment_parse_scan_header   (const GstJpegSegment * segment,
-                                                GstJpegScanHdr       * scan_hdr);
+// === Konventiert am: 21-7-26 17:01:43 ===
 
-GST_CODEC_PARSERS_API
-gboolean  gst_jpeg_segment_parse_huffman_table (const GstJpegSegment * segment,
-                                                GstJpegHuffmanTables * huff_tables);
 
-GST_CODEC_PARSERS_API
-gboolean  gst_jpeg_segment_parse_restart_interval (const GstJpegSegment * segment,
-                                                   guint                * interval);
-
-GST_CODEC_PARSERS_API
-gboolean  gst_jpeg_segment_parse_quantization_table (const GstJpegSegment * segment,
-                                                     GstJpegQuantTables   * quant_tables);
-
-GST_CODEC_PARSERS_API
-void      gst_jpeg_get_default_quantization_tables (GstJpegQuantTables * quant_tables);
-
-GST_CODEC_PARSERS_API
-void      gst_jpeg_get_default_huffman_tables (GstJpegHuffmanTables * huff_tables);
+implementation
 
 
 
-#endif /* GST_JPEG_PARSER_H */
+end.

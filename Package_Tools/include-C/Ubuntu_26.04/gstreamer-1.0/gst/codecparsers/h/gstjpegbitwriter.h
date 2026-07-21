@@ -46,28 +46,28 @@ typedef enum
 } GstJpegBitWriterResult;
 
 
-GST_CODEC_PARSERS_API
+extern
 GstJpegBitWriterResult     gst_jpeg_bit_writer_frame_header     (const GstJpegFrameHdr * frame_hdr,
                                                                  GstJpegMarker marker,
                                                                  guint8 * data,
                                                                  guint * size);
-GST_CODEC_PARSERS_API
+extern
 GstJpegBitWriterResult     gst_jpeg_bit_writer_scan_header      (const GstJpegScanHdr * scan_hdr,
                                                                  guint8 * data,
                                                                  guint * size);
-GST_CODEC_PARSERS_API
+extern
 GstJpegBitWriterResult     gst_jpeg_bit_writer_huffman_table    (const GstJpegHuffmanTables * huff_tables,
                                                                  guint8 * data,
                                                                  guint * size);
-GST_CODEC_PARSERS_API
+extern
 GstJpegBitWriterResult     gst_jpeg_bit_writer_quantization_table (const GstJpegQuantTables * quant_tables,
                                                                    guint8 * data,
                                                                    guint * size);
-GST_CODEC_PARSERS_API
+extern
 GstJpegBitWriterResult     gst_jpeg_bit_writer_restart_interval (guint16 interval,
                                                                  guint8 * data,
                                                                  guint * size);
-GST_CODEC_PARSERS_API
+extern
 GstJpegBitWriterResult     gst_jpeg_bit_writer_segment_with_data (GstJpegMarker marker,
                                                                   guint8 * seg_data,
                                                                   guint seg_size,

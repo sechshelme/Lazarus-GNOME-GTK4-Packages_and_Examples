@@ -45,12 +45,12 @@ typedef enum
   GST_AV1_BIT_WRITER_ERROR
 } GstAV1BitWriterResult;
 
-GST_CODEC_PARSERS_API
+extern
 GstAV1BitWriterResult    gst_av1_bit_writer_sequence_header_obu (const GstAV1SequenceHeaderOBU * seq_hdr,
                                                                  gboolean size_field,
                                                                  guint8 * data,
                                                                  guint * size);
-GST_CODEC_PARSERS_API
+extern
 GstAV1BitWriterResult    gst_av1_bit_writer_frame_header_obu    (const GstAV1FrameHeaderOBU * frame_hdr,
                                                                  const GstAV1SequenceHeaderOBU * seq_hdr,
                                                                  guint8 temporal_id,
@@ -58,7 +58,7 @@ GstAV1BitWriterResult    gst_av1_bit_writer_frame_header_obu    (const GstAV1Fra
                                                                  gboolean size_field,
                                                                  guint8 * data,
                                                                  guint * size);
-GST_CODEC_PARSERS_API
+extern
 GstAV1BitWriterResult    gst_av1_bit_writer_frame_header_obu_with_offsets (const GstAV1FrameHeaderOBU * frame_hdr,
                                                                            const GstAV1SequenceHeaderOBU * seq_hdr,
                                                                            guint8 temporal_id,
@@ -72,11 +72,11 @@ GstAV1BitWriterResult    gst_av1_bit_writer_frame_header_obu_with_offsets (const
                                                                            guint * cdef_size,
                                                                            guint8 * data,
                                                                            guint * size);
-GST_CODEC_PARSERS_API
+extern
 GstAV1BitWriterResult    gst_av1_bit_writer_temporal_delimiter_obu (gboolean size_field,
                                                                     guint8 * data,
                                                                     guint * size);
-GST_CODEC_PARSERS_API
+extern
 GstAV1BitWriterResult    gst_av1_bit_writer_metadata_obu        (const GstAV1MetadataOBU * metadata,
                                                                  guint8 temporal_id,
                                                                  guint8 spatial_id,
