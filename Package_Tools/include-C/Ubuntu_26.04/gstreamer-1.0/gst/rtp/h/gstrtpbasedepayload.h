@@ -111,40 +111,40 @@ struct _GstRTPBaseDepayloadClass
   gpointer _gst_reserved[GST_PADDING - 1];
 };
 
-GST_RTP_API
+extern
 GType gst_rtp_base_depayload_get_type (void);
 
-GST_RTP_API
+extern
 GstFlowReturn   gst_rtp_base_depayload_push       (GstRTPBaseDepayload *filter, GstBuffer *out_buf);
 
-GST_RTP_API
+extern
 GstFlowReturn   gst_rtp_base_depayload_push_list  (GstRTPBaseDepayload *filter, GstBufferList *out_list);
 
-GST_RTP_API
+extern
 gboolean        gst_rtp_base_depayload_is_source_info_enabled  (GstRTPBaseDepayload * depayload);
 
-GST_RTP_API
+extern
 void            gst_rtp_base_depayload_set_source_info_enabled (GstRTPBaseDepayload * depayload,
                                                                 gboolean enable);
 
-GST_RTP_API
+extern
 void            gst_rtp_base_depayload_dropped (GstRTPBaseDepayload * depayload);
 
-GST_RTP_API
+extern
 void            gst_rtp_base_depayload_delayed (GstRTPBaseDepayload * depayload);
 
-GST_RTP_API
+extern
 void            gst_rtp_base_depayload_flush   (GstRTPBaseDepayload * depayload,
                                                 gboolean keep_current);
 
-GST_RTP_API
+extern
 gboolean        gst_rtp_base_depayload_is_aggregate_hdrext_enabled  (GstRTPBaseDepayload * depayload);
 
-GST_RTP_API
+extern
 void            gst_rtp_base_depayload_set_aggregate_hdrext_enabled (GstRTPBaseDepayload * depayload,
                                                                      gboolean enable);
 
-//////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC           (GstRTPBaseDepayload, gst_object_unref)
+////////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC            (GstRTPBaseDepayload, gst_object_unref)
 
 
 

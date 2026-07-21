@@ -42,6 +42,7 @@ const
   libgstcontroller = 'libgstcontroller-1.0';
   libgstrtp = 'libgstrtp-1.0';
   libgstrtsp = 'libgstrtsp-1.0';
+  libgstrtspserver = 'libgstrtspserver-1.0';
   libgstwayland = 'libgstwayland-1.0';
   libgstva = 'libgstva-1.0';
   libgstplayer = 'libgstplayer-1.0';
@@ -85,6 +86,7 @@ const
   libgstcontroller = 'libgstcontroller-1.0-0.dll';
   libgstrtp = 'libgstrtp-1.0-0.dll';
   libgstrtsp = 'libgstrtsp-1.0-0.dll';
+  libgstrtspserver = 'libgstrtspserver-1.0-0.dll';
   libgstwayland = 'liblstwayland-1.0-0.dll';
   libgstva = 'libgstva-1.0-0.dll';
   libgstplayer = 'libgstplayer-1.0-0.dll';

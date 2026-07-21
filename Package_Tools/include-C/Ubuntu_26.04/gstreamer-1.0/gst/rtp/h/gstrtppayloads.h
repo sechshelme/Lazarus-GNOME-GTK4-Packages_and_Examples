@@ -187,10 +187,10 @@ struct _GstRTPPayloadInfo
   gpointer _gst_reserved[GST_PADDING];
 };
 
-GST_RTP_API
+extern
 const GstRTPPayloadInfo *  gst_rtp_payload_info_for_pt     (guint8 payload_type);
 
-GST_RTP_API
+extern
 const GstRTPPayloadInfo *  gst_rtp_payload_info_for_name   (const gchar *media, const gchar *encoding_name);
 
 

@@ -34,7 +34,7 @@ GType gst_webrtc_rtp_transceiver_get_type(void);
 #define GST_IS_WEBRTC_RTP_TRANSCEIVER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE((klass) ,GST_TYPE_WEBRTC_RTP_TRANSCEIVER))
 #define GST_WEBRTC_RTP_TRANSCEIVER_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS((obj) ,GST_TYPE_WEBRTC_RTP_TRANSCEIVER,GstWebRTCRTPTransceiverClass))
 
-//////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC           (GstWebRTCRTPTransceiver, gst_object_unref)
+////////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC            (GstWebRTCRTPTransceiver, gst_object_unref)
 
 
 

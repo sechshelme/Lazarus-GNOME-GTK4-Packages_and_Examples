@@ -340,9 +340,9 @@ const
     (libs: 'libgstaudio'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstvulkan'; units: 'fp_glib2, fp_gst'),
 
-    (libs: 'libgstrtp'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstsdp'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstrtsp'; units: 'fp_glib2, fp_gst'),
+    (libs: 'libgstrtp'; units: 'fp_glib2, fp_gst'),
 
 
 

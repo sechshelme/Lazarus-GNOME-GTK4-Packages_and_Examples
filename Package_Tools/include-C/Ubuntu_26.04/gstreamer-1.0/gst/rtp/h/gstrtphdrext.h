@@ -35,20 +35,20 @@
 
 #define GST_RTP_HDREXT_NTP_64_SIZE 8
 
-GST_RTP_API
+extern
 gboolean       gst_rtp_hdrext_set_ntp_64  (gpointer data, guint size, guint64 ntptime);
 
-GST_RTP_API
+extern
 gboolean       gst_rtp_hdrext_get_ntp_64  (gpointer data, guint size, guint64 *ntptime);
 
 #define GST_RTP_HDREXT_NTP_56 "ntp-56"
 
 #define GST_RTP_HDREXT_NTP_56_SIZE 7
 
-GST_RTP_API
+extern
 gboolean       gst_rtp_hdrext_set_ntp_56  (gpointer data, guint size, guint64 ntptime);
 
-GST_RTP_API
+extern
 gboolean       gst_rtp_hdrext_get_ntp_56  (gpointer data, guint size, guint64 *ntptime);
 
 /**
@@ -61,7 +61,7 @@ gboolean       gst_rtp_hdrext_get_ntp_56  (gpointer data, guint size, guint64 *n
  */
 #define GST_RTP_HDREXT_ELEMENT_CLASS "Network/Extension/RTPHeader"
 
-GST_RTP_API
+extern
 GType gst_rtp_header_extension_get_type (void);
 #define GST_TYPE_RTP_HEADER_EXTENSION (gst_rtp_header_extension_get_type())
 #define GST_RTP_HEADER_EXTENSION(obj) \
@@ -213,7 +213,7 @@ struct _GstRTPHeaderExtensionClass
   gpointer _gst_reserved[GST_PADDING_LARGE];
 };
 
-//////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC           (GstRTPHeaderExtension, gst_object_unref)
+////////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC            (GstRTPHeaderExtension, gst_object_unref)
 
 /**
  * GST_RTP_HEADER_EXTENSION_URI_METADATA_KEY:
@@ -222,68 +222,68 @@ struct _GstRTPHeaderExtensionClass
  */
 #define GST_RTP_HEADER_EXTENSION_URI_METADATA_KEY "RTP-Header-Extension-URI"
 
-GST_RTP_API
+extern
 void                gst_rtp_header_extension_class_set_uri      (GstRTPHeaderExtensionClass *klass,
                                                                  const gchar * uri);
 
-GST_RTP_API
+extern
 const gchar *       gst_rtp_header_extension_get_uri            (GstRTPHeaderExtension * ext);
-GST_RTP_API
+extern
 gsize               gst_rtp_header_extension_get_max_size       (GstRTPHeaderExtension * ext,
                                                                  const GstBuffer * input_meta);
-GST_RTP_API
+extern
 GstRTPHeaderExtensionFlags gst_rtp_header_extension_get_supported_flags (GstRTPHeaderExtension * ext);
-GST_RTP_API
+extern
 guint               gst_rtp_header_extension_get_id             (GstRTPHeaderExtension * ext);
-GST_RTP_API
+extern
 void                gst_rtp_header_extension_set_id             (GstRTPHeaderExtension * ext,
                                                                  guint ext_id);
-GST_RTP_API
+extern
 gssize              gst_rtp_header_extension_write              (GstRTPHeaderExtension * ext,
                                                                  const GstBuffer * input_meta,
                                                                  GstRTPHeaderExtensionFlags write_flags,
                                                                  GstBuffer * output,
                                                                  guint8 * data,
                                                                  gsize size);
-GST_RTP_API
+extern
 gboolean            gst_rtp_header_extension_read               (GstRTPHeaderExtension * ext,
                                                                  GstRTPHeaderExtensionFlags read_flags,
                                                                  const guint8 * data,
                                                                  gsize size,
                                                                  GstBuffer * buffer);
-GST_RTP_API
+extern
 gboolean            gst_rtp_header_extension_set_non_rtp_sink_caps (GstRTPHeaderExtension * ext,
                                                                     const GstCaps * caps);
-GST_RTP_API
+extern
 gboolean            gst_rtp_header_extension_wants_update_non_rtp_src_caps (GstRTPHeaderExtension * ext);
-GST_RTP_API
+extern
 void                gst_rtp_header_extension_set_wants_update_non_rtp_src_caps (GstRTPHeaderExtension * ext,
                                                                                 gboolean state);
-GST_RTP_API
+extern
 gboolean            gst_rtp_header_extension_update_non_rtp_src_caps (GstRTPHeaderExtension * ext,
                                                                       GstCaps * caps);
-GST_RTP_API
+extern
 gboolean            gst_rtp_header_extension_set_caps_from_attributes (GstRTPHeaderExtension * ext,
                                                                        GstCaps * caps);
-GST_RTP_API
+extern
 gboolean            gst_rtp_header_extension_set_attributes_from_caps (GstRTPHeaderExtension * ext,
                                                                        const GstCaps * caps);
 
-GST_RTP_API
+extern
 GList *             gst_rtp_get_header_extension_list           (void);
-GST_RTP_API
+extern
 GstRTPHeaderExtension * gst_rtp_header_extension_create_from_uri (const gchar * uri);
 
-GST_RTP_API
+extern
 gchar *	            gst_rtp_header_extension_get_sdp_caps_field_name (GstRTPHeaderExtension * ext) ;
 
-GST_RTP_API
+extern
 void	            gst_rtp_header_extension_set_direction (GstRTPHeaderExtension * ext,
                                                             GstRTPHeaderExtensionDirection direction);
-GST_RTP_API
+extern
 GstRTPHeaderExtensionDirection	gst_rtp_header_extension_get_direction (GstRTPHeaderExtension * ext);
 
-GST_RTP_API
+extern
 gboolean    gst_rtp_header_extension_set_caps_from_attributes_helper (GstRTPHeaderExtension * ext,
                                                                       GstCaps * caps,
                                                                       const gchar * attributes);

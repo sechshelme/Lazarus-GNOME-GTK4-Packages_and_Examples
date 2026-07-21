@@ -284,7 +284,7 @@ struct _GstRTCPBuffer
   GstMapInfo   map;
 };
 
-#define GST_RTCP_BUFFER_INIT { NULL, GST_MAP_INFO_INIT }
+//#define GST_RTCP_BUFFER_INIT { NULL, GST_MAP_INFO_INIT }
 
 /**
  * GstRTCPPacket:
@@ -313,105 +313,105 @@ struct _GstRTCPPacket
 
 /* creating buffers */
 
-GST_RTP_API
+extern
 GstBuffer*      gst_rtcp_buffer_new_take_data     (gpointer data, guint len);
 
-GST_RTP_API
+extern
 GstBuffer*      gst_rtcp_buffer_new_copy_data     (gconstpointer data, guint len);
 
-GST_RTP_API
+extern
 gboolean        gst_rtcp_buffer_validate_data     (guint8 *data, guint len);
 
-GST_RTP_API
+extern
 gboolean        gst_rtcp_buffer_validate          (GstBuffer *buffer);
 
-GST_RTP_API
+extern
 gboolean        gst_rtcp_buffer_validate_data_reduced   (guint8 *data, guint len);
 
-GST_RTP_API
+extern
 gboolean        gst_rtcp_buffer_validate_reduced        (GstBuffer *buffer);
 
 
-GST_RTP_API
+extern
 GstBuffer*      gst_rtcp_buffer_new               (guint mtu);
 
-GST_RTP_API
+extern
 gboolean        gst_rtcp_buffer_map               (GstBuffer *buffer, GstMapFlags flags, GstRTCPBuffer *rtcp);
 
-GST_RTP_API
+extern
 gboolean        gst_rtcp_buffer_unmap             (GstRTCPBuffer *rtcp);
 
 /* adding/retrieving packets */
 
-GST_RTP_API
+extern
 guint           gst_rtcp_buffer_get_packet_count  (GstRTCPBuffer *rtcp);
 
-GST_RTP_API
+extern
 gboolean        gst_rtcp_buffer_get_first_packet  (GstRTCPBuffer *rtcp, GstRTCPPacket *packet);
 
-GST_RTP_API
+extern
 gboolean        gst_rtcp_packet_move_to_next      (GstRTCPPacket *packet);
 
-GST_RTP_API
+extern
 gboolean        gst_rtcp_buffer_add_packet        (GstRTCPBuffer *rtcp, GstRTCPType type,
                                                    GstRTCPPacket *packet);
 
-GST_RTP_API
+extern
 gboolean        gst_rtcp_packet_remove            (GstRTCPPacket *packet);
 
 /* working with packets */
 
-GST_RTP_API
+extern
 gboolean        gst_rtcp_packet_get_padding       (GstRTCPPacket *packet);
 
-GST_RTP_API
+extern
 guint8          gst_rtcp_packet_get_count         (GstRTCPPacket *packet);
 
-GST_RTP_API
+extern
 GstRTCPType     gst_rtcp_packet_get_type          (GstRTCPPacket *packet);
 
-GST_RTP_API
+extern
 guint16         gst_rtcp_packet_get_length        (GstRTCPPacket *packet);
 
 
 /* sender reports */
 
-GST_RTP_API
+extern
 void            gst_rtcp_packet_sr_get_sender_info    (GstRTCPPacket *packet, guint32 *ssrc,
                                                        guint64 *ntptime, guint32 *rtptime,
                                                        guint32 *packet_count, guint32 *octet_count);
 
-GST_RTP_API
+extern
 void            gst_rtcp_packet_sr_set_sender_info    (GstRTCPPacket *packet, guint32 ssrc,
                                                        guint64 ntptime, guint32 rtptime,
                                                        guint32 packet_count, guint32 octet_count);
 /* receiver reports */
 
-GST_RTP_API
+extern
 guint32         gst_rtcp_packet_rr_get_ssrc           (GstRTCPPacket *packet);
 
-GST_RTP_API
+extern
 void            gst_rtcp_packet_rr_set_ssrc           (GstRTCPPacket *packet, guint32 ssrc);
 
 
 /* report blocks for SR and RR */
 
-GST_RTP_API
+extern
 guint           gst_rtcp_packet_get_rb_count          (GstRTCPPacket *packet);
 
-GST_RTP_API
+extern
 void            gst_rtcp_packet_get_rb                (GstRTCPPacket *packet, guint nth, guint32 *ssrc,
                                                        guint8 *fractionlost, gint32 *packetslost,
                                                        guint32 *exthighestseq, guint32 *jitter,
                                                        guint32 *lsr, guint32 *dlsr);
 
-GST_RTP_API
+extern
 gboolean        gst_rtcp_packet_add_rb                (GstRTCPPacket *packet, guint32 ssrc,
                                                        guint8 fractionlost, gint32 packetslost,
                                                        guint32 exthighestseq, guint32 jitter,
                                                        guint32 lsr, guint32 dlsr);
 
-GST_RTP_API
+extern
 void            gst_rtcp_packet_set_rb                (GstRTCPPacket *packet, guint nth, guint32 ssrc,
                                                        guint8 fractionlost, gint32 packetslost,
                                                        guint32 exthighestseq, guint32 jitter,
@@ -419,247 +419,247 @@ void            gst_rtcp_packet_set_rb                (GstRTCPPacket *packet, gu
 
 /* profile-specific extensions for SR and RR */
 
-GST_RTP_API
+extern
 gboolean        gst_rtcp_packet_add_profile_specific_ext        (GstRTCPPacket * packet,
                                                                  const guint8 * data, guint len);
 
-GST_RTP_API
+extern
 guint16         gst_rtcp_packet_get_profile_specific_ext_length (GstRTCPPacket * packet);
 
-GST_RTP_API
+extern
 gboolean        gst_rtcp_packet_get_profile_specific_ext        (GstRTCPPacket * packet,
                                                                  guint8 ** data, guint * len);
 
-GST_RTP_API
+extern
 gboolean        gst_rtcp_packet_copy_profile_specific_ext       (GstRTCPPacket * packet,
                                                                  guint8 ** data, guint * len);
 
 /* source description packet */
 
-GST_RTP_API
+extern
 guint           gst_rtcp_packet_sdes_get_item_count   (GstRTCPPacket *packet);
 
-GST_RTP_API
+extern
 gboolean        gst_rtcp_packet_sdes_first_item       (GstRTCPPacket *packet);
 
-GST_RTP_API
+extern
 gboolean        gst_rtcp_packet_sdes_next_item        (GstRTCPPacket *packet);
 
-GST_RTP_API
+extern
 guint32         gst_rtcp_packet_sdes_get_ssrc         (GstRTCPPacket *packet);
 
-GST_RTP_API
+extern
 gboolean        gst_rtcp_packet_sdes_first_entry      (GstRTCPPacket *packet);
 
-GST_RTP_API
+extern
 gboolean        gst_rtcp_packet_sdes_next_entry       (GstRTCPPacket *packet);
 
-GST_RTP_API
+extern
 gboolean        gst_rtcp_packet_sdes_get_entry        (GstRTCPPacket *packet,
                                                        GstRTCPSDESType *type, guint8 *len,
                                                        guint8 **data);
 
-GST_RTP_API
+extern
 gboolean        gst_rtcp_packet_sdes_copy_entry       (GstRTCPPacket *packet,
                                                        GstRTCPSDESType *type, guint8 *len,
                                                        guint8 **data);
 
-GST_RTP_API
+extern
 gboolean        gst_rtcp_packet_sdes_add_item         (GstRTCPPacket *packet, guint32 ssrc);
 
-GST_RTP_API
+extern
 gboolean        gst_rtcp_packet_sdes_add_entry        (GstRTCPPacket *packet, GstRTCPSDESType type,
                                                        guint8 len, const guint8 *data);
 
 /* bye packet */
 
-GST_RTP_API
+extern
 guint           gst_rtcp_packet_bye_get_ssrc_count    (GstRTCPPacket *packet);
 
-GST_RTP_API
+extern
 guint32         gst_rtcp_packet_bye_get_nth_ssrc      (GstRTCPPacket *packet, guint nth);
 
-GST_RTP_API
+extern
 gboolean        gst_rtcp_packet_bye_add_ssrc          (GstRTCPPacket *packet, guint32 ssrc);
 
-GST_RTP_API
+extern
 gboolean        gst_rtcp_packet_bye_add_ssrcs         (GstRTCPPacket *packet, guint32 *ssrc, guint len);
 
-GST_RTP_API
+extern
 guint8          gst_rtcp_packet_bye_get_reason_len    (GstRTCPPacket *packet);
 
-GST_RTP_API
+extern
 gchar*          gst_rtcp_packet_bye_get_reason        (GstRTCPPacket *packet) ;
 
-GST_RTP_API
+extern
 gboolean        gst_rtcp_packet_bye_set_reason        (GstRTCPPacket *packet, const gchar *reason);
 
 /* app packets */
 
-GST_RTP_API
+extern
 void            gst_rtcp_packet_app_set_subtype       (GstRTCPPacket * packet, guint8 subtype);
 
-GST_RTP_API
+extern
 guint8          gst_rtcp_packet_app_get_subtype       (GstRTCPPacket * packet);
 
-GST_RTP_API
+extern
 void            gst_rtcp_packet_app_set_ssrc          (GstRTCPPacket * packet, guint32 ssrc);
 
-GST_RTP_API
+extern
 guint32         gst_rtcp_packet_app_get_ssrc          (GstRTCPPacket * packet);
 
-GST_RTP_API
+extern
 void            gst_rtcp_packet_app_set_name          (GstRTCPPacket * packet, const gchar *name);
 
-GST_RTP_API
+extern
 const gchar*    gst_rtcp_packet_app_get_name          (GstRTCPPacket * packet);
 
-GST_RTP_API
+extern
 guint16         gst_rtcp_packet_app_get_data_length   (GstRTCPPacket * packet);
 
-GST_RTP_API
+extern
 gboolean        gst_rtcp_packet_app_set_data_length   (GstRTCPPacket * packet, guint16 wordlen);
 
-GST_RTP_API
+extern
 guint8*         gst_rtcp_packet_app_get_data          (GstRTCPPacket * packet);
 
 /* feedback packets */
 
-GST_RTP_API
+extern
 guint32         gst_rtcp_packet_fb_get_sender_ssrc    (GstRTCPPacket *packet);
 
-GST_RTP_API
+extern
 void            gst_rtcp_packet_fb_set_sender_ssrc    (GstRTCPPacket *packet, guint32 ssrc);
 
-GST_RTP_API
+extern
 guint32         gst_rtcp_packet_fb_get_media_ssrc     (GstRTCPPacket *packet);
 
-GST_RTP_API
+extern
 void            gst_rtcp_packet_fb_set_media_ssrc     (GstRTCPPacket *packet, guint32 ssrc);
 
-GST_RTP_API
+extern
 GstRTCPFBType   gst_rtcp_packet_fb_get_type           (GstRTCPPacket *packet);
 
-GST_RTP_API
+extern
 void            gst_rtcp_packet_fb_set_type           (GstRTCPPacket *packet, GstRTCPFBType type);
 
-GST_RTP_API
+extern
 guint16         gst_rtcp_packet_fb_get_fci_length     (GstRTCPPacket *packet);
 
-GST_RTP_API
+extern
 gboolean        gst_rtcp_packet_fb_set_fci_length     (GstRTCPPacket *packet, guint16 wordlen);
 
-GST_RTP_API
+extern
 guint8 *        gst_rtcp_packet_fb_get_fci            (GstRTCPPacket *packet);
 
 /* helper functions */
 
-GST_RTP_API
+extern
 guint64         gst_rtcp_ntp_to_unix                  (guint64 ntptime);
 
-GST_RTP_API
+extern
 guint64         gst_rtcp_unix_to_ntp                  (guint64 unixtime);
 
-GST_RTP_API
+extern
 const gchar *   gst_rtcp_sdes_type_to_name            (GstRTCPSDESType type);
 
-GST_RTP_API
+extern
 GstRTCPSDESType gst_rtcp_sdes_name_to_type            (const gchar *name);
 
 /* extended report */
 
-GST_RTP_API
+extern
 guint32         gst_rtcp_packet_xr_get_ssrc           (GstRTCPPacket *packet);
 
-GST_RTP_API
+extern
 gboolean        gst_rtcp_packet_xr_first_rb           (GstRTCPPacket *packet);
 
-GST_RTP_API
+extern
 gboolean        gst_rtcp_packet_xr_next_rb            (GstRTCPPacket * packet);
 
-GST_RTP_API
+extern
 GstRTCPXRType   gst_rtcp_packet_xr_get_block_type     (GstRTCPPacket * packet);
 
-GST_RTP_API
+extern
 guint16         gst_rtcp_packet_xr_get_block_length   (GstRTCPPacket * packet);
 
-GST_RTP_API
+extern
 gboolean        gst_rtcp_packet_xr_get_rle_info       (GstRTCPPacket * packet,
                                                        guint32 * ssrc, guint8 * thinning,
                                                        guint16 * begin_seq, guint16 * end_seq,
                                                        guint32 * chunk_count);
 
-GST_RTP_API
+extern
 gboolean        gst_rtcp_packet_xr_get_rle_nth_chunk  (GstRTCPPacket * packet, guint nth,
                                                        guint16 * chunk);
 
-GST_RTP_API
+extern
 gboolean        gst_rtcp_packet_xr_get_prt_info       (GstRTCPPacket * packet,
                                                        guint32 * ssrc, guint8 * thinning,
                                                        guint16 * begin_seq, guint16 * end_seq);
 
-GST_RTP_API
+extern
 gboolean        gst_rtcp_packet_xr_get_prt_by_seq     (GstRTCPPacket * packet, guint16 seq,
                                                        guint32 * receipt_time);
 
-GST_RTP_API
+extern
 gboolean        gst_rtcp_packet_xr_get_rrt            (GstRTCPPacket * packet, guint64 * timestamp);
 
-GST_RTP_API
+extern
 gboolean        gst_rtcp_packet_xr_get_dlrr_block     (GstRTCPPacket * packet,
                                                        guint nth, guint32 * ssrc,
                                                        guint32 * last_rr, guint32 * delay);
 
-GST_RTP_API
+extern
 gboolean        gst_rtcp_packet_xr_get_summary_info   (GstRTCPPacket * packet, guint32 * ssrc,
                                                        guint16 * begin_seq, guint16 * end_seq);
 
-GST_RTP_API
+extern
 gboolean        gst_rtcp_packet_xr_get_summary_pkt    (GstRTCPPacket * packet,
                                                        guint32 * lost_packets, guint32 * dup_packets);
 
-GST_RTP_API
+extern
 gboolean        gst_rtcp_packet_xr_get_summary_jitter (GstRTCPPacket * packet,
                                                        guint32 * min_jitter, guint32 * max_jitter,
                                                        guint32 * mean_jitter, guint32 * dev_jitter);
 
-GST_RTP_API
+extern
 gboolean        gst_rtcp_packet_xr_get_summary_ttl    (GstRTCPPacket * packet, gboolean * is_ipv4,
                                                        guint8 * min_ttl, guint8 * max_ttl,
                                                        guint8 * mean_ttl, guint8 * dev_ttl);
 
-GST_RTP_API
+extern
 gboolean        gst_rtcp_packet_xr_get_voip_metrics_ssrc        (GstRTCPPacket * packet, guint32 * ssrc);
 
-GST_RTP_API
+extern
 gboolean        gst_rtcp_packet_xr_get_voip_packet_metrics      (GstRTCPPacket * packet,
                                                                  guint8 * loss_rate, guint8 * discard_rate);
 
-GST_RTP_API
+extern
 gboolean        gst_rtcp_packet_xr_get_voip_burst_metrics       (GstRTCPPacket * packet,
                                                                  guint8 * burst_density, guint8 * gap_density,
                                                                  guint16 * burst_duration, guint16 * gap_duration);
 
-GST_RTP_API
+extern
 gboolean        gst_rtcp_packet_xr_get_voip_delay_metrics       (GstRTCPPacket * packet,
                                                                  guint16 * roundtrip_delay,
                                                                  guint16 * end_system_delay);
 
-GST_RTP_API
+extern
 gboolean        gst_rtcp_packet_xr_get_voip_signal_metrics      (GstRTCPPacket * packet,
                                                                  guint8 * signal_level, guint8 * noise_level,
                                                                  guint8 * rerl, guint8 * gmin);
 
-GST_RTP_API
+extern
 gboolean        gst_rtcp_packet_xr_get_voip_quality_metrics     (GstRTCPPacket * packet,
                                                                  guint8 * r_factor, guint8 * ext_r_factor,
                                                                  guint8 * mos_lq, guint8 * mos_cq);
 
-GST_RTP_API
+extern
 gboolean        gst_rtcp_packet_xr_get_voip_configuration_params        (GstRTCPPacket * packet,
                                                                          guint8 * gmin, guint8 * rx_config);
 
-GST_RTP_API
+extern
 gboolean        gst_rtcp_packet_xr_get_voip_jitter_buffer_params        (GstRTCPPacket * packet,
                                                                          guint16 * jb_nominal,
                                                                          guint16 * jb_maximum,

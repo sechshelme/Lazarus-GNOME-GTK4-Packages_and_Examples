@@ -53,25 +53,25 @@ struct _GstRTPSourceMeta
   guint csrc_count;
 };
 
-GST_RTP_API
+extern
 GType               gst_rtp_source_meta_api_get_type     (void);
 
-GST_RTP_API
+extern
 GstRTPSourceMeta *  gst_buffer_add_rtp_source_meta       (GstBuffer * buffer, const guint32 * ssrc,
                                                           const guint32 * csrc, guint csrc_count);
-GST_RTP_API
+extern
 GstRTPSourceMeta *  gst_buffer_get_rtp_source_meta       (GstBuffer * buffer);
 
-GST_RTP_API
+extern
 guint               gst_rtp_source_meta_get_source_count (const GstRTPSourceMeta * meta);
 
-GST_RTP_API
+extern
 gboolean            gst_rtp_source_meta_set_ssrc         (GstRTPSourceMeta * meta, guint32 * ssrc);
 
-GST_RTP_API
+extern
 gboolean            gst_rtp_source_meta_append_csrc      (GstRTPSourceMeta * meta,
                                                           const guint32 * csrc, guint csrc_count);
-GST_RTP_API
+extern
 const GstMetaInfo * gst_rtp_source_meta_get_info         (void);
 
 
