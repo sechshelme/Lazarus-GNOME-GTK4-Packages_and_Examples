@@ -9,16 +9,16 @@ type
   {$ENDIF read_struct}
 
 {$IFDEF read_function}
-function gst_rtsp_token_get_type: TGType; cdecl; external libgstrtsp;
-function gst_rtsp_token_new_empty: PGstRTSPToken; cdecl; external libgstrtsp;
+function gst_rtsp_token_get_type: TGType; cdecl; external libgstrtspserver;
+function gst_rtsp_token_new_empty: PGstRTSPToken; cdecl; external libgstrtspserver;
 function gst_rtsp_token_new(firstfield: Pgchar): PGstRTSPToken; cdecl; varargs; external libgstrtsp;
-function gst_rtsp_token_new_valist(firstfield: Pgchar; var_args: Tva_list): PGstRTSPToken; cdecl; external libgstrtsp;
-function gst_rtsp_token_get_structure(token: PGstRTSPToken): PGstStructure; cdecl; external libgstrtsp;
-function gst_rtsp_token_writable_structure(token: PGstRTSPToken): PGstStructure; cdecl; external libgstrtsp;
-procedure gst_rtsp_token_set_string(token: PGstRTSPToken; field: Pgchar; string_value: Pgchar); cdecl; external libgstrtsp;
-function gst_rtsp_token_get_string(token: PGstRTSPToken; field: Pgchar): Pgchar; cdecl; external libgstrtsp;
-procedure gst_rtsp_token_set_bool(token: PGstRTSPToken; field: Pgchar; bool_value: Tgboolean); cdecl; external libgstrtsp;
-function gst_rtsp_token_is_allowed(token: PGstRTSPToken; field: Pgchar): Tgboolean; cdecl; external libgstrtsp;
+function gst_rtsp_token_new_valist(firstfield: Pgchar; var_args: Tva_list): PGstRTSPToken; cdecl; external libgstrtspserver;
+function gst_rtsp_token_get_structure(token: PGstRTSPToken): PGstStructure; cdecl; external libgstrtspserver;
+function gst_rtsp_token_writable_structure(token: PGstRTSPToken): PGstStructure; cdecl; external libgstrtspserver;
+procedure gst_rtsp_token_set_string(token: PGstRTSPToken; field: Pgchar; string_value: Pgchar); cdecl; external libgstrtspserver;
+function gst_rtsp_token_get_string(token: PGstRTSPToken; field: Pgchar): Pgchar; cdecl; external libgstrtspserver;
+procedure gst_rtsp_token_set_bool(token: PGstRTSPToken; field: Pgchar; bool_value: Tgboolean); cdecl; external libgstrtspserver;
+function gst_rtsp_token_is_allowed(token: PGstRTSPToken; field: Pgchar): Tgboolean; cdecl; external libgstrtspserver;
 
 // === Konventiert am: 20-7-26 13:42:07 ===
 

@@ -20,12 +20,12 @@ type
   {$ENDIF read_struct}
 
 {$IFDEF read_function}
-function gst_rtsp_mount_points_get_type: TGType; cdecl; external libgstrtsp;
-function gst_rtsp_mount_points_new: PGstRTSPMountPoints; cdecl; external libgstrtsp;
-function gst_rtsp_mount_points_make_path(mounts: PGstRTSPMountPoints; url: PGstRTSPUrl): Pgchar; cdecl; external libgstrtsp;
-function gst_rtsp_mount_points_match(mounts: PGstRTSPMountPoints; path: Pgchar; matched: Pgint): PGstRTSPMediaFactory; cdecl; external libgstrtsp;
-procedure gst_rtsp_mount_points_add_factory(mounts: PGstRTSPMountPoints; path: Pgchar; factory: PGstRTSPMediaFactory); cdecl; external libgstrtsp;
-procedure gst_rtsp_mount_points_remove_factory(mounts: PGstRTSPMountPoints; path: Pgchar); cdecl; external libgstrtsp;
+function gst_rtsp_mount_points_get_type: TGType; cdecl; external libgstrtspserver;
+function gst_rtsp_mount_points_new: PGstRTSPMountPoints; cdecl; external libgstrtspserver;
+function gst_rtsp_mount_points_make_path(mounts: PGstRTSPMountPoints; url: PGstRTSPUrl): Pgchar; cdecl; external libgstrtspserver;
+function gst_rtsp_mount_points_match(mounts: PGstRTSPMountPoints; path: Pgchar; matched: Pgint): PGstRTSPMediaFactory; cdecl; external libgstrtspserver;
+procedure gst_rtsp_mount_points_add_factory(mounts: PGstRTSPMountPoints; path: Pgchar; factory: PGstRTSPMediaFactory); cdecl; external libgstrtspserver;
+procedure gst_rtsp_mount_points_remove_factory(mounts: PGstRTSPMountPoints; path: Pgchar); cdecl; external libgstrtspserver;
 
 // === Konventiert am: 20-7-26 13:45:20 ===
 

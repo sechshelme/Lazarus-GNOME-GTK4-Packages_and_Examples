@@ -9,16 +9,16 @@ type
   {$ENDIF read_struct}
 
 {$IFDEF read_function}
-function gst_rtsp_permissions_get_type: TGType; cdecl; external libgstrtsp;
-function gst_rtsp_permissions_new: PGstRTSPPermissions; cdecl; external libgstrtsp;
+function gst_rtsp_permissions_get_type: TGType; cdecl; external libgstrtspserver;
+function gst_rtsp_permissions_new: PGstRTSPPermissions; cdecl; external libgstrtspserver;
 procedure gst_rtsp_permissions_add_role(permissions: PGstRTSPPermissions; role: Pgchar; fieldname: Pgchar); cdecl; varargs; external libgstrtsp;
-procedure gst_rtsp_permissions_add_role_valist(permissions: PGstRTSPPermissions; role: Pgchar; fieldname: Pgchar; var_args: Tva_list); cdecl; external libgstrtsp;
-procedure gst_rtsp_permissions_add_role_empty(permissions: PGstRTSPPermissions; role: Pgchar); cdecl; external libgstrtsp;
-procedure gst_rtsp_permissions_add_role_from_structure(permissions: PGstRTSPPermissions; structure: PGstStructure); cdecl; external libgstrtsp;
-procedure gst_rtsp_permissions_add_permission_for_role(permissions: PGstRTSPPermissions; role: Pgchar; permission: Pgchar; allowed: Tgboolean); cdecl; external libgstrtsp;
-procedure gst_rtsp_permissions_remove_role(permissions: PGstRTSPPermissions; role: Pgchar); cdecl; external libgstrtsp;
-function gst_rtsp_permissions_get_role(permissions: PGstRTSPPermissions; role: Pgchar): PGstStructure; cdecl; external libgstrtsp;
-function gst_rtsp_permissions_is_allowed(permissions: PGstRTSPPermissions; role: Pgchar; permission: Pgchar): Tgboolean; cdecl; external libgstrtsp;
+procedure gst_rtsp_permissions_add_role_valist(permissions: PGstRTSPPermissions; role: Pgchar; fieldname: Pgchar; var_args: Tva_list); cdecl; external libgstrtspserver;
+procedure gst_rtsp_permissions_add_role_empty(permissions: PGstRTSPPermissions; role: Pgchar); cdecl; external libgstrtspserver;
+procedure gst_rtsp_permissions_add_role_from_structure(permissions: PGstRTSPPermissions; structure: PGstStructure); cdecl; external libgstrtspserver;
+procedure gst_rtsp_permissions_add_permission_for_role(permissions: PGstRTSPPermissions; role: Pgchar; permission: Pgchar; allowed: Tgboolean); cdecl; external libgstrtspserver;
+procedure gst_rtsp_permissions_remove_role(permissions: PGstRTSPPermissions; role: Pgchar); cdecl; external libgstrtspserver;
+function gst_rtsp_permissions_get_role(permissions: PGstRTSPPermissions; role: Pgchar): PGstStructure; cdecl; external libgstrtspserver;
+function gst_rtsp_permissions_is_allowed(permissions: PGstRTSPPermissions; role: Pgchar; permission: Pgchar): Tgboolean; cdecl; external libgstrtspserver;
 
 // === Konventiert am: 20-7-26 13:44:34 ===
 

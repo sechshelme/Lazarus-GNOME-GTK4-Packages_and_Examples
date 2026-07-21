@@ -21,16 +21,16 @@ type
   {$ENDIF read_struct}
 
 {$IFDEF read_function}
-function gst_rtsp_onvif_media_factory_get_type: TGType; cdecl; external libgstrtsp;
-function gst_rtsp_onvif_media_factory_new: PGstRTSPMediaFactory; cdecl; external libgstrtsp;
-procedure gst_rtsp_onvif_media_factory_set_backchannel_launch(factory: PGstRTSPOnvifMediaFactory; launch: Pgchar); cdecl; external libgstrtsp;
-function gst_rtsp_onvif_media_factory_get_backchannel_launch(factory: PGstRTSPOnvifMediaFactory): Pgchar; cdecl; external libgstrtsp;
-function gst_rtsp_onvif_media_factory_has_backchannel_support(factory: PGstRTSPOnvifMediaFactory): Tgboolean; cdecl; external libgstrtsp;
-function gst_rtsp_onvif_media_factory_has_replay_support(factory: PGstRTSPOnvifMediaFactory): Tgboolean; cdecl; external libgstrtsp;
-procedure gst_rtsp_onvif_media_factory_set_replay_support(factory: PGstRTSPOnvifMediaFactory; has_replay_support: Tgboolean); cdecl; external libgstrtsp;
-procedure gst_rtsp_onvif_media_factory_set_backchannel_bandwidth(factory: PGstRTSPOnvifMediaFactory; bandwidth: Tguint); cdecl; external libgstrtsp;
-function gst_rtsp_onvif_media_factory_get_backchannel_bandwidth(factory: PGstRTSPOnvifMediaFactory): Tguint; cdecl; external libgstrtsp;
-function gst_rtsp_onvif_media_factory_requires_backchannel(factory: PGstRTSPMediaFactory; ctx: PGstRTSPContext): Tgboolean; cdecl; external libgstrtsp;
+function gst_rtsp_onvif_media_factory_get_type: TGType; cdecl; external libgstrtspserver;
+function gst_rtsp_onvif_media_factory_new: PGstRTSPMediaFactory; cdecl; external libgstrtspserver;
+procedure gst_rtsp_onvif_media_factory_set_backchannel_launch(factory: PGstRTSPOnvifMediaFactory; launch: Pgchar); cdecl; external libgstrtspserver;
+function gst_rtsp_onvif_media_factory_get_backchannel_launch(factory: PGstRTSPOnvifMediaFactory): Pgchar; cdecl; external libgstrtspserver;
+function gst_rtsp_onvif_media_factory_has_backchannel_support(factory: PGstRTSPOnvifMediaFactory): Tgboolean; cdecl; external libgstrtspserver;
+function gst_rtsp_onvif_media_factory_has_replay_support(factory: PGstRTSPOnvifMediaFactory): Tgboolean; cdecl; external libgstrtspserver;
+procedure gst_rtsp_onvif_media_factory_set_replay_support(factory: PGstRTSPOnvifMediaFactory; has_replay_support: Tgboolean); cdecl; external libgstrtspserver;
+procedure gst_rtsp_onvif_media_factory_set_backchannel_bandwidth(factory: PGstRTSPOnvifMediaFactory; bandwidth: Tguint); cdecl; external libgstrtspserver;
+function gst_rtsp_onvif_media_factory_get_backchannel_bandwidth(factory: PGstRTSPOnvifMediaFactory): Tguint; cdecl; external libgstrtspserver;
+function gst_rtsp_onvif_media_factory_requires_backchannel(factory: PGstRTSPMediaFactory; ctx: PGstRTSPContext): Tgboolean; cdecl; external libgstrtspserver;
 
 // === Konventiert am: 20-7-26 13:45:01 ===
 

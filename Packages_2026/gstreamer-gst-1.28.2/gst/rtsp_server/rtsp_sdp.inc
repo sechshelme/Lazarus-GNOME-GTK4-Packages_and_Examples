@@ -10,9 +10,9 @@ type
   {$ENDIF read_struct}
 
 {$IFDEF read_function}
-function gst_rtsp_sdp_from_media(sdp: PGstSDPMessage; info: PGstSDPInfo; media: PGstRTSPMedia): Tgboolean; cdecl; external libgstrtsp;
-function gst_rtsp_sdp_from_stream(sdp: PGstSDPMessage; info: PGstSDPInfo; stream: PGstRTSPStream): Tgboolean; cdecl; external libgstrtsp;
-function gst_rtsp_sdp_make_media(sdp: PGstSDPMessage; info: PGstSDPInfo; stream: PGstRTSPStream; caps: PGstCaps; profile: TGstRTSPProfile): Tgboolean; cdecl; external libgstrtsp;
+function gst_rtsp_sdp_from_media(sdp: PGstSDPMessage; info: PGstSDPInfo; media: PGstRTSPMedia): Tgboolean; cdecl; external libgstrtspserver;
+function gst_rtsp_sdp_from_stream(sdp: PGstSDPMessage; info: PGstSDPInfo; stream: PGstRTSPStream): Tgboolean; cdecl; external libgstrtspserver;
+function gst_rtsp_sdp_make_media(sdp: PGstSDPMessage; info: PGstSDPInfo; stream: PGstRTSPStream; caps: PGstCaps; profile: TGstRTSPProfile): Tgboolean; cdecl; external libgstrtspserver;
 {$ENDIF read_function}
 
 // === Konventiert am: 20-7-26 13:46:28 ===

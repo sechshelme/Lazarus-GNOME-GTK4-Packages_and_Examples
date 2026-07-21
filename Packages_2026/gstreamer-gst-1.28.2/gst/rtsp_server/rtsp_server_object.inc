@@ -24,31 +24,31 @@ type
   {$ENDIF read_struct}
 
 {$IFDEF read_function}
-function gst_rtsp_server_get_type: TGType; cdecl; external libgstrtsp;
-function gst_rtsp_server_new: PGstRTSPServer; cdecl; external libgstrtsp;
-procedure gst_rtsp_server_set_address(server: PGstRTSPServer; address: Pgchar); cdecl; external libgstrtsp;
-function gst_rtsp_server_get_address(server: PGstRTSPServer): Pgchar; cdecl; external libgstrtsp;
-procedure gst_rtsp_server_set_service(server: PGstRTSPServer; service: Pgchar); cdecl; external libgstrtsp;
-function gst_rtsp_server_get_service(server: PGstRTSPServer): Pgchar; cdecl; external libgstrtsp;
-procedure gst_rtsp_server_set_backlog(server: PGstRTSPServer; backlog: Tgint); cdecl; external libgstrtsp;
-function gst_rtsp_server_get_backlog(server: PGstRTSPServer): Tgint; cdecl; external libgstrtsp;
-function gst_rtsp_server_get_bound_port(server: PGstRTSPServer): longint; cdecl; external libgstrtsp;
-procedure gst_rtsp_server_set_session_pool(server: PGstRTSPServer; pool: PGstRTSPSessionPool); cdecl; external libgstrtsp;
-function gst_rtsp_server_get_session_pool(server: PGstRTSPServer): PGstRTSPSessionPool; cdecl; external libgstrtsp;
-procedure gst_rtsp_server_set_mount_points(server: PGstRTSPServer; mounts: PGstRTSPMountPoints); cdecl; external libgstrtsp;
-function gst_rtsp_server_get_mount_points(server: PGstRTSPServer): PGstRTSPMountPoints; cdecl; external libgstrtsp;
-procedure gst_rtsp_server_set_content_length_limit(server: PGstRTSPServer; limit: Tguint); cdecl; external libgstrtsp;
-function gst_rtsp_server_get_content_length_limit(server: PGstRTSPServer): Tguint; cdecl; external libgstrtsp;
-procedure gst_rtsp_server_set_auth(server: PGstRTSPServer; auth: PGstRTSPAuth); cdecl; external libgstrtsp;
-function gst_rtsp_server_get_auth(server: PGstRTSPServer): PGstRTSPAuth; cdecl; external libgstrtsp;
-procedure gst_rtsp_server_set_thread_pool(server: PGstRTSPServer; pool: PGstRTSPThreadPool); cdecl; external libgstrtsp;
-function gst_rtsp_server_get_thread_pool(server: PGstRTSPServer): PGstRTSPThreadPool; cdecl; external libgstrtsp;
-function gst_rtsp_server_transfer_connection(server: PGstRTSPServer; socket: PGSocket; ip: Pgchar; port: Tgint; initial_buffer: Pgchar): Tgboolean; cdecl; external libgstrtsp;
-function gst_rtsp_server_io_func(socket: PGSocket; condition: TGIOCondition; server: PGstRTSPServer): Tgboolean; cdecl; external libgstrtsp;
-function gst_rtsp_server_create_socket(server: PGstRTSPServer; cancellable: PGCancellable; error: PPGError): PGSocket; cdecl; external libgstrtsp;
-function gst_rtsp_server_create_source(server: PGstRTSPServer; cancellable: PGCancellable; error: PPGError): PGSource; cdecl; external libgstrtsp;
-function gst_rtsp_server_attach(server: PGstRTSPServer; context: PGMainContext): Tguint; cdecl; external libgstrtsp;
-function gst_rtsp_server_client_filter(server: PGstRTSPServer; func: TGstRTSPServerClientFilterFunc; user_data: Tgpointer): PGList; cdecl; external libgstrtsp;
+function gst_rtsp_server_get_type: TGType; cdecl; external libgstrtspserver;
+function gst_rtsp_server_new: PGstRTSPServer; cdecl; external libgstrtspserver;
+procedure gst_rtsp_server_set_address(server: PGstRTSPServer; address: Pgchar); cdecl; external libgstrtspserver;
+function gst_rtsp_server_get_address(server: PGstRTSPServer): Pgchar; cdecl; external libgstrtspserver;
+procedure gst_rtsp_server_set_service(server: PGstRTSPServer; service: Pgchar); cdecl; external libgstrtspserver;
+function gst_rtsp_server_get_service(server: PGstRTSPServer): Pgchar; cdecl; external libgstrtspserver;
+procedure gst_rtsp_server_set_backlog(server: PGstRTSPServer; backlog: Tgint); cdecl; external libgstrtspserver;
+function gst_rtsp_server_get_backlog(server: PGstRTSPServer): Tgint; cdecl; external libgstrtspserver;
+function gst_rtsp_server_get_bound_port(server: PGstRTSPServer): longint; cdecl; external libgstrtspserver;
+procedure gst_rtsp_server_set_session_pool(server: PGstRTSPServer; pool: PGstRTSPSessionPool); cdecl; external libgstrtspserver;
+function gst_rtsp_server_get_session_pool(server: PGstRTSPServer): PGstRTSPSessionPool; cdecl; external libgstrtspserver;
+procedure gst_rtsp_server_set_mount_points(server: PGstRTSPServer; mounts: PGstRTSPMountPoints); cdecl; external libgstrtspserver;
+function gst_rtsp_server_get_mount_points(server: PGstRTSPServer): PGstRTSPMountPoints; cdecl; external libgstrtspserver;
+procedure gst_rtsp_server_set_content_length_limit(server: PGstRTSPServer; limit: Tguint); cdecl; external libgstrtspserver;
+function gst_rtsp_server_get_content_length_limit(server: PGstRTSPServer): Tguint; cdecl; external libgstrtspserver;
+procedure gst_rtsp_server_set_auth(server: PGstRTSPServer; auth: PGstRTSPAuth); cdecl; external libgstrtspserver;
+function gst_rtsp_server_get_auth(server: PGstRTSPServer): PGstRTSPAuth; cdecl; external libgstrtspserver;
+procedure gst_rtsp_server_set_thread_pool(server: PGstRTSPServer; pool: PGstRTSPThreadPool); cdecl; external libgstrtspserver;
+function gst_rtsp_server_get_thread_pool(server: PGstRTSPServer): PGstRTSPThreadPool; cdecl; external libgstrtspserver;
+function gst_rtsp_server_transfer_connection(server: PGstRTSPServer; socket: PGSocket; ip: Pgchar; port: Tgint; initial_buffer: Pgchar): Tgboolean; cdecl; external libgstrtspserver;
+function gst_rtsp_server_io_func(socket: PGSocket; condition: TGIOCondition; server: PGstRTSPServer): Tgboolean; cdecl; external libgstrtspserver;
+function gst_rtsp_server_create_socket(server: PGstRTSPServer; cancellable: PGCancellable; error: PPGError): PGSocket; cdecl; external libgstrtspserver;
+function gst_rtsp_server_create_source(server: PGstRTSPServer; cancellable: PGCancellable; error: PPGError): PGSource; cdecl; external libgstrtspserver;
+function gst_rtsp_server_attach(server: PGstRTSPServer; context: PGMainContext): Tguint; cdecl; external libgstrtspserver;
+function gst_rtsp_server_client_filter(server: PGstRTSPServer; func: TGstRTSPServerClientFilterFunc; user_data: Tgpointer): PGList; cdecl; external libgstrtspserver;
 
 // === Konventiert am: 20-7-26 13:44:21 ===
 

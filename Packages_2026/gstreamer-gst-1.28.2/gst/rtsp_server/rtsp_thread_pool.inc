@@ -41,17 +41,17 @@ type
   {$ENDIF read_struct}
 
 {$IFDEF read_function}
-function gst_rtsp_thread_get_type: TGType; cdecl; external libgstrtsp;
-function gst_rtsp_thread_new(_type: TGstRTSPThreadType): PGstRTSPThread; cdecl; external libgstrtsp;
-function gst_rtsp_thread_reuse(thread: PGstRTSPThread): Tgboolean; cdecl; external libgstrtsp;
-procedure gst_rtsp_thread_stop(thread: PGstRTSPThread); cdecl; external libgstrtsp;
+function gst_rtsp_thread_get_type: TGType; cdecl; external libgstrtspserver;
+function gst_rtsp_thread_new(_type: TGstRTSPThreadType): PGstRTSPThread; cdecl; external libgstrtspserver;
+function gst_rtsp_thread_reuse(thread: PGstRTSPThread): Tgboolean; cdecl; external libgstrtspserver;
+procedure gst_rtsp_thread_stop(thread: PGstRTSPThread); cdecl; external libgstrtspserver;
 
-function gst_rtsp_thread_pool_get_type: TGType; cdecl; external libgstrtsp;
-function gst_rtsp_thread_pool_new: PGstRTSPThreadPool; cdecl; external libgstrtsp;
-procedure gst_rtsp_thread_pool_set_max_threads(pool: PGstRTSPThreadPool; max_threads: Tgint); cdecl; external libgstrtsp;
-function gst_rtsp_thread_pool_get_max_threads(pool: PGstRTSPThreadPool): Tgint; cdecl; external libgstrtsp;
-function gst_rtsp_thread_pool_get_thread(pool: PGstRTSPThreadPool; _type: TGstRTSPThreadType; ctx: PGstRTSPContext): PGstRTSPThread; cdecl; external libgstrtsp;
-procedure gst_rtsp_thread_pool_cleanup; cdecl; external libgstrtsp;
+function gst_rtsp_thread_pool_get_type: TGType; cdecl; external libgstrtspserver;
+function gst_rtsp_thread_pool_new: PGstRTSPThreadPool; cdecl; external libgstrtspserver;
+procedure gst_rtsp_thread_pool_set_max_threads(pool: PGstRTSPThreadPool; max_threads: Tgint); cdecl; external libgstrtspserver;
+function gst_rtsp_thread_pool_get_max_threads(pool: PGstRTSPThreadPool): Tgint; cdecl; external libgstrtspserver;
+function gst_rtsp_thread_pool_get_thread(pool: PGstRTSPThreadPool; _type: TGstRTSPThreadType; ctx: PGstRTSPContext): PGstRTSPThread; cdecl; external libgstrtspserver;
+procedure gst_rtsp_thread_pool_cleanup; cdecl; external libgstrtspserver;
 
 // === Konventiert am: 20-7-26 13:42:30 ===
 

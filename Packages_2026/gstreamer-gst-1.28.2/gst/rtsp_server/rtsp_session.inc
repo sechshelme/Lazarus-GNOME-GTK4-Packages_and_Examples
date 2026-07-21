@@ -31,25 +31,25 @@ type
   {$ENDIF read_struct}
 
 {$IFDEF read_function}
-function gst_rtsp_session_get_type: TGType; cdecl; external libgstrtsp;
-function gst_rtsp_session_new(sessionid: Pgchar): PGstRTSPSession; cdecl; external libgstrtsp;
-function gst_rtsp_session_get_sessionid(session: PGstRTSPSession): Pgchar; cdecl; external libgstrtsp;
-function gst_rtsp_session_get_header(session: PGstRTSPSession): Pgchar; cdecl; external libgstrtsp;
-procedure gst_rtsp_session_set_timeout(session: PGstRTSPSession; timeout: Tguint); cdecl; external libgstrtsp;
-function gst_rtsp_session_get_timeout(session: PGstRTSPSession): Tguint; cdecl; external libgstrtsp;
-procedure gst_rtsp_session_touch(session: PGstRTSPSession); cdecl; external libgstrtsp;
-procedure gst_rtsp_session_prevent_expire(session: PGstRTSPSession); cdecl; external libgstrtsp;
-procedure gst_rtsp_session_allow_expire(session: PGstRTSPSession); cdecl; external libgstrtsp;
-function gst_rtsp_session_next_timeout_usec(session: PGstRTSPSession; now: Tgint64): Tgint; cdecl; external libgstrtsp;
-function gst_rtsp_session_is_expired_usec(session: PGstRTSPSession; now: Tgint64): Tgboolean; cdecl; external libgstrtsp;
-function gst_rtsp_session_next_timeout(session: PGstRTSPSession; now: PGTimeVal): Tgint; cdecl; external libgstrtsp; deprecated;
-function gst_rtsp_session_is_expired(session: PGstRTSPSession; now: PGTimeVal): Tgboolean; cdecl; external libgstrtsp; deprecated;
-function gst_rtsp_session_manage_media(sess: PGstRTSPSession; path: Pgchar; media: PGstRTSPMedia): PGstRTSPSessionMedia; cdecl; external libgstrtsp;
-function gst_rtsp_session_release_media(sess: PGstRTSPSession; media: PGstRTSPSessionMedia): Tgboolean; cdecl; external libgstrtsp;
-function gst_rtsp_session_get_media(sess: PGstRTSPSession; path: Pgchar; matched: Pgint): PGstRTSPSessionMedia; cdecl; external libgstrtsp;
-function gst_rtsp_session_dup_media(sess: PGstRTSPSession; path: Pgchar; matched: Pgint): PGstRTSPSessionMedia; cdecl; external libgstrtsp;
+function gst_rtsp_session_get_type: TGType; cdecl; external libgstrtspserver;
+function gst_rtsp_session_new(sessionid: Pgchar): PGstRTSPSession; cdecl; external libgstrtspserver;
+function gst_rtsp_session_get_sessionid(session: PGstRTSPSession): Pgchar; cdecl; external libgstrtspserver;
+function gst_rtsp_session_get_header(session: PGstRTSPSession): Pgchar; cdecl; external libgstrtspserver;
+procedure gst_rtsp_session_set_timeout(session: PGstRTSPSession; timeout: Tguint); cdecl; external libgstrtspserver;
+function gst_rtsp_session_get_timeout(session: PGstRTSPSession): Tguint; cdecl; external libgstrtspserver;
+procedure gst_rtsp_session_touch(session: PGstRTSPSession); cdecl; external libgstrtspserver;
+procedure gst_rtsp_session_prevent_expire(session: PGstRTSPSession); cdecl; external libgstrtspserver;
+procedure gst_rtsp_session_allow_expire(session: PGstRTSPSession); cdecl; external libgstrtspserver;
+function gst_rtsp_session_next_timeout_usec(session: PGstRTSPSession; now: Tgint64): Tgint; cdecl; external libgstrtspserver;
+function gst_rtsp_session_is_expired_usec(session: PGstRTSPSession; now: Tgint64): Tgboolean; cdecl; external libgstrtspserver;
+function gst_rtsp_session_next_timeout(session: PGstRTSPSession; now: PGTimeVal): Tgint; cdecl; external libgstrtspserver; deprecated;
+function gst_rtsp_session_is_expired(session: PGstRTSPSession; now: PGTimeVal): Tgboolean; cdecl; external libgstrtspserver; deprecated;
+function gst_rtsp_session_manage_media(sess: PGstRTSPSession; path: Pgchar; media: PGstRTSPMedia): PGstRTSPSessionMedia; cdecl; external libgstrtspserver;
+function gst_rtsp_session_release_media(sess: PGstRTSPSession; media: PGstRTSPSessionMedia): Tgboolean; cdecl; external libgstrtspserver;
+function gst_rtsp_session_get_media(sess: PGstRTSPSession; path: Pgchar; matched: Pgint): PGstRTSPSessionMedia; cdecl; external libgstrtspserver;
+function gst_rtsp_session_dup_media(sess: PGstRTSPSession; path: Pgchar; matched: Pgint): PGstRTSPSessionMedia; cdecl; external libgstrtspserver;
 
-function gst_rtsp_session_filter(sess: PGstRTSPSession; func: TGstRTSPSessionFilterFunc; user_data: Tgpointer): PGList; cdecl; external libgstrtsp;
+function gst_rtsp_session_filter(sess: PGstRTSPSession; func: TGstRTSPSessionFilterFunc; user_data: Tgpointer): PGList; cdecl; external libgstrtspserver;
 
 // === Konventiert am: 20-7-26 13:44:14 ===
 

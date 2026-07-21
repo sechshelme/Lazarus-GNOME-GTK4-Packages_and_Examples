@@ -25,17 +25,17 @@ type
   {$ENDIF read_struct}
 
 {$IFDEF read_function}
-function gst_rtsp_session_pool_get_type: TGType; cdecl; external libgstrtsp;
-function gst_rtsp_session_pool_new: PGstRTSPSessionPool; cdecl; external libgstrtsp;
-procedure gst_rtsp_session_pool_set_max_sessions(pool: PGstRTSPSessionPool; max: Tguint); cdecl; external libgstrtsp;
-function gst_rtsp_session_pool_get_max_sessions(pool: PGstRTSPSessionPool): Tguint; cdecl; external libgstrtsp;
-function gst_rtsp_session_pool_get_n_sessions(pool: PGstRTSPSessionPool): Tguint; cdecl; external libgstrtsp;
-function gst_rtsp_session_pool_create(pool: PGstRTSPSessionPool): PGstRTSPSession; cdecl; external libgstrtsp;
-function gst_rtsp_session_pool_find(pool: PGstRTSPSessionPool; sessionid: Pgchar): PGstRTSPSession; cdecl; external libgstrtsp;
-function gst_rtsp_session_pool_remove(pool: PGstRTSPSessionPool; sess: PGstRTSPSession): Tgboolean; cdecl; external libgstrtsp;
-function gst_rtsp_session_pool_filter(pool: PGstRTSPSessionPool; func: TGstRTSPSessionPoolFilterFunc; user_data: Tgpointer): PGList; cdecl; external libgstrtsp;
-function gst_rtsp_session_pool_cleanup(pool: PGstRTSPSessionPool): Tguint; cdecl; external libgstrtsp;
-function gst_rtsp_session_pool_create_watch(pool: PGstRTSPSessionPool): PGSource; cdecl; external libgstrtsp;
+function gst_rtsp_session_pool_get_type: TGType; cdecl; external libgstrtspserver;
+function gst_rtsp_session_pool_new: PGstRTSPSessionPool; cdecl; external libgstrtspserver;
+procedure gst_rtsp_session_pool_set_max_sessions(pool: PGstRTSPSessionPool; max: Tguint); cdecl; external libgstrtspserver;
+function gst_rtsp_session_pool_get_max_sessions(pool: PGstRTSPSessionPool): Tguint; cdecl; external libgstrtspserver;
+function gst_rtsp_session_pool_get_n_sessions(pool: PGstRTSPSessionPool): Tguint; cdecl; external libgstrtspserver;
+function gst_rtsp_session_pool_create(pool: PGstRTSPSessionPool): PGstRTSPSession; cdecl; external libgstrtspserver;
+function gst_rtsp_session_pool_find(pool: PGstRTSPSessionPool; sessionid: Pgchar): PGstRTSPSession; cdecl; external libgstrtspserver;
+function gst_rtsp_session_pool_remove(pool: PGstRTSPSessionPool; sess: PGstRTSPSession): Tgboolean; cdecl; external libgstrtspserver;
+function gst_rtsp_session_pool_filter(pool: PGstRTSPSessionPool; func: TGstRTSPSessionPoolFilterFunc; user_data: Tgpointer): PGList; cdecl; external libgstrtspserver;
+function gst_rtsp_session_pool_cleanup(pool: PGstRTSPSessionPool): Tguint; cdecl; external libgstrtspserver;
+function gst_rtsp_session_pool_create_watch(pool: PGstRTSPSessionPool): PGSource; cdecl; external libgstrtspserver;
 
 // === Konventiert am: 20-7-26 13:43:37 ===
 

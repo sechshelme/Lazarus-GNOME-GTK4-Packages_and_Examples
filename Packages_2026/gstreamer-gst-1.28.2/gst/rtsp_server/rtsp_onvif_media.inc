@@ -19,10 +19,10 @@ type
   {$ENDIF read_struct}
 
 {$IFDEF read_function}
-function gst_rtsp_onvif_media_get_type: TGType; cdecl; external libgstrtsp;
-function gst_rtsp_onvif_media_collect_backchannel(media: PGstRTSPOnvifMedia): Tgboolean; cdecl; external libgstrtsp;
-procedure gst_rtsp_onvif_media_set_backchannel_bandwidth(media: PGstRTSPOnvifMedia; bandwidth: Tguint); cdecl; external libgstrtsp;
-function gst_rtsp_onvif_media_get_backchannel_bandwidth(media: PGstRTSPOnvifMedia): Tguint; cdecl; external libgstrtsp;
+function gst_rtsp_onvif_media_get_type: TGType; cdecl; external libgstrtspserver;
+function gst_rtsp_onvif_media_collect_backchannel(media: PGstRTSPOnvifMedia): Tgboolean; cdecl; external libgstrtspserver;
+procedure gst_rtsp_onvif_media_set_backchannel_bandwidth(media: PGstRTSPOnvifMedia; bandwidth: Tguint); cdecl; external libgstrtspserver;
+function gst_rtsp_onvif_media_get_backchannel_bandwidth(media: PGstRTSPOnvifMedia): Tguint; cdecl; external libgstrtspserver;
 
 // === Konventiert am: 20-7-26 13:45:07 ===
 

@@ -19,10 +19,10 @@ type
   {$ENDIF read_struct}
 
 {$IFDEF read_function}
-function gst_rtsp_media_factory_uri_get_type: TGType; cdecl; external libgstrtsp;
-function gst_rtsp_media_factory_uri_new: PGstRTSPMediaFactoryURI; cdecl; external libgstrtsp;
-procedure gst_rtsp_media_factory_uri_set_uri(factory: PGstRTSPMediaFactoryURI; uri: Pgchar); cdecl; external libgstrtsp;
-function gst_rtsp_media_factory_uri_get_uri(factory: PGstRTSPMediaFactoryURI): Pgchar; cdecl; external libgstrtsp;
+function gst_rtsp_media_factory_uri_get_type: TGType; cdecl; external libgstrtspserver;
+function gst_rtsp_media_factory_uri_new: PGstRTSPMediaFactoryURI; cdecl; external libgstrtspserver;
+procedure gst_rtsp_media_factory_uri_set_uri(factory: PGstRTSPMediaFactoryURI; uri: Pgchar); cdecl; external libgstrtspserver;
+function gst_rtsp_media_factory_uri_get_uri(factory: PGstRTSPMediaFactoryURI): Pgchar; cdecl; external libgstrtspserver;
 
 // === Konventiert am: 20-7-26 13:45:27 ===
 

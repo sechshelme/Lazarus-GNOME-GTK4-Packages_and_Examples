@@ -22,8 +22,8 @@ type
   {$ENDIF read_struct}
 
 {$IFDEF read_function}
-function gst_rtsp_onvif_server_get_type: TGType; cdecl; external libgstrtsp;
-function gst_rtsp_onvif_server_new: PGstRTSPServer; cdecl; external libgstrtsp;
+function gst_rtsp_onvif_server_get_type: TGType; cdecl; external libgstrtspserver;
+function gst_rtsp_onvif_server_new: PGstRTSPServer; cdecl; external libgstrtspserver;
 
 // === Konventiert am: 20-7-26 13:44:53 ===
 

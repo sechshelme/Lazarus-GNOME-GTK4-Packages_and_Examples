@@ -56,19 +56,19 @@ type
   {$ENDIF read_struct}
 
 {$IFDEF read_function}
-function gst_rtsp_address_get_type: TGType; cdecl; external libgstrtsp;
-function gst_rtsp_address_copy(addr: PGstRTSPAddress): PGstRTSPAddress; cdecl; external libgstrtsp;
-procedure gst_rtsp_address_free(addr: PGstRTSPAddress); cdecl; external libgstrtsp;
-function gst_rtsp_address_pool_get_type: TGType; cdecl; external libgstrtsp;
-function gst_rtsp_address_pool_new: PGstRTSPAddressPool; cdecl; external libgstrtsp;
-procedure gst_rtsp_address_pool_clear(pool: PGstRTSPAddressPool); cdecl; external libgstrtsp;
-procedure gst_rtsp_address_pool_dump(pool: PGstRTSPAddressPool); cdecl; external libgstrtsp;
+function gst_rtsp_address_get_type: TGType; cdecl; external libgstrtspserver;
+function gst_rtsp_address_copy(addr: PGstRTSPAddress): PGstRTSPAddress; cdecl; external libgstrtspserver;
+procedure gst_rtsp_address_free(addr: PGstRTSPAddress); cdecl; external libgstrtspserver;
+function gst_rtsp_address_pool_get_type: TGType; cdecl; external libgstrtspserver;
+function gst_rtsp_address_pool_new: PGstRTSPAddressPool; cdecl; external libgstrtspserver;
+procedure gst_rtsp_address_pool_clear(pool: PGstRTSPAddressPool); cdecl; external libgstrtspserver;
+procedure gst_rtsp_address_pool_dump(pool: PGstRTSPAddressPool); cdecl; external libgstrtspserver;
 function gst_rtsp_address_pool_add_range(pool: PGstRTSPAddressPool; min_address: Pgchar; max_address: Pgchar; min_port: Tguint16; max_port: Tguint16;
-  ttl: Tguint8): Tgboolean; cdecl; external libgstrtsp;
-function gst_rtsp_address_pool_acquire_address(pool: PGstRTSPAddressPool; flags: TGstRTSPAddressFlags; n_ports: Tgint): PGstRTSPAddress; cdecl; external libgstrtsp;
+  ttl: Tguint8): Tgboolean; cdecl; external libgstrtspserver;
+function gst_rtsp_address_pool_acquire_address(pool: PGstRTSPAddressPool; flags: TGstRTSPAddressFlags; n_ports: Tgint): PGstRTSPAddress; cdecl; external libgstrtspserver;
 function gst_rtsp_address_pool_reserve_address(pool: PGstRTSPAddressPool; ip_address: Pgchar; port: Tguint; n_ports: Tguint; ttl: Tguint;
-  address: PPGstRTSPAddress): TGstRTSPAddressPoolResult; cdecl; external libgstrtsp;
-function gst_rtsp_address_pool_has_unicast_addresses(pool: PGstRTSPAddressPool): Tgboolean; cdecl; external libgstrtsp;
+  address: PPGstRTSPAddress): TGstRTSPAddressPoolResult; cdecl; external libgstrtspserver;
+function gst_rtsp_address_pool_has_unicast_addresses(pool: PGstRTSPAddressPool): Tgboolean; cdecl; external libgstrtspserver;
 
 // === Konventiert am: 20-7-26 13:45:54 ===
 

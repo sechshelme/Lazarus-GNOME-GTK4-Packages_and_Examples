@@ -61,29 +61,29 @@ type
   {$ENDIF read_struct}
 
 {$IFDEF read_function}
-function gst_rtsp_client_get_type: TGType; cdecl; external libgstrtsp;
-function gst_rtsp_client_new: PGstRTSPClient; cdecl; external libgstrtsp;
-procedure gst_rtsp_client_set_session_pool(client: PGstRTSPClient; pool: PGstRTSPSessionPool); cdecl; external libgstrtsp;
-function gst_rtsp_client_get_session_pool(client: PGstRTSPClient): PGstRTSPSessionPool; cdecl; external libgstrtsp;
-procedure gst_rtsp_client_set_mount_points(client: PGstRTSPClient; mounts: PGstRTSPMountPoints); cdecl; external libgstrtsp;
-function gst_rtsp_client_get_mount_points(client: PGstRTSPClient): PGstRTSPMountPoints; cdecl; external libgstrtsp;
-procedure gst_rtsp_client_set_content_length_limit(client: PGstRTSPClient; limit: Tguint); cdecl; external libgstrtsp;
-function gst_rtsp_client_get_content_length_limit(client: PGstRTSPClient): Tguint; cdecl; external libgstrtsp;
-procedure gst_rtsp_client_set_auth(client: PGstRTSPClient; auth: PGstRTSPAuth); cdecl; external libgstrtsp;
-function gst_rtsp_client_get_auth(client: PGstRTSPClient): PGstRTSPAuth; cdecl; external libgstrtsp;
-procedure gst_rtsp_client_set_thread_pool(client: PGstRTSPClient; pool: PGstRTSPThreadPool); cdecl; external libgstrtsp;
-function gst_rtsp_client_get_thread_pool(client: PGstRTSPClient): PGstRTSPThreadPool; cdecl; external libgstrtsp;
-function gst_rtsp_client_set_connection(client: PGstRTSPClient; conn: PGstRTSPConnection): Tgboolean; cdecl; external libgstrtsp;
-function gst_rtsp_client_get_connection(client: PGstRTSPClient): PGstRTSPConnection; cdecl; external libgstrtsp;
-function gst_rtsp_client_attach(client: PGstRTSPClient; context: PGMainContext): Tguint; cdecl; external libgstrtsp;
-procedure gst_rtsp_client_close(client: PGstRTSPClient); cdecl; external libgstrtsp;
-procedure gst_rtsp_client_set_send_func(client: PGstRTSPClient; func: TGstRTSPClientSendFunc; user_data: Tgpointer; notify: TGDestroyNotify); cdecl; external libgstrtsp;
-procedure gst_rtsp_client_set_send_messages_func(client: PGstRTSPClient; func: TGstRTSPClientSendMessagesFunc; user_data: Tgpointer; notify: TGDestroyNotify); cdecl; external libgstrtsp;
-function gst_rtsp_client_handle_message(client: PGstRTSPClient; message: PGstRTSPMessage): TGstRTSPResult; cdecl; external libgstrtsp;
-function gst_rtsp_client_send_message(client: PGstRTSPClient; session: PGstRTSPSession; message: PGstRTSPMessage): TGstRTSPResult; cdecl; external libgstrtsp;
+function gst_rtsp_client_get_type: TGType; cdecl; external libgstrtspserver;
+function gst_rtsp_client_new: PGstRTSPClient; cdecl; external libgstrtspserver;
+procedure gst_rtsp_client_set_session_pool(client: PGstRTSPClient; pool: PGstRTSPSessionPool); cdecl; external libgstrtspserver;
+function gst_rtsp_client_get_session_pool(client: PGstRTSPClient): PGstRTSPSessionPool; cdecl; external libgstrtspserver;
+procedure gst_rtsp_client_set_mount_points(client: PGstRTSPClient; mounts: PGstRTSPMountPoints); cdecl; external libgstrtspserver;
+function gst_rtsp_client_get_mount_points(client: PGstRTSPClient): PGstRTSPMountPoints; cdecl; external libgstrtspserver;
+procedure gst_rtsp_client_set_content_length_limit(client: PGstRTSPClient; limit: Tguint); cdecl; external libgstrtspserver;
+function gst_rtsp_client_get_content_length_limit(client: PGstRTSPClient): Tguint; cdecl; external libgstrtspserver;
+procedure gst_rtsp_client_set_auth(client: PGstRTSPClient; auth: PGstRTSPAuth); cdecl; external libgstrtspserver;
+function gst_rtsp_client_get_auth(client: PGstRTSPClient): PGstRTSPAuth; cdecl; external libgstrtspserver;
+procedure gst_rtsp_client_set_thread_pool(client: PGstRTSPClient; pool: PGstRTSPThreadPool); cdecl; external libgstrtspserver;
+function gst_rtsp_client_get_thread_pool(client: PGstRTSPClient): PGstRTSPThreadPool; cdecl; external libgstrtspserver;
+function gst_rtsp_client_set_connection(client: PGstRTSPClient; conn: PGstRTSPConnection): Tgboolean; cdecl; external libgstrtspserver;
+function gst_rtsp_client_get_connection(client: PGstRTSPClient): PGstRTSPConnection; cdecl; external libgstrtspserver;
+function gst_rtsp_client_attach(client: PGstRTSPClient; context: PGMainContext): Tguint; cdecl; external libgstrtspserver;
+procedure gst_rtsp_client_close(client: PGstRTSPClient); cdecl; external libgstrtspserver;
+procedure gst_rtsp_client_set_send_func(client: PGstRTSPClient; func: TGstRTSPClientSendFunc; user_data: Tgpointer; notify: TGDestroyNotify); cdecl; external libgstrtspserver;
+procedure gst_rtsp_client_set_send_messages_func(client: PGstRTSPClient; func: TGstRTSPClientSendMessagesFunc; user_data: Tgpointer; notify: TGDestroyNotify); cdecl; external libgstrtspserver;
+function gst_rtsp_client_handle_message(client: PGstRTSPClient; message: PGstRTSPMessage): TGstRTSPResult; cdecl; external libgstrtspserver;
+function gst_rtsp_client_send_message(client: PGstRTSPClient; session: PGstRTSPSession; message: PGstRTSPMessage): TGstRTSPResult; cdecl; external libgstrtspserver;
 
-function gst_rtsp_client_session_filter(client: PGstRTSPClient; func: TGstRTSPClientSessionFilterFunc; user_data: Tgpointer): PGList; cdecl; external libgstrtsp;
-function gst_rtsp_client_get_stream_transport(client: PGstRTSPClient; channel: Tguint8): PGstRTSPStreamTransport; cdecl; external libgstrtsp;
+function gst_rtsp_client_session_filter(client: PGstRTSPClient; func: TGstRTSPClientSessionFilterFunc; user_data: Tgpointer): PGList; cdecl; external libgstrtspserver;
+function gst_rtsp_client_get_stream_transport(client: PGstRTSPClient; channel: Tguint8): PGstRTSPStreamTransport; cdecl; external libgstrtspserver;
 
 // === Konventiert am: 20-7-26 13:45:46 ===
 

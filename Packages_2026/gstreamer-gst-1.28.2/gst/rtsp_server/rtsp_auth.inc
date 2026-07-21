@@ -36,27 +36,27 @@ const
   {$ENDIF read_enum}
 
 {$IFDEF read_function}
-function gst_rtsp_auth_get_type: TGType; cdecl; external libgstrtsp;
-function gst_rtsp_auth_new: PGstRTSPAuth; cdecl; external libgstrtsp;
-procedure gst_rtsp_auth_set_tls_certificate(auth: PGstRTSPAuth; cert: PGTlsCertificate); cdecl; external libgstrtsp;
-function gst_rtsp_auth_get_tls_certificate(auth: PGstRTSPAuth): PGTlsCertificate; cdecl; external libgstrtsp;
-procedure gst_rtsp_auth_set_tls_database(auth: PGstRTSPAuth; database: PGTlsDatabase); cdecl; external libgstrtsp;
-function gst_rtsp_auth_get_tls_database(auth: PGstRTSPAuth): PGTlsDatabase; cdecl; external libgstrtsp;
-procedure gst_rtsp_auth_set_tls_authentication_mode(auth: PGstRTSPAuth; mode: TGTlsAuthenticationMode); cdecl; external libgstrtsp;
-function gst_rtsp_auth_get_tls_authentication_mode(auth: PGstRTSPAuth): TGTlsAuthenticationMode; cdecl; external libgstrtsp;
-procedure gst_rtsp_auth_set_default_token(auth: PGstRTSPAuth; token: PGstRTSPToken); cdecl; external libgstrtsp;
-function gst_rtsp_auth_get_default_token(auth: PGstRTSPAuth): PGstRTSPToken; cdecl; external libgstrtsp;
-procedure gst_rtsp_auth_add_basic(auth: PGstRTSPAuth; basic: Pgchar; token: PGstRTSPToken); cdecl; external libgstrtsp;
-procedure gst_rtsp_auth_remove_basic(auth: PGstRTSPAuth; basic: Pgchar); cdecl; external libgstrtsp;
-procedure gst_rtsp_auth_add_digest(auth: PGstRTSPAuth; user: Pgchar; pass: Pgchar; token: PGstRTSPToken); cdecl; external libgstrtsp;
-procedure gst_rtsp_auth_remove_digest(auth: PGstRTSPAuth; user: Pgchar); cdecl; external libgstrtsp;
-procedure gst_rtsp_auth_set_supported_methods(auth: PGstRTSPAuth; methods: TGstRTSPAuthMethod); cdecl; external libgstrtsp;
-function gst_rtsp_auth_get_supported_methods(auth: PGstRTSPAuth): TGstRTSPAuthMethod; cdecl; external libgstrtsp;
-function gst_rtsp_auth_check(check: Pgchar): Tgboolean; cdecl; external libgstrtsp;
-function gst_rtsp_auth_parse_htdigest(auth: PGstRTSPAuth; path: Pgchar; token: PGstRTSPToken): Tgboolean; cdecl; external libgstrtsp;
-procedure gst_rtsp_auth_set_realm(auth: PGstRTSPAuth; realm: Pgchar); cdecl; external libgstrtsp;
-function gst_rtsp_auth_get_realm(auth: PGstRTSPAuth): Pgchar; cdecl; external libgstrtsp;
-function gst_rtsp_auth_make_basic(user: Pgchar; pass: Pgchar): Pgchar; cdecl; external libgstrtsp;
+function gst_rtsp_auth_get_type: TGType; cdecl; external libgstrtspserver;
+function gst_rtsp_auth_new: PGstRTSPAuth; cdecl; external libgstrtspserver;
+procedure gst_rtsp_auth_set_tls_certificate(auth: PGstRTSPAuth; cert: PGTlsCertificate); cdecl; external libgstrtspserver;
+function gst_rtsp_auth_get_tls_certificate(auth: PGstRTSPAuth): PGTlsCertificate; cdecl; external libgstrtspserver;
+procedure gst_rtsp_auth_set_tls_database(auth: PGstRTSPAuth; database: PGTlsDatabase); cdecl; external libgstrtspserver;
+function gst_rtsp_auth_get_tls_database(auth: PGstRTSPAuth): PGTlsDatabase; cdecl; external libgstrtspserver;
+procedure gst_rtsp_auth_set_tls_authentication_mode(auth: PGstRTSPAuth; mode: TGTlsAuthenticationMode); cdecl; external libgstrtspserver;
+function gst_rtsp_auth_get_tls_authentication_mode(auth: PGstRTSPAuth): TGTlsAuthenticationMode; cdecl; external libgstrtspserver;
+procedure gst_rtsp_auth_set_default_token(auth: PGstRTSPAuth; token: PGstRTSPToken); cdecl; external libgstrtspserver;
+function gst_rtsp_auth_get_default_token(auth: PGstRTSPAuth): PGstRTSPToken; cdecl; external libgstrtspserver;
+procedure gst_rtsp_auth_add_basic(auth: PGstRTSPAuth; basic: Pgchar; token: PGstRTSPToken); cdecl; external libgstrtspserver;
+procedure gst_rtsp_auth_remove_basic(auth: PGstRTSPAuth; basic: Pgchar); cdecl; external libgstrtspserver;
+procedure gst_rtsp_auth_add_digest(auth: PGstRTSPAuth; user: Pgchar; pass: Pgchar; token: PGstRTSPToken); cdecl; external libgstrtspserver;
+procedure gst_rtsp_auth_remove_digest(auth: PGstRTSPAuth; user: Pgchar); cdecl; external libgstrtspserver;
+procedure gst_rtsp_auth_set_supported_methods(auth: PGstRTSPAuth; methods: TGstRTSPAuthMethod); cdecl; external libgstrtspserver;
+function gst_rtsp_auth_get_supported_methods(auth: PGstRTSPAuth): TGstRTSPAuthMethod; cdecl; external libgstrtspserver;
+function gst_rtsp_auth_check(check: Pgchar): Tgboolean; cdecl; external libgstrtspserver;
+function gst_rtsp_auth_parse_htdigest(auth: PGstRTSPAuth; path: Pgchar; token: PGstRTSPToken): Tgboolean; cdecl; external libgstrtspserver;
+procedure gst_rtsp_auth_set_realm(auth: PGstRTSPAuth; realm: Pgchar); cdecl; external libgstrtspserver;
+function gst_rtsp_auth_get_realm(auth: PGstRTSPAuth): Pgchar; cdecl; external libgstrtspserver;
+function gst_rtsp_auth_make_basic(user: Pgchar; pass: Pgchar): Pgchar; cdecl; external libgstrtspserver;
 
 // === Konventiert am: 20-7-26 13:45:51 ===
 
