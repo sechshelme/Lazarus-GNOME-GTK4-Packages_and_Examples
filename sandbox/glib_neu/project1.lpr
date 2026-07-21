@@ -6,9 +6,9 @@ uses
   gstav1bitwriter,
   gsth264parser,
   gsth264bitwriter,
-
   gsth265parser,
   gsth266parser,
+
   gstjpeg2000sampling,
   gstjpegbitwriter,
   gstjpegparser,
