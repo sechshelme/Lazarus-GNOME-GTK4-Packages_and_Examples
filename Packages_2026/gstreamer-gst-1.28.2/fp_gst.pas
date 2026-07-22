@@ -9,42 +9,42 @@ uses
   fp_glib2;
 
 
-// ==== Muss aufgeräumt werden
+  // ==== Muss aufgeräumt werden
 
 type
-  ThipError_t              = longint;
-  ThipDeviceAttribute_t    = longint;
-  THIPfilter_mode          = longint;
-  THIPaddress_mode         = longint;
+  ThipError_t = longint;
+  ThipDeviceAttribute_t = longint;
+  THIPfilter_mode = longint;
+  THIPaddress_mode = longint;
 
-  ThipStream_t             = Pointer;
-  ThipModule_t             = Pointer;
-  ThipFunction_t           = Pointer;
-  ThipDeviceptr_t          = Pointer;
-  ThipTextureObject_t      = Pointer;
-  ThipGraphicsResource_t   = Pointer;
-  ThipGLDeviceList         = Pointer;
-  ThipEvent_t              = Pointer;
+  ThipStream_t = Pointer;
+  ThipModule_t = Pointer;
+  ThipFunction_t = Pointer;
+  ThipDeviceptr_t = Pointer;
+  ThipTextureObject_t = Pointer;
+  ThipGraphicsResource_t = Pointer;
+  ThipGLDeviceList = Pointer;
+  ThipEvent_t = Pointer;
 
-  PhipStream_t             = ^ThipStream_t;
-  PhipModule_t             = ^ThipModule_t;
-  PhipFunction_t           = ^ThipFunction_t;
-  PhipTextureObject_t      = ^ThipTextureObject_t;
-  PhipGraphicsResource_t   = ^ThipGraphicsResource_t;
-  PhipEvent_t              = ^ThipEvent_t;
+  PhipStream_t = ^ThipStream_t;
+  PhipModule_t = ^ThipModule_t;
+  PhipFunction_t = ^ThipFunction_t;
+  PhipTextureObject_t = ^ThipTextureObject_t;
+  PhipGraphicsResource_t = ^ThipGraphicsResource_t;
+  PhipEvent_t = ^ThipEvent_t;
 
-  PhipDeviceProp_t         = Pointer;
-  Phip_Memcpy2D            = Pointer;
-  PhipGraphicsResource     = Pointer;
-  PPhipGraphicsResource    = ^PhipGraphicsResource;
-  PHIP_RESOURCE_DESC       = Pointer;
-  PHIP_TEXTURE_DESC        = Pointer;
-  PHIP_RESOURCE_VIEW_DESC  = Pointer;
+  PhipDeviceProp_t = Pointer;
+  Phip_Memcpy2D = Pointer;
+  PhipGraphicsResource = Pointer;
+  PPhipGraphicsResource = ^PhipGraphicsResource;
+  PHIP_RESOURCE_DESC = Pointer;
+  PHIP_TEXTURE_DESC = Pointer;
+  PHIP_RESOURCE_VIEW_DESC = Pointer;
 
 
 
   // fremd net
-  PGstNetTimeProvider=Pointer;
+  PGstNetTimeProvider = Pointer;
 
   // ===============
 
@@ -89,7 +89,7 @@ const
   libgstsctp = 'libgstsctp-1.0';
   libgstopencv = 'libgstopencv-1.0';
   libgstisoff = 'libgstisoff-1.0';
-  libgsthip = 'libgsthip-1.0';
+  libgsthip = 'libgsthip'; // ???
 
   libges = 'libges-1.0';
   {$endif}
@@ -170,11 +170,11 @@ type
   TGLsync = pointer;
   PGLsync = ^TGLsync;
 
-  TGLint =LongInt;
-  PGLint=^TGLint;
+  TGLint = longint;
+  PGLint = ^TGLint;
 
-  TGLuint =UInt32;
-  PGLuint=^TGLuint;
+  TGLuint = uint32;
+  PGLuint = ^TGLuint;
 
   TGLuint64 = uint64;
   PGLuint64 = ^TGLuint64;
@@ -182,11 +182,11 @@ type
   TGLint64 = int64;
   PGLint64 = ^TGLint64;
 
-  TGLenum = Longint;
+  TGLenum = longint;
   PGLenum = ^TGLenum;
 
-  TGLsizei = LongInt;
-  PGLsizei=^TGLsizei;
+  TGLsizei = longint;
+  PGLsizei = ^TGLsizei;
 
   // /usr/include/KHR/khrplatform.h
   Tkhronos_int32_t = int32;

@@ -2,22 +2,23 @@ program project1;
 
 // diff -U 1 /n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Packages_2024/gtk-4.14.2/C-include/gtk/gtkslicelistmodel.h /n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Packages_2026/gtk-4.22.4/C-include/gtk-4.0/gtk/gtkslicelistmodel.h > test.diff
 uses
-  gsthip_enums,
-  gsthipevent,
-  gsthipstream,
-  gsthipdevice,
 
-  gsthipbufferpool,
-  gsthip_interop,
-  gsthip_interop_gl,
-  gsthiploader,
-  gsthipmemory,
-  gsthiprtc,
-  gsthiputils,
-  hip_gst,
-  hip_gst_gl,
+  gstanalyticsbatchmeta,
+  gstanalyticsclassificationmtd,
+  gstanalytics_image_util,
+  gstanalyticsmeta,
+  gstanalyticsobjectdetectionmtd,
+  gstanalyticsobjecttrackingmtd,
+  gstanalyticssegmentationmtd,
+  gstanalyticstensormtd,
+  gsttensor,
+  gsttensormeta,
+  modelinfo,
 
 
+
+
+  fp_gst_hip,
   fp_gst_codecparsers,
   fp_gst_rtp,
   fp_gst_rtsp_server,
@@ -105,5 +106,8 @@ uses
   end;
 
 begin
+//  GST_TYPE_PLANAR_AUDIO_ADAPTER
+// GST_TYPE_NONSTREAM_AUDIO_DECODER
+
   main;
 end.

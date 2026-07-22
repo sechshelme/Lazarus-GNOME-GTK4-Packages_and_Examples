@@ -106,7 +106,7 @@ function GST_NONSTREAM_AUDIO_DECODER_GET_CLASS(obj: Pointer): PGstNonstreamAudio
 
 function GST_TYPE_NONSTREAM_AUDIO_DECODER: TGType;
 begin
-  GST_TYPE_NONSTREAM_AUDIO_DECODER := gst_nonstream_audio_decoder_get_type;
+//  GST_TYPE_NONSTREAM_AUDIO_DECODER := gst_nonstream_audio_decoder_get_type;
 end;
 
 function GST_NONSTREAM_AUDIO_DECODER(obj: Pointer): PGstNonstreamAudioDecoder;

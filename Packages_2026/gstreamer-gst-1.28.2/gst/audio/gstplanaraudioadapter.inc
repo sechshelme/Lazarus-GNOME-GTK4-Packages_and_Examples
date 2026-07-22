@@ -39,7 +39,7 @@ function GST_PLANAR_AUDIO_ADAPTER_GET_CLASS(obj: Pointer): PGstPlanarAudioAdapte
 
 function GST_TYPE_PLANAR_AUDIO_ADAPTER: TGType;
 begin
-  GST_TYPE_PLANAR_AUDIO_ADAPTER := gst_planar_audio_adapter_get_type;
+//  GST_TYPE_PLANAR_AUDIO_ADAPTER := gst_planar_audio_adapter_get_type;
 end;
 
 function GST_PLANAR_AUDIO_ADAPTER(obj: Pointer): PGstPlanarAudioAdapter;

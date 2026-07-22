@@ -156,7 +156,7 @@ gboolean      gst_install_plugins_installation_in_progress (void);
 GST_PBUTILS_API
 gboolean      gst_install_plugins_supported (void);
 
-////////////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC              (GstInstallPluginsContext, gst_install_plugins_context_free)
+//////////////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC               (GstInstallPluginsContext, gst_install_plugins_context_free)
 
 
 

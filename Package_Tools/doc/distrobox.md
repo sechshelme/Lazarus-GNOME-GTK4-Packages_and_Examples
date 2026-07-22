@@ -36,3 +36,20 @@ sudo apt install libadwaita-1-dev
 pkg-config --modversion glib-2.0
 
 
+
+# Distrobox Tips
+
+
+## {TAB} für Packetauswahl
+sudo apt install bash-completion
+sudo rm /etc/apt/apt.conf.d/docker-clean
+sudo apt update
+
+## NAS verbinden
+sudo ln var/run/host/n4800/ n4800 -s
+
+
+## OS abfragen
+cat /etc/os-release
+
+
