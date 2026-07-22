@@ -8,14 +8,15 @@ uses
   gsth264bitwriter,
   gsth265parser,
   gsth266parser,
-
   gstjpeg2000sampling,
-  gstjpegbitwriter,
+
+
   gstjpegparser,
+  gstjpegbitwriter,
   gstlcevcmeta,
   gstmpeg4parser,
-  gstmpegvideometa,
   gstmpegvideoparser,
+  gstmpegvideometa,
   gstvc1parser,
   gstvp8parser,
   gstvp8rangedecoder,
