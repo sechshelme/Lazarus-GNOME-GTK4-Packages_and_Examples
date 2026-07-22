@@ -343,6 +343,7 @@ const
     (libs: 'libgstrtsp'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstrtp'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstcodecparsers'; units: 'fp_glib2, fp_gst'),
+    (libs: 'libgsthip'; units: 'fp_glib2, fp_gst'),
 
 
 

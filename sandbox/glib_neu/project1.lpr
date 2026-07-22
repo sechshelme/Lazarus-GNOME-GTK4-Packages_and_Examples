@@ -2,29 +2,23 @@ program project1;
 
 // diff -U 1 /n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Packages_2024/gtk-4.14.2/C-include/gtk/gtkslicelistmodel.h /n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Packages_2026/gtk-4.22.4/C-include/gtk-4.0/gtk/gtkslicelistmodel.h > test.diff
 uses
-  gstav1parser,
-  gstav1bitwriter,
-  gsth264parser,
-  gsth264bitwriter,
-  gsth265parser,
-  gsth266parser,
-  gstjpeg2000sampling,
+  gsthip_enums,
+  gsthipevent,
+  gsthipstream,
+  gsthipdevice,
+
+  gsthipbufferpool,
+  gsthip_interop,
+  gsthip_interop_gl,
+  gsthiploader,
+  gsthipmemory,
+  gsthiprtc,
+  gsthiputils,
+  hip_gst,
+  hip_gst_gl,
 
 
-  gstjpegparser,
-  gstjpegbitwriter,
-  gstlcevcmeta,
-  gstmpeg4parser,
-  gstmpegvideoparser,
-  gstmpegvideometa,
-  gstvc1parser,
-  gstvp8parser,
-  gstvp8rangedecoder,
-  gstvp9parser,
-
-
-
-
+  fp_gst_codecparsers,
   fp_gst_rtp,
   fp_gst_rtsp_server,
   fp_gst_sdp,
