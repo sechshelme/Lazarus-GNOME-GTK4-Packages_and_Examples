@@ -15,10 +15,6 @@
         <UnitName Value="fp_gst_base"/>
       </Item>
       <Item>
-        <Filename Value="fp_gst_webrtc_nice.pas"/>
-        <UnitName Value="fp_gst_webrtc_nice"/>
-      </Item>
-      <Item>
         <Filename Value="fp_gst_webrtc.pas"/>
         <UnitName Value="fp_gst_webrtc"/>
       </Item>

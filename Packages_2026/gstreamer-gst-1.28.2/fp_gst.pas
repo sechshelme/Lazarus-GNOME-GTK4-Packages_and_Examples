@@ -46,6 +46,9 @@ type
   // fremd net
   PGstNetTimeProvider = Pointer;
 
+  // eigen
+  PGstWebRTCICETransport=Pointer;
+
   // ===============
 
 const
