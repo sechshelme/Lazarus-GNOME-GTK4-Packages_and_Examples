@@ -326,9 +326,9 @@ void gst_app_src_simple_callbacks_set_seek_data (GstAppSrcSimpleCallbacks *cb,
                                                  gpointer user_data,
                                                  GDestroyNotify destroy_notify);
 
-////////////////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC                (GstAppSrc, gst_object_unref)
+////////////////////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC                  (GstAppSrc, gst_object_unref)
 
-////////////////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC                (GstAppSrcSimpleCallbacks, gst_app_src_simple_callbacks_unref)
+////////////////////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC                  (GstAppSrcSimpleCallbacks, gst_app_src_simple_callbacks_unref)
 
 
 

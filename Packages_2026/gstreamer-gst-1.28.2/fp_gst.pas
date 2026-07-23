@@ -42,6 +42,12 @@ type
   PHIP_RESOURCE_VIEW_DESC = Pointer;
 
 
+  Pwp_color_manager_v1=type Pointer;
+  Pwp_color_representation_manager_v1=type Pointer;
+  Twl_output_subpixel=LongInt;
+  Twl_output_transform=LongInt;
+
+
 
   // fremd net
   PGstNetTimeProvider = Pointer;

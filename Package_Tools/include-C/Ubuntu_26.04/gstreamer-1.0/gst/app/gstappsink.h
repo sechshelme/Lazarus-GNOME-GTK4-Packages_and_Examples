@@ -358,9 +358,9 @@ void gst_app_sink_simple_callbacks_set_propose_allocation (GstAppSinkSimpleCallb
                                                            gpointer user_data,
                                                            GDestroyNotify destroy_notify);
 
-////////////////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC                (GstAppSink, gst_object_unref)
+////////////////////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC                  (GstAppSink, gst_object_unref)
 
-////////////////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC                (GstAppSinkSimpleCallbacks, gst_app_sink_simple_callbacks_unref)
+////////////////////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC                  (GstAppSinkSimpleCallbacks, gst_app_sink_simple_callbacks_unref)
 
 
 

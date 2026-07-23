@@ -5,37 +5,36 @@ interface
 uses
   fp_glib2,
   fp_gst,
-  fp_gst_base,
-  fp_gst_video,
-  Strings,
-  ctypes;
+  fp_gst_video;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}
 
   {$DEFINE read_interface}
-  //{$include gst/wayland/gstwlcontext.inc}                   // io.
-  //{$include gst/wayland/gstwldisplay.inc}                   // io.
-  //{$include gst/wayland/gstwllinuxdmabuf.inc}               // io. -> gstwldisplay
-  //{$include gst/wayland/gstwlshmallocator.inc}              // io. -> gstwldisplay
-  //{$include gst/wayland/gstwlbuffer.inc}                    // io. -> gstwldisplay
-  //{$include gst/wayland/gstwlwindow.inc}                    // io. -> gstwldisplay, gstwlbuffer
-  //{$include gst/wayland/gstwlvideobufferpool.inc}           // io.
-  //{$include gst/wayland/gstwlvideoformat.inc}               // io.
+  {$include gst/wayland/gstwloutput.inc}
+  {$include gst/wayland/gstwldisplay.inc}
+  {$include gst/wayland/gstwlbuffer.inc}
+  {$include gst/wayland/gstwlcontext.inc}
+  {$include gst/wayland/gstwllinuxdmabuf.inc}
+  {$include gst/wayland/gstwlshmallocator.inc}
+  {$include gst/wayland/gstwlvideobufferpool.inc}
+  {$include gst/wayland/gstwlvideoformat.inc}
+  {$include gst/wayland/gstwlwindow.inc}
   {$UNDEF read_interface}
 
 implementation
 
 {$DEFINE read_implementation}
-//{$include gst/wayland/gstwlcontext.inc}                   // io.
-//{$include gst/wayland/gstwldisplay.inc}                   // io.
-//{$include gst/wayland/gstwllinuxdmabuf.inc}               // io. -> gstwldisplay
-//{$include gst/wayland/gstwlshmallocator.inc}              // io. -> gstwldisplay
-//{$include gst/wayland/gstwlbuffer.inc}                    // io. -> gstwldisplay
-//{$include gst/wayland/gstwlwindow.inc}                    // io. -> gstwldisplay, gstwlbuffer
-//{$include gst/wayland/gstwlvideobufferpool.inc}           // io.
-//{$include gst/wayland/gstwlvideoformat.inc}               // io.
+{$include gst/wayland/gstwloutput.inc}
+{$include gst/wayland/gstwldisplay.inc}
+{$include gst/wayland/gstwlbuffer.inc}
+{$include gst/wayland/gstwlcontext.inc}
+{$include gst/wayland/gstwllinuxdmabuf.inc}
+{$include gst/wayland/gstwlshmallocator.inc}
+{$include gst/wayland/gstwlvideobufferpool.inc}
+{$include gst/wayland/gstwlvideoformat.inc}
+{$include gst/wayland/gstwlwindow.inc}
 {$UNDEF read_implementation}
 
 end.

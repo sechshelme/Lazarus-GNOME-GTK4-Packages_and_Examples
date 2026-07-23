@@ -305,7 +305,6 @@ const
     (libs: 'libgtk4'; units: 'fp_glib2, fp_gtk4'),
 
 
-    (libs: 'libgstpbutils'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstallocators'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstcheck'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstphotography'; units: 'fp_glib2, fp_gst'),
@@ -315,7 +314,6 @@ const
     (libs: 'libgsttag'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstfft'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstcontroller'; units: 'fp_glib2, fp_gst'),
-    (libs: 'libgstwayland'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstva'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstplayer'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstnet'; units: 'fp_glib2, fp_gst'),
@@ -343,6 +341,8 @@ const
     (libs: 'libgstanalytics'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstwebrtcnice'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstwebrtc'; units: 'fp_glib2, fp_gst'),
+    (libs: 'libgstwayland'; units: 'fp_glib2, fp_gst'),
+    (libs: 'libgstpbutils'; units: 'fp_glib2, fp_gst'),
 
 
     (libs: ''; units: ''));
