@@ -104,8 +104,8 @@ const gchar *gst_player_color_balance_type_get_name   (GstPlayerColorBalanceType
 #define GST_PLAYER_CLASS(klass)     (G_TYPE_CHECK_CLASS_CAST ((klass), GST_TYPE_PLAYER, GstPlayerClass))
 #define GST_PLAYER_CAST(obj)        ((GstPlayer*)(obj))
 
-#ifdef //////////////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC               
-//////////////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC               (GstPlayer, gst_object_unref)
+#ifdef ////////////////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC                
+////////////////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC                (GstPlayer, gst_object_unref)
 #endif
 
 GST_PLAYER_API

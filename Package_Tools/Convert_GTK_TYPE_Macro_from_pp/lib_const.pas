@@ -311,8 +311,6 @@ const
     (libs: 'libgstphotography'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstmse'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstinsertbin'; units: 'fp_glib2, fp_gst'),
-    (libs: 'libgstwebrtc'; units: 'fp_glib2, fp_gst'),
-    (libs: 'libgstwebrtcnice'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstmpegts'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgsttag'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstfft'; units: 'fp_glib2, fp_gst'),
@@ -343,7 +341,8 @@ const
     (libs: 'libgstcodecparsers'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgsthip'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstanalytics'; units: 'fp_glib2, fp_gst'),
-
+    (libs: 'libgstwebrtcnice'; units: 'fp_glib2, fp_gst'),
+    (libs: 'libgstwebrtc'; units: 'fp_glib2, fp_gst'),
 
 
     (libs: ''; units: ''));

@@ -51,6 +51,7 @@ type
 
   Tgdouble = double;
   Pgdouble = ^Tgdouble;
+  PPgdouble = ^Pgdouble;
 
 const
   gFalse = Tgboolean(0);

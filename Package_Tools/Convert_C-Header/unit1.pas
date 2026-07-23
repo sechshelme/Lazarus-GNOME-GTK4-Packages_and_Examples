@@ -130,7 +130,7 @@ begin
       slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_FORMAT', ';//', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_ALLOC_SIZE', ';//', [rfReplaceAll]);
 
-            slHeader[j] := StringReplace(slHeader[j], 'GST_ANALYTICS_META_API', 'extern', [rfReplaceAll]);
+            slHeader[j] := StringReplace(slHeader[j], 'GST_WEBRTC_API', 'extern', [rfReplaceAll]);
 
 
       slHeader[j] := checkAvaiables(slHeader[j]);

@@ -156,7 +156,7 @@ void            gst_control_point_free (GstControlPoint * cp);
 GST_CONTROLLER_API
 GstControlPoint * gst_control_point_copy (GstControlPoint * cp) ;
 
-//////////////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC               (GstTimedValueControlSource, gst_object_unref)
+////////////////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC                (GstTimedValueControlSource, gst_object_unref)
 
 
 
