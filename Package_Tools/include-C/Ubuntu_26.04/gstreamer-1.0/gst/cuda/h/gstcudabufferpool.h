@@ -66,31 +66,31 @@ struct _GstCudaBufferPoolClass
   GstBufferPoolClass parent_class;
 };
 
-GST_CUDA_API
+extern
 GType gst_cuda_buffer_pool_get_type (void);
 
-GST_CUDA_API
+extern
 GstBufferPool * gst_cuda_buffer_pool_new (GstCudaContext * context) ;
 
-GST_CUDA_API
+extern
 GstCudaStream * gst_buffer_pool_config_get_cuda_stream (GstStructure * config);
 
-GST_CUDA_API
+extern
 void            gst_buffer_pool_config_set_cuda_stream (GstStructure * config,
                                                         GstCudaStream * stream);
 
-GST_CUDA_API
+extern
 GstCudaMemoryAllocMethod gst_buffer_pool_config_get_cuda_alloc_method (GstStructure * config);
 
-GST_CUDA_API
+extern
 void                     gst_buffer_pool_config_set_cuda_alloc_method (GstStructure * config,
                                                                        GstCudaMemoryAllocMethod method);
 
-GST_CUDA_API
+extern
 gboolean        gst_buffer_pool_config_get_cuda_stream_ordered_alloc (GstStructure * config,
                                                                       gboolean * enabled);
 
-GST_CUDA_API
+extern
 void            gst_buffer_pool_config_set_cuda_stream_ordered_alloc (GstStructure * config,
                                                                       gboolean stream_ordered);
 

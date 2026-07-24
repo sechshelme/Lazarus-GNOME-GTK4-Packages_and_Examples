@@ -315,8 +315,6 @@ const
     (libs: 'libgstcontroller'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstva'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstplayer'; units: 'fp_glib2, fp_gst'),
-    (libs: 'libgstnet'; units: 'fp_glib2, fp_gst'),
-    (libs: 'libgstcuda'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstplay'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstapp'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstriff'; units: 'fp_glib2, fp_gst'),
@@ -343,6 +341,8 @@ const
     (libs: 'libgstwayland'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstpbutils'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstmpegts'; units: 'fp_glib2, fp_gst'),
+    (libs: 'libgstnet'; units: 'fp_glib2, fp_gst'),
+    (libs: 'libgstcuda'; units: 'fp_glib2, fp_gst'),
 
 
     (libs: ''; units: ''));

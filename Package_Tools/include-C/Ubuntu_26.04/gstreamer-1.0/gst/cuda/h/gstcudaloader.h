@@ -1,7 +1,5 @@
 /* GStreamer
- * Copyright (C) 2012 GStreamer developers
- *
- * net.h: single include header for gst-net library
+ * Copyright (C) 2019 Seungha Yang <seungha.yang@navercorp.com>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -19,18 +17,14 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GST_NET__H__
-#define __GST_NET__H__
+#pragma once
 
-#include <gst/net/net-prelude.h>
+#include <gst/gst.h>
+#include <gst/cuda/cuda-prelude.h>
 
-#include <gst/net/gstnet.h>
-#include <gst/net/gstnetaddressmeta.h>
-#include <gst/net/gstnetcontrolmessagemeta.h>
-#include <gst/net/gstnetclientclock.h>
-#include <gst/net/gstnettimepacket.h>
-#include <gst/net/gstnettimeprovider.h>
-#include <gst/net/gstnetutils.h>
-#include <gst/net/gstptpclock.h>
 
-#endif /* __GST_NET__H__ */
+
+extern
+gboolean gst_cuda_load_library (void);
+
+

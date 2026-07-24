@@ -27,7 +27,7 @@
 
 
 
-GST_CUDA_API
+extern
 gboolean _gst_cuda_debug (CUresult result,
                           GstDebugCategory * cat,
                           const gchar * file,
@@ -107,61 +107,61 @@ typedef struct _GstCudaGraphicsResource
   gboolean mapped;
 } GstCudaGraphicsResource;
 
-GST_CUDA_API
+extern
 gboolean        gst_cuda_ensure_element_context (GstElement * element,
                                                  gint device_id,
                                                  GstCudaContext ** cuda_ctx);
 
-GST_CUDA_API
+extern
 gboolean        gst_cuda_handle_set_context     (GstElement * element,
                                                  GstContext * context,
                                                  gint device_id,
                                                  GstCudaContext ** cuda_ctx);
 
-GST_CUDA_API
+extern
 gboolean        gst_cuda_handle_context_query   (GstElement * element,
                                                  GstQuery * query,
                                                  GstCudaContext * cuda_ctx);
 
-GST_CUDA_API
+extern
 GstContext *    gst_context_new_cuda_context    (GstCudaContext * cuda_ctx);
 
-GST_CUDA_API
+extern
 GQuark          gst_cuda_quark_from_id          (GstCudaQuarkId id);
 
-GST_CUDA_API
+extern
 GstCudaGraphicsResource * gst_cuda_graphics_resource_new  (GstCudaContext * context,
                                                            GstObject * graphics_context,
                                                            GstCudaGraphicsResourceType type);
 
-GST_CUDA_API
+extern
 gboolean        gst_cuda_graphics_resource_register_gl_buffer (GstCudaGraphicsResource * resource,
                                                                guint buffer,
                                                                CUgraphicsRegisterFlags flags);
 
 #ifdef G_OS_WIN32
-GST_CUDA_API
+extern
 gboolean        gst_cuda_graphics_resource_register_d3d11_resource (GstCudaGraphicsResource * resource,
                                                                     ID3D11Resource * d3d11_resource,
                                                                     CUgraphicsRegisterFlags flags);
 #endif
 
-GST_CUDA_API
+extern
 void            gst_cuda_graphics_resource_unregister (GstCudaGraphicsResource * resource);
 
-GST_CUDA_API
+extern
 CUgraphicsResource gst_cuda_graphics_resource_map (GstCudaGraphicsResource * resource,
                                                    CUstream stream,
                                                    CUgraphicsMapResourceFlags flags);
 
-GST_CUDA_API
+extern
 void            gst_cuda_graphics_resource_unmap (GstCudaGraphicsResource * resource,
                                                   CUstream stream);
 
-GST_CUDA_API
+extern
 void            gst_cuda_graphics_resource_free (GstCudaGraphicsResource * resource);
 
-GST_CUDA_API
+extern
 gint64          gst_cuda_create_user_token (void);
 
 

@@ -17,193 +17,193 @@
 
 
 /* cuda.h */
-GST_CUDA_API
-CUresult CUDAAPI CuInit             (unsigned int Flags);
+extern
+CUresult  CuInit             (unsigned int Flags);
 
-GST_CUDA_API
-CUresult CUDAAPI CuGetErrorName     (CUresult error,
+extern
+CUresult  CuGetErrorName     (CUresult error,
                                      const char **pStr);
 
-GST_CUDA_API
-CUresult CUDAAPI CuGetErrorString   (CUresult error,
+extern
+CUresult  CuGetErrorString   (CUresult error,
                                      const char **pStr);
 
-GST_CUDA_API
-CUresult CUDAAPI CuCtxCreate        (CUcontext * pctx,
+extern
+CUresult  CuCtxCreate        (CUcontext * pctx,
                                      unsigned int flags,
                                      CUdevice dev);
 
-GST_CUDA_API
-CUresult CUDAAPI CuCtxDestroy       (CUcontext ctx);
+extern
+CUresult  CuCtxDestroy       (CUcontext ctx);
 
-GST_CUDA_API
-CUresult CUDAAPI CuCtxPopCurrent    (CUcontext * pctx);
+extern
+CUresult  CuCtxPopCurrent    (CUcontext * pctx);
 
-GST_CUDA_API
-CUresult CUDAAPI CuCtxPushCurrent   (CUcontext ctx);
+extern
+CUresult  CuCtxPushCurrent   (CUcontext ctx);
 
-GST_CUDA_API
-CUresult CUDAAPI CuCtxSynchronize   (void);
+extern
+CUresult  CuCtxSynchronize   (void);
 
-GST_CUDA_API
-CUresult CUDAAPI CuCtxGetLimit      (size_t *plimit, CUlimit limit);
+extern
+CUresult  CuCtxGetLimit      (size_t *plimit, CUlimit limit);
 
-GST_CUDA_API
-CUresult CUDAAPI CuCtxSetLimit      (CUlimit limit, size_t value);
+extern
+CUresult  CuCtxSetLimit      (CUlimit limit, size_t value);
 
-GST_CUDA_API
-CUresult CUDAAPI CuCtxEnablePeerAccess (CUcontext peerContext,
+extern
+CUresult  CuCtxEnablePeerAccess (CUcontext peerContext,
                                              unsigned int Flags);
 
-GST_CUDA_API
-CUresult CUDAAPI CuCtxDisablePeerAccess (CUcontext peerContext);
+extern
+CUresult  CuCtxDisablePeerAccess (CUcontext peerContext);
 
-GST_CUDA_API
-CUresult CUDAAPI CuGraphicsMapResources     (unsigned int count,
+extern
+CUresult  CuGraphicsMapResources     (unsigned int count,
                                              CUgraphicsResource * resources,
                                              CUstream hStream);
 
-GST_CUDA_API
-CUresult CUDAAPI CuGraphicsUnmapResources   (unsigned int count,
+extern
+CUresult  CuGraphicsUnmapResources   (unsigned int count,
                                              CUgraphicsResource * resources,
                                              CUstream hStream);
 
-GST_CUDA_API
-CUresult CUDAAPI CuGraphicsSubResourceGetMappedArray    (CUarray * pArray,
+extern
+CUresult  CuGraphicsSubResourceGetMappedArray    (CUarray * pArray,
                                                          CUgraphicsResource resource,
                                                          unsigned int arrayIndex,
                                                          unsigned int mipLevel);
 
-GST_CUDA_API
-CUresult CUDAAPI CuGraphicsResourceGetMappedPointer     (CUdeviceptr * pDevPtr,
+extern
+CUresult  CuGraphicsResourceGetMappedPointer     (CUdeviceptr * pDevPtr,
                                                          size_t * pSize,
                                                          CUgraphicsResource resource);
 
-GST_CUDA_API
-CUresult CUDAAPI CuGraphicsUnregisterResource           (CUgraphicsResource resource);
+extern
+CUresult  CuGraphicsUnregisterResource           (CUgraphicsResource resource);
 
-GST_CUDA_API
-CUresult CUDAAPI CuMemAlloc         (CUdeviceptr * dptr,
+extern
+CUresult  CuMemAlloc         (CUdeviceptr * dptr,
                                      unsigned int bytesize);
 
-GST_CUDA_API
-CUresult CUDAAPI CuMemAllocPitch    (CUdeviceptr * dptr,
+extern
+CUresult  CuMemAllocPitch    (CUdeviceptr * dptr,
                                      size_t * pPitch,
                                      size_t WidthInBytes,
                                      size_t Height,
                                      unsigned int ElementSizeBytes);
 
-GST_CUDA_API
-CUresult CUDAAPI CuMemAllocHost     (void **pp,
+extern
+CUresult  CuMemAllocHost     (void **pp,
                                      unsigned int bytesize);
 
-GST_CUDA_API
-CUresult CUDAAPI CuMemcpy2D         (const CUDA_MEMCPY2D * pCopy);
+extern
+CUresult  CuMemcpy2D         (const CUDA_MEMCPY2D * pCopy);
 
-GST_CUDA_API
-CUresult CUDAAPI CuMemcpy2DAsync    (const CUDA_MEMCPY2D *pCopy, CUstream hStream);
+extern
+CUresult  CuMemcpy2DAsync    (const CUDA_MEMCPY2D *pCopy, CUstream hStream);
 
-GST_CUDA_API
-CUresult CUDAAPI CuMemcpyDtoD       (CUdeviceptr dstDevice,
+extern
+CUresult  CuMemcpyDtoD       (CUdeviceptr dstDevice,
                                      CUdeviceptr srcDevice,
                                      size_t ByteCount);
 
-GST_CUDA_API
-CUresult CUDAAPI CuMemcpyDtoDAsync  (CUdeviceptr dstDevice,
+extern
+CUresult  CuMemcpyDtoDAsync  (CUdeviceptr dstDevice,
                                      CUdeviceptr srcDevice,
                                      size_t ByteCount,
                                      CUstream hStream);
 
-GST_CUDA_API
-CUresult CUDAAPI CuMemcpyDtoH       (void *dstHost,
+extern
+CUresult  CuMemcpyDtoH       (void *dstHost,
                                      CUdeviceptr srcDevice,
                                      size_t ByteCount);
 
-GST_CUDA_API
-CUresult CUDAAPI CuMemcpyDtoHAsync  (void *dstHost,
+extern
+CUresult  CuMemcpyDtoHAsync  (void *dstHost,
                                      CUdeviceptr srcDevice,
                                      size_t ByteCount,
                                      CUstream hStream);
 
-GST_CUDA_API
-CUresult CUDAAPI CuMemcpyHtoD       (CUdeviceptr dstDevice,
+extern
+CUresult  CuMemcpyHtoD       (CUdeviceptr dstDevice,
                                      const void *srcHost,
                                      size_t ByteCount);
 
-GST_CUDA_API
-CUresult CUDAAPI CuMemcpyHtoDAsync  (CUdeviceptr dstDevice,
+extern
+CUresult  CuMemcpyHtoDAsync  (CUdeviceptr dstDevice,
                                      const void *srcHost,
                                      size_t ByteCount,
                                      CUstream hStream);
 
-GST_CUDA_API
-CUresult CUDAAPI CuMemFree          (CUdeviceptr dptr);
+extern
+CUresult  CuMemFree          (CUdeviceptr dptr);
 
-GST_CUDA_API
-CUresult CUDAAPI CuMemFreeHost      (void *p);
+extern
+CUresult  CuMemFreeHost      (void *p);
 
-GST_CUDA_API
-CUresult CUDAAPI CuStreamCreate     (CUstream *phStream,
+extern
+CUresult  CuStreamCreate     (CUstream *phStream,
                                      unsigned int Flags);
 
-GST_CUDA_API
-CUresult CUDAAPI CuStreamDestroy    (CUstream hStream);
+extern
+CUresult  CuStreamDestroy    (CUstream hStream);
 
-GST_CUDA_API
-CUresult CUDAAPI CuStreamSynchronize (CUstream hStream);
+extern
+CUresult  CuStreamSynchronize (CUstream hStream);
 
-GST_CUDA_API
-CUresult CUDAAPI CuDeviceGet        (CUdevice * device,
+extern
+CUresult  CuDeviceGet        (CUdevice * device,
                                      int ordinal);
 
-GST_CUDA_API
-CUresult CUDAAPI CuDeviceGetCount   (int *count);
+extern
+CUresult  CuDeviceGetCount   (int *count);
 
-GST_CUDA_API
-CUresult CUDAAPI CuDeviceGetName    (char *name,
+extern
+CUresult  CuDeviceGetName    (char *name,
                                      int len,
                                      CUdevice dev);
 
-GST_CUDA_API
-CUresult CUDAAPI CuDeviceGetAttribute (int *pi,
+extern
+CUresult  CuDeviceGetAttribute (int *pi,
                                        CUdevice_attribute attrib,
                                        CUdevice dev);
 
-GST_CUDA_API
-CUresult CUDAAPI CuDeviceGetUuid (CUuuid *uuid,
+extern
+CUresult  CuDeviceGetUuid (CUuuid *uuid,
                                   CUdevice dev);
 
-GST_CUDA_API
-CUresult CUDAAPI CuDeviceCanAccessPeer (int *canAccessPeer,
+extern
+CUresult  CuDeviceCanAccessPeer (int *canAccessPeer,
                                         CUdevice dev,
                                         CUdevice peerDev);
 
-GST_CUDA_API
-CUresult CUDAAPI CuDriverGetVersion   (int * driverVersion);
+extern
+CUresult  CuDriverGetVersion   (int * driverVersion);
 
-GST_CUDA_API
-CUresult CUDAAPI CuModuleLoadData     (CUmodule* module,
+extern
+CUresult  CuModuleLoadData     (CUmodule* module,
                                        const void *image);
 
-GST_CUDA_API
-CUresult CUDAAPI CuModuleUnload      (CUmodule module);
+extern
+CUresult  CuModuleUnload      (CUmodule module);
 
-GST_CUDA_API
-CUresult CUDAAPI CuModuleGetFunction  (CUfunction* hfunc,
+extern
+CUresult  CuModuleGetFunction  (CUfunction* hfunc,
                                        CUmodule hmod,
                                        const char* name);
 
-GST_CUDA_API
-CUresult CUDAAPI CuTexObjectCreate    (CUtexObject *pTexObject,
+extern
+CUresult  CuTexObjectCreate    (CUtexObject *pTexObject,
                                        const CUDA_RESOURCE_DESC *pResDesc,
                                        const CUDA_TEXTURE_DESC *pTexDesc,
                                        const CUDA_RESOURCE_VIEW_DESC *pResViewDesc);
 
-GST_CUDA_API
-CUresult CUDAAPI CuTexObjectDestroy   (CUtexObject texObject);
+extern
+CUresult  CuTexObjectDestroy   (CUtexObject texObject);
 
-GST_CUDA_API
-CUresult CUDAAPI CuLaunchKernel       (CUfunction f,
+extern
+CUresult  CuLaunchKernel       (CUfunction f,
                                        unsigned int gridDimX,
                                        unsigned int gridDimY,
                                        unsigned int gridDimZ,
@@ -215,181 +215,181 @@ CUresult CUDAAPI CuLaunchKernel       (CUfunction f,
                                        void **kernelParams,
                                        void **extra);
 
-GST_CUDA_API
-CUresult CUDAAPI CuEventCreate       (CUevent *phEvent,
+extern
+CUresult  CuEventCreate       (CUevent *phEvent,
                                       unsigned int Flags);
 
-GST_CUDA_API
-CUresult CUDAAPI CuEventDestroy      (CUevent hEvent);
+extern
+CUresult  CuEventDestroy      (CUevent hEvent);
 
-GST_CUDA_API
-CUresult CUDAAPI CuEventRecord       (CUevent hEvent,
+extern
+CUresult  CuEventRecord       (CUevent hEvent,
                                       CUstream hStream);
 
-GST_CUDA_API
-CUresult CUDAAPI CuEventSynchronize  (CUevent hEvent);
+extern
+CUresult  CuEventSynchronize  (CUevent hEvent);
 
-GST_CUDA_API
-CUresult CUDAAPI CuIpcGetEventHandle (CUipcEventHandle *pHandle,
+extern
+CUresult  CuIpcGetEventHandle (CUipcEventHandle *pHandle,
                                       CUevent event);
 
-GST_CUDA_API
-CUresult CUDAAPI CuIpcOpenEventHandle (CUevent* phEvent,
+extern
+CUresult  CuIpcOpenEventHandle (CUevent* phEvent,
                                        CUipcEventHandle handle);
 
-GST_CUDA_API
-CUresult CUDAAPI CuIpcGetMemHandle   (CUipcMemHandle *pHandle,
+extern
+CUresult  CuIpcGetMemHandle   (CUipcMemHandle *pHandle,
                                       CUdeviceptr dptr);
 
-GST_CUDA_API
-CUresult CUDAAPI CuIpcOpenMemHandle  (CUdeviceptr *pdptr,
+extern
+CUresult  CuIpcOpenMemHandle  (CUdeviceptr *pdptr,
                                       CUipcMemHandle handle,
                                       unsigned int Flags);
 
-GST_CUDA_API
-CUresult CUDAAPI CuIpcCloseMemHandle (CUdeviceptr dptr);
+extern
+CUresult  CuIpcCloseMemHandle (CUdeviceptr dptr);
 
-GST_CUDA_API
-CUresult CUDAAPI CuMemAddressReserve (CUdeviceptr *ptr,
+extern
+CUresult  CuMemAddressReserve (CUdeviceptr *ptr,
                                       size_t size,
                                       size_t alignment,
                                       CUdeviceptr addr,
                                       unsigned long long flags);
 
-GST_CUDA_API
-CUresult CUDAAPI CuMemAddressFree    (CUdeviceptr ptr,
+extern
+CUresult  CuMemAddressFree    (CUdeviceptr ptr,
                                       size_t size);
 
 
-GST_CUDA_API
-CUresult CUDAAPI CuMemCreate         (CUmemGenericAllocationHandle *handle,
+extern
+CUresult  CuMemCreate         (CUmemGenericAllocationHandle *handle,
                                       size_t size,
                                       const CUmemAllocationProp *prop,
                                       unsigned long long flags);
 
-GST_CUDA_API
-CUresult CUDAAPI CuMemRelease        (CUmemGenericAllocationHandle handle);
+extern
+CUresult  CuMemRelease        (CUmemGenericAllocationHandle handle);
 
-GST_CUDA_API
-CUresult CUDAAPI CuMemExportToShareableHandle (void *shareableHandle,
+extern
+CUresult  CuMemExportToShareableHandle (void *shareableHandle,
                                                CUmemGenericAllocationHandle handle,
                                                CUmemAllocationHandleType handleType,
                                                unsigned long long flags);
 
-GST_CUDA_API
-CUresult CUDAAPI CuMemImportFromShareableHandle (CUmemGenericAllocationHandle *handle,
+extern
+CUresult  CuMemImportFromShareableHandle (CUmemGenericAllocationHandle *handle,
                                                  void *osHandle,
                                                  CUmemAllocationHandleType shHandleType);
 
-GST_CUDA_API
-CUresult CUDAAPI CuMemSetAccess (CUdeviceptr ptr,
+extern
+CUresult  CuMemSetAccess (CUdeviceptr ptr,
                                  size_t size,
                                  const CUmemAccessDesc *desc,
                                  size_t count);
 
-GST_CUDA_API
-CUresult CUDAAPI CuMemGetAccess (unsigned long long *flags,
+extern
+CUresult  CuMemGetAccess (unsigned long long *flags,
                                  const CUmemLocation *location,
                                  CUdeviceptr ptr);
 
-GST_CUDA_API
-CUresult CUDAAPI CuMemGetAllocationGranularity (size_t *granularity,
+extern
+CUresult  CuMemGetAllocationGranularity (size_t *granularity,
                                                 const CUmemAllocationProp *prop,
                                                 CUmemAllocationGranularity_flags option);
 
-GST_CUDA_API
-CUresult CUDAAPI CuMemGetAllocationPropertiesFromHandle (CUmemAllocationProp *prop,
+extern
+CUresult  CuMemGetAllocationPropertiesFromHandle (CUmemAllocationProp *prop,
                                                          CUmemGenericAllocationHandle handle);
 
 
-GST_CUDA_API
-CUresult CUDAAPI CuMemMap (CUdeviceptr ptr,
+extern
+CUresult  CuMemMap (CUdeviceptr ptr,
                            size_t size,
                            size_t offset,
                            CUmemGenericAllocationHandle handle,
                            unsigned long long flags);
 
-GST_CUDA_API
-CUresult CUDAAPI CuMemUnmap (CUdeviceptr ptr,
+extern
+CUresult  CuMemUnmap (CUdeviceptr ptr,
                              size_t size);
 
-GST_CUDA_API
-CUresult CUDAAPI CuMemRetainAllocationHandle (CUmemGenericAllocationHandle *handle,
+extern
+CUresult  CuMemRetainAllocationHandle (CUmemGenericAllocationHandle *handle,
                                               void *addr);
 
-GST_CUDA_API
-CUresult CUDAAPI CuMemAllocAsync (CUdeviceptr *dptr,
+extern
+CUresult  CuMemAllocAsync (CUdeviceptr *dptr,
                                   size_t bytesize,
                                   CUstream hStream);
 
-GST_CUDA_API
-CUresult CUDAAPI CuMemAllocFromPoolAsync (CUdeviceptr *dptr,
+extern
+CUresult  CuMemAllocFromPoolAsync (CUdeviceptr *dptr,
                                           size_t bytesize,
                                           CUmemoryPool pool,
                                           CUstream hStream);
 
-GST_CUDA_API
-CUresult CUDAAPI CuMemFreeAsync (CUdeviceptr dptr,
+extern
+CUresult  CuMemFreeAsync (CUdeviceptr dptr,
                                  CUstream hStream);
 
-GST_CUDA_API
-CUresult CUDAAPI CuMemPoolCreate (CUmemoryPool *pool,
+extern
+CUresult  CuMemPoolCreate (CUmemoryPool *pool,
                                   const CUmemPoolProps *poolProps);
 
-GST_CUDA_API
-CUresult CUDAAPI CuMemPoolDestroy (CUmemoryPool pool);
+extern
+CUresult  CuMemPoolDestroy (CUmemoryPool pool);
 
-GST_CUDA_API
-CUresult CUDAAPI CuMemPoolSetAttribute (CUmemoryPool pool,
+extern
+CUresult  CuMemPoolSetAttribute (CUmemoryPool pool,
                                         CUmemPool_attribute attr,
                                         void *value);
 
-GST_CUDA_API
-CUresult CUDAAPI CuMemPoolGetAttribute (CUmemoryPool pool,
+extern
+CUresult  CuMemPoolGetAttribute (CUmemoryPool pool,
                                         CUmemPool_attribute attr,
                                         void *value);
 
-GST_CUDA_API
-CUresult CUDAAPI CuDestroyExternalMemory (CUexternalMemory extMem);
+extern
+CUresult  CuDestroyExternalMemory (CUexternalMemory extMem);
 
-GST_CUDA_API
-CUresult CUDAAPI CuDestroyExternalSemaphore (CUexternalSemaphore extSem);
+extern
+CUresult  CuDestroyExternalSemaphore (CUexternalSemaphore extSem);
 
 /**
  * CuExternalMemoryGetMappedBuffer: (skip) (attributes doc.skip=true)
  */
-GST_CUDA_API
-CUresult CUDAAPI CuExternalMemoryGetMappedBuffer (CUdeviceptr *devPtr,
+extern
+CUresult  CuExternalMemoryGetMappedBuffer (CUdeviceptr *devPtr,
                                                   CUexternalMemory extMem,
                                                   const CUDA_EXTERNAL_MEMORY_BUFFER_DESC *bufferDesc);
 
 /**
  * CuExternalMemoryGetMappedMipmappedArray: (skip) (attributes doc.skip=true)
  */
-GST_CUDA_API
-CUresult CUDAAPI CuExternalMemoryGetMappedMipmappedArray (CUmipmappedArray *mipmap,
+extern
+CUresult  CuExternalMemoryGetMappedMipmappedArray (CUmipmappedArray *mipmap,
                                                           CUexternalMemory extMem,
                                                           const CUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC *mipmapDesc);
 
 /**
  * CuImportExternalMemory: (skip) (attributes doc.skip=true)
  */
-GST_CUDA_API
-CUresult CUDAAPI CuImportExternalMemory (CUexternalMemory *extMem_out,
+extern
+CUresult  CuImportExternalMemory (CUexternalMemory *extMem_out,
                                          const CUDA_EXTERNAL_MEMORY_HANDLE_DESC *memHandleDesc);
 
 /**
  * CuImportExternalSemaphore: (skip) (attributes doc.skip=true)
  */
-GST_CUDA_API
-CUresult CUDAAPI CuImportExternalSemaphore (CUexternalSemaphore *extSem_out,
+extern
+CUresult  CuImportExternalSemaphore (CUexternalSemaphore *extSem_out,
                                             const CUDA_EXTERNAL_SEMAPHORE_HANDLE_DESC *semHandleDesc);
 
 /**
  * CuSignalExternalSemaphoresAsync: (skip) (attributes doc.skip=true)
  */
-GST_CUDA_API
-CUresult CUDAAPI CuSignalExternalSemaphoresAsync (const CUexternalSemaphore *extSemArray,
+extern
+CUresult  CuSignalExternalSemaphoresAsync (const CUexternalSemaphore *extSemArray,
                                                   const CUDA_EXTERNAL_SEMAPHORE_SIGNAL_PARAMS *paramsArray,
                                                   unsigned int numExtSems,
                                                   CUstream stream);
@@ -397,51 +397,51 @@ CUresult CUDAAPI CuSignalExternalSemaphoresAsync (const CUexternalSemaphore *ext
 /**
  * CuWaitExternalSemaphoresAsync: (skip) (attributes doc.skip=true)
  */
-GST_CUDA_API
-CUresult CUDAAPI CuWaitExternalSemaphoresAsync (const CUexternalSemaphore *extSemArray,
+extern
+CUresult  CuWaitExternalSemaphoresAsync (const CUexternalSemaphore *extSemArray,
                                                 const CUDA_EXTERNAL_SEMAPHORE_WAIT_PARAMS *paramsArray,
                                                 unsigned int numExtSems,
                                                 CUstream stream);
 
-GST_CUDA_API
-CUresult CUDAAPI CuMemsetD2D8 (CUdeviceptr dstDevice,
+extern
+CUresult  CuMemsetD2D8 (CUdeviceptr dstDevice,
                                size_t dstPitch,
                                unsigned char uc,
                                size_t Width,
                                size_t Height);
 
-GST_CUDA_API
-CUresult CUDAAPI CuMemsetD2D8Async (CUdeviceptr dstDevice,
+extern
+CUresult  CuMemsetD2D8Async (CUdeviceptr dstDevice,
                                     size_t dstPitch,
                                     unsigned char uc,
                                     size_t Width,
                                     size_t Height,
                                     CUstream hStream);
 
-GST_CUDA_API
-CUresult CUDAAPI CuMemsetD2D16 (CUdeviceptr dstDevice,
+extern
+CUresult  CuMemsetD2D16 (CUdeviceptr dstDevice,
                                 size_t dstPitch,
                                 unsigned short us,
                                 size_t Width,
                                 size_t Height);
 
-GST_CUDA_API
-CUresult CUDAAPI CuMemsetD2D16Async (CUdeviceptr dstDevice,
+extern
+CUresult  CuMemsetD2D16Async (CUdeviceptr dstDevice,
                                      size_t dstPitch,
                                      unsigned short us,
                                      size_t Width,
                                      size_t Height,
                                      CUstream hStream);
 
-GST_CUDA_API
-CUresult CUDAAPI CuMemsetD2D32 (CUdeviceptr dstDevice,
+extern
+CUresult  CuMemsetD2D32 (CUdeviceptr dstDevice,
                                 size_t dstPitch,
                                 unsigned int ui,
                                 size_t Width,
                                 size_t Height);
 
-GST_CUDA_API
-CUresult CUDAAPI CuMemsetD2D32Async (CUdeviceptr dstDevice,
+extern
+CUresult  CuMemsetD2D32Async (CUdeviceptr dstDevice,
                                      size_t dstPitch,
                                      unsigned int ui,
                                      size_t Width,
@@ -449,40 +449,40 @@ CUresult CUDAAPI CuMemsetD2D32Async (CUdeviceptr dstDevice,
                                      CUstream hStream);
 
 /* cudaGL.h */
-GST_CUDA_API
-CUresult CUDAAPI CuGraphicsGLRegisterImage  (CUgraphicsResource * pCudaResource,
+extern
+CUresult  CuGraphicsGLRegisterImage  (CUgraphicsResource * pCudaResource,
                                              unsigned int image,
                                              unsigned int target,
                                              unsigned int Flags);
 
-GST_CUDA_API
-CUresult CUDAAPI CuGraphicsGLRegisterBuffer (CUgraphicsResource * pCudaResource,
+extern
+CUresult  CuGraphicsGLRegisterBuffer (CUgraphicsResource * pCudaResource,
                                              unsigned int buffer,
                                              unsigned int Flags);
 
-GST_CUDA_API
-CUresult CUDAAPI CuGraphicsResourceSetMapFlags (CUgraphicsResource resource,
+extern
+CUresult  CuGraphicsResourceSetMapFlags (CUgraphicsResource resource,
                                                 unsigned int flags);
 
-GST_CUDA_API
-CUresult CUDAAPI CuGLGetDevices (unsigned int * pCudaDeviceCount,
+extern
+CUresult  CuGLGetDevices (unsigned int * pCudaDeviceCount,
                                  CUdevice * pCudaDevices,
                                  unsigned int cudaDeviceCount,
                                  CUGLDeviceList deviceList);
 
 #ifdef G_OS_WIN32
 /* cudaD3D11.h */
-GST_CUDA_API
-CUresult CUDAAPI CuGraphicsD3D11RegisterResource(CUgraphicsResource * pCudaResource,
+extern
+CUresult  CuGraphicsD3D11RegisterResource(CUgraphicsResource * pCudaResource,
                                                  ID3D11Resource * pD3DResource,
                                                  unsigned int Flags);
 
-GST_CUDA_API
-CUresult CUDAAPI CuD3D11GetDevice(CUdevice * device,
+extern
+CUresult  CuD3D11GetDevice(CUdevice * device,
                                   IDXGIAdapter * pAdapter);
 
-GST_CUDA_API
-CUresult CUDAAPI CuD3D11GetDevices(unsigned int * pCudaDeviceCount,
+extern
+CUresult  CuD3D11GetDevices(unsigned int * pCudaDeviceCount,
                                    CUdevice* pCudaDevices,
                                    unsigned int cudaDeviceCount,
                                    ID3D11Device * pD3D11Device,

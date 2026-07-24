@@ -48,23 +48,23 @@ struct _GstCudaMemoryPool
   GstCudaMemoryPoolPrivate *priv;
 };
 
-GST_CUDA_API
+extern
 GType               gst_cuda_memory_pool_get_type (void);
 
-GST_CUDA_API
+extern
 GstCudaMemoryPool * gst_cuda_memory_pool_new (GstCudaContext * context,
                                               const CUmemPoolProps * props) ;
 
-GST_CUDA_API
+extern
 CUmemoryPool        gst_cuda_memory_pool_get_handle (GstCudaMemoryPool * pool);
 
-GST_CUDA_API
+extern
 GstCudaMemoryPool * gst_cuda_memory_pool_ref (GstCudaMemoryPool * pool);
 
-GST_CUDA_API
+extern
 void                gst_cuda_memory_pool_unref (GstCudaMemoryPool * pool);
 
-GST_CUDA_API
+extern
 void                gst_clear_cuda_memory_pool (GstCudaMemoryPool ** pool);
 
 

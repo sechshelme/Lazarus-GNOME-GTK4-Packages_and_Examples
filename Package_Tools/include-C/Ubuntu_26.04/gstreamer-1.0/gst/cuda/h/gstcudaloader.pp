@@ -1,5 +1,34 @@
-/* GStreamer
- * Copyright (C) 2005 Andy Wingo <wingo@pobox.com>
+
+unit gstcudaloader;
+interface
+
+{
+  Automatically converted by H2Pas 1.0.0 from gstcudaloader.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    gstcudaloader.h
+}
+
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
+
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{ GStreamer
+ * Copyright (C) 2019 Seungha Yang <seungha.yang@navercorp.com>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -15,17 +44,14 @@
  * License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
  * Boston, MA 02110-1301, USA.
- */
+  }
+(** unsupported pragma#pragma once*)
+{$include <gst/gst.h>}
+{$include <gst/cuda/cuda-prelude.h>}
+
+function gst_cuda_load_library:Tgboolean;cdecl;external;
+
+implementation
 
 
-#ifndef __GST_NET_H__
-#define __GST_NET_H__
-
-#include <gst/net/net-prelude.h>
-
-#include <gst/net/gstnetaddressmeta.h>
-#include <gst/net/gstnetclientclock.h>
-#include <gst/net/gstnettimepacket.h>
-#include <gst/net/gstnettimeprovider.h>
-
-#endif /* __GST_NET_H__ */
+end.

@@ -1,4 +1,16 @@
-/* GStreamer
+unit gstcudanvrtc;
+
+interface
+
+uses
+  fp_glib2, fp_gst;
+
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{ GStreamer
  * Copyright (C) 2019 Seungha Yang <seungha.yang@navercorp.com>
  *
  * This library is free software; you can redistribute it and/or
@@ -15,24 +27,20 @@
  * License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
  * Boston, MA 02110-1301, USA.
- */
+  }
+(** unsupported pragma#pragma once*)
+{$include <gst/gst.h>}
+{$include <gst/cuda/cuda-prelude.h>}
 
-#pragma once
+function gst_cuda_nvrtc_load_library:Tgboolean;cdecl;external libgstcuda;
+function gst_cuda_nvrtc_compile(source:Pgchar):Pgchar;cdecl;external libgstcuda;
+function gst_cuda_nvrtc_compile_cubin(source:Pgchar; device:Tgint):Pgchar;cdecl;external libgstcuda;
 
-#include <gst/gst.h>
-#include <gst/cuda/cuda-prelude.h>
+// === Konventiert am: 24-7-26 15:39:08 ===
 
 
-
-GST_CUDA_API
-gboolean  gst_cuda_nvrtc_load_library (void);
-
-GST_CUDA_API
-gchar *   gst_cuda_nvrtc_compile (const gchar * source);
-
-GST_CUDA_API
-gchar *   gst_cuda_nvrtc_compile_cubin (const gchar * source,
-                                        gint device);
+implementation
 
 
 
+end.

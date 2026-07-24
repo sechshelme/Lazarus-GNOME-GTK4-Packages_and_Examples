@@ -1,7 +1,17 @@
-/* GStreamer Net Library
- * Copyright (C) 2018 GStreamer developers
- *
- * net-prelude.h: prelude include header for gst-net library
+unit gstcudaloader;
+
+interface
+
+uses
+  fp_glib2, fp_gst;
+
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{ GStreamer
+ * Copyright (C) 2019 Seungha Yang <seungha.yang@navercorp.com>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -17,19 +27,18 @@
  * License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
  * Boston, MA 02110-1301, USA.
- */
+  }
+(** unsupported pragma#pragma once*)
+{$include <gst/gst.h>}
+{$include <gst/cuda/cuda-prelude.h>}
 
-#ifndef __GST_NET_PRELUDE_H__
-#define __GST_NET_PRELUDE_H__
+function gst_cuda_load_library:Tgboolean;cdecl;external libgstcuda;
 
-#include <gst/gst.h>
+// === Konventiert am: 24-7-26 15:39:20 ===
 
-#ifndef GST_NET_API
-#ifdef BUILDING_GST_NET
-#define GST_NET_API extern_EXPORT        /* from config.h */
-#else
-#define GST_NET_API extern_IMPORT
-#endif
-#endif
 
-#endif /* __GST_NET_PRELUDE_H__ */
+implementation
+
+
+
+end.

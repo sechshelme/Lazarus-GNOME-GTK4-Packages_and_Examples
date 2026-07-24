@@ -2,8 +2,20 @@ program project1;
 
 // diff -U 1 /n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Packages_2024/gtk-4.14.2/C-include/gtk/gtkslicelistmodel.h /n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Packages_2026/gtk-4.22.4/C-include/gtk-4.0/gtk/gtkslicelistmodel.h > test.diff
 uses
+  cuda_gst,
+  gstcudabufferpool,
+  gstcudacontext,
+  gstcudaloader,
+  gstcudamemory,
+  gstcudamemorypool,
+  gstcudanvrtc,
+  gstcudastream,
+  gstcudautils,
 
 
+
+
+  fp_gst_net,
   fp_gst_mpegts,
   fp_gst_pbutils,
   fp_gst_wayland,
@@ -96,7 +108,8 @@ uses
   end;
 
 begin
-//  GST_TYPE_WL_OUTPUT
+  //  GST_TYPE_WL_OUTPUT
+
 
   //  GST_TYPE_PLANAR_AUDIO_ADAPTER
   // GST_TYPE_NONSTREAM_AUDIO_DECODER

@@ -68,32 +68,32 @@ struct _GstCudaContextClass
   GstObjectClass parent_class;
 };
 
-GST_CUDA_API
+extern
 GType            gst_cuda_context_get_type    (void);
 
-GST_CUDA_API
+extern
 GstCudaContext * gst_cuda_context_new         (guint device_id) ;
 
-GST_CUDA_API
+extern
 GstCudaContext * gst_cuda_context_new_wrapped (CUcontext handler, CUdevice device) ;
 
-GST_CUDA_API
+extern
 gboolean         gst_cuda_context_push        (GstCudaContext * ctx);
 
-GST_CUDA_API
+extern
 gboolean         gst_cuda_context_pop         (CUcontext * cuda_ctx);
 
-GST_CUDA_API
+extern
 gpointer         gst_cuda_context_get_handle  (GstCudaContext * ctx);
 
-GST_CUDA_API
+extern
 gint             gst_cuda_context_get_texture_alignment (GstCudaContext * ctx);
 
-GST_CUDA_API
+extern
 gboolean         gst_cuda_context_can_access_peer (GstCudaContext * ctx,
                                                    GstCudaContext * peer);
 
-GST_CUDA_API
+extern
 gint64           gst_cuda_context_find_dxgi_adapter_luid (CUdevice cuda_device);
 
 

@@ -5,6 +5,7 @@ interface
 uses
   fp_glib2,
   fp_gst,
+  fp_gst_net,
   fp_gst_rtsp,
   fp_gst_sdp;
 

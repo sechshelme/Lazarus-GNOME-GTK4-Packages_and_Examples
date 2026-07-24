@@ -24,7 +24,15 @@
 
 
 
-GST_CUDA_API
-gboolean gst_cuda_load_library (void);
+extern
+gboolean  gst_cuda_nvrtc_load_library (void);
+
+extern
+gchar *   gst_cuda_nvrtc_compile (const gchar * source);
+
+extern
+gchar *   gst_cuda_nvrtc_compile_cubin (const gchar * source,
+                                        gint device);
+
 
 

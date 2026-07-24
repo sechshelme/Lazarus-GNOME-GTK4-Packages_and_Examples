@@ -48,22 +48,22 @@ struct _GstCudaStream
   GstCudaStreamPrivate *priv;
 };
 
-GST_CUDA_API
+extern
 GType           gst_cuda_stream_get_type (void);
 
-GST_CUDA_API
+extern
 GstCudaStream * gst_cuda_stream_new (GstCudaContext * context) ;
 
-GST_CUDA_API
+extern
 CUstream        gst_cuda_stream_get_handle (GstCudaStream * stream);
 
-GST_CUDA_API
+extern
 GstCudaStream * gst_cuda_stream_ref (GstCudaStream * stream);
 
-GST_CUDA_API
+extern
 void            gst_cuda_stream_unref (GstCudaStream * stream);
 
-GST_CUDA_API
+extern
 void            gst_clear_cuda_stream (GstCudaStream ** stream);
 
 
