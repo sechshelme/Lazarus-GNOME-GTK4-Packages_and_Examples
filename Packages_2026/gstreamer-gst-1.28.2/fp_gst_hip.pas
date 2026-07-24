@@ -12,6 +12,37 @@ uses
   {$PACKRECORDS C}
   {$ENDIF}
 
+type
+  ThipError_t = longint;
+  ThipDeviceAttribute_t = longint;
+  THIPfilter_mode = longint;
+  THIPaddress_mode = longint;
+
+  ThipStream_t = Pointer;
+  ThipModule_t = Pointer;
+  ThipFunction_t = Pointer;
+  ThipDeviceptr_t = Pointer;
+  ThipTextureObject_t = Pointer;
+  ThipGraphicsResource_t = Pointer;
+  ThipGLDeviceList = Pointer;
+  ThipEvent_t = Pointer;
+
+  PhipStream_t = ^ThipStream_t;
+  PhipModule_t = ^ThipModule_t;
+  PhipFunction_t = ^ThipFunction_t;
+  PhipTextureObject_t = ^ThipTextureObject_t;
+  PhipGraphicsResource_t = ^ThipGraphicsResource_t;
+  PhipEvent_t = ^ThipEvent_t;
+
+  PhipDeviceProp_t = Pointer;
+  Phip_Memcpy2D = Pointer;
+  PhipGraphicsResource = Pointer;
+  PPhipGraphicsResource = ^PhipGraphicsResource;
+  PHIP_RESOURCE_DESC = Pointer;
+  PHIP_TEXTURE_DESC = Pointer;
+  PHIP_RESOURCE_VIEW_DESC = Pointer;
+
+
   {$DEFINE read_interface}
   {$include gst/hip/gsthip_enums.inc}
   {$include gst/hip/gsthipevent.inc}

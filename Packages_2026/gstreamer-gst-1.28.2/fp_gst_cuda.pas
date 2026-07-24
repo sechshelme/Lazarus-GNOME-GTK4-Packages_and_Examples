@@ -21,6 +21,13 @@ uses
 type
   TCUresult = longint;
 
+
+  TCUlimit = type Pointer;
+  TCUexternalMemory = type Pointer;
+  TCUexternalSemaphore = type Pointer;
+  TCUGLDeviceList = type Pointer;
+
+
   TCUcontext = type Pointer;
   PCUcontext = ^TCUcontext;
 
@@ -30,45 +37,91 @@ type
   TCUgraphicsResource = type Pointer;
   PCUgraphicsResource = ^TCUgraphicsResource;
 
+  TCUipcEventHandle = type Pointer;
+  PCUipcEventHandle = ^TCUipcEventHandle;
+
   TCUstream = type Pointer;
   PCUstream = ^TCUstream;
 
-  TCUfilter_mode = LongInt;
+  TCUmodule = type Pointer;
+  PCUmodule = ^TCUmodule;
+
+  TCUmemoryPool = type Pointer;
+  PCUmemoryPool = ^TCUmemoryPool;
+
+  TCUipcMemHandle = type Pointer;
+  PCUipcMemHandle = ^TCUipcMemHandle;
+
+  TCUmemGenericAllocationHandle = type Pointer;
+  PCUmemGenericAllocationHandle = ^TCUmemGenericAllocationHandle;
+
+  TCUevent = type Pointer;
+  TCUfunction = type Pointer;
+
+  TCUfilter_mode = longint;
   PCUfilter_mode = ^TCUfilter_mode;
 
-  TCUtexObject = UInt64;
+  TCUtexObject = uint64;
   PCUtexObject = ^TCUtexObject;
 
-  TCUdeviceptr = UInt64;
+  TCUdeviceptr = uint64;
   PCUdeviceptr = ^TCUdeviceptr;
 
   PCUmemAllocationProp = type Pointer;
+  PCUarray = type Pointer;
+  PCUuuid = type Pointer;
+  PCUfunction = type Pointer;
+  PCUevent = type Pointer;
+  PCUmemAccessDesc = type Pointer;
+  PCUmemLocation = type Pointer;
+  PCUmemPoolProps = type Pointer;
+  PCUmipmappedArray = type Pointer;
+  PCUexternalMemory = type Pointer;
+  PCUexternalSemaphore = type Pointer;
+
 
   TCUgraphicsRegisterFlags = longint;
   TCUgraphicsMapResourceFlags = longint;
   TCUmemAllocationGranularity_flags = longint;
+  TCUdevice_attribute = longint;
+  TCUmemAllocationHandleType = longint;
+  TCUmemPool_attribute = longint;
 
+  PCUDA_MEMCPY2D = type Pointer;
+  PCUDA_RESOURCE_DESC = type Pointer;
+  PCUDA_TEXTURE_DESC = type Pointer;
+  PCUDA_RESOURCE_VIEW_DESC = type Pointer;
+  PCUDA_EXTERNAL_MEMORY_BUFFER_DESC = type Pointer;
+  PCUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC = type Pointer;
+  PCUDA_EXTERNAL_MEMORY_HANDLE_DESC = type Pointer;
+  PCUDA_EXTERNAL_SEMAPHORE_HANDLE_DESC = type Pointer;
+  PCUDA_EXTERNAL_SEMAPHORE_SIGNAL_PARAMS = type Pointer;
+  PCUDA_EXTERNAL_SEMAPHORE_WAIT_PARAMS = type Pointer;
 
-//{$DEFINE read_interface}
-//{$include gst/cuda/gstcudanvrtc.inc}        // io.
-//{$include gst/cuda/gstcudaloader.inc}       // io.
-//{$include gst/cuda/gstcudacontext.inc}      // io.
-//{$include gst/cuda/gstcudastream.inc}       // io. -> gstcudacontext
-//{$include gst/cuda/gstcudamemory.inc}       // io. -> gstcudacontext, gstcudastream
-//{$include gst/cuda/gstcudabufferpool.inc}   // io. -> gstcudacontext, gstcudastream, gstcudamemory
-//{$include gst/cuda/gstcudautils.inc}        // io. -> gstcudacontext
-{$UNDEF read_interface}
+  {$DEFINE read_interface}
+  {$include gst/cuda//cuda_gst.inc}
+  {$include gst/cuda//gstcudacontext.inc}
+  {$include gst/cuda//gstcudastream.inc}
+  {$include gst/cuda//gstcudamemorypool.inc}
+  {$include gst/cuda//gstcudamemory.inc}
+  {$include gst/cuda//gstcudabufferpool.inc}
+  {$include gst/cuda//gstcudaloader.inc}
+  {$include gst/cuda//gstcudanvrtc.inc}
+  {$include gst/cuda//gstcudautils.inc}
+  {$UNDEF read_interface}
 
 implementation
 
 {$DEFINE read_implementation}
-//{$include gst/cuda/gstcudanvrtc.inc}        // io.
-//{$include gst/cuda/gstcudaloader.inc}       // io.
-//{$include gst/cuda/gstcudacontext.inc}      // io.
-//{$include gst/cuda/gstcudastream.inc}       // io. -> gstcudacontext
-//{$include gst/cuda/gstcudamemory.inc}       // io. -> gstcudacontext, gstcudastream
-//{$include gst/cuda/gstcudabufferpool.inc}   // io. -> gstcudacontext, gstcudastream, gstcudamemory
-//{$include gst/cuda/gstcudautils.inc}        // io. -> gstcudacontext
+{$include gst/cuda//cuda_gst.inc}
+{$include gst/cuda//gstcudacontext.inc}
+{$include gst/cuda//gstcudastream.inc}
+{$include gst/cuda//gstcudamemorypool.inc}
+{$include gst/cuda//gstcudamemory.inc}
+{$include gst/cuda//gstcudabufferpool.inc}
+{$include gst/cuda//gstcudaloader.inc}
+{$include gst/cuda//gstcudanvrtc.inc}
+{$include gst/cuda//gstcudautils.inc}
 {$UNDEF read_implementation}
 
 end.

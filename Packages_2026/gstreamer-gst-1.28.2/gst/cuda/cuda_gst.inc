@@ -1,13 +1,4 @@
-unit cuda_gst;
-
-interface
-
-uses
-  fp_glib2, fp_gst;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 function CuInit(Flags: dword): TCUresult; cdecl; external libgstcuda;
@@ -18,17 +9,17 @@ function CuCtxDestroy(ctx: TCUcontext): TCUresult; cdecl; external libgstcuda;
 function CuCtxPopCurrent(pctx: PCUcontext): TCUresult; cdecl; external libgstcuda;
 function CuCtxPushCurrent(ctx: TCUcontext): TCUresult; cdecl; external libgstcuda;
 function CuCtxSynchronize: TCUresult; cdecl; external libgstcuda;
-function CuCtxGetLimit(plimit: Psize_t; limit: TCUlimit): TCUresult; cdecl; external libgstcuda;
+function CuCtxGetLimit(plimit: PSizeUInt; limit: TCUlimit): TCUresult; cdecl; external libgstcuda;
 function CuCtxSetLimit(limit: TCUlimit; value: Tsize_t): TCUresult; cdecl; external libgstcuda;
 function CuCtxEnablePeerAccess(peerContext: TCUcontext; Flags: dword): TCUresult; cdecl; external libgstcuda;
 function CuCtxDisablePeerAccess(peerContext: TCUcontext): TCUresult; cdecl; external libgstcuda;
 function CuGraphicsMapResources(count: dword; resources: PCUgraphicsResource; hStream: TCUstream): TCUresult; cdecl; external libgstcuda;
 function CuGraphicsUnmapResources(count: dword; resources: PCUgraphicsResource; hStream: TCUstream): TCUresult; cdecl; external libgstcuda;
 function CuGraphicsSubResourceGetMappedArray(pArray: PCUarray; resource: TCUgraphicsResource; arrayIndex: dword; mipLevel: dword): TCUresult; cdecl; external libgstcuda;
-function CuGraphicsResourceGetMappedPointer(pDevPtr: PCUdeviceptr; pSize: Psize_t; resource: TCUgraphicsResource): TCUresult; cdecl; external libgstcuda;
+function CuGraphicsResourceGetMappedPointer(pDevPtr: PCUdeviceptr; pSize: PSizeUInt; resource: TCUgraphicsResource): TCUresult; cdecl; external libgstcuda;
 function CuGraphicsUnregisterResource(resource: TCUgraphicsResource): TCUresult; cdecl; external libgstcuda;
 function CuMemAlloc(dptr: PCUdeviceptr; bytesize: dword): TCUresult; cdecl; external libgstcuda;
-function CuMemAllocPitch(dptr: PCUdeviceptr; pPitch: Psize_t; WidthInBytes: Tsize_t; Height: Tsize_t; ElementSizeBytes: dword): TCUresult; cdecl; external libgstcuda;
+function CuMemAllocPitch(dptr: PCUdeviceptr; pPitch: PSizeUInt; WidthInBytes: Tsize_t; Height: Tsize_t; ElementSizeBytes: dword): TCUresult; cdecl; external libgstcuda;
 function CuMemAllocHost(pp: Ppointer; bytesize: dword): TCUresult; cdecl; external libgstcuda;
 function CuMemcpy2D(pCopy: PCUDA_MEMCPY2D): TCUresult; cdecl; external libgstcuda;
 function CuMemcpy2DAsync(pCopy: PCUDA_MEMCPY2D; hStream: TCUstream): TCUresult; cdecl; external libgstcuda;
@@ -75,7 +66,7 @@ function CuMemExportToShareableHandle(shareableHandle: pointer; handle: TCUmemGe
 function CuMemImportFromShareableHandle(handle: PCUmemGenericAllocationHandle; osHandle: pointer; shHandleType: TCUmemAllocationHandleType): TCUresult; cdecl; external libgstcuda;
 function CuMemSetAccess(ptr: TCUdeviceptr; size: Tsize_t; desc: PCUmemAccessDesc; count: Tsize_t): TCUresult; cdecl; external libgstcuda;
 function CuMemGetAccess(flags: Pqword; location: PCUmemLocation; ptr: TCUdeviceptr): TCUresult; cdecl; external libgstcuda;
-function CuMemGetAllocationGranularity(granularity: Psize_t; prop: PCUmemAllocationProp; option: TCUmemAllocationGranularity_flags): TCUresult; cdecl; external libgstcuda;
+function CuMemGetAllocationGranularity(granularity: PSizeUInt; prop: PCUmemAllocationProp; option: TCUmemAllocationGranularity_flags): TCUresult; cdecl; external libgstcuda;
 function CuMemGetAllocationPropertiesFromHandle(prop: PCUmemAllocationProp; handle: TCUmemGenericAllocationHandle): TCUresult; cdecl; external libgstcuda;
 function CuMemMap(ptr: TCUdeviceptr; size: Tsize_t; offset: Tsize_t; handle: TCUmemGenericAllocationHandle; flags: qword): TCUresult; cdecl; external libgstcuda;
 function CuMemUnmap(ptr: TCUdeviceptr; size: Tsize_t): TCUresult; cdecl; external libgstcuda;
@@ -118,8 +109,11 @@ function CuD3D11GetDevices(pCudaDeviceCount: Pdword; pCudaDevices: PCUdevice; cu
 // === Konventiert am: 24-7-26 15:40:00 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

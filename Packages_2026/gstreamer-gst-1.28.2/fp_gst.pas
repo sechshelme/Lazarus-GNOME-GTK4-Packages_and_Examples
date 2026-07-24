@@ -12,34 +12,6 @@ uses
   // ==== Muss aufgeräumt werden
 
 type
-  ThipError_t = longint;
-  ThipDeviceAttribute_t = longint;
-  THIPfilter_mode = longint;
-  THIPaddress_mode = longint;
-
-  ThipStream_t = Pointer;
-  ThipModule_t = Pointer;
-  ThipFunction_t = Pointer;
-  ThipDeviceptr_t = Pointer;
-  ThipTextureObject_t = Pointer;
-  ThipGraphicsResource_t = Pointer;
-  ThipGLDeviceList = Pointer;
-  ThipEvent_t = Pointer;
-
-  PhipStream_t = ^ThipStream_t;
-  PhipModule_t = ^ThipModule_t;
-  PhipFunction_t = ^ThipFunction_t;
-  PhipTextureObject_t = ^ThipTextureObject_t;
-  PhipGraphicsResource_t = ^ThipGraphicsResource_t;
-  PhipEvent_t = ^ThipEvent_t;
-
-  PhipDeviceProp_t = Pointer;
-  Phip_Memcpy2D = Pointer;
-  PhipGraphicsResource = Pointer;
-  PPhipGraphicsResource = ^PhipGraphicsResource;
-  PHIP_RESOURCE_DESC = Pointer;
-  PHIP_TEXTURE_DESC = Pointer;
-  PHIP_RESOURCE_VIEW_DESC = Pointer;
 
 
   Pwp_color_manager_v1=type Pointer;
@@ -47,10 +19,6 @@ type
   Twl_output_subpixel=LongInt;
   Twl_output_transform=LongInt;
 
-
-
-  // eigen
-  PGstWebRTCICETransport=Pointer;
 
   // ===============
 
