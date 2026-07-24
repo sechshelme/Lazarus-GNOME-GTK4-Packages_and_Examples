@@ -48,8 +48,8 @@ typedef struct _GstPlayVideoOverlayVideoRendererClass
  */
 #define GST_PLAY_VIDEO_OVERLAY_VIDEO_RENDERER_CAST(obj)        ((GstPlayVideoOverlayVideoRenderer*)(obj))
 
-#ifdef ////////////////////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC                  
-////////////////////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC                  (GstPlayVideoOverlayVideoRenderer, g_object_unref)
+#ifdef //////////////////////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC                   
+//////////////////////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC                   (GstPlayVideoOverlayVideoRenderer, g_object_unref)
 #endif
 
 GST_PLAY_API

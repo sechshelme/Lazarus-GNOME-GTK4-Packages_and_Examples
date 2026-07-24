@@ -42,7 +42,7 @@ function GST_IS_WL_OUTPUT(obj: Pointer): Tgboolean;
 
 function GST_TYPE_WL_OUTPUT: TGType;
 begin
-  Result := gst_wl_output_get_type;
+//  Result := gst_wl_output_get_type;
 end;
 
 function GST_WL_OUTPUT(obj: Pointer): PGstWlOutput;

@@ -56,8 +56,8 @@ GstPlayVisualization ** gst_play_visualizations_get  (void);
 GST_PLAY_API
 void                      gst_play_visualizations_free (GstPlayVisualization **viss);
 
-#ifdef ////////////////////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC                  
-////////////////////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC                  (GstPlayVisualization, gst_play_visualization_free)
+#ifdef //////////////////////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC                   
+//////////////////////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC                   (GstPlayVisualization, gst_play_visualization_free)
 #endif
 
 

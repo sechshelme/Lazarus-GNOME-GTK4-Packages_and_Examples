@@ -1,0 +1,73 @@
+{$IFDEF read_interface}
+
+
+const
+  GST_ENCODING_CATEGORY_DEVICE = 'device';
+  GST_ENCODING_CATEGORY_ONLINE_SERVICE = 'online-service';
+  GST_ENCODING_CATEGORY_STORAGE_EDITING = 'storage-editing';
+  GST_ENCODING_CATEGORY_CAPTURE = 'capture';
+  GST_ENCODING_CATEGORY_FILE_EXTENSION = 'file-extension';
+
+type
+  PGstEncodingTarget = type Pointer;
+
+  PGstEncodingTargetClass = ^TGstEncodingTargetClass;
+  TGstEncodingTargetClass = TGObjectClass;
+
+function gst_encoding_target_get_type: TGType; cdecl; external libgstpbutils;
+function gst_encoding_target_new(name: Pgchar; category: Pgchar; description: Pgchar; profiles: PGList): PGstEncodingTarget; cdecl; external libgstpbutils;
+function gst_encoding_target_get_name(target: PGstEncodingTarget): Pgchar; cdecl; external libgstpbutils;
+function gst_encoding_target_get_category(target: PGstEncodingTarget): Pgchar; cdecl; external libgstpbutils;
+function gst_encoding_target_get_description(target: PGstEncodingTarget): Pgchar; cdecl; external libgstpbutils;
+function gst_encoding_target_get_path(target: PGstEncodingTarget): Pgchar; cdecl; external libgstpbutils;
+function gst_encoding_target_get_profiles(target: PGstEncodingTarget): PGList; cdecl; external libgstpbutils;
+function gst_encoding_target_get_profile(target: PGstEncodingTarget; name: Pgchar): PGstEncodingProfile; cdecl; external libgstpbutils;
+function gst_encoding_target_add_profile(target: PGstEncodingTarget; profile: PGstEncodingProfile): Tgboolean; cdecl; external libgstpbutils;
+function gst_encoding_target_save(target: PGstEncodingTarget; error: PPGError): Tgboolean; cdecl; external libgstpbutils;
+function gst_encoding_target_save_to_file(target: PGstEncodingTarget; filepath: Pgchar; error: PPGError): Tgboolean; cdecl; external libgstpbutils;
+function gst_encoding_target_load(name: Pgchar; category: Pgchar; error: PPGError): PGstEncodingTarget; cdecl; external libgstpbutils;
+function gst_encoding_target_load_from_file(filepath: Pgchar; error: PPGError): PGstEncodingTarget; cdecl; external libgstpbutils;
+function gst_encoding_list_available_categories: PGList; cdecl; external libgstpbutils;
+function gst_encoding_list_all_targets(categoryname: Pgchar): PGList; cdecl; external libgstpbutils;
+
+// === Konventiert am: 23-7-26 19:46:15 ===
+
+procedure gst_encoding_target_unref(target: Pointer);
+function gst_encoding_target_ref(target: Pointer): Pointer;
+
+function GST_TYPE_ENCODING_TARGET: TGType;
+function GST_ENCODING_TARGET(obj: Pointer): PGstEncodingTarget;
+function GST_IS_ENCODING_TARGET(obj: Pointer): Tgboolean;
+
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
+
+function GST_TYPE_ENCODING_TARGET: TGType;
+begin
+  GST_TYPE_ENCODING_TARGET := gst_encoding_target_get_type;
+end;
+
+function GST_ENCODING_TARGET(obj: Pointer): PGstEncodingTarget;
+begin
+  Result := PGstEncodingTarget(g_type_check_instance_cast(obj, GST_TYPE_ENCODING_TARGET));
+end;
+
+function GST_IS_ENCODING_TARGET(obj: Pointer): Tgboolean;
+begin
+  Result := g_type_check_instance_is_a(obj, GST_TYPE_ENCODING_TARGET);
+end;
+
+
+procedure gst_encoding_target_unref(target: Pointer);
+begin
+  g_object_unref(PGObject(target));
+end;
+
+function gst_encoding_target_ref(target: Pointer): Pointer;
+begin
+  gst_encoding_target_ref := g_object_ref(PGObject(target));
+end;
+
+{$ENDIF read_implementation}

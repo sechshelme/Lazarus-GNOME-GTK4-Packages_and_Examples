@@ -233,8 +233,8 @@ const gchar *gst_play_color_balance_type_get_name   (GstPlayColorBalanceType typ
  */
 #define GST_PLAY_CAST(obj)        ((GstPlay*)(obj))
 
-#ifdef ////////////////////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC                  
-////////////////////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC                  (GstPlay, gst_object_unref)
+#ifdef //////////////////////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC                   
+//////////////////////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC                   (GstPlay, gst_object_unref)
 #endif
 
 GST_PLAY_API
