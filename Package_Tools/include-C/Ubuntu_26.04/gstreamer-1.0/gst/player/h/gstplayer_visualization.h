@@ -19,47 +19,42 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef __GST_PLAY_VISUALIZATION_H__
-#define __GST_PLAY_VISUALIZATION_H__
+#ifndef __GST_PLAYER_VISUALIZATION_H__
+#define __GST_PLAYER_VISUALIZATION_H__
 
 #include <gst/gst.h>
-#include <gst/play/play-prelude.h>
+#include <gst/player/player-prelude.h>
 
 
 
-typedef struct _GstPlayVisualization GstPlayVisualization;
+typedef struct _GstPlayerVisualization GstPlayerVisualization;
 /**
- * GstPlayVisualization:
+ * GstPlayerVisualization:
  * @name: name of the visualization.
  * @description: description of the visualization.
  *
- * A #GstPlayVisualization descriptor.
- * Since: 1.20
+ * A #GstPlayerVisualization descriptor.
  */
-struct _GstPlayVisualization {
+struct _GstPlayerVisualization {
   gchar *name;
   gchar *description;
 };
 
-GST_PLAY_API
-GType                     gst_play_visualization_get_type (void);
+extern
+GType                     gst_player_visualization_get_type (void);
 
-GST_PLAY_API
-GstPlayVisualization *  gst_play_visualization_copy  (const GstPlayVisualization *vis) ;
+extern
+GstPlayerVisualization *  gst_player_visualization_copy  (const GstPlayerVisualization *vis) ;
 
-GST_PLAY_API
-void                      gst_play_visualization_free  (GstPlayVisualization *vis);
+extern
+void                      gst_player_visualization_free  (GstPlayerVisualization *vis);
 
-GST_PLAY_API
-GstPlayVisualization ** gst_play_visualizations_get  (void);
+extern
+GstPlayerVisualization ** gst_player_visualizations_get  (void);
 
-GST_PLAY_API
-void                      gst_play_visualizations_free (GstPlayVisualization **viss);
-
-#ifdef ////////////////////////////////////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC                          
-////////////////////////////////////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC                          (GstPlayVisualization, gst_play_visualization_free)
-#endif
+extern
+void                      gst_player_visualizations_free (GstPlayerVisualization **viss);
 
 
 
-#endif /* __GST_PLAY_VISUALIZATION_H__ */
+#endif /* __GST_PLAYER_VISUALIZATION_H__ */

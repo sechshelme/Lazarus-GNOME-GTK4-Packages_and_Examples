@@ -1,4 +1,16 @@
-/* GStreamer
+unit gstplayer_visualization;
+
+interface
+
+uses
+  fp_glib2, fp_gst;
+
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{ GStreamer
  *
  * Copyright (C) 2014-2015 Sebastian Dröge <sebastian@centricular.com>
  * Copyright (C) 2015 Brijesh Singh <brijesh.ksingh@gmail.com>
@@ -17,44 +29,39 @@
  * License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
  * Boston, MA 02110-1301, USA.
- */
-
-#ifndef __GST_PLAYER_VISUALIZATION_H__
-#define __GST_PLAYER_VISUALIZATION_H__
-
-#include <gst/gst.h>
-#include <gst/player/player-prelude.h>
-
-
-
-typedef struct _GstPlayerVisualization GstPlayerVisualization;
-/**
+  }
+{$ifndef __GST_PLAYER_VISUALIZATION_H__}
+{$define __GST_PLAYER_VISUALIZATION_H__}
+{$include <gst/gst.h>}
+{$include <gst/player/player-prelude.h>}
+type
+{*
  * GstPlayerVisualization:
  * @name: name of the visualization.
  * @description: description of the visualization.
  *
  * A #GstPlayerVisualization descriptor.
- */
-struct _GstPlayerVisualization {
-  gchar *name;
-  gchar *description;
-};
-
-GST_PLAYER_API
-GType                     gst_player_visualization_get_type (void);
-
-GST_PLAYER_API
-GstPlayerVisualization *  gst_player_visualization_copy  (const GstPlayerVisualization *vis) ;
-
-GST_PLAYER_API
-void                      gst_player_visualization_free  (GstPlayerVisualization *vis);
-
-GST_PLAYER_API
-GstPlayerVisualization ** gst_player_visualizations_get  (void);
-
-GST_PLAYER_API
-void                      gst_player_visualizations_free (GstPlayerVisualization **viss);
+  }
+  PGstPlayerVisualization = ^TGstPlayerVisualization;
+  TGstPlayerVisualization = record
+      name : Pgchar;
+      description : Pgchar;
+    end;
 
 
+function gst_player_visualization_get_type:TGType;cdecl;external libgstplayer;
+function gst_player_visualization_copy(vis:PGstPlayerVisualization):PGstPlayerVisualization;cdecl;external libgstplayer;
+procedure gst_player_visualization_free(vis:PGstPlayerVisualization);cdecl;external libgstplayer;
+function gst_player_visualizations_get:^PGstPlayerVisualization;cdecl;external libgstplayer;
+procedure gst_player_visualizations_free(viss:PPGstPlayerVisualization);cdecl;external libgstplayer;
+{$endif}
+{ __GST_PLAYER_VISUALIZATION_H__  }
 
-#endif /* __GST_PLAYER_VISUALIZATION_H__ */
+// === Konventiert am: 24-7-26 19:51:00 ===
+
+
+implementation
+
+
+
+end.

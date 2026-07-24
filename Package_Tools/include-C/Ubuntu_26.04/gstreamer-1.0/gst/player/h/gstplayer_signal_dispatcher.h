@@ -46,7 +46,7 @@ struct _GstPlayerSignalDispatcherInterface {
                     GDestroyNotify destroy);
 };
 
-GST_PLAYER_API
+extern
 GType        gst_player_signal_dispatcher_get_type    (void);
 
 

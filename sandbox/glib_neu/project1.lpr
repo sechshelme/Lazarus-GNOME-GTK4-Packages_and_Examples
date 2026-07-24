@@ -3,8 +3,17 @@ program project1;
 // diff -U 1 /n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Packages_2024/gtk-4.14.2/C-include/gtk/gtkslicelistmodel.h /n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Packages_2026/gtk-4.22.4/C-include/gtk-4.0/gtk/gtkslicelistmodel.h > test.diff
 uses
 
+  gstplayer,
+  gstplayer_g_main_context_signal_dispatcher,
+  gstplayer_media_info,
+  gstplayer_signal_dispatcher,
+  gstplayer_video_overlay_video_renderer,
+  gstplayer_video_renderer,
+  gstplayer_visualization,
 
 
+
+  fp_gst_va,
   fp_gst_cuda,
   fp_gst_net,
   fp_gst_mpegts,

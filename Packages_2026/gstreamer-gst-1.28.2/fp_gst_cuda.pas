@@ -8,95 +8,95 @@ uses
   {$ENDIF}
   fp_glib2,
   fp_gst,
-  fp_gst_base,
-  fp_gst_video,
-  Strings,
-  ctypes;
+  fp_gst_video;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}
 
   // ==== cuda
-type
-  TCUresult = longint;
+  type
+    TCUresult = longint;
+    TCUlimit = longint;
+    TCUGLDeviceList = longint;
+    TCUfilter_mode = longint;
+    PCUfilter_mode = ^TCUfilter_mode;
 
+    TCUdevice = int32;
+    PCUdevice = ^TCUdevice;
 
-  TCUlimit = type Pointer;
-  TCUexternalMemory = type Pointer;
-  TCUexternalSemaphore = type Pointer;
-  TCUGLDeviceList = type Pointer;
+    TCUtexObject = uint64;
+    PCUtexObject = ^TCUtexObject;
 
+    TCUdeviceptr = QWord;
+    PCUdeviceptr = ^TCUdeviceptr;
 
-  TCUcontext = type Pointer;
-  PCUcontext = ^TCUcontext;
+    TCUmemGenericAllocationHandle = QWord;
+    PCUmemGenericAllocationHandle = ^TCUmemGenericAllocationHandle;
 
-  TCUdevice = uint32;
-  PCUdevice = ^TCUdevice;
+    TCUipcEventHandle = record
+      reserved: array[0..63] of AnsiChar;
+    end;
+    PCUipcEventHandle = ^TCUipcEventHandle;
 
-  TCUgraphicsResource = type Pointer;
-  PCUgraphicsResource = ^TCUgraphicsResource;
+    TCUipcMemHandle = record
+      reserved: array[0..63] of AnsiChar;
+    end;
+    PCUipcMemHandle = ^TCUipcMemHandle;
 
-  TCUipcEventHandle = type Pointer;
-  PCUipcEventHandle = ^TCUipcEventHandle;
+    TCUexternalMemory = type Pointer;
+    PCUexternalMemory = ^TCUexternalMemory;
 
-  TCUstream = type Pointer;
-  PCUstream = ^TCUstream;
+    TCUexternalSemaphore = type Pointer;
+    PCUexternalSemaphore = ^TCUexternalSemaphore;
 
-  TCUmodule = type Pointer;
-  PCUmodule = ^TCUmodule;
+    TCUcontext = type Pointer;
+    PCUcontext = ^TCUcontext;
 
-  TCUmemoryPool = type Pointer;
-  PCUmemoryPool = ^TCUmemoryPool;
+    TCUgraphicsResource = type Pointer;
+    PCUgraphicsResource = ^TCUgraphicsResource;
 
-  TCUipcMemHandle = type Pointer;
-  PCUipcMemHandle = ^TCUipcMemHandle;
+    TCUstream = type Pointer;
+    PCUstream = ^TCUstream;
 
-  TCUmemGenericAllocationHandle = type Pointer;
-  PCUmemGenericAllocationHandle = ^TCUmemGenericAllocationHandle;
+    TCUmodule = type Pointer;
+    PCUmodule = ^TCUmodule;
 
-  TCUevent = type Pointer;
-  TCUfunction = type Pointer;
+    TCUmemoryPool = type Pointer;
+    PCUmemoryPool = ^TCUmemoryPool;
 
-  TCUfilter_mode = longint;
-  PCUfilter_mode = ^TCUfilter_mode;
+    TCUevent = type Pointer;
+    PCUevent = ^TCUevent;
 
-  TCUtexObject = uint64;
-  PCUtexObject = ^TCUtexObject;
+    TCUfunction = type Pointer;
+    PCUfunction = ^TCUfunction;
 
-  TCUdeviceptr = uint64;
-  PCUdeviceptr = ^TCUdeviceptr;
+    TCUgraphicsRegisterFlags = longint;
+    TCUgraphicsMapResourceFlags = longint;
+    TCUmemAllocationGranularity_flags = longint;
+    TCUdevice_attribute = longint;
+    TCUmemAllocationHandleType = longint;
+    TCUmemPool_attribute = longint;
 
-  PCUmemAllocationProp = type Pointer;
-  PCUarray = type Pointer;
-  PCUuuid = type Pointer;
-  PCUfunction = type Pointer;
-  PCUevent = type Pointer;
-  PCUmemAccessDesc = type Pointer;
-  PCUmemLocation = type Pointer;
-  PCUmemPoolProps = type Pointer;
-  PCUmipmappedArray = type Pointer;
-  PCUexternalMemory = type Pointer;
-  PCUexternalSemaphore = type Pointer;
+    PCUmemAllocationProp = Pointer;
+    PCUarray = Pointer;
+    PCUuuid = Pointer;
+    PCUmemAccessDesc = Pointer;
+    PCUmemLocation = Pointer;
+    PCUmemPoolProps = Pointer;
+    PCUmipmappedArray = Pointer;
 
+    PCUDA_MEMCPY2D = Pointer;
+    PCUDA_RESOURCE_DESC = Pointer;
+    PCUDA_TEXTURE_DESC = Pointer;
+    PCUDA_RESOURCE_VIEW_DESC = Pointer;
+    PCUDA_EXTERNAL_MEMORY_BUFFER_DESC = Pointer;
+    PCUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC = Pointer;
+    PCUDA_EXTERNAL_MEMORY_HANDLE_DESC = Pointer;
+    PCUDA_EXTERNAL_SEMAPHORE_HANDLE_DESC = Pointer;
+    PCUDA_EXTERNAL_SEMAPHORE_SIGNAL_PARAMS = Pointer;
+    PCUDA_EXTERNAL_SEMAPHORE_WAIT_PARAMS = Pointer;
 
-  TCUgraphicsRegisterFlags = longint;
-  TCUgraphicsMapResourceFlags = longint;
-  TCUmemAllocationGranularity_flags = longint;
-  TCUdevice_attribute = longint;
-  TCUmemAllocationHandleType = longint;
-  TCUmemPool_attribute = longint;
-
-  PCUDA_MEMCPY2D = type Pointer;
-  PCUDA_RESOURCE_DESC = type Pointer;
-  PCUDA_TEXTURE_DESC = type Pointer;
-  PCUDA_RESOURCE_VIEW_DESC = type Pointer;
-  PCUDA_EXTERNAL_MEMORY_BUFFER_DESC = type Pointer;
-  PCUDA_EXTERNAL_MEMORY_MIPMAPPED_ARRAY_DESC = type Pointer;
-  PCUDA_EXTERNAL_MEMORY_HANDLE_DESC = type Pointer;
-  PCUDA_EXTERNAL_SEMAPHORE_HANDLE_DESC = type Pointer;
-  PCUDA_EXTERNAL_SEMAPHORE_SIGNAL_PARAMS = type Pointer;
-  PCUDA_EXTERNAL_SEMAPHORE_WAIT_PARAMS = type Pointer;
 
   {$DEFINE read_interface}
   {$include gst/cuda//cuda_gst.inc}
