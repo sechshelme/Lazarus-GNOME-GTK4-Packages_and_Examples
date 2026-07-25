@@ -4,31 +4,30 @@ interface
 
 uses
   fp_glib2,
-  fp_gst,
-  fp_gst_base,
-  Strings,
-  ctypes;
+  fp_gst;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}
 
   {$DEFINE read_interface}
-  //{$include gst/allocators/gstdrmdumb}                      // io.
-  //{$include gst/allocators/gstphysmemory}                   // io.
-  //{$include gst/allocators/gstfdmemory}                     // io.
-  //{$include gst/allocators/gstshmallocator}                 // io. -> gstfdmemory
-  //{$include gst/allocators/gstdmabuf}                       // io. -> gstfdmemory
+  {$include gst/allocators/gstfdmemory.inc}
+  {$include gst/allocators/gstdmabuf.inc}
+  {$include gst/allocators/gstdrmdumb.inc}
+  {$include gst/allocators/gstphysmemory.inc}
+  {$include gst/allocators/gstshmallocator.inc}
+  {$include gst/allocators/gstudmabufallocator.inc}
   {$UNDEF read_interface}
 
 implementation
 
 {$DEFINE read_implementation}
-//{$include gst/allocators/gstdrmdumb}                      // io.
-//{$include gst/allocators/gstphysmemory}                   // io.
-//{$include gst/allocators/gstfdmemory}                     // io.
-//{$include gst/allocators/gstshmallocator}                 // io. -> gstfdmemory
-//{$include gst/allocators/gstdmabuf}                       // io. -> gstfdmemory
+{$include gst/allocators/gstfdmemory.inc}
+{$include gst/allocators/gstdmabuf.inc}
+{$include gst/allocators/gstdrmdumb.inc}
+{$include gst/allocators/gstphysmemory.inc}
+{$include gst/allocators/gstshmallocator.inc}
+{$include gst/allocators/gstudmabufallocator.inc}
 {$UNDEF read_implementation}
 
 end.

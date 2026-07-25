@@ -5,7 +5,7 @@ uses
 
 
 
-
+  fp_gst_allocators,
   fp_gst_controller,
   fp_gst_player,
   fp_gst_va,

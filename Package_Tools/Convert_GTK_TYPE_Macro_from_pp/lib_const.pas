@@ -305,7 +305,6 @@ const
     (libs: 'libgtk4'; units: 'fp_glib2, fp_gtk4'),
 
 
-    (libs: 'libgstallocators'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstcheck'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstphotography'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstmse'; units: 'fp_glib2, fp_gst'),
@@ -343,6 +342,7 @@ const
     (libs: 'libgstva'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstplayer'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstcontroller'; units: 'fp_glib2, fp_gst'),
+    (libs: 'libgstallocators'; units: 'fp_glib2, fp_gst'),
 
 
     (libs: ''; units: ''));
