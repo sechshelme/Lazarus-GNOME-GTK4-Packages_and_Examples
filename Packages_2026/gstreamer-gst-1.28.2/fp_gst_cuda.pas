@@ -77,6 +77,7 @@ uses
     TCUdevice_attribute = longint;
     TCUmemAllocationHandleType = longint;
     TCUmemPool_attribute = longint;
+    TCUd3d11DeviceList = LongInt;
 
     PCUmemAllocationProp = Pointer;
     PCUarray = Pointer;
@@ -85,7 +86,6 @@ uses
     PCUmemLocation = Pointer;
     PCUmemPoolProps = Pointer;
     PCUmipmappedArray = Pointer;
-
     PCUDA_MEMCPY2D = Pointer;
     PCUDA_RESOURCE_DESC = Pointer;
     PCUDA_TEXTURE_DESC = Pointer;
@@ -96,6 +96,9 @@ uses
     PCUDA_EXTERNAL_SEMAPHORE_HANDLE_DESC = Pointer;
     PCUDA_EXTERNAL_SEMAPHORE_SIGNAL_PARAMS = Pointer;
     PCUDA_EXTERNAL_SEMAPHORE_WAIT_PARAMS = Pointer;
+
+    PIDXGIAdapter = type Pointer;
+    PID3D11Device = type Pointer;
 
 
   {$DEFINE read_interface}
