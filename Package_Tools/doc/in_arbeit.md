@@ -462,8 +462,6 @@ libappstream-dev
 librdkafka-dev
 
 
-liblua5.1-0-dev 
-
 libmanette-0.2-dev       // io.
 libavahi-core-dev        // io. 
 libavahi-gobject-dev     // io. 
@@ -542,7 +540,6 @@ libdeflate-dev
    librttopo1         
    libsecret-1-0    
 
- liblua5.4-0    
   libsuperlu7
   libspatialite8t64
 
@@ -604,6 +601,7 @@ mingw-w64-plutovg
 mingw-w64-mupdf
 mingw-w64-json-c
 mingw-w64-grpc
+mingw-w64-intel-xed   // Unbrauchbarer Müll
 
 mingw-w64-mongo-c-driver  // Datenbank
 libbson-dev
@@ -611,6 +609,9 @@ libbson-dev
 mingw-w64-arrow (Apache Arrow):Ein Framework für In-Memory-Datenanalysen. Es ist zwar in C++ geschrieben, bietet aber eine sehr ausgereifte C-Schnittstelle (GObject-basiert), um hocheffiziente Datentabellen zwischen Sprachen auszutauschen.
 
 
+  libedit2                 io.
+
+// #include <stdckdint.h>
 
 
 
@@ -874,6 +875,12 @@ Extensionen für die Bash einschalten
 `shopt --help`
 
 
+# Fenstertoools
+
+weston
+sway
+
+
 
 # snapshot bug log
 
@@ -904,14 +911,22 @@ Date:   Fri Apr 17 10:15:17 2026 -0400
     Part-of: <https://gitlab.gnome.org/GNOME/gtk/-/merge_requests/9821>
 
 
+# Distrobox Tips
 
 
-# ======================
+## {TAB} für Packetauswahl
+sudo apt install bash-completion
+sudo rm /etc/apt/apt.conf.d/docker-clean
+sudo apt update
 
-1. Chipmunk2D vs. Box2D (Der 2D-Vergleich)
-Chipmunk2D ist quasi die C-Zwilling von Box2D.
-Ähnlichkeit: Beide machen das Gleiche (Rigid Body Physics, Kollisionen, Gelenke, Reibung). Wenn du Box2D-Logik kennst (Mass, Moment of Inertia, Velocity Iterations), wirst du dich in Chipmunk sofort zurechtfinden.
-Unterschied: Box2D zwingt dich in die C++ Welt (Klassen, Überladungen). Chipmunk nutzt einfache C-Structs und Funktionen wie cpSpaceStep(space, dt). Es ist viel einfacher in reine C-Projekte oder andere Sprachen (FFI) einzubinden.
+## NAS verbinden
+sudo ln var/run/host/n4800/ n4800 -s
+
+
+## OS abfragen
+cat /etc/os-release
+
+
 
 
 

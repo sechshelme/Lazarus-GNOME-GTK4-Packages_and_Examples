@@ -2,16 +2,16 @@ program project1;
 
 // diff -U 1 /n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Packages_2024/gtk-4.14.2/C-include/gtk/gtkslicelistmodel.h /n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Packages_2026/gtk-4.22.4/C-include/gtk-4.0/gtk/gtkslicelistmodel.h > test.diff
 uses
-  //gstbufferstraw,
-  //gstcheck,
-  //gstconsistencychecker,
-  //gsttestclock,
-  //gstharness,
-  //internal_check,
 
 
+
+
+
+
+
+  fp_gst_mse,
+  fp_gst_play,
   fp_gst_check,
-
   fp_gst_allocators,
   fp_gst_controller,
   fp_gst_player,
