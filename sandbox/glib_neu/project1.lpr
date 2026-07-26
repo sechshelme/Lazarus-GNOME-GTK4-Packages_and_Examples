@@ -9,6 +9,8 @@ uses
 
 
 
+  fp_gst_tag,
+  fp_gst_fft,
   fp_gst_mse,
   fp_gst_play,
   fp_gst_check,

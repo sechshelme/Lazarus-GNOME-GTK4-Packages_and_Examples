@@ -1,0 +1,29 @@
+{$IFDEF read_interface}
+
+
+type
+  PGstFFTS16 = type Pointer;
+
+  PGstFFTS16Complex = ^TGstFFTS16Complex;
+  TGstFFTS16Complex = record
+    r: Tgint16;
+    i: Tgint16;
+  end;
+
+function gst_fft_s16_new(len: Tgint; inverse: Tgboolean): PGstFFTS16; cdecl; external libgstfft;
+procedure gst_fft_s16_free(self: PGstFFTS16); cdecl; external libgstfft;
+procedure gst_fft_s16_fft(self: PGstFFTS16; timedata: Pgint16; freqdata: PGstFFTS16Complex); cdecl; external libgstfft;
+procedure gst_fft_s16_inverse_fft(self: PGstFFTS16; freqdata: PGstFFTS16Complex; timedata: Pgint16); cdecl; external libgstfft;
+procedure gst_fft_s16_window(self: PGstFFTS16; timedata: Pgint16; window: TGstFFTWindow); cdecl; external libgstfft;
+
+// === Konventiert am: 26-7-26 16:54:35 ===
+
+
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
+
+
+
+{$ENDIF read_implementation}
