@@ -307,7 +307,6 @@ const
 
     (libs: 'libgstphotography'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstinsertbin'; units: 'fp_glib2, fp_gst'),
-    (libs: 'libgstapp'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstriff'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgsttranscoder'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgsturidownloader'; units: 'fp_glib2, fp_gst'),
@@ -343,6 +342,7 @@ const
     (libs: 'libgstmse'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstfft'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgsttag'; units: 'fp_glib2, fp_gst'),
+    (libs: 'libgstapp'; units: 'fp_glib2, fp_gst'),
 
 
     (libs: ''; units: ''));

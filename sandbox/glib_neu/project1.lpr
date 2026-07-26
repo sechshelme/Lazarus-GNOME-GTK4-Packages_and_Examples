@@ -4,6 +4,10 @@ program project1;
 uses
 
 
+  app,
+  app_enumtypes,
+  gstappsrc,
+  gstappsink,
 
 
 

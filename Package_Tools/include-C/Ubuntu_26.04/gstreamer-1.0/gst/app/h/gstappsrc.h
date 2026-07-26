@@ -147,97 +147,97 @@ struct _GstAppSrcClass
   gpointer     _gst_reserved[GST_PADDING-2];
 };
 
-GST_APP_API
+extern
 GType            gst_app_src_get_type                (void);
 
-GST_APP_API
+extern
 void             gst_app_src_set_caps                (GstAppSrc *appsrc, const GstCaps *caps);
 
-GST_APP_API
+extern
 GstCaps*         gst_app_src_get_caps                (GstAppSrc *appsrc) ;
 
-GST_APP_API
+extern
 void             gst_app_src_set_size                (GstAppSrc *appsrc, gint64 size);
 
-GST_APP_API
+extern
 gint64           gst_app_src_get_size                (GstAppSrc *appsrc);
 
-GST_APP_API
+extern
 void             gst_app_src_set_duration            (GstAppSrc *appsrc, GstClockTime duration);
 
-GST_APP_API
+extern
 GstClockTime     gst_app_src_get_duration            (GstAppSrc *appsrc);
 
-GST_APP_API
+extern
 void             gst_app_src_set_stream_type         (GstAppSrc *appsrc, GstAppStreamType type);
 
-GST_APP_API
+extern
 GstAppStreamType gst_app_src_get_stream_type         (GstAppSrc *appsrc);
 
-GST_APP_API
+extern
 void             gst_app_src_set_max_bytes           (GstAppSrc *appsrc, guint64 max);
 
-GST_APP_API
+extern
 guint64          gst_app_src_get_max_bytes           (GstAppSrc *appsrc);
 
-GST_APP_API
+extern
 guint64          gst_app_src_get_current_level_bytes (GstAppSrc *appsrc);
 
-GST_APP_API
+extern
 void             gst_app_src_set_max_buffers           (GstAppSrc *appsrc, guint64 max);
 
-GST_APP_API
+extern
 guint64          gst_app_src_get_max_buffers           (GstAppSrc *appsrc);
 
-GST_APP_API
+extern
 guint64          gst_app_src_get_current_level_buffers (GstAppSrc *appsrc);
 
-GST_APP_API
+extern
 void             gst_app_src_set_max_time            (GstAppSrc *appsrc, GstClockTime max);
 
-GST_APP_API
+extern
 GstClockTime     gst_app_src_get_max_time            (GstAppSrc *appsrc);
 
-GST_APP_API
+extern
 GstClockTime     gst_app_src_get_current_level_time  (GstAppSrc *appsrc);
 
-GST_APP_API
+extern
 void             gst_app_src_set_leaky_type          (GstAppSrc *appsrc, GstAppLeakyType leaky);
 
-GST_APP_API
+extern
 GstAppLeakyType  gst_app_src_get_leaky_type          (GstAppSrc *appsrc);
 
-GST_APP_API
+extern
 void             gst_app_src_set_latency             (GstAppSrc *appsrc, guint64 min, guint64 max);
 
-GST_APP_API
+extern
 void             gst_app_src_get_latency             (GstAppSrc *appsrc, guint64 *min, guint64 *max);
 
-GST_APP_API
+extern
 void             gst_app_src_set_emit_signals        (GstAppSrc *appsrc, gboolean emit);
 
-GST_APP_API
+extern
 gboolean         gst_app_src_get_emit_signals        (GstAppSrc *appsrc);
 
-GST_APP_API
+extern
 GstFlowReturn    gst_app_src_push_buffer             (GstAppSrc *appsrc, GstBuffer *buffer);
 
-GST_APP_API
+extern
 GstFlowReturn    gst_app_src_push_buffer_list        (GstAppSrc * appsrc, GstBufferList * buffer_list);
 
-GST_APP_API
+extern
 GstFlowReturn    gst_app_src_end_of_stream           (GstAppSrc *appsrc);
 
-GST_APP_API
+extern
 GstFlowReturn    gst_app_src_push_sample             (GstAppSrc *appsrc, GstSample *sample);
 
-GST_APP_API
+extern
 void             gst_app_src_set_callbacks           (GstAppSrc * appsrc,
                                                       GstAppSrcCallbacks *callbacks,
                                                       gpointer user_data,
                                                       GDestroyNotify notify);
 
-GST_APP_API
+extern
 void             gst_app_src_set_simple_callbacks (GstAppSrc * appsrc,
                                                    GstAppSrcSimpleCallbacks *cb);
 
@@ -246,7 +246,7 @@ void             gst_app_src_set_simple_callbacks (GstAppSrc * appsrc,
  *
  * Since: 1.28
  */
-GST_APP_API
+extern
 GType gst_app_src_simple_callbacks_get_type (void);
 
 /**
@@ -256,11 +256,11 @@ GType gst_app_src_simple_callbacks_get_type (void);
  */
 #define GST_TYPE_APP_SRC_SIMPLE_CALLBACKS (gst_app_src_simple_callbacks_get_type ())
 
-GST_APP_API
+extern
 GstAppSrcSimpleCallbacks * gst_app_src_simple_callbacks_new (void);
-GST_APP_API
+extern
 GstAppSrcSimpleCallbacks * gst_app_src_simple_callbacks_ref (GstAppSrcSimpleCallbacks *cb);
-GST_APP_API
+extern
 void                       gst_app_src_simple_callbacks_unref (GstAppSrcSimpleCallbacks *cb);
 
 /**
@@ -278,7 +278,7 @@ void                       gst_app_src_simple_callbacks_unref (GstAppSrcSimpleCa
 typedef void (*GstAppSrcNeedDataCallback) (GstAppSrc * appsrc,
                                            guint length,
                                            gpointer user_data);
-GST_APP_API
+extern
 void gst_app_src_simple_callbacks_set_need_data (GstAppSrcSimpleCallbacks *cb,
                                                  GstAppSrcNeedDataCallback need_data_cb,
                                                  gpointer user_data,
@@ -297,7 +297,7 @@ void gst_app_src_simple_callbacks_set_need_data (GstAppSrcSimpleCallbacks *cb,
  */
 typedef void (*GstAppSrcEnoughDataCallback) (GstAppSrc * appsrc,
                                              gpointer user_data);
-GST_APP_API
+extern
 void gst_app_src_simple_callbacks_set_enough_data (GstAppSrcSimpleCallbacks *cb,
                                                    GstAppSrcEnoughDataCallback enough_data_cb,
                                                    gpointer user_data,
@@ -320,15 +320,15 @@ void gst_app_src_simple_callbacks_set_enough_data (GstAppSrcSimpleCallbacks *cb,
 typedef gboolean (*GstAppSrcSeekDataCallback) (GstAppSrc * appsrc,
                                                guint64 offset,
                                                gpointer user_data);
-GST_APP_API
+extern
 void gst_app_src_simple_callbacks_set_seek_data (GstAppSrcSimpleCallbacks *cb,
                                                  GstAppSrcSeekDataCallback seek_data_cb,
                                                  gpointer user_data,
                                                  GDestroyNotify destroy_notify);
 
-//////////////////////////////////////////////////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC                                 (GstAppSrc, gst_object_unref)
+////////////////////////////////////////////////////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC                                  (GstAppSrc, gst_object_unref)
 
-//////////////////////////////////////////////////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC                                 (GstAppSrcSimpleCallbacks, gst_app_src_simple_callbacks_unref)
+////////////////////////////////////////////////////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC                                  (GstAppSrcSimpleCallbacks, gst_app_src_simple_callbacks_unref)
 
 
 

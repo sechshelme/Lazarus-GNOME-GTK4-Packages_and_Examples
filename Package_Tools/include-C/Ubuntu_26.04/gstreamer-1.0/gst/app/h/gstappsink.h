@@ -137,100 +137,100 @@ struct _GstAppSinkClass
   gpointer     _gst_reserved[GST_PADDING - 3];
 };
 
-GST_APP_API
+extern
 GType           gst_app_sink_get_type         (void);
 
-GST_APP_API
+extern
 void            gst_app_sink_set_caps         (GstAppSink *appsink, const GstCaps *caps);
 
-GST_APP_API
+extern
 GstCaps *       gst_app_sink_get_caps         (GstAppSink *appsink) ;
 
-GST_APP_API
+extern
 gboolean        gst_app_sink_is_eos           (GstAppSink *appsink);
 
-GST_APP_API
+extern
 void            gst_app_sink_set_emit_signals (GstAppSink *appsink, gboolean emit);
 
-GST_APP_API
+extern
 gboolean        gst_app_sink_get_emit_signals (GstAppSink *appsink);
 
-GST_APP_API
+extern
 void            gst_app_sink_set_max_buffers  (GstAppSink *appsink, guint max);
 
-GST_APP_API
+extern
 guint           gst_app_sink_get_max_buffers  (GstAppSink *appsink);
 
-GST_APP_API
+extern
 void            gst_app_sink_set_max_time (GstAppSink *appsink, GstClockTime max);
 
-GST_APP_API
+extern
 GstClockTime    gst_app_sink_get_max_time (GstAppSink *appsink);
 
-GST_APP_API
+extern
 void            gst_app_sink_set_max_bytes (GstAppSink *appsink, guint64 max);
 
-GST_APP_API
+extern
 guint64         gst_app_sink_get_max_bytes (GstAppSink *appsink);
 
-GST_APP_API
+extern
 guint64         gst_app_sink_get_current_level_bytes (GstAppSink * appsink);
 
-GST_APP_API
+extern
 guint64         gst_app_sink_get_current_level_buffers (GstAppSink * appsink);
 
-GST_APP_API
+extern
 GstClockTime    gst_app_sink_get_current_level_time (GstAppSink * appsink);
 
-GST_APP_DEPRECATED_FOR(gst_app_sink_set_leaky_type)
+//xxxxxxxGST_APP_DEPRECATED_FOR(gst_app_sink_set_leaky_type)
 void            gst_app_sink_set_drop         (GstAppSink *appsink, gboolean drop);
 
-GST_APP_DEPRECATED_FOR(gst_app_sink_get_leaky_type)
+//xxxxxxxxxxGST_APP_DEPRECATED_FOR(gst_app_sink_get_leaky_type)
 gboolean        gst_app_sink_get_drop         (GstAppSink *appsink);
 
-GST_APP_API
+extern
 void            gst_app_sink_set_leaky_type (GstAppSink * appsink, GstAppLeakyType leaky);
 
-GST_APP_API
+extern
 GstAppLeakyType gst_app_sink_get_leaky_type (GstAppSink * appsink);
 
-GST_APP_API
+extern
 void            gst_app_sink_set_buffer_list_support  (GstAppSink *appsink, gboolean enable_lists);
 
-GST_APP_API
+extern
 gboolean        gst_app_sink_get_buffer_list_support  (GstAppSink *appsink);
 
-GST_APP_API
+extern
 void            gst_app_sink_set_wait_on_eos  (GstAppSink *appsink, gboolean wait);
 
-GST_APP_API
+extern
 gboolean        gst_app_sink_get_wait_on_eos  (GstAppSink *appsink);
 
-GST_APP_API
+extern
 GstSample *     gst_app_sink_pull_preroll     (GstAppSink *appsink) ;
 
-GST_APP_API
+extern
 GstSample *     gst_app_sink_pull_sample      (GstAppSink *appsink) ;
 
-GST_APP_API
+extern
 GstMiniObject * gst_app_sink_pull_object      (GstAppSink *appsink) ;
 
-GST_APP_API
+extern
 GstSample *     gst_app_sink_try_pull_preroll (GstAppSink *appsink, GstClockTime timeout) ;
 
-GST_APP_API
+extern
 GstSample *     gst_app_sink_try_pull_sample  (GstAppSink *appsink, GstClockTime timeout) ;
 
-GST_APP_API
+extern
 GstMiniObject * gst_app_sink_try_pull_object    (GstAppSink *appsink, GstClockTime timeout) ;
 
-GST_APP_API
+extern
 void            gst_app_sink_set_callbacks    (GstAppSink * appsink,
                                                GstAppSinkCallbacks *callbacks,
                                                gpointer user_data,
                                                GDestroyNotify notify);
 
-GST_APP_API
+extern
 void            gst_app_sink_set_simple_callbacks (GstAppSink * appsink,
                                                    GstAppSinkSimpleCallbacks *cb);
 
@@ -239,7 +239,7 @@ void            gst_app_sink_set_simple_callbacks (GstAppSink * appsink,
  *
  * Since: 1.28
  */
-GST_APP_API
+extern
 GType gst_app_sink_simple_callbacks_get_type (void);
 
 /**
@@ -249,11 +249,11 @@ GType gst_app_sink_simple_callbacks_get_type (void);
  */
 #define GST_TYPE_APP_SINK_SIMPLE_CALLBACKS (gst_app_sink_simple_callbacks_get_type ())
 
-GST_APP_API
+extern
 GstAppSinkSimpleCallbacks * gst_app_sink_simple_callbacks_new (void);
-GST_APP_API
+extern
 GstAppSinkSimpleCallbacks * gst_app_sink_simple_callbacks_ref (GstAppSinkSimpleCallbacks *cb);
-GST_APP_API
+extern
 void                        gst_app_sink_simple_callbacks_unref (GstAppSinkSimpleCallbacks *cb);
 
 /**
@@ -267,7 +267,7 @@ void                        gst_app_sink_simple_callbacks_unref (GstAppSinkSimpl
  * Since: 1.28
  */
 typedef void (*GstAppSinkEosCallback) (GstAppSink * appsink, gpointer user_data);
-GST_APP_API
+extern
 void gst_app_sink_simple_callbacks_set_eos (GstAppSinkSimpleCallbacks *cb,
                                             GstAppSinkEosCallback eos_cb,
                                             gpointer user_data,
@@ -288,7 +288,7 @@ void gst_app_sink_simple_callbacks_set_eos (GstAppSinkSimpleCallbacks *cb,
  * Since: 1.28
  */
 typedef GstFlowReturn (*GstAppSinkNewPrerollCallback) (GstAppSink * appsink, gpointer user_data);
-GST_APP_API
+extern
 void gst_app_sink_simple_callbacks_set_new_preroll (GstAppSinkSimpleCallbacks *cb,
                                                     GstAppSinkNewPrerollCallback new_preroll_cb,
                                                     gpointer user_data,
@@ -309,7 +309,7 @@ void gst_app_sink_simple_callbacks_set_new_preroll (GstAppSinkSimpleCallbacks *c
  * Since: 1.28
  */
 typedef GstFlowReturn (*GstAppSinkNewSampleCallback) (GstAppSink * appsink, gpointer user_data);
-GST_APP_API
+extern
 void gst_app_sink_simple_callbacks_set_new_sample (GstAppSinkSimpleCallbacks *cb,
                                                    GstAppSinkNewSampleCallback new_sample_cb,
                                                    gpointer user_data,
@@ -332,7 +332,7 @@ void gst_app_sink_simple_callbacks_set_new_sample (GstAppSinkSimpleCallbacks *cb
  * Since: 1.28
  */
 typedef gboolean (*GstAppSinkNewEventCallback) (GstAppSink * appsink, gpointer user_data);
-GST_APP_API
+extern
 void gst_app_sink_simple_callbacks_set_new_event (GstAppSinkSimpleCallbacks *cb,
                                                   GstAppSinkNewEventCallback new_event_cb,
                                                   gpointer user_data,
@@ -352,15 +352,15 @@ void gst_app_sink_simple_callbacks_set_new_event (GstAppSinkSimpleCallbacks *cb,
  * Since: 1.28
  */
 typedef gboolean (*GstAppSinkProposeAllocationCallback) (GstAppSink * appsink, GstQuery *query, gpointer user_data);
-GST_APP_API
+extern
 void gst_app_sink_simple_callbacks_set_propose_allocation (GstAppSinkSimpleCallbacks *cb,
                                                            GstAppSinkProposeAllocationCallback propose_allocation_cb,
                                                            gpointer user_data,
                                                            GDestroyNotify destroy_notify);
 
-//////////////////////////////////////////////////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC                                 (GstAppSink, gst_object_unref)
+////////////////////////////////////////////////////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC                                  (GstAppSink, gst_object_unref)
 
-//////////////////////////////////////////////////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC                                 (GstAppSinkSimpleCallbacks, gst_app_sink_simple_callbacks_unref)
+////////////////////////////////////////////////////////////////////G_DEFINE_AUTOPTR_CLEANUP_FUNC                                  (GstAppSinkSimpleCallbacks, gst_app_sink_simple_callbacks_unref)
 
 
 
