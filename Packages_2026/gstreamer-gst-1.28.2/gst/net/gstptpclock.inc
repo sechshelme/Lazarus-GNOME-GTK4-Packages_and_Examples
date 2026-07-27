@@ -18,7 +18,7 @@ type
   end;
 
 const
-  GST_PTP_CLOCK_ID_NONE: Tguint64 = -1;
+  GST_PTP_CLOCK_ID_NONE: Tguint64 = Tguint64(-1);
 
 function gst_ptp_clock_get_type: TGType; cdecl; external libgstnet;
 function gst_ptp_is_supported: Tgboolean; cdecl; external libgstnet;

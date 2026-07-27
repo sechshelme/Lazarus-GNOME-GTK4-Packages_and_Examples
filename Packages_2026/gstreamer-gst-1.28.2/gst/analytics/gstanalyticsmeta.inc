@@ -69,7 +69,7 @@ function gst_analytics_relation_meta_get_direct_related(meta: PGstAnalyticsRelat
 
 // === Konventiert am: 22-7-26 19:37:11 ===
 
-function GST_ANALYTICS_MTD_CAST(mtd: longint): PGstAnalyticsMtd;
+function GST_ANALYTICS_MTD_CAST(mtd: Pointer): PGstAnalyticsMtd;
 function GST_ANALYTICS_RELATION_META_API_TYPE: TGType;
 function GST_ANALYTICS_RELATION_META_INFO: PGstMetaInfo;
 
@@ -79,7 +79,7 @@ function GST_ANALYTICS_RELATION_META_INFO: PGstMetaInfo;
 {$IFDEF read_implementation}
 
 
-function GST_ANALYTICS_MTD_CAST(mtd: longint): PGstAnalyticsMtd;
+function GST_ANALYTICS_MTD_CAST(mtd: Pointer): PGstAnalyticsMtd;
 begin
   GST_ANALYTICS_MTD_CAST := PGstAnalyticsMtd(mtd);
 end;

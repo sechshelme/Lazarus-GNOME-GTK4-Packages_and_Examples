@@ -4,27 +4,24 @@ interface
 
 uses
   fp_glib2,
-  fp_gst,
-  fp_gst_base,
-  Strings,
-  ctypes;
+  fp_gst;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}
 
 {$DEFINE read_interface}
-//{$include gst/basecamerabinsrc/gstcamerabinpreview.inc}
-//{$include gst/basecamerabinsrc/gstbasecamerasrc.inc}      // io. -> gstcamerabinpreview
-//{$include gst/basecamerabinsrc/gstcamerabin_enum.inc}     // io. -> gstbasecamerasrc
+{$include gst/basecamerabinsrc/gstcamerabin_enum.inc}
+{$include gst/basecamerabinsrc/gstcamerabinpreview.inc}
+{$include gst/basecamerabinsrc/gstbasecamerasrc.inc}
 {$UNDEF read_interface}
 
 implementation
 
 {$DEFINE read_implementation}
-//{$include gst/basecamerabinsrc/gstcamerabinpreview.inc}
-//{$include gst/basecamerabinsrc/gstbasecamerasrc.inc}      // io. -> gstcamerabinpreview
-//{$include gst/basecamerabinsrc/gstcamerabin_enum.inc}     // io. -> gstbasecamerasrc
+{$include gst/basecamerabinsrc/gstcamerabin_enum.inc}
+{$include gst/basecamerabinsrc/gstcamerabinpreview.inc}
+{$include gst/basecamerabinsrc/gstbasecamerasrc.inc}
 {$UNDEF read_implementation}
 
 end.

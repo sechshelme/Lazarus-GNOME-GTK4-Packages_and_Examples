@@ -37,6 +37,7 @@ function GST_AUDIO_CLOCK(obj: Pointer): PGstAudioClock;
 function GST_AUDIO_CLOCK_CLASS(klass: Pointer): PGstAudioClockClass;
 function GST_IS_AUDIO_CLOCK(obj: Pointer): Tgboolean;
 function GST_IS_AUDIO_CLOCK_CLASS(klass: Pointer): Tgboolean;
+function GST_AUDIO_CLOCK_CAST(obj: Pointer): PGstAudioClock;
 {$ENDIF read_function}
 
 
@@ -67,13 +68,9 @@ begin
   Result := g_type_check_class_is_a(klass, GST_TYPE_AUDIO_CLOCK);
 end;
 
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-function GST_AUDIO_CLOCK_CAST(obj: longint): PGstAudioClock;
+function GST_AUDIO_CLOCK_CAST(obj: Pointer): PGstAudioClock;
 begin
   GST_AUDIO_CLOCK_CAST := PGstAudioClock(obj);
 end;
-
 
 {$ENDIF read_implementation}

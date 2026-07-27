@@ -1,4 +1,4 @@
-Copyright (c) 2025 sechsehelme  
+Copyright (c) 2025, 2026 sechsehelme  
 Pascal bindings for GStreamer  
 Released under the MIT License
 

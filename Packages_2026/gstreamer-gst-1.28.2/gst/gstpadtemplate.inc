@@ -136,7 +136,6 @@ begin
   GST_PAD_TEMPLATE_GTYPE := (PGstPadTemplate(templ))^.ABI.abi.gtype;
 end;
 
-// xxxxxxxxxxxxxx
 // GST_PAD_TEMPLATE_FIXED im Header nicht findbar
 
 function GST_PAD_TEMPLATE_IS_FIXED(templ: Pointer): Tgboolean;

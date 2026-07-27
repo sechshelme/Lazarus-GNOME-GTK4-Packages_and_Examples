@@ -5,8 +5,7 @@ interface
 uses
   fp_glib2,
   fp_gst,
-  fp_gst_video,
-  fp_gst_base;
+  fp_gst_video;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

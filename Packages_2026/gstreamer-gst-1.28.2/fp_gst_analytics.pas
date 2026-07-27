@@ -4,10 +4,7 @@ interface
 
 uses
   fp_glib2,
-  fp_gst,
-  fp_gst_base,
-  Strings,
-  ctypes;
+  fp_gst;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

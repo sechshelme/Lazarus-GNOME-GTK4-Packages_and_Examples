@@ -21,6 +21,7 @@ function GST_PLAY_VIDEO_OVERLAY_VIDEO_RENDERER_CLASS(klass: Pointer): PGstPlayVi
 function GST_IS_PLAY_VIDEO_OVERLAY_VIDEO_RENDERER(obj: Pointer): Tgboolean;
 function GST_IS_PLAY_VIDEO_OVERLAY_VIDEO_RENDERER_CLASS(klass: Pointer): Tgboolean;
 function GST_PLAY_VIDEO_OVERLAY_VIDEO_RENDERER_GET_CLASS(obj: Pointer): PGstPlayVideoOverlayVideoRendererClass;
+function GST_PLAY_VIDEO_OVERLAY_VIDEO_RENDERER_CAST(obj: Pointer): PGstPlayVideoOverlayVideoRenderer;
 
 {$ENDIF read_interface}
 
@@ -57,7 +58,7 @@ begin
   Result := PGstPlayVideoOverlayVideoRendererClass(PGTypeInstance(obj)^.g_class);
 end;
 
-function GST_PLAY_VIDEO_OVERLAY_VIDEO_RENDERER_CAST(obj: longint): PGstPlayVideoOverlayVideoRenderer;
+function GST_PLAY_VIDEO_OVERLAY_VIDEO_RENDERER_CAST(obj: Pointer): PGstPlayVideoOverlayVideoRenderer;
 begin
   Result := PGstPlayVideoOverlayVideoRenderer(obj);
 end;

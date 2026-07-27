@@ -1,12 +1,20 @@
 program project1;
 
 // diff -U 1 /n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Packages_2024/gtk-4.14.2/C-include/gtk/gtkslicelistmodel.h /n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Packages_2026/gtk-4.22.4/C-include/gtk-4.0/gtk/gtkslicelistmodel.h > test.diff
+
+// diff -U 1 /usr/include/gstreamer-1.0/gst/sctp/sctpreceivemeta.h /home/tux/include_neu/gstreamer-1.0/gst/sctp/sctpreceivemeta.h
+
 uses
-
-
-
+  fp_gst_basecamerabinsrc,
+  fp_gst_insertbin,
+  fp_gst_interfaces,
+  fp_gst_isoff,
+  fp_gst_opencv,
+  fp_gst_riff,
+  fp_gst_sctp,
   fp_gst_transcoder,
   fp_gst_uridownloader,
+
 
   fp_gst_app,
   fp_gst_tag,

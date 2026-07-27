@@ -17,7 +17,7 @@ function gtk_is_initialized: Tgboolean; cdecl; external libgtk4;
 procedure gtk_init_abi_check(num_checks: longint; sizeof_GtkWindow: Tsize_t; sizeof_GtkBox: Tsize_t); cdecl; external libgtk4;
 function gtk_init_check_abi_check(num_checks: longint; sizeof_GtkWindow: Tsize_t; sizeof_GtkBox: Tsize_t): Tgboolean; cdecl; external libgtk4;
 
-function gtk_init: longint;
+procedure gtk_init;
 function gtk_init_check: Tgboolean;
 {$endif}
 
@@ -35,7 +35,7 @@ function gtk_get_locale_direction: TGtkTextDirection; cdecl; external libgtk4;
 {$IFDEF read_implementation}
 
 {$ifdef windows}
-function gtk_init: longint;
+procedure gtk_init;
 begin
   gtk_init_abi_check(2, sizeof(TGtkWindow), sizeof(TGtkBox));
 end;

@@ -3,9 +3,7 @@ unit fp_ges;
 interface
 
 uses
-  fp_glib2,
-  fp_gst,
-  fp_gst_pbutils;
+  fp_glib2;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

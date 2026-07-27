@@ -33,7 +33,7 @@ function GST_TRACER_CLASS(klass: Pointer): PGstTracerClass;
 function GST_IS_TRACER(obj: Pointer): Tgboolean;
 function GST_IS_TRACER_CLASS(klass: Pointer): Tgboolean;
 function GST_TRACER_GET_CLASS(obj: Pointer): PGstTracerClass;
-function GST_TRACER_CAST(obj: longint): PGstTracer;
+function GST_TRACER_CAST(obj: Pointer): PGstTracer;
 {$ENDIF read_function}
 
 
@@ -70,7 +70,7 @@ begin
   Result := PGstTracerClass(PGTypeInstance(obj)^.g_class);
 end;
 
-function GST_TRACER_CAST(obj: longint): PGstTracer;
+function GST_TRACER_CAST(obj: Pointer): PGstTracer;
 begin
   GST_TRACER_CAST := PGstTracer(obj);
 end;
