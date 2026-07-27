@@ -24,7 +24,7 @@
 #include <ges/ges-types.h>
 #include <ges/ges-asset.h>
 
-G_BEGIN_DECLS
+
 
 #define GES_TYPE_TRACK_ELEMENT_ASSET ges_track_element_asset_get_type()
 GES_DECLARE_TYPE(TrackElementAsset, track_element_asset, TRACK_ELEMENT_ASSET);
@@ -59,13 +59,13 @@ struct _GESTrackElementAssetClass
   gpointer _ges_reserved[GES_PADDING - 1];
 };
 
-GES_API
+extern
 const GESTrackType ges_track_element_asset_get_track_type (GESTrackElementAsset *asset);
-GES_API
+extern
 void ges_track_element_asset_set_track_type               (GESTrackElementAsset * asset, GESTrackType type);
-GES_API
+extern
 gboolean ges_track_element_asset_get_natural_framerate    (GESTrackElementAsset *self,
                                                            gint *framerate_n,
                                                            gint *framerate_d);
 
-G_END_DECLS
+

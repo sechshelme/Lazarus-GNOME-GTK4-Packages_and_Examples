@@ -26,7 +26,7 @@
 #include <ges/ges-track-element.h>
 #include <ges/ges-source.h>
 
-G_BEGIN_DECLS
+
 
 #define GES_TYPE_VIDEO_SOURCE ges_video_source_get_type()
 GES_DECLARE_TYPE(VideoSource, video_source, VIDEO_SOURCE);
@@ -83,7 +83,7 @@ struct _GESVideoSourceClass {
   } ABI;
 };
 
-GES_API
+extern
 gboolean ges_video_source_get_natural_size(GESVideoSource* self, gint* width, gint* height);
 
-G_END_DECLS
+

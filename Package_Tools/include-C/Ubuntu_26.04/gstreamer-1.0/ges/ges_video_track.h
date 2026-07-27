@@ -24,7 +24,7 @@
 #include "ges-track.h"
 #include "ges-types.h"
 
-G_BEGIN_DECLS
+
 #define GES_TYPE_VIDEO_TRACK             (ges_video_track_get_type ())
 GES_DECLARE_TYPE(VideoTrack, video_track, VIDEO_TRACK);
 
@@ -47,7 +47,7 @@ struct _GESVideoTrack
   gpointer    _ges_reserved[GES_PADDING];
 };
 
-GES_API
-GESVideoTrack * ges_video_track_new (void) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GESVideoTrack * ges_video_track_new (void) ;
 
-G_END_DECLS
+

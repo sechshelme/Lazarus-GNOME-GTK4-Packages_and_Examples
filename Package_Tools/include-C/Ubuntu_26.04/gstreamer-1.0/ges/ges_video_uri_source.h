@@ -24,7 +24,7 @@
 #include <ges/ges-types.h>
 #include <ges/ges-video-source.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GESUriSource: (attributes doc.skip=true):
@@ -60,4 +60,4 @@ struct _GESVideoUriSourceClass {
   gpointer _ges_reserved[GES_PADDING];
 };
 
-G_END_DECLS
+

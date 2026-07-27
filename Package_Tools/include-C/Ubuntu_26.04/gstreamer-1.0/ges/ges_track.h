@@ -25,7 +25,7 @@
 #include <ges/ges-types.h>
 #include <ges/ges-enums.h>
 
-G_BEGIN_DECLS
+
 
 #define GES_TYPE_TRACK            ges_track_get_type()
 GES_DECLARE_TYPE(Track, track, TRACK);
@@ -74,50 +74,50 @@ struct _GESTrackClass
   gpointer    _ges_reserved[GES_PADDING];
 };
 
-GES_API
+extern
 const GstCaps*     ges_track_get_caps                        (GESTrack *track);
-GES_API
-GList*             ges_track_get_elements                    (GESTrack *track) G_GNUC_WARN_UNUSED_RESULT;
-GES_API
+extern
+GList*             ges_track_get_elements                    (GESTrack *track) ;
+extern
 const GESTimeline* ges_track_get_timeline                    (GESTrack *track);
-GES_API
+extern
 gboolean           ges_track_commit                          (GESTrack *track);
-GES_API
+extern
 void               ges_track_set_timeline                    (GESTrack *track,
                                                               GESTimeline *timeline);
-GES_API
+extern
 gboolean           ges_track_add_element                     (GESTrack *track,
                                                               GESTrackElement *object);
-GES_API
+extern
 gboolean           ges_track_add_element_full                (GESTrack *track,
                                                               GESTrackElement *object,
                                                               GError ** error);
-GES_API
+extern
 gboolean           ges_track_remove_element                  (GESTrack *track,
                                                               GESTrackElement *object);
-GES_API
+extern
 gboolean           ges_track_remove_element_full             (GESTrack *track,
                                                               GESTrackElement *object,
                                                               GError ** error);
-GES_API
+extern
 void               ges_track_set_create_element_for_gap_func (GESTrack *track,
                                                               GESCreateElementForGapFunc func);
-GES_API
+extern
 void               ges_track_set_mixing                      (GESTrack *track,
                                                               gboolean mixing);
-GES_API
+extern
 gboolean           ges_track_get_mixing                      (GESTrack *track);
-GES_API
+extern
 void               ges_track_set_restriction_caps            (GESTrack *track,
                                                               const GstCaps *caps);
-GES_API
+extern
 void               ges_track_update_restriction_caps         (GESTrack *track,
                                                               const GstCaps *caps);
-GES_API
-GstCaps *          ges_track_get_restriction_caps            (GESTrack * track) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GstCaps *          ges_track_get_restriction_caps            (GESTrack * track) ;
 
-GES_API
+extern
 GESTrack*          ges_track_new                             (GESTrackType type,
-                                                              GstCaps * caps) G_GNUC_WARN_UNUSED_RESULT;
+                                                              GstCaps * caps) ;
 
-G_END_DECLS
+

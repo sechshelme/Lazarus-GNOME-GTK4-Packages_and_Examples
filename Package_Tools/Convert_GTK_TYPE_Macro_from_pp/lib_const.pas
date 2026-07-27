@@ -17,7 +17,6 @@ const
     (libs: 'libpixman'; units: 'ctypes'),
     (libs: 'libgraphene'; units: 'ctypes, graphene'),
     (libs: 'libpango'; units: 'fp_cairo, fp_glib2'),
-    (libs: 'libges'; units: 'fp_glib2, fp_gst, ges_enums, ges_types'),
 
     (libs: 'libharfbuzzgobject'; units: 'fp_glib2, hb_common'),
     (libs: 'libharfbuzzset'; units: 'fp_glib2, hb_common'),
@@ -334,7 +333,6 @@ const
     (libs: 'libgstfft'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgsttag'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstapp'; units: 'fp_glib2, fp_gst'),
-
     (libs: 'libgstinsertbin'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgsttranscoder'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstopencv'; units: 'fp_glib2, fp_gst'),
@@ -344,6 +342,8 @@ const
     (libs: 'libgstsctp'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgsturidownloader'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstphotography'; units: 'fp_glib2, fp_gst'),
+    (libs: 'libges'; units: 'fp_glib2, fp_gst, ges_enums'),
+
 
 
     (libs: ''; units: ''));

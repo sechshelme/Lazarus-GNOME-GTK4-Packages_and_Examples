@@ -25,7 +25,7 @@
 #include <gst/pbutils/gstdiscoverer.h>
 #include <ges/ges-types.h>
 
-G_BEGIN_DECLS
+
 
 #define GES_TYPE_TIMELINE ges_timeline_get_type()
 GES_DECLARE_TYPE(Timeline, timeline, TIMELINE);
@@ -86,83 +86,83 @@ struct _GESTimelineClass {
   gpointer _ges_reserved[GES_PADDING];
 };
 
-GES_API
-GESTimeline* ges_timeline_new (void) G_GNUC_WARN_UNUSED_RESULT;
-GES_API
-GESTimeline* ges_timeline_new_from_uri (const gchar *uri, GError **error) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GESTimeline* ges_timeline_new (void) ;
+extern
+GESTimeline* ges_timeline_new_from_uri (const gchar *uri, GError **error) ;
 
-GES_API
+extern
 gboolean ges_timeline_load_from_uri (GESTimeline *timeline, const gchar *uri, GError **error);
-GES_API
+extern
 gboolean ges_timeline_save_to_uri (GESTimeline * timeline, const gchar * uri,
     GESAsset *formatter_asset, gboolean overwrite, GError ** error);
-GES_API
+extern
 gboolean ges_timeline_add_layer (GESTimeline *timeline, GESLayer *layer);
-GES_API
+extern
 GESLayer * ges_timeline_append_layer (GESTimeline * timeline);
-GES_API
+extern
 gboolean ges_timeline_remove_layer (GESTimeline *timeline, GESLayer *layer);
-GES_API
-GList* ges_timeline_get_layers (GESTimeline *timeline) G_GNUC_WARN_UNUSED_RESULT;
-GES_API
-GESLayer* ges_timeline_get_layer (GESTimeline *timeline, guint priority) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GList* ges_timeline_get_layers (GESTimeline *timeline) ;
+extern
+GESLayer* ges_timeline_get_layer (GESTimeline *timeline, guint priority) ;
 
-GES_API
+extern
 gboolean ges_timeline_add_track (GESTimeline *timeline, GESTrack *track);
-GES_API
+extern
 gboolean ges_timeline_remove_track (GESTimeline *timeline, GESTrack *track);
 
-GES_API
+extern
 GESTrack * ges_timeline_get_track_for_pad (GESTimeline *timeline, GstPad *pad);
-GES_API
+extern
 GstPad * ges_timeline_get_pad_for_track (GESTimeline * timeline, GESTrack *track);
-GES_API
-GList *ges_timeline_get_tracks (GESTimeline *timeline) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GList *ges_timeline_get_tracks (GESTimeline *timeline) ;
 
-GES_API
+extern
 GList* ges_timeline_get_groups (GESTimeline * timeline);
 
-GES_API
+extern
 gboolean ges_timeline_commit (GESTimeline * timeline);
-GES_API
+extern
 gboolean ges_timeline_commit_sync (GESTimeline * timeline);
-GES_API
+extern
 void ges_timeline_freeze_commit (GESTimeline * timeline);
-GES_API
+extern
 void ges_timeline_thaw_commit (GESTimeline * timeline);
 
-GES_API
+extern
 GstClockTime ges_timeline_get_duration (GESTimeline *timeline);
 
-GES_API
+extern
 gboolean ges_timeline_get_auto_transition (GESTimeline * timeline);
-GES_API
+extern
 void ges_timeline_set_auto_transition (GESTimeline * timeline, gboolean auto_transition);
-GES_API
+extern
 GstClockTime ges_timeline_get_snapping_distance (GESTimeline * timeline);
-GES_API
+extern
 void ges_timeline_set_snapping_distance (GESTimeline * timeline, GstClockTime snapping_distance);
-GES_API
-GESTimelineElement * ges_timeline_get_element (GESTimeline * timeline, const gchar *name) G_GNUC_WARN_UNUSED_RESULT;
-GES_API
+extern
+GESTimelineElement * ges_timeline_get_element (GESTimeline * timeline, const gchar *name) ;
+extern
 gboolean ges_timeline_is_empty (GESTimeline * timeline);
-GES_API
+extern
 GESTimelineElement * ges_timeline_paste_element (GESTimeline * timeline,
-  GESTimelineElement * element, GstClockTime position, gint layer_priority) G_GNUC_WARN_UNUSED_RESULT;
-GES_API
+  GESTimelineElement * element, GstClockTime position, gint layer_priority) ;
+extern
 gboolean ges_timeline_move_layer (GESTimeline *timeline, GESLayer *layer, guint new_layer_priority);
 
-GES_API
+extern
 GstClockTime ges_timeline_get_frame_time(GESTimeline *self,
                                          GESFrameNumber frame_number);
 
-GES_API
+extern
 GESFrameNumber ges_timeline_get_frame_at (GESTimeline *self,
                                           GstClockTime timestamp);
 
-GES_API
+extern
 void ges_timeline_disable_edit_apis (GESTimeline * self, gboolean disable_edit_apis);
-GES_API
+extern
 gboolean ges_timeline_get_edit_apis_disabled (GESTimeline * self);
 
-G_END_DECLS
+

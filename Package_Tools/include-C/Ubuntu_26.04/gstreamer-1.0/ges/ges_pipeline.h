@@ -24,7 +24,7 @@
 #include <ges/ges.h>
 #include <gst/pbutils/encoding-profile.h>
 
-G_BEGIN_DECLS
+
 
 #define GES_TYPE_PIPELINE ges_pipeline_get_type()
 GES_DECLARE_TYPE(Pipeline, pipeline, PIPELINE);
@@ -58,48 +58,48 @@ struct _GESPipelineClass {
   gpointer _ges_reserved[GES_PADDING];
 };
 
-GES_API
-GESPipeline* ges_pipeline_new (void) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GESPipeline* ges_pipeline_new (void) ;
 
-GES_API
+extern
 gboolean ges_pipeline_set_timeline (GESPipeline * pipeline,
 					     GESTimeline * timeline);
 
-GES_API
+extern
 gboolean ges_pipeline_set_render_settings (GESPipeline *pipeline,
 						    const gchar * output_uri,
 						    GstEncodingProfile *profile);
-GES_API
+extern
 gboolean ges_pipeline_set_mode (GESPipeline *pipeline,
 					 GESPipelineFlags mode);
 
-GES_API
+extern
 GESPipelineFlags ges_pipeline_get_mode (GESPipeline *pipeline);
 
-GES_API GstSample *
-ges_pipeline_get_thumbnail(GESPipeline *self, GstCaps *caps) G_GNUC_WARN_UNUSED_RESULT;
+extern GstSample *
+ges_pipeline_get_thumbnail(GESPipeline *self, GstCaps *caps) ;
 
-GES_API GstSample *
+extern GstSample *
 ges_pipeline_get_thumbnail_rgb24(GESPipeline *self,
-    gint width, gint height) G_GNUC_WARN_UNUSED_RESULT;
+    gint width, gint height) ;
 
-GES_API gboolean
+extern gboolean
 ges_pipeline_save_thumbnail(GESPipeline *self,
     int width, int height, const gchar *format, const gchar *location,
     GError **error);
 
-GES_API GstElement *
-ges_pipeline_preview_get_video_sink (GESPipeline * self) G_GNUC_WARN_UNUSED_RESULT;
+extern GstElement *
+ges_pipeline_preview_get_video_sink (GESPipeline * self) ;
 
-GES_API void
+extern void
 ges_pipeline_preview_set_video_sink (GESPipeline * self,
     GstElement * sink);
 
-GES_API GstElement *
-ges_pipeline_preview_get_audio_sink (GESPipeline * self) G_GNUC_WARN_UNUSED_RESULT;
+extern GstElement *
+ges_pipeline_preview_get_audio_sink (GESPipeline * self) ;
 
-GES_API void
+extern void
 ges_pipeline_preview_set_audio_sink (GESPipeline * self,
     GstElement * sink);
 
-G_END_DECLS
+

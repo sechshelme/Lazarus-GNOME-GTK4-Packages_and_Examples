@@ -24,7 +24,7 @@
 #include <ges/ges-types.h>
 #include <ges/ges-transition.h>
 
-G_BEGIN_DECLS
+
 
 #define GES_TYPE_VIDEO_TRANSITION ges_video_transition_get_type()
 GES_DECLARE_TYPE(VideoTransition, video_transition, VIDEO_TRANSITION);
@@ -59,12 +59,12 @@ struct _GESVideoTransitionClass {
 };
 
 GES_DEPRECATED
-GESVideoTransition* ges_video_transition_new (void) G_GNUC_WARN_UNUSED_RESULT;
+GESVideoTransition* ges_video_transition_new (void) ;
 
-GES_API
+extern
 gboolean ges_video_transition_set_transition_type (GESVideoTransition * self,
                                                          GESVideoStandardTransitionType type);
-GES_API GESVideoStandardTransitionType
+extern GESVideoStandardTransitionType
 ges_video_transition_get_transition_type          (GESVideoTransition * trans);
 
 GES_DEPRECATED_FOR(ges_timeline_element_set_children_properties)
@@ -79,4 +79,4 @@ void ges_video_transition_set_inverted            (GESVideoTransition * self,
 GES_DEPRECATED_FOR(ges_timeline_element_get_children_properties)
 gboolean ges_video_transition_is_inverted        (GESVideoTransition * self);
 
-G_END_DECLS
+

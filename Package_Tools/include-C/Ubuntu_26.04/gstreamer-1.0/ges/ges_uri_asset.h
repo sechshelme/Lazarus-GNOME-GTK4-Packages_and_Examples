@@ -28,7 +28,7 @@
 #include <ges/ges-source-clip-asset.h>
 #include <ges/ges-track-element-asset.h>
 
-G_BEGIN_DECLS
+
 #define GES_TYPE_URI_CLIP_ASSET ges_uri_clip_asset_get_type()
 GES_DECLARE_TYPE(UriClipAsset, uri_clip_asset, URI_CLIP_ASSET);
 
@@ -59,27 +59,27 @@ struct _GESUriClipAssetClass
   gpointer _ges_reserved[GES_PADDING -1];
 };
 
-GES_API
+extern
 GstDiscovererInfo *ges_uri_clip_asset_get_info      (const GESUriClipAsset * self);
-GES_API
+extern
 GstClockTime ges_uri_clip_asset_get_duration        (GESUriClipAsset *self);
-GES_API
+extern
 GstClockTime ges_uri_clip_asset_get_max_duration    (GESUriClipAsset *self);
-GES_API
+extern
 gboolean ges_uri_clip_asset_is_image                (GESUriClipAsset *self);
-GES_API
+extern
 void ges_uri_clip_asset_new                         (const gchar *uri,
                                                      GCancellable *cancellable,
                                                      GAsyncReadyCallback callback,
                                                      gpointer user_data);
-GES_API
+extern
 GESUriClipAsset * ges_uri_clip_asset_finish (GAsyncResult * res, GError ** error);
-GES_API
+extern
 GESUriClipAsset* ges_uri_clip_asset_request_sync    (const gchar *uri, GError **error);
-GES_API
+extern
 void ges_uri_clip_asset_class_set_timeout           (GESUriClipAssetClass *klass,
                                                      GstClockTime timeout);
-GES_API
+extern
 const GList * ges_uri_clip_asset_get_stream_assets  (GESUriClipAsset *self);
 
 #define GES_TYPE_URI_SOURCE_ASSET ges_uri_source_asset_get_type()
@@ -110,12 +110,12 @@ struct _GESUriSourceAssetClass
 
   gpointer _ges_reserved[GES_PADDING];
 };
-GES_API
+extern
 GstDiscovererStreamInfo * ges_uri_source_asset_get_stream_info     (GESUriSourceAsset *asset);
-GES_API
+extern
 const gchar * ges_uri_source_asset_get_stream_uri                  (GESUriSourceAsset *asset);
-GES_API
+extern
 const GESUriClipAsset *ges_uri_source_asset_get_filesource_asset   (GESUriSourceAsset *asset);
-GES_API
+extern
 gboolean ges_uri_source_asset_is_image                             (GESUriSourceAsset *asset);
-G_END_DECLS
+

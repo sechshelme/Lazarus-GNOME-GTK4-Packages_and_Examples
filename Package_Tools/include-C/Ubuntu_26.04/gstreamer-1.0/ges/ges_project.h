@@ -25,7 +25,7 @@
 #include <ges/ges-asset.h>
 #include <gst/pbutils/encoding-profile.h>
 
-G_BEGIN_DECLS
+
 
 #define GES_TYPE_PROJECT            ges_project_get_type()
 GES_DECLARE_TYPE(Project, project, PROJECT);
@@ -74,56 +74,56 @@ struct _GESProjectClass
   gpointer _ges_reserved[GES_PADDING - 1];
 };
 
-GES_API
+extern
 gboolean  ges_project_add_asset    (GESProject* project,
                                     GESAsset *asset);
-GES_API
+extern
 gboolean  ges_project_remove_asset (GESProject *project,
                                     GESAsset * asset);
-GES_API
+extern
 GList   * ges_project_list_assets  (GESProject * project,
-                                    GType filter) G_GNUC_WARN_UNUSED_RESULT;
-GES_API
+                                    GType filter) ;
+extern
 gboolean  ges_project_save         (GESProject * project,
                                     GESTimeline * timeline,
                                     const gchar *uri,
                                     GESAsset * formatter_asset,
                                     gboolean overwrite,
                                     GError **error);
-GES_API
+extern
 gboolean  ges_project_load         (GESProject * project,
                                     GESTimeline * timeline,
                                     GError **error);
-GES_API
-GESProject * ges_project_new       (const gchar *uri) G_GNUC_WARN_UNUSED_RESULT;
-GES_API
-gchar      * ges_project_get_uri   (GESProject *project) G_GNUC_WARN_UNUSED_RESULT;
-GES_API
+extern
+GESProject * ges_project_new       (const gchar *uri) ;
+extern
+gchar      * ges_project_get_uri   (GESProject *project) ;
+extern
 GESAsset   * ges_project_get_asset (GESProject * project,
                                     const gchar *id,
-                                    GType extractable_type) G_GNUC_WARN_UNUSED_RESULT;
-GES_API
+                                    GType extractable_type) ;
+extern
 gboolean ges_project_create_asset  (GESProject * project,
                                     const gchar *id,
                                     GType extractable_type);
 
-GES_API
+extern
 GESAsset * ges_project_create_asset_sync        (GESProject * project,
                                                  const gchar * id,
                                                  GType extractable_type,
-                                                 GError **error) G_GNUC_WARN_UNUSED_RESULT;
-GES_API
-GList * ges_project_get_loading_assets          (GESProject * project) G_GNUC_WARN_UNUSED_RESULT;
+                                                 GError **error) ;
+extern
+GList * ges_project_get_loading_assets          (GESProject * project) ;
 
-GES_API
+extern
 gboolean ges_project_add_encoding_profile       (GESProject *project,
                                                  GstEncodingProfile *profile);
-GES_API
+extern
 const GList *ges_project_list_encoding_profiles (GESProject *project);
-GES_API
+extern
 gboolean ges_add_missing_uri_relocation_uri    (const gchar * uri,
                                                 gboolean recurse);
-GES_API
+extern
 void ges_project_add_formatter (GESProject * project, GESFormatter * formatter);
 
-G_END_DECLS
+

@@ -25,7 +25,7 @@
 #include <ges/ges-title-source.h>
 #include <ges/ges-operation.h>
 
-G_BEGIN_DECLS
+
 #define GES_TYPE_TEXT_OVERLAY ges_text_overlay_get_type()
 GES_DECLARE_TYPE(TextOverlay, text_overlay, TEXT_OVERLAY);
 
@@ -53,48 +53,48 @@ struct _GESTextOverlayClass
   gpointer _ges_reserved[GES_PADDING];
 };
 
-GES_API
+extern
 void ges_text_overlay_set_text (GESTextOverlay * self,
     const gchar * text);
-GES_API
+extern
 void ges_text_overlay_set_font_desc (GESTextOverlay * self,
     const gchar * font_desc);
 
-GES_API
+extern
 void ges_text_overlay_set_halignment (GESTextOverlay * self,
     GESTextHAlign halign);
 
-GES_API
+extern
 void ges_text_overlay_set_valignment (GESTextOverlay * self,
     GESTextVAlign valign);
-GES_API
+extern
 void ges_text_overlay_set_color (GESTextOverlay * self,
     guint32 color);
-GES_API
+extern
 void ges_text_overlay_set_xpos (GESTextOverlay * self,
     gdouble position);
-GES_API
+extern
 void ges_text_overlay_set_ypos (GESTextOverlay * self,
     gdouble position);
 
 GES_DEPRECATED
-GESTextOverlay *ges_text_overlay_new (void) G_GNUC_WARN_UNUSED_RESULT;
+GESTextOverlay *ges_text_overlay_new (void) ;
 
-GES_API
+extern
 const gchar *ges_text_overlay_get_text (GESTextOverlay * self);
-GES_API
+extern
 const char *ges_text_overlay_get_font_desc (GESTextOverlay * self);
-GES_API
+extern
 GESTextHAlign ges_text_overlay_get_halignment (GESTextOverlay *
     self);
-GES_API
+extern
 GESTextVAlign ges_text_overlay_get_valignment (GESTextOverlay *
     self);
-GES_API
+extern
 const guint32 ges_text_overlay_get_color (GESTextOverlay * self);
-GES_API
+extern
 const gdouble ges_text_overlay_get_xpos (GESTextOverlay * self);
-GES_API
+extern
 const gdouble ges_text_overlay_get_ypos (GESTextOverlay * self);
 
-G_END_DECLS
+

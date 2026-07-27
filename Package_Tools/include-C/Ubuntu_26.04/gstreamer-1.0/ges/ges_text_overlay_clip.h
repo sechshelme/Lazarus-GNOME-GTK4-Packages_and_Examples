@@ -25,7 +25,7 @@
 #include <ges/ges-overlay-clip.h>
 #include <ges/ges-track.h>
 
-G_BEGIN_DECLS
+
 #define GES_TYPE_OVERLAY_TEXT_CLIP ges_text_overlay_clip_get_type()
 GES_DECLARE_TYPE(TextOverlayClip, text_overlay_clip, OVERLAY_TEXT_CLIP);
 
@@ -58,57 +58,57 @@ struct _GESTextOverlayClipClass
   gpointer _ges_reserved[GES_PADDING];
 };
 
-GES_API void
+extern void
 ges_text_overlay_clip_set_text (GESTextOverlayClip * self,
     const gchar * text);
 
-GES_API void
+extern void
 ges_text_overlay_clip_set_font_desc (GESTextOverlayClip * self,
     const gchar * font_desc);
 
-GES_API void
+extern void
 ges_text_overlay_clip_set_valign (GESTextOverlayClip * self,
     GESTextVAlign valign);
 
-GES_API void
+extern void
 ges_text_overlay_clip_set_halign (GESTextOverlayClip * self,
     GESTextHAlign halign);
 
-GES_API void
+extern void
 ges_text_overlay_clip_set_color (GESTextOverlayClip * self,
     guint32 color);
 
-GES_API void
+extern void
 ges_text_overlay_clip_set_xpos (GESTextOverlayClip * self,
     gdouble position);
 
-GES_API void
+extern void
 ges_text_overlay_clip_set_ypos (GESTextOverlayClip * self,
     gdouble position);
 
-GES_API
+extern
 const gchar *ges_text_overlay_clip_get_text (GESTextOverlayClip * self);
 
-GES_API
+extern
 const gchar *ges_text_overlay_clip_get_font_desc (GESTextOverlayClip *
     self);
 
-GES_API GESTextVAlign
+extern GESTextVAlign
 ges_text_overlay_clip_get_valignment (GESTextOverlayClip * self);
 
-GES_API const guint32
+extern const guint32
 ges_text_overlay_clip_get_color (GESTextOverlayClip * self);
 
-GES_API const gdouble
+extern const gdouble
 ges_text_overlay_clip_get_xpos (GESTextOverlayClip * self);
 
-GES_API const gdouble
+extern const gdouble
 ges_text_overlay_clip_get_ypos (GESTextOverlayClip * self);
 
-GES_API GESTextHAlign
+extern GESTextHAlign
 ges_text_overlay_clip_get_halignment (GESTextOverlayClip * self);
 
-GES_API
-GESTextOverlayClip *ges_text_overlay_clip_new (void) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GESTextOverlayClip *ges_text_overlay_clip_new (void) ;
 
-G_END_DECLS
+

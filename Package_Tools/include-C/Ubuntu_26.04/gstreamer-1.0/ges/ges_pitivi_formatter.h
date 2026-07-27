@@ -19,7 +19,7 @@
 
 #pragma once
 
-G_BEGIN_DECLS
+
 
 #define GES_TYPE_PITIVI_FORMATTER ges_pitivi_formatter_get_type()
 GES_DECLARE_TYPE(PitiviFormatter, pitivi_formatter, PITIVI_FORMATTER);
@@ -52,7 +52,7 @@ struct _GESPitiviFormatterClass
   gpointer _ges_reserved[GES_PADDING];
 };
 
-GES_API
-GESPitiviFormatter *ges_pitivi_formatter_new (void) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GESPitiviFormatter *ges_pitivi_formatter_new (void) ;
 
-G_END_DECLS
+

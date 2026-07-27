@@ -7,7 +7,7 @@ GstElement * ges_track_element_get_gnlobject   (GESTrackElement * object);
 GES_DEPRECATED_FOR(ges_timeline_element_list_children_properties)
 GParamSpec **
 ges_track_element_list_children_properties     (GESTrackElement *object,
-                                               guint *n_properties) G_GNUC_WARN_UNUSED_RESULT;
+                                               guint *n_properties) ;
 
 GES_DEPRECATED_FOR(ges_timeline_element_lookup_child)
 gboolean ges_track_element_lookup_child        (GESTrackElement *object,
@@ -24,7 +24,7 @@ ges_track_element_get_child_property_valist   (GESTrackElement * object,
 GES_DEPRECATED_FOR(ges_timeline_element_get_child_properties)
 void ges_track_element_get_child_properties   (GESTrackElement *object,
                                               const gchar * first_property_name,
-                                              ...) G_GNUC_NULL_TERMINATED;
+                                              ...) ;
 
 GES_DEPRECATED_FOR(ges_timeline_element_set_child_property_valist)
 void
@@ -42,7 +42,7 @@ GES_DEPRECATED_FOR(ges_timeline_element_set_child_properties)
 void
 ges_track_element_set_child_properties       (GESTrackElement * object,
                                               const gchar * first_property_name,
-                                              ...) G_GNUC_NULL_TERMINATED;
+                                              ...) ;
 
 GES_DEPRECATED_FOR(ges_timeline_element_set_child_property)
 gboolean ges_track_element_set_child_property (GESTrackElement *object,

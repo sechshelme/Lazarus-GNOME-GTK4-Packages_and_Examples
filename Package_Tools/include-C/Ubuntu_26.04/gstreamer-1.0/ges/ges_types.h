@@ -31,7 +31,7 @@
 #include <glib.h>
 #include <ges/ges-prelude.h>
 
-G_BEGIN_DECLS
+
 
 /**
  * GES_PADDING: (attributes doc.skip=true)
@@ -240,11 +240,11 @@ typedef struct _GESDiscovererManagerClass GESDiscovererManagerClass;
  * GES_DECLARE_TYPE: (attributes doc.skip=true)
  */
 #define GES_DECLARE_TYPE(ObjName, obj_name, OBJ_NAME)    \
-  GES_API GType ges_##obj_name##_get_type(void);                               \
-  G_GNUC_BEGIN_IGNORE_DEPRECATIONS                                             \
+  extern GType ges_##obj_name##_get_type(void);                               \
+                                               \
   typedef struct _GES##ObjName##Private GES##ObjName##Private;                 \
                                                                                \
-  G_DEFINE_AUTOPTR_CLEANUP_FUNC(GES##ObjName, gst_object_unref)                \
+  //G_DEFINE_AUTOPTR_CLEANUP_FUNC (GES##ObjName, gst_object_unref)                \
                                                                                \
   static G_GNUC_UNUSED inline GES##ObjName *GES_##OBJ_NAME(gpointer ptr) {                   \
     return G_TYPE_CHECK_INSTANCE_CAST(ptr, ges_##obj_name##_get_type(),        \
@@ -265,6 +265,6 @@ typedef struct _GESDiscovererManagerClass GESDiscovererManagerClass;
     return G_TYPE_INSTANCE_GET_CLASS(ptr, ges_##obj_name##_get_type(),         \
                                      GES##ObjName##Class);                     \
   }                                                                            \
-  G_GNUC_END_IGNORE_DEPRECATIONS
+  
 
-G_END_DECLS
+

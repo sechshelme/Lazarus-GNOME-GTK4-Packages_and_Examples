@@ -24,7 +24,7 @@
 #include <ges/ges-types.h>
 #include <ges/ges-operation-clip.h>
 
-G_BEGIN_DECLS
+
 
 #define GES_TYPE_OVERLAY_CLIP ges_overlay_clip_get_type()
 GES_DECLARE_TYPE(OverlayClip, overlay_clip, OVERLAY_CLIP);
@@ -55,4 +55,4 @@ struct _GESOverlayClipClass {
   /* Padding for API extension */
   gpointer _ges_reserved[GES_PADDING];
 };
-G_END_DECLS
+

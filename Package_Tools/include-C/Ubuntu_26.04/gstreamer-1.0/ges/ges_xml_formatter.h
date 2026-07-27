@@ -21,7 +21,7 @@
 
 #include "ges-base-xml-formatter.h"
 
-G_BEGIN_DECLS
+
 #define GES_TYPE_XML_FORMATTER (ges_xml_formatter_get_type ())
 GES_DECLARE_TYPE(XmlFormatter, xml_formatter, XML_FORMATTER);
 
@@ -41,4 +41,4 @@ struct _GESXmlFormatterClass
   gpointer _ges_reserved[GES_PADDING];
 };
 
-G_END_DECLS
+

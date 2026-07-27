@@ -19,11 +19,11 @@
 
 #pragma once
 
-G_BEGIN_DECLS
+
 
 #define GES_VERSION_MAJOR (1)
 #define GES_VERSION_MINOR (28)
 #define GES_VERSION_MICRO (2)
 #define GES_VERSION_NANO  (0)
 
-G_END_DECLS
+

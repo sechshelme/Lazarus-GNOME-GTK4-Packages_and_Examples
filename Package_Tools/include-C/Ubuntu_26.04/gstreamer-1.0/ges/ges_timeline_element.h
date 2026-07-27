@@ -26,7 +26,7 @@
 #include "ges-enums.h"
 #include "ges-types.h"
 
-G_BEGIN_DECLS
+
 
 #define GES_TYPE_TIMELINE_ELEMENT             (ges_timeline_element_get_type ())
 GES_DECLARE_TYPE(TimelineElement, timeline_element, TIMELINE_ELEMENT);
@@ -317,130 +317,130 @@ struct _GESTimelineElementClass
   gpointer _ges_reserved[GES_PADDING_LARGE - 6];
 };
 
-GES_API
-GESTimelineElement * ges_timeline_element_get_toplevel_parent         (GESTimelineElement *self) G_GNUC_WARN_UNUSED_RESULT;
-GES_API
-GESTimelineElement * ges_timeline_element_get_parent                  (GESTimelineElement * self) G_GNUC_WARN_UNUSED_RESULT;
-GES_API
+extern
+GESTimelineElement * ges_timeline_element_get_toplevel_parent         (GESTimelineElement *self) ;
+extern
+GESTimelineElement * ges_timeline_element_get_parent                  (GESTimelineElement * self) ;
+extern
 gboolean             ges_timeline_element_set_parent                  (GESTimelineElement *self,
                                                                        GESTimelineElement *parent);
-GES_API
+extern
 gboolean             ges_timeline_element_set_timeline                (GESTimelineElement *self,
                                                                        GESTimeline *timeline);
-GES_API
+extern
 gboolean             ges_timeline_element_set_start                   (GESTimelineElement *self,
                                                                        GstClockTime start);
-GES_API
+extern
 gboolean             ges_timeline_element_set_inpoint                 (GESTimelineElement *self,
                                                                        GstClockTime inpoint);
-GES_API
+extern
 gboolean             ges_timeline_element_set_duration                (GESTimelineElement *self,
                                                                        GstClockTime duration);
-GES_API
+extern
 gboolean             ges_timeline_element_set_max_duration            (GESTimelineElement *self,
                                                                        GstClockTime maxduration);
 GES_DEPRECATED
 gboolean             ges_timeline_element_set_priority                (GESTimelineElement *self,
                                                                        guint32 priority);
-GES_API
+extern
 GstClockTime         ges_timeline_element_get_start                   (GESTimelineElement *self);
-GES_API
+extern
 GstClockTime         ges_timeline_element_get_inpoint                 (GESTimelineElement *self);
-GES_API
+extern
 GstClockTime         ges_timeline_element_get_duration                (GESTimelineElement *self);
-GES_API
+extern
 GstClockTime         ges_timeline_element_get_max_duration            (GESTimelineElement *self);
-GES_API
-GESTimeline *        ges_timeline_element_get_timeline                (GESTimelineElement *self) G_GNUC_WARN_UNUSED_RESULT;
-GES_API
+extern
+GESTimeline *        ges_timeline_element_get_timeline                (GESTimelineElement *self) ;
+extern
 guint32              ges_timeline_element_get_priority                (GESTimelineElement *self);
-GES_API
+extern
 gboolean             ges_timeline_element_ripple                      (GESTimelineElement *self,
                                                                        GstClockTime  start);
-GES_API
+extern
 gboolean             ges_timeline_element_ripple_end                  (GESTimelineElement *self,
                                                                        GstClockTime  end);
-GES_API
+extern
 gboolean             ges_timeline_element_roll_start                  (GESTimelineElement *self,
                                                                        GstClockTime  start);
-GES_API
+extern
 gboolean             ges_timeline_element_roll_end                    (GESTimelineElement *self,
                                                                        GstClockTime  end);
-GES_API
+extern
 gboolean             ges_timeline_element_trim                        (GESTimelineElement *self,
                                                                        GstClockTime  start);
-GES_API
+extern
 GESTimelineElement * ges_timeline_element_copy                        (GESTimelineElement *self,
                                                                        gboolean deep);
-GES_API
-gchar  *             ges_timeline_element_get_name                    (GESTimelineElement *self) G_GNUC_WARN_UNUSED_RESULT;
-GES_API
+extern
+gchar  *             ges_timeline_element_get_name                    (GESTimelineElement *self) ;
+extern
 gboolean             ges_timeline_element_set_name                    (GESTimelineElement *self,
                                                                        const gchar *name);
-GES_API
+extern
 GParamSpec **        ges_timeline_element_list_children_properties    (GESTimelineElement *self,
-                                                                       guint *n_properties) G_GNUC_WARN_UNUSED_RESULT;
-GES_API
+                                                                       guint *n_properties) ;
+extern
 gboolean             ges_timeline_element_lookup_child                (GESTimelineElement *self,
                                                                        const gchar *prop_name,
                                                                        GObject  **child,
                                                                        GParamSpec **pspec);
-GES_API
+extern
 void                 ges_timeline_element_get_child_property_by_pspec (GESTimelineElement * self,
                                                                        GParamSpec * pspec, GValue * value);
-GES_API
+extern
 void                 ges_timeline_element_get_child_property_valist   (GESTimelineElement * self,
                                                                        const gchar * first_property_name,
                                                                        va_list var_args);
-GES_API
+extern
 void                 ges_timeline_element_get_child_properties        (GESTimelineElement *self,
-                                                                       const gchar * first_property_name, ...) G_GNUC_NULL_TERMINATED;
-GES_API
+                                                                       const gchar * first_property_name, ...) ;
+extern
 void                 ges_timeline_element_set_child_property_valist   (GESTimelineElement * self,
                                                                        const gchar * first_property_name,
                                                                        va_list var_args);
-GES_API
+extern
 void                 ges_timeline_element_set_child_property_by_pspec (GESTimelineElement * self,
                                                                        GParamSpec * pspec,
                                                                        const GValue * value);
-GES_API
+extern
 void                 ges_timeline_element_set_child_properties        (GESTimelineElement * self,
                                                                        const gchar * first_property_name,
-                                                                       ...) G_GNUC_NULL_TERMINATED;
-GES_API
+                                                                       ...) ;
+extern
 gboolean             ges_timeline_element_set_child_property          (GESTimelineElement *self,
                                                                        const gchar *property_name,
                                                                        const GValue * value);
-GES_API
+extern
 gboolean             ges_timeline_element_set_child_property_full     (GESTimelineElement *self,
                                                                        const gchar *property_name,
                                                                        const GValue * value,
                                                                        GError ** error);
-GES_API
+extern
 gboolean             ges_timeline_element_get_child_property          (GESTimelineElement *self,
                                                                        const gchar *property_name,
                                                                        GValue * value);
-GES_API
+extern
 gboolean             ges_timeline_element_add_child_property          (GESTimelineElement * self,
                                                                        GParamSpec *pspec,
                                                                        GObject *child);
-GES_API
+extern
 gboolean             ges_timeline_element_remove_child_property       (GESTimelineElement * self,
                                                                        GParamSpec *pspec);
-GES_API
+extern
 GESTimelineElement * ges_timeline_element_paste                       (GESTimelineElement * self,
-                                                                       GstClockTime paste_position) G_GNUC_WARN_UNUSED_RESULT;
-GES_API
+                                                                       GstClockTime paste_position) ;
+extern
 GESTrackType         ges_timeline_element_get_track_types             (GESTimelineElement * self);
-GES_API
+extern
 gboolean             ges_timeline_element_get_natural_framerate       (GESTimelineElement *self,
                                                                        gint *framerate_n,
                                                                        gint *framerate_d);
 
-GES_API
+extern
 guint32 ges_timeline_element_get_layer_priority                       (GESTimelineElement * self);
 
-GES_API
+extern
 gboolean ges_timeline_element_edit                                    (GESTimelineElement * self,
                                                                        GList * layers,
                                                                        gint64 new_layer_priority,
@@ -448,11 +448,11 @@ gboolean ges_timeline_element_edit                                    (GESTimeli
                                                                        GESEdge edge,
                                                                        guint64 position);
 
-GES_API
+extern
 gboolean ges_timeline_element_edit_full                                (GESTimelineElement * self,
                                                                        gint64 new_layer_priority,
                                                                        GESEditMode mode,
                                                                        GESEdge edge,
                                                                        guint64 position,
                                                                        GError ** error);
-G_END_DECLS
+

@@ -23,14 +23,14 @@
 #include <gst/gst.h>
 #include <ges/ges-types.h>
 
-G_BEGIN_DECLS
 
-GES_API
-GESTimeline * ges_timeline_new_audio_video (void) G_GNUC_WARN_UNUSED_RESULT;
-GES_API
+
+extern
+GESTimeline * ges_timeline_new_audio_video (void) ;
+extern
 gboolean ges_pspec_equal (gconstpointer key_spec_1, gconstpointer key_spec_2);
-GES_API
+extern
 guint ges_pspec_hash (gconstpointer key_spec);
 
 
-G_END_DECLS
+

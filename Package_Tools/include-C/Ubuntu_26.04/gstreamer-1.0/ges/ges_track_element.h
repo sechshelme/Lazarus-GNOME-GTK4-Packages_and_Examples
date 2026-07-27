@@ -28,7 +28,7 @@
 #include <gst/controller/gstdirectcontrolbinding.h>
 #include <gst/controller/gstinterpolationcontrolsource.h>
 
-G_BEGIN_DECLS
+
 
 #define GES_TYPE_TRACK_ELEMENT ges_track_element_get_type()
 GES_DECLARE_TYPE(TrackElement, track_element, TRACK_ELEMENT)
@@ -145,74 +145,74 @@ struct _GESTrackElementClass {
   } ABI;
 };
 
-GES_API
+extern
 GESTrack* ges_track_element_get_track          (GESTrackElement * object);
 
-GES_API
+extern
 GESTrackType ges_track_element_get_track_type  (GESTrackElement * object);
-GES_API
+extern
 void ges_track_element_set_track_type          (GESTrackElement * object,
                                                GESTrackType     type);
 
-GES_API
+extern
 GstElement * ges_track_element_get_nleobject   (GESTrackElement * object);
 
-GES_API
+extern
 GstElement * ges_track_element_get_element     (GESTrackElement * object);
 
-GES_API
+extern
 gboolean ges_track_element_is_core             (GESTrackElement * object);
 
-GES_API
+extern
 gboolean ges_track_element_set_active          (GESTrackElement * object,
                                                gboolean active);
 
-GES_API
+extern
 gboolean ges_track_element_is_active           (GESTrackElement * object);
 
-GES_API gboolean
+extern gboolean
 ges_track_element_set_has_internal_source      (GESTrackElement * object,
                                                gboolean has_internal_source);
 
-GES_API
+extern
 gboolean ges_track_element_has_internal_source (GESTrackElement * object);
 
-GES_API void
+extern void
 ges_track_element_get_child_property_by_pspec (GESTrackElement * object,
                                               GParamSpec * pspec,
                                               GValue * value);
 
-GES_API gboolean
+extern gboolean
 ges_track_element_set_control_source          (GESTrackElement *object,
                                                GstControlSource *source,
                                                const gchar *property_name,
                                                const gchar *binding_type);
 
-GES_API void
+extern void
 ges_track_element_clamp_control_source        (GESTrackElement * object,
                                                const gchar * property_name);
 
-GES_API void
+extern void
 ges_track_element_set_auto_clamp_control_sources (GESTrackElement * object,
                                                   gboolean auto_clamp);
-GES_API gboolean
+extern gboolean
 ges_track_element_get_auto_clamp_control_sources (GESTrackElement * object);
 
-GES_API GstControlBinding *
+extern GstControlBinding *
 ges_track_element_get_control_binding         (GESTrackElement *object,
                                                const gchar *property_name);
-GES_API void
+extern void
 ges_track_element_add_children_props          (GESTrackElement *self,
                                                GstElement *element,
                                                const gchar ** wanted_categories,
                                                const gchar **blacklist,
                                                const gchar **whitelist);
-GES_API GHashTable *
+extern GHashTable *
 ges_track_element_get_all_control_bindings    (GESTrackElement * trackelement);
-GES_API gboolean
+extern gboolean
 ges_track_element_remove_control_binding      (GESTrackElement * object,
                                                const gchar * property_name);
 
 #include "ges-track-element-deprecated.h"
 
-G_END_DECLS
+

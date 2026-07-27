@@ -25,7 +25,7 @@
 #include <ges/ges-clip.h>
 #include <ges/ges-enums.h>
 
-G_BEGIN_DECLS
+
 
 #define GES_TYPE_SOURCE_CLIP ges_source_clip_get_type()
 GES_DECLARE_TYPE(SourceClip, source_clip, SOURCE_CLIP);
@@ -58,4 +58,4 @@ struct _GESSourceClipClass {
   gpointer _ges_reserved[GES_PADDING];
 };
 
-G_END_DECLS
+

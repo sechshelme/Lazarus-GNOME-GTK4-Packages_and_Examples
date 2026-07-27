@@ -25,7 +25,7 @@
 #include <ges/ges-source-clip.h>
 #include <ges/ges-track.h>
 
-G_BEGIN_DECLS
+
 
 #define GES_TYPE_URI_CLIP ges_uri_clip_get_type()
 GES_DECLARE_TYPE(UriClip, uri_clip, URI_CLIP);
@@ -52,21 +52,21 @@ struct _GESUriClipClass {
   gpointer _ges_reserved[GES_PADDING];
 };
 
-GES_API void
+extern void
 ges_uri_clip_set_mute (GESUriClip * self, gboolean mute);
 
-GES_API void
+extern void
 ges_uri_clip_set_is_image (GESUriClip * self,
     gboolean is_image);
 
-GES_API
+extern
 gboolean ges_uri_clip_is_muted (GESUriClip * self);
-GES_API
+extern
 gboolean ges_uri_clip_is_image (GESUriClip * self);
-GES_API
+extern
 const gchar *ges_uri_clip_get_uri (GESUriClip * self);
 
-GES_API
-GESUriClip* ges_uri_clip_new (const gchar *uri) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GESUriClip* ges_uri_clip_new (const gchar *uri) ;
 
-G_END_DECLS
+

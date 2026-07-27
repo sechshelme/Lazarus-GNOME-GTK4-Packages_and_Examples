@@ -22,18 +22,18 @@
 
 #include <gst/gst.h>
 
-#ifndef GES_API
+#ifndef extern
 # ifdef BUILDING_GES
-#  define GES_API GST_API_EXPORT         /* from config.h */
+#  define extern GST_API_EXPORT         /* from config.h */
 # else
-#  define GES_API GST_API_IMPORT
+#  define extern GST_API_IMPORT
 # endif
 #endif
 
 #ifndef GST_DISABLE_DEPRECATED
-#define GES_DEPRECATED GES_API
-#define GES_DEPRECATED_FOR(f) GES_API
+#define GES_DEPRECATED extern
+#define GES_DEPRECATED_FOR(f) extern
 #else
-#define GES_DEPRECATED G_DEPRECATED GES_API
-#define GES_DEPRECATED_FOR(f) G_DEPRECATED_FOR(f) GES_API
+#define GES_DEPRECATED G_DEPRECATED extern
+#define GES_DEPRECATED_FOR(f) G_DEPRECATED_FOR(f) extern
 #endif

@@ -24,7 +24,7 @@
 #include <ges/ges-types.h>
 #include <ges/ges-video-source.h>
 
-G_BEGIN_DECLS
+
 
 #define GES_TYPE_TITLE_SOURCE ges_title_source_get_type()
 GES_DECLARE_TYPE(TitleSource, title_source, TITLE_SOURCE);
@@ -59,50 +59,50 @@ struct _GESTitleSourceClass {
   gpointer _ges_reserved[GES_PADDING - 1];
 };
 
-GES_API
+extern
 void ges_title_source_set_text (GESTitleSource *self,
 				     const gchar *text);
 
-GES_API
+extern
 void ges_title_source_set_font_desc (GESTitleSource *self,
 					  const gchar *font_desc);
 
-GES_API
+extern
 void ges_title_source_set_halignment (GESTitleSource *self,
 					   GESTextHAlign halign);
 
-GES_API
+extern
 void ges_title_source_set_valignment (GESTitleSource *self,
 					   GESTextVAlign valign);
 
-GES_API
+extern
 void ges_title_source_set_text_color (GESTitleSource *self,
 					   guint32 color);
-GES_API
+extern
 void ges_title_source_set_background_color (GESTitleSource *self,
 					   guint32 color);
-GES_API
+extern
 void ges_title_source_set_xpos (GESTitleSource *self,
 					   gdouble position);
-GES_API
+extern
 void ges_title_source_set_ypos (GESTitleSource *self,
 					   gdouble position);
 
-GES_API
-const gchar *ges_title_source_get_text (GESTitleSource *source) G_GNUC_WARN_UNUSED_RESULT;
-GES_API
-const gchar *ges_title_source_get_font_desc (GESTitleSource *source) G_GNUC_WARN_UNUSED_RESULT;
-GES_API
+extern
+const gchar *ges_title_source_get_text (GESTitleSource *source) ;
+extern
+const gchar *ges_title_source_get_font_desc (GESTitleSource *source) ;
+extern
 GESTextHAlign ges_title_source_get_halignment (GESTitleSource *source);
-GES_API
+extern
 GESTextVAlign ges_title_source_get_valignment (GESTitleSource *source);
-GES_API
+extern
 const guint32 ges_title_source_get_text_color (GESTitleSource *source);
-GES_API
+extern
 const guint32 ges_title_source_get_background_color (GESTitleSource *source);
-GES_API
+extern
 const gdouble ges_title_source_get_xpos (GESTitleSource *source);
-GES_API
+extern
 const gdouble ges_title_source_get_ypos (GESTitleSource *source);
 
-G_END_DECLS
+

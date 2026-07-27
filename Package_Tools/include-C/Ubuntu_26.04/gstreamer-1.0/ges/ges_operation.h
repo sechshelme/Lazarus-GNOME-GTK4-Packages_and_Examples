@@ -25,7 +25,7 @@
 #include <ges/ges-types.h>
 #include <ges/ges-track-element.h>
 
-G_BEGIN_DECLS
+
 
 #define GES_TYPE_OPERATION ges_operation_get_type()
 GES_DECLARE_TYPE(Operation, operation, OPERATION);
@@ -59,4 +59,4 @@ struct _GESOperationClass {
   gpointer _ges_reserved[GES_PADDING];
 };
 
-G_END_DECLS
+

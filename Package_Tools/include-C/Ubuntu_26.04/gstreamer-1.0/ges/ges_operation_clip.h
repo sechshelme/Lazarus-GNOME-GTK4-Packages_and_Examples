@@ -25,7 +25,7 @@
 #include <ges/ges-types.h>
 #include <ges/ges-clip.h>
 
-G_BEGIN_DECLS
+
 
 #define GES_TYPE_OPERATION_CLIP ges_operation_clip_get_type()
 GES_DECLARE_TYPE(OperationClip, operation_clip, OPERATION_CLIP);
@@ -57,4 +57,4 @@ struct _GESOperationClipClass {
   gpointer _ges_reserved[GES_PADDING];
 };
 
-G_END_DECLS
+

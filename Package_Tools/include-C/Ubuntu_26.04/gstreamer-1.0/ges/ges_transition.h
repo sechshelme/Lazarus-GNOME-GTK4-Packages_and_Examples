@@ -26,7 +26,7 @@
 #include <ges/ges-types.h>
 #include <ges/ges-operation.h>
 
-G_BEGIN_DECLS
+
 
 #define GES_TYPE_TRANSITION ges_transition_get_type()
 GES_DECLARE_TYPE(Transition, transition, TRANSITION);
@@ -61,4 +61,4 @@ struct _GESTransitionClass {
   gpointer _ges_reserved[GES_PADDING];
 };
 
-G_END_DECLS
+

@@ -22,7 +22,7 @@
 
 #include <ges/ges-clip-asset.h>
 
-G_BEGIN_DECLS
+
 
 #define GES_TYPE_SOURCE_CLIP_ASSET ges_source_clip_asset_get_type ()
 
@@ -33,7 +33,7 @@ G_BEGIN_DECLS
  *
  * Since: 1.18
  */
-GES_API
+extern
 G_DECLARE_DERIVABLE_TYPE(GESSourceClipAsset, ges_source_clip_asset, GES,
                          SOURCE_CLIP_ASSET, GESClipAsset);
 
@@ -44,4 +44,4 @@ struct _GESSourceClipAssetClass
 };
 
 
-G_END_DECLS
+

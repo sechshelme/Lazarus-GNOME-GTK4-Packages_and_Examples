@@ -23,9 +23,9 @@
 #include <gst/gst.h>
 #include <ges/ges-prelude.h>
 
-G_BEGIN_DECLS
+
 
 GES_DEPRECATED GstSample *
 ges_play_sink_convert_frame (GstElement * playsink, GstCaps * caps);
 
-G_END_DECLS
+

@@ -29,7 +29,7 @@
 #include <ges/ges-source-clip.h>
 #include <ges/ges-track.h>
 
-G_BEGIN_DECLS
+
 
 #define GES_TYPE_TEST_CLIP ges_test_clip_get_type()
 GES_DECLARE_TYPE(TestClip, test_clip, TEST_CLIP);
@@ -61,34 +61,34 @@ struct _GESTestClipClass {
   gpointer _ges_reserved[GES_PADDING];
 };
 
-GES_API void
+extern void
 ges_test_clip_set_mute (GESTestClip * self, gboolean mute);
 
-GES_API void
+extern void
 ges_test_clip_set_vpattern (GESTestClip * self,
     GESVideoTestPattern vpattern);
 
-GES_API void
+extern void
 ges_test_clip_set_frequency (GESTestClip * self, gdouble freq);
 
-GES_API void
+extern void
 ges_test_clip_set_volume (GESTestClip * self,
     gdouble volume);
 
 
-GES_API GESVideoTestPattern
+extern GESVideoTestPattern
 ges_test_clip_get_vpattern (GESTestClip * self);
 
-GES_API
+extern
 gboolean ges_test_clip_is_muted (GESTestClip * self);
-GES_API
+extern
 gdouble ges_test_clip_get_frequency (GESTestClip * self);
-GES_API
+extern
 gdouble ges_test_clip_get_volume (GESTestClip * self);
 
-GES_API
-GESTestClip* ges_test_clip_new (void) G_GNUC_WARN_UNUSED_RESULT;
-GES_API
-GESTestClip* ges_test_clip_new_for_nick(gchar * nick) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GESTestClip* ges_test_clip_new (void) ;
+extern
+GESTestClip* ges_test_clip_new_for_nick(gchar * nick) ;
 
-G_END_DECLS
+

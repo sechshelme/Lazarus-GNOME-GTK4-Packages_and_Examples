@@ -24,7 +24,7 @@
 #include <ges/ges-types.h>
 #include <ges/ges-base-transition-clip.h>
 
-G_BEGIN_DECLS
+
 
 #define GES_TYPE_TRANSITION_CLIP ges_transition_clip_get_type()
 GES_DECLARE_TYPE(TransitionClip, transition_clip, TRANSITION_CLIP);
@@ -65,9 +65,9 @@ struct _GESTransitionClipClass {
   gpointer _ges_reserved[GES_PADDING];
 };
 
-GES_API
-GESTransitionClip *ges_transition_clip_new (GESVideoStandardTransitionType vtype) G_GNUC_WARN_UNUSED_RESULT;
-GES_API
-GESTransitionClip *ges_transition_clip_new_for_nick (char *nick) G_GNUC_WARN_UNUSED_RESULT;
+extern
+GESTransitionClip *ges_transition_clip_new (GESVideoStandardTransitionType vtype) ;
+extern
+GESTransitionClip *ges_transition_clip_new_for_nick (char *nick) ;
 
-G_END_DECLS
+

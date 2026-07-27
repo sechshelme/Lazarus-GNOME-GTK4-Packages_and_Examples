@@ -25,7 +25,7 @@
 #include <ges/ges-types.h>
 #include <ges/ges-track-element.h>
 
-G_BEGIN_DECLS
+
 
 #define GES_TYPE_SOURCE ges_source_get_type()
 GES_DECLARE_TYPE(Source, source, SOURCE);
@@ -85,4 +85,4 @@ struct _GESSourceClass {
   gpointer _ges_reserved[GES_PADDING - 2];
 };
 
-G_END_DECLS
+

@@ -27,7 +27,7 @@
 #include <ges/ges-types.h>
 #include <ges/ges-video-source.h>
 
-G_BEGIN_DECLS
+
 
 #define GES_TYPE_VIDEO_TEST_SOURCE ges_video_test_source_get_type()
 GES_DECLARE_TYPE(VideoTestSource, video_test_source, VIDEO_TEST_SOURCE);
@@ -56,10 +56,10 @@ struct _GESVideoTestSourceClass {
   gpointer _ges_reserved[GES_PADDING];
 };
 
-GES_API void
+extern void
 ges_video_test_source_set_pattern(GESVideoTestSource *self,
 					GESVideoTestPattern pattern);
-GES_API GESVideoTestPattern
+extern GESVideoTestPattern
 ges_video_test_source_get_pattern (GESVideoTestSource *source);
 
-G_END_DECLS
+
