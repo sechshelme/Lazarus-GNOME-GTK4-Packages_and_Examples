@@ -4,15 +4,11 @@ program project1;
 uses
 
 
-  app,
-  app_enumtypes,
-  gstappsrc,
-  gstappsink,
 
+  fp_gst_transcoder,
+  fp_gst_uridownloader,
 
-
-
-
+  fp_gst_app,
   fp_gst_tag,
   fp_gst_fft,
   fp_gst_mse,

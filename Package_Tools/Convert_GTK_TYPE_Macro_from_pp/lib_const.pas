@@ -305,15 +305,6 @@ const
     (libs: 'libgtk4'; units: 'fp_glib2, fp_gtk4'),
 
 
-    (libs: 'libgstphotography'; units: 'fp_glib2, fp_gst'),
-    (libs: 'libgstinsertbin'; units: 'fp_glib2, fp_gst'),
-    (libs: 'libgstriff'; units: 'fp_glib2, fp_gst'),
-    (libs: 'libgsttranscoder'; units: 'fp_glib2, fp_gst'),
-    (libs: 'libgsturidownloader'; units: 'fp_glib2, fp_gst'),
-    (libs: 'libgstsctp'; units: 'fp_glib2, fp_gst'),
-    (libs: 'libgstopencv'; units: 'fp_glib2, fp_gst'),
-    (libs: 'libgstisoff'; units: 'fp_glib2, fp_gst'),
-
     (libs: 'libgstreamer'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstbase'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstgl'; units: 'fp_glib2, fp_gst'),
@@ -343,6 +334,16 @@ const
     (libs: 'libgstfft'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgsttag'; units: 'fp_glib2, fp_gst'),
     (libs: 'libgstapp'; units: 'fp_glib2, fp_gst'),
+
+    (libs: 'libgstphotography'; units: 'fp_glib2, fp_gst'),
+    (libs: 'libgstinsertbin'; units: 'fp_glib2, fp_gst'),
+    (libs: 'libgsttranscoder'; units: 'fp_glib2, fp_gst'),
+    (libs: 'libgstopencv'; units: 'fp_glib2, fp_gst'),
+    (libs: 'libgstisoff'; units: 'fp_glib2, fp_gst'),
+    (libs: 'libgstbasecamerabinsrc'; units: 'fp_glib2, fp_gst'),
+    (libs: 'libgstriff'; units: 'fp_glib2, fp_gst'),
+    (libs: 'libgstsctp'; units: 'fp_glib2, fp_gst'),
+    (libs: 'libgsturidownloader'; units: 'fp_glib2, fp_gst'),
 
 
     (libs: ''; units: ''));
