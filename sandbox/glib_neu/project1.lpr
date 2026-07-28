@@ -5,6 +5,85 @@ program project1;
 // diff -U 1 /usr/include/gstreamer-1.0/gst/sctp/sctpreceivemeta.h /home/tux/include_neu/gstreamer-1.0/gst/sctp/sctpreceivemeta.h
 
 uses
+  ges_enums,
+  ges_types,
+  ges,
+  ges_asset,
+  ges_extractable,
+  ges_project,
+  ges_timeline,
+
+  ges_timeline_element,
+
+
+  ges_track_element,
+  ges_track,
+  ges_track_element_asset,
+  ges_track_element_deprecated,
+
+
+  ges_source,
+  ges_source_clip,
+  ges_source_clip_asset,
+
+
+
+  ges_audio_source,
+  ges_audio_test_source,
+  ges_audio_track,
+  ges_audio_transition,
+  ges_audio_uri_source,
+  ges_base_effect,
+  ges_base_effect_clip,
+  ges_base_transition_clip,
+  ges_base_xml_formatter,
+  ges_clip,
+  ges_clip_asset,
+  ges_command_line_formatter,
+  ges_container,
+  ges_discoverer_manager,
+  ges_effect,
+  ges_effect_asset,
+  ges_effect_clip,
+  ges_formatter,
+  ges_frame_composition_meta,
+  ges_gerror,
+  ges_group,
+  ges_image_source,
+  ges_layer,
+  ges_marker_list,
+  ges_meta_container,
+  ges_multi_file_source,
+  ges_operation,
+  ges_operation_clip,
+  ges_overlay_clip,
+  ges_pipeline,
+  ges_pitivi_formatter,
+  ges_screenshot,
+  ges_test_clip,
+  ges_text_overlay,
+  ges_text_overlay_clip,
+  ges_time_overlay_clip,
+  ges_title_clip,
+  ges_title_source,
+  ges_transition,
+  ges_transition_clip,
+  ges_uri_asset,
+  ges_uri_clip,
+  ges_utils,
+  ges_version,
+  ges_video_source,
+  ges_video_test_source,
+  ges_video_track,
+  ges_video_transition,
+  ges_video_uri_source,
+  ges_xml_formatter,
+
+
+
+
+
+
   fp_gst_basecamerabinsrc,
   fp_gst_insertbin,
   fp_gst_interfaces,
@@ -14,8 +93,6 @@ uses
   fp_gst_sctp,
   fp_gst_transcoder,
   fp_gst_uridownloader,
-
-
   fp_gst_app,
   fp_gst_tag,
   fp_gst_fft,
