@@ -1,52 +1,28 @@
 unit ges_effect_asset;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
-  fp_glib2, fp_gst, ges_enums;
+  fp_glib2, fp_gst,ges_types, ges_enums, ges_track_element_asset;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
-{ -*- Mode: C; indent-tabs-mode: nil; c-basic-offset: 4; tab-width: 4 -*-   }
-{
- * gst-editing-services
- * Copyright (C) 2013 Thibault Saunier <thibault.saunier@collabora.com>
- *
- gst-editing-services is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published
- * by the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * gst-editing-services is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.";
-  }
-(** unsupported pragma#pragma once*)
-{$include <glib-object.h>}
-{$include "ges-track-element-asset.h"}
-
-{GES_DECLARE_TYPE(EffectAsset, effect_asset, EFFECT_ASSET); }
+  {$IFDEF read_struct}
 type
   PGESEffectAssetClass = ^TGESEffectAssetClass;
   TGESEffectAssetClass = record
-      parent_class : TGESTrackElementAssetClass;
-      _ges_reserved : array[0..(GES_PADDING)-1] of Tgpointer;
-    end;
+    parent_class: TGESTrackElementAssetClass;
+    _ges_reserved: array[0..(GES_PADDING) - 1] of Tgpointer;
+  end;
+  {$ENDIF read_struct}
 
-  PGESEffectAsset = ^TGESEffectAsset;
-  TGESEffectAsset = record
-      parent_instance : TGESTrackElementAsset;
-      priv : PGESEffectAssetPrivate;
-      _ges_reserved : array[0..(GES_PADDING)-1] of Tgpointer;
-    end;
-
+{$IFDEF read_function}
+function ges_effect_asset_get_type: TGType; cdecl; external libges;
 
 // === Konventiert am: 27-7-26 19:54:56 ===
 
@@ -56,6 +32,7 @@ function GES_IS_EFFECT_ASSET(obj: Pointer): Tgboolean;
 function GES_EFFECT_ASSET_CLASS(klass: Pointer): PGESEffectAssetClass;
 function GES_IS_EFFECT_ASSET_CLASS(klass: Pointer): Tgboolean;
 function GES_EFFECT_ASSET_GET_CLASS(obj: Pointer): PGESEffectAssetClass;
+{$ENDIF read_function}
 
 implementation
 
@@ -88,12 +65,5 @@ function GES_EFFECT_ASSET_GET_CLASS(obj: Pointer): PGESEffectAssetClass;
 begin
   Result := PGESEffectAssetClass(PGTypeInstance(obj)^.g_class);
 end;
-
-type 
-  PGESEffectAssetPrivate = type Pointer
-
-function ges_effect_asset_get_type: TGType; cdecl; external libgxxxxxxx;
-
-
 
 end.

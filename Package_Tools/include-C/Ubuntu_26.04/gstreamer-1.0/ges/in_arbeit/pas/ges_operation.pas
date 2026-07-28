@@ -1,68 +1,28 @@
 unit ges_operation;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
-  fp_glib2, fp_gst, ges_enums;
+  fp_glib2, fp_gst, ges_types, ges_enums, ges_track_element;
 
 {$IFDEF FPC}
 {$PACKRECORDS C}
 {$ENDIF}
 
 
-{ GStreamer Editing Services
- * Copyright (C) 2009 Edward Hervey <edward.hervey@collabora.co.uk>
- *               2009 Nokia Corporation
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Library General Public
- * License as published by the Free Software Foundation; either
- * version 2 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Library General Public License for more details.
- *
- * You should have received a copy of the GNU Library General Public
- * License along with this library; if not, write to the
- * Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
- * Boston, MA 02110-1301, USA.
-  }
-(** unsupported pragma#pragma once*)
-{$include <glib-object.h>}
-{$include <gst/gst.h>}
-{$include <ges/ges-types.h>}
-{$include <ges/ges-track-element.h>}
-
-{GES_DECLARE_TYPE(Operation, operation, OPERATION); }
-{*
- * GESOperation:
- *
- * Base class for overlays, transitions, and effects
-  }
-{< private > }
-{ Padding for API extension  }
+{$IFDEF read_struct}
 type
-  PGESOperation = ^TGESOperation;
-  TGESOperation = record
-      parent : TGESTrackElement;
-      priv : PGESOperationPrivate;
-      _ges_reserved : array[0..(GES_PADDING)-1] of Tgpointer;
-    end;
-
-{*
- * GESOperationClass:
-  }
-{< private > }
-{< private > }
-{ Padding for API extension  }
   PGESOperationClass = ^TGESOperationClass;
   TGESOperationClass = record
       parent_class : TGESTrackElementClass;
       _ges_reserved : array[0..(GES_PADDING)-1] of Tgpointer;
     end;
+  {$ENDIF read_struct}
 
+  {$IFDEF read_function}
+  function ges_operation_get_type: TGType; cdecl; external libges;
 
 // === Konventiert am: 28-7-26 13:06:11 ===
 
@@ -72,6 +32,7 @@ function GES_IS_OPERATION(obj: Pointer): Tgboolean;
 function GES_OPERATION_CLASS(klass: Pointer): PGESOperationClass;
 function GES_IS_OPERATION_CLASS(klass: Pointer): Tgboolean;
 function GES_OPERATION_GET_CLASS(obj: Pointer): PGESOperationClass;
+{$ENDIF read_function}
 
 implementation
 
@@ -104,12 +65,5 @@ function GES_OPERATION_GET_CLASS(obj: Pointer): PGESOperationClass;
 begin
   Result := PGESOperationClass(PGTypeInstance(obj)^.g_class);
 end;
-
-type 
-  PGESOperationPrivate = type Pointer
-
-function ges_operation_get_type: TGType; cdecl; external libgxxxxxxx;
-
-
 
 end.

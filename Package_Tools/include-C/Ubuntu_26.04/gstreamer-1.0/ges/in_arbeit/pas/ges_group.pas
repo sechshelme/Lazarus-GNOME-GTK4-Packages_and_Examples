@@ -1,58 +1,29 @@
 unit ges_group;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
-  fp_glib2, fp_gst, ges_enums;
+  fp_glib2, fp_gst, ges_enums, ges_types, ges_container;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
-{ * Gstreamer
- *
- * Copyright (C) <2013> Thibault Saunier <thibault.saunier@collabora.com>
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Library General Public
- * License as published by the Free Software Foundation; either
- * version 2 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Library General Public License for more details.
- *
- * You should have received a copy of the GNU Library General Public
- * License along with this library; if not, write to the
- * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
- * Boston, MA 02111-1307, USA.
-  }
-(** unsupported pragma#pragma once*)
-{$include <glib-object.h>}
-{$include <ges/ges-types.h>}
-{$include "ges-clip.h"}
-{$include "ges-container.h"}
-
-{GES_DECLARE_TYPE(Group, group, GROUP); }
-{< private > }
+  {$IFDEF read_struct}
 type
-  PGESGroup = ^TGESGroup;
-  TGESGroup = record
-      parent : TGESContainer;
-      priv : PGESGroupPrivate;
-      _ges_reserved : array[0..(GES_PADDING)-1] of Tgpointer;
-    end;
-
   PGESGroupClass = ^TGESGroupClass;
   TGESGroupClass = record
-      parent_class : TGESContainerClass;
-      _ges_reserved : array[0..(GES_PADDING)-1] of Tgpointer;
-    end;
+    parent_class: TGESContainerClass;
+    _ges_reserved: array[0..(GES_PADDING) - 1] of Tgpointer;
+  end;
+  {$ENDIF read_struct}
 
-
-function ges_group_new:PGESGroup;cdecl;external libges;
+{$IFDEF read_function}
+function ges_group_get_type: TGType; cdecl; external libges;
+function ges_group_new: PGESGroup; cdecl; external libges;
 
 // === Konventiert am: 27-7-26 20:01:18 ===
 
@@ -62,6 +33,7 @@ function GES_IS_GROUP(obj: Pointer): Tgboolean;
 function GES_GROUP_CLASS(klass: Pointer): PGESGroupClass;
 function GES_IS_GROUP_CLASS(klass: Pointer): Tgboolean;
 function GES_GROUP_GET_CLASS(obj: Pointer): PGESGroupClass;
+{$ENDIF read_function}
 
 implementation
 
@@ -94,12 +66,5 @@ function GES_GROUP_GET_CLASS(obj: Pointer): PGESGroupClass;
 begin
   Result := PGESGroupClass(PGTypeInstance(obj)^.g_class);
 end;
-
-type 
-  PGESGroupPrivate = type Pointer
-
-function ges_group_get_type: TGType; cdecl; external libgxxxxxxx;
-
-
 
 end.

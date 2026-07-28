@@ -1,39 +1,32 @@
 unit ges_discoverer_manager;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
-  fp_glib2, fp_gst, ges_enums;
+  fp_glib2, fp_gst, ges_types, ges_enums;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
-(** unsupported pragma#pragma once*)
-{$include <ges/ges-types.h>}
-{$include <gst/gst.h>}
-{$include <gst/pbutils/pbutils.h>}
-{$include <glib-object.h>}
-{*
- * GES_TYPE_DISCOVERER_MANAGER:
- *
- * Since: 1.24
-  }
-
+  {$IFDEF read_struct}
 type
   PGESDiscovererManagerClass = ^TGESDiscovererManagerClass;
   TGESDiscovererManagerClass = record
-      parent_class : TGObjectClass;
-    end;
+    parent_class: TGObjectClass;
+  end;
+  {$ENDIF read_struct}
 
-{GES_DECLARE_TYPE(DiscovererManager, discoverer_manager, DISCOVERER_MANAGER); }
-
-function ges_discoverer_manager_get_timeout(self:PGESDiscovererManager):TGstClockTime;cdecl;external libges;
-procedure ges_discoverer_manager_set_timeout(self:PGESDiscovererManager; timeout:TGstClockTime);cdecl;external libges;
-function ges_discoverer_manager_get_default:PGESDiscovererManager;cdecl;external libges;
-procedure ges_discoverer_manager_set_use_cache(self:PGESDiscovererManager; use_cache:Tgboolean);cdecl;external libges;
-function ges_discoverer_manager_get_use_cache(self:PGESDiscovererManager):Tgboolean;cdecl;external libges;
+{$IFDEF read_function}
+function ges_discoverer_manager_get_type: TGType; cdecl; external libges;
+function ges_discoverer_manager_get_timeout(self: PGESDiscovererManager): TGstClockTime; cdecl; external libges;
+procedure ges_discoverer_manager_set_timeout(self: PGESDiscovererManager; timeout: TGstClockTime); cdecl; external libges;
+function ges_discoverer_manager_get_default: PGESDiscovererManager; cdecl; external libges;
+procedure ges_discoverer_manager_set_use_cache(self: PGESDiscovererManager; use_cache: Tgboolean); cdecl; external libges;
+function ges_discoverer_manager_get_use_cache(self: PGESDiscovererManager): Tgboolean; cdecl; external libges;
 
 // === Konventiert am: 27-7-26 19:55:02 ===
 
@@ -43,6 +36,7 @@ function GES_IS_DISCOVERER_MANAGER(obj: Pointer): Tgboolean;
 function GES_DISCOVERER_MANAGER_CLASS(klass: Pointer): PGESDiscovererManagerClass;
 function GES_IS_DISCOVERER_MANAGER_CLASS(klass: Pointer): Tgboolean;
 function GES_DISCOVERER_MANAGER_GET_CLASS(obj: Pointer): PGESDiscovererManagerClass;
+{$ENDIF read_function}
 
 implementation
 
@@ -75,12 +69,5 @@ function GES_DISCOVERER_MANAGER_GET_CLASS(obj: Pointer): PGESDiscovererManagerCl
 begin
   Result := PGESDiscovererManagerClass(PGTypeInstance(obj)^.g_class);
 end;
-
-type 
-  PGESDiscovererManagerPrivate = type Pointer
-
-function ges_discoverer_manager_get_type: TGType; cdecl; external libgxxxxxxx;
-
-
 
 end.

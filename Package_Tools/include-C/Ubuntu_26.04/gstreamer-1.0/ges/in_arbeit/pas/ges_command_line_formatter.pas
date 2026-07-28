@@ -1,55 +1,31 @@
 unit ges_command_line_formatter;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
-  fp_glib2, fp_gst, ges_enums;
+  fp_glib2, fp_gst, ges_enums, ges_types, ges_formatter;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
-{ GStreamer Editing Services
- *
- * Copyright (C) <2015> Thibault Saunier <tsaunier@gnome.org>
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Library General Public
- * License as published by the Free Software Foundation; either
- * version 2 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Library General Public License for more details.
- *
- * You should have received a copy of the GNU Library General Public
- * License along with this library; if not, write to the
- * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
- * Boston, MA 02111-1307, USA.
-  }
-(** unsupported pragma#pragma once*)
-{$include <glib-object.h>}
-{$include "ges-formatter.h"}
+  {$IFDEF read_struct}
 type
+  PGESCommandLineFormatter = type Pointer;
 
-{GES_DECLARE_TYPE(CommandLineFormatter, command_line_formatter, COMMAND_LINE_FORMATTER); }
-type
   PGESCommandLineFormatterClass = ^TGESCommandLineFormatterClass;
   TGESCommandLineFormatterClass = record
-      parent_class : TGESFormatterClass;
-    end;
+    parent_class: TGESFormatterClass;
+  end;
+  {$ENDIF read_struct}
 
-  PGESCommandLineFormatter = ^TGESCommandLineFormatter;
-  TGESCommandLineFormatter = record
-      parent_instance : TGESFormatter;
-      priv : PGESCommandLineFormatterPrivate;
-    end;
-
-
-function ges_command_line_formatter_get_help(nargs:Tgint; commands:PPgchar):Pgchar;cdecl;external libges;
-function ges_command_line_formatter_get_timeline_uri(timeline:PGESTimeline):Pgchar;cdecl;external libges;
+{$IFDEF read_function}
+function ges_command_line_formatter_get_type: TGType; cdecl; external libges;
+function ges_command_line_formatter_get_help(nargs: Tgint; commands: PPgchar): Pgchar; cdecl; external libges;
+function ges_command_line_formatter_get_timeline_uri(timeline: PGESTimeline): Pgchar; cdecl; external libges;
 
 // === Konventiert am: 27-7-26 19:55:17 ===
 
@@ -59,6 +35,7 @@ function GES_IS_COMMAND_LINE_FORMATTER(obj: Pointer): Tgboolean;
 function GES_COMMAND_LINE_FORMATTER_CLASS(klass: Pointer): PGESCommandLineFormatterClass;
 function GES_IS_COMMAND_LINE_FORMATTER_CLASS(klass: Pointer): Tgboolean;
 function GES_COMMAND_LINE_FORMATTER_GET_CLASS(obj: Pointer): PGESCommandLineFormatterClass;
+{$ENDIF read_function}
 
 implementation
 
@@ -91,12 +68,5 @@ function GES_COMMAND_LINE_FORMATTER_GET_CLASS(obj: Pointer): PGESCommandLineForm
 begin
   Result := PGESCommandLineFormatterClass(PGTypeInstance(obj)^.g_class);
 end;
-
-type 
-  PGESCommandLineFormatterPrivate = type Pointer
-
-function ges_command_line_formatter_get_type: TGType; cdecl; external libgxxxxxxx;
-
-
 
 end.

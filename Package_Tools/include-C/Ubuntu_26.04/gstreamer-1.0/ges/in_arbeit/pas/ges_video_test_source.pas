@@ -1,70 +1,30 @@
 unit ges_video_test_source;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
-  fp_glib2, fp_gst, ges_enums;
+  fp_glib2, fp_gst, ges_enums, ges_types, ges_video_source;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
-{ GStreamer Editing Services
- * Copyright (C) 2010 Brandon Lewis <brandon.lewis@collabora.co.uk>
- *               2010 Nokia Corporation
- * Copyright (C) 2020 Igalia S.L
- *     Author: 2020 Thibault Saunier <tsaunier@igalia.com>
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Library General Public
- * License as published by the Free Software Foundation; either
- * version 2 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Library General Public License for more details.
- *
- * You should have received a copy of the GNU Library General Public
- * License along with this library; if not, write to the
- * Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
- * Boston, MA 02110-1301, USA.
-  }
-(** unsupported pragma#pragma once*)
-{$include <glib-object.h>}
-{$include <ges/ges-enums.h>}
-{$include <ges/ges-types.h>}
-{$include <ges/ges-video-source.h>}
-
-{GES_DECLARE_TYPE(VideoTestSource, video_test_source, VIDEO_TEST_SOURCE); }
-{*
- * GESVideoTestSource:
- *
- * ### Children Properties
- *
- *   libs/GESVideoTestSource-children-props.md 
-  }
-{< private > }
-{ Padding for API extension  }
+  {$IFDEF read_struct}
 type
-  PGESVideoTestSource = ^TGESVideoTestSource;
-  TGESVideoTestSource = record
-      parent : TGESVideoSource;
-      priv : PGESVideoTestSourcePrivate;
-      _ges_reserved : array[0..(GES_PADDING)-1] of Tgpointer;
-    end;
-
-{ Padding for API extension  }
   PGESVideoTestSourceClass = ^TGESVideoTestSourceClass;
   TGESVideoTestSourceClass = record
-      parent_class : TGESVideoSourceClass;
-      _ges_reserved : array[0..(GES_PADDING)-1] of Tgpointer;
-    end;
+    parent_class: TGESVideoSourceClass;
+    _ges_reserved: array[0..(GES_PADDING) - 1] of Tgpointer;
+  end;
+  {$ENDIF read_struct}
 
-
-procedure ges_video_test_source_set_pattern(self:PGESVideoTestSource; pattern:TGESVideoTestPattern);cdecl;external libges;
-function ges_video_test_source_get_pattern(source:PGESVideoTestSource):TGESVideoTestPattern;cdecl;external libges;
+{$IFDEF read_function}
+function ges_video_test_source_get_type: TGType; cdecl; external libges;
+procedure ges_video_test_source_set_pattern(self: PGESVideoTestSource; pattern: TGESVideoTestPattern); cdecl; external libges;
+function ges_video_test_source_get_pattern(source: PGESVideoTestSource): TGESVideoTestPattern; cdecl; external libges;
 
 // === Konventiert am: 28-7-26 13:21:37 ===
 
@@ -74,6 +34,7 @@ function GES_IS_VIDEO_TEST_SOURCE(obj: Pointer): Tgboolean;
 function GES_VIDEO_TEST_SOURCE_CLASS(klass: Pointer): PGESVideoTestSourceClass;
 function GES_IS_VIDEO_TEST_SOURCE_CLASS(klass: Pointer): Tgboolean;
 function GES_VIDEO_TEST_SOURCE_GET_CLASS(obj: Pointer): PGESVideoTestSourceClass;
+{$ENDIF read_function}
 
 implementation
 
@@ -106,12 +67,5 @@ function GES_VIDEO_TEST_SOURCE_GET_CLASS(obj: Pointer): PGESVideoTestSourceClass
 begin
   Result := PGESVideoTestSourceClass(PGTypeInstance(obj)^.g_class);
 end;
-
-type 
-  PGESVideoTestSourcePrivate = type Pointer
-
-function ges_video_test_source_get_type: TGType; cdecl; external libgxxxxxxx;
-
-
 
 end.
