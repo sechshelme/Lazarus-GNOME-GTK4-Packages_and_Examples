@@ -29,16 +29,63 @@ const
 
   {$IFDEF read_struct}
 type
-    PGESAsset = type Pointer;
-  PGESExtractable= type Pointer;
-        PGESTimeline =type Pointer;
-        PGESTrack=type Pointer;
-        PGESLayer=type Pointer;
-        PGESGroup=type Pointer;
-        PGESTimelineElement=type Pointer;
-          PGESProject = type Pointer;
-          PGstEncodingProfile=type Pointer;
-          PGESFormatter=type Pointer;
+                       PGESTimeline=type Pointer;
+                    PGESLayer=type Pointer;
+                              PGESTimelineElement=type Pointer;
+                        PGESContainer=type Pointer;
+                   PGESClip=type Pointer;
+                            PGESOperationClip=type Pointer;
+                       PGESPipeline=type Pointer;
+                         PGESSourceClip=type Pointer;
+                             PGESBaseEffectClip=type Pointer;
+                      PGESUriClip=type Pointer;
+                                 PGESBaseTransitionClip=type Pointer;
+                             PGESTransitionClip=type Pointer;
+                       PGESTestClip=type Pointer;
+                        PGESTitleClip=type Pointer;
+                          PGESOverlayClip=type Pointer;
+                              PGESTextOverlayClip=type Pointer;
+                         PGESEffectClip=type Pointer;
+                    PGESGroup=type Pointer;
+                    PGESTrack=type Pointer;
+                           PGESTrackElement=type Pointer;
+                     PGESSource=type Pointer;
+                        PGESOperation=type Pointer;
+                         PGESBaseEffect=type Pointer;
+                     PGESEffect=type Pointer;
+                          PGESVideoSource=type Pointer;
+                          PGESAudioSource=type Pointer;
+                             PGESVideoUriSource=type Pointer;
+                             PGESAudioUriSource=type Pointer;
+                          PGESImageSource=type Pointer;
+                              PGESMultiFileSource=type Pointer;
+                         PGESTransition=type Pointer;
+                              PGESAudioTransition=type Pointer;
+                              PGESVideoTransition=type Pointer;
+                              PGESVideoTestSource=type Pointer;
+                              PGESAudioTestSource=type Pointer;
+                          PGESTitleSource=type Pointer;
+                          PGESTextOverlay=type Pointer;
+                        PGESFormatter=type Pointer;
+                              PGESPitiviFormatter=type Pointer;
+                    PGESAsset=type Pointer;
+                        PGESClipAsset=type Pointer;
+                           PGESUriClipAsset=type Pointer;
+                                PGESTrackElementAsset=type Pointer;
+                             PGESUriSourceAsset=type Pointer;
+                      PGESProject=type Pointer;
+                          PGESExtractable=type Pointer;
+                         PGESVideoTrack=type Pointer;
+                         PGESAudioTrack=type Pointer;
+                         PGESMarkerList=type Pointer;
+                     PGESMarker=type Pointer;
+                          PGESEffectAsset=type Pointer;
+                           PGESXmlFormatter=type Pointer;
+                                PGESDiscovererManager=type Pointer;
+
+
+
+
 
 
 

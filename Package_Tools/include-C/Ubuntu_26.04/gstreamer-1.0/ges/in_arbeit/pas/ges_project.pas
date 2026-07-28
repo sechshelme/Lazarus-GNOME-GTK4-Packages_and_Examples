@@ -5,7 +5,7 @@ unit ges_project;
 interface
 
 uses
-  fp_glib2, fp_gst, ges_enums, ges_types, ges_asset;
+  fp_glib2, fp_gst, fp_gst_pbutils, ges_enums, ges_types, ges_asset;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

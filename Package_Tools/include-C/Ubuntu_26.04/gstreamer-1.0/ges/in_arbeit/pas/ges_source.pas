@@ -5,7 +5,7 @@ unit ges_source;
 interface
 
 uses
-  fp_glib2, fp_gst, ges_enums;
+  fp_glib2, fp_gst, ges_enums, ges_track_element, ges_types;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -14,15 +14,6 @@ uses
 
   {$IFDEF read_struct}
 type
-  PGESSourcePrivate = type Pointer;
-
-  PGESSource = ^TGESSource;
-  TGESSource = record
-    parent: TGESTrackElement;
-    priv: PGESSourcePrivate;
-    _ges_reserved: array[0..(GES_PADDING) - 1] of Tgpointer;
-  end;
-
   PGESSourceClass = ^TGESSourceClass;
   TGESSourceClass = record
     parent_class: TGESTrackElementClass;

@@ -12,23 +12,21 @@ uses
   ges_extractable,
   ges_project,
   ges_timeline,
-
   ges_timeline_element,
-
-
   ges_track_element,
   ges_track,
   ges_track_element_asset,
   ges_track_element_deprecated,
-
-
   ges_source,
+  ges_container,
+  ges_clip,
   ges_source_clip,
+  ges_clip_asset,
   ges_source_clip_asset,
-
-
-
   ges_audio_source,
+
+
+
   ges_audio_test_source,
   ges_audio_track,
   ges_audio_transition,
@@ -37,10 +35,7 @@ uses
   ges_base_effect_clip,
   ges_base_transition_clip,
   ges_base_xml_formatter,
-  ges_clip,
-  ges_clip_asset,
   ges_command_line_formatter,
-  ges_container,
   ges_discoverer_manager,
   ges_effect,
   ges_effect_asset,
