@@ -1,40 +1,20 @@
 unit ges_screenshot;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
   fp_glib2, fp_gst, ges_enums;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
-{ GStreamer Editing Services
- * Copyright (C) 2010 Brandon Lewis <brandon.lewis@collabora.co.uk>
- *               2010 Nokia Corporation
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Library General Public
- * License as published by the Free Software Foundation; either
- * version 2 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Library General Public License for more details.
- *
- * You should have received a copy of the GNU Library General Public
- * License along with this library; if not, write to the
- * Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
- * Boston, MA 02110-1301, USA.
-  }
-(** unsupported pragma#pragma once*)
-{$include <gst/gst.h>}
-{$include <ges/ges-prelude.h>}
-{xxxxxGES_DEPRECATED  }
-
-function ges_play_sink_convert_frame(playsink:PGstElement; caps:PGstCaps):PGstSample;cdecl;external libges;
+{$IFDEF read_function}
+function ges_play_sink_convert_frame(playsink: PGstElement; caps: PGstCaps): PGstSample; cdecl; external libges; deprecated;
+{$ENDIF read_function}
 
 // === Konventiert am: 28-7-26 13:05:45 ===
 

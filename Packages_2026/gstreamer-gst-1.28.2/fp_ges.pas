@@ -3,16 +3,23 @@ unit fp_ges;
 interface
 
 uses
-  fp_glib2;
+  fp_glib2, fp_gst, fp_gst_pbutils;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}
 
-  {$DEFINE read_interface}
+  {$DEFINE read_enum}
   {$include fp_ges_includes.inc}
-  {$UNDEF read_interface}
+  {$UNDEF read_enum}
 
+  {$DEFINE read_struct}
+  {$include fp_ges_includes.inc}
+  {$UNDEF read_struct}
+
+  {$DEFINE read_function}
+  {$include fp_ges_includes.inc}
+  {$UNDEF read_function}
 
 implementation
 

@@ -11,6 +11,7 @@ uses
   {$PACKRECORDS C}
   {$ENDIF}
 
+  {$ifdef Linux}
   {$DEFINE read_interface}
   {$include gst/wayland/gstwloutput.inc}
   {$include gst/wayland/gstwldisplay.inc}
@@ -22,9 +23,11 @@ uses
   {$include gst/wayland/gstwlvideoformat.inc}
   {$include gst/wayland/gstwlwindow.inc}
   {$UNDEF read_interface}
+  {$endif}
 
 implementation
 
+{$ifdef Linux}
 {$DEFINE read_implementation}
 {$include gst/wayland/gstwloutput.inc}
 {$include gst/wayland/gstwldisplay.inc}
@@ -36,5 +39,6 @@ implementation
 {$include gst/wayland/gstwlvideoformat.inc}
 {$include gst/wayland/gstwlwindow.inc}
 {$UNDEF read_implementation}
+{$endif}
 
 end.

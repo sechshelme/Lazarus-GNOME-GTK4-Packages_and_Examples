@@ -87,6 +87,12 @@ type
   Twl_shm_format = longint;
   Pwl_shm_format = ^Twl_shm_format;
 
+  Pwp_color_manager_v1 = type Pointer;
+  Pwp_color_representation_manager_v1 = type Pointer;
+  Twl_output_subpixel = longint;
+  Twl_output_transform = longint;
+
+
   {$DEFINE read_interface}
   {$include glibconfig.inc}
   {$include fp_glib2_includes.inc}

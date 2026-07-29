@@ -9,19 +9,6 @@ uses
   fp_glib2;
 
 
-  // ==== Muss aufgeräumt werden
-
-type
-
-
-  Pwp_color_manager_v1=type Pointer;
-  Pwp_color_representation_manager_v1=type Pointer;
-  Twl_output_subpixel=LongInt;
-  Twl_output_transform=LongInt;
-
-
-  // ===============
-
 const
   {$ifdef Linux}
   libgstreamer = 'libgstreamer-1.0';
@@ -190,7 +177,6 @@ type
   {$DEFINE read_function}
   {$include fp_gst_includes.inc}
   {$UNDEF read_function}
-
 
 implementation
 
