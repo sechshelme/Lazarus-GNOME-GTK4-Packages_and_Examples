@@ -344,6 +344,7 @@ const
     (libs: 'libgstphotography'; units: 'fp_glib2, fp_gst'),
     (libs: 'libges'; units: 'fp_glib2, fp_gst, ges_enums'),
 
+    (libs: 'libappstream'; units: 'fp_glib2'),
 
 
     (libs: ''; units: ''));

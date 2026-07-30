@@ -21,6 +21,7 @@ type
   TExecutionContextClass = class;
   TRayHitVec = class;
 
+
   { TCrossSectionClass }
 
   TCrossSectionClass = class(TObject)
