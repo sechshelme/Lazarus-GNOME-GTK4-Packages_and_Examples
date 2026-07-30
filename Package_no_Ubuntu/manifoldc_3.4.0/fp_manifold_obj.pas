@@ -19,6 +19,8 @@ type
   TManifoldVecClass = class;
   TManifoldManifoldPairClass = class;
 
+  TExecutionContextClass=class;
+
   { TCrossSectionClass }
 
   TCrossSectionClass = class(TObject)
@@ -31,8 +33,8 @@ type
 
     constructor cross_section_empty;
     constructor cross_section_copy(cs: TCrossSectionClass; clean: boolean);
-    constructor cross_section_of_simple_polygon(p: TSimplePolygonClass; fr: TManifoldFillRule; clean: boolean);
-    constructor cross_section_of_polygons(p: TPolygonsClass; fr: TManifoldFillRule; clean: boolean);
+    constructor cross_section_of_simple_polygon(p: TSimplePolygonClass; clean: boolean);
+    constructor cross_section_of_polygons(p: TPolygonsClass; clean: boolean);
     constructor cross_section_square(x, y: double; center: longint);
     constructor cross_section_circle(radius: double; circular_segments: longint);
     constructor cross_section_compose(csv: TCrossSectionVecClass; clean: boolean);
@@ -51,15 +53,16 @@ type
     constructor cross_section_scale(cs: TCrossSectionClass; x, y: double; clean: boolean);
     constructor cross_section_mirror(cs: TCrossSectionClass; ax_x, ax_y: double; clean: boolean);
     constructor cross_section_transform(cs: TCrossSectionClass; x1, y1, x2, y2, x3, y3: double; clean: boolean);
-    constructor cross_section_warp(cs: TCrossSectionClass; fun: Tsection_warp_func; clean: boolean);
     constructor cross_section_warp_context(cs: TCrossSectionClass; fun: Twarp_context_func; ctx: pointer; clean: boolean);
     constructor cross_section_simplify(cs: TCrossSectionClass; epsilon: double; clean: boolean);
     constructor cross_section_offset(cs: TCrossSectionClass; delta: double; jt: TManifoldJoinType; miter_limit: double; circular_segments: longint; clean: boolean);
+constructor cross_section_set_tolerance(cs: TCrossSectionClass; tolerance: double; clean: boolean);
 
     function cross_section_area: double;
     function cross_section_num_vert: Tsize_t;
     function cross_section_num_contour: Tsize_t;
     function cross_section_is_empty: longint;
+    function cross_section_get_tolerance: double;
 
     destructor Destroy; override;
   end;
@@ -119,6 +122,9 @@ type
     constructor read_obj(obj_file: pchar);
     constructor minkowski_sum(a, b: TManifoldClass; clean_a, clean_b: boolean);
     constructor minkowski_difference(a, b: TManifoldClass; clean_a, clean_b: boolean);
+constructor set_tolerance(m: TManifoldClass; tolerance: double; clean: boolean);
+constructor simplify(m: TManifoldClass; tolerance: double; clean: boolean);
+constructor with_context(m: TManifoldClass; ctx: TExecutionContextClass; clean_m, clean_ctx: boolean);
 
     function is_empty: longint;
     function status: TManifoldError;
@@ -131,6 +137,8 @@ type
     function surface_area: double;
     function volume: double;
     function original_id: longint;
+    function get_tolerance: double;
+    function num_prop_vert: Tsize_t;
 
     procedure write_obj(callback: Tmani_write_proc; args: pointer);
 
@@ -408,6 +416,19 @@ type
     destructor Destroy; override;
   end;
 
+  { TExecutionContextClass }
+
+  TExecutionContextClass = class(TObject)
+  private
+    Fmem: array of byte;
+    Fobj: PManifoldExecutionContext;
+    procedure Init;
+  public
+    property obj: PManifoldExecutionContext read Fobj;
+
+    destructor Destroy; override;
+  end;
+
 
 implementation
 
@@ -436,19 +457,19 @@ begin
   end;
 end;
 
-constructor TCrossSectionClass.cross_section_of_simple_polygon(p: TSimplePolygonClass; fr: TManifoldFillRule; clean: boolean);
+constructor TCrossSectionClass.cross_section_of_simple_polygon(p: TSimplePolygonClass; clean: boolean);
 begin
   Init;
-  Fobj := manifold_cross_section_of_simple_polygon(Pointer(Fmem), p.Fobj, fr);
+  Fobj := manifold_cross_section_of_simple_polygon(Pointer(Fmem), p.Fobj);
   if clean then begin
     p.Free;
   end;
 end;
 
-constructor TCrossSectionClass.cross_section_of_polygons(p: TPolygonsClass; fr: TManifoldFillRule; clean: boolean);
+constructor TCrossSectionClass.cross_section_of_polygons(p: TPolygonsClass; clean: boolean);
 begin
   Init;
-  Fobj := manifold_cross_section_of_polygons(Pointer(Fmem), p.Fobj, fr);
+  Fobj := manifold_cross_section_of_polygons(Pointer(Fmem), p.Fobj);
   if clean then begin
     p.Free;
   end;
@@ -622,15 +643,6 @@ begin
   end;
 end;
 
-constructor TCrossSectionClass.cross_section_warp(cs: TCrossSectionClass; fun: Tsection_warp_func; clean: boolean);
-begin
-  Init;
-  Fobj := manifold_cross_section_warp(Pointer(Fmem), cs.Fobj, fun);
-  if clean then begin
-    cs.Free;
-  end;
-end;
-
 constructor TCrossSectionClass.cross_section_warp_context(cs: TCrossSectionClass; fun: Twarp_context_func; ctx: pointer; clean: boolean);
 begin
   Init;
@@ -658,6 +670,15 @@ begin
   end;
 end;
 
+constructor TCrossSectionClass.cross_section_set_tolerance(  cs: TCrossSectionClass; tolerance: double; clean: boolean);
+begin
+  Init;
+  Fobj := manifold_cross_section_set_tolerance(Pointer(Fmem), cs.Fobj, tolerance);
+  if clean then begin
+    cs.Free;
+  end;
+end;
+
 function TCrossSectionClass.cross_section_area: double;
 begin
   Result := manifold_cross_section_area(Fobj);
@@ -676,6 +697,11 @@ end;
 function TCrossSectionClass.cross_section_is_empty: longint;
 begin
   Result := manifold_cross_section_is_empty(Fobj);
+end;
+
+function TCrossSectionClass.cross_section_get_tolerance: double;
+begin
+  Result := manifold_cross_section_get_tolerance(Fobj);
 end;
 
 destructor TCrossSectionClass.Destroy;
@@ -1088,6 +1114,36 @@ begin
   end;
 end;
 
+constructor TManifoldClass.set_tolerance(m: TManifoldClass;  tolerance: double; clean: boolean);
+begin
+  Init;
+  Fobj := manifold_set_tolerance(Pointer(Fmem), m.Fobj, tolerance);
+  if clean then begin
+    m.Free;
+  end;
+end;
+
+constructor TManifoldClass.simplify(m: TManifoldClass; tolerance: double;  clean: boolean);
+begin
+  Init;
+  Fobj := manifold_simplify(Pointer(Fmem), m.Fobj, tolerance);
+  if clean then begin
+    m.Free;
+  end;
+end;
+
+constructor TManifoldClass.with_context(m: TManifoldClass;  ctx: TExecutionContextClass; clean_m, clean_ctx: boolean);
+begin
+  Init;
+  Fobj := manifold_with_context(Pointer(Fmem), m.Fobj, ctx.Fobj);
+  if clean_m then begin
+    m.Free;
+  end;
+  if clean_ctx then begin
+    ctx.Free;
+  end;
+end;
+
 function TManifoldClass.is_empty: longint;
 begin
   Result := manifold_is_empty(Fobj);
@@ -1141,6 +1197,16 @@ end;
 function TManifoldClass.original_id: longint;
 begin
   Result := manifold_original_id(Fobj);
+end;
+
+function TManifoldClass.get_tolerance: double;
+begin
+  Result := manifold_get_tolerance(Fobj);
+end;
+
+function TManifoldClass.num_prop_vert: Tsize_t;
+begin
+  Result := manifold_num_prop_vert(Fobj);
 end;
 
 procedure TManifoldClass.write_obj(callback: Tmani_write_proc; args: pointer);
@@ -2100,6 +2166,22 @@ destructor TManifoldManifoldPairClass.Destroy;
 begin
   manifold_destruct_cross_section(Fobj.first);
   manifold_destruct_cross_section(Fobj.second);
+  inherited Destroy;
+end;
+
+{ TExecutionContextClass }
+
+procedure TExecutionContextClass.Init;
+var
+  m_size: Tsize_t;
+begin
+  m_size := manifold_execution_context_size;
+  SetLength(Fmem, m_size);
+end;
+
+destructor TExecutionContextClass.Destroy;
+begin
+  manifold_destruct_execution_context(Fobj);
   inherited Destroy;
 end;
 

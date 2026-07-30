@@ -56,6 +56,7 @@ type
   PManifoldManifoldVec = type Pointer;
   PManifoldCrossSection = type Pointer;
   PManifoldCrossSectionVec = type Pointer;
+  PManifoldRayHitVec =type Pointer;
   PManifoldSimplePolygon = type Pointer;
   PPManifoldSimplePolygon = ^PManifoldSimplePolygon;
   PManifoldPolygons = type Pointer;
@@ -64,6 +65,7 @@ type
   PManifoldBox = type Pointer;
   PManifoldRect = type Pointer;
   PManifoldTriangulation = type Pointer;
+  PManifoldExecutionContext =type Pointer;
 
 type
   TManifoldManifoldPair = record
@@ -131,6 +133,15 @@ type
   PManifoldMeshGL64Options = ^TManifoldMeshGL64Options;
 
 type
+  TManifoldRayHit = record
+    face_id: Tuint64_t;
+    distance: Double;
+    position: TManifoldVec3;
+    normal: TManifoldVec3;
+  end;
+  PManifoldRayHit = ^TManifoldRayHit;
+
+type
   PManifoldOpType = ^TManifoldOpType;
   TManifoldOpType = longint;
 
@@ -157,16 +168,8 @@ const
   MANIFOLD_FACE_ID_WRONG_LENGTH = 10;
   MANIFOLD_INVALID_CONSTRUCTION = 11;
   MANIFOLD_RESULT_TOO_LARGE = 12;
-
-type
-  PManifoldFillRule = ^TManifoldFillRule;
-  TManifoldFillRule = longint;
-
-const
-  MANIFOLD_FILL_RULE_EVEN_ODD = 0;
-  MANIFOLD_FILL_RULE_NON_ZERO = 1;
-  MANIFOLD_FILL_RULE_POSITIVE = 2;
-  MANIFOLD_FILL_RULE_NEGATIVE = 3;
+  MANIFOLD_INVALID_TANGENTS=13;
+  MANIFOLD_CANCELLED=14;
 
 type
   PManifoldJoinType = ^TManifoldJoinType;
@@ -255,6 +258,8 @@ function manifold_smooth_out(mem: pointer; m: PManifoldManifold; minSharpAngle: 
 function manifold_refine(mem: pointer; m: PManifoldManifold; refine: longint): PManifoldManifold; cdecl; external libmanifoldc;
 function manifold_refine_to_length(mem: pointer; m: PManifoldManifold; length: double): PManifoldManifold; cdecl; external libmanifoldc;
 function manifold_refine_to_tolerance(mem: pointer; m: PManifoldManifold; tolerance: double): PManifoldManifold; cdecl; external libmanifoldc;
+function manifold_set_tolerance(mem: pointer; m: PManifoldManifold; tolerance: double): PManifoldManifold; cdecl; external libmanifoldc;
+function manifold_simplify(mem: pointer; m: PManifoldManifold; tolerance: double): PManifoldManifold; cdecl; external libmanifoldc;
 
 function manifold_empty(mem: pointer): PManifoldManifold; cdecl; external libmanifoldc;
 function manifold_copy(mem: pointer; m: PManifoldManifold): PManifoldManifold; cdecl; external libmanifoldc;
@@ -274,12 +279,15 @@ function manifold_as_original(mem: pointer; m: PManifoldManifold): PManifoldMani
 
 function manifold_is_empty(m: PManifoldManifold): longint; cdecl; external libmanifoldc;
 function manifold_status(m: PManifoldManifold): TManifoldError; cdecl; external libmanifoldc;
+function manifold_with_context(mem: pointer; m: PManifoldManifold; ctx: PManifoldExecutionContext): PManifoldManifold; cdecl; external libmanifoldc;
 function manifold_num_vert(m: PManifoldManifold): Tsize_t; cdecl; external libmanifoldc;
 function manifold_num_edge(m: PManifoldManifold): Tsize_t; cdecl; external libmanifoldc;
 function manifold_num_tri(m: PManifoldManifold): Tsize_t; cdecl; external libmanifoldc;
 function manifold_num_prop(m: PManifoldManifold): Tsize_t; cdecl; external libmanifoldc;
 function manifold_bounding_box(mem: pointer; m: PManifoldManifold): PManifoldBox; cdecl; external libmanifoldc;
 function manifold_epsilon(m: PManifoldManifold): double; cdecl; external libmanifoldc;
+function manifold_get_tolerance(m: PManifoldManifold): double; cdecl; external libmanifoldc;
+function manifold_num_prop_vert(m: PManifoldManifold): Tsize_t; cdecl; external libmanifoldc;
 function manifold_genus(m: PManifoldManifold): longint; cdecl; external libmanifoldc;
 function manifold_surface_area(m: PManifoldManifold): double; cdecl; external libmanifoldc;
 function manifold_volume(m: PManifoldManifold): double; cdecl; external libmanifoldc;
@@ -294,16 +302,34 @@ function manifold_set_properties(mem: pointer; m: PManifoldManifold; num_prop: l
 function manifold_calculate_curvature(mem: pointer; m: PManifoldManifold; gaussian_idx: longint; mean_idx: longint): PManifoldManifold; cdecl; external libmanifoldc;
 function manifold_min_gap(m: PManifoldManifold; other: PManifoldManifold; searchLength: double): double; cdecl; external libmanifoldc;
 function manifold_calculate_normals(mem: pointer; m: PManifoldManifold; normal_idx: longint; min_sharp_angle: double): PManifoldManifold; cdecl; external libmanifoldc;
+          (*vvvvvvvvvvvvvvvvvvvvvvv*)
+function manifold_ray_cast(mem: pointer; m: PManifoldManifold; origin_x: double; origin_y: double; origin_z: double; end_x: double; end_y: double; end_z: double): PManifoldRayHitVec; cdecl; external libmanifoldc;
+function manifold_ray_hit_vec_length(v: PManifoldRayHitVec): Tsize_t; cdecl; external libmanifoldc;
+function manifold_ray_hit_vec_get(v: PManifoldRayHitVec; idx: Tsize_t): TManifoldRayHit; cdecl; external libmanifoldc;
+
+function manifold_winding_number(m: PManifoldManifold; x: double; y: double; z: double): longint; cdecl; external libmanifoldc;
+
+function manifold_execution_context(mem: pointer): PManifoldExecutionContext; cdecl; external libmanifoldc;
+procedure manifold_execution_context_cancel(ctx: PManifoldExecutionContext); cdecl; external libmanifoldc;
+function manifold_execution_context_cancelled(ctx: PManifoldExecutionContext): longint; cdecl; external libmanifoldc;
+function manifold_execution_context_progress(ctx: PManifoldExecutionContext): double; cdecl; external libmanifoldc;
+
+function manifold_execution_context_level_set(mem: pointer; ec: PManifoldExecutionContext; sdf: TManifoldSdf; bounds: PManifoldBox; edge_length: double; level: double; tolerance: double; sdf_context: pointer): PManifoldManifold; cdecl; external libmanifoldc;
+function manifold_execution_context_level_set_seq(mem: pointer; ec: PManifoldExecutionContext; sdf: TManifoldSdf; bounds: PManifoldBox; edge_length: double; level: double; tolerance: double; sdf_context: pointer): PManifoldManifold; cdecl; external libmanifoldc;
+function manifold_execution_context_of_meshgl(mem: pointer; ec: PManifoldExecutionContext; mesh: PManifoldMeshGL): PManifoldManifold; cdecl; external libmanifoldc;
+function manifold_execution_context_of_meshgl64(mem: pointer; ec: PManifoldExecutionContext; mesh: PManifoldMeshGL64): PManifoldManifold; cdecl; external libmanifoldc;
+function manifold_execution_context_smooth(mem: pointer; ec: PManifoldExecutionContext; mesh: PManifoldMeshGL; half_edges: Psize_t; smoothness: Pdouble; n_edges: Tsize_t): PManifoldManifold; cdecl; external libmanifoldc;
+function manifold_execution_context_smooth64(mem: pointer; ec: PManifoldExecutionContext; mesh: PManifoldMeshGL64; half_edges: Psize_t; smoothness: Pdouble; n_edges: Tsize_t): PManifoldManifold; cdecl; external libmanifoldc;
 
 function manifold_cross_section_empty(mem: pointer): PManifoldCrossSection; cdecl; external libmanifoldc;
 function manifold_cross_section_copy(mem: pointer; cs: PManifoldCrossSection): PManifoldCrossSection; cdecl; external libmanifoldc;
-function manifold_cross_section_of_simple_polygon(mem: pointer; p: PManifoldSimplePolygon; fr: TManifoldFillRule): PManifoldCrossSection; cdecl; external libmanifoldc;
-function manifold_cross_section_of_polygons(mem: pointer; p: PManifoldPolygons; fr: TManifoldFillRule): PManifoldCrossSection; cdecl; external libmanifoldc;
+function manifold_cross_section_of_simple_polygon(mem: pointer; p: PManifoldSimplePolygon): PManifoldCrossSection; cdecl; external libmanifoldc;
+function manifold_cross_section_of_polygons(mem: pointer; p: PManifoldPolygons): PManifoldCrossSection; cdecl; external libmanifoldc;
 function manifold_cross_section_square(mem: pointer; x: double; y: double; center: longint): PManifoldCrossSection; cdecl; external libmanifoldc;
 function manifold_cross_section_circle(mem: pointer; radius: double; circular_segments: longint): PManifoldCrossSection; cdecl; external libmanifoldc;
 function manifold_cross_section_compose(mem: pointer; csv: PManifoldCrossSectionVec): PManifoldCrossSection; cdecl; external libmanifoldc;
 function manifold_cross_section_decompose(mem: pointer; cs: PManifoldCrossSection): PManifoldCrossSectionVec; cdecl; external libmanifoldc;
-
+      (***^^^^^^^^^^^^^**)
 function manifold_cross_section_empty_vec(mem: pointer): PManifoldCrossSectionVec; cdecl; external libmanifoldc;
 function manifold_cross_section_vec(mem: pointer; sz: Tsize_t): PManifoldCrossSectionVec; cdecl; external libmanifoldc;
 procedure manifold_cross_section_vec_reserve(csv: PManifoldCrossSectionVec; sz: Tsize_t); cdecl; external libmanifoldc;
@@ -333,12 +359,13 @@ type
   Tsection_warp_func = function(para1: double; para2: double): TManifoldVec2; cdecl;
   Twarp_context_func = function(para1: double; para2: double; para3: pointer): TManifoldVec2; cdecl;
 
-function manifold_cross_section_warp(mem: pointer; cs: PManifoldCrossSection; fun: Tsection_warp_func): PManifoldCrossSection; cdecl; external libmanifoldc;
 function manifold_cross_section_warp_context(mem: pointer; cs: PManifoldCrossSection; fun: Twarp_context_func; ctx: pointer): PManifoldCrossSection; cdecl; external libmanifoldc;
-function manifold_cross_section_simplify(mem: pointer; cs: PManifoldCrossSection; epsilon: double): PManifoldCrossSection; cdecl; external libmanifoldc;
+function manifold_cross_section_simplify(mem: pointer; cs: PManifoldCrossSection; tolerance: double): PManifoldCrossSection; cdecl; external libmanifoldc;
+function manifold_cross_section_set_tolerance(mem: pointer; cs: PManifoldCrossSection; tolerance: double): PManifoldCrossSection; cdecl; external libmanifoldc;
 function manifold_cross_section_offset(mem: pointer; cs: PManifoldCrossSection; delta: double; jt: TManifoldJoinType; miter_limit: double; circular_segments: longint): PManifoldCrossSection; cdecl; external libmanifoldc;
 
 function manifold_cross_section_area(cs: PManifoldCrossSection): double; cdecl; external libmanifoldc;
+function manifold_cross_section_get_tolerance(cs: PManifoldCrossSection): double; cdecl; external libmanifoldc;
 function manifold_cross_section_num_vert(cs: PManifoldCrossSection): Tsize_t; cdecl; external libmanifoldc;
 function manifold_cross_section_num_contour(cs: PManifoldCrossSection): Tsize_t; cdecl; external libmanifoldc;
 function manifold_cross_section_is_empty(cs: PManifoldCrossSection): longint; cdecl; external libmanifoldc;
@@ -404,6 +431,15 @@ function manifold_meshgl_run_original_id(mem: pointer; m: PManifoldMeshGL): Puin
 function manifold_meshgl_run_transform(mem: pointer; m: PManifoldMeshGL): Psingle; cdecl; external libmanifoldc;
 function manifold_meshgl_face_id(mem: pointer; m: PManifoldMeshGL): Puint32_t; cdecl; external libmanifoldc;
 function manifold_meshgl_halfedge_tangent(mem: pointer; m: PManifoldMeshGL): Psingle; cdecl; external libmanifoldc;
+(*vvvvvvvvvvvvvvvvvvvvv*)
+function manifold_meshgl_tolerance(m: PManifoldMeshGL): single; cdecl; external libmanifoldc;
+function manifold_meshgl_run_flags_length(m: PManifoldMeshGL): Tsize_t; cdecl; external libmanifoldc;
+function manifold_meshgl_run_flags(mem: pointer; m: PManifoldMeshGL): Puint8_t; cdecl; external libmanifoldc;
+function manifold_meshgl_num_run(m: PManifoldMeshGL): Tsize_t; cdecl; external libmanifoldc;
+function manifold_meshgl_backside(m: PManifoldMeshGL; run: Tsize_t): longint; cdecl; external libmanifoldc;
+function manifold_meshgl_has_normals(m: PManifoldMeshGL; run: Tsize_t): longint; cdecl; external libmanifoldc;
+(***^^^^^^^^^^^^^**)
+
 
 function manifold_meshgl64_num_prop(m: PManifoldMeshGL64): Tsize_t; cdecl; external libmanifoldc;
 function manifold_meshgl64_num_vert(m: PManifoldMeshGL64): Tsize_t; cdecl; external libmanifoldc;
@@ -425,6 +461,15 @@ function manifold_meshgl64_run_original_id(mem: pointer; m: PManifoldMeshGL64): 
 function manifold_meshgl64_run_transform(mem: pointer; m: PManifoldMeshGL64): Pdouble; cdecl; external libmanifoldc;
 function manifold_meshgl64_face_id(mem: pointer; m: PManifoldMeshGL64): Puint64_t; cdecl; external libmanifoldc;
 function manifold_meshgl64_halfedge_tangent(mem: pointer; m: PManifoldMeshGL64): Pdouble; cdecl; external libmanifoldc;
+(*vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv*)
+function manifold_meshgl64_tolerance(m: PManifoldMeshGL64): double; cdecl; external libmanifoldc;
+function manifold_meshgl64_run_flags_length(m: PManifoldMeshGL64): Tsize_t; cdecl; external libmanifoldc;
+function manifold_meshgl64_run_flags(mem: pointer; m: PManifoldMeshGL64): Puint8_t; cdecl; external libmanifoldc;
+function manifold_meshgl64_num_run(m: PManifoldMeshGL64): Tsize_t; cdecl; external libmanifoldc;
+function manifold_meshgl64_backside(m: PManifoldMeshGL64; run: Tsize_t): longint; cdecl; external libmanifoldc;
+function manifold_meshgl64_has_normals(m: PManifoldMeshGL64; run: Tsize_t): longint; cdecl; external libmanifoldc;
+(***^^^^^^^^^^^^^**)
+
 
 function manifold_triangulate(mem: pointer; ps: PManifoldPolygons; epsilon: double): PManifoldTriangulation; cdecl; external libmanifoldc;
 function manifold_triangulation_num_tri(m: PManifoldTriangulation): Tsize_t; cdecl; external libmanifoldc;
@@ -434,6 +479,7 @@ function manifold_manifold_size: Tsize_t; cdecl; external libmanifoldc;
 function manifold_manifold_vec_size: Tsize_t; cdecl; external libmanifoldc;
 function manifold_cross_section_size: Tsize_t; cdecl; external libmanifoldc;
 function manifold_cross_section_vec_size: Tsize_t; cdecl; external libmanifoldc;
+function manifold_ray_hit_vec_size: Tsize_t; cdecl; external libmanifoldc;
 function manifold_simple_polygon_size: Tsize_t; cdecl; external libmanifoldc;
 function manifold_polygons_size: Tsize_t; cdecl; external libmanifoldc;
 function manifold_manifold_pair_size: Tsize_t; cdecl; external libmanifoldc;
@@ -443,11 +489,13 @@ function manifold_box_size: Tsize_t; cdecl; external libmanifoldc;
 function manifold_rect_size: Tsize_t; cdecl; external libmanifoldc;
 function manifold_curvature_size: Tsize_t; cdecl; external libmanifoldc;
 function manifold_triangulation_size: Tsize_t; cdecl; external libmanifoldc;
+function manifold_execution_context_size: Tsize_t; cdecl; external libmanifoldc;
 
 function manifold_alloc_manifold: PManifoldManifold; cdecl; external libmanifoldc;
 function manifold_alloc_manifold_vec: PManifoldManifoldVec; cdecl; external libmanifoldc;
 function manifold_alloc_cross_section: PManifoldCrossSection; cdecl; external libmanifoldc;
 function manifold_alloc_cross_section_vec: PManifoldCrossSectionVec; cdecl; external libmanifoldc;
+function manifold_alloc_ray_hit_vec: PManifoldRayHitVec; cdecl; external libmanifoldc;
 function manifold_alloc_simple_polygon: PManifoldSimplePolygon; cdecl; external libmanifoldc;
 function manifold_alloc_polygons: PManifoldPolygons; cdecl; external libmanifoldc;
 function manifold_alloc_meshgl: PManifoldMeshGL; cdecl; external libmanifoldc;
@@ -455,11 +503,13 @@ function manifold_alloc_meshgl64: PManifoldMeshGL64; cdecl; external libmanifold
 function manifold_alloc_box: PManifoldBox; cdecl; external libmanifoldc;
 function manifold_alloc_rect: PManifoldRect; cdecl; external libmanifoldc;
 function manifold_alloc_triangulation: PManifoldTriangulation; cdecl; external libmanifoldc;
+function manifold_alloc_execution_context: PManifoldExecutionContext; cdecl; external libmanifoldc;
 
 procedure manifold_destruct_manifold(m: PManifoldManifold); cdecl; external libmanifoldc;
 procedure manifold_destruct_manifold_vec(ms: PManifoldManifoldVec); cdecl; external libmanifoldc;
 procedure manifold_destruct_cross_section(m: PManifoldCrossSection); cdecl; external libmanifoldc;
 procedure manifold_destruct_cross_section_vec(csv: PManifoldCrossSectionVec); cdecl; external libmanifoldc;
+procedure manifold_destruct_ray_hit_vec(v: PManifoldRayHitVec); cdecl; external libmanifoldc;
 procedure manifold_destruct_simple_polygon(p: PManifoldSimplePolygon); cdecl; external libmanifoldc;
 procedure manifold_destruct_polygons(p: PManifoldPolygons); cdecl; external libmanifoldc;
 procedure manifold_destruct_meshgl(m: PManifoldMeshGL); cdecl; external libmanifoldc;
@@ -467,11 +517,13 @@ procedure manifold_destruct_meshgl64(m: PManifoldMeshGL64); cdecl; external libm
 procedure manifold_destruct_box(b: PManifoldBox); cdecl; external libmanifoldc;
 procedure manifold_destruct_rect(b: PManifoldRect); cdecl; external libmanifoldc;
 procedure manifold_destruct_triangulation(M: PManifoldTriangulation); cdecl; external libmanifoldc;
+procedure manifold_destruct_execution_context(ctx: PManifoldExecutionContext); cdecl; external libmanifoldc;
 
 procedure manifold_delete_manifold(m: PManifoldManifold); cdecl; external libmanifoldc;
 procedure manifold_delete_manifold_vec(ms: PManifoldManifoldVec); cdecl; external libmanifoldc;
 procedure manifold_delete_cross_section(cs: PManifoldCrossSection); cdecl; external libmanifoldc;
 procedure manifold_delete_cross_section_vec(csv: PManifoldCrossSectionVec); cdecl; external libmanifoldc;
+procedure manifold_delete_ray_hit_vec(v: PManifoldRayHitVec); cdecl; external libmanifoldc;
 procedure manifold_delete_simple_polygon(p: PManifoldSimplePolygon); cdecl; external libmanifoldc;
 procedure manifold_delete_polygons(p: PManifoldPolygons); cdecl; external libmanifoldc;
 procedure manifold_delete_meshgl(m: PManifoldMeshGL); cdecl; external libmanifoldc;
@@ -479,6 +531,7 @@ procedure manifold_delete_meshgl64(m: PManifoldMeshGL64); cdecl; external libman
 procedure manifold_delete_box(b: PManifoldBox); cdecl; external libmanifoldc;
 procedure manifold_delete_rect(b: PManifoldRect); cdecl; external libmanifoldc;
 procedure manifold_delete_triangulation(m: PManifoldTriangulation); cdecl; external libmanifoldc;
+procedure manifold_delete_execution_context(ctx: PManifoldExecutionContext); cdecl; external libmanifoldc;
 
 type
   Tmani_write_proc = procedure(para1: pchar; para2: pointer); cdecl;
