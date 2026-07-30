@@ -3,90 +3,53 @@ unit as_agreement;
 interface
 
 uses
-  fp_glib2;
+  fp_glib2, fp_appstream, as_agreement_section;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
-{ -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
- *
- * Copyright (C) 2018-2024 Matthias Klumpp <matthias@tenstral.net>
- * Copyright (C) 2018 Richard Hughes <richard@hughsie.com>
- *
- * Licensed under the GNU Lesser General Public License Version 2.1
- *
- * This library is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 2.1 of the license, or
- * (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this library.  If not, see <http://www.gnu.org/licenses/>.
-  }
-{$if !defined(__APPSTREAM_H) && !defined(AS_COMPILATION)}
-{$error "Only <appstream.h> can be included directly."}
-{$endif}
-{$ifndef __AS_AGREEMENT_H}
-{$define __AS_AGREEMENT_H}
-{$include <glib-object.h>}
-{$include "as-agreement-section.h"}
-
-{G_DECLARE_DERIVABLE_TYPE (AsAgreement, as_agreement, AS, AGREEMENT, GObject) }
-{< private > }
 type
+  PAsAgreementKind = ^TAsAgreementKind;
+  TAsAgreementKind = longint;
+const
+  AS_AGREEMENT_KIND_UNKNOWN = 0;
+  AS_AGREEMENT_KIND_GENERIC = 1;
+  AS_AGREEMENT_KIND_EULA = 2;
+  AS_AGREEMENT_KIND_PRIVACY = 3;
+  AS_AGREEMENT_KIND_LAST = 4;
+
+type
+  TAsAgreement = record
+    parent_instance: TGObject;
+  end;
+  PAsAgreement = ^TAsAgreement;
+
   PAsAgreementClass = ^TAsAgreementClass;
   TAsAgreementClass = record
-      parent_class : TGObjectClass;
-      _as_reserved1 : procedure ;cdecl;
-      _as_reserved2 : procedure ;cdecl;
-      _as_reserved3 : procedure ;cdecl;
-      _as_reserved4 : procedure ;cdecl;
-      _as_reserved5 : procedure ;cdecl;
-      _as_reserved6 : procedure ;cdecl;
-      _as_reserved7 : procedure ;cdecl;
-      _as_reserved8 : procedure ;cdecl;
-    end;
+    parent_class: TGObjectClass;
+    _as_reserved1: procedure; cdecl;
+    _as_reserved2: procedure; cdecl;
+    _as_reserved3: procedure; cdecl;
+    _as_reserved4: procedure; cdecl;
+    _as_reserved5: procedure; cdecl;
+    _as_reserved6: procedure; cdecl;
+    _as_reserved7: procedure; cdecl;
+    _as_reserved8: procedure; cdecl;
+  end;
 
-{*
- * AsAgreementKind:
- * @AS_AGREEMENT_KIND_UNKNOWN:		Unknown value
- * @AS_AGREEMENT_KIND_GENERIC:		A generic agreement without a specific type
- * @AS_AGREEMENT_KIND_EULA:		An End User License Agreement
- * @AS_AGREEMENT_KIND_PRIVACY:		A privacy agreement, typically a GDPR statement
- *
- * The kind of the agreement.
- * }
-{< private > }
-
-  PAsAgreementKind = ^TAsAgreementKind;
-  TAsAgreementKind =  Longint;
-  Const
-    AS_AGREEMENT_KIND_UNKNOWN = 0;
-    AS_AGREEMENT_KIND_GENERIC = 1;
-    AS_AGREEMENT_KIND_EULA = 2;
-    AS_AGREEMENT_KIND_PRIVACY = 3;
-    AS_AGREEMENT_KIND_LAST = 4;
-;
-
-function as_agreement_new:PAsAgreement;cdecl;external libappstream;
-function as_agreement_kind_to_string(value:TAsAgreementKind):Pgchar;cdecl;external libappstream;
-function as_agreement_kind_from_string(value:Pgchar):TAsAgreementKind;cdecl;external libappstream;
-function as_agreement_get_kind(agreement:PAsAgreement):TAsAgreementKind;cdecl;external libappstream;
-procedure as_agreement_set_kind(agreement:PAsAgreement; kind:TAsAgreementKind);cdecl;external libappstream;
-function as_agreement_get_version_id(agreement:PAsAgreement):Pgchar;cdecl;external libappstream;
-procedure as_agreement_set_version_id(agreement:PAsAgreement; version_id:Pgchar);cdecl;external libappstream;
-function as_agreement_get_section_default(agreement:PAsAgreement):PAsAgreementSection;cdecl;external libappstream;
-function as_agreement_get_sections(agreement:PAsAgreement):PGPtrArray;cdecl;external libappstream;
-procedure as_agreement_add_section(agreement:PAsAgreement; agreement_section:PAsAgreementSection);cdecl;external libappstream;
-{$endif}
-{ __AS_AGREEMENT_H  }
+function as_agreement_get_type: TGType; cdecl; external libappstream;
+function as_agreement_new: PAsAgreement; cdecl; external libappstream;
+function as_agreement_kind_to_string(value: TAsAgreementKind): Pgchar; cdecl; external libappstream;
+function as_agreement_kind_from_string(value: Pgchar): TAsAgreementKind; cdecl; external libappstream;
+function as_agreement_get_kind(agreement: PAsAgreement): TAsAgreementKind; cdecl; external libappstream;
+procedure as_agreement_set_kind(agreement: PAsAgreement; kind: TAsAgreementKind); cdecl; external libappstream;
+function as_agreement_get_version_id(agreement: PAsAgreement): Pgchar; cdecl; external libappstream;
+procedure as_agreement_set_version_id(agreement: PAsAgreement; version_id: Pgchar); cdecl; external libappstream;
+function as_agreement_get_section_default(agreement: PAsAgreement): PAsAgreementSection; cdecl; external libappstream;
+function as_agreement_get_sections(agreement: PAsAgreement): PGPtrArray; cdecl; external libappstream;
+procedure as_agreement_add_section(agreement: PAsAgreement; agreement_section: PAsAgreementSection); cdecl; external libappstream;
 
 // === Konventiert am: 30-7-26 19:37:03 ===
 
@@ -128,17 +91,5 @@ function AS_AGREEMENT_GET_CLASS(obj: Pointer): PAsAgreementClass;
 begin
   Result := PAsAgreementClass(PGTypeInstance(obj)^.g_class);
 end;
-
-type 
-  TAsAgreement = record
-    parent_instance: TGObject;
-  end;
-  PAsAgreement = ^TAsAgreement;
-
-  PAsAgreementClass = type Pointer;
-
-function as_agreement_get_type: TGType; cdecl; external libgxxxxxxx;
-
-
 
 end.

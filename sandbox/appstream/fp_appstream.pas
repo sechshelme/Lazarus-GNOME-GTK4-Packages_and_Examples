@@ -1,13 +1,30 @@
 unit fp_appstream;
 
-{$mode ObjFPC}{$H+}
-
 interface
 
-uses
-  Classes, SysUtils;
+const
+  {$IFDEF Linux}
+  libappstream = 'appstream';
+  {$ENDIF}
+
+  {$IFDEF Windows}
+  {$FATAL  no supported}
+  {$ENDIF}
+
+
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
+
+  {$DEFINE read_interface}
+  //{$include fp_appstream_includes.inc}
+  {$UNDEF read_interface}
 
 implementation
+
+{$DEFINE read_implementation}
+//{$include fp_appstream_includes.inc}
+{$UNDEF read_interface}
 
 end.
 

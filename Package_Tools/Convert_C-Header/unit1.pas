@@ -131,7 +131,7 @@ begin
       slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_ALLOC_SIZE', ';//', [rfReplaceAll]);
 
       slHeader[j] := StringReplace(slHeader[j], 'GES_API', 'extern', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'fp_glib2;', 'fp_glib2, fp_appstream;', [rfReplaceAll]);
+//      slHeader[j] := StringReplace(slHeader[j], 'fp_glib2;', 'fp_glib2, fp_appstream;', [rfReplaceAll]);
 
 
 

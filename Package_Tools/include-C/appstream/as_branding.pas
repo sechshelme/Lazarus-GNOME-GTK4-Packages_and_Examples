@@ -3,111 +3,69 @@ unit as_branding;
 interface
 
 uses
-  fp_glib2;
+  fp_glib2, fp_appstream;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
-{ -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
- *
- * Copyright (C) 2022-2024 Matthias Klumpp <matthias@tenstral.net>
- *
- * Licensed under the GNU Lesser General Public License Version 2.1
- *
- * This library is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 2.1 of the license, or
- * (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this library.  If not, see <http://www.gnu.org/licenses/>.
-  }
-{$if !defined(__APPSTREAM_H) && !defined(AS_COMPILATION)}
-{$error "Only <appstream.h> can be included directly."}
-{$endif}
-{$ifndef __AS_BRANDING_H}
-{$define __AS_BRANDING_H}
-{$include <glib-object.h>}
-
-{G_DECLARE_DERIVABLE_TYPE (AsBranding, as_branding, AS, BRANDING, GObject) }
-{< private > }
 type
-  PAsBrandingClass = ^TAsBrandingClass;
-  TAsBrandingClass = record
-      parent_class : TGObjectClass;
-      _as_reserved1 : procedure ;cdecl;
-      _as_reserved2 : procedure ;cdecl;
-      _as_reserved3 : procedure ;cdecl;
-      _as_reserved4 : procedure ;cdecl;
-      _as_reserved5 : procedure ;cdecl;
-      _as_reserved6 : procedure ;cdecl;
-    end;
-
-{< private > }
-
   PAsBrandingColorIter = ^TAsBrandingColorIter;
   TAsBrandingColorIter = record
-      dummy1 : Tgpointer;
-      dummy2 : Tguint;
-      dummy3 : Tgpointer;
-      dummy4 : Tgpointer;
-      dummy5 : Tgpointer;
-      dummy6 : Tgpointer;
-    end;
-{*
- * AsColorKind:
- * @AS_COLOR_KIND_UNKNOWN:	Color type invalid or not known
- * @AS_COLOR_KIND_PRIMARY:	Primary accent color
- *
- * A branding color type.
- * }
-{< private > }
+    dummy1: Tgpointer;
+    dummy2: Tguint;
+    dummy3: Tgpointer;
+    dummy4: Tgpointer;
+    dummy5: Tgpointer;
+    dummy6: Tgpointer;
+  end;
 
+type
   PAsColorKind = ^TAsColorKind;
-  TAsColorKind =  Longint;
-  Const
-    AS_COLOR_KIND_UNKNOWN = 0;
-    AS_COLOR_KIND_PRIMARY = 1;
-    AS_COLOR_KIND_LAST = 2;
-;
-{*
- * AsColorSchemeKind:
- * @AS_COLOR_SCHEME_KIND_UNKNOWN:	Color scheme invalid or not known
- * @AS_COLOR_SCHEME_KIND_LIGHT:		A light color scheme
- * @AS_COLOR_SCHEME_KIND_DARK:		A dark color scheme
- *
- * A color scheme type.
- * }
-{< private > }
+  TAsColorKind = longint;
+const
+  AS_COLOR_KIND_UNKNOWN = 0;
+  AS_COLOR_KIND_PRIMARY = 1;
+  AS_COLOR_KIND_LAST = 2;
+
 type
   PAsColorSchemeKind = ^TAsColorSchemeKind;
-  TAsColorSchemeKind =  Longint;
-  Const
-    AS_COLOR_SCHEME_KIND_UNKNOWN = 0;
-    AS_COLOR_SCHEME_KIND_LIGHT = 1;
-    AS_COLOR_SCHEME_KIND_DARK = 2;
-    AS_COLOR_SCHEME_KIND_LAST = 3;
-;
+  TAsColorSchemeKind = longint;
+const
+  AS_COLOR_SCHEME_KIND_UNKNOWN = 0;
+  AS_COLOR_SCHEME_KIND_LIGHT = 1;
+  AS_COLOR_SCHEME_KIND_DARK = 2;
+  AS_COLOR_SCHEME_KIND_LAST = 3;
 
-function as_color_kind_to_string(kind:TAsColorKind):Pgchar;cdecl;external libappstream;
-function as_color_kind_from_string(str:Pgchar):TAsColorKind;cdecl;external libappstream;
-function as_color_scheme_kind_to_string(kind:TAsColorSchemeKind):Pgchar;cdecl;external libappstream;
-function as_color_scheme_kind_from_string(str:Pgchar):TAsColorSchemeKind;cdecl;external libappstream;
-function as_branding_new:PAsBranding;cdecl;external libappstream;
-procedure as_branding_set_color(branding:PAsBranding; kind:TAsColorKind; scheme_preference:TAsColorSchemeKind; colorcode:Pgchar);cdecl;external libappstream;
-procedure as_branding_remove_color(branding:PAsBranding; kind:TAsColorKind; scheme_preference:TAsColorSchemeKind);cdecl;external libappstream;
-procedure as_branding_color_iter_init(iter:PAsBrandingColorIter; branding:PAsBranding);cdecl;external libappstream;
-function as_branding_color_iter_next(iter:PAsBrandingColorIter; kind:PAsColorKind; scheme_preference:PAsColorSchemeKind; value:PPgchar):Tgboolean;cdecl;external libappstream;
-function as_branding_get_color(branding:PAsBranding; kind:TAsColorKind; scheme_kind:TAsColorSchemeKind):Pgchar;cdecl;external libappstream;
-{$endif}
-{ __AS_BRANDING_H  }
+type
+  TAsBranding = record
+    parent_instance: TGObject;
+  end;
+  PAsBranding = ^TAsBranding;
+
+  PAsBrandingClass = ^TAsBrandingClass;
+  TAsBrandingClass = record
+    parent_class: TGObjectClass;
+    _as_reserved1: procedure; cdecl;
+    _as_reserved2: procedure; cdecl;
+    _as_reserved3: procedure; cdecl;
+    _as_reserved4: procedure; cdecl;
+    _as_reserved5: procedure; cdecl;
+    _as_reserved6: procedure; cdecl;
+  end;
+
+function as_branding_get_type: TGType; cdecl; external libappstream;
+function as_color_kind_to_string(kind: TAsColorKind): Pgchar; cdecl; external libappstream;
+function as_color_kind_from_string(str: Pgchar): TAsColorKind; cdecl; external libappstream;
+function as_color_scheme_kind_to_string(kind: TAsColorSchemeKind): Pgchar; cdecl; external libappstream;
+function as_color_scheme_kind_from_string(str: Pgchar): TAsColorSchemeKind; cdecl; external libappstream;
+function as_branding_new: PAsBranding; cdecl; external libappstream;
+procedure as_branding_set_color(branding: PAsBranding; kind: TAsColorKind; scheme_preference: TAsColorSchemeKind; colorcode: Pgchar); cdecl; external libappstream;
+procedure as_branding_remove_color(branding: PAsBranding; kind: TAsColorKind; scheme_preference: TAsColorSchemeKind); cdecl; external libappstream;
+procedure as_branding_color_iter_init(iter: PAsBrandingColorIter; branding: PAsBranding); cdecl; external libappstream;
+function as_branding_color_iter_next(iter: PAsBrandingColorIter; kind: PAsColorKind; scheme_preference: PAsColorSchemeKind; value: PPgchar): Tgboolean; cdecl; external libappstream;
+function as_branding_get_color(branding: PAsBranding; kind: TAsColorKind; scheme_kind: TAsColorSchemeKind): Pgchar; cdecl; external libappstream;
 
 // === Konventiert am: 30-7-26 19:36:51 ===
 
@@ -149,17 +107,5 @@ function AS_BRANDING_GET_CLASS(obj: Pointer): PAsBrandingClass;
 begin
   Result := PAsBrandingClass(PGTypeInstance(obj)^.g_class);
 end;
-
-type 
-  TAsBranding = record
-    parent_instance: TGObject;
-  end;
-  PAsBranding = ^TAsBranding;
-
-  PAsBrandingClass = type Pointer;
-
-function as_branding_get_type: TGType; cdecl; external libgxxxxxxx;
-
-
 
 end.

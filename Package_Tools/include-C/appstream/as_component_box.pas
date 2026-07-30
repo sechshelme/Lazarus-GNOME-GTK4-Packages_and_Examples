@@ -3,7 +3,7 @@ unit as_component_box;
 interface
 
 uses
-  fp_glib2;
+  fp_glib2, fp_appstream;
 
 {$IFDEF FPC}
 {$PACKRECORDS C}
@@ -57,7 +57,7 @@ type
 
 
 function as_component_box_get_type:TGType;cdecl;external libappstream;
-{G_DEFINE_AUTOPTR_CLEANUP_FUNC  (AsComponentBox, g_object_unref) }
+{//G_DEFINE_AUTOPTR_CLEANUP_FUNC   (AsComponentBox, g_object_unref) }
 {*
  * AsComponentBoxFlags:
  * @AS_COMPONENT_BOX_FLAG_NONE:		No flags.

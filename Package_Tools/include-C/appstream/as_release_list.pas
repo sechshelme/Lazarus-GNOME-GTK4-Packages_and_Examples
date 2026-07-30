@@ -3,7 +3,7 @@ unit as_release_list;
 interface
 
 uses
-  fp_glib2;
+  fp_glib2, fp_appstream;
 
 {$IFDEF FPC}
 {$PACKRECORDS C}
@@ -57,7 +57,7 @@ type
 
 
 function as_release_list_get_type:TGType;cdecl;external libappstream;
-{G_DEFINE_AUTOPTR_CLEANUP_FUNC  (AsReleaseList, g_object_unref) }
+{//G_DEFINE_AUTOPTR_CLEANUP_FUNC   (AsReleaseList, g_object_unref) }
 {*
  * AsReleaseListKind:
  * @AS_RELEASE_LIST_KIND_UNKNOWN:		Unknown releases type

@@ -3,7 +3,7 @@ unit as_content_rating;
 interface
 
 uses
-  fp_glib2;
+  fp_glib2, fp_appstream;
 
 {$IFDEF FPC}
 {$PACKRECORDS C}
