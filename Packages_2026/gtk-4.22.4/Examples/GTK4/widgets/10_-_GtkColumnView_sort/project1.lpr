@@ -2,26 +2,30 @@ program project1;
 
 uses
   fp_glib2,
-  fp_GTK4;
+  fp_GTK4,
+  ItemsObject, ColumnViewWidget;
 
 const
   ROWS = 8;
-  COL = 8;
-
-  item_value_key = 'item_value_key';
-
-type
-  TRowData = array[0..COL - 1] of Tgint;
-  PRowData = ^TRowData;
+  COL = 2;
 
   function compareFunc(a: Tgconstpointer; b: Tgconstpointer; user_data: Tgpointer): Tgint; cdecl;
   var
     column_index: Tgint absolute user_data;
-    rowData_a, rowData_b: PRowData;
+    item_a: PCVItem absolute a;
+    item_b: PCVItem absolute b;
+    ia, ib: pchar;
   begin
-    rowData_a := g_object_get_data(G_OBJECT(a), item_value_key);
-    rowData_b := g_object_get_data(G_OBJECT(b), item_value_key);
-    Result := rowData_a^[column_index] - rowData_b^[column_index];
+    if column_index = 0 then begin
+      ia := cv_item_get_col0(item_a);
+      ib := cv_item_get_col0(item_b);
+    end;
+    if column_index = 1 then begin
+      ia := cv_item_get_col1(item_a);
+      ib := cv_item_get_col1(item_b);
+    end;
+
+    Result := g_strcmp0(ia, ib);
   end;
 
   procedure object_free(Data: Tgpointer); cdecl;
@@ -33,19 +37,16 @@ type
   procedure add_item(store: PGListStore);
   var
     obj: PGObject;
-    Value: PRowData;
-    i: integer;
-  const
-    counter: Tgint = 0;
+    s0, s1: Pgchar;
   begin
-    obj := g_object_new(G_TYPE_OBJECT, nil);
-    Value := g_malloc(SizeOf(TRowData));
-    Value^[0] := counter;
-    Inc(counter);
-    for i := 1 to COL - 1 do begin
-      Value^[i] := g_random_int_range(1, 100);
-    end;
-    g_object_set_data_full(obj, item_value_key, Value, @object_free);
+    s0 := g_strdup_printf('%d', g_random_int_range(10, 99));
+    s1 := g_strdup_printf('%d', g_random_int_range(10, 99));
+
+    obj := cv_item_new(s0, s1);
+
+    g_free(s0);
+    g_free(s1);
+
     g_list_store_append(store, obj);
     g_object_unref(obj);
   end;
@@ -69,44 +70,54 @@ type
 
   procedure bind_cb(factory: PGtkSignalListItemFactory; list_item: PGtkListItem; user_data: Tgpointer); cdecl;
   var
-    column_index: Tgint absolute user_data;
-    label_: PGtkWidget;
-    buffer: Pgchar;
-    item: PGObject;
-    Value: PRowData;
+    col: Tgint absolute user_data;
+    lab: PGtkWidget;
+    item_obj: PGObject;
+    buffer: Pgchar = nil;
   begin
-    label_ := gtk_list_item_get_child(list_item);
-    item := gtk_list_item_get_item(list_item);
-    Value := g_object_get_data(item, item_value_key);
-    buffer := g_strdup_printf('%d', Value^[column_index]);
-    gtk_label_set_text(GTK_LABEL(label_), buffer);
-    g_free(buffer);
+    lab := gtk_list_item_get_child(list_item);
+    item_obj := gtk_list_item_get_item(list_item);
+    if item_obj = nil then begin
+      exit;
+    end;
+
+    case col of
+      0: begin
+        buffer := cv_item_get_col0(item_obj);
+      end;
+      1: begin
+        buffer := cv_item_get_col1(item_obj);
+      end;
+    end;
+
+    gtk_label_set_text(GTK_LABEL(lab), buffer);
   end;
 
   procedure on_row_activated_cb(view: PGtkColumnView; position: Tgint; user_data: Tgpointer); cdecl;
-  var
-    item: Tgpointer;
-    model: PGListModel;
-    obj: PRowData;
-    i: integer;
   begin
-    g_printf('Doubleclick Pos: %d'#10, position);
+  end;
 
-    model := G_LIST_MODEL(gtk_column_view_get_model(view));
-    item := g_list_model_get_item(model, position);
-    if item <> nil then begin
-      obj := g_object_get_data(item, item_value_key);
-      for i := 0 to COL - 1 do begin
-        g_printf('%d: %d   ', i, obj^[i]);
-      end;
-      g_printf(#10);
-    end;
-    g_object_unref(item);
+  procedure AddCVItem(cv: PColumnViewWidget);
+  var
+    obj: PGObject;
+    s0, s1: Pgchar;
+  begin
+    s0 := g_strdup_printf('%d', g_random_int_range(10, 99));
+    s1 := g_strdup_printf('%d', g_random_int_range(10, 99));
+
+    obj := cv_item_new(s0, s1);
+
+    g_free(s0);
+    g_free(s1);
+
+    column_view_box_add_item(cv, obj);
+    //  g_list_store_append(store, obj);
+    g_object_unref(obj);
   end;
 
   procedure activate(app: PGtkApplication; {%H-}user_data: Tgpointer); cdecl;
   var
-    window, scrolled_window, column_view, mainBox, button: PGtkWidget;
+    window, scrolled_window, column_view, mainBox, button, cv: PGtkWidget;
     store: PGListStore;
     view_sorter, column_sorter: PGtkSorter;
     sort_model: PGtkSortListModel;
@@ -156,6 +167,13 @@ type
     for i := 0 to ROWS - 1 do begin
       add_item(store);
     end;
+
+    cv := column_view_box_new;
+
+
+    for i := 0 to ROWS - 1 do begin AddCVItem(cv); end;
+
+    gtk_box_append(GTK_BOX(mainBox), cv);
 
     button := gtk_button_new_with_label('Add');
     g_signal_connect(button, 'clicked', G_CALLBACK(@quit_clicked_cp), store);

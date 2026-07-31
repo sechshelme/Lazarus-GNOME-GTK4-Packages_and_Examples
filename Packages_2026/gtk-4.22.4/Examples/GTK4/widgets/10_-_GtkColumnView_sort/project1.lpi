@@ -35,6 +35,14 @@
       <Unit>
         <Filename Value="project1.lpr"/>
       </Unit>
+      <Unit>
+        <Filename Value="itemsobject.pas"/>
+        <UnitName Value="ItemsObject"/>
+      </Unit>
+      <Unit>
+        <Filename Value="columnviewwidget.pas"/>
+        <UnitName Value="ColumnViewWidget"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

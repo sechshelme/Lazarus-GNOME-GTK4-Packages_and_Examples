@@ -149,7 +149,6 @@ procedure on_row_activated_cb(view: PGtkColumnView; position: Tgint; user_data: 
 begin
   g_signal_emit(user_data, signal_id, 0, 'listbox.stop');
   g_signal_emit(user_data, signal_id, 0, 'listbox.play');
-  WriteLn(integer(GTK_INVALID_LIST_POSITION));
 end;
 
 procedure on_selection_changed_cb(obj: PGObject; pspec: PGParamSpec; user_data: Tgpointer); cdecl;
