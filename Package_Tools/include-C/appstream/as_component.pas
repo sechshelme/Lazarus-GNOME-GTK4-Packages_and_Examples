@@ -1,15 +1,19 @@
 unit as_component;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
-  fp_glib2, fp_appstream, as_context, as_bundle, as_launchable, as_developer, as_screenshot;
+  fp_glib2, fp_appstream, as_context, as_bundle, as_launchable, as_developer, as_screenshot, as_icon, as_provided, as_release_list,
+  as_release, as_translation, as_suggested, as_category, as_content_rating, as_relation, as_agreement, as_branding, as_reference,as_review;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}
 
 
+  {$IFDEF read_enum}
 type
   PAsComponentKind = ^TAsComponentKind;
   TAsComponentKind = longint;
@@ -67,7 +71,9 @@ const
   AS_URL_KIND_VCS_BROWSER = 8;
   AS_URL_KIND_CONTRIBUTE = 9;
   AS_URL_KIND_LAST = 10;
+  {$ENDIF read_enum}
 
+  {$IFDEF read_struct}
 type
   TAsComponent = record
     parent_instance: TGObject;
@@ -84,7 +90,9 @@ type
     _as_reserved5: procedure; cdecl;
     _as_reserved6: procedure; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function as_component_get_type: TGType; cdecl; external libappstream;
 
 function as_component_kind_to_string(kind: TAsComponentKind): Pgchar; cdecl; external libappstream;
@@ -240,6 +248,7 @@ function AS_IS_COMPONENT(obj: Pointer): Tgboolean;
 function AS_COMPONENT_CLASS(klass: Pointer): PAsComponentClass;
 function AS_IS_COMPONENT_CLASS(klass: Pointer): Tgboolean;
 function AS_COMPONENT_GET_CLASS(obj: Pointer): PAsComponentClass;
+{$ENDIF read_function}
 
 implementation
 

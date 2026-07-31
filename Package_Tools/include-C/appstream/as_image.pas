@@ -1,5 +1,7 @@
 unit as_image;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_enum}
 type
   PAsImageKind = ^TAsImageKind;
   TAsImageKind = longint;
@@ -18,7 +21,9 @@ const
   AS_IMAGE_KIND_SOURCE = 1;
   AS_IMAGE_KIND_THUMBNAIL = 2;
   AS_IMAGE_KIND_LAST = 3;
+  {$ENDIF read_enum}
 
+  {$IFDEF read_struct}
 type
   TAsImage = record
     parent_instance: TGObject;
@@ -35,7 +40,9 @@ type
     _as_reserved5: procedure; cdecl;
     _as_reserved6: procedure; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function as_image_get_type: TGType; cdecl; external libappstream;
 function as_image_kind_from_string(kind: Pgchar): TAsImageKind; cdecl; external libappstream;
 function as_image_kind_to_string(kind: TAsImageKind): Pgchar; cdecl; external libappstream;
@@ -61,6 +68,7 @@ function AS_IS_IMAGE(obj: Pointer): Tgboolean;
 function AS_IMAGE_CLASS(klass: Pointer): PAsImageClass;
 function AS_IS_IMAGE_CLASS(klass: Pointer): Tgboolean;
 function AS_IMAGE_GET_CLASS(obj: Pointer): PAsImageClass;
+{$ENDIF read_function}
 
 implementation
 

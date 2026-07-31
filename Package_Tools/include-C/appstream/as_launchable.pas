@@ -1,5 +1,7 @@
 unit as_launchable;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_enum}
 type
   PAsLaunchableKind = ^TAsLaunchableKind;
   TAsLaunchableKind = longint;
@@ -20,8 +23,9 @@ const
   AS_LAUNCHABLE_KIND_COCKPIT_MANIFEST = 3;
   AS_LAUNCHABLE_KIND_URL = 4;
   AS_LAUNCHABLE_KIND_LAST = 5;
+  {$ENDIF read_enum}
 
-
+  {$IFDEF read_struct}
 type
   TAsLaunchable = record
     parent_instance: TGObject;
@@ -38,7 +42,9 @@ type
     _as_reserved5: procedure; cdecl;
     _as_reserved6: procedure; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function as_launchable_get_type: TGType; cdecl; external libappstream;
 function as_launchable_kind_to_string(kind: TAsLaunchableKind): Pgchar; cdecl; external libappstream;
 function as_launchable_kind_from_string(kind_str: Pgchar): TAsLaunchableKind; cdecl; external libappstream;
@@ -56,6 +62,7 @@ function AS_IS_LAUNCHABLE(obj: Pointer): Tgboolean;
 function AS_LAUNCHABLE_CLASS(klass: Pointer): PAsLaunchableClass;
 function AS_IS_LAUNCHABLE_CLASS(klass: Pointer): Tgboolean;
 function AS_LAUNCHABLE_GET_CLASS(obj: Pointer): PAsLaunchableClass;
+{$ENDIF read_struct}
 
 implementation
 

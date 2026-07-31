@@ -1,5 +1,7 @@
 unit as_checksum;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_enum}
 type
   PAsChecksumKind = ^TAsChecksumKind;
   TAsChecksumKind = longint;
@@ -21,7 +24,9 @@ const
   AS_CHECKSUM_KIND_BLAKE2B = 4;
   AS_CHECKSUM_KIND_BLAKE3 = 5;
   AS_CHECKSUM_KIND_LAST = 6;
+  {$ENDIF read_enum}
 
+  {$IFDEF read_struct}
 type
   TAsChecksum = record
     parent_instance: TGObject;
@@ -38,7 +43,9 @@ type
     _as_reserved5: procedure; cdecl;
     _as_reserved6: procedure; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function as_checksum_get_type: TGType; cdecl; external libappstream;
 function as_checksum_kind_to_string(kind: TAsChecksumKind): Pgchar; cdecl; external libappstream;
 function as_checksum_kind_from_string(kind_str: Pgchar): TAsChecksumKind; cdecl; external libappstream;
@@ -57,6 +64,7 @@ function AS_IS_CHECKSUM(obj: Pointer): Tgboolean;
 function AS_CHECKSUM_CLASS(klass: Pointer): PAsChecksumClass;
 function AS_IS_CHECKSUM_CLASS(klass: Pointer): Tgboolean;
 function AS_CHECKSUM_GET_CLASS(obj: Pointer): PAsChecksumClass;
+{$ENDIF read_function}
 
 implementation
 

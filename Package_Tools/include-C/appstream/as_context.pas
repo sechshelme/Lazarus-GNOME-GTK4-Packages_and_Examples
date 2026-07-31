@@ -1,5 +1,7 @@
 unit as_context;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_enum}
 type
   PAsFormatVersion = ^TAsFormatVersion;
   TAsFormatVersion = longint;
@@ -46,7 +49,9 @@ const
   AS_VALUE_FLAG_NONE = 0;
   AS_VALUE_FLAG_DUPLICATE_CHECK = 1 shl 0;
   AS_VALUE_FLAG_NO_TRANSLATION_FALLBACK = 1 shl 1;
+  {$ENDIF read_enum}
 
+  {$IFDEF read_struct}
 type
   TAsContext = record
     parent_instance: TGObject;
@@ -63,7 +68,9 @@ type
     _as_reserved5: procedure; cdecl;
     _as_reserved6: procedure; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function as_context_get_type: TGType; cdecl; external libappstream;
 function as_format_version_to_string(version: TAsFormatVersion): Pgchar; cdecl; external libappstream;
 function as_format_version_from_string(version_str: Pgchar): TAsFormatVersion; cdecl; external libappstream;
@@ -99,6 +106,7 @@ function AS_IS_CONTEXT(obj: Pointer): Tgboolean;
 function AS_CONTEXT_CLASS(klass: Pointer): PAsContextClass;
 function AS_IS_CONTEXT_CLASS(klass: Pointer): Tgboolean;
 function AS_CONTEXT_GET_CLASS(obj: Pointer): PAsContextClass;
+{$ENDIF read_function}
 
 implementation
 

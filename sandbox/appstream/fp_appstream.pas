@@ -11,6 +11,12 @@ const
   {$FATAL  no supported}
   {$ENDIF}
 
+  type
+  PAsComponent=Pointer;
+  PAsSystemInfo=Pointer;
+  PAsPool=Pointer;
+  PAsRelationCheckResult=Pointer;
+
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

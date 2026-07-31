@@ -1,5 +1,7 @@
 unit as_agreement;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_enum}
 type
   PAsAgreementKind = ^TAsAgreementKind;
   TAsAgreementKind = longint;
@@ -19,7 +22,9 @@ const
   AS_AGREEMENT_KIND_EULA = 2;
   AS_AGREEMENT_KIND_PRIVACY = 3;
   AS_AGREEMENT_KIND_LAST = 4;
+  {$ENDIF read_enum}
 
+  {$IFDEF read_struct}
 type
   TAsAgreement = record
     parent_instance: TGObject;
@@ -38,7 +43,9 @@ type
     _as_reserved7: procedure; cdecl;
     _as_reserved8: procedure; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function as_agreement_get_type: TGType; cdecl; external libappstream;
 function as_agreement_new: PAsAgreement; cdecl; external libappstream;
 function as_agreement_kind_to_string(value: TAsAgreementKind): Pgchar; cdecl; external libappstream;
@@ -59,6 +66,7 @@ function AS_IS_AGREEMENT(obj: Pointer): Tgboolean;
 function AS_AGREEMENT_CLASS(klass: Pointer): PAsAgreementClass;
 function AS_IS_AGREEMENT_CLASS(klass: Pointer): Tgboolean;
 function AS_AGREEMENT_GET_CLASS(obj: Pointer): PAsAgreementClass;
+{$ENDIF read_function}
 
 implementation
 

@@ -1,5 +1,7 @@
 unit as_screenshot;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_enum}
 type
   PAsScreenshotKind = ^TAsScreenshotKind;
   TAsScreenshotKind = longint;
@@ -27,7 +30,9 @@ const
   AS_SCREENSHOT_MEDIA_KIND_IMAGE = 1;
   AS_SCREENSHOT_MEDIA_KIND_VIDEO = 2;
   AS_SCREENSHOT_MEDIA_KIND_LAST = 3;
+  {$ENDIF read_enum}
 
+  {$IFDEF read_struct}
 type
   TAsScreenshot = record
     parent_instance: TGObject;
@@ -44,7 +49,9 @@ type
     _as_reserved5: procedure; cdecl;
     _as_reserved6: procedure; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function as_screenshot_get_type: TGType; cdecl; external libappstream;
 function as_screenshot_kind_from_string(kind: Pgchar): TAsScreenshotKind; cdecl; external libappstream;
 function as_screenshot_kind_to_string(kind: TAsScreenshotKind): Pgchar; cdecl; external libappstream;
@@ -76,6 +83,7 @@ function AS_IS_SCREENSHOT(obj: Pointer): Tgboolean;
 function AS_SCREENSHOT_CLASS(klass: Pointer): PAsScreenshotClass;
 function AS_IS_SCREENSHOT_CLASS(klass: Pointer): Tgboolean;
 function AS_SCREENSHOT_GET_CLASS(obj: Pointer): PAsScreenshotClass;
+{$ENDIF read_function}
 
 implementation
 

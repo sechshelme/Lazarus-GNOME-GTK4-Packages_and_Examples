@@ -1,5 +1,7 @@
 unit as_category;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   TAsCategory = record
     parent_instance: TGObject;
@@ -24,7 +27,9 @@ type
     _as_reserved3: procedure; cdecl;
     _as_reserved4: procedure; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function as_category_get_type: TGType; cdecl; external libappstream;
 function as_category_new: PAsCategory; cdecl; external libappstream;
 function as_category_get_id(category: PAsCategory): Pgchar; cdecl; external libappstream;
@@ -54,6 +59,7 @@ function AS_IS_CATEGORY(obj: Pointer): Tgboolean;
 function AS_CATEGORY_CLASS(klass: Pointer): PAsCategoryClass;
 function AS_IS_CATEGORY_CLASS(klass: Pointer): Tgboolean;
 function AS_CATEGORY_GET_CLASS(obj: Pointer): PAsCategoryClass;
+{$ENDIF read_function}
 
 implementation
 

@@ -1,5 +1,7 @@
 unit as_enum_types;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+{$IFDEF read_enum}
 function as_agreement_kind_get_type: TGType; cdecl; external libappstream;
 function AS_TYPE_AGREEMENT_KIND: TGType;
 
@@ -183,8 +186,7 @@ function AS_TYPE_VIDEO_CODEC_KIND: TGType;
 
 function as_video_container_kind_get_type: TGType; cdecl; external libappstream;
 function AS_TYPE_VIDEO_CONTAINER_KIND: TGType;
-
-{ Generated data ends here  }
+{$ENDIF read_enum}
 
 // === Konventiert am: 30-7-26 19:36:04 ===
 

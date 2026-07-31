@@ -1,5 +1,7 @@
 unit as_branding;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,17 +12,7 @@ uses
   {$ENDIF}
 
 
-type
-  PAsBrandingColorIter = ^TAsBrandingColorIter;
-  TAsBrandingColorIter = record
-    dummy1: Tgpointer;
-    dummy2: Tguint;
-    dummy3: Tgpointer;
-    dummy4: Tgpointer;
-    dummy5: Tgpointer;
-    dummy6: Tgpointer;
-  end;
-
+  {$IFDEF read_enum}
 type
   PAsColorKind = ^TAsColorKind;
   TAsColorKind = longint;
@@ -37,6 +29,19 @@ const
   AS_COLOR_SCHEME_KIND_LIGHT = 1;
   AS_COLOR_SCHEME_KIND_DARK = 2;
   AS_COLOR_SCHEME_KIND_LAST = 3;
+  {$ENDIF read_enum}
+
+  {$IFDEF read_struct}
+type
+  PAsBrandingColorIter = ^TAsBrandingColorIter;
+  TAsBrandingColorIter = record
+    dummy1: Tgpointer;
+    dummy2: Tguint;
+    dummy3: Tgpointer;
+    dummy4: Tgpointer;
+    dummy5: Tgpointer;
+    dummy6: Tgpointer;
+  end;
 
 type
   TAsBranding = record
@@ -54,7 +59,9 @@ type
     _as_reserved5: procedure; cdecl;
     _as_reserved6: procedure; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function as_branding_get_type: TGType; cdecl; external libappstream;
 function as_color_kind_to_string(kind: TAsColorKind): Pgchar; cdecl; external libappstream;
 function as_color_kind_from_string(str: Pgchar): TAsColorKind; cdecl; external libappstream;
@@ -75,6 +82,7 @@ function AS_IS_BRANDING(obj: Pointer): Tgboolean;
 function AS_BRANDING_CLASS(klass: Pointer): PAsBrandingClass;
 function AS_IS_BRANDING_CLASS(klass: Pointer): Tgboolean;
 function AS_BRANDING_GET_CLASS(obj: Pointer): PAsBrandingClass;
+{$ENDIF read_function}
 
 implementation
 

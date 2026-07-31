@@ -1,5 +1,7 @@
 unit as_bundle;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_enum}
 type
   PAsBundleKind = ^TAsBundleKind;
   TAsBundleKind = longint;
@@ -24,7 +27,9 @@ const
   AS_BUNDLE_KIND_CABINET = 7;
   AS_BUNDLE_KIND_LINGLONG = 8;
   AS_BUNDLE_KIND_LAST = 9;
+  {$ENDIF read_enum}
 
+  {$IFDEF read_struct}
 type
   TAsBundle = record
     parent_instance: TGObject;
@@ -41,7 +46,9 @@ type
     _as_reserved5: procedure; cdecl;
     _as_reserved6: procedure; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function as_bundle_get_type: TGType; cdecl; external libappstream;
 function as_bundle_kind_to_string(kind: TAsBundleKind): Pgchar; cdecl; external libappstream;
 function as_bundle_kind_from_string(bundle_str: Pgchar): TAsBundleKind; cdecl; external libappstream;
@@ -59,6 +66,7 @@ function AS_IS_BUNDLE(obj: Pointer): Tgboolean;
 function AS_BUNDLE_CLASS(klass: Pointer): PAsBundleClass;
 function AS_IS_BUNDLE_CLASS(klass: Pointer): Tgboolean;
 function AS_BUNDLE_GET_CLASS(obj: Pointer): PAsBundleClass;
+{$ENDIF read_function}
 
 implementation
 

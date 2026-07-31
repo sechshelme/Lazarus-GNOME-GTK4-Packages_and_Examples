@@ -1,5 +1,7 @@
 unit as_artifact;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_enum}
 type
   PAsSizeKind = ^TAsSizeKind;
   TAsSizeKind = longint;
@@ -27,7 +30,9 @@ const
   AS_ARTIFACT_KIND_SOURCE = 1;
   AS_ARTIFACT_KIND_BINARY = 2;
   AS_ARTIFACT_KIND_LAST = 3;
+  {$ENDIF read_enum}
 
+  {$IFDEF read_struct}
 type
   TAsArtifact = record
     parent_instance: TGObject;
@@ -44,7 +49,9 @@ type
     _as_reserved5: procedure; cdecl;
     _as_reserved6: procedure; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function as_artifact_get_type: TGType; cdecl; external libappstream;
 function as_size_kind_to_string(size_kind: TAsSizeKind): Pgchar; cdecl; external libappstream;
 function as_size_kind_from_string(size_kind: Pgchar): TAsSizeKind; cdecl; external libappstream;
@@ -76,6 +83,7 @@ function AS_IS_ARTIFACT(obj: Pointer): Tgboolean;
 function AS_ARTIFACT_CLASS(klass: Pointer): PAsArtifactClass;
 function AS_IS_ARTIFACT_CLASS(klass: Pointer): Tgboolean;
 function AS_ARTIFACT_GET_CLASS(obj: Pointer): PAsArtifactClass;
+{$ENDIF read_function}
 
 implementation
 

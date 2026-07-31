@@ -1,5 +1,7 @@
 unit as_developer;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   TAsDeveloper = record
     parent_instance: TGObject;
@@ -26,7 +29,9 @@ type
     _as_reserved5: procedure; cdecl;
     _as_reserved6: procedure; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function as_developer_get_type: TGType; cdecl; external libappstream;
 function as_developer_new: PAsDeveloper; cdecl; external libappstream;
 function as_developer_get_id(devp: PAsDeveloper): Pgchar; cdecl; external libappstream;
@@ -42,6 +47,7 @@ function AS_IS_DEVELOPER(obj: Pointer): Tgboolean;
 function AS_DEVELOPER_CLASS(klass: Pointer): PAsDeveloperClass;
 function AS_IS_DEVELOPER_CLASS(klass: Pointer): Tgboolean;
 function AS_DEVELOPER_GET_CLASS(obj: Pointer): PAsDeveloperClass;
+{$ENDIF read_function}
 
 implementation
 

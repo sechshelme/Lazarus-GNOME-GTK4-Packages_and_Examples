@@ -1,5 +1,7 @@
 unit as_agreement_section;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   TAsAgreementSection = record
     parent_instance: TGObject;
@@ -28,7 +31,9 @@ type
     _as_reserved7: procedure; cdecl;
     _as_reserved8: procedure; cdecl;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function as_agreement_section_get_type: TGType; cdecl; external libappstream;
 function as_agreement_section_new: PAsAgreementSection; cdecl; external libappstream;
 function as_agreement_section_get_context(agreement_section: PAsAgreementSection): PAsContext; cdecl; external libappstream;
@@ -48,6 +53,7 @@ function AS_IS_AGREEMENT_SECTION(obj: Pointer): Tgboolean;
 function AS_AGREEMENT_SECTION_CLASS(klass: Pointer): PAsAgreementSectionClass;
 function AS_IS_AGREEMENT_SECTION_CLASS(klass: Pointer): Tgboolean;
 function AS_AGREEMENT_SECTION_GET_CLASS(obj: Pointer): PAsAgreementSectionClass;
+{$ENDIF read_function}
 
 implementation
 
