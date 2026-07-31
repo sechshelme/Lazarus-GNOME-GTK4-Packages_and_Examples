@@ -1,50 +1,9 @@
 program project1;
 
 uses
-  as_enum_types,
-  as_context,
-  as_agreement_section,
-  as_agreement,
-  as_checksum,
-  as_bundle,
-  as_artifact,
-  as_branding,
-  as_launchable,
-  as_developer,
-  as_image,
-  as_video,
-  as_screenshot,
-  as_icon,
-  as_provided,
-  as_issue,
-  as_release,
-  as_release_list,
-  as_translation,
-  as_suggested,
-  as_category,
-  as_content_rating,
-  as_relation,
-  as_relation_check_result,
-  as_reference,
-  as_review,
-  as_component,
-  as_component_box,
-  as_pool,
-  as_system_info,
-  as_category_gi,
-  as_metadata,
-  as_spdx,
-  as_utils,
-  as_validator_issue,
-  as_validator,
-  as_vercmp,
-  as_version,
-
-
-
-
+  fp_appstream,
   fp_glib2,
-  fp_GTK4, fp_appstream;
+  fp_GTK4;
 
   procedure print_hello(widget: PGtkWidget; Data: Tgpointer); cdecl;
   const

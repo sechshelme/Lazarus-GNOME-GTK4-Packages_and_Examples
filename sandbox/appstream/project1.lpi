@@ -25,6 +25,9 @@
     </RunParams>
     <RequiredPackages>
       <Item>
+        <PackageName Value="fp_appstream_package"/>
+      </Item>
+      <Item>
         <PackageName Value="fp_GLIB2_package"/>
       </Item>
       <Item>
@@ -35,9 +38,6 @@
       <Unit>
         <Filename Value="project1.lpr"/>
       </Unit>
-      <Unit>
-        <Filename Value="fp_appstream.pas"/>
-      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -47,7 +47,6 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/appstream/"/>
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Linking>

@@ -1,0 +1,41 @@
+
+
+ {$include appstream/as_enum_types.inc}
+ {$include appstream/as_context.inc}
+ {$include appstream/as_agreement_section.inc}
+ {$include appstream/as_agreement.inc}
+ {$include appstream/as_checksum.inc}
+ {$include appstream/as_bundle.inc}
+ {$include appstream/as_artifact.inc}
+ {$include appstream/as_branding.inc}
+ {$include appstream/as_launchable.inc}
+ {$include appstream/as_developer.inc}
+ {$include appstream/as_image.inc}
+ {$include appstream/as_video.inc}
+ {$include appstream/as_screenshot.inc}
+ {$include appstream/as_icon.inc}
+ {$include appstream/as_provided.inc}
+ {$include appstream/as_issue.inc}
+ {$include appstream/as_release.inc}
+ {$include appstream/as_release_list.inc}
+ {$include appstream/as_translation.inc}
+ {$include appstream/as_suggested.inc}
+ {$include appstream/as_category.inc}
+ {$include appstream/as_content_rating.inc}
+ {$include appstream/as_relation.inc}
+ {$include appstream/as_relation_check_result.inc}
+ {$include appstream/as_reference.inc}
+ {$include appstream/as_review.inc}
+ {$include appstream/as_component.inc}
+ {$include appstream/as_component_box.inc}
+ {$include appstream/as_pool.inc}
+ {$include appstream/as_system_info.inc}
+ {$include appstream/as_category_gi.inc}
+ {$include appstream/as_metadata.inc}
+ {$include appstream/as_spdx.inc}
+ {$include appstream/as_utils.inc}
+ {$include appstream/as_validator_issue.inc}
+ {$include appstream/as_validator.inc}
+ {$include appstream/as_vercmp.inc}
+ {$include appstream/as_version.inc}
+
