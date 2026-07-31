@@ -1,4 +1,4 @@
-unit ColumnViewWidget;
+unit ColumnViewSortetWidget;
 
 interface
 
@@ -8,12 +8,12 @@ uses
   ItemsObject;
 
 type
-  PColumnViewWidget = type Pointer;
-  PColumnViewWidgetClass = type Pointer;
+  PColumnViewSortetWidget = type Pointer;
+  PColumnViewSortetWidgetClass = type Pointer;
 
-function column_view_box_get_type: TGType;
-function column_view_box_new: PGTKWidget;
-procedure column_view_box_add_item(w: PColumnViewWidget; item: PCVItem);
+function column_view_sortet_widget_get_type: TGType;
+function column_view_sortet_widget_new: PGTKWidget;
+procedure column_view_sortet_widget_add_item(w: PColumnViewSortetWidget; item: PCVItem);
 
 implementation
 
@@ -113,10 +113,28 @@ begin
   gtk_list_item_set_child(list_item, nil);
 end;
 
+function compareFunc(a: Tgconstpointer; b: Tgconstpointer; user_data: Tgpointer): Tgint; cdecl;
+var
+  column_index: Tgint absolute user_data;
+  item_a: PCVItem absolute a;
+  item_b: PCVItem absolute b;
+  ia, ib: pchar;
+begin
+  if column_index = 0 then begin
+    ia := cv_item_get_col0(item_a);
+    ib := cv_item_get_col0(item_b);
+  end;
+  if column_index = 1 then begin
+    ia := cv_item_get_col1(item_a);
+    ib := cv_item_get_col1(item_b);
+  end;
+
+  Result := g_strcmp0(ia, ib);
+end;
 
 // ==== public
 
-function column_view_box_get_type: TGType;
+function column_view_sortet_widget_get_type: TGType;
 const
   type_id: TGType = 0;
 var
@@ -127,7 +145,7 @@ begin
     g_type_query(GTK_TYPE_BOX, @query);
     instance_size := query.instance_size;
 
-    id := g_type_register_static_simple(GTK_TYPE_BOX, 'MPColumnViewBox',
+    id := g_type_register_static_simple(GTK_TYPE_BOX, 'ColumnViewSortetWidget',
       query.class_size + SizeOf(TClassPriv), @class_init_cp,
       query.instance_size + SizeOf(TInstPriv), @init_cp, G_TYPE_FLAG_NONE);
     g_once_init_leave(@type_id, id);
@@ -135,25 +153,33 @@ begin
   Result := type_id;
 end;
 
-function column_view_box_new: PGTKWidget;
+function column_view_sortet_widget_new: PGTKWidget;
 const
   ColTitles: array of Pgchar = ('Number0', 'Number1');
 var
   priv: PInstPriv;
   factory: PGtkListItemFactory;
   column: PGtkColumnViewColumn;
+  column_sorter: PGtkSorter;
+  view_sorter: PGtkSorter;
+  sort_model: PGtkSortListModel;
   single_selection: PGtkSingleSelection;
   scroll_window: PGtkWidget;
+  store: PGListStore;
   i: integer;
 begin
-  Result := g_object_new(column_view_box_get_type, nil);
+  Result := g_object_new(column_view_sortet_widget_get_type, nil);
   priv := GetPriv(Result);
 
-  single_selection := gtk_single_selection_new(G_LIST_MODEL(g_list_store_new(G_TYPE_OBJECT)));
-
-  priv^.columnView := gtk_column_view_new(GTK_SELECTION_MODEL(single_selection));
-  priv^.selection_model := gtk_column_view_get_model(GTK_COLUMN_VIEW(priv^.columnView));
-  priv^.list_model := gtk_single_selection_get_model(GTK_SINGLE_SELECTION(priv^.selection_model));
+  priv^.columnView := gtk_column_view_new(nil);
+  store := g_list_store_new(G_TYPE_OBJECT);
+  view_sorter := g_object_ref(gtk_column_view_get_sorter(GTK_COLUMN_VIEW(priv^.columnView)));
+  sort_model := gtk_sort_list_model_new(G_LIST_MODEL(store), view_sorter);
+  single_selection := gtk_single_selection_new(G_LIST_MODEL(sort_model));
+  gtk_column_view_set_model(GTK_COLUMN_VIEW(priv^.columnView), GTK_SELECTION_MODEL(single_selection));
+  priv^.selection_model := GTK_SELECTION_MODEL(single_selection);
+  priv^.list_model := G_LIST_MODEL(sort_model);
+  g_object_unref(single_selection);
 
   gtk_column_view_set_show_row_separators(GTK_COLUMN_VIEW(priv^.columnView), True);
   gtk_column_view_set_show_column_separators(GTK_COLUMN_VIEW(priv^.columnView), True);
@@ -176,23 +202,30 @@ begin
     gtk_column_view_column_set_resizable(column, True);
     gtk_column_view_append_column(GTK_COLUMN_VIEW(priv^.columnView), column);
 
-    if i = 1 then begin
+    column_sorter := GTK_SORTER(gtk_custom_sorter_new(@compareFunc, GINT_TO_POINTER(i), nil));
+    gtk_column_view_column_set_sorter(column, column_sorter);
+    g_object_unref(column_sorter);
+
+    if i = 1 then  begin
       gtk_column_view_column_set_expand(column, True);
     end;
-
     g_object_unref(column);
   end;
 
   gtk_box_append(GTK_BOX(Result), scroll_window);
 end;
 
-procedure column_view_box_add_item(w: PColumnViewWidget; item: PCVItem);
+procedure column_view_sortet_widget_add_item(w: PColumnViewSortetWidget; item: PCVItem);
 var
   priv: PInstPriv;
+  child_model: PGListModel;
 begin
   priv := GetPriv(w);
-  with priv^ do begin
-    g_list_store_append(G_LIST_STORE(list_model), item);
+  if priv^.list_model <> nil then  begin
+    child_model := gtk_sort_list_model_get_model(GTK_SORT_LIST_MODEL(priv^.list_model));
+    if child_model <> nil then  begin
+      g_list_store_append(G_LIST_STORE(child_model), item);
+    end;
   end;
 end;
 

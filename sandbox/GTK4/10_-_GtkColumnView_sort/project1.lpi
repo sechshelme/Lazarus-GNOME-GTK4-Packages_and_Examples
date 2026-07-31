@@ -43,6 +43,10 @@
         <Filename Value="columnviewwidget.pas"/>
         <UnitName Value="ColumnViewWidget"/>
       </Unit>
+      <Unit>
+        <Filename Value="columnviewsortetwidget.pas"/>
+        <UnitName Value="ColumnViewSortetWidget"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
