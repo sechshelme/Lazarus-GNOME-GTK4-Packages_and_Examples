@@ -25,9 +25,6 @@
     </RunParams>
     <RequiredPackages>
       <Item>
-        <PackageName Value="fp_appstream_package"/>
-      </Item>
-      <Item>
         <PackageName Value="fp_GLIB2_package"/>
       </Item>
       <Item>
@@ -37,10 +34,6 @@
     <Units>
       <Unit>
         <Filename Value="project1.lpr"/>
-      </Unit>
-      <Unit>
-        <Filename Value="columnviewwidget.pas"/>
-        <UnitName Value="ColumnViewWidget"/>
       </Unit>
     </Units>
   </ProjectOptions>

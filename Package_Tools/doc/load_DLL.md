@@ -71,6 +71,8 @@ sudo dnf install dnf-plugin-system-upgrade
 sudo dnf system-upgrade download --refresh --releasever=44
 sudo dnf system-upgrade reboot
 
----
+
+# MSYS2 auf Linux
+https://github.com/HolyBlackCat/quasi-msys2
 
 
