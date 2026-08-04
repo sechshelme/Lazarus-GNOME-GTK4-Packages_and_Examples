@@ -1,7 +1,7 @@
 /*
- * spelling-language-info.h
+ * spelling-types.h
  *
- * Copyright 2021-2023 Christian Hergert <chergert@redhat.com>
+ * Copyright 2023 Christian Hergert <chergert@redhat.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,25 +21,13 @@
 
 #pragma once
 
-#if !defined(LIBSPELLING_INSIDE) && !defined(LIBSPELLING_COMPILATION)
-# error "Only <libspelling.h> can be included directly."
-#endif
+#include <glib.h>
 
-#include <glib-object.h>
+G_BEGIN_DECLS
 
-#include "spelling-version-macros.h"
+typedef struct _SpellingChecker      SpellingChecker;
+typedef struct _SpellingLanguage     SpellingLanguage;
+typedef struct _SpellingLanguageInfo SpellingLanguageInfo;
+typedef struct _SpellingProvider     SpellingProvider;
 
-
-
-#define SPELLING_TYPE_LANGUAGE_INFO (spelling_language_info_get_type())
-
-//G_DECLARE_FINAL_TYPE (SpellingLanguageInfo, spelling_language_info, SPELLING, LANGUAGE_INFO, GObject)
-
-extern
-const char *spelling_language_info_get_group (SpellingLanguageInfo *self);
-extern
-const char *spelling_language_info_get_name  (SpellingLanguageInfo *self);
-extern
-const char *spelling_language_info_get_code  (SpellingLanguageInfo *self);
-
-
+G_END_DECLS

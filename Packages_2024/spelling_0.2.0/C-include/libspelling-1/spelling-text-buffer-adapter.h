@@ -26,37 +26,38 @@
 #include "spelling-types.h"
 #include "spelling-version-macros.h"
 
-
+G_BEGIN_DECLS
 
 #define SPELLING_TYPE_TEXT_BUFFER_ADAPTER (spelling_text_buffer_adapter_get_type())
 
-//G_DECLARE_FINAL_TYPE (SpellingTextBufferAdapter, spelling_text_buffer_adapter, SPELLING, TEXT_BUFFER_ADAPTER, GObject)
+SPELLING_AVAILABLE_IN_ALL
+G_DECLARE_FINAL_TYPE (SpellingTextBufferAdapter, spelling_text_buffer_adapter, SPELLING, TEXT_BUFFER_ADAPTER, GObject)
 
-extern
+SPELLING_AVAILABLE_IN_ALL
 SpellingTextBufferAdapter *spelling_text_buffer_adapter_new            (GtkSourceBuffer           *buffer,
                                                                         SpellingChecker           *checker);
-extern
+SPELLING_AVAILABLE_IN_ALL
 GtkSourceBuffer           *spelling_text_buffer_adapter_get_buffer     (SpellingTextBufferAdapter *self);
-extern
+SPELLING_AVAILABLE_IN_ALL
 gboolean                   spelling_text_buffer_adapter_get_enabled    (SpellingTextBufferAdapter *self);
-extern
+SPELLING_AVAILABLE_IN_ALL
 void                       spelling_text_buffer_adapter_set_enabled    (SpellingTextBufferAdapter *self,
                                                                         gboolean                   enabled);
-extern
+SPELLING_AVAILABLE_IN_ALL
 SpellingChecker           *spelling_text_buffer_adapter_get_checker    (SpellingTextBufferAdapter *self);
-extern
+SPELLING_AVAILABLE_IN_ALL
 void                       spelling_text_buffer_adapter_set_checker    (SpellingTextBufferAdapter *self,
                                                                         SpellingChecker           *checker);
-extern
+SPELLING_AVAILABLE_IN_ALL
 const char                *spelling_text_buffer_adapter_get_language   (SpellingTextBufferAdapter *self);
-extern
+SPELLING_AVAILABLE_IN_ALL
 void                       spelling_text_buffer_adapter_set_language   (SpellingTextBufferAdapter *self,
                                                                         const char                *language);
-extern
+SPELLING_AVAILABLE_IN_ALL
 void                       spelling_text_buffer_adapter_invalidate_all (SpellingTextBufferAdapter *self);
-extern
+SPELLING_AVAILABLE_IN_ALL
 GtkTextTag                *spelling_text_buffer_adapter_get_tag        (SpellingTextBufferAdapter *self);
-extern
+SPELLING_AVAILABLE_IN_ALL
 GMenuModel                *spelling_text_buffer_adapter_get_menu_model (SpellingTextBufferAdapter *self);
 
-
+G_END_DECLS

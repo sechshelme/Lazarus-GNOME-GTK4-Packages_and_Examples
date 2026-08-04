@@ -1,13 +1,4 @@
-unit spelling_language_info;
-
-interface
-
-uses
-  fp_glib2, fp_spelling;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 type
@@ -29,7 +20,10 @@ function SPELLING_TYPE_LANGUAGE_INFO: TGType;
 function SPELLING_LANGUAGE_INFO(obj: Pointer): PSpellingLanguageInfo;
 function SPELLING_IS_LANGUAGE_INFO(obj: Pointer): Tgboolean;
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 function SPELLING_TYPE_LANGUAGE_INFO: TGType;
 begin
@@ -46,4 +40,4 @@ begin
   Result := g_type_check_instance_is_a(obj, SPELLING_TYPE_LANGUAGE_INFO);
 end;
 
-end.
+{$ENDIF read_implementation}

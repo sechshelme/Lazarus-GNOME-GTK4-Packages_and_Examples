@@ -1,13 +1,4 @@
-unit spelling_provider;
-
-interface
-
-uses
-  fp_glib2, fp_spelling, spelling_language;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 type
@@ -29,7 +20,10 @@ function SPELLING_PROVIDER(obj: Pointer): PSpellingProvider;
 function SPELLING_PROVIDER_CLASS(klass: Pointer): PSpellingProviderClass;
 function SPELLING_IS_PROVIDER(obj: Pointer): Tgboolean;
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 function SPELLING_TYPE_PROVIDER: TGType;
 begin
@@ -53,4 +47,4 @@ end;
 
 
 
-end.
+{$ENDIF read_implementation}

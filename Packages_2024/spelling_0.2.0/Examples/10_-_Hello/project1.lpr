@@ -1,21 +1,8 @@
 program project1;
 
 uses
-  spelling_language,
-  spelling_provider,
-  spelling_checker,
-  spelling_init,
-  spelling_language_info,
-  spelling_text_buffer_adapter,
-  spelling_version,
-
-
-
-
   fp_glib2,
-  fp_cairo,
   fp_GTK4,
-  fp_pango,
   fp_gtksourceview,
   fp_spelling;
 
@@ -31,7 +18,7 @@ uses
     gtk_source_init;
 
     window := gtk_application_window_new(app);
-    gtk_window_set_title(GTK_WINDOW(window), 'GTK4 Rechtschreibprüfung mit Menü');
+    gtk_window_set_title(GTK_WINDOW(window), 'GTK4 Rechtschreibprüfung');
     gtk_window_set_default_size(GTK_WINDOW(window), 400, 300);
 
     scrolled_window := gtk_scrolled_window_new;
@@ -42,7 +29,7 @@ uses
     gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(scrolled_window), source_view);
 
     checker := spelling_checker_get_default;
-    spelling_checker_set_language(checker, 'de_DE');
+    spelling_checker_set_language(checker, 'de_CH');
 
     buffer := GTK_SOURCE_BUFFER(gtk_text_view_get_buffer(GTK_TEXT_VIEW(source_view)));
     adapter := spelling_text_buffer_adapter_new(buffer, checker);

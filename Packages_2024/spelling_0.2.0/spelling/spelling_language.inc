@@ -1,13 +1,4 @@
-unit spelling_language;
-
-interface
-
-uses
-  fp_glib2, fp_spelling;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 type
@@ -29,7 +20,10 @@ function SPELLING_LANGUAGE(obj: Pointer): PSpellingLanguage;
 function SPELLING_LANGUAGE_CLASS(klass: Pointer): PSpellingLanguageClass;
 function SPELLING_IS_LANGUAGE(obj: Pointer): Tgboolean;
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 function SPELLING_TYPE_LANGUAGE: TGType;
 begin
@@ -53,4 +47,4 @@ end;
 
 
 
-end.
+{$ENDIF read_implementation}

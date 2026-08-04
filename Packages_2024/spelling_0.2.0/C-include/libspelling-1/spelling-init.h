@@ -26,9 +26,9 @@
 
 #include "spelling-version-macros.h"
 
+G_BEGIN_DECLS
 
-
-extern
+SPELLING_AVAILABLE_IN_ALL
 void spelling_init (void);
 
-
+G_END_DECLS

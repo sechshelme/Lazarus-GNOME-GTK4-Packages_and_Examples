@@ -30,38 +30,39 @@
 #include "spelling-types.h"
 #include "spelling-version-macros.h"
 
-
+G_BEGIN_DECLS
 
 #define SPELLING_TYPE_CHECKER (spelling_checker_get_type())
 
-//G_DECLARE_FINAL_TYPE (SpellingChecker, spelling_checker, SPELLING, CHECKER, GObject)
+SPELLING_AVAILABLE_IN_ALL
+G_DECLARE_FINAL_TYPE (SpellingChecker, spelling_checker, SPELLING, CHECKER, GObject)
 
-extern
+SPELLING_AVAILABLE_IN_ALL
 SpellingChecker   *spelling_checker_get_default          (void);
-extern
+SPELLING_AVAILABLE_IN_ALL
 SpellingChecker   *spelling_checker_new                  (SpellingProvider *provider,
                                                           const char       *language);
-extern
+SPELLING_AVAILABLE_IN_ALL
 SpellingProvider  *spelling_checker_get_provider         (SpellingChecker  *self);
-extern
+SPELLING_AVAILABLE_IN_ALL
 const char        *spelling_checker_get_language         (SpellingChecker  *self);
-extern
+SPELLING_AVAILABLE_IN_ALL
 void               spelling_checker_set_language         (SpellingChecker  *self,
                                                           const char       *language);
-extern
+SPELLING_AVAILABLE_IN_ALL
 gboolean           spelling_checker_check_word           (SpellingChecker  *self,
                                                           const char       *word,
                                                           gssize            word_len);
-extern
+SPELLING_AVAILABLE_IN_ALL
 char             **spelling_checker_list_corrections     (SpellingChecker  *self,
                                                           const char       *word);
-extern
+SPELLING_AVAILABLE_IN_ALL
 void               spelling_checker_add_word             (SpellingChecker  *self,
                                                           const char       *word);
-extern
+SPELLING_AVAILABLE_IN_ALL
 void               spelling_checker_ignore_word          (SpellingChecker  *self,
                                                           const char       *word);
-extern
+SPELLING_AVAILABLE_IN_ALL
 const char        *spelling_checker_get_extra_word_chars (SpellingChecker  *self);
 
-
+G_END_DECLS

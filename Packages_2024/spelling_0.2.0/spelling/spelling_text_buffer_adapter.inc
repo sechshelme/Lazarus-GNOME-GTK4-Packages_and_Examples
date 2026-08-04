@@ -1,13 +1,4 @@
-unit spelling_text_buffer_adapter;
-
-interface
-
-uses
-  fp_glib2, fp_gtksourceview, fp_GTK4, fp_spelling, spelling_checker;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 type
@@ -37,7 +28,10 @@ function SPELLING_TYPE_TEXT_BUFFER_ADAPTER: TGType;
 function SPELLING_TEXT_BUFFER_ADAPTER(obj: Pointer): PSpellingTextBufferAdapter;
 function SPELLING_IS_TEXT_BUFFER_ADAPTER(obj: Pointer): Tgboolean;
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 function SPELLING_TYPE_TEXT_BUFFER_ADAPTER: TGType;
 begin
@@ -54,4 +48,4 @@ begin
   Result := g_type_check_instance_is_a(obj, SPELLING_TYPE_TEXT_BUFFER_ADAPTER);
 end;
 
-end.
+{$ENDIF read_implementation}

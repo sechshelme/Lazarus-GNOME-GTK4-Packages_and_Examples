@@ -1,13 +1,4 @@
-unit spelling_checker;
-
-interface
-
-uses
-  fp_glib2, fp_spelling, spelling_provider;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 type
@@ -36,7 +27,10 @@ function SPELLING_TYPE_CHECKER: TGType;
 function SPELLING_CHECKER(obj: Pointer): PSpellingChecker;
 function SPELLING_IS_CHECKER(obj: Pointer): Tgboolean;
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 function SPELLING_TYPE_CHECKER: TGType;
 begin
@@ -53,4 +47,4 @@ begin
   Result := g_type_check_instance_is_a(obj, SPELLING_TYPE_CHECKER);
 end;
 
-end.
+{$ENDIF read_implementation}

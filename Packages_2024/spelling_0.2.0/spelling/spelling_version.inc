@@ -1,13 +1,4 @@
-unit spelling_version;
-
-interface
-
-uses
-  fp_glib2, fp_spelling;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 const
@@ -23,7 +14,10 @@ function SPELLING_CHECK_VERSION(major, minor, micro: integer): boolean;
 // === Konventiert am: 4-8-26 17:15:18 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 function SPELLING_CHECK_VERSION(major, minor, micro: integer): boolean;
 begin
@@ -42,4 +36,4 @@ begin
   SPELLING_VERSION_HEX := SPELLING_ENCODE_VERSION(SPELLING_MAJOR_VERSION, SPELLING_MINOR_VERSION, SPELLING_MICRO_VERSION);
 end;
 
-end.
+{$ENDIF read_implementation}
