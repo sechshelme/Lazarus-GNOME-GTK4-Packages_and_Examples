@@ -25,7 +25,13 @@
     </RunParams>
     <RequiredPackages>
       <Item>
-        <PackageName Value="fp_aspell_package"/>
+        <PackageName Value="fp_gtksourceview_package"/>
+      </Item>
+      <Item>
+        <PackageName Value="fp_GLIB2_package"/>
+      </Item>
+      <Item>
+        <PackageName Value="fp_GTK4_package"/>
       </Item>
     </RequiredPackages>
     <Units>
@@ -41,6 +47,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
+      <OtherUnitFiles Value="/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/gspell/"/>
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Linking>

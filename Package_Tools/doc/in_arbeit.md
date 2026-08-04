@@ -596,6 +596,8 @@ https://github.com/lundmar/gtkchart
 
 libcfitsio-dev
 
+libspirv-cross-c-shared.so
+
 
 mingw-w64-plutovg
 mingw-w64-mupdf
@@ -927,7 +929,9 @@ sudo ln var/run/host/n4800/ n4800 -s
 cat /etc/os-release
 
 
-
+# GST GTK4
+sudo apt install gstreamer1.0-gtk4
+https://github.com/GStreamer/gst-plugins-rs
 
 
 
