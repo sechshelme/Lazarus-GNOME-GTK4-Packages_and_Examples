@@ -344,7 +344,7 @@ const
     (libs: 'libgstphotography'; units: 'fp_glib2, fp_gst'),
     (libs: 'libges'; units: 'fp_glib2, fp_gst, ges_enums'),
 
-    (libs: 'libgspell'; units: 'fp_glib2'),
+    (libs: 'libspelling'; units: 'fp_glib2, fp_spelling'),
 
 
     (libs: ''; units: ''));
