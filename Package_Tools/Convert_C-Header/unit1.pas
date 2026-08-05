@@ -42,8 +42,9 @@ end;
 
 const
   availables: array of string = (
-  'GDK_AVAILABLE_IN_4_');
-  //'CHAFA_AVAILABLE_IN_1',
+  'NM_AVAILABLE_IN_1_');
+//  'GDK_AVAILABLE_IN_4_');
+//'CHAFA_AVAILABLE_IN_1',
   //'GDK_PIXBUF_AVAILABLE_IN_2',
   //'GDK_AVAILABLE_IN_4',
   //'GRAPHENE_AVAILABLE_IN',
@@ -56,7 +57,7 @@ var
   ss: string;
 begin
   Result := s;
-  for i := 0 to Length(availables) - 1 do begin
+  for i := Length(availables) - 1 downto 0 do begin
     j := 22;
     repeat
       WriteStr(ss, availables[i], j);
@@ -74,7 +75,7 @@ var
   s: string;
 begin
   Memo1.Clear;
-  slFile := FindAllFiles('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/libspelling-1', '*.h', True);
+  slFile := FindAllFiles('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/libnm', '*.h', True);
   Memo1.Lines := slFile;
 
   for i := 0 to slFile.Count - 1 do begin
@@ -132,6 +133,10 @@ begin
 
       slHeader[j] := StringReplace(slHeader[j], 'SPELLING_AVAILABLE_IN_ALL', 'extern', [rfReplaceAll]);
 //      slHeader[j] := StringReplace(slHeader[j], 'fp_glib2;', 'fp_glib2, fp_appstream;', [rfReplaceAll]);
+
+slHeader[j] := StringReplace(slHeader[j], '_NM_DEPRECATED', '//xxxxxGLIB_DEPRECATED_IN', [rfReplaceAll]);
+slHeader[j] := StringReplace(slHeader[j], 'NM_DEPRECATED', '//xxxxxGLIB_DEPRECATED_IN', [rfReplaceAll]);
+
 
 
 

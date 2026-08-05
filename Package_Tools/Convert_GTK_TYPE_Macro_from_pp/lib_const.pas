@@ -345,6 +345,7 @@ const
     (libs: 'libges'; units: 'fp_glib2, fp_gst, ges_enums'),
 
     (libs: 'libspelling'; units: 'fp_glib2, fp_spelling'),
+    (libs: 'libnm'; units: 'fp_glib2, fp_bm'),
 
 
     (libs: ''; units: ''));
