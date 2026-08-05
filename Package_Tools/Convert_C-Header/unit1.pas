@@ -134,8 +134,9 @@ begin
       slHeader[j] := StringReplace(slHeader[j], 'SPELLING_AVAILABLE_IN_ALL', 'extern', [rfReplaceAll]);
 //      slHeader[j] := StringReplace(slHeader[j], 'fp_glib2;', 'fp_glib2, fp_appstream;', [rfReplaceAll]);
 
-slHeader[j] := StringReplace(slHeader[j], '_NM_DEPRECATED', '//xxxxxGLIB_DEPRECATED_IN', [rfReplaceAll]);
-slHeader[j] := StringReplace(slHeader[j], 'NM_DEPRECATED', '//xxxxxGLIB_DEPRECATED_IN', [rfReplaceAll]);
+slHeader[j] := StringReplace(slHeader[j], 'extern6', 'extern', [rfReplaceAll]);
+slHeader[j] := StringReplace(slHeader[j], 'extern4', 'extern', [rfReplaceAll]);
+slHeader[j] := StringReplace(slHeader[j], 'extern2', 'extern', [rfReplaceAll]);
 
 
 
