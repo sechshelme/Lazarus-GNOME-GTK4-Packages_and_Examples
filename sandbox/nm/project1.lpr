@@ -1,16 +1,26 @@
 program project1;
 
 uses
-  nm_access_point,
-  nm_active_connection,
-  nm_checkpoint,
-  nm_client,
-  nm_connection,
-  nm_conn_utils,
+  nm_version_macros,
+  nm_enum_types,
   nm_core_enum_types,
   nm_core_types,
-  nm_dbus_interface,
+  nm_dbus_interface,   // ___ ????
+  nm_access_point,
+  nm_remote_connection,
+  nm_ip_config,
+  nm_dhcp_config,
+  nm_active_connection,
+  nm_checkpoint,
+  nm_object,
   nm_device,
+  nm_client,
+
+  nm_setting,
+
+
+  nm_connection,
+  nm_conn_utils,
   nm_device_6lowpan,
   nm_device_adsl,
   nm_device_bond,
@@ -42,16 +52,10 @@ uses
   nm_device_wimax,
   nm_device_wireguard,
   nm_device_wpan,
-  nm_dhcp_config,
-  nm_enum_types,
   nm_errors,
   nm_ethtool_utils,
-  nm_ip_config,
   nm_keyfile,
-  nm_object,
-  nm_remote_connection,
   nm_secret_agent_old,
-  nm_setting,
   nm_setting_6lowpan,
   nm_setting_8021x,
   nm_setting_adsl,
@@ -111,7 +115,6 @@ uses
   nm_setting_wpan,
   nm_simple_connection,
   nm_utils,
-  nm_version_macros,
   nm_vpn_connection,
   nm_vpn_dbus_interface,
   nm_vpn_editor,
@@ -123,7 +126,8 @@ uses
   nm_wimax_nsp,
 
 
-  fp_glib2;
+  fp_glib2,
+  fp_nm;
 
   procedure main;
   begin

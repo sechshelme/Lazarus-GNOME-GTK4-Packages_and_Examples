@@ -11,7 +11,7 @@ const
   {$ENDIF}
 
   {$IFDEF Windows}
-  libdecor = 'decor-0'; // ????
+  {$FATAL  no supported}
   {$ENDIF}
 
 

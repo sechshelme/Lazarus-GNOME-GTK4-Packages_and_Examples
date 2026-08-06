@@ -3,28 +3,12 @@ unit nm_vpn_dbus_interface;
 interface
 
 uses
-  fp_glib2, fp_bm;
+  fp_glib2, fp_nm;
 
 {$IFDEF FPC}
 {$PACKRECORDS C}
 {$ENDIF}
 
-
-{ SPDX-License-Identifier: LGPL-2.1-or-later  }
-{
- * Copyright (C) 2004 Red Hat, Inc.
-  }
-{ D-Bus-related definitions for NetworkManager VPN plugins.
- *
- * Note that although this header is installed as part of libnm, it is also
- * used by some external code that does not link to libnm.
-  }
-{$ifndef __NM_VPN_DBUS_INTERFACE_H__}
-{$define __NM_VPN_DBUS_INTERFACE_H__}
-{$include "nm-dbus-interface.h"}
-{
- * dbus services details
-  }
 
 const
   NM_DBUS_PATH_VPN = '/org/freedesktop/NetworkManager/VPN/Manager';  
@@ -33,10 +17,8 @@ const
   NM_DBUS_INTERFACE_VPN_CONNECTION = 'org.freedesktop.NetworkManager.VPN.Connection';  
   NM_VPN_DBUS_PLUGIN_PATH = '/org/freedesktop/NetworkManager/VPN/Plugin';  
   NM_VPN_DBUS_PLUGIN_INTERFACE = 'org.freedesktop.NetworkManager.VPN.Plugin';  
-{
- * VPN Errors
-  }
-  NM_DBUS_NO_ACTIVE_VPN_CONNECTION = 'org.freedesktop.NetworkManager.VPNConnections.NoActiveVPNConnection';  
+
+  NM_DBUS_NO_ACTIVE_VPN_CONNECTION = 'org.freedesktop.NetworkManager.VPNConnections.NoActiveVPNConnection';
   NM_DBUS_NO_VPN_CONNECTIONS = 'org.freedesktop.NetworkManager.VPNConnections.NoVPNConnections';  
   NM_DBUS_INVALID_VPN_CONNECTION = 'org.freedesktop.NetworkManager.VPNConnections.InvalidVPNConnection';  
   NM_DBUS_VPN_ERROR_PREFIX = 'org.freedesktop.NetworkManager.VPN.Error';  
@@ -47,10 +29,8 @@ const
   NM_DBUS_VPN_WRONG_STATE = 'WrongState';  
   NM_DBUS_VPN_BAD_ARGUMENTS = 'BadArguments';  
   NM_DBUS_VPN_INTERACTIVE_NOT_SUPPORTED = 'InteractiveNotSupported';  
-{
- * VPN daemon signals
-  }
-  NM_DBUS_VPN_SIGNAL_LOGIN_BANNER = 'LoginBanner';  
+
+  NM_DBUS_VPN_SIGNAL_LOGIN_BANNER = 'LoginBanner';
   NM_DBUS_VPN_SIGNAL_LOGIN_FAILED = 'LoginFailed';  
   NM_DBUS_VPN_SIGNAL_LAUNCH_FAILED = 'LaunchFailed';  
   NM_DBUS_VPN_SIGNAL_CONNECT_FAILED = 'ConnectFailed';  
@@ -58,18 +38,7 @@ const
   NM_DBUS_VPN_SIGNAL_IP_CONFIG_BAD = 'IPConfigBad';  
   NM_DBUS_VPN_SIGNAL_STATE_CHANGE = 'StateChange';  
   NM_DBUS_VPN_SIGNAL_IP4_CONFIG = 'IP4Config';  
-{*
- * NMVpnServiceState:
- * @NM_VPN_SERVICE_STATE_UNKNOWN: The state of the VPN plugin is unknown.
- * @NM_VPN_SERVICE_STATE_INIT: The VPN plugin is initialized.
- * @NM_VPN_SERVICE_STATE_SHUTDOWN: Not used.
- * @NM_VPN_SERVICE_STATE_STARTING: The plugin is attempting to connect to a VPN server.
- * @NM_VPN_SERVICE_STATE_STARTED: The plugin has connected to a VPN server.
- * @NM_VPN_SERVICE_STATE_STOPPING: The plugin is disconnecting from the VPN server.
- * @NM_VPN_SERVICE_STATE_STOPPED: The plugin has disconnected from the VPN server.
- *
- * VPN daemon states
-  }
+
 type
   PNMVpnServiceState = ^TNMVpnServiceState;
   TNMVpnServiceState =  Longint;
@@ -81,25 +50,8 @@ type
     NM_VPN_SERVICE_STATE_STARTED = 4;
     NM_VPN_SERVICE_STATE_STOPPING = 5;
     NM_VPN_SERVICE_STATE_STOPPED = 6;
-;
-{*
- * NMVpnConnectionState:
- * @NM_VPN_CONNECTION_STATE_UNKNOWN: The state of the VPN connection is
- *   unknown.
- * @NM_VPN_CONNECTION_STATE_PREPARE: The VPN connection is preparing to
- *   connect.
- * @NM_VPN_CONNECTION_STATE_NEED_AUTH: The VPN connection needs authorization
- *   credentials.
- * @NM_VPN_CONNECTION_STATE_CONNECT: The VPN connection is being established.
- * @NM_VPN_CONNECTION_STATE_IP_CONFIG_GET: The VPN connection is getting an IP
- *   address.
- * @NM_VPN_CONNECTION_STATE_ACTIVATED: The VPN connection is active.
- * @NM_VPN_CONNECTION_STATE_FAILED: The VPN connection failed.
- * @NM_VPN_CONNECTION_STATE_DISCONNECTED: The VPN connection is disconnected.
- *
- * VPN connection states
-  }
-type
+
+  type
   PNMVpnConnectionState = ^TNMVpnConnectionState;
   TNMVpnConnectionState =  Longint;
   Const
