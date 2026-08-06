@@ -39,14 +39,11 @@ uses
   nm_setting_infiniband,
   nm_setting_ip4_config,
   nm_setting_ip6_config,
-
   nm_setting_wireless_security,
   nm_setting_wireless,
-
-
-    nm_utils,
-
-
+  nm_setting_tc_config,
+  nm_setting_sriov,
+  nm_utils,
   nm_setting_ip_config,
   nm_setting_ip_tunnel,
   nm_setting_link,
@@ -66,8 +63,6 @@ uses
   nm_setting_pppoe,
   nm_setting_proxy,
   nm_setting_serial,
-  nm_setting_sriov,
-  nm_setting_tc_config,
   nm_setting_team,
   nm_setting_team_port,
   nm_setting_tun,
@@ -77,6 +72,7 @@ uses
   nm_setting_vpn,
   nm_setting_vrf,
   nm_setting_vxlan,
+
   nm_setting_wifi_p2p,
   nm_setting_wimax,
   nm_setting_wired,
