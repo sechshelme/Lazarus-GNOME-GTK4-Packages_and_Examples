@@ -22,7 +22,6 @@ type
   PNMConnection = type Pointer;
 
   PNMConnectionInterface = ^TNMConnectionInterface;
-
   TNMConnectionInterface = record
     parent: TGTypeInterface;
     secrets_updated: procedure(connection: PNMConnection; setting: pchar); cdecl;

@@ -3,7 +3,7 @@ unit nm_client;
 interface
 
 uses
-  fp_glib2, fp_nm, nm_dbus_interface, nm_object, nm_device, nm_active_connection, nm_connection;
+  fp_glib2, fp_nm, nm_dbus_interface, nm_core_types, nm_object, nm_device, nm_active_connection, nm_remote_connection, nm_checkpoint;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

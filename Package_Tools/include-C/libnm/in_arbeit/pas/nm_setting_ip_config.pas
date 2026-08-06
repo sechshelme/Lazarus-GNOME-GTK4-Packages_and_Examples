@@ -3,49 +3,28 @@ unit nm_setting_ip_config;
 interface
 
 uses
-  fp_glib2, fp_bm;
+  fp_glib2, fp_nm, nm_setting;
 
 {$IFDEF FPC}
 {$PACKRECORDS C}
 {$ENDIF}
 
 
-{ SPDX-License-Identifier: LGPL-2.1-or-later  }
-{
- * Copyright (C) 2007 - 2014 Red Hat, Inc.
- * Copyright (C) 2007 - 2008 Novell, Inc.
-  }
-{$ifndef NM_SETTING_IP_CONFIG_H}
-{$define NM_SETTING_IP_CONFIG_H}
-{$if !defined(__NETWORKMANAGER_H_INSIDE__) && !defined(NETWORKMANAGER_COMPILATION)}
-{$error "Only <NetworkManager.h> can be included directly."}
-{$endif}
-{$include "nm-setting.h"}
-{$include "nm-utils.h"}
-
 const
   NM_IP_ADDRESS_ATTRIBUTE_LABEL = 'label';  
-{*
- * NMIPAddressCmpFlags:
- * @NM_IP_ADDRESS_CMP_FLAGS_NONE: no flags.
- * @NM_IP_ADDRESS_CMP_FLAGS_WITH_ATTRS: when comparing two addresses,
- *   also consider their attributes. Warning: note that attributes are GVariants
- *   and they don't have a total order. In other words, if the address differs only
- *   by their attributes, the returned compare order is not total. In that case,
- *   the return value merely indicates equality (zero) or inequality.
- *
- * Compare flags for nm_ip_address_cmp_full().
- *
- * Since: 1.22
-  }
-{< flags > }type
+
+type
   PNMIPAddressCmpFlags = ^TNMIPAddressCmpFlags;
   TNMIPAddressCmpFlags =  Longint;
   Const
     NM_IP_ADDRESS_CMP_FLAGS_NONE = 0;
     NM_IP_ADDRESS_CMP_FLAGS_WITH_ATTRS = $1;
-;
+
 type
+  PNMIPAddress=type Pointer;
+
+  PNMSettingIPConfig=type Pointer;
+  PNMSettingIPConfigClass=type Pointer;
 
 function nm_ip_address_get_type:TGType;cdecl;external libnm;
 function nm_ip_address_new(family:longint; addr:Pchar; prefix:Tguint; error:PPGError):PNMIPAddress;cdecl;external libnm;
@@ -62,10 +41,12 @@ procedure nm_ip_address_get_address_binary(address:PNMIPAddress; addr:Tgpointer)
 procedure nm_ip_address_set_address_binary(address:PNMIPAddress; addr:Tgconstpointer);cdecl;external libnm;
 function nm_ip_address_get_prefix(address:PNMIPAddress):Tguint;cdecl;external libnm;
 procedure nm_ip_address_set_prefix(address:PNMIPAddress; prefix:Tguint);cdecl;external libnm;
-function nm_ip_address_get_attribute_names(address:PNMIPAddress):^Pchar;cdecl;external libnm;
+function nm_ip_address_get_attribute_names(address:PNMIPAddress):PPchar;cdecl;external libnm;
 function nm_ip_address_get_attribute(address:PNMIPAddress; name:Pchar):PGVariant;cdecl;external libnm;
 procedure nm_ip_address_set_attribute(address:PNMIPAddress; name:Pchar; value:PGVariant);cdecl;external libnm;
+
 type
+  PNMIPRoute=type Pointer;
 
 function nm_ip_route_get_type:TGType;cdecl;external libnm;
 function nm_ip_route_new(family:longint; dest:Pchar; prefix:Tguint; next_hop:Pchar; metric:Tgint64; 
@@ -75,12 +56,10 @@ function nm_ip_route_new_binary(family:longint; dest:Tgconstpointer; prefix:Tgui
 procedure nm_ip_route_ref(route:PNMIPRoute);cdecl;external libnm;
 procedure nm_ip_route_unref(route:PNMIPRoute);cdecl;external libnm;
 function nm_ip_route_equal(route:PNMIPRoute; other:PNMIPRoute):Tgboolean;cdecl;external libnm;
-{< flags > }type
-  Txxxxx =  Longint;
-  Const
+
+Const
     NM_IP_ROUTE_EQUAL_CMP_FLAGS_NONE = 0;
     NM_IP_ROUTE_EQUAL_CMP_FLAGS_WITH_ATTRS = $1;
-
 
 function nm_ip_route_equal_full(route:PNMIPRoute; other:PNMIPRoute; cmp_flags:Tguint):Tgboolean;cdecl;external libnm;
 function nm_ip_route_dup(route:PNMIPRoute):PNMIPRoute;cdecl;external libnm;
@@ -97,11 +76,12 @@ function nm_ip_route_get_next_hop_binary(route:PNMIPRoute; next_hop:Tgpointer):T
 procedure nm_ip_route_set_next_hop_binary(route:PNMIPRoute; next_hop:Tgconstpointer);cdecl;external libnm;
 function nm_ip_route_get_metric(route:PNMIPRoute):Tgint64;cdecl;external libnm;
 procedure nm_ip_route_set_metric(route:PNMIPRoute; metric:Tgint64);cdecl;external libnm;
-function nm_ip_route_get_attribute_names(route:PNMIPRoute):^Pchar;cdecl;external libnm;
+function nm_ip_route_get_attribute_names(route:PNMIPRoute):PPchar;cdecl;external libnm;
 function nm_ip_route_get_attribute(route:PNMIPRoute; name:Pchar):PGVariant;cdecl;external libnm;
 procedure nm_ip_route_set_attribute(route:PNMIPRoute; name:Pchar; value:PGVariant);cdecl;external libnm;
-function nm_ip_route_get_variant_attribute_spec:^PNMVariantAttributeSpec;cdecl;external libnm;
+function nm_ip_route_get_variant_attribute_spec:PPNMVariantAttributeSpec;cdecl;external libnm;
 function nm_ip_route_attribute_validate(name:Pchar; value:PGVariant; family:longint; known:Pgboolean; error:PPGError):Tgboolean;cdecl;external libnm;
+
 const
   NM_IP_ROUTE_ATTRIBUTE_ADVMSS = 'advmss';  
   NM_IP_ROUTE_ATTRIBUTE_CWND = 'cwnd';  
@@ -124,9 +104,10 @@ const
   NM_IP_ROUTE_ATTRIBUTE_TOS = 'tos';  
   NM_IP_ROUTE_ATTRIBUTE_TYPE = 'type';  
   NM_IP_ROUTE_ATTRIBUTE_WINDOW = 'window';  
-  NM_IP_ROUTE_ATTRIBUTE_WEIGHT = 'weight';  
-{*************************************************************************** }
-type
+  NM_IP_ROUTE_ATTRIBUTE_WEIGHT = 'weight';
+
+  type
+    PNMIPRoutingRule=type po
 
 function nm_ip_routing_rule_get_type:TGType;cdecl;external libnm;
 function nm_ip_routing_rule_new(addr_family:longint):PNMIPRoutingRule;cdecl;external libnm;
@@ -173,21 +154,8 @@ function nm_ip_routing_rule_get_uid_range(self:PNMIPRoutingRule; out_range_start
 procedure nm_ip_routing_rule_set_uid_range(self:PNMIPRoutingRule; uid_range_start:Tguint32; uid_range_end:Tguint32);cdecl;external libnm;
 function nm_ip_routing_rule_cmp(rule:PNMIPRoutingRule; other:PNMIPRoutingRule):longint;cdecl;external libnm;
 function nm_ip_routing_rule_validate(self:PNMIPRoutingRule; error:PPGError):Tgboolean;cdecl;external libnm;
-{*
- * NMIPRoutingRuleAsStringFlags:
- * @NM_IP_ROUTING_RULE_AS_STRING_FLAGS_NONE: no flags selected.
- * @NM_IP_ROUTING_RULE_AS_STRING_FLAGS_AF_INET: whether to allow parsing
- *   IPv4 addresses.
- * @NM_IP_ROUTING_RULE_AS_STRING_FLAGS_AF_INET6: whether to allow parsing
- *   IPv6 addresses. If both @NM_IP_ROUTING_RULE_AS_STRING_FLAGS_AF_INET and
- *   @NM_IP_ROUTING_RULE_AS_STRING_FLAGS_AF_INET6 are unset, it's the same
- *   as setting them both.
- * @NM_IP_ROUTING_RULE_AS_STRING_FLAGS_VALIDATE: if set, ensure that the
- *   rule verfies or fail.
- *
- * Since: 1.18
-  }
-{< flags > }type
+
+type
   PNMIPRoutingRuleAsStringFlags = ^TNMIPRoutingRuleAsStringFlags;
   TNMIPRoutingRuleAsStringFlags =  Longint;
   Const
@@ -195,11 +163,10 @@ function nm_ip_routing_rule_validate(self:PNMIPRoutingRule; error:PPGError):Tgbo
     NM_IP_ROUTING_RULE_AS_STRING_FLAGS_AF_INET = $1;
     NM_IP_ROUTING_RULE_AS_STRING_FLAGS_AF_INET6 = $2;
     NM_IP_ROUTING_RULE_AS_STRING_FLAGS_VALIDATE = $4;
-;
 
 function nm_ip_routing_rule_from_string(str:Pchar; to_string_flags:TNMIPRoutingRuleAsStringFlags; extra_args:PGHashTable; error:PPGError):PNMIPRoutingRule;cdecl;external libnm;
 function nm_ip_routing_rule_to_string(self:PNMIPRoutingRule; to_string_flags:TNMIPRoutingRuleAsStringFlags; extra_args:PGHashTable; error:PPGError):Pchar;cdecl;external libnm;
-{*************************************************************************** }
+
 const
   NM_SETTING_IP_CONFIG_DAD_TIMEOUT_MAX = 30000;  
   NM_SETTING_IP_CONFIG_METHOD = 'method';  
@@ -227,8 +194,7 @@ const
   NM_SETTING_IP_CONFIG_DHCP_REJECT_SERVERS = 'dhcp-reject-servers';  
   NM_SETTING_IP_CONFIG_AUTO_ROUTE_EXT_GW = 'auto-route-ext-gw';  
   NM_SETTING_IP_CONFIG_REPLACE_LOCAL_RULE = 'replace-local-rule';  
-{ these are not real GObject properties.  }
-  NM_SETTING_IP_CONFIG_ROUTING_RULES = 'routing-rules';  
+  NM_SETTING_IP_CONFIG_ROUTING_RULES = 'routing-rules';
   NM_SETTING_DNS_OPTION_DEBUG = 'debug';  
   NM_SETTING_DNS_OPTION_NDOTS = 'ndots';  
   NM_SETTING_DNS_OPTION_TIMEOUT = 'timeout';  
@@ -247,39 +213,10 @@ const
   NM_SETTING_DNS_OPTION_NO_RELOAD = 'no-reload';  
   NM_SETTING_DNS_OPTION_TRUST_AD = 'trust-ad';  
   NM_SETTING_DNS_OPTION_NO_AAAA = 'no-aaaa';  
-{ Internal options (not added to resolv.conf)  }
-  NM_SETTING_DNS_OPTION_INTERNAL_NO_ADD_EDNS0 = '_no-add-edns0';  
-  NM_SETTING_DNS_OPTION_INTERNAL_NO_ADD_TRUST_AD = '_no-add-trust-ad';  
+  NM_SETTING_DNS_OPTION_INTERNAL_NO_ADD_EDNS0 = '_no-add-edns0';
+  NM_SETTING_DNS_OPTION_INTERNAL_NO_ADD_TRUST_AD = '_no-add-trust-ad';
+
 type
-{*
- * NMDhcpHostnameFlags:
- * @NM_DHCP_HOSTNAME_FLAG_NONE: no flag set. The default value from
- *   Networkmanager global configuration is used. If such value is unset
- *   or still zero, the DHCP request will use standard FQDN flags, i.e.
- *   %NM_DHCP_HOSTNAME_FLAG_FQDN_SERV_UPDATE and
- *   %NM_DHCP_HOSTNAME_FLAG_FQDN_ENCODED for IPv4 and
- *   %NM_DHCP_HOSTNAME_FLAG_FQDN_SERV_UPDATE for IPv6.
- * @NM_DHCP_HOSTNAME_FLAG_FQDN_SERV_UPDATE: whether the server should
- *   do the A RR (FQDN-to-address) DNS updates.
- * @NM_DHCP_HOSTNAME_FLAG_FQDN_ENCODED: if set, the FQDN is encoded
- *   using canonical wire format. Otherwise it uses the deprecated
- *   ASCII encoding. This flag is allowed only for DHCPv4.
- * @NM_DHCP_HOSTNAME_FLAG_FQDN_NO_UPDATE: when not set, request the
- *   server to perform updates (the PTR RR and possibly the A RR
- *   based on the %NM_DHCP_HOSTNAME_FLAG_FQDN_SERV_UPDATE flag). If
- *   this is set, the %NM_DHCP_HOSTNAME_FLAG_FQDN_SERV_UPDATE flag
- *   should be cleared.
- * @NM_DHCP_HOSTNAME_FLAG_FQDN_CLEAR_FLAGS: when set, no FQDN flags are
- *   sent in the DHCP FQDN option. When cleared and all other FQDN
- *   flags are zero, standard FQDN flags are sent. This flag is
- *   incompatible with any other FQDN flag.
- *
- * #NMDhcpHostnameFlags describe flags related to the DHCP hostname and
- * FQDN.
- *
- * Since: 1.22
-  }
-{< flags > }
   PNMDhcpHostnameFlags = ^TNMDhcpHostnameFlags;
   TNMDhcpHostnameFlags =  Longint;
   Const
@@ -288,7 +225,6 @@ type
     NM_DHCP_HOSTNAME_FLAG_FQDN_ENCODED = $2;
     NM_DHCP_HOSTNAME_FLAG_FQDN_NO_UPDATE = $4;
     NM_DHCP_HOSTNAME_FLAG_FQDN_CLEAR_FLAGS = $8;
-;
 
 function nm_setting_ip_config_get_type:TGType;cdecl;external libnm;
 function nm_setting_ip_config_get_method(setting:PNMSettingIPConfig):Pchar;cdecl;external libnm;
@@ -350,8 +286,6 @@ procedure nm_setting_ip_config_remove_dhcp_reject_server(setting:PNMSettingIPCon
 procedure nm_setting_ip_config_clear_dhcp_reject_servers(setting:PNMSettingIPConfig);cdecl;external libnm;
 function nm_setting_ip_config_get_auto_route_ext_gw(setting:PNMSettingIPConfig):TNMTernary;cdecl;external libnm;
 function nm_setting_ip_config_get_replace_local_rule(setting:PNMSettingIPConfig):TNMTernary;cdecl;external libnm;
-{$endif}
-{ NM_SETTING_IP_CONFIG_H  }
 
 // === Konventiert am: 5-8-26 19:51:43 ===
 
