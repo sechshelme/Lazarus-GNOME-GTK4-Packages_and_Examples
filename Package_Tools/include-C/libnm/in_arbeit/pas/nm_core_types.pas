@@ -72,6 +72,9 @@ type
   PNMSettingWpan = type Pointer;
   PNMSimpleConnection = type Pointer;
 
+    PNMVpnPluginInfo = type Pointer;
+
+
   TNMUtilsPredicateStr = function(str: pchar): Tgboolean; cdecl;
 
   // === Konventiert am: 5-8-26 17:06:30 ===

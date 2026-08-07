@@ -114,7 +114,6 @@ uses
   nm_device_wpan,
   nm_errors,
   nm_ethtool_utils,
-
   nm_keyfile,
   nm_secret_agent_old,
   nm_simple_connection,
@@ -123,8 +122,8 @@ uses
   nm_vpn_editor,
   nm_vpn_editor_plugin,
   nm_vpn_plugin_info,
-  nm_vpn_plugin_old,
   nm_vpn_service_plugin,
+  nm_vpn_plugin_old,
 
 
   fp_glib2,
