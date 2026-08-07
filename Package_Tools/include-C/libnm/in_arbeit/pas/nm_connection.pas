@@ -3,7 +3,43 @@ unit nm_connection;
 interface
 
 uses
-  fp_glib2, fp_nm, nm_setting;
+  fp_glib2, fp_nm, nm_setting, nm_core_types,
+  nm_setting_8021x,
+  nm_setting_adsl,
+  nm_setting_bluetooth,
+  nm_setting_bond,
+  nm_setting_bridge,
+  nm_setting_bridge_port,
+  nm_setting_cdma,
+  nm_setting_connection,
+  nm_setting_dcb,
+  nm_setting_dummy,
+  nm_setting_generic,
+  nm_setting_gsm,
+  nm_setting_infiniband,
+  nm_setting_wireless_security,
+  nm_setting_wireless,
+  nm_setting_ip_config,
+  nm_setting_ip_tunnel,
+  nm_setting_macsec,
+  nm_setting_macvlan,
+  nm_setting_olpc_mesh,
+  nm_setting_ovs_bridge,
+  nm_setting_ovs_interface,
+  nm_setting_ovs_patch,
+  nm_setting_ovs_port,
+  nm_setting_ppp,
+  nm_setting_pppoe,
+  nm_setting_proxy,
+  nm_setting_serial,
+  nm_setting_team,
+  nm_setting_team_port,
+  nm_setting_tun,
+  nm_setting_vlan,
+  nm_setting_vpn,
+  nm_setting_vxlan,
+  nm_setting_wimax,
+  nm_setting_wired;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -18,10 +54,13 @@ const
   NM_CONNECTION_NORMALIZE_PARAM_IP4_CONFIG_METHOD = 'ip4-config-method';
   NM_CONNECTION_NORMALIZE_PARAM_IP6_CONFIG_METHOD = 'ip6-config-method';
 
+  NM_VARIANT_TYPE_CONNECTION: pchar = 'a{sa{sv}}';
+
 type
   PNMConnection = type Pointer;
 
   PNMConnectionInterface = ^TNMConnectionInterface;
+
   TNMConnectionInterface = record
     parent: TGTypeInterface;
     secrets_updated: procedure(connection: PNMConnection; setting: pchar); cdecl;
@@ -122,9 +161,7 @@ function nm_connection_get_setting_vxlan(connection: PNMConnection): PNMSettingV
 function NM_TYPE_CONNECTION: TGType;
 function NM_CONNECTION(obj: Pointer): PNMConnection;
 function NM_IS_CONNECTION(obj: Pointer): Tgboolean;
-function NM_CONNECTION_GET_INTERFACE(obj: Pointer): PNMConnectionClass;
-
-function NM_VARIANT_TYPE_CONNECTION: TGType;
+function NM_CONNECTION_GET_INTERFACE(obj: Pointer): PNMConnectionInterface;
 
 implementation
 
@@ -143,15 +180,9 @@ begin
   Result := g_type_check_instance_is_a(obj, NM_TYPE_CONNECTION);
 end;
 
-function NM_CONNECTION_GET_INTERFACE(obj: Pointer): PNMConnectionClass;
+function NM_CONNECTION_GET_INTERFACE(obj: Pointer): PNMConnectionInterface;
 begin
   Result := g_type_interface_peek(obj, NM_TYPE_CONNECTION);
-end;
-
-
-function NM_VARIANT_TYPE_CONNECTION: TGType;
-begin
-  NM_VARIANT_TYPE_CONNECTION := G_VARIANT_TYPE('a{sa{sv}}');
 end;
 
 end.

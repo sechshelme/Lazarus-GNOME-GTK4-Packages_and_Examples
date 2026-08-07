@@ -72,17 +72,15 @@ uses
   nm_setting_vpn,
   nm_setting_vrf,
   nm_setting_vxlan,
-
   nm_setting_wifi_p2p,
   nm_setting_wimax,
   nm_setting_wired,
   nm_setting_wireguard,
   nm_setting_wpan,
-
-
-
   nm_connection,
   nm_conn_utils,
+  nm_wifi_p2p_peer,
+  nm_wimax_nsp,
   nm_device_6lowpan,
   nm_device_adsl,
   nm_device_bond,
@@ -98,6 +96,8 @@ uses
   nm_device_macsec,
   nm_device_macvlan,
   nm_device_modem,
+  nm_device_wifi,
+  nm_device_wifi_p2p,
   nm_device_olpc_mesh,
   nm_device_ovs_bridge,
   nm_device_ovs_interface,
@@ -109,13 +109,12 @@ uses
   nm_device_vlan,
   nm_device_vrf,
   nm_device_vxlan,
-  nm_device_wifi,
-  nm_device_wifi_p2p,
   nm_device_wimax,
   nm_device_wireguard,
   nm_device_wpan,
   nm_errors,
   nm_ethtool_utils,
+
   nm_keyfile,
   nm_secret_agent_old,
   nm_simple_connection,
@@ -126,8 +125,6 @@ uses
   nm_vpn_plugin_info,
   nm_vpn_plugin_old,
   nm_vpn_service_plugin,
-  nm_wifi_p2p_peer,
-  nm_wimax_nsp,
 
 
   fp_glib2,
