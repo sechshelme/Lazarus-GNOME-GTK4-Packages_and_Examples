@@ -19,6 +19,7 @@ const
   {$IFDEF read_struct}
 type
   PNMAccessPoint = type Pointer;
+  PPNMAccessPoint = ^PNMAccessPoint;
   PNMAccessPointClass = type Pointer;
   {$ENDIF read_struct}
 

@@ -25,6 +25,9 @@
     </RunParams>
     <RequiredPackages>
       <Item>
+        <PackageName Value="fp_nma_package"/>
+      </Item>
+      <Item>
         <PackageName Value="fp_nm_package"/>
       </Item>
       <Item>
