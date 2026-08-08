@@ -1,4 +1,4 @@
-unit fp_nm;
+unit fp_nma;
 
 interface
 
@@ -7,7 +7,7 @@ uses
 
 const
   {$IFDEF Linux}
-  libnm = 'nm';
+  libnma = 'nma';
   {$ENDIF}
 
   {$IFDEF Windows}
@@ -23,13 +23,13 @@ const
     INET6_ADDRSTRLEN = 46;
 
   {$DEFINE read_interface}
-//  {$include fp_nm_includes.inc}
+//  {$include fp_nma_includes.inc}
   {$UNDEF read_interface}
 
 implementation
 
 {$DEFINE read_implementation}
-//{$include fp_nm_includes.inc}
+//{$include fp_nma_includes.inc}
 {$UNDEF read_implementation}
 
 end.

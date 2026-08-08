@@ -4,7 +4,7 @@ uses
   fp_glib2,
   fp_geocode;
 
-  procedure main;
+  procedure findCoord(city: pchar);
   var
     nominatim: PGeocodeNominatim;
     forward: PGeocodeForward;
@@ -12,11 +12,9 @@ uses
     err: PGError = nil;
     place: PGeocodePlace;
     loc: PGeocodeLocation;
-  const
-    Location = 'Zürich';
   begin
-    nominatim := geocode_nominatim_new('https://nominatim.openstreetmap.org/', 'MyGeocodeApp/1.0');
-    forward := geocode_forward_new_for_string(Location);
+    nominatim := geocode_nominatim_new('https://nominatim.openstreetmap.org/', 'GeocodeApp/1.0');
+    forward := geocode_forward_new_for_string(city);
     geocode_forward_set_backend(forward, GEOCODE_BACKEND(nominatim));
 
     locations := geocode_forward_search(forward, @err);
@@ -32,7 +30,7 @@ uses
           place := GEOCODE_PLACE(l^.data);
           loc := geocode_place_get_location(place);
           if loc <> nil then begin
-            g_printf('Ort: %s'#10, geocode_place_get_name(place));
+            g_printf('PLZ:  %s     Ort: %s'#10, geocode_place_get_postal_code(place), geocode_place_get_name(place));
             g_printf('Lat: %f, Lon: %f'#10#10, geocode_location_get_latitude(loc), geocode_location_get_longitude(loc));
           end else begin
             g_printf('Place hat keine zugeordnete Location.'#10);
@@ -47,6 +45,16 @@ uses
       g_object_unref(forward);
       g_object_unref(nominatim);
     end;
+    g_printf(#10'---------------------------------'#10#10)
+  end;
+
+
+  procedure main;
+  begin
+    findCoord('Zürich');
+    findCoord('Berlin');
+    findCoord('Wald');
+    findCoord('Rüti');
   end;
 
 begin
