@@ -60,7 +60,7 @@ uses
     window, box, button, cv: PGtkWidget;
   begin
     window := gtk_application_window_new(app);
-    gtk_window_set_title(GTK_WINDOW(window), 'Window');
+    gtk_window_set_title(GTK_WINDOW(window), 'appstream - Demo');
     gtk_window_set_default_size(GTK_WINDOW(window), 800, 600);
 
     box := gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
@@ -70,7 +70,7 @@ uses
     cv := column_view_sortet_widget_new;
     gtk_box_append(GTK_BOX(box), cv);
 
-    button := gtk_button_new_with_label('Hello World');
+    button := gtk_button_new_with_label('Scannen');
     g_signal_connect(button, 'clicked', G_CALLBACK(@LoadAppList), cv);
     gtk_box_append(GTK_BOX(box), button);
 
