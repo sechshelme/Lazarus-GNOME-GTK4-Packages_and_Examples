@@ -10,7 +10,7 @@ type
     parent_instance: TGtkWidget;
     custom_color: TGdkRGBA;
     sprites: record
-      second: PGskRenderNode;
+      background: PGskRenderNode;
       end;
   end;
   PMyWidget = ^TMyWidget;
@@ -34,39 +34,31 @@ var
   snapshot: PGtkSnapshot;
   color: TGdkRGBA;
   r: Tgraphene_rect_t;
-  i, width_px, height_px: integer;
-  x, y, w, h: integer;
+  i: integer;
+  x, y, w, h: double;
 begin
   snapshot := gtk_snapshot_new();
-  width_px := 600;
-  height_px := 600;
 
   graphene_rect_init(@r, 0.0, 0.0, 1.0, 1.0);
   gtk_snapshot_push_clip(snapshot, @r);
 
+  graphene_rect_init(@r, -0.1, -0.1, 1.2, 1.2);
   color.SetItems(0.9, 0.9, 0.1, 1.0);
   gtk_snapshot_append_color(snapshot, @color, @r);
 
-  for i := 0 to 150 do begin
-    x := g_random_int_range(0, trunc(width_px * 0.7));
-    y := g_random_int_range(0, height_px);
-    w := g_random_int_range(60, trunc(width_px * 0.5));
-    h := g_random_int_range(120, trunc(height_px * 0.8));
+  for i := 0 to 15 do begin
+    x := g_random_double_range(0, 0.7);
+    y := g_random_double_range(0, 1.0);
+    w := g_random_double_range(0.1, 0.5);
+    h := g_random_double_range(0.1, 0.5);
 
     color.SetItems(g_random_double, g_random_double, g_random_double, 1.0);
 
-    graphene_rect_init(@r, x / width_px, y / height_px, w / width_px, h / height_px);
+    graphene_rect_init(@r, x, y, w, h);
     gtk_snapshot_append_color(snapshot, @color, @r);
 
-    if (y + h > height_px) then  begin
-      graphene_rect_init(@r, x / width_px, (y - height_px) / height_px, w / width_px, h / height_px);
-      gtk_snapshot_append_color(snapshot, @color, @r);
-    end;
-
-    if (y < 0) then  begin
-      graphene_rect_init(@r, x / width_px, (y + height_px) / height_px, w / width_px, h / height_px);
-      gtk_snapshot_append_color(snapshot, @color, @r);
-    end;
+    graphene_rect_init(@r, x, y - 1, w, h);
+    gtk_snapshot_append_color(snapshot, @color, @r);
   end;
 
   gtk_snapshot_pop(snapshot);
@@ -75,44 +67,61 @@ end;
 
 procedure snapshoot_cp(widget: PGtkWidget; snapshot: PGtkSnapshot); cdecl;
 var
-  r: Tgraphene_rect_t;
-  child_bounds, repeat_bounds: Tgraphene_rect_t;
+  radius_size: Tgraphene_size_t;
+  r, child_bounds, repeat_bounds: Tgraphene_rect_t;
   width, height: single;
   p: Tgraphene_point_t;
-  quadrat_groesse: single;
-  Speed: single;
+  quad_size: single;
+  Speed, radius: single;
+  rr: TGskRoundedRect;
   repeat_node: PGskRenderNode;
+  color: TGdkRGBA;
 const
   y_offset: single = 0.0;
 begin
   width := gtk_widget_get_width(widget);
   height := gtk_widget_get_height(widget);
   Speed := height / 150;
-  quadrat_groesse := height;
+  quad_size := height;
 
   graphene_rect_init(@r, 0, 0, width, height);
   gtk_snapshot_push_clip(snapshot, @r);
 
   y_offset := y_offset + Speed;
-  if y_offset >= quadrat_groesse then  begin
+  if y_offset >= quad_size then  begin
     y_offset := 0.0;
   end;
 
   gtk_snapshot_save(snapshot);
-
-  graphene_point_init(@p, (width / 2.0) - (quadrat_groesse / 2.0), y_offset);
+  graphene_point_init(@p, width / 2.0 - (quad_size / 2.0), Trunc(y_offset));
   gtk_snapshot_translate(snapshot, @p);
-  gtk_snapshot_scale(snapshot, quadrat_groesse, quadrat_groesse);
+  gtk_snapshot_scale(snapshot, quad_size, quad_size);
 
   graphene_rect_init(@child_bounds, 0.0, 0.0, 1.0, 1.0);
   graphene_rect_init(@repeat_bounds, 0.0, -1.0, 1.0, 2.0);
 
-  repeat_node := gsk_repeat_node_new(@repeat_bounds, PMyWidget(widget)^.sprites.second, @child_bounds);
-
+  repeat_node := gsk_repeat_node_new(@repeat_bounds, PMyWidget(widget)^.sprites.background, @child_bounds);
   gtk_snapshot_append_node(snapshot, repeat_node);
   gsk_render_node_unref(repeat_node);
-
   gtk_snapshot_restore(snapshot);
+
+
+  // Point
+  color.SetItems(1.0, 0.8, 0.8, 1.0);
+
+  radius := height / 40.0;
+  graphene_rect_init(@r, -radius, -radius, radius * 2, radius * 2);
+  graphene_size_init(@radius_size, radius, radius);
+
+  gsk_rounded_rect_init(@rr, @r, @radius_size, @radius_size, @radius_size, @radius_size);
+
+  graphene_point_init(@p, width / 2.0, height / 2);
+  gtk_snapshot_translate(snapshot, @p);
+
+  gtk_snapshot_push_rounded_clip(snapshot, @rr);
+  gtk_snapshot_append_color(snapshot, @color, @r);
+  gtk_snapshot_pop(snapshot);
+
   gtk_snapshot_pop(snapshot);
 end;
 
@@ -121,8 +130,8 @@ var
   self: PMyWidget absolute obj;
 begin
   with self^ do begin
-    if sprites.second <> nil then begin
-      gsk_render_node_unref(sprites.second);
+    if sprites.background <> nil then begin
+      gsk_render_node_unref(sprites.background);
     end;
   end;
   G_OBJECT_CLASS(parent_class)^.finalize(obj);
@@ -146,7 +155,7 @@ var
   self: PMyWidget absolute instance;
 begin
   self^.custom_color.SetItems(0.0, 0.2, 0.0, 1.0);
-  self^.sprites.second := create_second_hand_node;
+  self^.sprites.background := create_second_hand_node;
   gtk_widget_add_tick_callback(GTK_WIDGET(self), @tick_cp, nil, nil);
 end;
 
