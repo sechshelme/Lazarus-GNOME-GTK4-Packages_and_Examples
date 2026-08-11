@@ -29,13 +29,35 @@ implementation
 var
   parent_class: PMyWidgetClass = nil;
 
+procedure SetBrown(c: PGdkRGBA);
+begin
+  with c^ do begin
+    red := g_random_double_range(0.3, 0.9);
+    green := red * g_random_double_range(0.45, 0.65);
+    blue := red * g_random_double_range(0.05, 0.20);
+  end;
+end;
+
+procedure SetPos(r: Pgraphene_rect_t);
+var
+  x, y, w, h: single;
+  const
+    SIZE=0.1;
+begin
+  x := g_random_double_range(0, 1.0);
+  y := g_random_double_range(0, 1.0);
+  w := g_random_double_range(SIZE/4, SIZE);
+  h := g_random_double_range(SIZE/4, SIZE);
+
+  graphene_rect_init(r, x, y, w, h);
+end;
+
 function create_second_hand_node: PGskRenderNode;
 var
   snapshot: PGtkSnapshot;
   color: TGdkRGBA;
   r: Tgraphene_rect_t;
   i: integer;
-  x, y, w, h: double;
 begin
   snapshot := gtk_snapshot_new();
 
@@ -43,21 +65,15 @@ begin
   gtk_snapshot_push_clip(snapshot, @r);
 
   graphene_rect_init(@r, -0.1, -0.1, 1.2, 1.2);
-  color.SetItems(0.9, 0.9, 0.1, 1.0);
+//  color.SetItems(0.9, 0.9, 0.1, 1.0);
+  color.SetItems(0.4, 0.2, 0.1, 1.0);
   gtk_snapshot_append_color(snapshot, @color, @r);
 
-  for i := 0 to 15 do begin
-    x := g_random_double_range(0, 0.7);
-    y := g_random_double_range(0, 1.0);
-    w := g_random_double_range(0.1, 0.5);
-    h := g_random_double_range(0.1, 0.5);
-
-    color.SetItems(g_random_double, g_random_double, g_random_double, 1.0);
-
-    graphene_rect_init(@r, x, y, w, h);
+  for i := 0 to 150 do begin
+    SetBrown(@color);
+    SetPos(@r);
     gtk_snapshot_append_color(snapshot, @color, @r);
-
-    graphene_rect_init(@r, x, y - 1, w, h);
+    graphene_rect_offset_r(@r, 0, -1.0, @r);
     gtk_snapshot_append_color(snapshot, @color, @r);
   end;
 
