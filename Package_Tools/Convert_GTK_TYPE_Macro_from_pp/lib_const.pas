@@ -347,6 +347,7 @@ const
     (libs: 'libspelling'; units: 'fp_glib2, fp_spelling'),
     (libs: 'libnm'; units: 'fp_glib2, fp_nm'),
     (libs: 'libnma'; units: 'fp_glib2, fp_nma'),
+    (libs: 'libgegl'; units: 'fp_glib2, fp_gegl'),
 
 
 

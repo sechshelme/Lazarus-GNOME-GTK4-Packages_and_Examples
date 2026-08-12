@@ -65,7 +65,6 @@ begin
   gtk_snapshot_push_clip(snapshot, @r);
 
   graphene_rect_init(@r, -0.1, -0.1, 1.2, 1.2);
-//  color.SetItems(0.9, 0.9, 0.1, 1.0);
   color.SetItems(0.4, 0.2, 0.1, 1.0);
   gtk_snapshot_append_color(snapshot, @color, @r);
 

@@ -203,36 +203,6 @@ function gtk_widget_class_get_css_name(widget_class: PGtkWidgetClass): PChar; cd
 function gtk_widget_add_tick_callback(widget: PGtkWidget; callback: TGtkTickCallback; user_data: Tgpointer; notify: TGDestroyNotify): Tguint; cdecl; external libgtk4;
 procedure gtk_widget_remove_tick_callback(widget: PGtkWidget; id: Tguint); cdecl; external libgtk4;
 
-
-{#define gtk_widget_class_bind_template_callback(widget_class, callback) \ }
-{  gtk_widget_class_bind_template_callback_full (GTK_WIDGET_CLASS (widget_class), \ }
-{                                                #callback, \ }
-{                                                G_CALLBACK (callback)) }
-
-{#define gtk_widget_class_bind_template_child(widget_class, TypeName, member_name) \ }
-{  gtk_widget_class_bind_template_child_full (widget_class, \ }
-{                                             #member_name, \ }
-{                                             FALSE, \ }
-{                                             G_STRUCT_OFFSET (TypeName, member_name)) }
-
-{#define gtk_widget_class_bind_template_child_internal(widget_class, TypeName, member_name) \ }
-{  gtk_widget_class_bind_template_child_full (widget_class, \ }
-{                                             #member_name, \ }
-{                                             TRUE, \ }
-{                                             G_STRUCT_OFFSET (TypeName, member_name)) }
-
-{#define gtk_widget_class_bind_template_child_private(widget_class, TypeName, member_name) \ }
-{  gtk_widget_class_bind_template_child_full (widget_class, \ }
-{                                             #member_name, \ }
-{                                             FALSE, \ }
-{                                             G_PRIVATE_OFFSET (TypeName, member_name)) }
-
-{#define gtk_widget_class_bind_template_child_internal_private(widget_class, TypeName, member_name) \ }
-{  gtk_widget_class_bind_template_child_full (widget_class, \ }
-{                                             #member_name, \ }
-{                                             TRUE, \ }
-{                                             G_PRIVATE_OFFSET (TypeName, member_name)) }
-
 procedure gtk_widget_init_template(widget: PGtkWidget); cdecl; external libgtk4;
 function gtk_widget_get_template_child(widget: PGtkWidget; widget_type: TGType; Name: PChar): PGObject; cdecl; external libgtk4;
 procedure gtk_widget_dispose_template(widget: PGtkWidget; widget_type: TGType); cdecl; external libgtk4;
