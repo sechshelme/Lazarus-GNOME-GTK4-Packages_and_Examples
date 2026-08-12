@@ -348,6 +348,8 @@ const
     (libs: 'libnm'; units: 'fp_glib2, fp_nm'),
     (libs: 'libnma'; units: 'fp_glib2, fp_nma'),
     (libs: 'libgegl'; units: 'fp_glib2, fp_gegl'),
+    (libs: 'libgeg-npd'; units: 'fp_glib2, fp_gegl'),
+    (libs: 'libgeg-sc'; units: 'fp_glib2, fp_gegl'),
 
 
 

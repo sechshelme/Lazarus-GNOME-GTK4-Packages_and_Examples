@@ -1,17 +1,17 @@
-unit fp_nma;
+unit fp_gegl;
 
 interface
 
 uses
-  fp_glib2, fp_cairo, fp_GTK4, fp_nm;
+  fp_glib2;
 
 const
   {$IFDEF Linux}
-  libnma = 'nma-gtk4';
+  libgegl = 'libgegl';
   {$ENDIF}
 
   {$IFDEF Windows}
-  {$FATAL  no supported}
+  libgegl = 'libgegl-0.4-0.dll';
   {$ENDIF}
 
 
@@ -19,17 +19,24 @@ const
   {$PACKRECORDS C}
   {$ENDIF}
 
-const
-  INET6_ADDRSTRLEN = 46;
+  type
+  PBabl=type Pointer;    // #include <babl/babl.h>
+
+// =====
+
+    PGeglBuffer = type Pointer;
+
+
+
 
   {$DEFINE read_interface}
-  {$include fp_nma_includes.inc}
+//  {$include fp_gegl_includes.inc}
   {$UNDEF read_interface}
 
 implementation
 
 {$DEFINE read_implementation}
-{$include fp_nma_includes.inc}
+//{$include fp_gegl_includes.inc}
 {$UNDEF read_implementation}
 
 end.
