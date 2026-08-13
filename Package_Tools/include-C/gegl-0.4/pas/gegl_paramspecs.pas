@@ -10,61 +10,9 @@ uses
 {$ENDIF}
 
 
-{ This file is part of GEGL
- *
- * GEGL is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or (at your option) any later version.
- *
- * GEGL is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with GEGL; if not, see <https://www.gnu.org/licenses/>.
- *
- * Copyright 2003 Calvin Williamson
- *           2006 Øyvind Kolås
- *
- * Original contents copied from gimp/app/core/gimpparamspecs.h
- * (c) 1995-2006 Spencer Kimball, Peter Mattis and others.
-  }
-{$include <glib-object.h>}
-{$ifndef __GEGL_PARAM_SPECS_H__}
-{$define __GEGL_PARAM_SPECS_H__}
-{
- * Keep in sync with libgeglconfig/geglconfig-params.h
-  }
-
 const
   GEGL_PARAM_NO_VALIDATE = 1 shl (6+G_PARAM_USER_SHIFT);  
-type
-{
- * GEGL_TYPE_PARAM_DOUBLE
-  }
 
-{ was #define dname def_expr }
-function GEGL_TYPE_PARAM_DOUBLE : longint; { return type might be wrong }
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GEGL_PARAM_SPEC_DOUBLE(pspec : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GEGL_IS_PARAM_SPEC_DOUBLE(pspec : longint) : longint;
-
-{ reasonable range to present to user  }
-{ a desired non-linear mapping or 1.0, useful
-                                  when the control the user needs is not a
-                                  linear mapping, like controlling brush-size
-                                  or gaussian blur radius - where more
-                                  detailed control of small values is needed
-                                   }
 type
   PGeglParamSpecDouble = ^TGeglParamSpecDouble;
   TGeglParamSpecDouble = record
@@ -79,46 +27,11 @@ type
 
 
 function gegl_param_double_get_type:TGType;cdecl;external libgegl;
-{*
- * gegl_param_spec_double:
- * @name: canonical name of the property specified
- * @nick: nick name for the property specified
- * @blurb: description of the property specified
- * @minimum: minimum value for the property specified
- * @maximum: maximum value for the property specified
- * @default_value: default value for the property specified
- * @ui_minimum: minimum value a user should be allowed to input
- * @ui_maximum: maximum value a user should be allowed to input
- * @ui_gamma: the gamma that should be used when adjusting the value
- * @flags: flags for the property specified
- *
- * Creates a new #GeglParamSpecDouble instance.
- *
- * Return value: (transfer full): a newly created parameter specification
-  }
-function gegl_param_spec_double(name:Pgchar; nick:Pgchar; blurb:Pgchar; minimum:Tgdouble; maximum:Tgdouble; 
+function gegl_param_spec_double(name:Pgchar; nick:Pgchar; blurb:Pgchar; minimum:Tgdouble; maximum:Tgdouble;
            default_value:Tgdouble; ui_minimum:Tgdouble; ui_maximum:Tgdouble; ui_gamma:Tgdouble; flags:TGParamFlags):PGParamSpec;cdecl;external libgegl;
-{ utility function to initialize ui_steps; should be moved to constructor
- * when breaking API/ABI  }
 procedure gegl_param_spec_double_set_steps(pspec:PGeglParamSpecDouble; small_step:Tgdouble; big_step:Tgdouble);cdecl;external libgegl;
 procedure gegl_param_spec_double_set_digits(pspec:PGeglParamSpecDouble; digits:Tgint);cdecl;external libgegl;
-{
- * GEGL_TYPE_PARAM_INT
-  }
-{ was #define dname def_expr }
-function GEGL_TYPE_PARAM_INT : longint; { return type might be wrong }
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GEGL_PARAM_SPEC_INT(pspec : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GEGL_IS_PARAM_SPEC_INT(pspec : longint) : longint;
-
-{ reasonable range to present to user  }
 type
   PGeglParamSpecInt = ^TGeglParamSpecInt;
   TGeglParamSpecInt = record
@@ -132,40 +45,20 @@ type
 
 
 function gegl_param_int_get_type:TGType;cdecl;external libgegl;
-{*
- * gegl_param_spec_int:
- * @name: canonical name of the property specified
- * @nick: nick name for the property specified
- * @blurb: description of the property specified
- * @minimum: minimum value for the property specified
- * @maximum: maximum value for the property specified
- * @default_value: default value for the property specified
- * @ui_minimum: minimum value a user should be allowed to input
- * @ui_maximum: maximum value a user should be allowed to input
- * @ui_gamma: the gamma that should be used when adjusting the value
- * @flags: flags for the property specified
- *
- * Creates a new #GeglParamSpecInt instance.
- *
- * Return value: (transfer full): a newly created parameter specification
-  }
-function gegl_param_spec_int(name:Pgchar; nick:Pgchar; blurb:Pgchar; minimum:Tgint; maximum:Tgint; 
+function gegl_param_spec_int(name:Pgchar; nick:Pgchar; blurb:Pgchar; minimum:Tgint; maximum:Tgint;
            default_value:Tgint; ui_minimum:Tgint; ui_maximum:Tgint; ui_gamma:Tgdouble; flags:TGParamFlags):PGParamSpec;cdecl;external libgegl;
 procedure gegl_param_spec_int_set_steps(pspec:PGeglParamSpecInt; small_step:Tgint; big_step:Tgint);cdecl;external libgegl;
-{
- * GEGL_TYPE_PARAM_STRING
-  }
-{ was #define dname def_expr }
-function GEGL_TYPE_PARAM_STRING : longint; { return type might be wrong }
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
+function GEGL_TYPE_PARAM_DOUBLE : longint;
+function GEGL_PARAM_SPEC_DOUBLE(pspec : longint) : longint;
+function GEGL_IS_PARAM_SPEC_DOUBLE(pspec : longint) : longint;
+
+function GEGL_TYPE_PARAM_INT : longint;
+function GEGL_PARAM_SPEC_INT(pspec : longint) : longint;
+function GEGL_IS_PARAM_SPEC_INT(pspec : longint) : longint;
+
+function GEGL_TYPE_PARAM_STRING : longint;
 function GEGL_PARAM_SPEC_STRING(pspec : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
 function GEGL_IS_PARAM_SPEC_STRING(pspec : longint) : longint;
 
 type
@@ -174,7 +67,6 @@ type
       parent_instance : TGParamSpecString;
       flag0 : word;
     end;
-
 
 const
   bm_TGeglParamSpecString_no_validate = $1;

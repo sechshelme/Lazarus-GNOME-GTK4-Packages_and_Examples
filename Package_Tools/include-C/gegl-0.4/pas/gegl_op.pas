@@ -1,24 +1,24 @@
 unit gegl_op;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
   fp_glib2, fp_gegl;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
-  PGeglOp = ^TGeglOp;
-  TGeglOp = record
-      parent_instance : TGEGL_OP_Parent;
-      properties : Tgpointer;
-    end;
+  PGeglOp = type Pointer;
+  {$ENDIF read_struct}
 
 
-// === Konventiert am: 12-8-26 15:08:39 ===
+  // === Konventiert am: 12-8-26 15:08:39 ===
 
 
 implementation

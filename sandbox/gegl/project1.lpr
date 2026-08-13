@@ -22,17 +22,16 @@ uses
   gegl_debug,
   gegl_graph_debug,
   gegl_init,
-
-
   gegl_lookup,
   gegl_math,
   gegl_memory,
   gegl_metadata,
-  gegl_metadatahash,
   gegl_metadatastore,
+  gegl_metadatahash,
   gegl_op,
   gegl_operations_util,
   gegl_parallel,
+
   gegl_paramspecs,
   gegl_path,
   gegl_plugin,

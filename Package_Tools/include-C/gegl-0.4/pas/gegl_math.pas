@@ -1,80 +1,86 @@
 unit gegl_math;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
-  fp_glib2, fp_gegl;
+  fp_glib2;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
-
-
-{ xxxxxxxx
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
-static inline float gegl_fabsf (float x)
-
-  union 
-   float f;
-   guint32 i;
-   u = x;
-  u.i &= 0x7fffffff;
-  return u.f;
-
-
-static inline double gegl_fabs (double x)
-
-  union 
-   double d;
-   guint64 i;
-   u = x;
-  u.i &= 0x7fffffffffffffff;
-  return u.d;
-
-
-static inline float gegl_floorf (float x)
-
-  int i = (int)x;       
-  return i - ( i > x ); 
-
-
-static inline float gegl_ceilf (float x)
-
-  return - gegl_floorf (-x);
-
-
-static inline double gegl_floor (double x)
-
-  gint64 i = (gint64)x; 
-  return i - ( i > x ); 
-
-
-static inline double  gegl_ceil (double x)
-
-  return - gegl_floor (-x);
-
-
-static inline float gegl_fmodf (float x, float y)
-
-  return x - y * gegl_floorf (x/y);
-
-
-static inline double gegl_fmod (double x, double y)
-
-  return x - y * gegl_floor (x/y);
-
-
-  }
-
-const
-  blublu = xxxxxx;  
+{$IFDEF read_function}
+function gegl_fabsf(x: single): single; inline;
+function gegl_fabs(x: double): double; inline;
+function gegl_floorf(x: single): single; inline;
+function gegl_ceilf(x: single): single; inline;
+function gegl_floor(x: double): double; inline;
+function gegl_ceil(x: double): double; inline;
+function gegl_fmodf(x, y: single): single; inline;
+function gegl_fmod(x, y: double): double; inline;
+{$ENDIF read_function}
 
 // === Konventiert am: 12-8-26 15:11:51 ===
 
-
 implementation
 
+function gegl_fabsf(x: single): single; inline;
+var
+  u_f: single;
+  u_i: DWord absolute u_f;
+begin
+  u_f := x;
+  u_i := u_i and $7FFFFFFF;
+  Result := u_f;
+end;
 
+function gegl_fabs(x: double): double; inline;
+var
+  u_d: double;
+  u_i: QWord absolute u_d;
+begin
+  u_d := x;
+  u_i := u_i and $7FFFFFFFFFFFFFFF;
+  Result := u_d;
+end;
+
+function gegl_floorf(x: single): single; inline;
+var
+  i: longint;
+begin
+  i := Trunc(x);
+  Result := i - Ord(i > x);
+end;
+
+function gegl_ceilf(x: single): single; inline;
+begin
+  Result := -gegl_floorf(-x);
+end;
+
+function gegl_floor(x: double): double; inline;
+var
+  i: int64;
+begin
+  i := Trunc(x);
+  Result := i - Ord(i > x);
+end;
+
+function gegl_ceil(x: double): double; inline;
+begin
+  Result := -gegl_floor(-x);
+end;
+
+function gegl_fmodf(x, y: single): single; inline;
+begin
+  Result := x - y * gegl_floorf(x / y);
+end;
+
+function gegl_fmod(x, y: double): double; inline;
+begin
+  Result := x - y * gegl_floor(x / y);
+end;
 
 end.
