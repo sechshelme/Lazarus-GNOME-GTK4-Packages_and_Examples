@@ -49,6 +49,7 @@ type
   PPGeglNode = ^PGeglNode;
   PPPGeglNode = ^PPGeglNode;
   PGeglProcessor = type Pointer;
+  PGeglRandom = type Pointer;
   {$ENDIF read_struct}
 
 {$IFDEF read_function}

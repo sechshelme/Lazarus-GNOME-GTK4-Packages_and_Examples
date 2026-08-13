@@ -1,5 +1,6 @@
 program project1;
 uses
+  gegl_version,
   gegl_types,
   gegl_enums,
   gegl_buffer_enums,
@@ -31,7 +32,6 @@ uses
   gegl_op,
   gegl_operations_util,
   gegl_parallel,
-
   gegl_paramspecs,
   gegl_path,
   gegl_plugin,
@@ -40,11 +40,36 @@ uses
   gegl_rectangle,
   gegl_scratch,
   gegl_utils,
-  gegl_version,
 
 
-  fp_glib2, fp_gegl;
+  fp_glib2,
+  fp_gegl;
+
+  procedure main;
+  const
+    input_path = 'test.jpg';
+    output_path = 'out.jpg';
+  var
+    graph, load, save, invert: PGeglNode;
+
+  begin
+    gegl_init.gegl_init(@argc, @argv); // ???
+
+    graph := gegl_node_new;
+    load := gegl_node_new_child(graph, 'operation', 'gegl:load', 'path', input_path, nil);
+    invert := gegl_node_new_child(graph, 'operation', 'gegl:invert', nil);
+    save := gegl_node_new_child(graph, 'operation', 'gegl:png-save', 'path', output_path, nil);
+
+    gegl_node_link_many(load, invert, save, nil);
+    gegl_node_process(save);
+
+    g_object_unref(graph);
+
+    gegl_exit;
+
+    g_print('Bildverarbeitung abgeschlossen. Ergebnis gespeichert in: '#10, output_path);
+  end;
 
 begin
-
+  main;;
 end.

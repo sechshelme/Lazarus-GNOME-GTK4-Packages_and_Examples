@@ -1,564 +1,317 @@
 unit gegl_paramspecs;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
   fp_glib2, fp_gegl;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
+  {$IFDEF read_enum}
 const
-  GEGL_PARAM_NO_VALIDATE = 1 shl (6+G_PARAM_USER_SHIFT);  
+  GEGL_PARAM_NO_VALIDATE = 1 shl (6 + G_PARAM_USER_SHIFT);
+  {$ENDIF read_enum}
 
+  {$IFDEF read_struct}
 type
   PGeglParamSpecDouble = ^TGeglParamSpecDouble;
   TGeglParamSpecDouble = record
-      parent_instance : TGParamSpecDouble;
-      ui_minimum : Tgdouble;
-      ui_maximum : Tgdouble;
-      ui_gamma : Tgdouble;
-      ui_step_small : Tgdouble;
-      ui_step_big : Tgdouble;
-      ui_digits : Tgint;
-    end;
+    parent_instance: TGParamSpecDouble;
+    ui_minimum: Tgdouble;
+    ui_maximum: Tgdouble;
+    ui_gamma: Tgdouble;
+    ui_step_small: Tgdouble;
+    ui_step_big: Tgdouble;
+    ui_digits: Tgint;
+  end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
+function gegl_param_double_get_type: TGType; cdecl; external libgegl;
+function gegl_param_spec_double(name: Pgchar; nick: Pgchar; blurb: Pgchar; minimum: Tgdouble; maximum: Tgdouble;
+  default_value: Tgdouble; ui_minimum: Tgdouble; ui_maximum: Tgdouble; ui_gamma: Tgdouble; flags: TGParamFlags): PGParamSpec; cdecl; external libgegl;
+procedure gegl_param_spec_double_set_steps(pspec: PGeglParamSpecDouble; small_step: Tgdouble; big_step: Tgdouble); cdecl; external libgegl;
+procedure gegl_param_spec_double_set_digits(pspec: PGeglParamSpecDouble; digits: Tgint); cdecl; external libgegl;
+{$ENDIF read_function}
 
-function gegl_param_double_get_type:TGType;cdecl;external libgegl;
-function gegl_param_spec_double(name:Pgchar; nick:Pgchar; blurb:Pgchar; minimum:Tgdouble; maximum:Tgdouble;
-           default_value:Tgdouble; ui_minimum:Tgdouble; ui_maximum:Tgdouble; ui_gamma:Tgdouble; flags:TGParamFlags):PGParamSpec;cdecl;external libgegl;
-procedure gegl_param_spec_double_set_steps(pspec:PGeglParamSpecDouble; small_step:Tgdouble; big_step:Tgdouble);cdecl;external libgegl;
-procedure gegl_param_spec_double_set_digits(pspec:PGeglParamSpecDouble; digits:Tgint);cdecl;external libgegl;
-
+{$IFDEF read_struct}
 type
   PGeglParamSpecInt = ^TGeglParamSpecInt;
   TGeglParamSpecInt = record
-      parent_instance : TGParamSpecInt;
-      ui_minimum : Tgint;
-      ui_maximum : Tgint;
-      ui_gamma : Tgdouble;
-      ui_step_small : Tgint;
-      ui_step_big : Tgint;
-    end;
+    parent_instance: TGParamSpecInt;
+    ui_minimum: Tgint;
+    ui_maximum: Tgint;
+    ui_gamma: Tgdouble;
+    ui_step_small: Tgint;
+    ui_step_big: Tgint;
+  end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
+function gegl_param_int_get_type: TGType; cdecl; external libgegl;
+function gegl_param_spec_int(name: Pgchar; nick: Pgchar; blurb: Pgchar; minimum: Tgint; maximum: Tgint;
+  default_value: Tgint; ui_minimum: Tgint; ui_maximum: Tgint; ui_gamma: Tgdouble; flags: TGParamFlags): PGParamSpec; cdecl; external libgegl;
+procedure gegl_param_spec_int_set_steps(pspec: PGeglParamSpecInt; small_step: Tgint; big_step: Tgint); cdecl; external libgegl;
+{$ENDIF read_function}
 
-function gegl_param_int_get_type:TGType;cdecl;external libgegl;
-function gegl_param_spec_int(name:Pgchar; nick:Pgchar; blurb:Pgchar; minimum:Tgint; maximum:Tgint;
-           default_value:Tgint; ui_minimum:Tgint; ui_maximum:Tgint; ui_gamma:Tgdouble; flags:TGParamFlags):PGParamSpec;cdecl;external libgegl;
-procedure gegl_param_spec_int_set_steps(pspec:PGeglParamSpecInt; small_step:Tgint; big_step:Tgint);cdecl;external libgegl;
-
-function GEGL_TYPE_PARAM_DOUBLE : longint;
-function GEGL_PARAM_SPEC_DOUBLE(pspec : longint) : longint;
-function GEGL_IS_PARAM_SPEC_DOUBLE(pspec : longint) : longint;
-
-function GEGL_TYPE_PARAM_INT : longint;
-function GEGL_PARAM_SPEC_INT(pspec : longint) : longint;
-function GEGL_IS_PARAM_SPEC_INT(pspec : longint) : longint;
-
-function GEGL_TYPE_PARAM_STRING : longint;
-function GEGL_PARAM_SPEC_STRING(pspec : longint) : longint;
-function GEGL_IS_PARAM_SPEC_STRING(pspec : longint) : longint;
-
+{$IFDEF read_struct}
 type
   PGeglParamSpecString = ^TGeglParamSpecString;
-  TGeglParamSpecString = record
-      parent_instance : TGParamSpecString;
-      flag0 : word;
-    end;
+  TGeglParamSpecString = bitpacked record
+    parent_instance: TGParamSpecString;
+    no_validate: 0..1;
+    null_ok: 0..1;
+  end;
+  {$ENDIF read_struct}
 
-const
-  bm_TGeglParamSpecString_no_validate = $1;
-  bp_TGeglParamSpecString_no_validate = 0;
-  bm_TGeglParamSpecString_null_ok = $2;
-  bp_TGeglParamSpecString_null_ok = 1;
+{$IFDEF read_function}
+function gegl_param_string_get_type: TGType; cdecl; external libgegl;
+function gegl_param_spec_string(name: Pgchar; nick: Pgchar; blurb: Pgchar; no_validate: Tgboolean; null_ok: Tgboolean;
+  default_value: Pgchar; flags: TGParamFlags): PGParamSpec; cdecl; external libgegl;
+{$ENDIF read_function}
 
-function no_validate(var a : TGeglParamSpecString) : Tguint;
-procedure set_no_validate(var a : TGeglParamSpecString; __no_validate : Tguint);
-function null_ok(var a : TGeglParamSpecString) : Tguint;
-procedure set_null_ok(var a : TGeglParamSpecString; __null_ok : Tguint);
-
-function gegl_param_string_get_type:TGType;cdecl;external libgegl;
-{*
- * gegl_param_spec_string:
- * @name: canonical name of the property specified
- * @nick: nick name for the property specified
- * @blurb: description of the property specified
- * @no_validate: true if the string should be validated with g_utf8_validate
- * @null_ok: true if the string can be NULL
- * @default_value: default value for the property specified
- * @flags: flags for the property specified
- *
- * Creates a new #GeglParamSpecString instance.
- *
- * Return value: (transfer full): a newly created parameter specification
-  }
-function gegl_param_spec_string(name:Pgchar; nick:Pgchar; blurb:Pgchar; no_validate:Tgboolean; null_ok:Tgboolean; 
-           default_value:Pgchar; flags:TGParamFlags):PGParamSpec;cdecl;external libgegl;
-{
- * GEGL_TYPE_PARAM_FILEPATH
-  }
-{ was #define dname def_expr }
-function GEGL_TYPE_PARAM_FILE_PATH : longint; { return type might be wrong }
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GEGL_PARAM_SPEC_FILE_PATH(pspec : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GEGL_IS_PARAM_SPEC_FILE_PATH(pspec : longint) : longint;
-
+{$IFDEF read_struct}
 type
   PGeglParamSpecFilePath = ^TGeglParamSpecFilePath;
-  TGeglParamSpecFilePath = record
-      parent_instance : TGParamSpecString;
-      flag0 : word;
-    end;
+  TGeglParamSpecFilePath = bitpacked record
+    parent_instance: TGParamSpecString;
+    no_validate: 0..1;
+    null_ok: 0..1;
+  end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
+function gegl_param_file_path_get_type: TGType; cdecl; external libgegl;
+function gegl_param_spec_file_path(name: Pgchar; nick: Pgchar; blurb: Pgchar; no_validate: Tgboolean; null_ok: Tgboolean;
+  default_value: Pgchar; flags: TGParamFlags): PGParamSpec; cdecl; external libgegl;
+{$ENDIF read_function}
 
-const
-  bm_TGeglParamSpecFilePath_no_validate = $1;
-  bp_TGeglParamSpecFilePath_no_validate = 0;
-  bm_TGeglParamSpecFilePath_null_ok = $2;
-  bp_TGeglParamSpecFilePath_null_ok = 1;
-
-function no_validate(var a : TGeglParamSpecFilePath) : Tguint;
-procedure set_no_validate(var a : TGeglParamSpecFilePath; __no_validate : Tguint);
-function null_ok(var a : TGeglParamSpecFilePath) : Tguint;
-procedure set_null_ok(var a : TGeglParamSpecFilePath; __null_ok : Tguint);
-
-function gegl_param_file_path_get_type:TGType;cdecl;external libgegl;
-{*
- * gegl_param_spec_file_path:
- * @name: canonical name of the property specified
- * @nick: nick name for the property specified
- * @blurb: description of the property specified
- * @no_validate: true if the string should be validated with g_utf8_validate
- * @null_ok: true if the string can be NULL
- * @default_value: default value for the property specified
- * @flags: flags for the property specified
- *
- * Creates a new #GeglParamSpecFilePath instance.
- *
- * Return value: (transfer full): a newly created parameter specification
-  }
-function gegl_param_spec_file_path(name:Pgchar; nick:Pgchar; blurb:Pgchar; no_validate:Tgboolean; null_ok:Tgboolean; 
-           default_value:Pgchar; flags:TGParamFlags):PGParamSpec;cdecl;external libgegl;
-{
- * GEGL_TYPE_PARAM_ENUM
-  }
-{ was #define dname def_expr }
-function GEGL_TYPE_PARAM_ENUM : longint; { return type might be wrong }
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GEGL_PARAM_SPEC_ENUM(pspec : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GEGL_IS_PARAM_SPEC_ENUM(pspec : longint) : longint;
-
+{$IFDEF read_struct}
 type
   PGeglParamSpecEnum = ^TGeglParamSpecEnum;
   TGeglParamSpecEnum = record
-      parent_instance : TGParamSpecEnum;
-      excluded_values : PGSList;
-    end;
+    parent_instance: TGParamSpecEnum;
+    excluded_values: PGSList;
+  end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
+function gegl_param_enum_get_type: TGType; cdecl; external libgegl;
+function gegl_param_spec_enum(name: Pgchar; nick: Pgchar; blurb: Pgchar; enum_type: TGType; default_value: Tgint;
+  flags: TGParamFlags): PGParamSpec; cdecl; external libgegl;
+procedure gegl_param_spec_enum_exclude_value(espec: PGeglParamSpecEnum; value: Tgint); cdecl; external libgegl;
+{$ENDIF read_function}
 
-function gegl_param_enum_get_type:TGType;cdecl;external libgegl;
-{*
- * gegl_param_spec_enum:
- * @name: canonical name of the property specified
- * @nick: nick name for the property specified
- * @blurb: description of the property specified
- * @enum_type: the enum type to get valid values from
- * @default_value: default value for the property specified
- * @flags: flags for the property specified
- *
- * Creates a new #GeglParamSpecEnum instance.
- *
- * Return value: (transfer full): a newly created parameter specification
-  }
-function gegl_param_spec_enum(name:Pgchar; nick:Pgchar; blurb:Pgchar; enum_type:TGType; default_value:Tgint; 
-           flags:TGParamFlags):PGParamSpec;cdecl;external libgegl;
-procedure gegl_param_spec_enum_exclude_value(espec:PGeglParamSpecEnum; value:Tgint);cdecl;external libgegl;
-{
- * GEGL_TYPE_PARAM_SEED
-  }
-{ was #define dname def_expr }
-function GEGL_TYPE_PARAM_SEED : longint; { return type might be wrong }
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GEGL_PARAM_SPEC_SEED(pspec : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GEGL_IS_PARAM_SPEC_SEED(pspec : longint) : longint;
-
+{$IFDEF read_struct}
 type
   PGeglParamSpecSeed = ^TGeglParamSpecSeed;
   TGeglParamSpecSeed = record
-      parent_instance : TGParamSpecUInt;
-      ui_minimum : Tguint;
-      ui_maximum : Tguint;
-    end;
+    parent_instance: TGParamSpecUInt;
+    ui_minimum: Tguint;
+    ui_maximum: Tguint;
+  end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
+function gegl_param_seed_get_type: TGType; cdecl; external libgegl;
+function gegl_param_spec_seed(name: Pgchar; nick: Pgchar; blurb: Pgchar; flags: TGParamFlags): PGParamSpec; cdecl; external libgegl;
+{$ENDIF read_function}
 
-function gegl_param_seed_get_type:TGType;cdecl;external libgegl;
-{*
- * gegl_param_spec_seed:
- * @name: canonical name of the property specified
- * @nick: nick name for the property specified
- * @blurb: description of the property specified
- * @flags: flags for the property specified
- *
- * Creates a new #GeglParamSpecSeed instance specifying an integer random seed.
- *
- * Returns: (transfer full): a newly created parameter specification
-  }
-function gegl_param_spec_seed(name:Pgchar; nick:Pgchar; blurb:Pgchar; flags:TGParamFlags):PGParamSpec;cdecl;external libgegl;
-{
- * GEGL_TYPE_PARAM_FORMAT
-  }
-{ was #define dname def_expr }
-function GEGL_TYPE_PARAM_FORMAT : longint; { return type might be wrong }
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GEGL_PARAM_SPEC_FORMAT(pspec : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GEGL_IS_PARAM_SPEC_FORMAT(pspec : longint) : longint;
-
+{$IFDEF read_struct}
 type
   PGeglParamSpecFormat = ^TGeglParamSpecFormat;
   TGeglParamSpecFormat = record
-      parent_instance : TGParamSpecPointer;
-    end;
+    parent_instance: TGParamSpecPointer;
+  end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
+function gegl_param_format_get_type: TGType; cdecl; external libgegl;
+function gegl_param_spec_format(name: Pgchar; nick: Pgchar; blurb: Pgchar; flags: TGParamFlags): PGParamSpec; cdecl; external libgegl;
+{$ENDIF read_function}
 
-function gegl_param_format_get_type:TGType;cdecl;external libgegl;
-{*
- * gegl_param_spec_format:
- * @name: canonical name of the property specified
- * @nick: nick name for the property specified
- * @blurb: description of the property specified
- * @flags: flags for the property specified
- *
- * Creates a new #GeglParamSpecFormat instance specifying a Babl format.
- *
- * Returns: (transfer full): a newly created parameter specification
-  }
-function gegl_param_spec_format(name:Pgchar; nick:Pgchar; blurb:Pgchar; flags:TGParamFlags):PGParamSpec;cdecl;external libgegl;
-{
- * GEGL_TYPE_PARAM_URI
-  }
-{ was #define dname def_expr }
-function GEGL_TYPE_PARAM_URI : longint; { return type might be wrong }
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GEGL_PARAM_SPEC_URI(pspec : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GEGL_IS_PARAM_SPEC_URI(pspec : longint) : longint;
-
+{$IFDEF read_struct}
 type
   PGeglParamSpecUri = ^TGeglParamSpecUri;
-  TGeglParamSpecUri = record
-      parent_instance : TGParamSpecString;
-      flag0 : word;
-    end;
+  TGeglParamSpecUri = bitpacked record
+    parent_instance: TGParamSpecString;
+    no_validate: 0..1;
+    null_ok: 0..1;
+  end;
+  {$ENDIF read_struct}
 
-
-const
-  bm_TGeglParamSpecUri_no_validate = $1;
-  bp_TGeglParamSpecUri_no_validate = 0;
-  bm_TGeglParamSpecUri_null_ok = $2;
-  bp_TGeglParamSpecUri_null_ok = 1;
-
-function no_validate(var a : TGeglParamSpecUri) : Tguint;
-procedure set_no_validate(var a : TGeglParamSpecUri; __no_validate : Tguint);
-function null_ok(var a : TGeglParamSpecUri) : Tguint;
-procedure set_null_ok(var a : TGeglParamSpecUri; __null_ok : Tguint);
-
-function gegl_param_uri_get_type:TGType;cdecl;external libgegl;
-{*
- * gegl_param_spec_uri:
- * @name: canonical name of the property specified
- * @nick: nick name for the property specified
- * @blurb: description of the property specified
- * @no_validate: true if the string should be validated with g_utf8_validate
- * @null_ok: true if the string can be NULL
- * @default_value: default value for the property specified
- * @flags: flags for the property specified
- *
- * Creates a new #GeglParamSpecUri instance.
- *
- * Return value: (transfer full): a newly created parameter specification
-  }
-function gegl_param_spec_uri(name:Pgchar; nick:Pgchar; blurb:Pgchar; no_validate:Tgboolean; null_ok:Tgboolean; 
-           default_value:Pgchar; flags:TGParamFlags):PGParamSpec;cdecl;external libgegl;
-{$endif}
-{  __GEGL_PARAM_SPECS_H__   }
+{$IFDEF read_function}
+function gegl_param_uri_get_type: TGType; cdecl; external libgegl;
+function gegl_param_spec_uri(name: Pgchar; nick: Pgchar; blurb: Pgchar; no_validate: Tgboolean; null_ok: Tgboolean;
+  default_value: Pgchar; flags: TGParamFlags): PGParamSpec; cdecl; external libgegl;
 
 // === Konventiert am: 12-8-26 15:25:15 ===
 
+function GEGL_TYPE_PARAM_DOUBLE: TGType;
+function GEGL_PARAM_SPEC_DOUBLE(pspec: Pointer): PGeglParamSpecDouble;
+function GEGL_IS_PARAM_SPEC_DOUBLE(pspec: Pointer): Tgboolean;
+
+function GEGL_TYPE_PARAM_INT: TGType;
+function GEGL_PARAM_SPEC_INT(pspec: Pointer): PGeglParamSpecInt;
+function GEGL_IS_PARAM_SPEC_INT(pspec: Pointer): Tgboolean;
+
+function GEGL_TYPE_PARAM_STRING: TGType;
+function GEGL_PARAM_SPEC_STRING(pspec: Pointer): PGeglParamSpecString;
+function GEGL_IS_PARAM_SPEC_STRING(pspec: Pointer): Tgboolean;
+
+function GEGL_TYPE_PARAM_FILE_PATH: TGType;
+function GEGL_PARAM_SPEC_FILE_PATH(pspec: Pointer): PGeglParamSpecFilePath;
+function GEGL_IS_PARAM_SPEC_FILE_PATH(pspec: Pointer): Tgboolean;
+
+function GEGL_TYPE_PARAM_ENUM: TGType;
+function GEGL_PARAM_SPEC_ENUM(pspec: Pointer): PGeglParamSpecEnum;
+function GEGL_IS_PARAM_SPEC_ENUM(pspec: Pointer): Tgboolean;
+
+function GEGL_TYPE_PARAM_SEED: TGType;
+function GEGL_PARAM_SPEC_SEED(pspec: Pointer): PGeglParamSpecSeed;
+function GEGL_IS_PARAM_SPEC_SEED(pspec: Pointer): Tgboolean;
+
+function GEGL_TYPE_PARAM_FORMAT: TGType;
+function GEGL_PARAM_SPEC_FORMAT(pspec: Pointer): PGeglParamSpecFormat;
+function GEGL_IS_PARAM_SPEC_FORMAT(pspec: Pointer): Tgboolean;
+
+function GEGL_TYPE_PARAM_URI: TGType;
+function GEGL_PARAM_SPEC_URI(pspec: Pointer): PGeglParamSpecUri;
+function GEGL_IS_PARAM_SPEC_URI(pspec: Pointer): Tgboolean;
+{$ENDIF read_function}
 
 implementation
 
-
-{ was #define dname def_expr }
-function GEGL_TYPE_PARAM_DOUBLE : longint; { return type might be wrong }
-  begin
-    GEGL_TYPE_PARAM_DOUBLE:=gegl_param_double_get_type;
-  end;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GEGL_PARAM_SPEC_DOUBLE(pspec : longint) : longint;
+function GEGL_TYPE_PARAM_DOUBLE: TGType;
 begin
-  GEGL_PARAM_SPEC_DOUBLE:=G_TYPE_CHECK_INSTANCE_CAST(pspec,GEGL_TYPE_PARAM_DOUBLE,GeglParamSpecDouble);
+  Result := gegl_param_double_get_type;
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GEGL_IS_PARAM_SPEC_DOUBLE(pspec : longint) : longint;
+function GEGL_PARAM_SPEC_DOUBLE(pspec: Pointer): PGeglParamSpecDouble;
 begin
-  GEGL_IS_PARAM_SPEC_DOUBLE:=G_TYPE_CHECK_INSTANCE_TYPE(pspec,GEGL_TYPE_PARAM_DOUBLE);
+  Result := PGeglParamSpecDouble(g_type_check_instance_cast(pspec, GEGL_TYPE_PARAM_DOUBLE));
 end;
 
-{ was #define dname def_expr }
-function GEGL_TYPE_PARAM_INT : longint; { return type might be wrong }
-  begin
-    GEGL_TYPE_PARAM_INT:=gegl_param_int_get_type;
-  end;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GEGL_PARAM_SPEC_INT(pspec : longint) : longint;
+function GEGL_IS_PARAM_SPEC_DOUBLE(pspec: Pointer): Tgboolean;
 begin
-  GEGL_PARAM_SPEC_INT:=G_TYPE_CHECK_INSTANCE_CAST(pspec,GEGL_TYPE_PARAM_INT,GeglParamSpecInt);
+  Result := g_type_check_instance_is_a(pspec, GEGL_TYPE_PARAM_DOUBLE);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GEGL_IS_PARAM_SPEC_INT(pspec : longint) : longint;
+
+function GEGL_TYPE_PARAM_INT: TGType;
 begin
-  GEGL_IS_PARAM_SPEC_INT:=G_TYPE_CHECK_INSTANCE_TYPE(pspec,GEGL_TYPE_PARAM_INT);
+  Result := gegl_param_int_get_type;
 end;
 
-{ was #define dname def_expr }
-function GEGL_TYPE_PARAM_STRING : longint; { return type might be wrong }
-  begin
-    GEGL_TYPE_PARAM_STRING:=gegl_param_string_get_type;
-  end;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GEGL_PARAM_SPEC_STRING(pspec : longint) : longint;
+function GEGL_PARAM_SPEC_INT(pspec: Pointer): PGeglParamSpecInt;
 begin
-  GEGL_PARAM_SPEC_STRING:=G_TYPE_CHECK_INSTANCE_CAST(pspec,GEGL_TYPE_PARAM_STRING,GeglParamSpecString);
+  Result := PGeglParamSpecInt(g_type_check_instance_cast(pspec, GEGL_TYPE_PARAM_INT));
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GEGL_IS_PARAM_SPEC_STRING(pspec : longint) : longint;
+function GEGL_IS_PARAM_SPEC_INT(pspec: Pointer): Tgboolean;
 begin
-  GEGL_IS_PARAM_SPEC_STRING:=G_TYPE_CHECK_INSTANCE_TYPE(pspec,GEGL_TYPE_PARAM_STRING);
+  Result := g_type_check_instance_is_a(pspec, GEGL_TYPE_PARAM_INT);
 end;
 
-function no_validate(var a : TGeglParamSpecString) : Tguint;
+
+function GEGL_TYPE_PARAM_STRING: TGType;
 begin
-  no_validate:=(a.flag0 and bm_TGeglParamSpecString_no_validate) shr bp_TGeglParamSpecString_no_validate;
+  Result := gegl_param_string_get_type;
 end;
 
-procedure set_no_validate(var a : TGeglParamSpecString; __no_validate : Tguint);
+function GEGL_PARAM_SPEC_STRING(pspec: Pointer): PGeglParamSpecString;
 begin
-  a.flag0:=a.flag0 or ((__no_validate shl bp_TGeglParamSpecString_no_validate) and bm_TGeglParamSpecString_no_validate);
+  Result := PGeglParamSpecString(g_type_check_instance_cast(pspec, GEGL_TYPE_PARAM_STRING));
 end;
 
-function null_ok(var a : TGeglParamSpecString) : Tguint;
+function GEGL_IS_PARAM_SPEC_STRING(pspec: Pointer): Tgboolean;
 begin
-  null_ok:=(a.flag0 and bm_TGeglParamSpecString_null_ok) shr bp_TGeglParamSpecString_null_ok;
+  Result := g_type_check_instance_is_a(pspec, GEGL_TYPE_PARAM_STRING);
 end;
 
-procedure set_null_ok(var a : TGeglParamSpecString; __null_ok : Tguint);
+
+function GEGL_TYPE_PARAM_FILE_PATH: TGType;
 begin
-  a.flag0:=a.flag0 or ((__null_ok shl bp_TGeglParamSpecString_null_ok) and bm_TGeglParamSpecString_null_ok);
+  Result := gegl_param_file_path_get_type;
 end;
 
-{ was #define dname def_expr }
-function GEGL_TYPE_PARAM_FILE_PATH : longint; { return type might be wrong }
-  begin
-    GEGL_TYPE_PARAM_FILE_PATH:=gegl_param_file_path_get_type;
-  end;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GEGL_PARAM_SPEC_FILE_PATH(pspec : longint) : longint;
+function GEGL_PARAM_SPEC_FILE_PATH(pspec: Pointer): PGeglParamSpecFilePath;
 begin
-  GEGL_PARAM_SPEC_FILE_PATH:=G_TYPE_CHECK_INSTANCE_CAST(pspec,GEGL_TYPE_PARAM_FILE_PATH,GeglParamSpecFilePath);
+  Result := PGeglParamSpecFilePath(g_type_check_instance_cast(pspec, GEGL_TYPE_PARAM_FILE_PATH));
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GEGL_IS_PARAM_SPEC_FILE_PATH(pspec : longint) : longint;
+function GEGL_IS_PARAM_SPEC_FILE_PATH(pspec: Pointer): Tgboolean;
 begin
-  GEGL_IS_PARAM_SPEC_FILE_PATH:=G_TYPE_CHECK_INSTANCE_TYPE(pspec,GEGL_TYPE_PARAM_FILE_PATH);
+  Result := g_type_check_instance_is_a(pspec, GEGL_TYPE_PARAM_FILE_PATH);
 end;
 
-function no_validate(var a : TGeglParamSpecFilePath) : Tguint;
+
+function GEGL_TYPE_PARAM_ENUM: TGType;
 begin
-  no_validate:=(a.flag0 and bm_TGeglParamSpecFilePath_no_validate) shr bp_TGeglParamSpecFilePath_no_validate;
+  Result := gegl_param_enum_get_type;
 end;
 
-procedure set_no_validate(var a : TGeglParamSpecFilePath; __no_validate : Tguint);
+function GEGL_PARAM_SPEC_ENUM(pspec: Pointer): PGeglParamSpecEnum;
 begin
-  a.flag0:=a.flag0 or ((__no_validate shl bp_TGeglParamSpecFilePath_no_validate) and bm_TGeglParamSpecFilePath_no_validate);
+  Result := PGeglParamSpecEnum(g_type_check_instance_cast(pspec, GEGL_TYPE_PARAM_ENUM));
 end;
 
-function null_ok(var a : TGeglParamSpecFilePath) : Tguint;
+function GEGL_IS_PARAM_SPEC_ENUM(pspec: Pointer): Tgboolean;
 begin
-  null_ok:=(a.flag0 and bm_TGeglParamSpecFilePath_null_ok) shr bp_TGeglParamSpecFilePath_null_ok;
+  Result := g_type_check_instance_is_a(pspec, GEGL_TYPE_PARAM_ENUM);
 end;
 
-procedure set_null_ok(var a : TGeglParamSpecFilePath; __null_ok : Tguint);
+
+function GEGL_TYPE_PARAM_SEED: TGType;
 begin
-  a.flag0:=a.flag0 or ((__null_ok shl bp_TGeglParamSpecFilePath_null_ok) and bm_TGeglParamSpecFilePath_null_ok);
+  Result := gegl_param_seed_get_type;
 end;
 
-{ was #define dname def_expr }
-function GEGL_TYPE_PARAM_ENUM : longint; { return type might be wrong }
-  begin
-    GEGL_TYPE_PARAM_ENUM:=gegl_param_enum_get_type;
-  end;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GEGL_PARAM_SPEC_ENUM(pspec : longint) : longint;
+function GEGL_PARAM_SPEC_SEED(pspec: Pointer): PGeglParamSpecSeed;
 begin
-  GEGL_PARAM_SPEC_ENUM:=G_TYPE_CHECK_INSTANCE_CAST(pspec,GEGL_TYPE_PARAM_ENUM,GeglParamSpecEnum);
+  Result := PGeglParamSpecSeed(g_type_check_instance_cast(pspec, GEGL_TYPE_PARAM_SEED));
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GEGL_IS_PARAM_SPEC_ENUM(pspec : longint) : longint;
+function GEGL_IS_PARAM_SPEC_SEED(pspec: Pointer): Tgboolean;
 begin
-  GEGL_IS_PARAM_SPEC_ENUM:=G_TYPE_CHECK_INSTANCE_TYPE(pspec,GEGL_TYPE_PARAM_ENUM);
+  Result := g_type_check_instance_is_a(pspec, GEGL_TYPE_PARAM_SEED);
 end;
 
-{ was #define dname def_expr }
-function GEGL_TYPE_PARAM_SEED : longint; { return type might be wrong }
-  begin
-    GEGL_TYPE_PARAM_SEED:=gegl_param_seed_get_type;
-  end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GEGL_PARAM_SPEC_SEED(pspec : longint) : longint;
+function GEGL_TYPE_PARAM_FORMAT: TGType;
 begin
-  GEGL_PARAM_SPEC_SEED:=G_TYPE_CHECK_INSTANCE_CAST(pspec,GEGL_TYPE_PARAM_SEED,GeglParamSpecSeed);
+  Result := gegl_param_format_get_type;
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GEGL_IS_PARAM_SPEC_SEED(pspec : longint) : longint;
+function GEGL_PARAM_SPEC_FORMAT(pspec: Pointer): PGeglParamSpecFormat;
 begin
-  GEGL_IS_PARAM_SPEC_SEED:=G_TYPE_CHECK_INSTANCE_TYPE(pspec,GEGL_TYPE_PARAM_SEED);
+  Result := PGeglParamSpecFormat(g_type_check_instance_cast(pspec, GEGL_TYPE_PARAM_FORMAT));
 end;
 
-{ was #define dname def_expr }
-function GEGL_TYPE_PARAM_FORMAT : longint; { return type might be wrong }
-  begin
-    GEGL_TYPE_PARAM_FORMAT:=gegl_param_format_get_type;
-  end;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GEGL_PARAM_SPEC_FORMAT(pspec : longint) : longint;
+function GEGL_IS_PARAM_SPEC_FORMAT(pspec: Pointer): Tgboolean;
 begin
-  GEGL_PARAM_SPEC_FORMAT:=G_TYPE_CHECK_INSTANCE_CAST(pspec,GEGL_TYPE_PARAM_FORMAT,GeglParamSpecFormat);
+  Result := g_type_check_instance_is_a(pspec, GEGL_TYPE_PARAM_FORMAT);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GEGL_IS_PARAM_SPEC_FORMAT(pspec : longint) : longint;
+
+function GEGL_TYPE_PARAM_URI: TGType;
 begin
-  GEGL_IS_PARAM_SPEC_FORMAT:=G_TYPE_CHECK_INSTANCE_TYPE(pspec,GEGL_TYPE_PARAM_FORMAT);
+  Result := gegl_param_uri_get_type;
 end;
 
-{ was #define dname def_expr }
-function GEGL_TYPE_PARAM_URI : longint; { return type might be wrong }
-  begin
-    GEGL_TYPE_PARAM_URI:=gegl_param_uri_get_type;
-  end;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GEGL_PARAM_SPEC_URI(pspec : longint) : longint;
+function GEGL_PARAM_SPEC_URI(pspec: Pointer): PGeglParamSpecUri;
 begin
-  GEGL_PARAM_SPEC_URI:=G_TYPE_CHECK_INSTANCE_CAST(pspec,GEGL_TYPE_PARAM_URI,GeglParamSpecUri);
+  Result := PGeglParamSpecUri(g_type_check_instance_cast(pspec, GEGL_TYPE_PARAM_URI));
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GEGL_IS_PARAM_SPEC_URI(pspec : longint) : longint;
+function GEGL_IS_PARAM_SPEC_URI(pspec: Pointer): Tgboolean;
 begin
-  GEGL_IS_PARAM_SPEC_URI:=G_TYPE_CHECK_INSTANCE_TYPE(pspec,GEGL_TYPE_PARAM_URI);
+  Result := g_type_check_instance_is_a(pspec, GEGL_TYPE_PARAM_URI);
 end;
-
-function no_validate(var a : TGeglParamSpecUri) : Tguint;
-begin
-  no_validate:=(a.flag0 and bm_TGeglParamSpecUri_no_validate) shr bp_TGeglParamSpecUri_no_validate;
-end;
-
-procedure set_no_validate(var a : TGeglParamSpecUri; __no_validate : Tguint);
-begin
-  a.flag0:=a.flag0 or ((__no_validate shl bp_TGeglParamSpecUri_no_validate) and bm_TGeglParamSpecUri_no_validate);
-end;
-
-function null_ok(var a : TGeglParamSpecUri) : Tguint;
-begin
-  null_ok:=(a.flag0 and bm_TGeglParamSpecUri_null_ok) shr bp_TGeglParamSpecUri_null_ok;
-end;
-
-procedure set_null_ok(var a : TGeglParamSpecUri; __null_ok : Tguint);
-begin
-  a.flag0:=a.flag0 or ((__null_ok shl bp_TGeglParamSpecUri_null_ok) and bm_TGeglParamSpecUri_null_ok);
-end;
-
 
 end.

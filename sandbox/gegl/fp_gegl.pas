@@ -7,7 +7,7 @@ uses
 
 const
   {$IFDEF Linux}
-  libgegl = 'libgegl';
+  libgegl = 'gegl-0.4';
   {$ENDIF}
 
   {$IFDEF Windows}
