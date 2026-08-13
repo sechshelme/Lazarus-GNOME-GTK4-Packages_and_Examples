@@ -1,5 +1,7 @@
 unit gegl_buffer_backend;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,11 +12,14 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
-  PGeglTile=type Pointer;
+  PGeglTile = type Pointer;
 
   TGeglTileCallback = procedure(tile: PGeglTile; user_data: Tgpointer); cdecl;
+  {$ENDIF read_struct}
 
+  {$IFDEF read_enum}
 type
   PGeglTileCommand = ^TGeglTileCommand;
   TGeglTileCommand = longint;
@@ -31,7 +36,9 @@ const
   _GEGL_TILE_LAST_0_4_8_COMMAND = 9;
   GEGL_TILE_COPY = _GEGL_TILE_LAST_0_4_8_COMMAND;
   GEGL_TILE_LAST_COMMAND = (_GEGL_TILE_LAST_0_4_8_COMMAND) + 1;
+  {$ENDIF read_enum}
 
+  {$IFDEF read_struct}
 type
   PGeglTileCopyParams = ^TGeglTileCopyParams;
   TGeglTileCopyParams = record
@@ -40,6 +47,7 @@ type
     dst_y: Tgint;
     dst_z: Tgint;
   end;
+  {$ENDIF read_struct}
 
 
   // === Konventiert am: 12-8-26 14:30:58 ===

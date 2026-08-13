@@ -1,5 +1,7 @@
 unit gegl_tile_source;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -9,6 +11,7 @@ uses
   {$PACKRECORDS C}
   {$ENDIF}
 
+  {$IFDEF read_struct}
 type
   PGeglTileSource = ^TGeglTileSource;
 
@@ -25,21 +28,23 @@ type
     parent_class: TGObjectClass;
     padding: array[0..3] of Tgpointer;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function gegl_tile_source_get_type: TGType; cdecl; external libgegl;
 function gegl_buffer_get_tile(buffer: PGeglBuffer; x: Tgint; y: Tgint; z: Tgint): PGeglTile; cdecl; external libgegl;
 
 function gegl_tile_source_command(source: PGeglTileSource; command: TGeglTileCommand; x, y, z: TGint; data: Tgpointer): Tgpointer;
 function gegl_tile_source_get_tile(source: PGeglTileSource; x, y, z: TGint): PGeglTile;
 
-function gegl_tile_source_set_tile(source: PGeglTileSource; x, y, z: TGint; tile: PGeglTile): boolean; inline;
-function gegl_tile_source_is_cached(source: PGeglTileSource; x, y, z: TGint): boolean; inline;
-function gegl_tile_source_exist(source: PGeglTileSource; x, y, z: TGint): boolean; inline;
-procedure gegl_tile_source_reinit(source: PGeglTileSource); inline;
-procedure gegl_tile_source_void(source: PGeglTileSource; x, y, z: TGint); inline;
-function gegl_tile_source_copy(source: PGeglTileSource; x, y, z: TGint; dst_buffer: PGeglBuffer; dst_x, dst_y, dst_z: TGint): boolean; inline;
-procedure gegl_tile_source_refetch(source: PGeglTileSource; x, y, z: TGint); inline;
-function gegl_tile_source_idle(source: PGeglTileSource): boolean; inline;
+function gegl_tile_source_set_tile(source: PGeglTileSource; x, y, z: TGint; tile: PGeglTile): boolean;
+function gegl_tile_source_is_cached(source: PGeglTileSource; x, y, z: TGint): boolean;
+function gegl_tile_source_exist(source: PGeglTileSource; x, y, z: TGint): boolean;
+procedure gegl_tile_source_reinit(source: PGeglTileSource);
+procedure gegl_tile_source_void(source: PGeglTileSource; x, y, z: TGint);
+function gegl_tile_source_copy(source: PGeglTileSource; x, y, z: TGint; dst_buffer: PGeglBuffer; dst_x, dst_y, dst_z: TGint): boolean;
+procedure gegl_tile_source_refetch(source: PGeglTileSource; x, y, z: TGint);
+function gegl_tile_source_idle(source: PGeglTileSource): boolean;
 
 // === Konventiert am: 12-8-26 17:16:42 ===
 
@@ -49,6 +54,7 @@ function GEGL_TILE_SOURCE_CLASS(klass: Pointer): PGeglTileSourceClass;
 function GEGL_IS_TILE_SOURCE(obj: Pointer): Tgboolean;
 function GEGL_IS_TILE_SOURCE_CLASS(klass: Pointer): Tgboolean;
 function GEGL_TILE_SOURCE_GET_CLASS(obj: Pointer): PGeglTileSourceClass;
+{$ENDIF read_function}
 
 implementation
 
@@ -99,7 +105,7 @@ begin
   params.dst_x := dst_x;
   params.dst_y := dst_y;
   params.dst_z := dst_z;
-  if gegl_tile_source_command(source, GEGL_TILE_COPY, x, y, z, @params) <> nil then begin Result := True; end else begin Result := False; end;
+  Result := gegl_tile_source_command(source, GEGL_TILE_COPY, x, y, z, @params) <> nil;
 end;
 
 procedure gegl_tile_source_refetch(source: PGeglTileSource; x, y, z: TGint);

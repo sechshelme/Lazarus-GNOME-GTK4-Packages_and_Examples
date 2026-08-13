@@ -24,7 +24,11 @@ const
 
 // =====
 
-    PGeglBuffer = type Pointer;
+PGeglBuffer = type Pointer;
+PGeglSampler = type Pointer;
+
+// --- zum entfernen
+PGeglTileBackend=Pointer;
 
 
 

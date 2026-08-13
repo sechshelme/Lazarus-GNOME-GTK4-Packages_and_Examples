@@ -1,15 +1,18 @@
 unit gegl_tile_backend;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
-  fp_glib2, fp_gegl, gegl_tile_source;
+  fp_glib2, fp_gegl, gegl_tile_source, gegl_buffer_backend, gegl_buffer;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   PGeglTileBackendPrivate = type Pointer;
 
@@ -24,7 +27,9 @@ type
     parent_class: TGeglTileSourceClass;
     padding: array[0..3] of Tgpointer;
   end;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function gegl_tile_backend_get_tile_size(tile_backend: PGeglTileBackend): Tgint; cdecl; external libgegl;
 function gegl_tile_backend_get_tile_width(tile_backend: PGeglTileBackend): Tgint; cdecl; external libgegl;
 function gegl_tile_backend_get_tile_height(tile_backend: PGeglTileBackend): Tgint; cdecl; external libgegl;
@@ -47,6 +52,7 @@ function GEGL_TILE_BACKEND_CLASS(klass: Pointer): PGeglTileBackendClass;
 function GEGL_IS_TILE_BACKEND(obj: Pointer): Tgboolean;
 function GEGL_IS_TILE_BACKEND_CLASS(klass: Pointer): Tgboolean;
 function GEGL_TILE_BACKEND_GET_CLASS(obj: Pointer): PGeglTileBackendClass;
+{$ENDIF read_function}
 
 implementation
 

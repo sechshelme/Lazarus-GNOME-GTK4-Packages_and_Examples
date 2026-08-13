@@ -1,15 +1,18 @@
 unit gegl_tile;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
-  fp_glib2, fp_gegl;
+  fp_glib2, fp_gegl, gegl_buffer_backend;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}
 
 
+{$IFDEF read_function}
 function gegl_tile_new(size: Tgint): PGeglTile; cdecl; external libgegl;
 function gegl_tile_new_bare: PGeglTile; cdecl; external libgegl;
 function gegl_tile_ref(tile: PGeglTile): PGeglTile; cdecl; external libgegl;
@@ -29,6 +32,7 @@ function gegl_tile_get_data(tile: PGeglTile): Pguchar; cdecl; external libgegl;
 procedure gegl_tile_set_data(tile: PGeglTile; pixel_data: Tgpointer; pixel_data_size: Tgint); cdecl; external libgegl;
 procedure gegl_tile_set_data_full(tile: PGeglTile; pixel_data: Tgpointer; pixel_data_size: Tgint; destroy_notify: TGDestroyNotify; destroy_notify_data: Tgpointer); cdecl; external libgegl;
 procedure gegl_tile_set_unlock_notify(tile: PGeglTile; unlock_notify: TGeglTileCallback; unlock_notify_data: Tgpointer); cdecl; external libgegl;
+{$ENDIF read_function}
 
 // === Konventiert am: 12-8-26 17:17:11 ===
 
