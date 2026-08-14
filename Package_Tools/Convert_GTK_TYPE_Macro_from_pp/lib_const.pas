@@ -351,6 +351,8 @@ const
     (libs: 'libgeg-npd'; units: 'fp_glib2, fp_gegl'),
     (libs: 'libgeg-sc'; units: 'fp_glib2, fp_gegl'),
 
+    (libs: 'libjxl_threads'; units: 'fp_jxl'),
+    (libs: 'libjxl'; units: 'fp_jxl'),
 
 
     (libs: ''; units: ''));

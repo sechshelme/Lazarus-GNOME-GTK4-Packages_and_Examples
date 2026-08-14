@@ -16,9 +16,6 @@
 
 #include <stdint.h>
 
-#if defined(__cplusplus) || defined(c_plusplus)
-extern "C" {
-#endif
 
 /** Color space of the image data. */
 typedef enum {
@@ -153,10 +150,5 @@ typedef struct {
   JxlRenderingIntent rendering_intent;
 } JxlColorEncoding;
 
-#if defined(__cplusplus) || defined(c_plusplus)
-}
-#endif
-
-#endif /* JXL_COLOR_ENCODING_H_ */
 
 /** @}*/

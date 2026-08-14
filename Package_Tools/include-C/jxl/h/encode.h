@@ -19,9 +19,6 @@
 #include "jxl/memory_manager.h"
 #include "jxl/parallel_runner.h"
 
-#if defined(__cplusplus) || defined(c_plusplus)
-extern "C" {
-#endif
 
 /**
  * Encoder library version.
@@ -1063,7 +1060,8 @@ JxlEncoderOptionsSetLossless(JxlEncoderFrameSettings*, JXL_BOOL);
  * DEPRECATED: use JxlEncoderFrameSettingsSetOption(frame_settings,
  * JXL_ENC_FRAME_SETTING_EFFORT, effort) instead.
  */
-extern JXL_DEPRECATED JxlEncoderStatus
+//xxxxxxextern JXL_DEPRECATED 
+JxlEncoderStatus
 JxlEncoderOptionsSetEffort(JxlEncoderFrameSettings* frame_settings, int effort);
 
 /**
@@ -1076,7 +1074,8 @@ JxlEncoderOptionsSetEffort(JxlEncoderFrameSettings* frame_settings, int effort);
  * DEPRECATED: use JxlEncoderFrameSettingsSetOption(frame_settings,
  * JXL_ENC_FRAME_SETTING_DECODING_SPEED, tier) instead.
  */
-extern JXL_DEPRECATED JxlEncoderStatus JxlEncoderOptionsSetDecodingSpeed(
+//xxxxxxxextern JXL_DEPRECATED 
+JxlEncoderStatus JxlEncoderOptionsSetDecodingSpeed(
     JxlEncoderFrameSettings* frame_settings, int tier);
 
 /**
@@ -1098,7 +1097,8 @@ extern JxlEncoderStatus JxlEncoderSetFrameDistance(
 
 /** DEPRECATED: use JxlEncoderSetFrameDistance instead.
  */
-extern JXL_DEPRECATED JxlEncoderStatus
+//xxxxxxxextern JXL_DEPRECATED 
+JxlEncoderStatus
 JxlEncoderOptionsSetDistance(JxlEncoderFrameSettings*, float);
 
 /**
@@ -1121,7 +1121,8 @@ extern JxlEncoderFrameSettings* JxlEncoderFrameSettingsCreate(
 
 /** DEPRECATED: use JxlEncoderFrameSettingsCreate instead.
  */
-extern JXL_DEPRECATED JxlEncoderFrameSettings* JxlEncoderOptionsCreate(
+//xxxxxxxextern JXL_DEPRECATED 
+JxlEncoderFrameSettings* JxlEncoderOptionsCreate(
     JxlEncoder*, const JxlEncoderFrameSettings*);
 
 /**
@@ -1141,11 +1142,5 @@ extern void JxlColorEncodingSetToSRGB(JxlColorEncoding* color_encoding,
  */
 extern void JxlColorEncodingSetToLinearSRGB(
     JxlColorEncoding* color_encoding, JXL_BOOL is_gray);
-
-#if defined(__cplusplus) || defined(c_plusplus)
-}
-#endif
-
-#endif /* JXL_ENCODE_H_ */
 
 /** @}*/

@@ -13,9 +13,6 @@
 #ifndef JXL_BUTTERAUGLI_H_
 #define JXL_BUTTERAUGLI_H_
 
-#if defined(__cplusplus) || defined(c_plusplus)
-extern "C" {
-#endif
 
 #include "jxl/jxl_export.h"
 #include "jxl/memory_manager.h"
@@ -151,10 +148,5 @@ extern void JxlButteraugliResultGetDistmap(
     const JxlButteraugliResult* result, const float** buffer,
     uint32_t* row_stride);
 
-#if defined(__cplusplus) || defined(c_plusplus)
-}
-#endif
-
-#endif /* JXL_BUTTERAUGLI_H_ */
 
 /** @}*/

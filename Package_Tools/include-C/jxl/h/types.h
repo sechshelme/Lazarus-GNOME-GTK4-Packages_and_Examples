@@ -18,9 +18,6 @@
 
 #include "jxl/jxl_export.h"
 
-#if defined(__cplusplus) || defined(c_plusplus)
-extern "C" {
-#endif
 
 /**
  * A portable @c bool replacement.
@@ -55,16 +52,6 @@ typedef enum {
   JXL_TYPE_FLOAT16 = 5,
 } JxlDataType;
 
-/* DEPRECATED: bit-packed 1-bit data type. Use JXL_TYPE_UINT8 instead.
- */
-static const int JXL_DEPRECATED JXL_TYPE_BOOLEAN = 1;
-
-/* DEPRECATED: uint32_t data type. Use JXL_TYPE_FLOAT instead.
- */
-static const int JXL_DEPRECATED JXL_TYPE_UINT32 = 4;
-
-/** Ordering of multi-byte data.
- */
 typedef enum {
   /** Use the endianness of the system, either little endian or big endian,
    * without forcing either specific endianness. Do not use if pixel data
@@ -142,10 +129,5 @@ typedef enum {
   kGroups = 6,
 } JxlProgressiveDetail;
 
-#if defined(__cplusplus) || defined(c_plusplus)
-}
-#endif
-
-#endif /* JXL_TYPES_H_ */
 
 /** @}*/

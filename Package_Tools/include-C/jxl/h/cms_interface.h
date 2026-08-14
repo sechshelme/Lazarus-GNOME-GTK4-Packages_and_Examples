@@ -21,9 +21,6 @@
 #include "jxl/color_encoding.h"
 #include "jxl/types.h"
 
-#if defined(__cplusplus) || defined(c_plusplus)
-extern "C" {
-#endif
 
 /** Represents an input or output colorspace to a color transform, as a
  * serialized ICC profile. */
@@ -223,10 +220,5 @@ typedef struct {
   jpegxl_cms_destroy_func destroy;
 } JxlCmsInterface;
 
-#if defined(__cplusplus) || defined(c_plusplus)
-}
-#endif
-
-#endif /* JXL_CMS_INTERFACE_H_ */
 
 /** @} */

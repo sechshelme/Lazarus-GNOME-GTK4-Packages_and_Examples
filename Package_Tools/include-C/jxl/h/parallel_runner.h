@@ -40,9 +40,6 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#if defined(__cplusplus) || defined(c_plusplus)
-extern "C" {
-#endif
 
 /** Return code used in the JxlParallel* functions as return value. A value
  * of 0 means success and any other value means error. The special value
@@ -147,10 +144,5 @@ typedef JxlParallelRetCode (*JxlParallelRunner)(
   }
  */
 
-#if defined(__cplusplus) || defined(c_plusplus)
-}
-#endif
-
-#endif /* JXL_PARALLEL_RUNNER_H_ */
 
 /** @}*/

@@ -20,9 +20,6 @@
 
 #include "jxl/types.h"
 
-#if defined(__cplusplus) || defined(c_plusplus)
-extern "C" {
-#endif
 
 /** Image orientation metadata.
  * Values 1..8 match the EXIF definitions.
@@ -429,10 +426,5 @@ typedef struct {
   JxlLayerInfo layer_info;
 } JxlFrameHeader;
 
-#if defined(__cplusplus) || defined(c_plusplus)
-}
-#endif
-
-#endif /* JXL_CODESTREAM_HEADER_H_ */
 
 /** @}*/

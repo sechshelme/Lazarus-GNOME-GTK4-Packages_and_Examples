@@ -15,9 +15,6 @@
 
 #include <stddef.h>
 
-#if defined(__cplusplus) || defined(c_plusplus)
-extern "C" {
-#endif
 
 /**
  * Allocating function for a memory region of a given size.
@@ -63,10 +60,5 @@ typedef struct JxlMemoryManagerStruct {
   /* TODO(deymo): Add cache-aligned alloc/free functions here. */
 } JxlMemoryManager;
 
-#if defined(__cplusplus) || defined(c_plusplus)
-}
-#endif
-
-#endif /* JXL_MEMORY_MANAGER_H_ */
 
 /** @}*/

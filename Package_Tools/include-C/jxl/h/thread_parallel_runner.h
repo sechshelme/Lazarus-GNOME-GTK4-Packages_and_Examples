@@ -39,35 +39,26 @@
 #include "jxl/memory_manager.h"
 #include "jxl/parallel_runner.h"
 
-#if defined(__cplusplus) || defined(c_plusplus)
-extern "C" {
-#endif
 
-/** Parallel runner internally using std::thread. Use as JxlParallelRunner.
- */
-JXL_THREADS_EXPORT JxlParallelRetCode JxlThreadParallelRunner(
+// /usr/lib/x86_64-linux-gnu/libjxl_threads.so   ????????????????????
+ JxlParallelRetCode JxlThreadParallelRunner(
     void* runner_opaque, void* jpegxl_opaque, JxlParallelRunInit init,
     JxlParallelRunFunction func, uint32_t start_range, uint32_t end_range);
 
 /** Creates the runner for JxlThreadParallelRunner. Use as the opaque
  * runner.
  */
-JXL_THREADS_EXPORT void* JxlThreadParallelRunnerCreate(
+ void* JxlThreadParallelRunnerCreate(
     const JxlMemoryManager* memory_manager, size_t num_worker_threads);
 
 /** Destroys the runner created by JxlThreadParallelRunnerCreate.
  */
-JXL_THREADS_EXPORT void JxlThreadParallelRunnerDestroy(void* runner_opaque);
+ void JxlThreadParallelRunnerDestroy(void* runner_opaque);
 
 /** Returns a default num_worker_threads value for
  * JxlThreadParallelRunnerCreate.
  */
-JXL_THREADS_EXPORT size_t JxlThreadParallelRunnerDefaultNumWorkerThreads();
+ size_t JxlThreadParallelRunnerDefaultNumWorkerThreads();
 
-#if defined(__cplusplus) || defined(c_plusplus)
-}
-#endif
-
-#endif /* JXL_THREAD_PARALLEL_RUNNER_H_ */
 
 /** @}*/
