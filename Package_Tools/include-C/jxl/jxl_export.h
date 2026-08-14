@@ -1,18 +1,18 @@
 
-#ifndef JXL_EXPORT_H
-#define JXL_EXPORT_H
+#ifndef extern_H
+#define extern_H
 
 #ifdef JXL_STATIC_DEFINE
-#  define JXL_EXPORT
+#  define extern
 #  define JXL_NO_EXPORT
 #else
-#  ifndef JXL_EXPORT
+#  ifndef extern
 #    ifdef JXL_INTERNAL_LIBRARY_BUILD
         /* We are building this library */
-#      define JXL_EXPORT __attribute__((visibility("default")))
+#      define extern __attribute__((visibility("default")))
 #    else
         /* We are using this library */
-#      define JXL_EXPORT __attribute__((visibility("default")))
+#      define extern __attribute__((visibility("default")))
 #    endif
 #  endif
 
@@ -26,7 +26,7 @@
 #endif
 
 #ifndef JXL_DEPRECATED_EXPORT
-#  define JXL_DEPRECATED_EXPORT JXL_EXPORT JXL_DEPRECATED
+#  define JXL_DEPRECATED_EXPORT extern JXL_DEPRECATED
 #endif
 
 #ifndef JXL_DEPRECATED_NO_EXPORT
@@ -39,4 +39,4 @@
 #  endif
 #endif
 
-#endif /* JXL_EXPORT_H */
+#endif /* extern_H */

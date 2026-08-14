@@ -35,7 +35,7 @@ extern "C" {
  * MAJOR_VERSION * 1000000 + MINOR_VERSION * 1000 + PATCH_VERSION. For example,
  * version 1.2.3 would return 1002003.
  */
-JXL_EXPORT uint32_t JxlDecoderVersion(void);
+extern uint32_t JxlDecoderVersion(void);
 
 /** The result of @ref JxlSignatureCheck.
  */
@@ -73,7 +73,7 @@ typedef enum {
  *    found.
  *  - @ref JXL_SIG_CONTAINER if a valid JPEG XL container signature was found.
  */
-JXL_EXPORT JxlSignature JxlSignatureCheck(const uint8_t* buf, size_t len);
+extern JxlSignature JxlSignatureCheck(const uint8_t* buf, size_t len);
 
 /**
  * Opaque structure that holds the JPEG XL decoder.
@@ -95,7 +95,7 @@ typedef struct JxlDecoderStruct JxlDecoder;
  * @return @c NULL if the instance can not be allocated or initialized
  * @return pointer to initialized @ref JxlDecoder otherwise
  */
-JXL_EXPORT JxlDecoder* JxlDecoderCreate(const JxlMemoryManager* memory_manager);
+extern JxlDecoder* JxlDecoderCreate(const JxlMemoryManager* memory_manager);
 
 /**
  * Re-initializes a @ref JxlDecoder instance, so it can be re-used for decoding
@@ -104,14 +104,14 @@ JXL_EXPORT JxlDecoder* JxlDecoderCreate(const JxlMemoryManager* memory_manager);
  *
  * @param dec instance to be re-initialized.
  */
-JXL_EXPORT void JxlDecoderReset(JxlDecoder* dec);
+extern void JxlDecoderReset(JxlDecoder* dec);
 
 /**
  * Deinitializes and frees @ref JxlDecoder instance.
  *
  * @param dec instance to be cleaned up and deallocated.
  */
-JXL_EXPORT void JxlDecoderDestroy(JxlDecoder* dec);
+extern void JxlDecoderDestroy(JxlDecoder* dec);
 
 /**
  * Return value for @ref JxlDecoderProcessInput.
@@ -379,7 +379,7 @@ typedef enum {
  *
  * @param dec decoder object
  */
-JXL_EXPORT void JxlDecoderRewind(JxlDecoder* dec);
+extern void JxlDecoderRewind(JxlDecoder* dec);
 
 /** Makes the decoder skip the next `amount` frames. It still needs to process
  * the input, but will not output the frame events. It can be more efficient
@@ -399,7 +399,7 @@ JXL_EXPORT void JxlDecoderRewind(JxlDecoder* dec);
  * @param dec decoder object
  * @param amount the amount of frames to skip
  */
-JXL_EXPORT void JxlDecoderSkipFrames(JxlDecoder* dec, size_t amount);
+extern void JxlDecoderSkipFrames(JxlDecoder* dec, size_t amount);
 
 /**
  * Skips processing the current frame. Can be called after frame processing
@@ -413,7 +413,7 @@ JXL_EXPORT void JxlDecoderSkipFrames(JxlDecoder* dec, size_t amount);
  * @return @ref JXL_DEC_SUCCESS if there is a frame to skip, and @ref
  *     JXL_DEC_ERROR if the function was not called during frame processing.
  */
-JXL_EXPORT JxlDecoderStatus JxlDecoderSkipCurrentFrame(JxlDecoder* dec);
+extern JxlDecoderStatus JxlDecoderSkipCurrentFrame(JxlDecoder* dec);
 
 /**
  * Get the default pixel format for this decoder.
@@ -429,7 +429,7 @@ JXL_EXPORT JxlDecoderStatus JxlDecoderSkipCurrentFrame(JxlDecoder* dec);
  *
  * DEPRECATED: this function will be removed in the future.
  */
-JXL_EXPORT JXL_DEPRECATED JxlDecoderStatus
+extern JXL_DEPRECATED JxlDecoderStatus
 JxlDecoderDefaultPixelFormat(const JxlDecoder* dec, JxlPixelFormat* format);
 
 /**
@@ -444,7 +444,7 @@ JxlDecoderDefaultPixelFormat(const JxlDecoder* dec, JxlPixelFormat* format);
  * @return @ref JXL_DEC_SUCCESS if the runner was set, @ref JXL_DEC_ERROR
  *     otherwise (the previous runner remains set).
  */
-JXL_EXPORT JxlDecoderStatus
+extern JxlDecoderStatus
 JxlDecoderSetParallelRunner(JxlDecoder* dec, JxlParallelRunner parallel_runner,
                             void* parallel_runner_opaque);
 
@@ -463,7 +463,7 @@ JxlDecoderSetParallelRunner(JxlDecoder* dec, JxlParallelRunner parallel_runner,
  * @return the size hint in bytes if the basic info is not yet fully decoded.
  * @return 0 when the basic info is already available.
  */
-JXL_EXPORT size_t JxlDecoderSizeHintBasicInfo(const JxlDecoder* dec);
+extern size_t JxlDecoderSizeHintBasicInfo(const JxlDecoder* dec);
 
 /** Select for which informative events, i.e. @ref JXL_DEC_BASIC_INFO, etc., the
  * decoder should return with a status. It is not required to subscribe to any
@@ -477,7 +477,7 @@ JXL_EXPORT size_t JxlDecoderSizeHintBasicInfo(const JxlDecoder* dec);
  * @param events_wanted bitfield of desired events.
  * @return @ref JXL_DEC_SUCCESS if no error, @ref JXL_DEC_ERROR otherwise.
  */
-JXL_EXPORT JxlDecoderStatus JxlDecoderSubscribeEvents(JxlDecoder* dec,
+extern JxlDecoderStatus JxlDecoderSubscribeEvents(JxlDecoder* dec,
                                                       int events_wanted);
 
 /** Enables or disables preserving of as-in-bitstream pixeldata
@@ -511,7 +511,7 @@ JXL_EXPORT JxlDecoderStatus JxlDecoderSubscribeEvents(JxlDecoder* dec,
  * @param skip_reorientation JXL_TRUE to enable, JXL_FALSE to disable.
  * @return @ref JXL_DEC_SUCCESS if no error, @ref JXL_DEC_ERROR otherwise.
  */
-JXL_EXPORT JxlDecoderStatus
+extern JxlDecoderStatus
 JxlDecoderSetKeepOrientation(JxlDecoder* dec, JXL_BOOL skip_reorientation);
 
 /**
@@ -529,7 +529,7 @@ JxlDecoderSetKeepOrientation(JxlDecoder* dec, JXL_BOOL skip_reorientation);
  * @param unpremul_alpha JXL_TRUE to enable, JXL_FALSE to disable.
  * @return @ref JXL_DEC_SUCCESS if no error, @ref JXL_DEC_ERROR otherwise.
  */
-JXL_EXPORT JxlDecoderStatus
+extern JxlDecoderStatus
 JxlDecoderSetUnpremultiplyAlpha(JxlDecoder* dec, JXL_BOOL unpremul_alpha);
 
 /** Enables or disables rendering spot colors. By default, spot colors
@@ -542,7 +542,7 @@ JxlDecoderSetUnpremultiplyAlpha(JxlDecoder* dec, JXL_BOOL unpremul_alpha);
  * @param render_spotcolors JXL_TRUE to enable (default), JXL_FALSE to disable.
  * @return @ref JXL_DEC_SUCCESS if no error, @ref JXL_DEC_ERROR otherwise.
  */
-JXL_EXPORT JxlDecoderStatus
+extern JxlDecoderStatus
 JxlDecoderSetRenderSpotcolors(JxlDecoder* dec, JXL_BOOL render_spotcolors);
 
 /** Enables or disables coalescing of zero-duration frames. By default, frames
@@ -558,7 +558,7 @@ JxlDecoderSetRenderSpotcolors(JxlDecoder* dec, JXL_BOOL render_spotcolors);
  *     disable it.
  * @return @ref JXL_DEC_SUCCESS if no error, @ref JXL_DEC_ERROR otherwise.
  */
-JXL_EXPORT JxlDecoderStatus JxlDecoderSetCoalescing(JxlDecoder* dec,
+extern JxlDecoderStatus JxlDecoderSetCoalescing(JxlDecoder* dec,
                                                     JXL_BOOL coalescing);
 
 /**
@@ -603,7 +603,7 @@ JXL_EXPORT JxlDecoderStatus JxlDecoderSetCoalescing(JxlDecoder* dec,
  * @return @ref JXL_DEC_FULL_IMAGE when all pixel information at highest detail
  *     is available and has been output in the pixel buffer.
  */
-JXL_EXPORT JxlDecoderStatus JxlDecoderProcessInput(JxlDecoder* dec);
+extern JxlDecoderStatus JxlDecoderProcessInput(JxlDecoder* dec);
 
 /**
  * Sets input data for @ref JxlDecoderProcessInput. The data is owned by the
@@ -619,7 +619,7 @@ JXL_EXPORT JxlDecoderStatus JxlDecoderProcessInput(JxlDecoder* dec);
  * @return @ref JXL_DEC_ERROR if input was already set without releasing or @ref
  *     JxlDecoderCloseInput was already called, @ref JXL_DEC_SUCCESS otherwise.
  */
-JXL_EXPORT JxlDecoderStatus JxlDecoderSetInput(JxlDecoder* dec,
+extern JxlDecoderStatus JxlDecoderSetInput(JxlDecoder* dec,
                                                const uint8_t* data,
                                                size_t size);
 
@@ -642,7 +642,7 @@ JXL_EXPORT JxlDecoderStatus JxlDecoderSetInput(JxlDecoder* dec,
  *     start/end). See the documentation of individual values of @ref
  *     JxlDecoderStatus for more information.
  */
-JXL_EXPORT size_t JxlDecoderReleaseInput(JxlDecoder* dec);
+extern size_t JxlDecoderReleaseInput(JxlDecoder* dec);
 
 /**
  * Marks the input as finished, indicates that no more @ref JxlDecoderSetInput
@@ -662,7 +662,7 @@ JXL_EXPORT size_t JxlDecoderReleaseInput(JxlDecoder* dec);
  *
  * @param dec decoder object
  */
-JXL_EXPORT void JxlDecoderCloseInput(JxlDecoder* dec);
+extern void JxlDecoderCloseInput(JxlDecoder* dec);
 
 /**
  * Outputs the basic image information, such as image dimensions, bit depth and
@@ -675,7 +675,7 @@ JXL_EXPORT void JxlDecoderCloseInput(JxlDecoder* dec);
  *     JXL_DEC_NEED_MORE_INPUT if not yet available, @ref JXL_DEC_ERROR
  *     in case of other error conditions.
  */
-JXL_EXPORT JxlDecoderStatus JxlDecoderGetBasicInfo(const JxlDecoder* dec,
+extern JxlDecoderStatus JxlDecoderGetBasicInfo(const JxlDecoder* dec,
                                                    JxlBasicInfo* info);
 
 /**
@@ -690,7 +690,7 @@ JXL_EXPORT JxlDecoderStatus JxlDecoderGetBasicInfo(const JxlDecoder* dec,
  *     JXL_DEC_NEED_MORE_INPUT if not yet available, @ref JXL_DEC_ERROR
  *     in case of other error conditions.
  */
-JXL_EXPORT JxlDecoderStatus JxlDecoderGetExtraChannelInfo(
+extern JxlDecoderStatus JxlDecoderGetExtraChannelInfo(
     const JxlDecoder* dec, size_t index, JxlExtraChannelInfo* info);
 
 /**
@@ -707,7 +707,7 @@ JXL_EXPORT JxlDecoderStatus JxlDecoderGetExtraChannelInfo(
  *     JXL_DEC_NEED_MORE_INPUT if not yet available, @ref JXL_DEC_ERROR
  *     in case of other error conditions.
  */
-JXL_EXPORT JxlDecoderStatus JxlDecoderGetExtraChannelName(const JxlDecoder* dec,
+extern JxlDecoderStatus JxlDecoderGetExtraChannelName(const JxlDecoder* dec,
                                                           size_t index,
                                                           char* name,
                                                           size_t size);
@@ -763,7 +763,7 @@ typedef enum {
  *     case the encoded structured color profile does not exist in the
  *     codestream.
  */
-JXL_EXPORT JxlDecoderStatus JxlDecoderGetColorAsEncodedProfile(
+extern JxlDecoderStatus JxlDecoderGetColorAsEncodedProfile(
     const JxlDecoder* dec, const JxlPixelFormat* unused_format,
     JxlColorProfileTarget target, JxlColorEncoding* color_encoding);
 
@@ -790,7 +790,7 @@ JXL_EXPORT JxlDecoderStatus JxlDecoderGetColorAsEncodedProfile(
  *     size is, @ref JXL_DEC_ERROR in case the ICC profile is not available and
  *     cannot be generated.
  */
-JXL_EXPORT JxlDecoderStatus JxlDecoderGetICCProfileSize(
+extern JxlDecoderStatus JxlDecoderGetICCProfileSize(
     const JxlDecoder* dec, const JxlPixelFormat* unused_format,
     JxlColorProfileTarget target, size_t* size);
 
@@ -810,7 +810,7 @@ JXL_EXPORT JxlDecoderStatus JxlDecoderGetICCProfileSize(
  *     JXL_DEC_ERROR if the profile doesn't exist or the output size is not
  *     large enough.
  */
-JXL_EXPORT JxlDecoderStatus JxlDecoderGetColorAsICCProfile(
+extern JxlDecoderStatus JxlDecoderGetColorAsICCProfile(
     const JxlDecoder* dec, const JxlPixelFormat* unused_format,
     JxlColorProfileTarget target, uint8_t* icc_profile, size_t size);
 
@@ -847,7 +847,7 @@ JXL_EXPORT JxlDecoderStatus JxlDecoderGetColorAsICCProfile(
  * @return @ref JXL_DEC_SUCCESS if the preference was set successfully, @ref
  *     JXL_DEC_ERROR otherwise.
  */
-JXL_EXPORT JxlDecoderStatus JxlDecoderSetPreferredColorProfile(
+extern JxlDecoderStatus JxlDecoderSetPreferredColorProfile(
     JxlDecoder* dec, const JxlColorEncoding* color_encoding);
 
 /** Requests that the decoder perform tone mapping to the peak display luminance
@@ -860,7 +860,7 @@ JXL_EXPORT JxlDecoderStatus JxlDecoderSetPreferredColorProfile(
  * @return @ref JXL_DEC_SUCCESS if the preference was set successfully, @ref
  * JXL_DEC_ERROR otherwise.
  */
-JXL_EXPORT JxlDecoderStatus JxlDecoderSetDesiredIntensityTarget(
+extern JxlDecoderStatus JxlDecoderSetDesiredIntensityTarget(
     JxlDecoder* dec, float desired_intensity_target);
 
 /**
@@ -875,7 +875,7 @@ JXL_EXPORT JxlDecoderStatus JxlDecoderSetDesiredIntensityTarget(
  * @return @ref JXL_DEC_SUCCESS on success, @ref JXL_DEC_ERROR on error, such as
  *     information not available yet.
  */
-JXL_EXPORT JxlDecoderStatus JxlDecoderPreviewOutBufferSize(
+extern JxlDecoderStatus JxlDecoderPreviewOutBufferSize(
     const JxlDecoder* dec, const JxlPixelFormat* format, size_t* size);
 
 /**
@@ -893,7 +893,7 @@ JXL_EXPORT JxlDecoderStatus JxlDecoderPreviewOutBufferSize(
  * @return @ref JXL_DEC_SUCCESS on success, @ref JXL_DEC_ERROR on error, such as
  *     size too small.
  */
-JXL_EXPORT JxlDecoderStatus JxlDecoderSetPreviewOutBuffer(
+extern JxlDecoderStatus JxlDecoderSetPreviewOutBuffer(
     JxlDecoder* dec, const JxlPixelFormat* format, void* buffer, size_t size);
 
 /**
@@ -908,7 +908,7 @@ JXL_EXPORT JxlDecoderStatus JxlDecoderSetPreviewOutBuffer(
  *     JXL_DEC_NEED_MORE_INPUT if not yet available, @ref JXL_DEC_ERROR in
  *     case of other error conditions.
  */
-JXL_EXPORT JxlDecoderStatus JxlDecoderGetFrameHeader(const JxlDecoder* dec,
+extern JxlDecoderStatus JxlDecoderGetFrameHeader(const JxlDecoder* dec,
                                                      JxlFrameHeader* header);
 
 /**
@@ -923,7 +923,7 @@ JXL_EXPORT JxlDecoderStatus JxlDecoderGetFrameHeader(const JxlDecoder* dec,
  *     JXL_DEC_NEED_MORE_INPUT if not yet available, @ref JXL_DEC_ERROR in
  *     case of other error conditions.
  */
-JXL_EXPORT JxlDecoderStatus JxlDecoderGetFrameName(const JxlDecoder* dec,
+extern JxlDecoderStatus JxlDecoderGetFrameName(const JxlDecoder* dec,
                                                    char* name, size_t size);
 
 /**
@@ -938,7 +938,7 @@ JXL_EXPORT JxlDecoderStatus JxlDecoderGetFrameName(const JxlDecoder* dec,
  * @param blend_info struct to copy the information into
  * @return @ref JXL_DEC_SUCCESS on success, @ref JXL_DEC_ERROR on error
  */
-JXL_EXPORT JxlDecoderStatus JxlDecoderGetExtraChannelBlendInfo(
+extern JxlDecoderStatus JxlDecoderGetExtraChannelBlendInfo(
     const JxlDecoder* dec, size_t index, JxlBlendInfo* blend_info);
 
 /**
@@ -955,7 +955,7 @@ JXL_EXPORT JxlDecoderStatus JxlDecoderGetExtraChannelBlendInfo(
  * @deprecated The DC feature in this form will be removed. Use @ref
  *     JxlDecoderFlushImage for progressive rendering.
  */
-JXL_EXPORT JXL_DEPRECATED JxlDecoderStatus JxlDecoderDCOutBufferSize(
+extern JXL_DEPRECATED JxlDecoderStatus JxlDecoderDCOutBufferSize(
     const JxlDecoder* dec, const JxlPixelFormat* format, size_t* size);
 
 /**
@@ -976,7 +976,7 @@ JXL_EXPORT JXL_DEPRECATED JxlDecoderStatus JxlDecoderDCOutBufferSize(
  * @deprecated The DC feature in this form will be removed. Use @ref
  *     JxlDecoderFlushImage for progressive rendering.
  */
-JXL_EXPORT JXL_DEPRECATED JxlDecoderStatus JxlDecoderSetDCOutBuffer(
+extern JXL_DEPRECATED JxlDecoderStatus JxlDecoderSetDCOutBuffer(
     JxlDecoder* dec, const JxlPixelFormat* format, void* buffer, size_t size);
 
 /**
@@ -994,7 +994,7 @@ JXL_EXPORT JXL_DEPRECATED JxlDecoderStatus JxlDecoderSetDCOutBuffer(
  * @return @ref JXL_DEC_SUCCESS on success, @ref JXL_DEC_ERROR on error, such as
  *     information not available yet.
  */
-JXL_EXPORT JxlDecoderStatus JxlDecoderImageOutBufferSize(
+extern JxlDecoderStatus JxlDecoderImageOutBufferSize(
     const JxlDecoder* dec, const JxlPixelFormat* format, size_t* size);
 
 /**
@@ -1013,7 +1013,7 @@ JXL_EXPORT JxlDecoderStatus JxlDecoderImageOutBufferSize(
  * @return @ref JXL_DEC_SUCCESS on success, @ref JXL_DEC_ERROR on error, such as
  *     size too small.
  */
-JXL_EXPORT JxlDecoderStatus JxlDecoderSetImageOutBuffer(
+extern JxlDecoderStatus JxlDecoderSetImageOutBuffer(
     JxlDecoder* dec, const JxlPixelFormat* format, void* buffer, size_t size);
 
 /**
@@ -1121,7 +1121,7 @@ typedef void (*JxlImageOutDestroyCallback)(void* run_opaque);
  * @return @ref JXL_DEC_SUCCESS on success, @ref JXL_DEC_ERROR on error, such
  *     as @ref JxlDecoderSetImageOutBuffer already set.
  */
-JXL_EXPORT JxlDecoderStatus
+extern JxlDecoderStatus
 JxlDecoderSetImageOutCallback(JxlDecoder* dec, const JxlPixelFormat* format,
                               JxlImageOutCallback callback, void* opaque);
 
@@ -1144,7 +1144,7 @@ JxlDecoderSetImageOutCallback(JxlDecoder* dec, const JxlPixelFormat* format,
  * @return @ref JXL_DEC_SUCCESS on success, @ref JXL_DEC_ERROR on error, such
  *     as @ref JxlDecoderSetImageOutBuffer having already been called.
  */
-JXL_EXPORT JxlDecoderStatus JxlDecoderSetMultithreadedImageOutCallback(
+extern JxlDecoderStatus JxlDecoderSetMultithreadedImageOutCallback(
     JxlDecoder* dec, const JxlPixelFormat* format,
     JxlImageOutInitCallback init_callback, JxlImageOutRunCallback run_callback,
     JxlImageOutDestroyCallback destroy_callback, void* init_opaque);
@@ -1164,7 +1164,7 @@ JXL_EXPORT JxlDecoderStatus JxlDecoderSetMultithreadedImageOutCallback(
  * @return @ref JXL_DEC_SUCCESS on success, @ref JXL_DEC_ERROR on error, such as
  *     information not available yet or invalid index.
  */
-JXL_EXPORT JxlDecoderStatus JxlDecoderExtraChannelBufferSize(
+extern JxlDecoderStatus JxlDecoderExtraChannelBufferSize(
     const JxlDecoder* dec, const JxlPixelFormat* format, size_t* size,
     uint32_t index);
 
@@ -1198,7 +1198,7 @@ JXL_EXPORT JxlDecoderStatus JxlDecoderExtraChannelBufferSize(
  * @return @ref JXL_DEC_SUCCESS on success, @ref JXL_DEC_ERROR on error, such as
  *     size too small or invalid index.
  */
-JXL_EXPORT JxlDecoderStatus
+extern JxlDecoderStatus
 JxlDecoderSetExtraChannelBuffer(JxlDecoder* dec, const JxlPixelFormat* format,
                                 void* buffer, size_t size, uint32_t index);
 
@@ -1220,7 +1220,7 @@ JxlDecoderSetExtraChannelBuffer(JxlDecoder* dec, const JxlPixelFormat* format,
  *     JxlDecoderReleaseJPEGBuffer was not called on it, @ref JXL_DEC_SUCCESS
  *     otherwise
  */
-JXL_EXPORT JxlDecoderStatus JxlDecoderSetJPEGBuffer(JxlDecoder* dec,
+extern JxlDecoderStatus JxlDecoderSetJPEGBuffer(JxlDecoder* dec,
                                                     uint8_t* data, size_t size);
 
 /**
@@ -1239,7 +1239,7 @@ JXL_EXPORT JxlDecoderStatus JxlDecoderSetJPEGBuffer(JxlDecoder* dec,
  *     set by @ref JxlDecoderSetJPEGBuffer, or 0 if no buffer is set or @ref
  *     JxlDecoderReleaseJPEGBuffer was already called.
  */
-JXL_EXPORT size_t JxlDecoderReleaseJPEGBuffer(JxlDecoder* dec);
+extern size_t JxlDecoderReleaseJPEGBuffer(JxlDecoder* dec);
 
 /**
  * Sets output buffer for box output codestream.
@@ -1263,7 +1263,7 @@ JXL_EXPORT size_t JxlDecoderReleaseJPEGBuffer(JxlDecoder* dec);
  *     JxlDecoderReleaseBoxBuffer was not called on it, @ref JXL_DEC_SUCCESS
  *     otherwise
  */
-JXL_EXPORT JxlDecoderStatus JxlDecoderSetBoxBuffer(JxlDecoder* dec,
+extern JxlDecoderStatus JxlDecoderSetBoxBuffer(JxlDecoder* dec,
                                                    uint8_t* data, size_t size);
 
 /**
@@ -1282,7 +1282,7 @@ JXL_EXPORT JxlDecoderStatus JxlDecoderSetBoxBuffer(JxlDecoder* dec,
  *     set by @ref JxlDecoderSetBoxBuffer, or 0 if no buffer is set or @ref
  *     JxlDecoderReleaseBoxBuffer was already called.
  */
-JXL_EXPORT size_t JxlDecoderReleaseBoxBuffer(JxlDecoder* dec);
+extern size_t JxlDecoderReleaseBoxBuffer(JxlDecoder* dec);
 
 /**
  * Configures whether to get boxes in raw mode or in decompressed mode. In raw
@@ -1304,7 +1304,7 @@ JXL_EXPORT size_t JxlDecoderReleaseBoxBuffer(JxlDecoder* dec);
  * @return @ref JXL_DEC_ERROR if decompressed mode is set and Brotli is not
  *     available, @ref JXL_DEC_SUCCESS otherwise.
  */
-JXL_EXPORT JxlDecoderStatus JxlDecoderSetDecompressBoxes(JxlDecoder* dec,
+extern JxlDecoderStatus JxlDecoderSetDecompressBoxes(JxlDecoder* dec,
                                                          JXL_BOOL decompress);
 
 /**
@@ -1372,7 +1372,7 @@ JXL_EXPORT JxlDecoderStatus JxlDecoderSetDecompressBoxes(JxlDecoder* dec,
  * @return @ref JXL_DEC_SUCCESS if the value is available, @ref JXL_DEC_ERROR if
  *     not, for example the JXL file does not use the container format.
  */
-JXL_EXPORT JxlDecoderStatus JxlDecoderGetBoxType(JxlDecoder* dec,
+extern JxlDecoderStatus JxlDecoderGetBoxType(JxlDecoder* dec,
                                                  JxlBoxType type,
                                                  JXL_BOOL decompressed);
 
@@ -1393,7 +1393,7 @@ JXL_EXPORT JxlDecoderStatus JxlDecoderGetBoxType(JxlDecoder* dec,
  * @return @ref JXL_DEC_ERROR if no box size is available, @ref JXL_DEC_SUCCESS
  *     otherwise.
  */
-JXL_EXPORT JxlDecoderStatus JxlDecoderGetBoxSizeRaw(const JxlDecoder* dec,
+extern JxlDecoderStatus JxlDecoderGetBoxSizeRaw(const JxlDecoder* dec,
                                                     uint64_t* size);
 
 /**
@@ -1407,7 +1407,7 @@ JXL_EXPORT JxlDecoderStatus JxlDecoderGetBoxSizeRaw(const JxlDecoder* dec,
  * @return @ref JXL_DEC_SUCCESS on success, @ref JXL_DEC_ERROR on error, such as
  *     an invalid value for the progressive detail.
  */
-JXL_EXPORT JxlDecoderStatus
+extern JxlDecoderStatus
 JxlDecoderSetProgressiveDetail(JxlDecoder* dec, JxlProgressiveDetail detail);
 
 /**
@@ -1418,7 +1418,7 @@ JxlDecoderSetProgressiveDetail(JxlDecoder* dec, JxlProgressiveDetail detail);
  * @param dec decoder object
  * @return The intended downsampling ratio, can be 1, 2, 4 or 8.
  */
-JXL_EXPORT size_t JxlDecoderGetIntendedDownsamplingRatio(JxlDecoder* dec);
+extern size_t JxlDecoderGetIntendedDownsamplingRatio(JxlDecoder* dec);
 
 /**
  * Outputs progressive step towards the decoded image so far when only partial
@@ -1436,7 +1436,7 @@ JXL_EXPORT size_t JxlDecoderGetIntendedDownsamplingRatio(JxlDecoder* dec);
  *     This error is not fatal, it only indicates no flushed image is available
  *     right now. Regular decoding can still be performed.
  */
-JXL_EXPORT JxlDecoderStatus JxlDecoderFlushImage(JxlDecoder* dec);
+extern JxlDecoderStatus JxlDecoderFlushImage(JxlDecoder* dec);
 
 #if defined(__cplusplus) || defined(c_plusplus)
 }

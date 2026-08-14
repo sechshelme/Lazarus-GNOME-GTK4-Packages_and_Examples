@@ -43,7 +43,7 @@ typedef struct JxlButteraugliResultStruct JxlButteraugliResult;
  *
  * @param result instance to be cleaned up and deallocated.
  */
-JXL_EXPORT void JxlButteraugliResultDestroy(JxlButteraugliResult* result);
+extern void JxlButteraugliResultDestroy(JxlButteraugliResult* result);
 
 /**
  * Creates an instance of JxlButteraugliApi and initializes it.
@@ -57,7 +57,7 @@ JXL_EXPORT void JxlButteraugliResultDestroy(JxlButteraugliResult* result);
  * @return @c NULL if the instance can not be allocated or initialized
  * @return pointer to initialized JxlEncoder otherwise
  */
-JXL_EXPORT JxlButteraugliApi* JxlButteraugliApiCreate(
+extern JxlButteraugliApi* JxlButteraugliApiCreate(
     const JxlMemoryManager* memory_manager);
 
 /**
@@ -68,7 +68,7 @@ JXL_EXPORT JxlButteraugliApi* JxlButteraugliApiCreate(
  * multithreaded runner should be set to reach fast performance.
  * @param parallel_runner_opaque opaque pointer for parallel_runner.
  */
-JXL_EXPORT void JxlButteraugliApiSetParallelRunner(
+extern void JxlButteraugliApiSetParallelRunner(
     JxlButteraugliApi* api, JxlParallelRunner parallel_runner,
     void* parallel_runner_opaque);
 
@@ -78,7 +78,7 @@ JXL_EXPORT void JxlButteraugliApiSetParallelRunner(
  * @param api api instance.
  * @param v new hf_asymmetry value.
  */
-JXL_EXPORT void JxlButteraugliApiSetHFAsymmetry(JxlButteraugliApi* api,
+extern void JxlButteraugliApiSetHFAsymmetry(JxlButteraugliApi* api,
                                                 float v);
 
 /**
@@ -87,7 +87,7 @@ JXL_EXPORT void JxlButteraugliApiSetHFAsymmetry(JxlButteraugliApi* api,
  * @param api api instance.
  * @param v new intensity_target value.
  */
-JXL_EXPORT void JxlButteraugliApiSetIntensityTarget(JxlButteraugliApi* api,
+extern void JxlButteraugliApiSetIntensityTarget(JxlButteraugliApi* api,
                                                     float v);
 
 /**
@@ -95,7 +95,7 @@ JXL_EXPORT void JxlButteraugliApiSetIntensityTarget(JxlButteraugliApi* api,
  *
  * @param api instance to be cleaned up and deallocated.
  */
-JXL_EXPORT void JxlButteraugliApiDestroy(JxlButteraugliApi* api);
+extern void JxlButteraugliApiDestroy(JxlButteraugliApi* api);
 
 /**
  * Computes intermediary butteraugli result between an original image and a
@@ -113,7 +113,7 @@ JXL_EXPORT void JxlButteraugliApiDestroy(JxlButteraugliApi* api);
  * @return @c NULL if the results can not be computed or initialized.
  * @return pointer to initialized and computed intermediary result.
  */
-JXL_EXPORT JxlButteraugliResult* JxlButteraugliCompute(
+extern JxlButteraugliResult* JxlButteraugliCompute(
     const JxlButteraugliApi* api, uint32_t xsize, uint32_t ysize,
     const JxlPixelFormat* pixel_format_orig, const void* buffer_orig,
     size_t size_orig, const JxlPixelFormat* pixel_format_dist,
@@ -126,7 +126,7 @@ JXL_EXPORT JxlButteraugliResult* JxlButteraugliCompute(
  * @param result intermediary result instance.
  * @return max distance.
  */
-JXL_EXPORT float JxlButteraugliResultGetMaxDistance(
+extern float JxlButteraugliResultGetMaxDistance(
     const JxlButteraugliResult* result);
 
 /**
@@ -136,7 +136,7 @@ JXL_EXPORT float JxlButteraugliResultGetMaxDistance(
  * @param pnorm pnorm to calculate.
  * @return distance using the given pnorm.
  */
-JXL_EXPORT float JxlButteraugliResultGetDistance(
+extern float JxlButteraugliResultGetDistance(
     const JxlButteraugliResult* result, float pnorm);
 
 /**
@@ -147,7 +147,7 @@ JXL_EXPORT float JxlButteraugliResultGetDistance(
  * be available at buffer + y * row_stride + x.
  * @param row_stride will be set to the row stride of the distmap.
  */
-JXL_EXPORT void JxlButteraugliResultGetDistmap(
+extern void JxlButteraugliResultGetDistmap(
     const JxlButteraugliResult* result, const float** buffer,
     uint32_t* row_stride);
 

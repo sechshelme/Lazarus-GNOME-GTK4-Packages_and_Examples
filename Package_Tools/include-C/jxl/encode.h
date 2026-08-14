@@ -30,7 +30,7 @@ extern "C" {
  * MAJOR_VERSION * 1000000 + MINOR_VERSION * 1000 + PATCH_VERSION. For example,
  * version 1.2.3 would return 1002003.
  */
-JXL_EXPORT uint32_t JxlEncoderVersion(void);
+extern uint32_t JxlEncoderVersion(void);
 
 /**
  * Opaque structure that holds the JPEG XL encoder.
@@ -357,7 +357,7 @@ typedef enum {
  * @return @c NULL if the instance can not be allocated or initialized
  * @return pointer to initialized JxlEncoder otherwise
  */
-JXL_EXPORT JxlEncoder* JxlEncoderCreate(const JxlMemoryManager* memory_manager);
+extern JxlEncoder* JxlEncoderCreate(const JxlMemoryManager* memory_manager);
 
 /**
  * Re-initializes a JxlEncoder instance, so it can be re-used for encoding
@@ -366,14 +366,14 @@ JXL_EXPORT JxlEncoder* JxlEncoderCreate(const JxlMemoryManager* memory_manager);
  *
  * @param enc instance to be re-initialized.
  */
-JXL_EXPORT void JxlEncoderReset(JxlEncoder* enc);
+extern void JxlEncoderReset(JxlEncoder* enc);
 
 /**
  * Deinitializes and frees JxlEncoder instance.
  *
  * @param enc instance to be cleaned up and deallocated.
  */
-JXL_EXPORT void JxlEncoderDestroy(JxlEncoder* enc);
+extern void JxlEncoderDestroy(JxlEncoder* enc);
 
 /**
  * Sets the color management system (CMS) that will be used for color conversion
@@ -384,7 +384,7 @@ JXL_EXPORT void JxlEncoderDestroy(JxlEncoder* enc);
  * @param cms structure representing a CMS implementation. See JxlCmsInterface
  * for more details.
  */
-JXL_EXPORT void JxlEncoderSetCms(JxlEncoder* enc, JxlCmsInterface cms);
+extern void JxlEncoderSetCms(JxlEncoder* enc, JxlCmsInterface cms);
 
 /**
  * Set the parallel runner for multithreading. May only be set before starting
@@ -398,7 +398,7 @@ JXL_EXPORT void JxlEncoderSetCms(JxlEncoder* enc, JxlCmsInterface cms);
  * @return JXL_ENC_SUCCESS if the runner was set, JXL_ENC_ERROR
  * otherwise (the previous runner remains set).
  */
-JXL_EXPORT JxlEncoderStatus
+extern JxlEncoderStatus
 JxlEncoderSetParallelRunner(JxlEncoder* enc, JxlParallelRunner parallel_runner,
                             void* parallel_runner_opaque);
 
@@ -409,7 +409,7 @@ JxlEncoderSetParallelRunner(JxlEncoder* enc, JxlParallelRunner parallel_runner,
  * @return the JxlEncoderError that caused the (last) JXL_ENC_ERROR to be
  * returned.
  */
-JXL_EXPORT JxlEncoderError JxlEncoderGetError(JxlEncoder* enc);
+extern JxlEncoderError JxlEncoderGetError(JxlEncoder* enc);
 
 /**
  * Encodes JPEG XL file using the available bytes. @p *avail_out indicates how
@@ -436,7 +436,7 @@ JXL_EXPORT JxlEncoderError JxlEncoderGetError(JxlEncoder* enc);
  * @return JXL_ENC_ERROR when encoding failed, e.g. invalid input.
  * @return JXL_ENC_NEED_MORE_OUTPUT more output buffer is necessary.
  */
-JXL_EXPORT JxlEncoderStatus JxlEncoderProcessOutput(JxlEncoder* enc,
+extern JxlEncoderStatus JxlEncoderProcessOutput(JxlEncoder* enc,
                                                     uint8_t** next_out,
                                                     size_t* avail_out);
 
@@ -473,7 +473,7 @@ JXL_EXPORT JxlEncoderStatus JxlEncoderProcessOutput(JxlEncoder* enc,
  * does not need to be kept in memory, its information is copied internally.
  * @return JXL_ENC_SUCCESS on success, JXL_ENC_ERROR on error
  */
-JXL_EXPORT JxlEncoderStatus
+extern JxlEncoderStatus
 JxlEncoderSetFrameHeader(JxlEncoderFrameSettings* frame_settings,
                          const JxlFrameHeader* frame_header);
 
@@ -488,7 +488,7 @@ JxlEncoderSetFrameHeader(JxlEncoderFrameSettings* frame_settings,
  * @param blend_info blend info to set for the extra channel
  * @return JXL_ENC_SUCCESS on success, JXL_ENC_ERROR on error
  */
-JXL_EXPORT JxlEncoderStatus JxlEncoderSetExtraChannelBlendInfo(
+extern JxlEncoderStatus JxlEncoderSetExtraChannelBlendInfo(
     JxlEncoderFrameSettings* frame_settings, size_t index,
     const JxlBlendInfo* blend_info);
 
@@ -511,7 +511,7 @@ JXL_EXPORT JxlEncoderStatus JxlEncoderSetExtraChannelBlendInfo(
  * string (zero terminated). Owned by the caller, and copied internally.
  * @return JXL_ENC_SUCCESS on success, JXL_ENC_ERROR on error
  */
-JXL_EXPORT JxlEncoderStatus JxlEncoderSetFrameName(
+extern JxlEncoderStatus JxlEncoderSetFrameName(
     JxlEncoderFrameSettings* frame_settings, const char* frame_name);
 
 /**
@@ -540,7 +540,7 @@ JXL_EXPORT JxlEncoderStatus JxlEncoderSetFrameName(
  * @param size size of buffer in bytes.
  * @return JXL_ENC_SUCCESS on success, JXL_ENC_ERROR on error
  */
-JXL_EXPORT JxlEncoderStatus
+extern JxlEncoderStatus
 JxlEncoderAddJPEGFrame(const JxlEncoderFrameSettings* frame_settings,
                        const uint8_t* buffer, size_t size);
 
@@ -601,7 +601,7 @@ JxlEncoderAddJPEGFrame(const JxlEncoderFrameSettings* frame_settings,
  * by the frame dimensions and the pixel format.
  * @return JXL_ENC_SUCCESS on success, JXL_ENC_ERROR on error
  */
-JXL_EXPORT JxlEncoderStatus JxlEncoderAddImageFrame(
+extern JxlEncoderStatus JxlEncoderAddImageFrame(
     const JxlEncoderFrameSettings* frame_settings,
     const JxlPixelFormat* pixel_format, const void* buffer, size_t size);
 
@@ -628,7 +628,7 @@ JXL_EXPORT JxlEncoderStatus JxlEncoderAddImageFrame(
  * @param index index of the extra channel to use.
  * @return JXL_ENC_SUCCESS on success, JXL_ENC_ERROR on error
  */
-JXL_EXPORT JxlEncoderStatus JxlEncoderSetExtraChannelBuffer(
+extern JxlEncoderStatus JxlEncoderSetExtraChannelBuffer(
     const JxlEncoderFrameSettings* frame_settings,
     const JxlPixelFormat* pixel_format, const void* buffer, size_t size,
     uint32_t index);
@@ -701,7 +701,7 @@ JXL_EXPORT JxlEncoderStatus JxlEncoderSetExtraChannelBuffer(
  * using this function without JxlEncoderUseContainer, or adding a box type
  * that would result in an invalid file format.
  */
-JXL_EXPORT JxlEncoderStatus JxlEncoderAddBox(JxlEncoder* enc,
+extern JxlEncoderStatus JxlEncoderAddBox(JxlEncoder* enc,
                                              const JxlBoxType type,
                                              const uint8_t* contents,
                                              size_t size,
@@ -718,7 +718,7 @@ JXL_EXPORT JxlEncoderStatus JxlEncoderAddBox(JxlEncoder* enc,
  *
  * @param enc encoder object.
  */
-JXL_EXPORT JxlEncoderStatus JxlEncoderUseBoxes(JxlEncoder* enc);
+extern JxlEncoderStatus JxlEncoderUseBoxes(JxlEncoder* enc);
 
 /**
  * Declares that no further boxes will be added with @ref JxlEncoderAddBox.
@@ -735,7 +735,7 @@ JXL_EXPORT JxlEncoderStatus JxlEncoderUseBoxes(JxlEncoder* enc);
  *
  * @param enc encoder object.
  */
-JXL_EXPORT void JxlEncoderCloseBoxes(JxlEncoder* enc);
+extern void JxlEncoderCloseBoxes(JxlEncoder* enc);
 
 /**
  * Declares that no frames will be added and @ref JxlEncoderAddImageFrame and
@@ -749,7 +749,7 @@ JXL_EXPORT void JxlEncoderCloseBoxes(JxlEncoder* enc);
  *
  * @param enc encoder object.
  */
-JXL_EXPORT void JxlEncoderCloseFrames(JxlEncoder* enc);
+extern void JxlEncoderCloseFrames(JxlEncoder* enc);
 
 /**
  * Closes any input to the encoder, equivalent to calling JxlEncoderCloseFrames
@@ -765,7 +765,7 @@ JXL_EXPORT void JxlEncoderCloseFrames(JxlEncoder* enc);
  *
  * @param enc encoder object.
  */
-JXL_EXPORT void JxlEncoderCloseInput(JxlEncoder* enc);
+extern void JxlEncoderCloseInput(JxlEncoder* enc);
 
 /**
  * Sets the original color encoding of the image encoded by this encoder. This
@@ -780,7 +780,7 @@ JXL_EXPORT void JxlEncoderCloseInput(JxlEncoder* enc);
  * @return JXL_ENC_SUCCESS if the operation was successful, JXL_ENC_ERROR or
  * JXL_ENC_NOT_SUPPORTED otherwise
  */
-JXL_EXPORT JxlEncoderStatus
+extern JxlEncoderStatus
 JxlEncoderSetColorEncoding(JxlEncoder* enc, const JxlColorEncoding* color);
 
 /**
@@ -796,7 +796,7 @@ JxlEncoderSetColorEncoding(JxlEncoder* enc, const JxlColorEncoding* color);
  * @return JXL_ENC_SUCCESS if the operation was successful, JXL_ENC_ERROR or
  * JXL_ENC_NOT_SUPPORTED otherwise
  */
-JXL_EXPORT JxlEncoderStatus JxlEncoderSetICCProfile(JxlEncoder* enc,
+extern JxlEncoderStatus JxlEncoderSetICCProfile(JxlEncoder* enc,
                                                     const uint8_t* icc_profile,
                                                     size_t size);
 
@@ -809,7 +809,7 @@ JXL_EXPORT JxlEncoderStatus JxlEncoderSetICCProfile(JxlEncoder* enc,
  *
  * @param info global image metadata. Object owned by the caller.
  */
-JXL_EXPORT void JxlEncoderInitBasicInfo(JxlBasicInfo* info);
+extern void JxlEncoderInitBasicInfo(JxlBasicInfo* info);
 
 /**
  * Initializes a JxlFrameHeader struct to default values.
@@ -821,7 +821,7 @@ JXL_EXPORT void JxlEncoderInitBasicInfo(JxlBasicInfo* info);
  *
  * @param frame_header frame metadata. Object owned by the caller.
  */
-JXL_EXPORT void JxlEncoderInitFrameHeader(JxlFrameHeader* frame_header);
+extern void JxlEncoderInitFrameHeader(JxlFrameHeader* frame_header);
 
 /**
  * Initializes a JxlBlendInfo struct to default values.
@@ -830,7 +830,7 @@ JXL_EXPORT void JxlEncoderInitFrameHeader(JxlFrameHeader* frame_header);
  *
  * @param blend_info blending info. Object owned by the caller.
  */
-JXL_EXPORT void JxlEncoderInitBlendInfo(JxlBlendInfo* blend_info);
+extern void JxlEncoderInitBlendInfo(JxlBlendInfo* blend_info);
 
 /**
  * Sets the global metadata of the image encoded by this encoder.
@@ -847,7 +847,7 @@ JXL_EXPORT void JxlEncoderInitBlendInfo(JxlBlendInfo* blend_info);
  * @return JXL_ENC_SUCCESS if the operation was successful,
  * JXL_ENC_ERROR or JXL_ENC_NOT_SUPPORTED otherwise
  */
-JXL_EXPORT JxlEncoderStatus JxlEncoderSetBasicInfo(JxlEncoder* enc,
+extern JxlEncoderStatus JxlEncoderSetBasicInfo(JxlEncoder* enc,
                                                    const JxlBasicInfo* info);
 
 /**
@@ -860,7 +860,7 @@ JXL_EXPORT JxlEncoderStatus JxlEncoderSetBasicInfo(JxlEncoder* enc,
  * @param info global extra channel metadata. Object owned by the caller and its
  * contents are copied internally.
  */
-JXL_EXPORT void JxlEncoderInitExtraChannelInfo(JxlExtraChannelType type,
+extern void JxlEncoderInitExtraChannelInfo(JxlExtraChannelType type,
                                                JxlExtraChannelInfo* info);
 
 /**
@@ -873,7 +873,7 @@ JXL_EXPORT void JxlEncoderInitExtraChannelInfo(JxlExtraChannelType type,
  * contents are copied internally.
  * @return JXL_ENC_SUCCESS on success, JXL_ENC_ERROR on error
  */
-JXL_EXPORT JxlEncoderStatus JxlEncoderSetExtraChannelInfo(
+extern JxlEncoderStatus JxlEncoderSetExtraChannelInfo(
     JxlEncoder* enc, size_t index, const JxlExtraChannelInfo* info);
 
 /**
@@ -890,7 +890,7 @@ JXL_EXPORT JxlEncoderStatus JxlEncoderSetExtraChannelInfo(
  * character.
  * @return JXL_ENC_SUCCESS on success, JXL_ENC_ERROR on error
  */
-JXL_EXPORT JxlEncoderStatus JxlEncoderSetExtraChannelName(JxlEncoder* enc,
+extern JxlEncoderStatus JxlEncoderSetExtraChannelName(JxlEncoder* enc,
                                                           size_t index,
                                                           const char* name,
                                                           size_t size);
@@ -909,7 +909,7 @@ JXL_EXPORT JxlEncoderStatus JxlEncoderSetExtraChannelName(JxlEncoder* enc,
  * JxlEncoderFrameSettings object is still valid and is the same as before this
  * function was called.
  */
-JXL_EXPORT JxlEncoderStatus JxlEncoderFrameSettingsSetOption(
+extern JxlEncoderStatus JxlEncoderFrameSettingsSetOption(
     JxlEncoderFrameSettings* frame_settings, JxlEncoderFrameSettingId option,
     int64_t value);
 
@@ -927,7 +927,7 @@ JXL_EXPORT JxlEncoderStatus JxlEncoderFrameSettingsSetOption(
  * JxlEncoderFrameSettings object is still valid and is the same as before this
  * function was called.
  */
-JXL_EXPORT JxlEncoderStatus JxlEncoderFrameSettingsSetFloatOption(
+extern JxlEncoderStatus JxlEncoderFrameSettingsSetFloatOption(
     JxlEncoderFrameSettings* frame_settings, JxlEncoderFrameSettingId option,
     float value);
 
@@ -949,7 +949,7 @@ JXL_EXPORT JxlEncoderStatus JxlEncoderFrameSettingsSetFloatOption(
  * @return JXL_ENC_SUCCESS if the operation was successful, JXL_ENC_ERROR
  * otherwise.
  */
-JXL_EXPORT JxlEncoderStatus JxlEncoderUseContainer(JxlEncoder* enc,
+extern JxlEncoderStatus JxlEncoderUseContainer(JxlEncoder* enc,
                                                    JXL_BOOL use_container);
 
 /**
@@ -966,7 +966,7 @@ JXL_EXPORT JxlEncoderStatus JxlEncoderUseContainer(JxlEncoder* enc,
  * @return JXL_ENC_SUCCESS if the operation was successful, JXL_ENC_ERROR
  * otherwise.
  */
-JXL_EXPORT JxlEncoderStatus
+extern JxlEncoderStatus
 JxlEncoderStoreJPEGMetadata(JxlEncoder* enc, JXL_BOOL store_jpeg_metadata);
 
 /** Sets the feature level of the JPEG XL codestream. Valid values are 5 and
@@ -1003,7 +1003,7 @@ JxlEncoderStoreJPEGMetadata(JxlEncoder* enc, JXL_BOOL store_jpeg_metadata);
  * @return JXL_ENC_SUCCESS if the operation was successful, JXL_ENC_ERROR
  * otherwise.
  */
-JXL_EXPORT JxlEncoderStatus JxlEncoderSetCodestreamLevel(JxlEncoder* enc,
+extern JxlEncoderStatus JxlEncoderSetCodestreamLevel(JxlEncoder* enc,
                                                          int level);
 
 /** Returns the codestream level required to support the currently configured
@@ -1025,7 +1025,7 @@ JXL_EXPORT JxlEncoderStatus JxlEncoderSetCodestreamLevel(JxlEncoder* enc,
  * the codestream level to 10 is required.
  *
  */
-JXL_EXPORT int JxlEncoderGetRequiredCodestreamLevel(const JxlEncoder* enc);
+extern int JxlEncoderGetRequiredCodestreamLevel(const JxlEncoder* enc);
 
 /**
  * Enables lossless encoding.
@@ -1045,12 +1045,12 @@ JXL_EXPORT int JxlEncoderGetRequiredCodestreamLevel(const JxlEncoder* enc);
  * @return JXL_ENC_SUCCESS if the operation was successful, JXL_ENC_ERROR
  * otherwise.
  */
-JXL_EXPORT JxlEncoderStatus JxlEncoderSetFrameLossless(
+extern JxlEncoderStatus JxlEncoderSetFrameLossless(
     JxlEncoderFrameSettings* frame_settings, JXL_BOOL lossless);
 
 /** DEPRECATED: use JxlEncoderSetFrameLossless instead.
  */
-JXL_EXPORT JxlEncoderStatus
+extern JxlEncoderStatus
 JxlEncoderOptionsSetLossless(JxlEncoderFrameSettings*, JXL_BOOL);
 
 /**
@@ -1063,7 +1063,7 @@ JxlEncoderOptionsSetLossless(JxlEncoderFrameSettings*, JXL_BOOL);
  * DEPRECATED: use JxlEncoderFrameSettingsSetOption(frame_settings,
  * JXL_ENC_FRAME_SETTING_EFFORT, effort) instead.
  */
-JXL_EXPORT JXL_DEPRECATED JxlEncoderStatus
+extern JXL_DEPRECATED JxlEncoderStatus
 JxlEncoderOptionsSetEffort(JxlEncoderFrameSettings* frame_settings, int effort);
 
 /**
@@ -1076,7 +1076,7 @@ JxlEncoderOptionsSetEffort(JxlEncoderFrameSettings* frame_settings, int effort);
  * DEPRECATED: use JxlEncoderFrameSettingsSetOption(frame_settings,
  * JXL_ENC_FRAME_SETTING_DECODING_SPEED, tier) instead.
  */
-JXL_EXPORT JXL_DEPRECATED JxlEncoderStatus JxlEncoderOptionsSetDecodingSpeed(
+extern JXL_DEPRECATED JxlEncoderStatus JxlEncoderOptionsSetDecodingSpeed(
     JxlEncoderFrameSettings* frame_settings, int tier);
 
 /**
@@ -1093,12 +1093,12 @@ JXL_EXPORT JXL_DEPRECATED JxlEncoderStatus JxlEncoderOptionsSetDecodingSpeed(
  * @return JXL_ENC_SUCCESS if the operation was successful, JXL_ENC_ERROR
  * otherwise.
  */
-JXL_EXPORT JxlEncoderStatus JxlEncoderSetFrameDistance(
+extern JxlEncoderStatus JxlEncoderSetFrameDistance(
     JxlEncoderFrameSettings* frame_settings, float distance);
 
 /** DEPRECATED: use JxlEncoderSetFrameDistance instead.
  */
-JXL_EXPORT JXL_DEPRECATED JxlEncoderStatus
+extern JXL_DEPRECATED JxlEncoderStatus
 JxlEncoderOptionsSetDistance(JxlEncoderFrameSettings*, float);
 
 /**
@@ -1116,12 +1116,12 @@ JxlEncoderOptionsSetDistance(JxlEncoderFrameSettings*, float);
  * defaults initialized to defaults.
  * @return the opaque struct pointer identifying a new set of encoder options.
  */
-JXL_EXPORT JxlEncoderFrameSettings* JxlEncoderFrameSettingsCreate(
+extern JxlEncoderFrameSettings* JxlEncoderFrameSettingsCreate(
     JxlEncoder* enc, const JxlEncoderFrameSettings* source);
 
 /** DEPRECATED: use JxlEncoderFrameSettingsCreate instead.
  */
-JXL_EXPORT JXL_DEPRECATED JxlEncoderFrameSettings* JxlEncoderOptionsCreate(
+extern JXL_DEPRECATED JxlEncoderFrameSettings* JxlEncoderOptionsCreate(
     JxlEncoder*, const JxlEncoderFrameSettings*);
 
 /**
@@ -1130,7 +1130,7 @@ JXL_EXPORT JXL_DEPRECATED JxlEncoderFrameSettings* JxlEncoderOptionsCreate(
  * @param color_encoding color encoding instance.
  * @param is_gray whether the color encoding should be gray scale or color.
  */
-JXL_EXPORT void JxlColorEncodingSetToSRGB(JxlColorEncoding* color_encoding,
+extern void JxlColorEncodingSetToSRGB(JxlColorEncoding* color_encoding,
                                           JXL_BOOL is_gray);
 
 /**
@@ -1139,7 +1139,7 @@ JXL_EXPORT void JxlColorEncodingSetToSRGB(JxlColorEncoding* color_encoding,
  * @param color_encoding color encoding instance.
  * @param is_gray whether the color encoding should be gray scale or color.
  */
-JXL_EXPORT void JxlColorEncodingSetToLinearSRGB(
+extern void JxlColorEncodingSetToLinearSRGB(
     JxlColorEncoding* color_encoding, JXL_BOOL is_gray);
 
 #if defined(__cplusplus) || defined(c_plusplus)
