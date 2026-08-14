@@ -1,0 +1,43 @@
+
+
+{$include gegl/gegl_version.inc}
+{$include gegl/gegl_types.inc}
+{$include gegl/gegl_enums.inc}
+{$include gegl/gegl_buffer_enums.inc}
+{$include gegl/gegl_buffer_backend.inc}
+{$include gegl/gegl_tile_source.inc}
+{$include gegl/gegl_matrix.inc}
+{$include gegl/gegl_buffer_matrix2.inc}
+{$include gegl/gegl_apply.inc}
+{$include gegl/gegl_audio_fragment.inc}
+{$include gegl/gegl_buffer_swap.inc}
+{$include gegl/gegl_tile.inc}
+{$include gegl/gegl_buffer.inc}
+{$include gegl/gegl_tile_handler.inc}
+{$include gegl/gegl_tile_backend.inc}
+{$include gegl/gegl_buffer_iterator.inc}
+{$include gegl/gegl_color.inc}
+{$include gegl/gegl_cpuaccel.inc}
+{$include gegl/gegl_curve.inc}
+{$include gegl/gegl_node.inc}
+{$include gegl/gegl_debug.inc}
+{$include gegl/gegl_graph_debug.inc}
+{$include gegl/gegl_init.inc}
+{$include gegl/gegl_lookup.inc}
+{$include gegl/gegl_math.inc}
+{$include gegl/gegl_memory.inc}
+{$include gegl/gegl_metadata.inc}
+{$include gegl/gegl_metadatastore.inc}
+{$include gegl/gegl_metadatahash.inc}
+{$include gegl/gegl_op.inc}
+{$include gegl/gegl_operations_util.inc}
+{$include gegl/gegl_parallel.inc}
+{$include gegl/gegl_paramspecs.inc}
+{$include gegl/gegl_path.inc}
+{$include gegl/gegl_plugin.inc}
+{$include gegl/gegl_processor.inc}
+{$include gegl/gegl_random.inc}
+{$include gegl/gegl_rectangle.inc}
+{$include gegl/gegl_scratch.inc}
+{$include gegl/gegl_utils.inc}
+
