@@ -19,9 +19,6 @@ const
   {$PACKRECORDS C}
   {$ENDIF}
 
-const
-  INET6_ADDRSTRLEN = 46;
-
   {$DEFINE read_interface}
   {$include fp_nma_includes.inc}
   {$UNDEF read_interface}

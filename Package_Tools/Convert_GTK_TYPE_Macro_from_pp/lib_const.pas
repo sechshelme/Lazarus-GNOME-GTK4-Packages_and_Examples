@@ -353,6 +353,7 @@ const
 
     (libs: 'libjxl_threads'; units: 'fp_jxl'),
     (libs: 'libjxl'; units: 'fp_jxl'),
+    (libs: 'librist'; units: 'fp_rist'),
 
 
     (libs: ''; units: ''));
