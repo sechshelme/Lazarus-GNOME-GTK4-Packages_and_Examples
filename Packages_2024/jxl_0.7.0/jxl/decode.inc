@@ -1,13 +1,4 @@
-unit decode;
-
-interface
-
-uses
-  fp_jxl, memory_manager, types, parallel_runner, codestream_header, color_encoding;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 function JxlDecoderVersion: Tuint32_t; cdecl; external libjxl;
@@ -119,8 +110,11 @@ function JxlDecoderFlushImage(dec: PJxlDecoder): TJxlDecoderStatus; cdecl; exter
 // === Konventiert am: 14-8-26 19:29:06 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

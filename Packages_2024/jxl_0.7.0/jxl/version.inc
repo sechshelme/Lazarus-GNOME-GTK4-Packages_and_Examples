@@ -1,13 +1,4 @@
-unit version;
-
-interface
-
-uses
-  fp_jxl;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 const
@@ -20,7 +11,10 @@ function JPEGXL_NUMERIC_VERSION: longint;
 
 // === Konventiert am: 14-8-26 19:27:38 ===
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 function JPEGXL_COMPUTE_NUMERIC_VERSION(major, minor, patch: longint): longint;
 begin
@@ -32,4 +26,4 @@ begin
   JPEGXL_NUMERIC_VERSION := JPEGXL_COMPUTE_NUMERIC_VERSION(JPEGXL_MAJOR_VERSION, JPEGXL_MINOR_VERSION, JPEGXL_PATCH_VERSION);
 end;
 
-end.
+{$ENDIF read_implementation}

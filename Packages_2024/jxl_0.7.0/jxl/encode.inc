@@ -1,13 +1,4 @@
-unit encode;
-
-interface
-
-uses
-  fp_jxl, memory_manager, types, cms_interface, parallel_runner, codestream_header, color_encoding;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 function JxlEncoderVersion: Tuint32_t; cdecl; external libjxl;
@@ -124,8 +115,11 @@ procedure JxlColorEncodingSetToLinearSRGB(color_encoding: PJxlColorEncoding; is_
 // === Konventiert am: 14-8-26 19:29:02 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

@@ -1,13 +1,4 @@
-unit thread_parallel_runner;
-
-interface
-
-uses
-  fp_jxl, parallel_runner, memory_manager;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 function JxlThreadParallelRunner(runner_opaque: pointer; jpegxl_opaque: pointer; init: TJxlParallelRunInit; func: TJxlParallelRunFunction; start_range: Tuint32_t;
@@ -19,8 +10,11 @@ function JxlThreadParallelRunnerDefaultNumWorkerThreads: Tsize_t; cdecl; externa
 // === Konventiert am: 14-8-26 19:27:48 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

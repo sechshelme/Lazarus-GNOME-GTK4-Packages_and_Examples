@@ -42,6 +42,7 @@ type
   PPint64_t = ^Pint64_t;
 
   Tsize_t=SizeUInt;
+  Psize_t=^Tsize_t;
 
   PPsingle=^Psingle;
 
@@ -50,13 +51,13 @@ type
   {$ENDIF}
 
   {$DEFINE read_interface}
-//  {$include fp_jxl_includes.inc}
+  {$include fp_jxl_includes.inc}
   {$UNDEF read_interface}
 
 implementation
 
 {$DEFINE read_implementation}
-//{$include fp_jxl_includes.inc}
+{$include fp_jxl_includes.inc}
 {$UNDEF read_implementation}
 
 end.
