@@ -310,9 +310,7 @@ procedure g_unicode_canonical_ordering(_string: Pgunichar; len: Tgsize); cdecl; 
 function g_unicode_canonical_decomposition(ch: Tgunichar; result_len: Pgsize): Pgunichar; cdecl; external libglib2; deprecated 'GLIB_DEPRECATED_IN_2_30';
 
 var
-  //  g_utf8_skip: Pgchar; cvar;public;
-  g_utf8_skip: Pgchar; cvar;external libglib2;
-
+  g_utf8_skip: Pgchar; cvar; external libglib2;
 
   {#define g_utf8_next_char(p) (char *)((p) + g_utf8_skip[*(const guchar *)(p)]) }
 
