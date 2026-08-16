@@ -5,7 +5,8 @@ unit Unit1;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls,
+  glib2,
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, StdCtrls,
   OpenGLContext, gl,
   fp_FreeType2,
   LazUTF8;
@@ -19,16 +20,18 @@ const
   libc = 'msvcrt.dll';
   {$ENDIF}
 
-// https://cplusplus.com/reference/cstdlib/mbstowcs/
-function mbstowcs(dest: PDWord; src: PChar; max: SizeInt): SizeInt; cdecl; external libc;
-function mblen(pmb: PDWord; max: SizeInt): Integer; cdecl; external libc;
+  // https://cplusplus.com/reference/cstdlib/mbstowcs/
+  //function mbstowcs(dest: PDWord; src: PChar; max: SizeInt): SizeInt; cdecl; external libc;
+  //function mblen(pmb: PDWord; max: SizeInt): Integer; cdecl; external libc;
 
 type
 
   { TForm1 }
 
   TForm1 = class(TForm)
+    Edit1: TEdit;
     OpenGLControl1: TOpenGLControl;
+    Panel1: TPanel;
     Timer1: TTimer;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -102,8 +105,6 @@ procedure TForm1.FormResize(Sender: TObject);
 begin
   imageWidht := ClientWidth and not %11;
   imageHeight := ClientHeight;
-  SetLength(image, imageWidht * imageHeight);
-  FillDWord(image[0], Length(image) div 4, 0);
 end;
 
 procedure TForm1.OpenGLControl1Click(Sender: TObject);
@@ -115,6 +116,9 @@ procedure TForm1.Timer1Timer(Sender: TObject);
 const
   angle: single = 0.0;
 begin
+  SetLength(image, imageWidht * imageHeight);
+  FillDWord(image[0], Length(image) div 4, 0);
+
   angle += 0.3;
   Face_To_Image(angle);
 
@@ -151,10 +155,6 @@ begin
 end;
 
 procedure TForm1.Face_To_Image(angle: single);
-const
-  //    HelloText: PChar = 'Hello world !  öäü ÄÖÜ ÿï ŸÏ!';
-  HelloText: PChar = 'Computer sind dumm';
-  //  HelloText:PChar='äöüÄÖÜ';
 var
   error: TFT_Error;
   pen: TFT_Vector;
@@ -162,12 +162,11 @@ var
   slot: TFT_GlyphSlot;
 
   n: integer;
-  //wc:array of WideChar=nil;
-  wc: array of DWord = nil;
+  output_utf32: Pgunichar;
+  items_read: glong = 0;
+  items_written: glong = 0;
+  err: PGError = nil;
 begin
-  SetLength(wc, Length(HelloText));
-//  WriteLn(mbstowcs(PDWord(wc), HelloText, Length(wc)));
-//  WriteLn('mblen: ', mblen(PDWord(wc), Length(wc)));
 
   slot := face^.glyph;
 
@@ -179,13 +178,11 @@ begin
   pen.x := 40000;
   pen.y := 50000;
 
-  for n := 0 to Length(wc) - 1 do begin
+  output_utf32 := g_utf8_to_ucs4(pchar(Edit1.text), -1, @items_read, @items_written, @err);
+  for n := 0 to items_written - 1 do begin
     FT_Set_Transform(face, @matrix, @pen);
 
-
-        error := FT_Load_Char(face, TFT_ULong(HelloText[n]), FT_LOAD_RENDER);
-    //error := FT_Load_Char(face, wc[n], FT_LOAD_RENDER);
-    //error := FT_Load_Char(face, 65, FT_LOAD_RENDER);
+    error := FT_Load_Char(face, TFT_ULong(output_utf32[n]), FT_LOAD_RENDER);
     if error <> 0 then begin
       WriteLn('Fehler: Load_Char   ', error);
     end;
@@ -195,6 +192,7 @@ begin
     pen.x += slot^.advance.x;
     pen.y += slot^.advance.y;
   end;
+  g_free(output_utf32);
 end;
 
 end.
