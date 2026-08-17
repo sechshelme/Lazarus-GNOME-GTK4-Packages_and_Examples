@@ -3,15 +3,18 @@ unit MyWidget;
 interface
 
 uses
-  fp_glib2, fp_GTK4, fp_graphene;
+  fp_glib2, fp_GTK4, fp_graphene, fp_FreeType2;
 
 type
   TMyWidget = record
     parent_instance: TGtkWidget;
-    buffer: PByte;
-    buffer_width: Integer;
-    buffer_height: Integer;
-    buffer_stride: Integer;
+    library_: TFT_Library;
+    face: TFT_Face;
+
+    buffer: pbyte;
+    buffer_width: integer;
+    buffer_height: integer;
+    buffer_stride: integer;
   end;
   PMyWidget = ^TMyWidget;
 
@@ -28,22 +31,103 @@ implementation
 var
   parent_class: PMyWidgetClass = nil;
 
+procedure draw_bitmap(self: PMyWidget; bit: PFT_Bitmap; x: TFT_Int; y: TFT_Int);
+var
+  x_max, y_max, ofs, i, j, p, q: TFT_Int;
+begin
+  with self^ do begin
+    x_max := x + bit^.Width;
+    y_max := y + bit^.rows;
+
+    i := x;
+    p := 0;
+    while (i < x_max) do begin
+
+      j := y;
+      q := 0;
+      while (j < y_max) do begin
+
+        if (i >= 0) and (j >= 0) and (i < buffer_width) and (j < buffer_height) then begin
+          ofs := j * buffer_stride + i;
+          buffer[ofs] := buffer[ofs] or bit^.buffer[q * bit^.Width + p];
+        end;
+
+        Inc(j);
+        Inc(q);
+      end;
+      Inc(i);
+      Inc(p);
+    end;
+  end;
+end;
+
+
+procedure Face_To_Image(self: PMyWidget; angle: single);
+var
+  error: TFT_Error;
+  pen: TFT_Vector;
+  matrix: TFT_Matrix;
+  slot: TFT_GlyphSlot;
+
+  n: integer;
+  output_utf32: Pgunichar;
+  items_read: Tglong = 0;
+  items_written: Tglong = 0;
+  err: PGError = nil;
+const
+  SCALE=40000;
+begin
+  with self^ do begin
+    slot := face^.glyph;
+
+    matrix.xx := Round(Cos(angle) * SCALE);
+    matrix.xy := -Round(-Sin(angle) * -SCALE);
+    matrix.yx := Round(Sin(angle) * SCALE);
+    matrix.yy := -Round(Cos(angle) * -SCALE);
+
+    pen.x := 140000;
+    pen.y := 10000;
+
+    FillChar(buffer^, buffer_height *   buffer_stride, $00);
+
+    output_utf32 := g_utf8_to_ucs4(pchar('hello äöü'), -1, @items_read, @items_written, @err);
+    for n := 0 to items_written - 1 do begin
+      FT_Set_Transform(face, @matrix, @pen);
+
+      error := FT_Load_Char(face, TFT_ULong(output_utf32[n]), FT_LOAD_RENDER);
+      if error <> 0 then begin
+        WriteLn('Fehler: Load_Char   ', error);
+      end;
+
+      draw_bitmap(self, @slot^.bitmap, slot^.bitmap_left, buffer_height - slot^.bitmap_top);
+
+      pen.x += slot^.advance.x;
+      pen.y += slot^.advance.y;
+    end;
+  end;
+  g_free(output_utf32);
+end;
+
 procedure snapshoot_cp(widget: PGtkWidget; snapshot: PGtkSnapshot); cdecl;
 var
   self: PMyWidget absolute widget;
   r: Tgraphene_rect_t;
-  w, h, y, x, pixel_idx: integer;
+  w, h: integer;
   texture: PGdkTexture;
   bytes: PGBytes;
+const
+  ang: single = 0.0;
 begin
   w := gtk_widget_get_width(widget);
   h := gtk_widget_get_height(widget);
 
-  if (w <= 0) or (h <= 0) then Exit;
+  if (w <= 0) or (h <= 0) then begin
+    Exit;
+  end;
 
   with self^ do begin
     if (w > buffer_width) or (h > buffer_height) then begin
-      if buffer <> nil then g_free(buffer);
+      if buffer <> nil then begin g_free(buffer); end;
 
       buffer_stride := w * 4;
       buffer := g_malloc(h * buffer_stride);
@@ -51,19 +135,11 @@ begin
       buffer_height := h;
     end;
 
-    for y := 0 to h - 1 do begin
-      for x := 0 to w - 1 do begin
-        pixel_idx := (y * buffer_stride) + (x * 4);
-
-        buffer[pixel_idx + 0] := Random($FF);
-        buffer[pixel_idx + 1] := Random($FF);
-        buffer[pixel_idx + 2] := Random($FF);
-        buffer[pixel_idx + 3] := $FF;
-      end;
-    end;
+    Face_To_Image(self, ang);
+    ang += 0.01;
 
     bytes := g_bytes_new_static(buffer, buffer_height * buffer_stride);
-      texture := gdk_memory_texture_new(w, h, GDK_MEMORY_R8G8B8A8, bytes, buffer_stride);
+    texture := gdk_memory_texture_new(w, h, GDK_MEMORY_R8G8B8A8, bytes, buffer_stride);
     graphene_rect_init(@r, 0, 0, w, h);
     gtk_snapshot_append_texture(snapshot, texture, @r);
 
@@ -81,6 +157,9 @@ begin
       g_free(buffer);
       buffer := nil;
     end;
+
+    FT_Done_Face(face);
+    FT_Done_FreeType(library_);
   end;
   G_OBJECT_CLASS(parent_class)^.finalize(obj);
 end;
@@ -101,8 +180,26 @@ end;
 procedure init_cp(instance: PGTypeInstance; g_class: Tgpointer); cdecl;
 var
   self: PMyWidget absolute instance;
+  error: TFT_Error;
+const
+  fontname = '/usr/share/fonts/truetype/ubuntu/Ubuntu-MI.ttf';
 begin
   with self^ do begin
+    error := FT_Init_FreeType(@library_);
+    if error <> 0 then begin
+      WriteLn('Fehler: ', error);
+    end;
+
+    error := FT_New_Face(library_, fontname, 0, @face);
+    if error <> 0 then begin
+      WriteLn('Fehler: ', error);
+    end;
+
+    error := FT_Set_Char_Size(face, 5000, 00, 0, 350);
+    if error <> 0 then begin
+      WriteLn('Fehler: Set_Char_Size   ', error);
+    end;
+
     buffer := nil;
     buffer_width := 0;
     buffer_height := 0;
@@ -131,4 +228,3 @@ begin
 end;
 
 end.
-
