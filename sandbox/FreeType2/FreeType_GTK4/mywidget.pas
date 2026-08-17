@@ -34,6 +34,7 @@ var
 procedure draw_bitmap(self: PMyWidget; bit: PFT_Bitmap; x: TFT_Int; y: TFT_Int);
 var
   x_max, y_max, ofs, i, j, p, q: TFT_Int;
+  intensity: byte;
 begin
   with self^ do begin
     x_max := x + bit^.Width;
@@ -42,16 +43,21 @@ begin
     i := x;
     p := 0;
     while (i < x_max) do begin
-
       j := y;
       q := 0;
       while (j < y_max) do begin
-
         if (i >= 0) and (j >= 0) and (i < buffer_width) and (j < buffer_height) then begin
-          ofs := j * buffer_stride + i;
-          buffer[ofs] := buffer[ofs] or bit^.buffer[q * bit^.Width + p];
-        end;
+          ofs := (j * buffer_stride) + (i * 4);
 
+          intensity := bit^.buffer[q * bit^.Width + p];
+
+          if intensity > 0 then begin
+            buffer[ofs + 0] := buffer[ofs + 0] or intensity;
+            buffer[ofs + 1] := buffer[ofs + 1] or intensity;
+            buffer[ofs + 2] := buffer[ofs + 2] or intensity;
+            buffer[ofs + 3] := buffer[ofs + 3] or intensity;
+          end;
+        end;
         Inc(j);
         Inc(q);
       end;
@@ -61,51 +67,54 @@ begin
   end;
 end;
 
-
 procedure Face_To_Image(self: PMyWidget; angle: single);
 var
   error: TFT_Error;
   pen: TFT_Vector;
   matrix: TFT_Matrix;
   slot: TFT_GlyphSlot;
-
   n: integer;
   output_utf32: Pgunichar;
   items_read: Tglong = 0;
   items_written: Tglong = 0;
   err: PGError = nil;
-const
-  SCALE=40000;
 begin
   with self^ do begin
     slot := face^.glyph;
 
-    matrix.xx := Round(Cos(angle) * SCALE);
-    matrix.xy := -Round(-Sin(angle) * -SCALE);
-    matrix.yx := Round(Sin(angle) * SCALE);
-    matrix.yy := -Round(Cos(angle) * -SCALE);
+    matrix.xx := Round(Cos(angle) * 10000);
+    matrix.xy := Round(Sin(angle) * 10000);
+    matrix.yx := -Round(Sin(angle) * 10000);
+    matrix.yy := Round(Cos(angle) * 10000);
 
-    pen.x := 140000;
-    pen.y := 10000;
+//    pen.x := 40000;
+//    pen.y := 30000;
 
-    FillChar(buffer^, buffer_height *   buffer_stride, $00);
+    pen.x := (buffer_width div 2) * 64;
+    pen.y := (buffer_height div 2) * 64;
+
+
+    FillChar(buffer^, buffer_height * buffer_stride, $00);
 
     output_utf32 := g_utf8_to_ucs4(pchar('hello äöü'), -1, @items_read, @items_written, @err);
-    for n := 0 to items_written - 1 do begin
-      FT_Set_Transform(face, @matrix, @pen);
+    if output_utf32 <> nil then begin
+      for n := 0 to items_written - 1 do begin
+        FT_Set_Transform(face, @matrix, @pen);
 
-      error := FT_Load_Char(face, TFT_ULong(output_utf32[n]), FT_LOAD_RENDER);
-      if error <> 0 then begin
-        WriteLn('Fehler: Load_Char   ', error);
+        error := FT_Load_Char(face, TFT_ULong(output_utf32[n]), FT_LOAD_RENDER);
+        if error <> 0 then begin
+          WriteLn('Fehler: Load_Char ', error);
+          continue;
+        end;
+
+        draw_bitmap(self, @slot^.bitmap, slot^.bitmap_left, buffer_height - slot^.bitmap_top);
+
+        pen.x += slot^.advance.x;
+        pen.y += slot^.advance.y;
       end;
-
-      draw_bitmap(self, @slot^.bitmap, slot^.bitmap_left, buffer_height - slot^.bitmap_top);
-
-      pen.x += slot^.advance.x;
-      pen.y += slot^.advance.y;
+      g_free(output_utf32);
     end;
   end;
-  g_free(output_utf32);
 end;
 
 procedure snapshoot_cp(widget: PGtkWidget; snapshot: PGtkSnapshot); cdecl;
@@ -182,7 +191,7 @@ var
   self: PMyWidget absolute instance;
   error: TFT_Error;
 const
-  fontname = '/usr/share/fonts/truetype/ubuntu/Ubuntu-MI.ttf';
+  fontname = '/usr/share/fonts/truetype/ubuntu/Ubuntu-B.ttf';
 begin
   with self^ do begin
     error := FT_Init_FreeType(@library_);
