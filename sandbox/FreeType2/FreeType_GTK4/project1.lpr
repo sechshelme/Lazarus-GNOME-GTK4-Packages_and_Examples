@@ -3,6 +3,7 @@ program project1;
 uses
   fp_glib2,
   fp_cairo,
+  fp_pango,
   fp_GTK4,
   MyWidget;
 
@@ -15,15 +16,18 @@ uses
 
   procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
-    window, box, button, mwidget: PGtkWidget;
+    window, box, button, mwidget, lab: PGtkWidget;
   begin
     g_object_set(gtk_settings_get_default, 'gtk-application-prefer-dark-theme', gTrue, nil);
 
     window := gtk_application_window_new(app);
-    gtk_window_set_title(GTK_WINDOW(window), 'Texture Demo');
+    gtk_window_set_title(GTK_WINDOW(window), 'FreeType Demo');
     gtk_window_set_default_size(GTK_WINDOW(window), 640, 400);
 
     box := gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
+
+    lab:=gtk_label_new('hello');
+    gtk_box_append(GTK_BOX(box), lab);
 
     mwidget := my_widget_new;
     gtk_widget_set_vexpand(mwidget, True);

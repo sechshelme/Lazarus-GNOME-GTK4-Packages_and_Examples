@@ -14,7 +14,6 @@ type
     buffer: pbyte;
     buffer_width: integer;
     buffer_height: integer;
-    buffer_stride: integer;
   end;
   PMyWidget = ^TMyWidget;
 
@@ -47,7 +46,7 @@ begin
       q := 0;
       while (j < y_max) do begin
         if (i >= 0) and (j >= 0) and (i < buffer_width) and (j < buffer_height) then begin
-          ofs := (j * buffer_stride) + (i * 4);
+          ofs := j * buffer_width*4 + i * 4;
 
           intensity := bit^.buffer[q * bit^.Width + p];
 
@@ -87,16 +86,13 @@ begin
     matrix.yx := -Round(Sin(angle) * 10000);
     matrix.yy := Round(Cos(angle) * 10000);
 
-//    pen.x := 40000;
-//    pen.y := 30000;
-
     pen.x := (buffer_width div 2) * 64;
     pen.y := (buffer_height div 2) * 64;
 
 
-    FillChar(buffer^, buffer_height * buffer_stride, $00);
+    FillChar(buffer^, buffer_height * buffer_width*4, $00);
 
-    output_utf32 := g_utf8_to_ucs4(pchar('hello äöü'), -1, @items_read, @items_written, @err);
+    output_utf32 := g_utf8_to_ucs4(pchar('hello äöü 😊'), -1, @items_read, @items_written, @err);
     if output_utf32 <> nil then begin
       for n := 0 to items_written - 1 do begin
         FT_Set_Transform(face, @matrix, @pen);
@@ -135,11 +131,10 @@ begin
   end;
 
   with self^ do begin
-    if (w > buffer_width) or (h > buffer_height) then begin
+    if (w <> buffer_width) or (h <> buffer_height) then begin
       if buffer <> nil then begin g_free(buffer); end;
 
-      buffer_stride := w * 4;
-      buffer := g_malloc(h * buffer_stride);
+      buffer := g_malloc(h * w*4);
       buffer_width := w;
       buffer_height := h;
     end;
@@ -147,8 +142,8 @@ begin
     Face_To_Image(self, ang);
     ang += 0.01;
 
-    bytes := g_bytes_new_static(buffer, buffer_height * buffer_stride);
-    texture := gdk_memory_texture_new(w, h, GDK_MEMORY_R8G8B8A8, bytes, buffer_stride);
+    bytes := g_bytes_new_static(buffer, buffer_height * buffer_width*4);
+    texture := gdk_memory_texture_new(w, h, GDK_MEMORY_R8G8B8A8, bytes, buffer_width*4);
     graphene_rect_init(@r, 0, 0, w, h);
     gtk_snapshot_append_texture(snapshot, texture, @r);
 
@@ -212,7 +207,6 @@ begin
     buffer := nil;
     buffer_width := 0;
     buffer_height := 0;
-    buffer_stride := 0;
 
     gtk_widget_add_tick_callback(GTK_WIDGET(self), @tick_cp, self, nil);
   end;
@@ -225,7 +219,7 @@ var
   id: TGType;
 begin
   if g_once_init_enter(@type_id) then begin
-    id := g_type_register_static_simple(GTK_TYPE_WIDGET, 'MyWidget', SizeOf(TMyWidgetClass), @class_init, SizeOf(TMyWidget), @init_cp, 0);
+    id := g_type_register_static_simple(GTK_TYPE_WIDGET, 'DemoFreeTypeWidget', SizeOf(TMyWidgetClass), @class_init, SizeOf(TMyWidget), @init_cp, 0);
     g_once_init_leave(@type_id, id);
   end;
   Result := type_id;
