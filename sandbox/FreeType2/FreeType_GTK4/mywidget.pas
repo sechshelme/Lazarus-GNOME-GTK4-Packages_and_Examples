@@ -6,14 +6,24 @@ uses
   fp_glib2, fp_GTK4, fp_graphene, fp_FreeType2;
 
 type
+  TRGBA = record
+    r, g, b, a: byte;
+  end;
+  PRGBA = ^TRGBA;
+
+type
   TMyWidget = record
     parent_instance: TGtkWidget;
     library_: TFT_Library;
     face: TFT_Face;
 
-    buffer: pbyte;
-    buffer_width: integer;
-    buffer_height: integer;
+    buffer: record
+      data: PRGBA;
+      width: integer;
+      height: integer;
+      end;
+
+    text: pchar;
   end;
   PMyWidget = ^TMyWidget;
 
@@ -24,6 +34,7 @@ type
 
 function my_widget_get_type: TGType;
 function my_widget_new: PGTKWidget;
+procedure my_widget_set_text(self: PMyWidget; text: pchar);
 
 implementation
 
@@ -45,16 +56,16 @@ begin
       j := y;
       q := 0;
       while (j < y_max) do begin
-        if (i >= 0) and (j >= 0) and (i < buffer_width) and (j < buffer_height) then begin
-          ofs := j * buffer_width*4 + i * 4;
+        if (i >= 0) and (j >= 0) and (i < buffer.width) and (j < buffer.height) then begin
+          ofs := j * buffer.width + i;
 
           intensity := bit^.buffer[q * bit^.Width + p];
 
           if intensity > 0 then begin
-            buffer[ofs + 0] := buffer[ofs + 0] or intensity;
-            buffer[ofs + 1] := buffer[ofs + 1] or intensity;
-            buffer[ofs + 2] := buffer[ofs + 2] or intensity;
-            buffer[ofs + 3] := buffer[ofs + 3] or intensity;
+            buffer.data[ofs].r := buffer.data[ofs].r or intensity;
+            buffer.data[ofs].g := buffer.data[ofs].g or intensity;
+            buffer.data[ofs].b := buffer.data[ofs].b or intensity;
+            buffer.data[ofs].a := buffer.data[ofs].a or intensity;
           end;
         end;
         Inc(j);
@@ -86,13 +97,12 @@ begin
     matrix.yx := -Round(Sin(angle) * 10000);
     matrix.yy := Round(Cos(angle) * 10000);
 
-    pen.x := (buffer_width div 2) * 64;
-    pen.y := (buffer_height div 2) * 64;
+    pen.x := (buffer.width div 2) * 64;
+    pen.y := (buffer.height div 2) * 64;
 
+    FillChar(buffer.data^, buffer.height * buffer.width * SizeOf(TRGBA), $00);
 
-    FillChar(buffer^, buffer_height * buffer_width*4, $00);
-
-    output_utf32 := g_utf8_to_ucs4(pchar('hello äöü 😊'), -1, @items_read, @items_written, @err);
+    output_utf32 := g_utf8_to_ucs4(text, -1, @items_read, @items_written, @err);
     if output_utf32 <> nil then begin
       for n := 0 to items_written - 1 do begin
         FT_Set_Transform(face, @matrix, @pen);
@@ -103,7 +113,7 @@ begin
           continue;
         end;
 
-        draw_bitmap(self, @slot^.bitmap, slot^.bitmap_left, buffer_height - slot^.bitmap_top);
+        draw_bitmap(self, @slot^.bitmap, slot^.bitmap_left, buffer.height - slot^.bitmap_top);
 
         pen.x += slot^.advance.x;
         pen.y += slot^.advance.y;
@@ -131,19 +141,19 @@ begin
   end;
 
   with self^ do begin
-    if (w <> buffer_width) or (h <> buffer_height) then begin
-      if buffer <> nil then begin g_free(buffer); end;
+    if (w <> buffer.width) or (h <> buffer.height) then begin
+      if buffer.data <> nil then begin g_free(buffer.data); end;
 
-      buffer := g_malloc(h * w*4);
-      buffer_width := w;
-      buffer_height := h;
+      buffer.data := g_malloc(h * w * 4);
+      buffer.width := w;
+      buffer.height := h;
     end;
 
     Face_To_Image(self, ang);
     ang += 0.01;
 
-    bytes := g_bytes_new_static(buffer, buffer_height * buffer_width*4);
-    texture := gdk_memory_texture_new(w, h, GDK_MEMORY_R8G8B8A8, bytes, buffer_width*4);
+    bytes := g_bytes_new_static(buffer.data, buffer.height * buffer.width * SizeOf(TRGBA));
+    texture := gdk_memory_texture_new(w, h, GDK_MEMORY_R8G8B8A8, bytes, buffer.width * SizeOf(TRGBA));
     graphene_rect_init(@r, 0, 0, w, h);
     gtk_snapshot_append_texture(snapshot, texture, @r);
 
@@ -157,9 +167,13 @@ var
   self: PMyWidget absolute obj;
 begin
   with self^ do begin
-    if buffer <> nil then begin
-      g_free(buffer);
-      buffer := nil;
+    if buffer.data <> nil then begin
+      g_free(buffer.data);
+      buffer.data := nil;
+    end;
+
+    if text <> nil then begin
+      g_free(text);
     end;
 
     FT_Done_Face(face);
@@ -204,9 +218,11 @@ begin
       WriteLn('Fehler: Set_Char_Size   ', error);
     end;
 
-    buffer := nil;
-    buffer_width := 0;
-    buffer_height := 0;
+    buffer.data := nil;
+    buffer.width := 0;
+    buffer.height := 0;
+
+    self^.text := nil;
 
     gtk_widget_add_tick_callback(GTK_WIDGET(self), @tick_cp, self, nil);
   end;
@@ -228,6 +244,14 @@ end;
 function my_widget_new: PGTKWidget;
 begin
   Result := g_object_new(my_widget_get_type, nil);
+end;
+
+procedure my_widget_set_text(self: PMyWidget; text: pchar);
+begin
+  if self^.text <> nil then begin
+    g_free(self^.text);
+  end;
+  self^.text := g_strdup(text);
 end;
 
 end.

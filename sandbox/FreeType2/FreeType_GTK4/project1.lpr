@@ -26,10 +26,11 @@ uses
 
     box := gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
 
-    lab:=gtk_label_new('hello');
+    lab := gtk_label_new('hello');
     gtk_box_append(GTK_BOX(box), lab);
 
     mwidget := my_widget_new;
+    my_widget_set_text(PMyWidget(mwidget), 'Hello äöü Ÿÿ ŷŶ');
     gtk_widget_set_vexpand(mwidget, True);
     gtk_widget_set_hexpand(mwidget, True);
     gtk_box_append(GTK_BOX(box), mwidget);
