@@ -193,10 +193,7 @@ const
   //  fontName = '/usr/share/fonts/truetype/ubuntu/Ubuntu-MI.ttf';
   //  fontName = '/usr/share/fonts/truetype/droid/DroidSansFallbackFull.ttf';
   //  fontName = '/usr/share/fonts/truetype/noto/NotoColorEmoji.ttf';
-
- // fontname = '/usr/share/fonts/truetype/ubuntu/Ubuntu-B.ttf';
-
- fontName = '/home/tux/Schreibtisch/test/Honk-Regular-VariableFont_MORF,SHLN.ttf';
+  fontname = '/usr/share/fonts/truetype/ubuntu/Ubuntu-B.ttf';
 
 begin
   with self^ do begin
