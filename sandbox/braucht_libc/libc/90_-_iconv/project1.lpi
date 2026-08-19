@@ -25,7 +25,7 @@
     </RunParams>
     <RequiredPackages>
       <Item>
-        <PackageName Value="fp_fontconfig_package"/>
+        <PackageName Value="fp_libc_packages"/>
       </Item>
     </RequiredPackages>
     <Units>

@@ -140,10 +140,6 @@
         <UnitName Value="fp_ifaddrs"/>
       </Item>
       <Item>
-        <Filename Value="fp_arpa.pas"/>
-        <UnitName Value="fp_arpa"/>
-      </Item>
-      <Item>
         <Filename Value="linux/fp_wchar.pas"/>
         <UnitName Value="fp_wchar"/>
       </Item>
@@ -158,6 +154,15 @@
       <Item>
         <Filename Value="linux/fp_regex.pas"/>
         <UnitName Value="fp_regex"/>
+      </Item>
+      <Item>
+        <Filename Value="linux/fp_arpa.pas"/>
+        <AddToUsesPkgSection Value="False"/>
+        <UnitName Value="fp_arpa"/>
+      </Item>
+      <Item>
+        <Filename Value="linux/fp_iconv.pas"/>
+        <UnitName Value="fp_iconv"/>
       </Item>
     </Files>
     <RequiredPkgs>
