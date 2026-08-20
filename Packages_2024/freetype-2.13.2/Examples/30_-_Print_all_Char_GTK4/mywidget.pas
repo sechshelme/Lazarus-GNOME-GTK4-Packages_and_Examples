@@ -103,7 +103,7 @@ begin
       if error <> 0 then begin
         WriteLn('Fehler: FT_Render_Glyph   ', error);
       end;
-      draw_bitmap(self, @slot^.bitmap, (n mod 64) * 20 + 30, buffer.height - (n div 64) * 20 - 100);
+      draw_bitmap(self, @slot^.bitmap, (n mod 64) * 20 + 10, (n div 64) * 20 + 10);
 
       pen.x += slot^.advance.x;
       pen.y += slot^.advance.y;
@@ -124,29 +124,27 @@ begin
   w := gtk_widget_get_width(widget);
   h := gtk_widget_get_height(widget);
 
-  if (w <= 0) or (h <= 0) then begin
-    Exit;
-  end;
+  if (w > 0) and (h > 0) then begin
+    with self^ do begin
+      if (w <> buffer.width) or (h <> buffer.height) then begin
+        if buffer.data <> nil then begin g_free(buffer.data); end;
 
-  with self^ do begin
-    if (w <> buffer.width) or (h <> buffer.height) then begin
-      if buffer.data <> nil then begin g_free(buffer.data); end;
+        buffer.data := g_malloc(h * w * 4);
+        buffer.width := w;
+        buffer.height := h;
+      end;
 
-      buffer.data := g_malloc(h * w * 4);
-      buffer.width := w;
-      buffer.height := h;
+      Face_To_Image(self, ang);
+      ang += 0.01;
+
+      bytes := g_bytes_new_static(buffer.data, buffer.height * buffer.width * SizeOf(TRGBA));
+      texture := gdk_memory_texture_new(w, h, GDK_MEMORY_R8G8B8A8, bytes, buffer.width * SizeOf(TRGBA));
+      graphene_rect_init(@r, 0, 0, w, h);
+      gtk_snapshot_append_texture(snapshot, texture, @r);
+
+      g_object_unref(texture);
+      g_bytes_unref(bytes);
     end;
-
-    Face_To_Image(self, ang);
-    ang += 0.01;
-
-    bytes := g_bytes_new_static(buffer.data, buffer.height * buffer.width * SizeOf(TRGBA));
-    texture := gdk_memory_texture_new(w, h, GDK_MEMORY_R8G8B8A8, bytes, buffer.width * SizeOf(TRGBA));
-    graphene_rect_init(@r, 0, 0, w, h);
-    gtk_snapshot_append_texture(snapshot, texture, @r);
-
-    g_object_unref(texture);
-    g_bytes_unref(bytes);
   end;
 end;
 
