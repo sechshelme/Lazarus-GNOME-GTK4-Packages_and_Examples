@@ -23,25 +23,25 @@
 
 #if defined(hdf5_shared_EXPORTS)
 #if defined(_MSC_VER) /* MSVC Compiler Case */
-#define H5_DLL    __declspec(dllexport)
-#define H5_DLLVAR extern __declspec(dllexport)
+#define extern    __declspec(dllexport)
+#define externVAR extern __declspec(dllexport)
 #elif (__GNUC__ >= 4) /* GCC 4.x has support for visibility options */
-#define H5_DLL    __attribute__((visibility("default")))
-#define H5_DLLVAR extern __attribute__((visibility("default")))
+#define extern    __attribute__((visibility("default")))
+#define externVAR extern __attribute__((visibility("default")))
 #endif
 #else
 #if defined(_MSC_VER) /* MSVC Compiler Case */
-#define H5_DLL    __declspec(dllimport)
-#define H5_DLLVAR __declspec(dllimport)
+#define extern    __declspec(dllimport)
+#define externVAR __declspec(dllimport)
 #elif (__GNUC__ >= 4) /* GCC 4.x has support for visibility options */
-#define H5_DLL    __attribute__((visibility("default")))
-#define H5_DLLVAR extern __attribute__((visibility("default")))
+#define extern    __attribute__((visibility("default")))
+#define externVAR extern __attribute__((visibility("default")))
 #endif
 #endif
 
-#ifndef H5_DLL
-#define H5_DLL
-#define H5_DLLVAR extern
+#ifndef extern
+#define extern
+#define externVAR extern
 #endif /* _HDF5DLL_ */
 
 #if defined(hdf5_test_shared_EXPORTS)
@@ -92,49 +92,49 @@
 
 #if defined(hdf5_cpp_shared_EXPORTS)
 #if defined(_MSC_VER) /* MSVC Compiler Case */
-#define H5_DLLCPP    __declspec(dllexport)
-#define H5_DLLCPPVAR extern __declspec(dllexport)
+#define externCPP    __declspec(dllexport)
+#define externCPPVAR extern __declspec(dllexport)
 #elif (__GNUC__ >= 4) /* GCC 4.x has support for visibility options */
-#define H5_DLLCPP    __attribute__((visibility("default")))
-#define H5_DLLCPPVAR extern __attribute__((visibility("default")))
+#define externCPP    __attribute__((visibility("default")))
+#define externCPPVAR extern __attribute__((visibility("default")))
 #endif
 #else
 #if defined(_MSC_VER) /* MSVC Compiler Case */
-#define H5_DLLCPP    __declspec(dllimport)
-#define H5_DLLCPPVAR __declspec(dllimport)
+#define externCPP    __declspec(dllimport)
+#define externCPPVAR __declspec(dllimport)
 #elif (__GNUC__ >= 4) /* GCC 4.x has support for visibility options */
-#define H5_DLLCPP    __attribute__((visibility("default")))
-#define H5_DLLCPPVAR extern __attribute__((visibility("default")))
+#define externCPP    __attribute__((visibility("default")))
+#define externCPPVAR extern __attribute__((visibility("default")))
 #endif
 #endif
 
-#ifndef H5_DLLCPP
-#define H5_DLLCPP
-#define H5_DLLCPPVAR extern
-#endif /* H5_DLLCPP */
+#ifndef externCPP
+#define externCPP
+#define externCPPVAR extern
+#endif /* externCPP */
 
 #if defined(hdf5_hl_shared_EXPORTS)
 #if defined(_MSC_VER) /* MSVC Compiler Case */
-#define H5_HLDLL    __declspec(dllexport)
-#define H5_HLDLLVAR extern __declspec(dllexport)
+#define extern    __declspec(dllexport)
+#define externVAR extern __declspec(dllexport)
 #elif (__GNUC__ >= 4) /* GCC 4.x has support for visibility options */
-#define H5_HLDLL    __attribute__((visibility("default")))
-#define H5_HLDLLVAR extern __attribute__((visibility("default")))
+#define extern    __attribute__((visibility("default")))
+#define externVAR extern __attribute__((visibility("default")))
 #endif
 #else
 #if defined(_MSC_VER) /* MSVC Compiler Case */
-#define H5_HLDLL    __declspec(dllimport)
-#define H5_HLDLLVAR __declspec(dllimport)
+#define extern    __declspec(dllimport)
+#define externVAR __declspec(dllimport)
 #elif (__GNUC__ >= 4) /* GCC 4.x has support for visibility options */
-#define H5_HLDLL    __attribute__((visibility("default")))
-#define H5_HLDLLVAR extern __attribute__((visibility("default")))
+#define extern    __attribute__((visibility("default")))
+#define externVAR extern __attribute__((visibility("default")))
 #endif
 #endif
 
-#ifndef H5_HLDLL
-#define H5_HLDLL
-#define H5_HLDLLVAR extern
-#endif /* H5_HLDLL */
+#ifndef extern
+#define extern
+#define externVAR extern
+#endif /* extern */
 
 #if defined(hdf5_hl_cpp_shared_EXPORTS)
 #if defined(_MSC_VER) /* MSVC Compiler Case */
@@ -229,16 +229,16 @@
 #endif /* HDF5_HL_F90CSTUBDLL */
 
 #else
-#define H5_DLL
-#define H5_DLLVAR extern
+#define extern
+#define externVAR extern
 #define H5TEST_DLL
 #define H5TEST_DLLVAR extern
 #define H5TOOLS_DLL
 #define H5TOOLS_DLLVAR extern
-#define H5_DLLCPP
-#define H5_DLLCPPVAR extern
-#define H5_HLDLL
-#define H5_HLDLLVAR extern
+#define externCPP
+#define externCPPVAR extern
+#define extern
+#define externVAR extern
 #define H5_HLCPPDLL
 #define H5_HLCPPDLLVAR extern
 #define H5_FCDLL

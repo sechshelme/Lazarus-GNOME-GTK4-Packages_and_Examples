@@ -1,4 +1,16 @@
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+unit H5FDmirror;
+
+interface
+
+uses
+  fp_hdf5;
+
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Copyright by The HDF Group.                                               *
  * All rights reserved.                                                      *
  *                                                                           *
@@ -8,29 +20,23 @@
  * distribution tree, or in https://www.hdfgroup.org/licenses.               *
  * If you do not have access to either file, you may request a copy from     *
  * help@hdfgroup.org.                                                        *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-/*
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  }
+{
  * Purpose: Public, shared definitions for Mirror VFD & remote Writer.
- */
+  }
+{$ifndef H5FDmirror_H}
+{$define H5FDmirror_H}
+{$ifdef H5_HAVE_MIRROR_VFD}
 
-#ifndef H5FDmirror_H
-#define H5FDmirror_H
+{ was #define dname def_expr }
+function H5FD_MIRROR : longint; { return type might be wrong }
 
-#ifdef H5_HAVE_MIRROR_VFD
-
-#define H5FD_MIRROR (H5FD_mirror_init())
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-/* ============================================================================
+{ C++ extern C conditionnal removed }
+{ ============================================================================
  * Mirror VFD use and operation.
  * ============================================================================
- */
-
-/* ---------------------------------------------------------------------------
+  }
+{ ---------------------------------------------------------------------------
  * Structure:   H5FD_mirror_fapl_t
  *
  * Used to pass configuration information to the Mirror VFD.
@@ -50,41 +56,55 @@ extern "C" {
  * `remote_ip` (char[])
  *      IP address string of "Mirror Server" remote host.
  * ---------------------------------------------------------------------------
- */
-#define H5FD_MIRROR_FAPL_MAGIC          0xF8DD514C
-#define H5FD_MIRROR_CURR_FAPL_T_VERSION 1
-#define H5FD_MIRROR_MAX_IP_LEN          32
-typedef struct H5FD_mirror_fapl_t {
-    uint32_t magic;
-    uint32_t version;
-    int      handshake_port;
-    char     remote_ip[H5FD_MIRROR_MAX_IP_LEN + 1];
-} H5FD_mirror_fapl_t;
+  }
+const
+  H5FD_MIRROR_FAPL_MAGIC = $F8DD514C;  
+  H5FD_MIRROR_CURR_FAPL_T_VERSION = 1;  
+  H5FD_MIRROR_MAX_IP_LEN = 32;  
+type
+  PH5FD_mirror_fapl_t = ^TH5FD_mirror_fapl_t;
+  TH5FD_mirror_fapl_t = record
+      magic : Tuint32_t;
+      version : Tuint32_t;
+      handshake_port : longint;
+      remote_ip : array[0..(H5FD_MIRROR_MAX_IP_LEN+1)-1] of char;
+    end;
 
-H5_DLL hid_t H5FD_mirror_init(void);
-
-/**
+function H5FD_mirror_init:Thid_t;cdecl;external libhdf5;
+{*
  * \ingroup FAPL
  *
  * \todo Add missing documentation
- */
-H5_DLL herr_t H5Pget_fapl_mirror(hid_t fapl_id, H5FD_mirror_fapl_t *fa_out);
-
-/**
+  }
+function H5Pget_fapl_mirror(fapl_id:Thid_t; fa_out:PH5FD_mirror_fapl_t):Therr_t;cdecl;external libhdf5;
+{*
  * \ingroup FAPL
  *
  * \todo Add missing documentation
- */
-H5_DLL herr_t H5Pset_fapl_mirror(hid_t fapl_id, H5FD_mirror_fapl_t *fa);
+  }
+function H5Pset_fapl_mirror(fapl_id:Thid_t; fa:PH5FD_mirror_fapl_t):Therr_t;cdecl;external libhdf5;
+{ C++ end of extern C conditionnal removed }
+{$else}
+{ H5_HAVE_MIRROR_VFD  }
 
-#ifdef __cplusplus
-}
-#endif
+const
+  H5FD_MIRROR = H5I_INAVLID_HID;  
+{$endif}
+{ H5_HAVE_MIRROR_VFD  }
+{$endif}
+{ H5FDmirror_H  }
 
-#else /* H5_HAVE_MIRROR_VFD */
+// === Konventiert am: 20-8-26 19:43:43 ===
 
-#define H5FD_MIRROR (H5I_INAVLID_HID)
 
-#endif /* H5_HAVE_MIRROR_VFD */
+implementation
 
-#endif /* H5FDmirror_H */
+
+{ was #define dname def_expr }
+function H5FD_MIRROR : longint; { return type might be wrong }
+  begin
+    H5FD_MIRROR:=H5FD_mirror_init;
+  end;
+
+
+end.

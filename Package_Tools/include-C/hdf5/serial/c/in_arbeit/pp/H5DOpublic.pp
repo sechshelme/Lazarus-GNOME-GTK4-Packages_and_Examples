@@ -1,4 +1,36 @@
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+unit H5DOpublic;
+interface
+
+{
+  Automatically converted by H2Pas 1.0.0 from H5DOpublic.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    H5DOpublic.h
+}
+
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
+
+Type
+Phsize_t  = ^hsize_t;
+Puint32_t  = ^uint32_t;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Copyright by The HDF Group.                                               *
  * All rights reserved.                                                      *
  *                                                                           *
@@ -8,20 +40,14 @@
  * distribution tree, or in https://www.hdfgroup.org/licenses.               *
  * If you do not have access to either file, you may request a copy from     *
  * help@hdfgroup.org.                                                        *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-#ifndef H5DOpublic_H
-#define H5DOpublic_H
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-/** \page H5DO_UG The HDF5 High Level Optimizations
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  }
+{$ifndef H5DOpublic_H}
+{$define H5DOpublic_H}
+{ C++ extern C conditionnal removed }
+{* \page H5DO_UG The HDF5 High Level Optimizations
  * @todo Under Construction
- */
-
-/**\defgroup H5DO HDF5 Optimizations APIs (H5DO)
+  }
+{*\defgroup H5DO HDF5 Optimizations APIs (H5DO)
  *
  * <em>Bypassing default HDF5 behavior in order to optimize for specific
  * use cases (H5DO)</em>
@@ -41,16 +67,14 @@ extern "C" {
  * - \ref H5DOwrite_chunk
  *   \n  Writes a raw data chunk from a buffer directly to a dataset in a file (DEPRECATED)
  *
- */
-
-/*-------------------------------------------------------------------------
+  }
+{-------------------------------------------------------------------------
  *
  * "Optimized dataset" routines.
  *
  *-------------------------------------------------------------------------
- */
-
-/**
+  }
+{*
  * --------------------------------------------------------------------------
  * \ingroup H5DO
  *
@@ -91,19 +115,18 @@ extern "C" {
  *
  * \since   1.10.0
  *
- */
-H5_HLDLL herr_t H5DOappend(hid_t dset_id, hid_t dxpl_id, unsigned axis, size_t extension, hid_t memtype,
-                           const void *buf);
+  }
+(* Const before type ignored *)
 
-/* Symbols defined for compatibility with previous versions of the HDF5 API.
+function H5DOappend(dset_id:Thid_t; dxpl_id:Thid_t; axis:dword; extension:Tsize_t; memtype:Thid_t; 
+           buf:pointer):Therr_t;cdecl;external;
+{ Symbols defined for compatibility with previous versions of the HDF5 API.
  *
  * Use of these symbols is deprecated.
- */
-#ifndef H5_NO_DEPRECATED_SYMBOLS
-
-/* Compatibility wrappers for functionality moved to H5D */
-
-/**
+  }
+{$ifndef H5_NO_DEPRECATED_SYMBOLS}
+{ Compatibility wrappers for functionality moved to H5D  }
+{*
  * --------------------------------------------------------------------------
  * \ingroup H5DO
  *
@@ -176,11 +199,13 @@ H5_HLDLL herr_t H5DOappend(hid_t dset_id, hid_t dxpl_id, unsigned axis, size_t e
  * \version 1.10.3  Function deprecated in favor of H5Dwrite_chunk.
  *
  * \since   1.8.11
- */
-H5_HLDLL herr_t H5DOwrite_chunk(hid_t dset_id, hid_t dxpl_id, uint32_t filters, const hsize_t *offset,
-                                size_t data_size, const void *buf);
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
 
-/**
+function H5DOwrite_chunk(dset_id:Thid_t; dxpl_id:Thid_t; filters:Tuint32_t; offset:Phsize_t; data_size:Tsize_t; 
+           buf:pointer):Therr_t;cdecl;external;
+{*
  * --------------------------------------------------------------------------
  * \ingroup H5DO
  *
@@ -237,14 +262,15 @@ H5_HLDLL herr_t H5DOwrite_chunk(hid_t dset_id, hid_t dxpl_id, uint32_t filters, 
  * \version 1.10.3  Function deprecated in favor of H5Dread_chunk.
  *
  * \since   1.10.2, 1.8.19
- */
-H5_HLDLL herr_t H5DOread_chunk(hid_t dset_id, hid_t dxpl_id, const hsize_t *offset, uint32_t *filters /*out*/,
-                               void *buf /*out*/);
+  }
+(* Const before type ignored *)
+{out }{out }function H5DOread_chunk(dset_id:Thid_t; dxpl_id:Thid_t; offset:Phsize_t; filters:Puint32_t; buf:pointer):Therr_t;cdecl;external;
+{$endif}
+{ H5_NO_DEPRECATED_SYMBOLS  }
+{ C++ end of extern C conditionnal removed }
+{$endif}
 
-#endif /* H5_NO_DEPRECATED_SYMBOLS */
+implementation
 
-#ifdef __cplusplus
-}
-#endif
 
-#endif
+end.

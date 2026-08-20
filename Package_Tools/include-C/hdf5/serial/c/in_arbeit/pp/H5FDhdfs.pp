@@ -1,4 +1,35 @@
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+unit H5FDhdfs;
+interface
+
+{
+  Automatically converted by H2Pas 1.0.0 from H5FDhdfs.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    H5FDhdfs.h
+}
+
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
+
+Type
+PH5FD_hdfs_fapl_t  = ^H5FD_hdfs_fapl_t;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Copyright by The HDF Group.                                               *
  *                                                                           *
  * All rights reserved.                                                      *
@@ -9,25 +40,28 @@
  * distribution tree, or in https://www.hdfgroup.org/licenses.               *
  * If you do not have access to either file, you may request a copy from     *
  * help@hdfgroup.org.                                                        *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-/*
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  }
+{
  * Programmer:  Jacob Smith
  *              2018-04-23
  *
  * Purpose:    The public header file for the hdfs driver.
- */
+  }
+{$ifndef H5FDhdfs_H}
+{$define H5FDhdfs_H}
+{$ifdef H5_HAVE_LIBHDFS}
 
-#ifndef H5FDhdfs_H
-#define H5FDhdfs_H
+{ was #define dname def_expr }
+function H5FD_HDFS : longint; { return type might be wrong }
 
-#ifdef H5_HAVE_LIBHDFS
-#define H5FD_HDFS (H5FD_hdfs_init())
-#else /* H5_HAVE_LIBHDFS */
-#define H5FD_HDFS (H5I_INVALID_HID)
-#endif /* H5_HAVE_LIBHDFS */
+{$else}
+{ H5_HAVE_LIBHDFS  }
 
-/****************************************************************************
+const
+  H5FD_HDFS = H5I_INVALID_HID;  
+{$endif}
+{ H5_HAVE_LIBHDFS  }
+{***************************************************************************
  *
  * Structure: H5FD_hdfs_fapl_t
  *
@@ -89,45 +123,49 @@
  * Programmer: Jacob Smith
  *             2018-04-23
  *
- ****************************************************************************/
+ *************************************************************************** }
 
-#define H5FD__CURR_HDFS_FAPL_T_VERSION 1
+const
+  H5FD__CURR_HDFS_FAPL_T_VERSION = 1;  
+  H5FD__HDFS_NODE_NAME_SPACE = 128;  
+  H5FD__HDFS_USER_NAME_SPACE = 128;  
+  H5FD__HDFS_KERB_CACHE_PATH_SPACE = 128;  
+type
+  PH5FD_hdfs_fapl_t = ^TH5FD_hdfs_fapl_t;
+  TH5FD_hdfs_fapl_t = record
+      version : Tint32_t;
+      namenode_name : array[0..(H5FD__HDFS_NODE_NAME_SPACE+1)-1] of char;
+      namenode_port : Tint32_t;
+      user_name : array[0..(H5FD__HDFS_USER_NAME_SPACE+1)-1] of char;
+      kerberos_ticket_cache : array[0..(H5FD__HDFS_KERB_CACHE_PATH_SPACE+1)-1] of char;
+      stream_buffer_size : Tint32_t;
+    end;
+{ C++ extern C conditionnal removed }
 
-#define H5FD__HDFS_NODE_NAME_SPACE       128
-#define H5FD__HDFS_USER_NAME_SPACE       128
-#define H5FD__HDFS_KERB_CACHE_PATH_SPACE 128
-
-typedef struct H5FD_hdfs_fapl_t {
-    int32_t version;
-    char    namenode_name[H5FD__HDFS_NODE_NAME_SPACE + 1];
-    int32_t namenode_port;
-    char    user_name[H5FD__HDFS_USER_NAME_SPACE + 1];
-    char    kerberos_ticket_cache[H5FD__HDFS_KERB_CACHE_PATH_SPACE + 1];
-    int32_t stream_buffer_size;
-} H5FD_hdfs_fapl_t;
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-H5_DLL hid_t H5FD_hdfs_init(void);
-
-/**
+function H5FD_hdfs_init:Thid_t;cdecl;external;
+{*
  * \ingroup FAPL
  *
  * \todo Add missing documentation
- */
-H5_DLL herr_t H5Pget_fapl_hdfs(hid_t fapl_id, H5FD_hdfs_fapl_t *fa_out);
-
-/**
+  }
+function H5Pget_fapl_hdfs(fapl_id:Thid_t; fa_out:PH5FD_hdfs_fapl_t):Therr_t;cdecl;external;
+{*
  * \ingroup FAPL
  *
  * \todo Add missing documentation
- */
-H5_DLL herr_t H5Pset_fapl_hdfs(hid_t fapl_id, H5FD_hdfs_fapl_t *fa);
+  }
+function H5Pset_fapl_hdfs(fapl_id:Thid_t; fa:PH5FD_hdfs_fapl_t):Therr_t;cdecl;external;
+{ C++ end of extern C conditionnal removed }
+{$endif}
+{ ifndef H5FDhdfs_H  }
 
-#ifdef __cplusplus
-}
-#endif
+implementation
 
-#endif /* ifndef H5FDhdfs_H */
+{ was #define dname def_expr }
+function H5FD_HDFS : longint; { return type might be wrong }
+  begin
+    H5FD_HDFS:=H5FD_hdfs_init;
+  end;
+
+
+end.

@@ -50,21 +50,6 @@ typedef struct H5E_error2_t {
     /**< Optional supplied description      */
 } H5E_error2_t;
 
-/* When this header is included from a private header, don't make calls to H5open() */
-#undef H5OPEN
-#ifndef H5private_H
-#define H5OPEN H5open(),
-#else /* H5private_H */
-#define H5OPEN
-#endif /* H5private_H */
-
-/* HDF5 error class */
-#define H5E_ERR_CLS (H5OPEN H5E_ERR_CLS_g)
-H5_DLLVAR hid_t H5E_ERR_CLS_g;
-
-/* Include the automatically generated public header information */
-/* (This includes the list of major and minor error codes for the library) */
-#include "H5Epubgen.h"
 
 /*
  * One often needs to temporarily disable automatic error reporting when
@@ -81,72 +66,6 @@ H5_DLLVAR hid_t H5E_ERR_CLS_g;
  * These two macros still use the old API functions for backward compatibility
  * purpose.
  */
-#ifndef H5_NO_DEPRECATED_SYMBOLS
-#define H5E_BEGIN_TRY                                                                                        \
-    {                                                                                                        \
-        unsigned H5E_saved_is_v2;                                                                            \
-        union {                                                                                              \
-            H5E_auto1_t efunc1;                                                                              \
-            H5E_auto2_t efunc2;                                                                              \
-        } H5E_saved;                                                                                         \
-        void *H5E_saved_edata;                                                                               \
-                                                                                                             \
-        (void)H5Eauto_is_v2(H5E_DEFAULT, &H5E_saved_is_v2);                                                  \
-        if (H5E_saved_is_v2) {                                                                               \
-            (void)H5Eget_auto2(H5E_DEFAULT, &H5E_saved.efunc2, &H5E_saved_edata);                            \
-            (void)H5Eset_auto2(H5E_DEFAULT, NULL, NULL);                                                     \
-        }                                                                                                    \
-        else {                                                                                               \
-            (void)H5Eget_auto1(&H5E_saved.efunc1, &H5E_saved_edata);                                         \
-            (void)H5Eset_auto1(NULL, NULL);                                                                  \
-        }
-
-#define H5E_END_TRY                                                                                          \
-    if (H5E_saved_is_v2)                                                                                     \
-        (void)H5Eset_auto2(H5E_DEFAULT, H5E_saved.efunc2, H5E_saved_edata);                                  \
-    else                                                                                                     \
-        (void)H5Eset_auto1(H5E_saved.efunc1, H5E_saved_edata);                                               \
-    }
-#else /* H5_NO_DEPRECATED_SYMBOLS */
-#define H5E_BEGIN_TRY                                                                                        \
-    {                                                                                                        \
-        H5E_auto2_t saved_efunc;                                                                             \
-        void       *H5E_saved_edata;                                                                         \
-                                                                                                             \
-        (void)H5Eget_auto2(H5E_DEFAULT, &saved_efunc, &H5E_saved_edata);                                     \
-        (void)H5Eset_auto2(H5E_DEFAULT, NULL, NULL);
-
-#define H5E_END_TRY                                                                                          \
-    (void)H5Eset_auto2(H5E_DEFAULT, saved_efunc, H5E_saved_edata);                                           \
-    }
-#endif /* H5_NO_DEPRECATED_SYMBOLS */
-
-/*
- * Public API Convenience Macros for Error reporting - Documented
- */
-/* Use the Standard C __FILE__ & __LINE__ macros instead of typing them in */
-#define H5Epush_sim(func, cls, maj, min, str)                                                                \
-    H5Epush2(H5E_DEFAULT, __FILE__, func, __LINE__, cls, maj, min, str)
-
-/*
- * Public API Convenience Macros for Error reporting - Undocumented
- */
-/* Use the Standard C __FILE__ & __LINE__ macros instead of typing them in */
-/*  And return after pushing error onto stack */
-#define H5Epush_ret(func, cls, maj, min, str, ret)                                                           \
-    do {                                                                                                     \
-        H5Epush2(H5E_DEFAULT, __FILE__, func, __LINE__, cls, maj, min, str);                                 \
-        return (ret);                                                                                        \
-    } while (0)
-
-/* Use the Standard C __FILE__ & __LINE__ macros instead of typing them in
- * And goto a label after pushing error onto stack.
- */
-#define H5Epush_goto(func, cls, maj, min, str, label)                                                        \
-    {                                                                                                        \
-        H5Epush2(H5E_DEFAULT, __FILE__, func, __LINE__, cls, maj, min, str);                                 \
-        goto label;                                                                                          \
-    }
 
 /**
  * Error stack traversal direction
@@ -208,7 +127,7 @@ typedef herr_t (*H5E_auto2_t)(hid_t estack, void *client_data);
  *
  * \since 1.8.0
  */
-H5_DLL hid_t H5Eregister_class(const char *cls_name, const char *lib_name, const char *version);
+extern hid_t H5Eregister_class(const char *cls_name, const char *lib_name, const char *version);
 /**
  * --------------------------------------------------------------------------
  * \ingroup H5E
@@ -224,7 +143,7 @@ H5_DLL hid_t H5Eregister_class(const char *cls_name, const char *lib_name, const
  *
  * \since 1.8.0
  */
-H5_DLL herr_t H5Eunregister_class(hid_t class_id);
+extern herr_t H5Eunregister_class(hid_t class_id);
 /**
  * --------------------------------------------------------------------------
  * \ingroup H5E
@@ -239,7 +158,7 @@ H5_DLL herr_t H5Eunregister_class(hid_t class_id);
  *
  * \since 1.8.0
  */
-H5_DLL herr_t H5Eclose_msg(hid_t err_id);
+extern herr_t H5Eclose_msg(hid_t err_id);
 /**
  * --------------------------------------------------------------------------
  * \ingroup H5E
@@ -260,7 +179,7 @@ H5_DLL herr_t H5Eclose_msg(hid_t err_id);
  *
  * \since 1.8.0
  */
-H5_DLL hid_t H5Ecreate_msg(hid_t cls, H5E_type_t msg_type, const char *msg);
+extern hid_t H5Ecreate_msg(hid_t cls, H5E_type_t msg_type, const char *msg);
 /**
  * --------------------------------------------------------------------------
  * \ingroup H5E
@@ -275,7 +194,7 @@ H5_DLL hid_t H5Ecreate_msg(hid_t cls, H5E_type_t msg_type, const char *msg);
  *
  * \since 1.8.0
  */
-H5_DLL hid_t H5Ecreate_stack(void);
+extern hid_t H5Ecreate_stack(void);
 /**
  * --------------------------------------------------------------------------
  * \ingroup H5E
@@ -289,7 +208,7 @@ H5_DLL hid_t H5Ecreate_stack(void);
  *
  * \since 1.8.0
  */
-H5_DLL hid_t H5Eget_current_stack(void);
+extern hid_t H5Eget_current_stack(void);
 /**
  * --------------------------------------------------------------------------
  * \ingroup H5E
@@ -305,7 +224,7 @@ H5_DLL hid_t H5Eget_current_stack(void);
  *
  * \since 1.8.0
  */
-H5_DLL herr_t H5Eclose_stack(hid_t stack_id);
+extern herr_t H5Eclose_stack(hid_t stack_id);
 /**
  * --------------------------------------------------------------------------
  * \ingroup H5E
@@ -328,7 +247,7 @@ H5_DLL herr_t H5Eclose_stack(hid_t stack_id);
  *
  * \since 1.8.0
  */
-H5_DLL ssize_t H5Eget_class_name(hid_t class_id, char *name, size_t size);
+extern ssize_t H5Eget_class_name(hid_t class_id, char *name, size_t size);
 /**
  * --------------------------------------------------------------------------
  * \ingroup H5E
@@ -346,7 +265,7 @@ H5_DLL ssize_t H5Eget_class_name(hid_t class_id, char *name, size_t size);
  *
  * \since 1.8.0
  */
-H5_DLL herr_t H5Eset_current_stack(hid_t err_stack_id);
+extern herr_t H5Eset_current_stack(hid_t err_stack_id);
 /**
  * --------------------------------------------------------------------------
  * \ingroup H5E
@@ -380,7 +299,7 @@ H5_DLL herr_t H5Eset_current_stack(hid_t err_stack_id);
  *
  * \since 1.8.0
  */
-H5_DLL herr_t H5Epush2(hid_t err_stack, const char *file, const char *func, unsigned line, hid_t cls_id,
+extern herr_t H5Epush2(hid_t err_stack, const char *file, const char *func, unsigned line, hid_t cls_id,
                        hid_t maj_id, hid_t min_id, const char *msg, ...);
 /**
  * --------------------------------------------------------------------------
@@ -400,7 +319,7 @@ H5_DLL herr_t H5Epush2(hid_t err_stack, const char *file, const char *func, unsi
  *
  * \since 1.8.0
  */
-H5_DLL herr_t H5Epop(hid_t err_stack, size_t count);
+extern herr_t H5Epop(hid_t err_stack, size_t count);
 /**
  * --------------------------------------------------------------------------
  * \ingroup H5E
@@ -431,7 +350,7 @@ H5_DLL herr_t H5Epop(hid_t err_stack, size_t count);
  *
  * \since 1.8.0
  */
-H5_DLL herr_t H5Eprint2(hid_t err_stack, FILE *stream);
+extern herr_t H5Eprint2(hid_t err_stack, FILE *stream);
 /**
  * --------------------------------------------------------------------------
  * \ingroup H5E
@@ -467,7 +386,7 @@ H5_DLL herr_t H5Eprint2(hid_t err_stack, FILE *stream);
  *
  * \since 1.8.0
  */
-H5_DLL herr_t H5Ewalk2(hid_t err_stack, H5E_direction_t direction, H5E_walk2_t func, void *client_data);
+extern herr_t H5Ewalk2(hid_t err_stack, H5E_direction_t direction, H5E_walk2_t func, void *client_data);
 /**
  * --------------------------------------------------------------------------
  * \ingroup H5E
@@ -510,7 +429,7 @@ H5_DLL herr_t H5Ewalk2(hid_t err_stack, H5E_direction_t direction, H5E_walk2_t f
  *
  * \since 1.8.0
  */
-H5_DLL herr_t H5Eget_auto2(hid_t estack_id, H5E_auto2_t *func, void **client_data);
+extern herr_t H5Eget_auto2(hid_t estack_id, H5E_auto2_t *func, void **client_data);
 /**
  * --------------------------------------------------------------------------
  * \ingroup H5E
@@ -546,7 +465,7 @@ H5_DLL herr_t H5Eget_auto2(hid_t estack_id, H5E_auto2_t *func, void **client_dat
  *
  * \since 1.8.0
  */
-H5_DLL herr_t H5Eset_auto2(hid_t estack_id, H5E_auto2_t func, void *client_data);
+extern herr_t H5Eset_auto2(hid_t estack_id, H5E_auto2_t func, void *client_data);
 /**
  * --------------------------------------------------------------------------
  * \ingroup H5E
@@ -569,7 +488,7 @@ H5_DLL herr_t H5Eset_auto2(hid_t estack_id, H5E_auto2_t func, void *client_data)
  *
  * \since 1.8.0
  */
-H5_DLL herr_t H5Eclear2(hid_t err_stack);
+extern herr_t H5Eclear2(hid_t err_stack);
 /**
  * --------------------------------------------------------------------------
  * \ingroup H5E
@@ -591,7 +510,7 @@ H5_DLL herr_t H5Eclear2(hid_t err_stack);
  *
  * \since 1.8.0
  */
-H5_DLL herr_t H5Eauto_is_v2(hid_t err_stack, unsigned *is_stack);
+extern herr_t H5Eauto_is_v2(hid_t err_stack, unsigned *is_stack);
 /**
  * --------------------------------------------------------------------------
  * \ingroup H5E
@@ -617,7 +536,7 @@ H5_DLL herr_t H5Eauto_is_v2(hid_t err_stack, unsigned *is_stack);
  *
  * \since 1.8.0
  */
-H5_DLL ssize_t H5Eget_msg(hid_t msg_id, H5E_type_t *type, char *msg, size_t size);
+extern ssize_t H5Eget_msg(hid_t msg_id, H5E_type_t *type, char *msg, size_t size);
 /**
  * --------------------------------------------------------------------------
  * \ingroup H5E
@@ -633,7 +552,7 @@ H5_DLL ssize_t H5Eget_msg(hid_t msg_id, H5E_type_t *type, char *msg, size_t size
  *
  * \since 1.8.0
  */
-H5_DLL ssize_t H5Eget_num(hid_t error_stack_id);
+extern ssize_t H5Eget_num(hid_t error_stack_id);
 
 /* Symbols defined for compatibility with previous versions of the HDF5 API.
  *
@@ -703,7 +622,7 @@ typedef herr_t (*H5E_auto1_t)(void *client_data);
  *          certain exceptions (for instance, H5Eprint1()).
  *
  */
-H5_DLL herr_t H5Eclear1(void);
+extern herr_t H5Eclear1(void);
 /**
  * --------------------------------------------------------------------------
  * \ingroup H5E
@@ -747,7 +666,7 @@ H5_DLL herr_t H5Eclear1(void);
  *          H5Eset_auto2() and H5Eget_auto1() does not fail.
  *
  */
-H5_DLL herr_t H5Eget_auto1(H5E_auto1_t *func, void **client_data);
+extern herr_t H5Eget_auto1(H5E_auto1_t *func, void **client_data);
 /**
  * --------------------------------------------------------------------------
  * \ingroup H5E
@@ -776,7 +695,7 @@ H5_DLL herr_t H5Eget_auto1(H5E_auto1_t *func, void **client_data);
  *
  * \since 1.4.0
  */
-H5_DLL herr_t H5Epush1(const char *file, const char *func, unsigned line, H5E_major_t maj, H5E_minor_t min,
+extern herr_t H5Epush1(const char *file, const char *func, unsigned line, H5E_major_t maj, H5E_minor_t min,
                        const char *str);
 /**
  * --------------------------------------------------------------------------
@@ -801,7 +720,7 @@ H5_DLL herr_t H5Epush1(const char *file, const char *func, unsigned line, H5E_ma
  *          more specific error handlers.
  *
  */
-H5_DLL herr_t H5Eprint1(FILE *stream);
+extern herr_t H5Eprint1(FILE *stream);
 /**
  * --------------------------------------------------------------------------
  * \ingroup H5E
@@ -832,7 +751,7 @@ H5_DLL herr_t H5Eprint1(FILE *stream);
  *          direction.
  *
  */
-H5_DLL herr_t H5Eset_auto1(H5E_auto1_t func, void *client_data);
+extern herr_t H5Eset_auto1(H5E_auto1_t func, void *client_data);
 /**
  * --------------------------------------------------------------------------
  * \ingroup H5E
@@ -865,7 +784,7 @@ H5_DLL herr_t H5Eset_auto1(H5E_auto1_t func, void *client_data);
  *          \snippet this H5E_walk1_t_snip
  *
  */
-H5_DLL herr_t H5Ewalk1(H5E_direction_t direction, H5E_walk1_t func, void *client_data);
+extern herr_t H5Ewalk1(H5E_direction_t direction, H5E_walk1_t func, void *client_data);
 /**
  * --------------------------------------------------------------------------
  * \ingroup H5E
@@ -886,7 +805,7 @@ H5_DLL herr_t H5Ewalk1(H5E_direction_t direction, H5E_walk1_t func, void *client
  *            associated with the return value to prevent a memory leak.
  *
  */
-H5_DLL char *H5Eget_major(H5E_major_t maj);
+extern char *H5Eget_major(H5E_major_t maj);
 /**
  * --------------------------------------------------------------------------
  * \ingroup H5E
@@ -909,7 +828,7 @@ H5_DLL char *H5Eget_major(H5E_major_t maj);
  *            leak. This is a change from the 1.6.x release series.
  *
  */
-H5_DLL char *H5Eget_minor(H5E_minor_t min);
+extern char *H5Eget_minor(H5E_minor_t min);
 #endif /* H5_NO_DEPRECATED_SYMBOLS */
 
 #ifdef __cplusplus

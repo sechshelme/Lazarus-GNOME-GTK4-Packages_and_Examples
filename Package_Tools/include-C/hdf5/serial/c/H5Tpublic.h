@@ -317,10 +317,10 @@ typedef H5T_conv_ret_t (*H5T_conv_except_func_t)(H5T_conv_except_t except_type, 
  * 64-bit little-endian IEEE floating-point numbers
  */
 #define H5T_IEEE_F64LE (H5OPEN H5T_IEEE_F64LE_g)
-H5_DLLVAR hid_t H5T_IEEE_F32BE_g;
-H5_DLLVAR hid_t H5T_IEEE_F32LE_g;
-H5_DLLVAR hid_t H5T_IEEE_F64BE_g;
-H5_DLLVAR hid_t H5T_IEEE_F64LE_g;
+externVAR hid_t H5T_IEEE_F32BE_g;
+externVAR hid_t H5T_IEEE_F32LE_g;
+externVAR hid_t H5T_IEEE_F64BE_g;
+externVAR hid_t H5T_IEEE_F64LE_g;
 
 /*
  * These are "standard" types.  For instance, signed (2's complement) and
@@ -456,32 +456,32 @@ H5_DLLVAR hid_t H5T_IEEE_F64LE_g;
  * Dataset region reference
  */
 #define H5T_STD_REF_DSETREG (H5OPEN H5T_STD_REF_DSETREG_g)
-H5_DLLVAR hid_t H5T_STD_I8BE_g;
-H5_DLLVAR hid_t H5T_STD_I8LE_g;
-H5_DLLVAR hid_t H5T_STD_I16BE_g;
-H5_DLLVAR hid_t H5T_STD_I16LE_g;
-H5_DLLVAR hid_t H5T_STD_I32BE_g;
-H5_DLLVAR hid_t H5T_STD_I32LE_g;
-H5_DLLVAR hid_t H5T_STD_I64BE_g;
-H5_DLLVAR hid_t H5T_STD_I64LE_g;
-H5_DLLVAR hid_t H5T_STD_U8BE_g;
-H5_DLLVAR hid_t H5T_STD_U8LE_g;
-H5_DLLVAR hid_t H5T_STD_U16BE_g;
-H5_DLLVAR hid_t H5T_STD_U16LE_g;
-H5_DLLVAR hid_t H5T_STD_U32BE_g;
-H5_DLLVAR hid_t H5T_STD_U32LE_g;
-H5_DLLVAR hid_t H5T_STD_U64BE_g;
-H5_DLLVAR hid_t H5T_STD_U64LE_g;
-H5_DLLVAR hid_t H5T_STD_B8BE_g;
-H5_DLLVAR hid_t H5T_STD_B8LE_g;
-H5_DLLVAR hid_t H5T_STD_B16BE_g;
-H5_DLLVAR hid_t H5T_STD_B16LE_g;
-H5_DLLVAR hid_t H5T_STD_B32BE_g;
-H5_DLLVAR hid_t H5T_STD_B32LE_g;
-H5_DLLVAR hid_t H5T_STD_B64BE_g;
-H5_DLLVAR hid_t H5T_STD_B64LE_g;
-H5_DLLVAR hid_t H5T_STD_REF_OBJ_g;
-H5_DLLVAR hid_t H5T_STD_REF_DSETREG_g;
+externVAR hid_t H5T_STD_I8BE_g;
+externVAR hid_t H5T_STD_I8LE_g;
+externVAR hid_t H5T_STD_I16BE_g;
+externVAR hid_t H5T_STD_I16LE_g;
+externVAR hid_t H5T_STD_I32BE_g;
+externVAR hid_t H5T_STD_I32LE_g;
+externVAR hid_t H5T_STD_I64BE_g;
+externVAR hid_t H5T_STD_I64LE_g;
+externVAR hid_t H5T_STD_U8BE_g;
+externVAR hid_t H5T_STD_U8LE_g;
+externVAR hid_t H5T_STD_U16BE_g;
+externVAR hid_t H5T_STD_U16LE_g;
+externVAR hid_t H5T_STD_U32BE_g;
+externVAR hid_t H5T_STD_U32LE_g;
+externVAR hid_t H5T_STD_U64BE_g;
+externVAR hid_t H5T_STD_U64LE_g;
+externVAR hid_t H5T_STD_B8BE_g;
+externVAR hid_t H5T_STD_B8LE_g;
+externVAR hid_t H5T_STD_B16BE_g;
+externVAR hid_t H5T_STD_B16LE_g;
+externVAR hid_t H5T_STD_B32BE_g;
+externVAR hid_t H5T_STD_B32LE_g;
+externVAR hid_t H5T_STD_B64BE_g;
+externVAR hid_t H5T_STD_B64LE_g;
+externVAR hid_t H5T_STD_REF_OBJ_g;
+externVAR hid_t H5T_STD_REF_DSETREG_g;
 
 /*
  * Types which are particular to Unix.
@@ -502,10 +502,10 @@ H5_DLLVAR hid_t H5T_STD_REF_DSETREG_g;
  * \ingroup PDTUNIX
  */
 #define H5T_UNIX_D64LE (H5OPEN H5T_UNIX_D64LE_g)
-H5_DLLVAR hid_t H5T_UNIX_D32BE_g;
-H5_DLLVAR hid_t H5T_UNIX_D32LE_g;
-H5_DLLVAR hid_t H5T_UNIX_D64BE_g;
-H5_DLLVAR hid_t H5T_UNIX_D64LE_g;
+externVAR hid_t H5T_UNIX_D32BE_g;
+externVAR hid_t H5T_UNIX_D32LE_g;
+externVAR hid_t H5T_UNIX_D64BE_g;
+externVAR hid_t H5T_UNIX_D64LE_g;
 
 /*
  * Types particular to the C language.  String types use `bytes' instead
@@ -516,7 +516,7 @@ H5_DLLVAR hid_t H5T_UNIX_D64LE_g;
  * String datatype in C (size defined in bytes rather than in bits)
  */
 #define H5T_C_S1 (H5OPEN H5T_C_S1_g)
-H5_DLLVAR hid_t H5T_C_S1_g;
+externVAR hid_t H5T_C_S1_g;
 
 /*
  * Types particular to Fortran.
@@ -526,7 +526,7 @@ H5_DLLVAR hid_t H5T_C_S1_g;
  * String datatype in Fortran (as defined for the HDF5 C library)
  */
 #define H5T_FORTRAN_S1 (H5OPEN H5T_FORTRAN_S1_g)
-H5_DLLVAR hid_t H5T_FORTRAN_S1_g;
+externVAR hid_t H5T_FORTRAN_S1_g;
 
 /*
  * These types are for Intel CPU's.  They are little endian with IEEE
@@ -766,8 +766,8 @@ H5_DLLVAR hid_t H5T_FORTRAN_S1_g;
  * 64-bit VAX byte order floating-point numbers for OpenVMS on DEC Alpha CPUs
  */
 #define H5T_VAX_F64 (H5OPEN H5T_VAX_F64_g)
-H5_DLLVAR hid_t H5T_VAX_F32_g;
-H5_DLLVAR hid_t H5T_VAX_F64_g;
+externVAR hid_t H5T_VAX_F32_g;
+externVAR hid_t H5T_VAX_F64_g;
 
 /*
  * The predefined native types. These are the types detected by H5detect and
@@ -900,31 +900,31 @@ H5_DLLVAR hid_t H5T_VAX_F64_g;
  * HDF5 Boolean type based on native types
  */
 #define H5T_NATIVE_HBOOL (H5OPEN H5T_NATIVE_HBOOL_g)
-H5_DLLVAR hid_t H5T_NATIVE_SCHAR_g;
-H5_DLLVAR hid_t H5T_NATIVE_UCHAR_g;
-H5_DLLVAR hid_t H5T_NATIVE_SHORT_g;
-H5_DLLVAR hid_t H5T_NATIVE_USHORT_g;
-H5_DLLVAR hid_t H5T_NATIVE_INT_g;
-H5_DLLVAR hid_t H5T_NATIVE_UINT_g;
-H5_DLLVAR hid_t H5T_NATIVE_LONG_g;
-H5_DLLVAR hid_t H5T_NATIVE_ULONG_g;
-H5_DLLVAR hid_t H5T_NATIVE_LLONG_g;
-H5_DLLVAR hid_t H5T_NATIVE_ULLONG_g;
-H5_DLLVAR hid_t H5T_NATIVE_FLOAT_g;
-H5_DLLVAR hid_t H5T_NATIVE_DOUBLE_g;
+externVAR hid_t H5T_NATIVE_SCHAR_g;
+externVAR hid_t H5T_NATIVE_UCHAR_g;
+externVAR hid_t H5T_NATIVE_SHORT_g;
+externVAR hid_t H5T_NATIVE_USHORT_g;
+externVAR hid_t H5T_NATIVE_INT_g;
+externVAR hid_t H5T_NATIVE_UINT_g;
+externVAR hid_t H5T_NATIVE_LONG_g;
+externVAR hid_t H5T_NATIVE_ULONG_g;
+externVAR hid_t H5T_NATIVE_LLONG_g;
+externVAR hid_t H5T_NATIVE_ULLONG_g;
+externVAR hid_t H5T_NATIVE_FLOAT_g;
+externVAR hid_t H5T_NATIVE_DOUBLE_g;
 #if H5_SIZEOF_LONG_DOUBLE != 0
-H5_DLLVAR hid_t H5T_NATIVE_LDOUBLE_g;
+externVAR hid_t H5T_NATIVE_LDOUBLE_g;
 #endif
-H5_DLLVAR hid_t H5T_NATIVE_B8_g;
-H5_DLLVAR hid_t H5T_NATIVE_B16_g;
-H5_DLLVAR hid_t H5T_NATIVE_B32_g;
-H5_DLLVAR hid_t H5T_NATIVE_B64_g;
-H5_DLLVAR hid_t H5T_NATIVE_OPAQUE_g;
-H5_DLLVAR hid_t H5T_NATIVE_HADDR_g;
-H5_DLLVAR hid_t H5T_NATIVE_HSIZE_g;
-H5_DLLVAR hid_t H5T_NATIVE_HSSIZE_g;
-H5_DLLVAR hid_t H5T_NATIVE_HERR_g;
-H5_DLLVAR hid_t H5T_NATIVE_HBOOL_g;
+externVAR hid_t H5T_NATIVE_B8_g;
+externVAR hid_t H5T_NATIVE_B16_g;
+externVAR hid_t H5T_NATIVE_B32_g;
+externVAR hid_t H5T_NATIVE_B64_g;
+externVAR hid_t H5T_NATIVE_OPAQUE_g;
+externVAR hid_t H5T_NATIVE_HADDR_g;
+externVAR hid_t H5T_NATIVE_HSIZE_g;
+externVAR hid_t H5T_NATIVE_HSSIZE_g;
+externVAR hid_t H5T_NATIVE_HERR_g;
+externVAR hid_t H5T_NATIVE_HBOOL_g;
 
 /* C9x integer types */
 /**
@@ -951,12 +951,12 @@ H5_DLLVAR hid_t H5T_NATIVE_HBOOL_g;
  * \ingroup PDTC9x
  */
 #define H5T_NATIVE_UINT_FAST8 (H5OPEN H5T_NATIVE_UINT_FAST8_g)
-H5_DLLVAR hid_t H5T_NATIVE_INT8_g;
-H5_DLLVAR hid_t H5T_NATIVE_UINT8_g;
-H5_DLLVAR hid_t H5T_NATIVE_INT_LEAST8_g;
-H5_DLLVAR hid_t H5T_NATIVE_UINT_LEAST8_g;
-H5_DLLVAR hid_t H5T_NATIVE_INT_FAST8_g;
-H5_DLLVAR hid_t H5T_NATIVE_UINT_FAST8_g;
+externVAR hid_t H5T_NATIVE_INT8_g;
+externVAR hid_t H5T_NATIVE_UINT8_g;
+externVAR hid_t H5T_NATIVE_INT_LEAST8_g;
+externVAR hid_t H5T_NATIVE_UINT_LEAST8_g;
+externVAR hid_t H5T_NATIVE_INT_FAST8_g;
+externVAR hid_t H5T_NATIVE_UINT_FAST8_g;
 
 /**
  * \ingroup PDTC9x
@@ -982,12 +982,12 @@ H5_DLLVAR hid_t H5T_NATIVE_UINT_FAST8_g;
  * \ingroup PDTC9x
  */
 #define H5T_NATIVE_UINT_FAST16 (H5OPEN H5T_NATIVE_UINT_FAST16_g)
-H5_DLLVAR hid_t H5T_NATIVE_INT16_g;
-H5_DLLVAR hid_t H5T_NATIVE_UINT16_g;
-H5_DLLVAR hid_t H5T_NATIVE_INT_LEAST16_g;
-H5_DLLVAR hid_t H5T_NATIVE_UINT_LEAST16_g;
-H5_DLLVAR hid_t H5T_NATIVE_INT_FAST16_g;
-H5_DLLVAR hid_t H5T_NATIVE_UINT_FAST16_g;
+externVAR hid_t H5T_NATIVE_INT16_g;
+externVAR hid_t H5T_NATIVE_UINT16_g;
+externVAR hid_t H5T_NATIVE_INT_LEAST16_g;
+externVAR hid_t H5T_NATIVE_UINT_LEAST16_g;
+externVAR hid_t H5T_NATIVE_INT_FAST16_g;
+externVAR hid_t H5T_NATIVE_UINT_FAST16_g;
 
 /**
  * \ingroup PDTC9x
@@ -1013,12 +1013,12 @@ H5_DLLVAR hid_t H5T_NATIVE_UINT_FAST16_g;
  * \ingroup PDTC9x
  */
 #define H5T_NATIVE_UINT_FAST32 (H5OPEN H5T_NATIVE_UINT_FAST32_g)
-H5_DLLVAR hid_t H5T_NATIVE_INT32_g;
-H5_DLLVAR hid_t H5T_NATIVE_UINT32_g;
-H5_DLLVAR hid_t H5T_NATIVE_INT_LEAST32_g;
-H5_DLLVAR hid_t H5T_NATIVE_UINT_LEAST32_g;
-H5_DLLVAR hid_t H5T_NATIVE_INT_FAST32_g;
-H5_DLLVAR hid_t H5T_NATIVE_UINT_FAST32_g;
+externVAR hid_t H5T_NATIVE_INT32_g;
+externVAR hid_t H5T_NATIVE_UINT32_g;
+externVAR hid_t H5T_NATIVE_INT_LEAST32_g;
+externVAR hid_t H5T_NATIVE_UINT_LEAST32_g;
+externVAR hid_t H5T_NATIVE_INT_FAST32_g;
+externVAR hid_t H5T_NATIVE_UINT_FAST32_g;
 
 /**
  * \ingroup PDTC9x
@@ -1044,12 +1044,12 @@ H5_DLLVAR hid_t H5T_NATIVE_UINT_FAST32_g;
  * \ingroup PDTC9x
  */
 #define H5T_NATIVE_UINT_FAST64 (H5OPEN H5T_NATIVE_UINT_FAST64_g)
-H5_DLLVAR hid_t H5T_NATIVE_INT64_g;
-H5_DLLVAR hid_t H5T_NATIVE_UINT64_g;
-H5_DLLVAR hid_t H5T_NATIVE_INT_LEAST64_g;
-H5_DLLVAR hid_t H5T_NATIVE_UINT_LEAST64_g;
-H5_DLLVAR hid_t H5T_NATIVE_INT_FAST64_g;
-H5_DLLVAR hid_t H5T_NATIVE_UINT_FAST64_g;
+externVAR hid_t H5T_NATIVE_INT64_g;
+externVAR hid_t H5T_NATIVE_UINT64_g;
+externVAR hid_t H5T_NATIVE_INT_LEAST64_g;
+externVAR hid_t H5T_NATIVE_UINT_LEAST64_g;
+externVAR hid_t H5T_NATIVE_INT_FAST64_g;
+externVAR hid_t H5T_NATIVE_UINT_FAST64_g;
 
 /* Operations defined on all datatypes */
 /**
@@ -1094,7 +1094,7 @@ H5_DLLVAR hid_t H5T_NATIVE_UINT_FAST64_g;
  * \since 1.2.0
  *
  */
-H5_DLL hid_t H5Tcreate(H5T_class_t type, size_t size);
+extern hid_t H5Tcreate(H5T_class_t type, size_t size);
 /**
  * \ingroup H5T
  *
@@ -1117,7 +1117,7 @@ H5_DLL hid_t H5Tcreate(H5T_class_t type, size_t size);
  *          to prevent resource leak.
  *
  */
-H5_DLL hid_t H5Tcopy(hid_t type_id);
+extern hid_t H5Tcopy(hid_t type_id);
 /**
  * \ingroup H5T
  *
@@ -1132,7 +1132,7 @@ H5_DLL hid_t H5Tcopy(hid_t type_id);
  *          a datatype with this call will result in resource leaks.
  *
  */
-H5_DLL herr_t H5Tclose(hid_t type_id);
+extern herr_t H5Tclose(hid_t type_id);
 /**
  * \ingroup H5T
  *
@@ -1149,7 +1149,7 @@ H5_DLL herr_t H5Tclose(hid_t type_id);
  * \since 1.6 or earlier
  *
  */
-H5_DLL htri_t H5Tequal(hid_t type1_id, hid_t type2_id);
+extern htri_t H5Tequal(hid_t type1_id, hid_t type2_id);
 /**
  * \ingroup H5T
  *
@@ -1166,7 +1166,7 @@ H5_DLL htri_t H5Tequal(hid_t type1_id, hid_t type2_id);
  *          is locked it can never be unlocked.
  *
  */
-H5_DLL herr_t H5Tlock(hid_t type_id);
+extern herr_t H5Tlock(hid_t type_id);
 /**
  * \ingroup H5T
  *
@@ -1213,7 +1213,7 @@ H5_DLL herr_t H5Tlock(hid_t type_id);
  * \since 1.8.0
  *
  */
-H5_DLL herr_t H5Tcommit2(hid_t loc_id, const char *name, hid_t type_id, hid_t lcpl_id, hid_t tcpl_id,
+extern herr_t H5Tcommit2(hid_t loc_id, const char *name, hid_t type_id, hid_t lcpl_id, hid_t tcpl_id,
                          hid_t tapl_id);
 /**
  * --------------------------------------------------------------------------
@@ -1238,7 +1238,7 @@ H5_DLL herr_t H5Tcommit2(hid_t loc_id, const char *name, hid_t type_id, hid_t lc
  * \since 1.8.0
  *
  */
-H5_DLL hid_t H5Topen2(hid_t loc_id, const char *name, hid_t tapl_id);
+extern hid_t H5Topen2(hid_t loc_id, const char *name, hid_t tapl_id);
 /**
  * \ingroup H5T
  *
@@ -1291,7 +1291,7 @@ H5_DLL hid_t H5Topen2(hid_t loc_id, const char *name, hid_t tapl_id);
  * \since 1.2.0
  *
  */
-H5_DLL herr_t H5Tcommit_anon(hid_t loc_id, hid_t type_id, hid_t tcpl_id, hid_t tapl_id);
+extern herr_t H5Tcommit_anon(hid_t loc_id, hid_t type_id, hid_t tcpl_id, hid_t tapl_id);
 /**
  * \ingroup H5T
  *
@@ -1311,7 +1311,7 @@ H5_DLL herr_t H5Tcommit_anon(hid_t loc_id, hid_t type_id, hid_t tcpl_id, hid_t t
  * \since 1.8.0
  *
  */
-H5_DLL hid_t H5Tget_create_plist(hid_t type_id);
+extern hid_t H5Tget_create_plist(hid_t type_id);
 /**
  * \ingroup H5T
  *
@@ -1334,7 +1334,7 @@ H5_DLL hid_t H5Tget_create_plist(hid_t type_id);
  * \since 1.6 or earlier
  *
  */
-H5_DLL htri_t H5Tcommitted(hid_t type_id);
+extern htri_t H5Tcommitted(hid_t type_id);
 /**
  * \ingroup H5T
  *
@@ -1368,7 +1368,7 @@ H5_DLL htri_t H5Tcommitted(hid_t type_id);
  * \since 1.2.0
  *
  */
-H5_DLL herr_t H5Tencode(hid_t obj_id, void *buf, size_t *nalloc);
+extern herr_t H5Tencode(hid_t obj_id, void *buf, size_t *nalloc);
 /**
  * \ingroup H5T
  *
@@ -1390,7 +1390,7 @@ H5_DLL herr_t H5Tencode(hid_t obj_id, void *buf, size_t *nalloc);
  *          resource leaks will not develop.
  *
  */
-H5_DLL hid_t H5Tdecode(const void *buf);
+extern hid_t H5Tdecode(const void *buf);
 /**
  * \ingroup H5T
  *
@@ -1429,7 +1429,7 @@ H5_DLL hid_t H5Tdecode(const void *buf);
  *          H5Pset_object_flush_cb()
  *
  */
-H5_DLL herr_t H5Tflush(hid_t type_id);
+extern herr_t H5Tflush(hid_t type_id);
 /**
  * \ingroup H5T
  *
@@ -1451,7 +1451,7 @@ H5_DLL herr_t H5Tflush(hid_t type_id);
  * \since 1.2.0
  *
  */
-H5_DLL herr_t H5Trefresh(hid_t type_id);
+extern herr_t H5Trefresh(hid_t type_id);
 
 /* Operations defined on compound datatypes */
 /**
@@ -1481,7 +1481,7 @@ H5_DLL herr_t H5Trefresh(hid_t type_id);
  * \since 1.2.0
  *
  */
-H5_DLL herr_t H5Tinsert(hid_t parent_id, const char *name, size_t offset, hid_t member_id);
+extern herr_t H5Tinsert(hid_t parent_id, const char *name, size_t offset, hid_t member_id);
 /**
  * \ingroup COMPOUND
  *
@@ -1497,7 +1497,7 @@ H5_DLL herr_t H5Tinsert(hid_t parent_id, const char *name, size_t offset, hid_t 
  * \since 1.2.0
  *
  */
-H5_DLL herr_t H5Tpack(hid_t type_id);
+extern herr_t H5Tpack(hid_t type_id);
 
 /* Operations defined on enumeration datatypes */
 /**
@@ -1521,7 +1521,7 @@ H5_DLL herr_t H5Tpack(hid_t type_id);
  * \since 1.2.0
  *
  */
-H5_DLL hid_t H5Tenum_create(hid_t base_id);
+extern hid_t H5Tenum_create(hid_t base_id);
 /**
  * \ingroup ENUM
  *
@@ -1552,7 +1552,7 @@ H5_DLL hid_t H5Tenum_create(hid_t base_id);
  * \since 1.2.0
  *
  */
-H5_DLL herr_t H5Tenum_insert(hid_t type, const char *name, const void *value);
+extern herr_t H5Tenum_insert(hid_t type, const char *name, const void *value);
 /**
  * \ingroup ENUM
  *
@@ -1578,7 +1578,7 @@ H5_DLL herr_t H5Tenum_insert(hid_t type, const char *name, const void *value);
  * \since 1.2.0
  *
  */
-H5_DLL herr_t H5Tenum_nameof(hid_t type, const void *value, char *name /*out*/, size_t size);
+extern herr_t H5Tenum_nameof(hid_t type, const void *value, char *name /*out*/, size_t size);
 /**
  * \ingroup ENUM
  *
@@ -1605,7 +1605,7 @@ H5_DLL herr_t H5Tenum_nameof(hid_t type, const void *value, char *name /*out*/, 
  * \since 1.2.0
  *
  */
-H5_DLL herr_t H5Tenum_valueof(hid_t type, const char *name, void *value /*out*/);
+extern herr_t H5Tenum_valueof(hid_t type, const char *name, void *value /*out*/);
 
 /* Operations defined on variable-length datatypes */
 /**
@@ -1641,7 +1641,7 @@ H5_DLL herr_t H5Tenum_valueof(hid_t type, const char *name, void *value /*out*/)
  *            To create a variable-length string datatype, see \ref_vlen_strings.
  *
  */
-H5_DLL hid_t H5Tvlen_create(hid_t base_id);
+extern hid_t H5Tvlen_create(hid_t base_id);
 
 /* Operations defined on array datatypes */
 /**
@@ -1668,7 +1668,7 @@ H5_DLL hid_t H5Tvlen_create(hid_t base_id);
  * \since 1.8.0
  *
  */
-H5_DLL hid_t H5Tarray_create2(hid_t base_id, unsigned ndims, const hsize_t dim[/* ndims */]);
+extern hid_t H5Tarray_create2(hid_t base_id, unsigned ndims, const hsize_t dim[/* ndims */]);
 /**
  * \ingroup ARRAY
  *
@@ -1685,7 +1685,7 @@ H5_DLL hid_t H5Tarray_create2(hid_t base_id, unsigned ndims, const hsize_t dim[/
  * \since 1.2.0
  *
  */
-H5_DLL int H5Tget_array_ndims(hid_t type_id);
+extern int H5Tget_array_ndims(hid_t type_id);
 /**
  * \ingroup ARRAY
  *
@@ -1703,7 +1703,7 @@ H5_DLL int H5Tget_array_ndims(hid_t type_id);
  * \since 1.2.0
  *
  */
-H5_DLL int H5Tget_array_dims2(hid_t type_id, hsize_t dims[]);
+extern int H5Tget_array_dims2(hid_t type_id, hsize_t dims[]);
 
 /* Operations defined on opaque datatypes */
 /**
@@ -1729,7 +1729,7 @@ H5_DLL int H5Tget_array_dims2(hid_t type_id, hsize_t dims[]);
  *                H5Tpublic.h.
  *
  */
-H5_DLL herr_t H5Tset_tag(hid_t type, const char *tag);
+extern herr_t H5Tset_tag(hid_t type, const char *tag);
 /**
  * \ingroup OPAQUE
  *
@@ -1747,7 +1747,7 @@ H5_DLL herr_t H5Tset_tag(hid_t type, const char *tag);
  *            the caller must free.
  *
  */
-H5_DLL char *H5Tget_tag(hid_t type);
+extern char *H5Tget_tag(hid_t type);
 
 /* Querying property values */
 /**
@@ -1768,7 +1768,7 @@ H5_DLL char *H5Tget_tag(hid_t type);
  *          resource leaks will not develop.
  *
  */
-H5_DLL hid_t H5Tget_super(hid_t type);
+extern hid_t H5Tget_super(hid_t type);
 /**
  * \ingroup H5T
  *
@@ -1791,7 +1791,7 @@ H5_DLL hid_t H5Tget_super(hid_t type);
  *       platform; it will not be portable to other platforms.
  *
  */
-H5_DLL H5T_class_t H5Tget_class(hid_t type_id);
+extern H5T_class_t H5Tget_class(hid_t type_id);
 /**
  * \ingroup H5T
  *
@@ -1817,7 +1817,7 @@ H5_DLL H5T_class_t H5Tget_class(hid_t type_id);
  * \since 1.6.0
  *
  */
-H5_DLL htri_t H5Tdetect_class(hid_t type_id, H5T_class_t cls);
+extern htri_t H5Tdetect_class(hid_t type_id, H5T_class_t cls);
 /**
  * \ingroup H5T
  *
@@ -1846,7 +1846,7 @@ H5_DLL htri_t H5Tdetect_class(hid_t type_id, H5T_class_t cls);
  *
  * \since 1.2.0
  */
-H5_DLL size_t H5Tget_size(hid_t type_id);
+extern size_t H5Tget_size(hid_t type_id);
 /**
  * \ingroup ATOM
  *
@@ -1872,7 +1872,7 @@ H5_DLL size_t H5Tget_size(hid_t type_id);
  * \since 1.2.0
  *
  */
-H5_DLL H5T_order_t H5Tget_order(hid_t type_id);
+extern H5T_order_t H5Tget_order(hid_t type_id);
 /**
  * \ingroup ATOM
  *
@@ -1892,7 +1892,7 @@ H5_DLL H5T_order_t H5Tget_order(hid_t type_id);
  * \since 1.2.0
  *
  */
-H5_DLL size_t H5Tget_precision(hid_t type_id);
+extern size_t H5Tget_precision(hid_t type_id);
 /**
  * \ingroup ATOM
  *
@@ -1921,7 +1921,7 @@ H5_DLL size_t H5Tget_precision(hid_t type_id);
  * \since 1.2.0
  *
  */
-H5_DLL int H5Tget_offset(hid_t type_id);
+extern int H5Tget_offset(hid_t type_id);
 /**
  * \ingroup ATOM
  *
@@ -1940,7 +1940,7 @@ H5_DLL int H5Tget_offset(hid_t type_id);
  * \since 1.2.0
  *
  */
-H5_DLL herr_t H5Tget_pad(hid_t type_id, H5T_pad_t *lsb /*out*/, H5T_pad_t *msb /*out*/);
+extern herr_t H5Tget_pad(hid_t type_id, H5T_pad_t *lsb /*out*/, H5T_pad_t *msb /*out*/);
 /**
  * \ingroup ATOM
  *
@@ -1957,7 +1957,7 @@ H5_DLL herr_t H5Tget_pad(hid_t type_id, H5T_pad_t *lsb /*out*/, H5T_pad_t *msb /
  * \since 1.2.0
  *
  */
-H5_DLL H5T_sign_t H5Tget_sign(hid_t type_id);
+extern H5T_sign_t H5Tget_sign(hid_t type_id);
 /**
  * \ingroup ATOM
  *
@@ -1981,7 +1981,7 @@ H5_DLL H5T_sign_t H5Tget_sign(hid_t type_id);
  * \since 1.2.0
  *
  */
-H5_DLL herr_t H5Tget_fields(hid_t type_id, size_t *spos /*out*/, size_t *epos /*out*/, size_t *esize /*out*/,
+extern herr_t H5Tget_fields(hid_t type_id, size_t *spos /*out*/, size_t *epos /*out*/, size_t *esize /*out*/,
                             size_t *mpos /*out*/, size_t *msize /*out*/);
 /**
  * \ingroup ATOM
@@ -1997,7 +1997,7 @@ H5_DLL herr_t H5Tget_fields(hid_t type_id, size_t *spos /*out*/, size_t *epos /*
  * \since 1.2.0
  *
  */
-H5_DLL size_t H5Tget_ebias(hid_t type_id);
+extern size_t H5Tget_ebias(hid_t type_id);
 /**
  * --------------------------------------------------------------------------
  * \ingroup ATOM
@@ -2016,7 +2016,7 @@ H5_DLL size_t H5Tget_ebias(hid_t type_id);
  * \since 1.2.0
  *
  */
-H5_DLL H5T_norm_t H5Tget_norm(hid_t type_id);
+extern H5T_norm_t H5Tget_norm(hid_t type_id);
 /**
  * \ingroup ATOM
  *
@@ -2035,7 +2035,7 @@ H5_DLL H5T_norm_t H5Tget_norm(hid_t type_id);
  * \since 1.2.0
  *
  */
-H5_DLL H5T_pad_t H5Tget_inpad(hid_t type_id);
+extern H5T_pad_t H5Tget_inpad(hid_t type_id);
 /**
  * \ingroup ATOM
  *
@@ -2056,7 +2056,7 @@ H5_DLL H5T_pad_t H5Tget_inpad(hid_t type_id);
  * \since 1.2.0
  *
  */
-H5_DLL H5T_str_t H5Tget_strpad(hid_t type_id);
+extern H5T_str_t H5Tget_strpad(hid_t type_id);
 /**
  * \ingroup COMPENUM
  *
@@ -2073,7 +2073,7 @@ H5_DLL H5T_str_t H5Tget_strpad(hid_t type_id);
  * \since 1.2.0
  *
  */
-H5_DLL int H5Tget_nmembers(hid_t type_id);
+extern int H5Tget_nmembers(hid_t type_id);
 /**
  * \ingroup COMPENUM
  *
@@ -2100,7 +2100,7 @@ H5_DLL int H5Tget_nmembers(hid_t type_id);
  * \since 1.2.0
  *
  */
-H5_DLL char *H5Tget_member_name(hid_t type_id, unsigned membno);
+extern char *H5Tget_member_name(hid_t type_id, unsigned membno);
 /**
  * \ingroup COMPENUM
  *
@@ -2122,7 +2122,7 @@ H5_DLL char *H5Tget_member_name(hid_t type_id, unsigned membno);
  * \since 1.2.0
  *
  */
-H5_DLL int H5Tget_member_index(hid_t type_id, const char *name);
+extern int H5Tget_member_index(hid_t type_id, const char *name);
 /**
  * \ingroup COMPOUND
  *
@@ -2146,7 +2146,7 @@ H5_DLL int H5Tget_member_index(hid_t type_id, const char *name);
  * \since 1.2.0
  *
  */
-H5_DLL size_t H5Tget_member_offset(hid_t type_id, unsigned membno);
+extern size_t H5Tget_member_offset(hid_t type_id, unsigned membno);
 /**
  * \ingroup COMPOUND
  *
@@ -2167,7 +2167,7 @@ H5_DLL size_t H5Tget_member_offset(hid_t type_id, unsigned membno);
  * \since 1.2.0
  *
  */
-H5_DLL H5T_class_t H5Tget_member_class(hid_t type_id, unsigned membno);
+extern H5T_class_t H5Tget_member_class(hid_t type_id, unsigned membno);
 /**
  * \ingroup COMPOUND
  *
@@ -2188,7 +2188,7 @@ H5_DLL H5T_class_t H5Tget_member_class(hid_t type_id, unsigned membno);
  * \since 1.2.0
  *
  */
-H5_DLL hid_t H5Tget_member_type(hid_t type_id, unsigned membno);
+extern hid_t H5Tget_member_type(hid_t type_id, unsigned membno);
 /**
  * \ingroup ENUM
  *
@@ -2215,7 +2215,7 @@ H5_DLL hid_t H5Tget_member_type(hid_t type_id, unsigned membno);
  * \since 1.2.0
  *
  */
-H5_DLL herr_t H5Tget_member_value(hid_t type_id, unsigned membno, void *value /*out*/);
+extern herr_t H5Tget_member_value(hid_t type_id, unsigned membno, void *value /*out*/);
 /**
  * \ingroup ATOM
  *
@@ -2233,7 +2233,7 @@ H5_DLL herr_t H5Tget_member_value(hid_t type_id, unsigned membno, void *value /*
  * \since 1.2.0
  *
  */
-H5_DLL H5T_cset_t H5Tget_cset(hid_t type_id);
+extern H5T_cset_t H5Tget_cset(hid_t type_id);
 /**
  * \ingroup ATOM
  *
@@ -2256,7 +2256,7 @@ H5_DLL H5T_cset_t H5Tget_cset(hid_t type_id);
  * \since 1.6.0
  *
  */
-H5_DLL htri_t H5Tis_variable_str(hid_t type_id);
+extern htri_t H5Tis_variable_str(hid_t type_id);
 /**
  * \ingroup H5T
  *
@@ -2340,7 +2340,7 @@ H5_DLL htri_t H5Tis_variable_str(hid_t type_id);
  * \since 1.6.0
  *
  */
-H5_DLL hid_t H5Tget_native_type(hid_t type_id, H5T_direction_t direction);
+extern hid_t H5Tget_native_type(hid_t type_id, H5T_direction_t direction);
 
 /* Setting property values */
 /**
@@ -2390,7 +2390,7 @@ H5_DLL hid_t H5Tget_native_type(hid_t type_id, H5T_direction_t direction);
  * \since 1.2.0
  *
  */
-H5_DLL herr_t H5Tset_size(hid_t type_id, size_t size);
+extern herr_t H5Tset_size(hid_t type_id, size_t size);
 /**
  * \ingroup ATOM
  *
@@ -2429,7 +2429,7 @@ H5_DLL herr_t H5Tset_size(hid_t type_id, size_t size);
  * \since 1.2.0
  *
  */
-H5_DLL herr_t H5Tset_order(hid_t type_id, H5T_order_t order);
+extern herr_t H5Tset_order(hid_t type_id, H5T_order_t order);
 /**
  * \ingroup ATOM
  *
@@ -2459,7 +2459,7 @@ H5_DLL herr_t H5Tset_order(hid_t type_id, H5T_order_t order);
  * \since 1.2.0
  *
  */
-H5_DLL herr_t H5Tset_precision(hid_t type_id, size_t prec);
+extern herr_t H5Tset_precision(hid_t type_id, size_t prec);
 /**
  * \ingroup ATOM
  *
@@ -2493,7 +2493,7 @@ H5_DLL herr_t H5Tset_precision(hid_t type_id, size_t prec);
  * \since 1.2.0
  *
  */
-H5_DLL herr_t H5Tset_offset(hid_t type_id, size_t offset);
+extern herr_t H5Tset_offset(hid_t type_id, size_t offset);
 /**
  * \ingroup ATOM
  *
@@ -2512,7 +2512,7 @@ H5_DLL herr_t H5Tset_offset(hid_t type_id, size_t offset);
  * \since 1.2.0
  *
  */
-H5_DLL herr_t H5Tset_pad(hid_t type_id, H5T_pad_t lsb, H5T_pad_t msb);
+extern herr_t H5Tset_pad(hid_t type_id, H5T_pad_t lsb, H5T_pad_t msb);
 /**
  * \ingroup ATOM
  *
@@ -2529,7 +2529,7 @@ H5_DLL herr_t H5Tset_pad(hid_t type_id, H5T_pad_t lsb, H5T_pad_t msb);
  * \since 1.2.0
  *
  */
-H5_DLL herr_t H5Tset_sign(hid_t type_id, H5T_sign_t sign);
+extern herr_t H5Tset_sign(hid_t type_id, H5T_sign_t sign);
 /**
  * \ingroup ATOM
  *
@@ -2556,7 +2556,7 @@ H5_DLL herr_t H5Tset_sign(hid_t type_id, H5T_sign_t sign);
  * \since 1.2.0
  *
  */
-H5_DLL herr_t H5Tset_fields(hid_t type_id, size_t spos, size_t epos, size_t esize, size_t mpos, size_t msize);
+extern herr_t H5Tset_fields(hid_t type_id, size_t spos, size_t epos, size_t esize, size_t mpos, size_t msize);
 /**
  * \ingroup ATOM
  *
@@ -2572,7 +2572,7 @@ H5_DLL herr_t H5Tset_fields(hid_t type_id, size_t spos, size_t epos, size_t esiz
  * \since 1.2.0
  *
  */
-H5_DLL herr_t H5Tset_ebias(hid_t type_id, size_t ebias);
+extern herr_t H5Tset_ebias(hid_t type_id, size_t ebias);
 /**
  * \ingroup ATOM
  *
@@ -2590,7 +2590,7 @@ H5_DLL herr_t H5Tset_ebias(hid_t type_id, size_t ebias);
  * \since 1.2.0
  *
  */
-H5_DLL herr_t H5Tset_norm(hid_t type_id, H5T_norm_t norm);
+extern herr_t H5Tset_norm(hid_t type_id, H5T_norm_t norm);
 /**
  * \ingroup ATOM
  *
@@ -2611,7 +2611,7 @@ H5_DLL herr_t H5Tset_norm(hid_t type_id, H5T_norm_t norm);
  * \since 1.2.0
  *
  */
-H5_DLL herr_t H5Tset_inpad(hid_t type_id, H5T_pad_t pad);
+extern herr_t H5Tset_inpad(hid_t type_id, H5T_pad_t pad);
 /**
  * \ingroup ATOM
  *
@@ -2644,7 +2644,7 @@ H5_DLL herr_t H5Tset_inpad(hid_t type_id, H5T_pad_t pad);
  * \since 1.2.0
  *
  */
-H5_DLL herr_t H5Tset_cset(hid_t type_id, H5T_cset_t cset);
+extern herr_t H5Tset_cset(hid_t type_id, H5T_cset_t cset);
 /**
  * \ingroup ATOM
  *
@@ -2676,7 +2676,7 @@ H5_DLL herr_t H5Tset_cset(hid_t type_id, H5T_cset_t cset);
  * \since 1.2.0
  *
  */
-H5_DLL herr_t H5Tset_strpad(hid_t type_id, H5T_str_t strpad);
+extern herr_t H5Tset_strpad(hid_t type_id, H5T_str_t strpad);
 
 /**
  * \ingroup CONV
@@ -2725,7 +2725,7 @@ H5_DLL herr_t H5Tset_strpad(hid_t type_id, H5T_str_t strpad);
  *              the \c nelmts parameter type changed to size_t.
  *
  */
-H5_DLL herr_t H5Tregister(H5T_pers_t pers, const char *name, hid_t src_id, hid_t dst_id, H5T_conv_t func);
+extern herr_t H5Tregister(H5T_pers_t pers, const char *name, hid_t src_id, hid_t dst_id, H5T_conv_t func);
 /**
  * \ingroup CONV
  *
@@ -2760,7 +2760,7 @@ H5_DLL herr_t H5Tregister(H5T_pers_t pers, const char *name, hid_t src_id, hid_t
  *                the \c nelmts parameter type changed to size_t.
  *
  */
-H5_DLL herr_t H5Tunregister(H5T_pers_t pers, const char *name, hid_t src_id, hid_t dst_id, H5T_conv_t func);
+extern herr_t H5Tunregister(H5T_pers_t pers, const char *name, hid_t src_id, hid_t dst_id, H5T_conv_t func);
 /**
  * \ingroup CONV
  *
@@ -2780,7 +2780,7 @@ H5_DLL herr_t H5Tunregister(H5T_pers_t pers, const char *name, hid_t src_id, hid
  *          the conversion function was installed on the path.
  *
  */
-H5_DLL H5T_conv_t H5Tfind(hid_t src_id, hid_t dst_id, H5T_cdata_t **pcdata);
+extern H5T_conv_t H5Tfind(hid_t src_id, hid_t dst_id, H5T_cdata_t **pcdata);
 /**
  * \ingroup CONV
  *
@@ -2800,7 +2800,7 @@ H5_DLL H5T_conv_t H5Tfind(hid_t src_id, hid_t dst_id, H5T_cdata_t **pcdata);
  * \since 1.8.0
  *
  */
-H5_DLL htri_t H5Tcompiler_conv(hid_t src_id, hid_t dst_id);
+extern htri_t H5Tcompiler_conv(hid_t src_id, hid_t dst_id);
 /**
  * --------------------------------------------------------------------------
  * \ingroup CONV
@@ -2841,7 +2841,7 @@ H5_DLL htri_t H5Tcompiler_conv(hid_t src_id, hid_t dst_id);
  * \version 1.4.0 \p nelmts parameter type changed to hsize_t.
  *
  */
-H5_DLL herr_t H5Tconvert(hid_t src_id, hid_t dst_id, size_t nelmts, void *buf, void *background,
+extern herr_t H5Tconvert(hid_t src_id, hid_t dst_id, size_t nelmts, void *buf, void *background,
                          hid_t plist_id);
 
 /* Symbols defined for compatibility with previous versions of the HDF5 API.
@@ -2900,7 +2900,7 @@ H5_DLL herr_t H5Tconvert(hid_t src_id, hid_t dst_id, size_t nelmts, void *buf, v
  * \since 1.2.0
  *
  */
-H5_DLL herr_t H5Tcommit1(hid_t loc_id, const char *name, hid_t type_id);
+extern herr_t H5Tcommit1(hid_t loc_id, const char *name, hid_t type_id);
 /**
  * \ingroup H5T
  *
@@ -2926,7 +2926,7 @@ H5_DLL herr_t H5Tcommit1(hid_t loc_id, const char *name, hid_t type_id);
  * \since 1.2.0
  *
  */
-H5_DLL hid_t H5Topen1(hid_t loc_id, const char *name);
+extern hid_t H5Topen1(hid_t loc_id, const char *name);
 /**
  * \ingroup ARRAY
  *
@@ -2961,7 +2961,7 @@ H5_DLL hid_t H5Topen1(hid_t loc_id, const char *name);
  * \since 1.4.0
  *
  */
-H5_DLL hid_t H5Tarray_create1(hid_t base_id, int ndims, const hsize_t dim[/* ndims */],
+extern hid_t H5Tarray_create1(hid_t base_id, int ndims, const hsize_t dim[/* ndims */],
                               const int perm[/* ndims */]);
 /**
  * \ingroup ARRAY
@@ -2989,7 +2989,7 @@ H5_DLL hid_t H5Tarray_create1(hid_t base_id, int ndims, const hsize_t dim[/* ndi
  * \since 1.2.0
  *
  */
-H5_DLL int H5Tget_array_dims1(hid_t type_id, hsize_t dims[], int perm[]);
+extern int H5Tget_array_dims1(hid_t type_id, hsize_t dims[], int perm[]);
 
 #endif /* H5_NO_DEPRECATED_SYMBOLS */
 

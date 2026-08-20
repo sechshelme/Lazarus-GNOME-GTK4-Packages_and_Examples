@@ -1,4 +1,36 @@
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+unit H5FDfamily;
+interface
+
+{
+  Automatically converted by H2Pas 1.0.0 from H5FDfamily.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    H5FDfamily.h
+}
+
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
+
+Type
+Phid_t  = ^hid_t;
+Phsize_t  = ^hsize_t;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Copyright by The HDF Group.                                               *
  * All rights reserved.                                                      *
  *                                                                           *
@@ -8,26 +40,22 @@
  * distribution tree, or in https://www.hdfgroup.org/licenses.               *
  * If you do not have access to either file, you may request a copy from     *
  * help@hdfgroup.org.                                                        *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-/*
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  }
+{
  * Programmer:  Robb Matzke
  *              Monday, August  4, 1999
  *
  * Purpose:	The public header file for the family driver.
- */
-#ifndef H5FDfamily_H
-#define H5FDfamily_H
+  }
+{$ifndef H5FDfamily_H}
+{$define H5FDfamily_H}
 
-#define H5FD_FAMILY (H5FD_family_init())
+{ was #define dname def_expr }
+function H5FD_FAMILY : longint; { return type might be wrong }
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-H5_DLL hid_t H5FD_family_init(void);
-
-/**
+{ C++ extern C conditionnal removed }
+function H5FD_family_init:Thid_t;cdecl;external;
+{*
  * \ingroup FAPL
  *
  * \brief Sets the file access property list to use the family driver
@@ -56,10 +84,9 @@ H5_DLL hid_t H5FD_family_init(void);
  * \version 1.8.0 Behavior of the \p memb_size parameter was changed.
  * \since 1.4.0
  *
- */
-H5_DLL herr_t H5Pset_fapl_family(hid_t fapl_id, hsize_t memb_size, hid_t memb_fapl_id);
-
-/**
+  }
+function H5Pset_fapl_family(fapl_id:Thid_t; memb_size:Thsize_t; memb_fapl_id:Thid_t):Therr_t;cdecl;external;
+{*
  * \ingroup FAPL
  *
  * \brief Returns file access property list information
@@ -76,11 +103,18 @@ H5_DLL herr_t H5Pset_fapl_family(hid_t fapl_id, hsize_t memb_size, hid_t memb_fa
  *
  * \since 1.4.0
  *
- */
-H5_DLL herr_t H5Pget_fapl_family(hid_t fapl_id, hsize_t *memb_size /*out*/, hid_t *memb_fapl_id /*out*/);
+  }
+{out }{out }function H5Pget_fapl_family(fapl_id:Thid_t; memb_size:Phsize_t; memb_fapl_id:Phid_t):Therr_t;cdecl;external;
+{ C++ end of extern C conditionnal removed }
+{$endif}
 
-#ifdef __cplusplus
-}
-#endif
+implementation
 
-#endif
+{ was #define dname def_expr }
+function H5FD_FAMILY : longint; { return type might be wrong }
+  begin
+    H5FD_FAMILY:=H5FD_family_init;
+  end;
+
+
+end.

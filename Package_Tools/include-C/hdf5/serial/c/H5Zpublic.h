@@ -560,7 +560,7 @@ typedef struct H5Z_class2_t {
  *                callback functions.
  *
  */
-H5_DLL herr_t H5Zregister(const void *cls);
+extern herr_t H5Zregister(const void *cls);
 /**
  * \ingroup H5Z
  *
@@ -588,7 +588,7 @@ H5_DLL herr_t H5Zregister(const void *cls);
  *                 filter.
  * \since 1.6.0
  */
-H5_DLL herr_t H5Zunregister(H5Z_filter_t id);
+extern herr_t H5Zunregister(H5Z_filter_t id);
 /**
  * \ingroup H5Z
  *
@@ -602,7 +602,7 @@ H5_DLL herr_t H5Zunregister(H5Z_filter_t id);
  *
  * \since 1.6.0
  */
-H5_DLL htri_t H5Zfilter_avail(H5Z_filter_t id);
+extern htri_t H5Zfilter_avail(H5Z_filter_t id);
 /**
  * \ingroup H5Z
  *
@@ -659,7 +659,7 @@ H5_DLL htri_t H5Zfilter_avail(H5Z_filter_t id);
  *
  * \since 1.6.3
  */
-H5_DLL herr_t H5Zget_filter_info(H5Z_filter_t filter, unsigned int *filter_config_flags);
+extern herr_t H5Zget_filter_info(H5Z_filter_t filter, unsigned int *filter_config_flags);
 
 /* Symbols defined for compatibility with previous versions of the HDF5 API.
  *

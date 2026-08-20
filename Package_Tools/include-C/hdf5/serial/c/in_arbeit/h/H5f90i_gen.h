@@ -28,7 +28,7 @@
 typedef struct {c_int_8 a; c_int_8 b;} c_int_16;
 #define c_float_4 float
 #define c_float_8 double
-#define c_float_10 long double
+#define c_float_10 long_double
 #define c_float_16 __float128
 
 typedef c_int_8 haddr_t_f;

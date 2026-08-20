@@ -36,7 +36,7 @@ extern "C" {
 #define FBSIZE_DEF    4096
 #define CBSIZE_DEF    16 * 1024 * 1024
 
-H5_DLL hid_t H5FD_direct_init(void);
+extern hid_t H5FD_direct_init(void);
 
 /**
  * \ingroup FAPL
@@ -75,7 +75,7 @@ H5_DLL hid_t H5FD_direct_init(void);
  * \since 1.8.0
  *
  */
-H5_DLL herr_t H5Pset_fapl_direct(hid_t fapl_id, size_t alignment, size_t block_size, size_t cbuf_size);
+extern herr_t H5Pset_fapl_direct(hid_t fapl_id, size_t alignment, size_t block_size, size_t cbuf_size);
 
 /**
  * \ingroup FAPL
@@ -99,7 +99,7 @@ H5_DLL herr_t H5Pset_fapl_direct(hid_t fapl_id, size_t alignment, size_t block_s
  * \since 1.8.0
  *
  */
-H5_DLL herr_t H5Pget_fapl_direct(hid_t fapl_id, size_t *boundary /*out*/, size_t *block_size /*out*/,
+extern herr_t H5Pget_fapl_direct(hid_t fapl_id, size_t *boundary /*out*/, size_t *block_size /*out*/,
                                  size_t *cbuf_size /*out*/);
 
 #ifdef __cplusplus

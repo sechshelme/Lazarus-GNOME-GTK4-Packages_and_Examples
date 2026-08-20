@@ -511,7 +511,7 @@ typedef struct H5_alloc_stats_t {
  *          the HDF5 library as there are no damaging side effects in calling
  *          it more than once.
  */
-H5_DLL herr_t H5open(void);
+extern herr_t H5open(void);
 /**
  * \ingroup H5
  * \brief Flushes all data to disk, closes all open objects, and releases memory
@@ -523,7 +523,7 @@ H5_DLL herr_t H5open(void);
  *          called earlier in the event of an emergency shutdown or out of a
  *          desire to free all resources used by the HDF5 library.
  */
-H5_DLL herr_t H5close(void);
+extern herr_t H5close(void);
 /**
  * \ingroup H5
  * \brief Instructs library not to install atexit() cleanup routine
@@ -542,7 +542,7 @@ H5_DLL herr_t H5close(void);
  *            time the library is loaded/linked into the application (the first
  *            time and after it's been un-loaded).
  */
-H5_DLL herr_t H5dont_atexit(void);
+extern herr_t H5dont_atexit(void);
 /**
  * \ingroup H5
  * \brief Garbage collects on all free-lists of all types
@@ -562,7 +562,7 @@ H5_DLL herr_t H5dont_atexit(void);
  * \note The library automatically garbage collects all the free lists when the
  *       application ends.
  */
-H5_DLL herr_t H5garbage_collect(void);
+extern herr_t H5garbage_collect(void);
 /**
  * \ingroup H5
  * \brief Sets free-list size limits
@@ -615,7 +615,7 @@ H5_DLL herr_t H5garbage_collect(void);
  *
  * \since 1.6.0
  */
-H5_DLL herr_t H5set_free_list_limits(int reg_global_lim, int reg_list_lim, int arr_global_lim,
+extern herr_t H5set_free_list_limits(int reg_global_lim, int reg_list_lim, int arr_global_lim,
                                      int arr_list_lim, int blk_global_lim, int blk_list_lim);
 /**
  * \ingroup H5
@@ -635,7 +635,7 @@ H5_DLL herr_t H5set_free_list_limits(int reg_global_lim, int reg_list_lim, int a
  *
  * \since 1.10.7
  */
-H5_DLL herr_t H5get_free_list_sizes(size_t *reg_size, size_t *arr_size, size_t *blk_size, size_t *fac_size);
+extern herr_t H5get_free_list_sizes(size_t *reg_size, size_t *arr_size, size_t *blk_size, size_t *fac_size);
 /**
  * \ingroup H5
  * \brief Gets the memory allocation statistics for the library
@@ -656,7 +656,7 @@ H5_DLL herr_t H5get_free_list_sizes(size_t *reg_size, size_t *arr_size, size_t *
  *
  * \since 1.10.7
  */
-H5_DLL herr_t H5get_alloc_stats(H5_alloc_stats_t *stats);
+extern herr_t H5get_alloc_stats(H5_alloc_stats_t *stats);
 /**
  * \ingroup H5
  * \brief Returns the HDF library release number
@@ -671,7 +671,7 @@ H5_DLL herr_t H5get_alloc_stats(H5_alloc_stats_t *stats);
  *          application.
  *
  */
-H5_DLL herr_t H5get_libversion(unsigned *majnum, unsigned *minnum, unsigned *relnum);
+extern herr_t H5get_libversion(unsigned *majnum, unsigned *minnum, unsigned *relnum);
 /**
  * \ingroup H5
  * \brief Verifies that HDF5 library versions are consistent
@@ -719,7 +719,7 @@ H5_DLL herr_t H5get_libversion(unsigned *majnum, unsigned *minnum, unsigned *rel
  *          run.
  *
  */
-H5_DLL herr_t H5check_version(unsigned majnum, unsigned minnum, unsigned relnum);
+extern herr_t H5check_version(unsigned majnum, unsigned minnum, unsigned relnum);
 /**
  * \ingroup H5
  * \brief Determines whether the HDF5 library was built with the thread-safety
@@ -735,7 +735,7 @@ H5_DLL herr_t H5check_version(unsigned majnum, unsigned minnum, unsigned relnum)
  *          useful to determine, at run-time, whether the linked HDF5 library
  *          was built with the thread-safety feature enabled.
  */
-H5_DLL herr_t H5is_library_threadsafe(hbool_t *is_ts);
+extern herr_t H5is_library_threadsafe(hbool_t *is_ts);
 /**
  * \ingroup H5
  * \brief Frees memory allocated by the HDF5 library
@@ -772,7 +772,7 @@ H5_DLL herr_t H5is_library_threadsafe(hbool_t *is_ts);
  * \since 1.8.13
  *
  */
-H5_DLL herr_t H5free_memory(void *mem);
+extern herr_t H5free_memory(void *mem);
 /**
  * \ingroup H5
  * \brief Frees memory allocated by the HDF5 library
@@ -828,7 +828,7 @@ H5_DLL herr_t H5free_memory(void *mem);
  * \since 1.8.15
  *
  */
-H5_DLL void *H5allocate_memory(size_t size, hbool_t clear);
+extern void *H5allocate_memory(size_t size, hbool_t clear);
 /**
  * \ingroup H5
  * \brief Resizes and, if required, re-allocates memory that will later be
@@ -902,7 +902,7 @@ H5_DLL void *H5allocate_memory(size_t size, hbool_t clear);
  * \since 1.8.15
  *
  */
-H5_DLL void *H5resize_memory(void *mem, size_t size);
+extern void *H5resize_memory(void *mem, size_t size);
 
 #ifdef __cplusplus
 }

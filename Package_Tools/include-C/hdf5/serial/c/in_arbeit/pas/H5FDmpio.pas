@@ -1,4 +1,16 @@
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+unit H5FDmpio;
+
+interface
+
+uses
+  fp_hdf5;
+
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Copyright by The HDF Group.                                               *
  * All rights reserved.                                                      *
  *                                                                           *
@@ -8,44 +20,43 @@
  * distribution tree, or in https://www.hdfgroup.org/licenses.               *
  * If you do not have access to either file, you may request a copy from     *
  * help@hdfgroup.org.                                                        *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-/*
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  }
+{
  * Programmer:  Robb Matzke
  *              Monday, August  2, 1999
  *
  * Purpose:	The public header file for the mpio driver.
- */
-#ifndef H5FDmpio_H
-#define H5FDmpio_H
+  }
+{$ifndef H5FDmpio_H}
+{$define H5FDmpio_H}
+{ Macros  }
+{$ifdef H5_HAVE_PARALLEL}
 
-/* Macros */
+{ was #define dname def_expr }
+function H5FD_MPIO : longint; { return type might be wrong }
 
-#ifdef H5_HAVE_PARALLEL
-#define H5FD_MPIO (H5FD_mpio_init())
-#else
-#define H5FD_MPIO (H5I_INVALID_HID)
-#endif /* H5_HAVE_PARALLEL */
+{$else}
 
-#ifdef H5_HAVE_PARALLEL
-/*Turn on H5FDmpio_debug if H5F_DEBUG is on */
-#ifdef H5F_DEBUG
-#ifndef H5FDmpio_DEBUG
-#define H5FDmpio_DEBUG
-#endif
-#endif
+const
+  H5FD_MPIO = H5I_INVALID_HID;  
+{$endif}
+{ H5_HAVE_PARALLEL  }
+{$ifdef H5_HAVE_PARALLEL}
+{Turn on H5FDmpio_debug if H5F_DEBUG is on  }
+{$ifdef H5F_DEBUG}
+{$ifndef H5FDmpio_DEBUG}
+{$define H5FDmpio_DEBUG}
+{$endif}
+{$endif}
+{ Global var whose value comes from environment variable  }
+{ (Defined in H5FDmpio.c)  }
+  var
+    H5FD_mpi_opt_types_g : Thbool_t;cvar;external libhdf5;
+{ Function prototypes  }
+{ C++ extern C conditionnal removed }
 
-/* Global var whose value comes from environment variable */
-/* (Defined in H5FDmpio.c) */
-H5_DLLVAR hbool_t H5FD_mpi_opt_types_g;
-
-/* Function prototypes */
-#ifdef __cplusplus
-extern "C" {
-#endif
-H5_DLL hid_t H5FD_mpio_init(void);
-
-/**
+function H5FD_mpio_init:Thid_t;cdecl;external libhdf5;
+{*
  * \ingroup FAPL
  *
  * \brief Stores MPI IO communicator information to the file access property list
@@ -90,10 +101,9 @@ H5_DLL hid_t H5FD_mpio_init(void);
  *          list instead of pointers to each.
  * \since 1.4.0
  *
- */
-H5_DLL herr_t H5Pset_fapl_mpio(hid_t fapl_id, MPI_Comm comm, MPI_Info info);
-
-/**
+  }
+function H5Pset_fapl_mpio(fapl_id:Thid_t; comm:TMPI_Comm; info:TMPI_Info):Therr_t;cdecl;external libhdf5;
+{*
  * \ingroup FAPL
  *
  * \brief Returns MPI IO communicator information
@@ -118,10 +128,9 @@ H5_DLL herr_t H5Pset_fapl_mpio(hid_t fapl_id, MPI_Comm comm, MPI_Info info);
  *          property list instead of pointers to each.
  * \since 1.4.0
  *
- */
-H5_DLL herr_t H5Pget_fapl_mpio(hid_t fapl_id, MPI_Comm *comm /*out*/, MPI_Info *info /*out*/);
-
-/**
+  }
+{out }{out }function H5Pget_fapl_mpio(fapl_id:Thid_t; comm:PMPI_Comm; info:PMPI_Info):Therr_t;cdecl;external libhdf5;
+{*
  * \ingroup DXPL
  *
  * \brief Sets data transfer mode
@@ -139,10 +148,9 @@ H5_DLL herr_t H5Pget_fapl_mpio(hid_t fapl_id, MPI_Comm *comm /*out*/, MPI_Info *
  *
  * \since 1.4.0
  *
- */
-H5_DLL herr_t H5Pset_dxpl_mpio(hid_t dxpl_id, H5FD_mpio_xfer_t xfer_mode);
-
-/**
+  }
+function H5Pset_dxpl_mpio(dxpl_id:Thid_t; xfer_mode:TH5FD_mpio_xfer_t):Therr_t;cdecl;external libhdf5;
+{*
  * \ingroup DXPL
  *
  * \brief Returns the data transfer mode
@@ -161,10 +169,9 @@ H5_DLL herr_t H5Pset_dxpl_mpio(hid_t dxpl_id, H5FD_mpio_xfer_t xfer_mode);
  *
  * \since 1.4.0
  *
- */
-H5_DLL herr_t H5Pget_dxpl_mpio(hid_t dxpl_id, H5FD_mpio_xfer_t *xfer_mode /*out*/);
-
-/**
+  }
+{out }function H5Pget_dxpl_mpio(dxpl_id:Thid_t; xfer_mode:PH5FD_mpio_xfer_t):Therr_t;cdecl;external libhdf5;
+{*
  * \ingroup DXPL
  *
  * \brief Sets data transfer mode
@@ -182,10 +189,9 @@ H5_DLL herr_t H5Pget_dxpl_mpio(hid_t dxpl_id, H5FD_mpio_xfer_t *xfer_mode /*out*
  *
  * \since 1.4.0
  *
- */
-H5_DLL herr_t H5Pset_dxpl_mpio_collective_opt(hid_t dxpl_id, H5FD_mpio_collective_opt_t opt_mode);
-
-/**
+  }
+function H5Pset_dxpl_mpio_collective_opt(dxpl_id:Thid_t; opt_mode:TH5FD_mpio_collective_opt_t):Therr_t;cdecl;external libhdf5;
+{*
  * \ingroup DXPL
  *
  * \brief Sets a flag specifying linked-chunk I/O or multi-chunk I/O
@@ -224,10 +230,9 @@ H5_DLL herr_t H5Pset_dxpl_mpio_collective_opt(hid_t dxpl_id, H5FD_mpio_collectiv
  *
  * \since 1.8.0
  *
- */
-H5_DLL herr_t H5Pset_dxpl_mpio_chunk_opt(hid_t dxpl_id, H5FD_mpio_chunk_opt_t opt_mode);
-
-/**
+  }
+function H5Pset_dxpl_mpio_chunk_opt(dxpl_id:Thid_t; opt_mode:TH5FD_mpio_chunk_opt_t):Therr_t;cdecl;external libhdf5;
+{*
  * \ingroup DXPL
  *
  * \brief Sets a numeric threshold for linked-chunk I/O
@@ -248,10 +253,9 @@ H5_DLL herr_t H5Pset_dxpl_mpio_chunk_opt(hid_t dxpl_id, H5FD_mpio_chunk_opt_t op
  *
  * \since 1.8.0
  *
- */
-H5_DLL herr_t H5Pset_dxpl_mpio_chunk_opt_num(hid_t dxpl_id, unsigned num_chunk_per_proc);
-
-/**
+  }
+function H5Pset_dxpl_mpio_chunk_opt_num(dxpl_id:Thid_t; num_chunk_per_proc:dword):Therr_t;cdecl;external libhdf5;
+{*
  * \ingroup DXPL
  *
  * \brief Sets a ratio threshold for collective I/O
@@ -273,12 +277,24 @@ H5_DLL herr_t H5Pset_dxpl_mpio_chunk_opt_num(hid_t dxpl_id, unsigned num_chunk_p
  *
  * \since 1.8.0
  *
- */
-H5_DLL herr_t H5Pset_dxpl_mpio_chunk_opt_ratio(hid_t dxpl_id, unsigned percent_num_proc_per_chunk);
-#ifdef __cplusplus
-}
-#endif
+  }
+function H5Pset_dxpl_mpio_chunk_opt_ratio(dxpl_id:Thid_t; percent_num_proc_per_chunk:dword):Therr_t;cdecl;external libhdf5;
+{ C++ end of extern C conditionnal removed }
+{$endif}
+{ H5_HAVE_PARALLEL  }
+{$endif}
 
-#endif /* H5_HAVE_PARALLEL */
+// === Konventiert am: 20-8-26 19:43:38 ===
 
-#endif
+
+implementation
+
+
+{ was #define dname def_expr }
+function H5FD_MPIO : longint; { return type might be wrong }
+  begin
+    H5FD_MPIO:=H5FD_mpio_init;
+  end;
+
+
+end.

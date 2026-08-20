@@ -21,7 +21,7 @@ namespace H5 {
     the HDF5 generic property list.
 */
 //  Inheritance: IdComponent
-class H5_DLLCPP PropList : public IdComponent {
+class externCPP PropList : public IdComponent {
   public:
     ///\brief Default property list
     static const PropList &DEFAULT;

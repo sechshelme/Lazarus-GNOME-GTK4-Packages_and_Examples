@@ -1,4 +1,16 @@
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+unit H5FDmulti;
+
+interface
+
+uses
+  fp_hdf5;
+
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Copyright by The HDF Group.                                               *
  * All rights reserved.                                                      *
  *                                                                           *
@@ -8,25 +20,22 @@
  * distribution tree, or in https://www.hdfgroup.org/licenses.               *
  * If you do not have access to either file, you may request a copy from     *
  * help@hdfgroup.org.                                                        *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-/*
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  }
+{
  * Programmer:  Robb Matzke
  *              Monday, August  2, 1999
  *
  * Purpose:	The public header file for the "multi" driver.
- */
-#ifndef H5FDmulti_H
-#define H5FDmulti_H
+  }
+{$ifndef H5FDmulti_H}
+{$define H5FDmulti_H}
 
-#define H5FD_MULTI (H5FD_multi_init())
+{ was #define dname def_expr }
+function H5FD_MULTI : longint; { return type might be wrong }
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-H5_DLL hid_t H5FD_multi_init(void);
-
-/**
+{ C++ extern C conditionnal removed }
+function H5FD_multi_init:Thid_t;cdecl;external libhdf5;
+{*
  * \ingroup FAPL
  *
  * \brief Sets up use of the multi-file driver
@@ -64,7 +73,7 @@ H5_DLL hid_t H5FD_multi_init(void);
  *          usage type that will be associated with a file.
  *
  *          The array \p memb_name should be a name generator (a
- *          \Code{printf}-style format with a \Code{%s} which will be replaced
+ *          \Codeprintf-style format with a \Code%s which will be replaced
  *          with the name passed to H5FDopen(), usually from H5Fcreate() or
  *          H5Fopen()).
  *
@@ -96,7 +105,7 @@ H5_DLL hid_t H5FD_multi_init(void);
  *          \p memb_name
  *          </td>
  *          <td>
- *          The default string is \Code{%s-X.h5} where \c X is one of the following letters:
+ *          The default string is \Code%s-X.h5 where \c X is one of the following letters:
  *          - \c s for #H5FD_MEM_SUPER
  *          - \c b for #H5FD_MEM_BTREE
  *          - \c r for #H5FD_MEM_DRAW
@@ -112,12 +121,12 @@ H5_DLL hid_t H5FD_multi_init(void);
  *          <td>
  *          The default setting is that the address space is equally divided
  *          among all of the elements:
- *          - #H5FD_MEM_SUPER \Code{-> 0 * (HADDR_MAX/6)}
- *          - #H5FD_MEM_BTREE \Code{-> 1 * (HADDR_MAX/6)}
- *          - #H5FD_MEM_DRAW \Code{-> 2 * (HADDR_MAX/6)}
- *          - #H5FD_MEM_GHEAP \Code{-> 3 * (HADDR_MAX/6)}
- *          - #H5FD_MEM_LHEAP \Code{-> 4 * (HADDR_MAX/6)}
- *          - #H5FD_MEM_OHDR \Code{-> 5 * (HADDR_MAX/6)}
+ *          - #H5FD_MEM_SUPER \Code-> 0 * (HADDR_MAX/6)
+ *          - #H5FD_MEM_BTREE \Code-> 1 * (HADDR_MAX/6)
+ *          - #H5FD_MEM_DRAW \Code-> 2 * (HADDR_MAX/6)
+ *          - #H5FD_MEM_GHEAP \Code-> 3 * (HADDR_MAX/6)
+ *          - #H5FD_MEM_LHEAP \Code-> 4 * (HADDR_MAX/6)
+ *          - #H5FD_MEM_OHDR \Code-> 5 * (HADDR_MAX/6)
  *          </td>
  *          </tr>
  *          </table>
@@ -132,9 +141,9 @@ H5_DLL hid_t H5FD_multi_init(void);
  * haddr_t memb_addr[H5FD_MEM_NTYPES];
  *
  * // The mapping...
- * for (mt=0; mt<H5FD_MEM_NTYPES; mt++) {
+ * for (mt=0; mt<H5FD_MEM_NTYPES; mt++) 
  *   memb_map[mt] = H5FD_MEM_SUPER;
- * }
+ * 
  * memb_map[H5FD_MEM_DRAW] = H5FD_MEM_DRAW;
  *
  * // Member information
@@ -151,13 +160,12 @@ H5_DLL hid_t H5FD_multi_init(void);
  *                   memb_name, memb_addr, TRUE);
  * \endcode
  *
- * \version 1.6.3 \p memb_name parameter type changed to \Code{const char* const*}.
+ * \version 1.6.3 \p memb_name parameter type changed to \Codeconst char* const*.
  * \since 1.4.0
- */
-H5_DLL herr_t H5Pset_fapl_multi(hid_t fapl_id, const H5FD_mem_t *memb_map, const hid_t *memb_fapl,
-                                const char *const *memb_name, const haddr_t *memb_addr, hbool_t relax);
-
-/**
+  }
+function H5Pset_fapl_multi(fapl_id:Thid_t; memb_map:PH5FD_mem_t; memb_fapl:Phid_t; memb_name:PPchar; memb_addr:Phaddr_t; 
+           relax:Thbool_t):Therr_t;cdecl;external libhdf5;
+{*
  * \ingroup FAPL
  *
  * \brief Returns information about the multi-file access property list
@@ -176,16 +184,15 @@ H5_DLL herr_t H5Pset_fapl_multi(hid_t fapl_id, const H5FD_mem_t *memb_map, const
  *
  * \since 1.4.0
  *
- */
-H5_DLL herr_t H5Pget_fapl_multi(hid_t fapl_id, H5FD_mem_t *memb_map /*out*/, hid_t *memb_fapl /*out*/,
-                                char **memb_name /*out*/, haddr_t *memb_addr /*out*/, hbool_t *relax /*out*/);
-
-/**
+  }
+{out }{out }{out }{out }{out }function H5Pget_fapl_multi(fapl_id:Thid_t; memb_map:PH5FD_mem_t; memb_fapl:Phid_t; memb_name:PPchar; memb_addr:Phaddr_t; 
+           relax:Phbool_t):Therr_t;cdecl;external libhdf5;
+{*
  * \ingroup FAPL
  *
  * \brief Emulates the old split file driver
  *
- * \fapl_id{fapl}
+ * \fapl_idfapl
  * \param[in] meta_ext Metadata filename extension
  * \param[in] meta_plist_id File access property list identifier for the metadata file
  * \param[in] raw_ext Raw data filename extension
@@ -203,7 +210,7 @@ H5_DLL herr_t H5Pget_fapl_multi(hid_t fapl_id, H5FD_mem_t *memb_map /*out*/, hid
  *          \p meta_ext is the filename extension for the metadata file. The
  *          extension is appended to the name passed to H5FDopen(), usually from
  *          H5Fcreate() or H5Fopen(), to form the name of the metadata file. If
- *          the string \Code{%s} is used in the extension, it works like the
+ *          the string \Code%s is used in the extension, it works like the
  *          name generator as in H5Pset_fapl_multi().
  *
  *          \p meta_plist_id is the file access property list identifier for the
@@ -212,7 +219,7 @@ H5_DLL herr_t H5Pget_fapl_multi(hid_t fapl_id, H5FD_mem_t *memb_map /*out*/, hid
  *          \p raw_ext is the filename extension for the raw data file. The
  *          extension is appended to the name passed to H5FDopen(), usually from
  *          H5Fcreate() or H5Fopen(), to form the name of the raw data file. If
- *          the string \Code{%s} is used in the extension, it works like the
+ *          the string \Code%s is used in the extension, it works like the
  *          name generator as in H5Pset_fapl_multi().
  *
  *          \p raw_plist_id is the file access property list identifier for the
@@ -245,11 +252,22 @@ H5_DLL herr_t H5Pget_fapl_multi(hid_t fapl_id, H5FD_mem_t *memb_map /*out*/, hid
  *
  * \since 1.4.0
  *
- */
-H5_DLL herr_t H5Pset_fapl_split(hid_t fapl, const char *meta_ext, hid_t meta_plist_id, const char *raw_ext,
-                                hid_t raw_plist_id);
-#ifdef __cplusplus
-}
-#endif
+  }
+function H5Pset_fapl_split(fapl:Thid_t; meta_ext:Pchar; meta_plist_id:Thid_t; raw_ext:Pchar; raw_plist_id:Thid_t):Therr_t;cdecl;external libhdf5;
+{ C++ end of extern C conditionnal removed }
+{$endif}
 
-#endif
+// === Konventiert am: 20-8-26 19:43:35 ===
+
+
+implementation
+
+
+{ was #define dname def_expr }
+function H5FD_MULTI : longint; { return type might be wrong }
+  begin
+    H5FD_MULTI:=H5FD_multi_init;
+  end;
+
+
+end.

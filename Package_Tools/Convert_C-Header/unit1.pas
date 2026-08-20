@@ -75,7 +75,7 @@ var
   s: string;
 begin
   Memo1.Clear;
-  slFile := FindAllFiles('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/librist', '*.h', True);
+  slFile := FindAllFiles('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/hdf5', '*.h', True);
   Memo1.Lines := slFile;
 
   for i := 0 to slFile.Count - 1 do begin
@@ -134,7 +134,7 @@ begin
       slHeader[j] := StringReplace(slHeader[j], 'SPELLING_AVAILABLE_IN_ALL', 'extern', [rfReplaceAll]);
 //      slHeader[j] := StringReplace(slHeader[j], 'fp_glib2;', 'fp_glib2, fp_appstream;', [rfReplaceAll]);
 
-slHeader[j] := StringReplace(slHeader[j], 'RIST_API', 'extern', [rfReplaceAll]);
+slHeader[j] := StringReplace(slHeader[j], 'H5_HLDLL', 'extern', [rfReplaceAll]);
 
 
 

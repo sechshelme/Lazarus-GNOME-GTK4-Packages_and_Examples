@@ -111,46 +111,6 @@ typedef enum H5F_mem_t H5FD_mem_t;
  * want to make most efficient reuse of freed memory.  The use of the
  * H5FD_MEM_SUPER free list is arbitrary.
  */
-#define H5FD_FLMAP_SINGLE                                                                                    \
-    {                                                                                                        \
-        H5FD_MEM_SUPER,     /*default*/                                                                      \
-            H5FD_MEM_SUPER, /*super*/                                                                        \
-            H5FD_MEM_SUPER, /*btree*/                                                                        \
-            H5FD_MEM_SUPER, /*draw*/                                                                         \
-            H5FD_MEM_SUPER, /*gheap*/                                                                        \
-            H5FD_MEM_SUPER, /*lheap*/                                                                        \
-            H5FD_MEM_SUPER  /*ohdr*/                                                                         \
-    }
-
-/*
- * A free-list map which segregates requests into `raw' or `meta' data
- * pools.
- */
-#define H5FD_FLMAP_DICHOTOMY                                                                                 \
-    {                                                                                                        \
-        H5FD_MEM_SUPER,     /*default*/                                                                      \
-            H5FD_MEM_SUPER, /*super*/                                                                        \
-            H5FD_MEM_SUPER, /*btree*/                                                                        \
-            H5FD_MEM_DRAW,  /*draw*/                                                                         \
-            H5FD_MEM_DRAW,  /*gheap*/                                                                        \
-            H5FD_MEM_SUPER, /*lheap*/                                                                        \
-            H5FD_MEM_SUPER  /*ohdr*/                                                                         \
-    }
-
-/*
- * The default free list map which causes each request type to use it's own
- * free-list.
- */
-#define H5FD_FLMAP_DEFAULT                                                                                   \
-    {                                                                                                        \
-        H5FD_MEM_DEFAULT,     /*default*/                                                                    \
-            H5FD_MEM_DEFAULT, /*super*/                                                                      \
-            H5FD_MEM_DEFAULT, /*btree*/                                                                      \
-            H5FD_MEM_DEFAULT, /*draw*/                                                                       \
-            H5FD_MEM_DEFAULT, /*gheap*/                                                                      \
-            H5FD_MEM_DEFAULT, /*lheap*/                                                                      \
-            H5FD_MEM_DEFAULT  /*ohdr*/                                                                       \
-    }
 
 /* Define VFL driver features that can be enabled on a per-driver basis */
 /* These are returned with the 'query' function pointer in H5FD_class_t */
@@ -440,26 +400,26 @@ extern "C" {
 #endif
 
 /* Function prototypes */
-H5_DLL hid_t   H5FDregister(const H5FD_class_t *cls);
-H5_DLL herr_t  H5FDunregister(hid_t driver_id);
-H5_DLL H5FD_t *H5FDopen(const char *name, unsigned flags, hid_t fapl_id, haddr_t maxaddr);
-H5_DLL herr_t  H5FDclose(H5FD_t *file);
-H5_DLL int     H5FDcmp(const H5FD_t *f1, const H5FD_t *f2);
-H5_DLL int     H5FDquery(const H5FD_t *f, unsigned long *flags);
-H5_DLL haddr_t H5FDalloc(H5FD_t *file, H5FD_mem_t type, hid_t dxpl_id, hsize_t size);
-H5_DLL herr_t  H5FDfree(H5FD_t *file, H5FD_mem_t type, hid_t dxpl_id, haddr_t addr, hsize_t size);
-H5_DLL haddr_t H5FDget_eoa(H5FD_t *file, H5FD_mem_t type);
-H5_DLL herr_t  H5FDset_eoa(H5FD_t *file, H5FD_mem_t type, haddr_t eoa);
-H5_DLL haddr_t H5FDget_eof(H5FD_t *file, H5FD_mem_t type);
-H5_DLL herr_t  H5FDget_vfd_handle(H5FD_t *file, hid_t fapl, void **file_handle);
-H5_DLL herr_t  H5FDread(H5FD_t *file, H5FD_mem_t type, hid_t dxpl_id, haddr_t addr, size_t size,
+extern hid_t   H5FDregister(const H5FD_class_t *cls);
+extern herr_t  H5FDunregister(hid_t driver_id);
+extern H5FD_t *H5FDopen(const char *name, unsigned flags, hid_t fapl_id, haddr_t maxaddr);
+extern herr_t  H5FDclose(H5FD_t *file);
+extern int     H5FDcmp(const H5FD_t *f1, const H5FD_t *f2);
+extern int     H5FDquery(const H5FD_t *f, unsigned long *flags);
+extern haddr_t H5FDalloc(H5FD_t *file, H5FD_mem_t type, hid_t dxpl_id, hsize_t size);
+extern herr_t  H5FDfree(H5FD_t *file, H5FD_mem_t type, hid_t dxpl_id, haddr_t addr, hsize_t size);
+extern haddr_t H5FDget_eoa(H5FD_t *file, H5FD_mem_t type);
+extern herr_t  H5FDset_eoa(H5FD_t *file, H5FD_mem_t type, haddr_t eoa);
+extern haddr_t H5FDget_eof(H5FD_t *file, H5FD_mem_t type);
+extern herr_t  H5FDget_vfd_handle(H5FD_t *file, hid_t fapl, void **file_handle);
+extern herr_t  H5FDread(H5FD_t *file, H5FD_mem_t type, hid_t dxpl_id, haddr_t addr, size_t size,
                         void *buf /*out*/);
-H5_DLL herr_t  H5FDwrite(H5FD_t *file, H5FD_mem_t type, hid_t dxpl_id, haddr_t addr, size_t size,
+extern herr_t  H5FDwrite(H5FD_t *file, H5FD_mem_t type, hid_t dxpl_id, haddr_t addr, size_t size,
                          const void *buf);
-H5_DLL herr_t  H5FDflush(H5FD_t *file, hid_t dxpl_id, hbool_t closing);
-H5_DLL herr_t  H5FDtruncate(H5FD_t *file, hid_t dxpl_id, hbool_t closing);
-H5_DLL herr_t  H5FDlock(H5FD_t *file, hbool_t rw);
-H5_DLL herr_t  H5FDunlock(H5FD_t *file);
+extern herr_t  H5FDflush(H5FD_t *file, hid_t dxpl_id, hbool_t closing);
+extern herr_t  H5FDtruncate(H5FD_t *file, hid_t dxpl_id, hbool_t closing);
+extern herr_t  H5FDlock(H5FD_t *file, hbool_t rw);
+extern herr_t  H5FDunlock(H5FD_t *file);
 
 /**
  * \ingroup H5FD
@@ -481,7 +441,7 @@ H5_DLL herr_t  H5FDunlock(H5FD_t *file);
  *
  * \since 1.10.2
  */
-H5_DLL herr_t H5FDdriver_query(hid_t driver_id, unsigned long *flags /*out*/);
+extern herr_t H5FDdriver_query(hid_t driver_id, unsigned long *flags /*out*/);
 
 #ifdef __cplusplus
 }

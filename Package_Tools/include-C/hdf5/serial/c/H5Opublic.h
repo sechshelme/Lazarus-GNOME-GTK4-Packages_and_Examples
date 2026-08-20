@@ -246,7 +246,7 @@ extern "C" {
  * \since 1.8.0
  *
  */
-H5_DLL hid_t H5Oopen(hid_t loc_id, const char *name, hid_t lapl_id);
+extern hid_t H5Oopen(hid_t loc_id, const char *name, hid_t lapl_id);
 
 /**
  *-------------------------------------------------------------------------
@@ -294,7 +294,7 @@ H5_DLL hid_t H5Oopen(hid_t loc_id, const char *name, hid_t lapl_id);
  * \since 1.8.0
  *
  */
-H5_DLL hid_t H5Oopen_by_addr(hid_t loc_id, haddr_t addr);
+extern hid_t H5Oopen_by_addr(hid_t loc_id, haddr_t addr);
 /**
  *-------------------------------------------------------------------------
  * \ingroup H5O
@@ -350,7 +350,7 @@ H5_DLL hid_t H5Oopen_by_addr(hid_t loc_id, haddr_t addr);
  * \since 1.8.0
  *
  */
-H5_DLL hid_t H5Oopen_by_idx(hid_t loc_id, const char *group_name, H5_index_t idx_type, H5_iter_order_t order,
+extern hid_t H5Oopen_by_idx(hid_t loc_id, const char *group_name, H5_index_t idx_type, H5_iter_order_t order,
                             hsize_t n, hid_t lapl_id);
 
 /**
@@ -444,7 +444,7 @@ H5_DLL hid_t H5Oopen_by_idx(hid_t loc_id, const char *group_name, H5_index_t idx
  * \since 1.8.5
  *
  */
-H5_DLL htri_t H5Oexists_by_name(hid_t loc_id, const char *name, hid_t lapl_id);
+extern htri_t H5Oexists_by_name(hid_t loc_id, const char *name, hid_t lapl_id);
 
 /**
  *-------------------------------------------------------------------------
@@ -487,7 +487,7 @@ H5_DLL htri_t H5Oexists_by_name(hid_t loc_id, const char *name, hid_t lapl_id);
  * \since 1.10.3
  *
  */
-H5_DLL herr_t H5Oget_info2(hid_t loc_id, H5O_info_t *oinfo, unsigned fields);
+extern herr_t H5Oget_info2(hid_t loc_id, H5O_info_t *oinfo, unsigned fields);
 /**
  *-------------------------------------------------------------------------
  * \ingroup H5O
@@ -519,7 +519,7 @@ H5_DLL herr_t H5Oget_info2(hid_t loc_id, H5O_info_t *oinfo, unsigned fields);
  * \since 1.10.3
  *
  */
-H5_DLL herr_t H5Oget_info_by_name2(hid_t loc_id, const char *name, H5O_info_t *oinfo, unsigned fields,
+extern herr_t H5Oget_info_by_name2(hid_t loc_id, const char *name, H5O_info_t *oinfo, unsigned fields,
                                    hid_t lapl_id);
 
 /**
@@ -561,7 +561,7 @@ H5_DLL herr_t H5Oget_info_by_name2(hid_t loc_id, const char *name, H5O_info_t *o
  * \since 1.10.3
  *
  */
-H5_DLL herr_t H5Oget_info_by_idx2(hid_t loc_id, const char *group_name, H5_index_t idx_type,
+extern herr_t H5Oget_info_by_idx2(hid_t loc_id, const char *group_name, H5_index_t idx_type,
                                   H5_iter_order_t order, hsize_t n, H5O_info_t *oinfo, unsigned fields,
                                   hid_t lapl_id);
 
@@ -632,7 +632,7 @@ H5_DLL herr_t H5Oget_info_by_idx2(hid_t loc_id, const char *group_name, H5_index
  * \since 1.8.0
  *
  */
-H5_DLL herr_t H5Olink(hid_t obj_id, hid_t new_loc_id, const char *new_name, hid_t lcpl_id, hid_t lapl_id);
+extern herr_t H5Olink(hid_t obj_id, hid_t new_loc_id, const char *new_name, hid_t lcpl_id, hid_t lapl_id);
 
 /**
  *-------------------------------------------------------------------------
@@ -667,7 +667,7 @@ H5_DLL herr_t H5Olink(hid_t obj_id, hid_t new_loc_id, const char *new_name, hid_
  * \since 1.8.0
  *
  */
-H5_DLL herr_t H5Oincr_refcount(hid_t object_id);
+extern herr_t H5Oincr_refcount(hid_t object_id);
 
 /**
  *-------------------------------------------------------------------------
@@ -702,7 +702,7 @@ H5_DLL herr_t H5Oincr_refcount(hid_t object_id);
  * \since 1.8.0
  *
  */
-H5_DLL herr_t H5Odecr_refcount(hid_t object_id);
+extern herr_t H5Odecr_refcount(hid_t object_id);
 
 /**
  *-------------------------------------------------------------------------
@@ -793,7 +793,7 @@ H5_DLL herr_t H5Odecr_refcount(hid_t object_id);
  * \since 1.8.0
  *
  */
-H5_DLL herr_t H5Ocopy(hid_t src_loc_id, const char *src_name, hid_t dst_loc_id, const char *dst_name,
+extern herr_t H5Ocopy(hid_t src_loc_id, const char *src_name, hid_t dst_loc_id, const char *dst_name,
                       hid_t ocpypl_id, hid_t lcpl_id);
 
 /**
@@ -830,7 +830,7 @@ H5_DLL herr_t H5Ocopy(hid_t src_loc_id, const char *src_name, hid_t dst_loc_id, 
  * \since 1.8.0
  *
  */
-H5_DLL herr_t H5Oset_comment(hid_t obj_id, const char *comment);
+extern herr_t H5Oset_comment(hid_t obj_id, const char *comment);
 
 /**
  *-------------------------------------------------------------------------
@@ -879,7 +879,7 @@ H5_DLL herr_t H5Oset_comment(hid_t obj_id, const char *comment);
  * \since 1.8.0
  *
  */
-H5_DLL herr_t H5Oset_comment_by_name(hid_t loc_id, const char *name, const char *comment, hid_t lapl_id);
+extern herr_t H5Oset_comment_by_name(hid_t loc_id, const char *name, const char *comment, hid_t lapl_id);
 
 /**
  *-------------------------------------------------------------------------
@@ -919,7 +919,7 @@ H5_DLL herr_t H5Oset_comment_by_name(hid_t loc_id, const char *name, const char 
  * \since 1.8.0
  *
  */
-H5_DLL ssize_t H5Oget_comment(hid_t obj_id, char *comment, size_t bufsize);
+extern ssize_t H5Oget_comment(hid_t obj_id, char *comment, size_t bufsize);
 
 /**
  *-------------------------------------------------------------------------
@@ -971,7 +971,7 @@ H5_DLL ssize_t H5Oget_comment(hid_t obj_id, char *comment, size_t bufsize);
  * \since 1.8.0
  *
  */
-H5_DLL ssize_t H5Oget_comment_by_name(hid_t loc_id, const char *name, char *comment, size_t bufsize,
+extern ssize_t H5Oget_comment_by_name(hid_t loc_id, const char *name, char *comment, size_t bufsize,
                                       hid_t lapl_id);
 
 /**
@@ -1077,7 +1077,7 @@ H5_DLL ssize_t H5Oget_comment_by_name(hid_t loc_id, const char *name, char *comm
  * \since 1.10.3
  *
  */
-H5_DLL herr_t H5Ovisit2(hid_t obj_id, H5_index_t idx_type, H5_iter_order_t order, H5O_iterate_t op,
+extern herr_t H5Ovisit2(hid_t obj_id, H5_index_t idx_type, H5_iter_order_t order, H5O_iterate_t op,
                         void *op_data, unsigned fields);
 
 /**
@@ -1194,7 +1194,7 @@ H5_DLL herr_t H5Ovisit2(hid_t obj_id, H5_index_t idx_type, H5_iter_order_t order
  * \since 1.10.3
  *
  */
-H5_DLL herr_t H5Ovisit_by_name2(hid_t loc_id, const char *obj_name, H5_index_t idx_type,
+extern herr_t H5Ovisit_by_name2(hid_t loc_id, const char *obj_name, H5_index_t idx_type,
                                 H5_iter_order_t order, H5O_iterate_t op, void *op_data, unsigned fields,
                                 hid_t lapl_id);
 
@@ -1222,7 +1222,7 @@ H5_DLL herr_t H5Ovisit_by_name2(hid_t loc_id, const char *obj_name, H5_index_t i
  * \since 1.8.0
  *
  */
-H5_DLL herr_t H5Oclose(hid_t object_id);
+extern herr_t H5Oclose(hid_t object_id);
 
 /**
  *-------------------------------------------------------------------------
@@ -1255,7 +1255,7 @@ H5_DLL herr_t H5Oclose(hid_t object_id);
  * \since 1.10.0
  *
  */
-H5_DLL herr_t H5Oflush(hid_t obj_id);
+extern herr_t H5Oflush(hid_t obj_id);
 /**
  *-------------------------------------------------------------------------
  * \ingroup H5O
@@ -1280,7 +1280,7 @@ H5_DLL herr_t H5Oflush(hid_t obj_id);
  * \since 1.10.0
  *
  */
-H5_DLL herr_t H5Orefresh(hid_t oid);
+extern herr_t H5Orefresh(hid_t oid);
 
 /**
  *-------------------------------------------------------------------------
@@ -1323,7 +1323,7 @@ H5_DLL herr_t H5Orefresh(hid_t oid);
  * \since 1.10.0
  *
  */
-H5_DLL herr_t H5Odisable_mdc_flushes(hid_t object_id);
+extern herr_t H5Odisable_mdc_flushes(hid_t object_id);
 
 /**
  *-------------------------------------------------------------------------
@@ -1364,7 +1364,7 @@ H5_DLL herr_t H5Odisable_mdc_flushes(hid_t object_id);
  * \since 1.10.0
  *
  */
-H5_DLL herr_t H5Oenable_mdc_flushes(hid_t object_id);
+extern herr_t H5Oenable_mdc_flushes(hid_t object_id);
 
 /**
  *-------------------------------------------------------------------------
@@ -1399,7 +1399,7 @@ H5_DLL herr_t H5Oenable_mdc_flushes(hid_t object_id);
  * \since 1.10.0
  *
  */
-H5_DLL herr_t H5Oare_mdc_flushes_disabled(hid_t object_id, hbool_t *are_disabled);
+extern herr_t H5Oare_mdc_flushes_disabled(hid_t object_id, hbool_t *are_disabled);
 
 /**
  *-------------------------------------------------------------------------
@@ -1430,7 +1430,7 @@ H5_DLL herr_t H5Oare_mdc_flushes_disabled(hid_t object_id, hbool_t *are_disabled
  * \since 1.10.3
  *
  */
-H5_DLL herr_t H5Oget_info(hid_t loc_id, H5O_info_t *oinfo);
+extern herr_t H5Oget_info(hid_t loc_id, H5O_info_t *oinfo);
 /**
  *-------------------------------------------------------------------------
  * \ingroup H5O
@@ -1458,7 +1458,7 @@ H5_DLL herr_t H5Oget_info(hid_t loc_id, H5O_info_t *oinfo);
  * \since 1.10.3
  *
  */
-H5_DLL herr_t H5Oget_info_by_name(hid_t loc_id, const char *name, H5O_info_t *oinfo, hid_t lapl_id);
+extern herr_t H5Oget_info_by_name(hid_t loc_id, const char *name, H5O_info_t *oinfo, hid_t lapl_id);
 /**
  *-------------------------------------------------------------------------
  * \ingroup H5O
@@ -1492,12 +1492,12 @@ H5_DLL herr_t H5Oget_info_by_name(hid_t loc_id, const char *name, H5O_info_t *oi
  * \since 1.10.3
  *
  */
-H5_DLL herr_t H5Oget_info_by_idx(hid_t loc_id, const char *group_name, H5_index_t idx_type,
+extern herr_t H5Oget_info_by_idx(hid_t loc_id, const char *group_name, H5_index_t idx_type,
                                  H5_iter_order_t order, hsize_t n, H5O_info_t *oinfo, hid_t lapl_id);
 
-H5_DLL herr_t H5Ovisit(hid_t obj_id, H5_index_t idx_type, H5_iter_order_t order, H5O_iterate_t op,
+extern herr_t H5Ovisit(hid_t obj_id, H5_index_t idx_type, H5_iter_order_t order, H5O_iterate_t op,
                        void *op_data);
-H5_DLL herr_t H5Ovisit_by_name(hid_t loc_id, const char *obj_name, H5_index_t idx_type, H5_iter_order_t order,
+extern herr_t H5Ovisit_by_name(hid_t loc_id, const char *obj_name, H5_index_t idx_type, H5_iter_order_t order,
                                H5O_iterate_t op, void *op_data, hid_t lapl_id);
 
 /**
@@ -1570,7 +1570,7 @@ H5_DLL herr_t H5Ovisit_by_name(hid_t loc_id, const char *obj_name, H5_index_t id
  * \since 1.8.0
  *
  */
-H5_DLL herr_t H5Oget_info1(hid_t loc_id, H5O_info_t *oinfo);
+extern herr_t H5Oget_info1(hid_t loc_id, H5O_info_t *oinfo);
 /**
  *-------------------------------------------------------------------------
  * \ingroup H5O
@@ -1605,7 +1605,7 @@ H5_DLL herr_t H5Oget_info1(hid_t loc_id, H5O_info_t *oinfo);
  * \since 1.8.0
  *
  */
-H5_DLL herr_t H5Oget_info_by_name1(hid_t loc_id, const char *name, H5O_info_t *oinfo, hid_t lapl_id);
+extern herr_t H5Oget_info_by_name1(hid_t loc_id, const char *name, H5O_info_t *oinfo, hid_t lapl_id);
 /**
  *-------------------------------------------------------------------------
  * \ingroup H5O
@@ -1655,7 +1655,7 @@ H5_DLL herr_t H5Oget_info_by_name1(hid_t loc_id, const char *name, H5O_info_t *o
  * \since 1.8.0
  *
  */
-H5_DLL herr_t H5Oget_info_by_idx1(hid_t loc_id, const char *group_name, H5_index_t idx_type,
+extern herr_t H5Oget_info_by_idx1(hid_t loc_id, const char *group_name, H5_index_t idx_type,
                                   H5_iter_order_t order, hsize_t n, H5O_info_t *oinfo, hid_t lapl_id);
 
 /**
@@ -1755,7 +1755,7 @@ H5_DLL herr_t H5Oget_info_by_idx1(hid_t loc_id, const char *group_name, H5_index
  * \since 1.8.0
  *
  */
-H5_DLL herr_t H5Ovisit1(hid_t obj_id, H5_index_t idx_type, H5_iter_order_t order, H5O_iterate_t op,
+extern herr_t H5Ovisit1(hid_t obj_id, H5_index_t idx_type, H5_iter_order_t order, H5O_iterate_t op,
                         void *op_data);
 
 /**
@@ -1878,7 +1878,7 @@ H5_DLL herr_t H5Ovisit1(hid_t obj_id, H5_index_t idx_type, H5_iter_order_t order
  * \since 1.8.0
  *
  */
-H5_DLL herr_t H5Ovisit_by_name1(hid_t loc_id, const char *obj_name, H5_index_t idx_type,
+extern herr_t H5Ovisit_by_name1(hid_t loc_id, const char *obj_name, H5_index_t idx_type,
                                 H5_iter_order_t order, H5O_iterate_t op, void *op_data, hid_t lapl_id);
 
 /* Symbols defined for compatibility with previous versions of the HDF5 API.

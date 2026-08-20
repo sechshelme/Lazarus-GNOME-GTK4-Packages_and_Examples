@@ -122,7 +122,7 @@ extern "C" {
  * \see H5Gopen2()
  *
  */
-H5_DLL hid_t H5Gcreate2(hid_t loc_id, const char *name, hid_t lcpl_id, hid_t gcpl_id, hid_t gapl_id);
+extern hid_t H5Gcreate2(hid_t loc_id, const char *name, hid_t lcpl_id, hid_t gcpl_id, hid_t gapl_id);
 
 /**
  *-------------------------------------------------------------------------
@@ -171,7 +171,7 @@ H5_DLL hid_t H5Gcreate2(hid_t loc_id, const char *name, hid_t lcpl_id, hid_t gcp
  * \since 1.8.0
  *
  */
-H5_DLL hid_t H5Gcreate_anon(hid_t loc_id, hid_t gcpl_id, hid_t gapl_id);
+extern hid_t H5Gcreate_anon(hid_t loc_id, hid_t gcpl_id, hid_t gapl_id);
 
 /**
  *-------------------------------------------------------------------------
@@ -201,7 +201,7 @@ H5_DLL hid_t H5Gcreate_anon(hid_t loc_id, hid_t gcpl_id, hid_t gapl_id);
  * \see H5Gcreate2()
  *
  */
-H5_DLL hid_t H5Gopen2(hid_t loc_id, const char *name, hid_t gapl_id);
+extern hid_t H5Gopen2(hid_t loc_id, const char *name, hid_t gapl_id);
 
 /**
  *-------------------------------------------------------------------------
@@ -222,7 +222,7 @@ H5_DLL hid_t H5Gopen2(hid_t loc_id, const char *name, hid_t gapl_id);
  * \since 1.8.0
  *
  */
-H5_DLL hid_t H5Gget_create_plist(hid_t group_id);
+extern hid_t H5Gget_create_plist(hid_t group_id);
 
 /**
  *-------------------------------------------------------------------------
@@ -248,7 +248,7 @@ H5_DLL hid_t H5Gget_create_plist(hid_t group_id);
  * \since 1.8.0
  *
  */
-H5_DLL herr_t H5Gget_info(hid_t loc_id, H5G_info_t *ginfo);
+extern herr_t H5Gget_info(hid_t loc_id, H5G_info_t *ginfo);
 
 /**
  *-------------------------------------------------------------------------
@@ -280,7 +280,7 @@ H5_DLL herr_t H5Gget_info(hid_t loc_id, H5G_info_t *ginfo);
  * \since 1.8.0
  *
  */
-H5_DLL herr_t H5Gget_info_by_name(hid_t loc_id, const char *name, H5G_info_t *ginfo, hid_t lapl_id);
+extern herr_t H5Gget_info_by_name(hid_t loc_id, const char *name, H5G_info_t *ginfo, hid_t lapl_id);
 
 /**
  *-------------------------------------------------------------------------
@@ -325,7 +325,7 @@ H5_DLL herr_t H5Gget_info_by_name(hid_t loc_id, const char *name, H5G_info_t *gi
  * \since 1.8.0
  *
  */
-H5_DLL herr_t H5Gget_info_by_idx(hid_t loc_id, const char *group_name, H5_index_t idx_type,
+extern herr_t H5Gget_info_by_idx(hid_t loc_id, const char *group_name, H5_index_t idx_type,
                                  H5_iter_order_t order, hsize_t n, H5G_info_t *ginfo, hid_t lapl_id);
 
 /**
@@ -352,7 +352,7 @@ H5_DLL herr_t H5Gget_info_by_idx(hid_t loc_id, const char *group_name, H5_index_
  * \since 1.8.0
  *
  */
-H5_DLL herr_t H5Gflush(hid_t group_id);
+extern herr_t H5Gflush(hid_t group_id);
 
 /**
  *-------------------------------------------------------------------------
@@ -375,7 +375,7 @@ H5_DLL herr_t H5Gflush(hid_t group_id);
  * \since 1.8.0
  *
  */
-H5_DLL herr_t H5Grefresh(hid_t group_id);
+extern herr_t H5Grefresh(hid_t group_id);
 
 /**
  *-------------------------------------------------------------------------
@@ -401,7 +401,7 @@ H5_DLL herr_t H5Grefresh(hid_t group_id);
  * \since 1.0.0
  *
  */
-H5_DLL herr_t H5Gclose(hid_t group_id);
+extern herr_t H5Gclose(hid_t group_id);
 
 /* Symbols defined for compatibility with previous versions of the HDF5 API.
  *
@@ -525,7 +525,7 @@ typedef struct H5G_stat_t {
  * \since 1.0.0
  *
  */
-H5_DLL hid_t H5Gcreate1(hid_t loc_id, const char *name, size_t size_hint);
+extern hid_t H5Gcreate1(hid_t loc_id, const char *name, size_t size_hint);
 /**
  *-------------------------------------------------------------------------
  * \ingroup H5G
@@ -552,7 +552,7 @@ H5_DLL hid_t H5Gcreate1(hid_t loc_id, const char *name, size_t size_hint);
  * \since 1.0.0
  *
  */
-H5_DLL hid_t H5Gopen1(hid_t loc_id, const char *name);
+extern hid_t H5Gopen1(hid_t loc_id, const char *name);
 /**
  *-------------------------------------------------------------------------
  * \ingroup H5G
@@ -587,7 +587,7 @@ H5_DLL hid_t H5Gopen1(hid_t loc_id, const char *name);
  * \version 1.8.0 Function deprecated in this release.
  *
  */
-H5_DLL herr_t H5Glink(hid_t cur_loc_id, H5G_link_t type, const char *cur_name, const char *new_name);
+extern herr_t H5Glink(hid_t cur_loc_id, H5G_link_t type, const char *cur_name, const char *new_name);
 /**
  *-------------------------------------------------------------------------
  * \ingroup H5G
@@ -623,7 +623,7 @@ H5_DLL herr_t H5Glink(hid_t cur_loc_id, H5G_link_t type, const char *cur_name, c
  * \version 1.8.0 Function deprecated in this release.
  *
  */
-H5_DLL herr_t H5Glink2(hid_t cur_loc_id, const char *cur_name, H5G_link_t type, hid_t new_loc_id,
+extern herr_t H5Glink2(hid_t cur_loc_id, const char *cur_name, H5G_link_t type, hid_t new_loc_id,
                        const char *new_name);
 /**
  *-------------------------------------------------------------------------
@@ -652,7 +652,7 @@ H5_DLL herr_t H5Glink2(hid_t cur_loc_id, const char *cur_name, H5G_link_t type, 
  * \version 1.8.0 Function deprecated in this release.
  *
  */
-H5_DLL herr_t H5Gmove(hid_t src_loc_id, const char *src_name, const char *dst_name);
+extern herr_t H5Gmove(hid_t src_loc_id, const char *src_name, const char *dst_name);
 /**
  *-------------------------------------------------------------------------
  * \ingroup H5G
@@ -683,7 +683,7 @@ H5_DLL herr_t H5Gmove(hid_t src_loc_id, const char *src_name, const char *dst_na
  * \version 1.8.0 Function deprecated in this release.
  *
  */
-H5_DLL herr_t H5Gmove2(hid_t src_loc_id, const char *src_name, hid_t dst_loc_id, const char *dst_name);
+extern herr_t H5Gmove2(hid_t src_loc_id, const char *src_name, hid_t dst_loc_id, const char *dst_name);
 /**
  *-------------------------------------------------------------------------
  * \ingroup H5G
@@ -724,7 +724,7 @@ H5_DLL herr_t H5Gmove2(hid_t src_loc_id, const char *src_name, hid_t dst_loc_id,
  * \version 1.8.0 Function deprecated in this release.
  *
  */
-H5_DLL herr_t H5Gunlink(hid_t loc_id, const char *name);
+extern herr_t H5Gunlink(hid_t loc_id, const char *name);
 /**
  *-------------------------------------------------------------------------
  * \ingroup H5G
@@ -762,7 +762,7 @@ H5_DLL herr_t H5Gunlink(hid_t loc_id, const char *name);
  * \version 1.8.0 Function deprecated in this release.
  *
  */
-H5_DLL herr_t H5Gget_linkval(hid_t loc_id, const char *name, size_t size, char *buf /*out*/);
+extern herr_t H5Gget_linkval(hid_t loc_id, const char *name, size_t size, char *buf /*out*/);
 /**
  *-------------------------------------------------------------------------
  * \ingroup H5G
@@ -802,7 +802,7 @@ H5_DLL herr_t H5Gget_linkval(hid_t loc_id, const char *name, size_t size, char *
  * \version 1.8.0 Function deprecated in this release.
  *
  */
-H5_DLL herr_t H5Gset_comment(hid_t loc_id, const char *name, const char *comment);
+extern herr_t H5Gset_comment(hid_t loc_id, const char *name, const char *comment);
 /**
  *-------------------------------------------------------------------------
  * \ingroup H5G
@@ -847,7 +847,7 @@ H5_DLL herr_t H5Gset_comment(hid_t loc_id, const char *name, const char *comment
  * \version 1.8.0 Function deprecated in this release.
  *
  */
-H5_DLL int H5Gget_comment(hid_t loc_id, const char *name, size_t bufsize, char *buf);
+extern int H5Gget_comment(hid_t loc_id, const char *name, size_t bufsize, char *buf);
 /**
  *-------------------------------------------------------------------------
  * \ingroup H5G
@@ -909,7 +909,7 @@ H5_DLL int H5Gget_comment(hid_t loc_id, const char *name, size_t bufsize, char *
  * \version 1.8.0 Function deprecated in this release.
  *
  */
-H5_DLL herr_t H5Giterate(hid_t loc_id, const char *name, int *idx, H5G_iterate_t op, void *op_data);
+extern herr_t H5Giterate(hid_t loc_id, const char *name, int *idx, H5G_iterate_t op, void *op_data);
 /**
  *-------------------------------------------------------------------------
  * \ingroup H5G
@@ -930,7 +930,7 @@ H5_DLL herr_t H5Giterate(hid_t loc_id, const char *name, int *idx, H5G_iterate_t
  * \version 1.8.0 Function deprecated in this release.
  *
  */
-H5_DLL herr_t H5Gget_num_objs(hid_t loc_id, hsize_t *num_objs);
+extern herr_t H5Gget_num_objs(hid_t loc_id, hsize_t *num_objs);
 /**
  *-------------------------------------------------------------------------
  * \ingroup H5G
@@ -987,7 +987,7 @@ H5_DLL herr_t H5Gget_num_objs(hid_t loc_id, hsize_t *num_objs);
  *                this release.
  *
  */
-H5_DLL herr_t H5Gget_objinfo(hid_t loc_id, const char *name, hbool_t follow_link,
+extern herr_t H5Gget_objinfo(hid_t loc_id, const char *name, hbool_t follow_link,
                              H5G_stat_t *statbuf /*out*/);
 /**
  *-------------------------------------------------------------------------
@@ -1035,7 +1035,7 @@ H5_DLL herr_t H5Gget_objinfo(hid_t loc_id, const char *name, hbool_t follow_link
  * \since 1.6.0
  *
  */
-H5_DLL ssize_t H5Gget_objname_by_idx(hid_t loc_id, hsize_t idx, char *name, size_t size);
+extern ssize_t H5Gget_objname_by_idx(hid_t loc_id, hsize_t idx, char *name, size_t size);
 /**
  *-------------------------------------------------------------------------
  * \ingroup H5G
@@ -1067,7 +1067,7 @@ H5_DLL ssize_t H5Gget_objname_by_idx(hid_t loc_id, hsize_t idx, char *name, size
  * \since 1.6.0
  *
  */
-H5_DLL H5G_obj_t H5Gget_objtype_by_idx(hid_t loc_id, hsize_t idx);
+extern H5G_obj_t H5Gget_objtype_by_idx(hid_t loc_id, hsize_t idx);
 
 #endif /* H5_NO_DEPRECATED_SYMBOLS */
 

@@ -1,4 +1,35 @@
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+unit H5FDlog;
+interface
+
+{
+  Automatically converted by H2Pas 1.0.0 from H5FDlog.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    H5FDlog.h
+}
+
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
+
+Type
+Pchar  = ^char;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Copyright by The HDF Group.                                               *
  * All rights reserved.                                                      *
  *                                                                           *
@@ -8,65 +39,58 @@
  * distribution tree, or in https://www.hdfgroup.org/licenses.               *
  * If you do not have access to either file, you may request a copy from     *
  * help@hdfgroup.org.                                                        *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-/*
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  }
+{
  * Programmer:  Quincey Koziol
  *              Monday, April 17, 2000
  *
  * Purpose:	The public header file for the log driver.
- */
-#ifndef H5FDlog_H
-#define H5FDlog_H
+  }
+{$ifndef H5FDlog_H}
+{$define H5FDlog_H}
 
-#define H5FD_LOG (H5FD_log_init())
+{ was #define dname def_expr }
+function H5FD_LOG : longint; { return type might be wrong }
 
-/* Flags for H5Pset_fapl_log() */
-/* Flags for tracking 'meta' operations (truncate) */
-#define H5FD_LOG_TRUNCATE 0x00000001
-#define H5FD_LOG_META_IO  (H5FD_LOG_TRUNCATE)
-/* Flags for tracking where reads/writes/seeks occur */
-#define H5FD_LOG_LOC_READ  0x00000002
-#define H5FD_LOG_LOC_WRITE 0x00000004
-#define H5FD_LOG_LOC_SEEK  0x00000008
-#define H5FD_LOG_LOC_IO    (H5FD_LOG_LOC_READ | H5FD_LOG_LOC_WRITE | H5FD_LOG_LOC_SEEK)
-/* Flags for tracking number of times each byte is read/written */
-#define H5FD_LOG_FILE_READ  0x00000010
-#define H5FD_LOG_FILE_WRITE 0x00000020
-#define H5FD_LOG_FILE_IO    (H5FD_LOG_FILE_READ | H5FD_LOG_FILE_WRITE)
-/* Flag for tracking "flavor" (type) of information stored at each byte */
-#define H5FD_LOG_FLAVOR 0x00000040
-/* Flags for tracking total number of reads/writes/seeks/truncates */
-#define H5FD_LOG_NUM_READ     0x00000080
-#define H5FD_LOG_NUM_WRITE    0x00000100
-#define H5FD_LOG_NUM_SEEK     0x00000200
-#define H5FD_LOG_NUM_TRUNCATE 0x00000400
-#define H5FD_LOG_NUM_IO       (H5FD_LOG_NUM_READ | H5FD_LOG_NUM_WRITE | H5FD_LOG_NUM_SEEK | H5FD_LOG_NUM_TRUNCATE)
-/* Flags for tracking time spent in open/stat/read/write/seek/truncate/close */
-#define H5FD_LOG_TIME_OPEN     0x00000800
-#define H5FD_LOG_TIME_STAT     0x00001000
-#define H5FD_LOG_TIME_READ     0x00002000
-#define H5FD_LOG_TIME_WRITE    0x00004000
-#define H5FD_LOG_TIME_SEEK     0x00008000
-#define H5FD_LOG_TIME_TRUNCATE 0x00010000
-#define H5FD_LOG_TIME_CLOSE    0x00020000
-#define H5FD_LOG_TIME_IO                                                                                     \
-    (H5FD_LOG_TIME_OPEN | H5FD_LOG_TIME_STAT | H5FD_LOG_TIME_READ | H5FD_LOG_TIME_WRITE |                    \
-     H5FD_LOG_TIME_SEEK | H5FD_LOG_TIME_TRUNCATE | H5FD_LOG_TIME_CLOSE)
-/* Flags for tracking allocation/release of space in file */
-#define H5FD_LOG_ALLOC 0x00040000
-#define H5FD_LOG_FREE  0x00080000
-#define H5FD_LOG_ALL                                                                                         \
-    (H5FD_LOG_FREE | H5FD_LOG_ALLOC | H5FD_LOG_TIME_IO | H5FD_LOG_NUM_IO | H5FD_LOG_FLAVOR |                 \
-     H5FD_LOG_FILE_IO | H5FD_LOG_LOC_IO | H5FD_LOG_META_IO)
+{ Flags for H5Pset_fapl_log()  }
+{ Flags for tracking 'meta' operations (truncate)  }
+const
+  H5FD_LOG_TRUNCATE = $00000001;  
+  H5FD_LOG_META_IO = H5FD_LOG_TRUNCATE;  
+{ Flags for tracking where reads/writes/seeks occur  }
+  H5FD_LOG_LOC_READ = $00000002;  
+  H5FD_LOG_LOC_WRITE = $00000004;  
+  H5FD_LOG_LOC_SEEK = $00000008;  
+  H5FD_LOG_LOC_IO = (H5FD_LOG_LOC_READ or H5FD_LOG_LOC_WRITE) or H5FD_LOG_LOC_SEEK;  
+{ Flags for tracking number of times each byte is read/written  }
+  H5FD_LOG_FILE_READ = $00000010;  
+  H5FD_LOG_FILE_WRITE = $00000020;  
+  H5FD_LOG_FILE_IO = H5FD_LOG_FILE_READ or H5FD_LOG_FILE_WRITE;  
+{ Flag for tracking "flavor" (type) of information stored at each byte  }
+  H5FD_LOG_FLAVOR = $00000040;  
+{ Flags for tracking total number of reads/writes/seeks/truncates  }
+  H5FD_LOG_NUM_READ = $00000080;  
+  H5FD_LOG_NUM_WRITE = $00000100;  
+  H5FD_LOG_NUM_SEEK = $00000200;  
+  H5FD_LOG_NUM_TRUNCATE = $00000400;  
+  H5FD_LOG_NUM_IO = ((H5FD_LOG_NUM_READ or H5FD_LOG_NUM_WRITE) or H5FD_LOG_NUM_SEEK) or H5FD_LOG_NUM_TRUNCATE;  
+{ Flags for tracking time spent in open/stat/read/write/seek/truncate/close  }
+  H5FD_LOG_TIME_OPEN = $00000800;  
+  H5FD_LOG_TIME_STAT = $00001000;  
+  H5FD_LOG_TIME_READ = $00002000;  
+  H5FD_LOG_TIME_WRITE = $00004000;  
+  H5FD_LOG_TIME_SEEK = $00008000;  
+  H5FD_LOG_TIME_TRUNCATE = $00010000;  
+  H5FD_LOG_TIME_CLOSE = $00020000;  
+  H5FD_LOG_TIME_IO = (((((H5FD_LOG_TIME_OPEN or H5FD_LOG_TIME_STAT) or H5FD_LOG_TIME_READ) or H5FD_LOG_TIME_WRITE) or H5FD_LOG_TIME_SEEK) or H5FD_LOG_TIME_TRUNCATE) or H5FD_LOG_TIME_CLOSE;  
+{ Flags for tracking allocation/release of space in file  }
+  H5FD_LOG_ALLOC = $00040000;  
+  H5FD_LOG_FREE = $00080000;  
+  H5FD_LOG_ALL = ((((((H5FD_LOG_FREE or H5FD_LOG_ALLOC) or H5FD_LOG_TIME_IO) or H5FD_LOG_NUM_IO) or H5FD_LOG_FLAVOR) or H5FD_LOG_FILE_IO) or H5FD_LOG_LOC_IO) or H5FD_LOG_META_IO;  
+{ C++ extern C conditionnal removed }
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-H5_DLL hid_t H5FD_log_init(void);
-
-/**
+function H5FD_log_init:Thid_t;cdecl;external;
+{*
  * \ingroup FAPL
  *
  * \brief Sets up the logging virtual file driver (#H5FD_LOG) for use
@@ -90,7 +114,7 @@ H5_DLL hid_t H5FD_log_init(void);
  *          table. Multiple flags can be set through the use of a logical \c OR
  *          contained in parentheses. For example, logging read and write
  *          locations would be specified as
- *          \Code{(H5FD_LOG_LOC_READ|H5FD_LOG_LOC_WRITE)}.
+ *          \Code(H5FD_LOG_LOC_READ|H5FD_LOG_LOC_WRITE).
  *
  * <table>
  * <caption>Table1: Logging Flags</caption>
@@ -110,7 +134,7 @@ H5_DLL hid_t H5FD_log_init(void);
  * </td>
  * <td>
  * Track all I/O locations and lengths. The logical equivalent of the following:
- * \Code{(#H5FD_LOG_LOC_READ | #H5FD_LOG_LOC_WRITE | #H5FD_LOG_LOC_SEEK)}
+ * \Code(#H5FD_LOG_LOC_READ | #H5FD_LOG_LOC_WRITE | #H5FD_LOG_LOC_SEEK)
  * </td>
  * </tr>
  * <tr>
@@ -129,7 +153,7 @@ H5_DLL hid_t H5FD_log_init(void);
  * <td>
  * Track the number of times each byte is read and written. The logical
  * equivalent of the following:
- * \Code{(#H5FD_LOG_FILE_READ | #H5FD_LOG_FILE_WRITE)}
+ * \Code(#H5FD_LOG_FILE_READ | #H5FD_LOG_FILE_WRITE)
  * </td>
  * </tr>
  * <tr>
@@ -158,7 +182,7 @@ H5_DLL hid_t H5FD_log_init(void);
  * <td>
  * Track the total number of all types of I/O operations. The logical equivalent
  * of the following:
- * \Code{(#H5FD_LOG_NUM_READ | #H5FD_LOG_NUM_WRITE | #H5FD_LOG_NUM_SEEK | #H5FD_LOG_NUM_TRUNCATE)}
+ * \Code(#H5FD_LOG_NUM_READ | #H5FD_LOG_NUM_WRITE | #H5FD_LOG_NUM_SEEK | #H5FD_LOG_NUM_TRUNCATE)
  * </td>
  * </tr>
  * <tr>
@@ -181,8 +205,8 @@ H5_DLL hid_t H5FD_log_init(void);
  * <td>
  * Track the time spent in each of the above operations. The logical equivalent
  * of the following:
- * \Code{(#H5FD_LOG_TIME_OPEN | #H5FD_LOG_TIME_STAT | #H5FD_LOG_TIME_READ | #H5FD_LOG_TIME_WRITE |
- *        #H5FD_LOG_TIME_SEEK | #H5FD_LOG_TIME_CLOSE)}
+ * \Code(#H5FD_LOG_TIME_OPEN | #H5FD_LOG_TIME_STAT | #H5FD_LOG_TIME_READ | #H5FD_LOG_TIME_WRITE |
+ *        #H5FD_LOG_TIME_SEEK | #H5FD_LOG_TIME_CLOSE)
  * </td>
  * </tr>
  * <tr>
@@ -199,8 +223,8 @@ H5_DLL hid_t H5FD_log_init(void);
  * </td>
  * <td>
  * Track everything. The logical equivalent of the following:
- * \Code{(#H5FD_LOG_ALLOC | #H5FD_LOG_TIME_IO | #H5FD_LOG_NUM_IO | #H5FD_LOG_FLAVOR | #H5FD_LOG_FILE_IO |
- *        #H5FD_LOG_LOC_IO)}
+ * \Code(#H5FD_LOG_ALLOC | #H5FD_LOG_TIME_IO | #H5FD_LOG_NUM_IO | #H5FD_LOG_FLAVOR | #H5FD_LOG_FILE_IO |
+ *        #H5FD_LOG_LOC_IO)
  * </td>
  * </tr>
  * </table>
@@ -229,19 +253,19 @@ H5_DLL hid_t H5FD_log_init(void);
  * <td>#H5FD_LOG_LOC_READ</td>
  * <td>Read</td>
  * <td>
- * \Code{%10a-%10a (%10Zu bytes) (%s) Read}\n\n
+ * \Code%10a-%10a (%10Zu bytes) (%s) Read\n\n
  * Start position\n
  * End position\n
  * Number of bytes\n
  * Flavor of read\n\n
- * Adds \Code{(\%f s)} and seek time if #H5FD_LOG_TIME_SEEK is also set.
+ * Adds \Code(\%f s) and seek time if #H5FD_LOG_TIME_SEEK is also set.
  * </td>
  * </tr>
  * <tr>
  * <td>#H5FD_LOG_LOC_READ</td>
  * <td>Read Error</td>
  * <td>
- * \Code{Error! Reading: %10a-%10a (%10Zu bytes)}\n\n
+ * \CodeError! Reading: %10a-%10a (%10Zu bytes)\n\n
  * Same parameters as non-error entry.
  * </td>
  * </tr>
@@ -249,19 +273,19 @@ H5_DLL hid_t H5FD_log_init(void);
  * <td>#H5FD_LOG_LOC_WRITE</td>
  * <td>Write</td>
  * <td>
- * \Code{%10a-%10a (%10Zu bytes) (%s) Written}\n\n
+ * \Code%10a-%10a (%10Zu bytes) (%s) Written\n\n
  * Start position\n
  * End position\n
  * Number of bytes\n
  * Flavor of write\n\n
- * Adds \Code{(\%f s)} and seek time if #H5FD_LOG_TIME_SEEK is also set.
+ * Adds \Code(\%f s) and seek time if #H5FD_LOG_TIME_SEEK is also set.
  * </td>
  * </tr>
  * <tr>
  * <td>#H5FD_LOG_LOC_WRITE</td>
  * <td>Write Error</td>
  * <td>
- * \Code{Error! Writing: %10a-%10a (%10Zu bytes)}\n\n
+ * \CodeError! Writing: %10a-%10a (%10Zu bytes)\n\n
  * Same parameters as non-error entry.
  * </td>
  * </tr>
@@ -269,10 +293,10 @@ H5_DLL hid_t H5FD_log_init(void);
  * <td>#H5FD_LOG_LOC_SEEK</td>
  * <td>Read, Write</td>
  * <td>
- * \Code{Seek: From %10a-%10a}\n\n
+ * \CodeSeek: From %10a-%10a\n\n
  * Start position\n
  * End position\n\n
- * Adds \Code{(\%f s)} and seek time if #H5FD_LOG_TIME_SEEK is also set.
+ * Adds \Code(\%f s) and seek time if #H5FD_LOG_TIME_SEEK is also set.
  * </td>
  * </tr>
  * <tr>
@@ -282,7 +306,7 @@ H5_DLL hid_t H5FD_log_init(void);
  * Begins with:\n
  * Dumping read I/O information\n\n
  * Then, for each range of identical values, there is this line:\n
- * \Code{Addr %10-%10 (%10lu bytes) read from %3d times}\n\n
+ * \CodeAddr %10-%10 (%10lu bytes) read from %3d times\n\n
  * Start address\n
  * End address\n
  * Number of bytes\n
@@ -298,7 +322,7 @@ H5_DLL hid_t H5FD_log_init(void);
  * Begins with:\n
  * Dumping read I/O information\n\n
  * Then, for each range of identical values, there is this line:\n
- * \Code{Addr %10-%10 (%10lu bytes) written to %3d times}\n\n
+ * \CodeAddr %10-%10 (%10lu bytes) written to %3d times\n\n
  * Start address\n
  * End address\n
  * Number of bytes\n
@@ -314,7 +338,7 @@ H5_DLL hid_t H5FD_log_init(void);
  * Begins with:\n
  * Dumping I/O flavor information\n\n
  * Then, for each range of identical values, there is this line:\n
- * \Code{Addr %10-%10 (%10lu bytes) flavor is %s}\n\n
+ * \CodeAddr %10-%10 (%10lu bytes) flavor is %s\n\n
  * Start address\n
  * End address\n
  * Number of bytes\n
@@ -327,42 +351,42 @@ H5_DLL hid_t H5FD_log_init(void);
  * <td>#H5FD_LOG_NUM_READ</td>
  * <td>Close</td>
  * <td>
- * Total number of read operations: \Code{%11u}
+ * Total number of read operations: \Code%11u
  * </td>
  * </tr>
  * <tr>
  * <td>#H5FD_LOG_NUM_WRITE</td>
  * <td>Close</td>
  * <td>
- * Total number of write operations: \Code{%11u}
+ * Total number of write operations: \Code%11u
  * </td>
  * </tr>
  * <tr>
  * <td>#H5FD_LOG_NUM_SEEK</td>
  * <td>Close</td>
  * <td>
- * Total number of seek operations: \Code{%11u}
+ * Total number of seek operations: \Code%11u
  * </td>
  * </tr>
  * <tr>
  * <td>#H5FD_LOG_NUM_TRUNCATE</td>
  * <td>Close</td>
  * <td>
- * Total number of truncate operations: \Code{%11u}
+ * Total number of truncate operations: \Code%11u
  * </td>
  * </tr>
  * <tr>
  * <td>#H5FD_LOG_TIME_OPEN</td>
  * <td>Open</td>
  * <td>
- * Open took: \Code{(\%f s)}
+ * Open took: \Code(\%f s)
  * </td>
  * </tr>
  * <tr>
  * <td>#H5FD_LOG_TIME_READ</td>
  * <td>Close, Read</td>
  * <td>
- * Total time in read operations: \Code{\%f s}\n\n
+ * Total time in read operations: \Code\%f s\n\n
  * See also: #H5FD_LOG_LOC_READ
  * </td>
  * </tr>
@@ -371,7 +395,7 @@ H5_DLL hid_t H5FD_log_init(void);
  * <td>#H5FD_LOG_TIME_WRITE</td>
  * <td>Close, Write</td>
  * <td>
- * Total time in write operations: \Code{\%f s}\n\n
+ * Total time in write operations: \Code\%f s\n\n
  * See also: #H5FD_LOG_LOC_WRITE
  * </td>
  * </tr>
@@ -379,7 +403,7 @@ H5_DLL hid_t H5FD_log_init(void);
  * <td>#H5FD_LOG_TIME_SEEK</td>
  * <td>Close, Read, Write</td>
  * <td>
- * Total time in write operations: \Code{\%f s}\n\n
+ * Total time in write operations: \Code\%f s\n\n
  * See also: #H5FD_LOG_LOC_SEEK or #H5FD_LOG_LOC_WRITE
  * </td>
  * </tr>
@@ -387,21 +411,21 @@ H5_DLL hid_t H5FD_log_init(void);
  * <td>#H5FD_LOG_TIME_CLOSE</td>
  * <td>Close</td>
  * <td>
- * Close took: \Code{(\%f s)}
+ * Close took: \Code(\%f s)
  * </td>
  * </tr>
  * <tr>
  * <td>#H5FD_LOG_TIME_STAT</td>
  * <td>Open</td>
  * <td>
- * Stat took: \Code{(\%f s)}
+ * Stat took: \Code(\%f s)
  * </td>
  * </tr>
  * <tr>
  * <td>#H5FD_LOG_ALLOC</td>
  * <td>Alloc</td>
  * <td>
- * \Code{%10-%10 (%10Hu bytes) (\%s) Allocated}\n\n
+ * \Code%10-%10 (%10Hu bytes) (\%s) Allocated\n\n
  * Start of address space\n
  * End of address space\n
  * Total size allocation\n
@@ -411,7 +435,7 @@ H5_DLL hid_t H5FD_log_init(void);
  * </table>
  *
  * \par Flavors:
- * The \Emph{flavor} describes the type of stored information. The following
+ * The \Emphflavor describes the type of stored information. The following
  * table lists the flavors that appear in log output and briefly describes each.
  * These terms are provided here to aid in the construction of log message
  * parsers; a full description is beyond the scope of this document.
@@ -457,21 +481,29 @@ H5_DLL hid_t H5FD_log_init(void);
  * </tr>
  * </table>
  *
- * \version 1.8.7 The flags parameter has been changed from \Code{unsigned int}
- *          to \Code{unsigned long long}.
+ * \version 1.8.7 The flags parameter has been changed from \Codeunsigned int
+ *          to \Codeunsigned long long.
  *          The implementation of the #H5FD_LOG_TIME_OPEN, #H5FD_LOG_TIME_READ,
  *          #H5FD_LOG_TIME_WRITE, and #H5FD_LOG_TIME_SEEK flags has been finished.
  *          New flags were added: #H5FD_LOG_NUM_TRUNCATE and #H5FD_LOG_TIME_STAT.
  * \version 1.6.0 The \c verbosity parameter has been removed.
- *          Two new parameters have been added: \p flags of type \Code{unsigned} and
- *          \p buf_size of type \Code{size_t}.
+ *          Two new parameters have been added: \p flags of type \Codeunsigned and
+ *          \p buf_size of type \Codesize_t.
  * \since 1.4.0
  *
- */
-H5_DLL herr_t H5Pset_fapl_log(hid_t fapl_id, const char *logfile, unsigned long long flags, size_t buf_size);
+  }
+(* Const before type ignored *)
+function H5Pset_fapl_log(fapl_id:Thid_t; logfile:Pchar; flags:qword; buf_size:Tsize_t):Therr_t;cdecl;external;
+{ C++ end of extern C conditionnal removed }
+{$endif}
 
-#ifdef __cplusplus
-}
-#endif
+implementation
 
-#endif
+{ was #define dname def_expr }
+function H5FD_LOG : longint; { return type might be wrong }
+  begin
+    H5FD_LOG:=H5FD_log_init;
+  end;
+
+
+end.

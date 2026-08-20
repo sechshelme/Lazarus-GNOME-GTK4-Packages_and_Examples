@@ -1,4 +1,36 @@
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+unit H5DSpublic;
+interface
+
+{
+  Automatically converted by H2Pas 1.0.0 from H5DSpublic.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    H5DSpublic.h
+}
+
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
+
+Type
+Pchar  = ^char;
+Plongint  = ^longint;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Copyright by The HDF Group.                                               *
  * All rights reserved.                                                      *
  *                                                                           *
@@ -8,38 +40,34 @@
  * distribution tree, or in https://www.hdfgroup.org/licenses.               *
  * If you do not have access to either file, you may request a copy from     *
  * help@hdfgroup.org.                                                        *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  }
+{$ifndef H5DSpublic_H}
+{$define H5DSpublic_H}
 
-#ifndef H5DSpublic_H
-#define H5DSpublic_H
-
-#define DIMENSION_SCALE_CLASS "DIMENSION_SCALE"
-#define DIMENSION_LIST        "DIMENSION_LIST"
-#define REFERENCE_LIST        "REFERENCE_LIST"
-#define DIMENSION_LABELS      "DIMENSION_LABELS"
-
-/**
+const
+  DIMENSION_SCALE_CLASS = 'DIMENSION_SCALE';  
+  DIMENSION_LIST = 'DIMENSION_LIST';  
+  REFERENCE_LIST = 'REFERENCE_LIST';  
+  DIMENSION_LABELS = 'DIMENSION_LABELS';  
+{*
  * \brief Prototype for H5DSiterate_scales() operator
  *
- */
-//! <!-- [H5DS_iterate_t_snip] -->
-typedef herr_t (*H5DS_iterate_t)(hid_t dset, unsigned dim, hid_t scale, void *visitor_data);
-//! <!-- [H5DS_iterate_t_snip] -->
+  }
+{! <!-- [H5DS_iterate_t_snip] --> }
+type
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-/** \page H5DS_UG The HDF5 High Level Dimension Scales
+  TH5DS_iterate_t = function (dset:Thid_t; dim:dword; scale:Thid_t; visitor_data:pointer):Therr_t;cdecl;
+{! <!-- [H5DS_iterate_t_snip] --> }
+{ C++ extern C conditionnal removed }
+{* \page H5DS_UG The HDF5 High Level Dimension Scales
  * @todo Under Construction
- */
-
-/**\defgroup H5DS HDF5 Dimension Scales APIs (H5DS)
+  }
+{*\defgroup H5DS HDF5 Dimension Scales APIs (H5DS)
  *
  * <em>Creating and manipulating HDF5 datasets that are associated with
  * the dimension of another HDF5 dataset (H5DS)</em>
  *
- * \note \Bold{Programming hints:}
+ * \note \BoldProgramming hints:
  * \note To use any of these functions or subroutines,
  *       you must first include the relevant include file (C) or
  *       module (Fortran) in your application.
@@ -74,9 +102,8 @@ extern "C" {
  *   \n Convert dataset dsid to a dimension scale,
  *      with optional name, dimname.
  *
- */
-
-/**
+  }
+{*
  * --------------------------------------------------------------------------
  * \ingroup H5DS
  *
@@ -105,10 +132,10 @@ extern "C" {
  *
  * \note The Dimension Scale \p dsid can be attached to the
  *       same dimension more than once, which has no effect.
- */
-H5_HLDLL herr_t H5DSattach_scale(hid_t did, hid_t dsid, unsigned int idx);
+  }
 
-/**
+function H5DSattach_scale(did:Thid_t; dsid:Thid_t; idx:dword):Therr_t;cdecl;external;
+{*
  * --------------------------------------------------------------------------
  * \ingroup H5DS
  *
@@ -137,10 +164,9 @@ H5_HLDLL herr_t H5DSattach_scale(hid_t did, hid_t dsid, unsigned int idx);
  *       same dataset. If so, the detach operation only deletes one
  *       of the associations, for \p did.
  *
- */
-H5_HLDLL herr_t H5DSdetach_scale(hid_t did, hid_t dsid, unsigned int idx);
-
-/**
+  }
+function H5DSdetach_scale(did:Thid_t; dsid:Thid_t; idx:dword):Therr_t;cdecl;external;
+{*
  * --------------------------------------------------------------------------
  * \ingroup H5DS
  *
@@ -174,10 +200,10 @@ H5_HLDLL herr_t H5DSdetach_scale(hid_t did, hid_t dsid, unsigned int idx);
  *          (These Datasets will have a CLASS Table, Image, or Palette.)
  *
  * \todo what is [9] after Palette interface?
- */
-H5_HLDLL herr_t H5DSset_scale(hid_t dsid, const char *dimname);
-
-/**
+  }
+(* Const before type ignored *)
+function H5DSset_scale(dsid:Thid_t; dimname:Pchar):Therr_t;cdecl;external;
+{*
  * --------------------------------------------------------------------------
  * \ingroup H5DS
  *
@@ -195,10 +221,9 @@ H5_HLDLL herr_t H5DSset_scale(hid_t dsid, const char *dimname);
  *          Scales are attached to dimension \p idx of
  *          dataset \p did.
  *
- */
-H5_HLDLL int H5DSget_num_scales(hid_t did, unsigned int idx);
-
-/**
+  }
+function H5DSget_num_scales(did:Thid_t; idx:dword):longint;cdecl;external;
+{*
  * --------------------------------------------------------------------------
  * \ingroup H5DS
  *
@@ -218,10 +243,10 @@ H5_HLDLL int H5DSget_num_scales(hid_t did, unsigned int idx);
  *          Fails if:
  *          - Bad arguments
  *
- */
-H5_HLDLL herr_t H5DSset_label(hid_t did, unsigned int idx, const char *label);
-
-/**
+  }
+(* Const before type ignored *)
+function H5DSset_label(did:Thid_t; idx:dword; _label:Pchar):Therr_t;cdecl;external;
+{*
  * --------------------------------------------------------------------------
  * \ingroup H5DS
  *
@@ -248,10 +273,9 @@ H5_HLDLL herr_t H5DSset_label(hid_t did, unsigned int idx, const char *label);
  *          Fails if:
  *          - Bad arguments
  *
- */
-H5_HLDLL ssize_t H5DSget_label(hid_t did, unsigned int idx, char *label, size_t size);
-
-/**
+  }
+function H5DSget_label(did:Thid_t; idx:dword; _label:Pchar; size:Tsize_t):Tssize_t;cdecl;external;
+{*
  * --------------------------------------------------------------------------
  * \ingroup H5DS
  *
@@ -282,10 +306,9 @@ H5_HLDLL ssize_t H5DSget_label(hid_t did, unsigned int idx, char *label, size_t 
  *          if \p size is set to the exact size of the name, the last byte
  *          passed back will contain the null terminator and the last character
  *          will be missing from the name passed back to the calling application.)
- */
-H5_HLDLL ssize_t H5DSget_scale_name(hid_t did, char *name, size_t size);
-
-/**
+  }
+function H5DSget_scale_name(did:Thid_t; name:Pchar; size:Tsize_t):Tssize_t;cdecl;external;
+{*
  * --------------------------------------------------------------------------
  * \ingroup H5DS
  *
@@ -298,10 +321,9 @@ H5_HLDLL ssize_t H5DSget_scale_name(hid_t did, char *name, size_t size);
  * \details H5DSis_scale() determines if \p did is a Dimension Scale,
  *          i.e., has class="DIMENSION_SCALE").
  *
- */
-H5_HLDLL htri_t H5DSis_scale(hid_t did);
-
-/**
+  }
+function H5DSis_scale(did:Thid_t):Thtri_t;cdecl;external;
+{*
  * --------------------------------------------------------------------------
  * \ingroup H5DS
  *
@@ -354,11 +376,9 @@ H5_HLDLL htri_t H5DSis_scale(hid_t did);
  *          dimension identified by \p dim remain unchanged through
  *          the iteration. If the membership changes during the iteration,
  *          the function's behavior is undefined.
- */
-H5_HLDLL herr_t H5DSiterate_scales(hid_t did, unsigned int dim, int *idx, H5DS_iterate_t visitor,
-                                   void *visitor_data);
-
-/**
+  }
+function H5DSiterate_scales(did:Thid_t; dim:dword; idx:Plongint; visitor:TH5DS_iterate_t; visitor_data:pointer):Therr_t;cdecl;external;
+{*
  * --------------------------------------------------------------------------
  * \ingroup H5DS
  *
@@ -380,11 +400,12 @@ H5_HLDLL herr_t H5DSiterate_scales(hid_t did, unsigned int dim, int *idx, H5DS_i
  *          - The \p dsid is not a Dimension Scale
  *          - If \p did is a Dimension Scale (A Dimension Scale cannot have scales.)
  *
- */
-H5_HLDLL htri_t H5DSis_attached(hid_t did, hid_t dsid, unsigned int idx);
+  }
+function H5DSis_attached(did:Thid_t; dsid:Thid_t; idx:dword):Thtri_t;cdecl;external;
+{ C++ end of extern C conditionnal removed }
+{$endif}
 
-#ifdef __cplusplus
-}
-#endif
+implementation
 
-#endif
+
+end.

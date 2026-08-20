@@ -56,7 +56,7 @@ extern "C" {
  * \since 1.8.0
  *
  */
-H5_DLL herr_t H5Pset_fapl_windows(hid_t fapl_id);
+extern herr_t H5Pset_fapl_windows(hid_t fapl_id);
 
 #ifdef __cplusplus
 }

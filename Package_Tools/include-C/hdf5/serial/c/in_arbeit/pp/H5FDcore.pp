@@ -1,4 +1,36 @@
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+unit H5FDcore;
+interface
+
+{
+  Automatically converted by H2Pas 1.0.0 from H5FDcore.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    H5FDcore.h
+}
+
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
+
+Type
+Phbool_t  = ^hbool_t;
+Psize_t  = ^size_t;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Copyright by The HDF Group.                                               *
  * All rights reserved.                                                      *
  *                                                                           *
@@ -8,25 +40,22 @@
  * distribution tree, or in https://www.hdfgroup.org/licenses.               *
  * If you do not have access to either file, you may request a copy from     *
  * help@hdfgroup.org.                                                        *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-/*
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  }
+{
  * Programmer:  Robb Matzke
  *              Monday, August  2, 1999
  *
  * Purpose:	The public header file for the core driver.
- */
-#ifndef H5FDcore_H
-#define H5FDcore_H
+  }
+{$ifndef H5FDcore_H}
+{$define H5FDcore_H}
 
-#define H5FD_CORE (H5FD_core_init())
+{ was #define dname def_expr }
+function H5FD_CORE : longint; { return type might be wrong }
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-H5_DLL hid_t H5FD_core_init(void);
-
-/**
+{ C++ extern C conditionnal removed }
+function H5FD_core_init:Thid_t;cdecl;external;
+{*
  * \ingroup FAPL
  *
  * \brief Modifies the file access property list to use the #H5FD_CORE driver
@@ -68,10 +97,9 @@ H5_DLL hid_t H5FD_core_init(void);
  *
  * \since 1.4.0
  *
- */
-H5_DLL herr_t H5Pset_fapl_core(hid_t fapl_id, size_t increment, hbool_t backing_store);
-
-/**
+  }
+function H5Pset_fapl_core(fapl_id:Thid_t; increment:Tsize_t; backing_store:Thbool_t):Therr_t;cdecl;external;
+{*
  * \ingroup FAPL
  *
  * \brief Queries core file driver properties
@@ -87,10 +115,18 @@ H5_DLL herr_t H5Pset_fapl_core(hid_t fapl_id, size_t increment, hbool_t backing_
  *
  * \since 1.4.0
  *
- */
-H5_DLL herr_t H5Pget_fapl_core(hid_t fapl_id, size_t *increment /*out*/, hbool_t *backing_store /*out*/);
-#ifdef __cplusplus
-}
-#endif
+  }
+{out }{out }function H5Pget_fapl_core(fapl_id:Thid_t; increment:Psize_t; backing_store:Phbool_t):Therr_t;cdecl;external;
+{ C++ end of extern C conditionnal removed }
+{$endif}
 
-#endif
+implementation
+
+{ was #define dname def_expr }
+function H5FD_CORE : longint; { return type might be wrong }
+  begin
+    H5FD_CORE:=H5FD_core_init;
+  end;
+
+
+end.

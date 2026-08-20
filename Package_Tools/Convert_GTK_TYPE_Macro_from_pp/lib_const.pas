@@ -355,6 +355,7 @@ const
     (libs: 'libjxl'; units: 'fp_jxl'),
     (libs: 'librist'; units: 'fp_rist'),
     (libs: 'libmatio'; units: 'fp_rist'),
+    (libs: 'libhdf5'; units: 'fp_hdf5'),
 
 
     (libs: ''; units: ''));

@@ -24,7 +24,7 @@ namespace H5 {
 
     Many classes are derived from Exception for specific HDF5 C interfaces.
 */
-class H5_DLLCPP Exception {
+class externCPP Exception {
   public:
     // Creates an exception with a function name where the failure occurs
     // and an optional detailed message
@@ -85,84 +85,84 @@ class H5_DLLCPP Exception {
     H5std_string func_name;
 };
 
-class H5_DLLCPP FileIException : public Exception {
+class externCPP FileIException : public Exception {
   public:
     FileIException(const H5std_string &func_name, const H5std_string &message = DEFAULT_MSG);
     FileIException();
     virtual ~FileIException() throw() H5_OVERRIDE;
 };
 
-class H5_DLLCPP GroupIException : public Exception {
+class externCPP GroupIException : public Exception {
   public:
     GroupIException(const H5std_string &func_name, const H5std_string &message = DEFAULT_MSG);
     GroupIException();
     virtual ~GroupIException() throw() H5_OVERRIDE;
 };
 
-class H5_DLLCPP DataSpaceIException : public Exception {
+class externCPP DataSpaceIException : public Exception {
   public:
     DataSpaceIException(const H5std_string &func_name, const H5std_string &message = DEFAULT_MSG);
     DataSpaceIException();
     virtual ~DataSpaceIException() throw() H5_OVERRIDE;
 };
 
-class H5_DLLCPP DataTypeIException : public Exception {
+class externCPP DataTypeIException : public Exception {
   public:
     DataTypeIException(const H5std_string &func_name, const H5std_string &message = DEFAULT_MSG);
     DataTypeIException();
     virtual ~DataTypeIException() throw() H5_OVERRIDE;
 };
 
-class H5_DLLCPP ObjHeaderIException : public Exception {
+class externCPP ObjHeaderIException : public Exception {
   public:
     ObjHeaderIException(const H5std_string &func_name, const H5std_string &message = DEFAULT_MSG);
     ObjHeaderIException();
     virtual ~ObjHeaderIException() throw() H5_OVERRIDE;
 };
 
-class H5_DLLCPP PropListIException : public Exception {
+class externCPP PropListIException : public Exception {
   public:
     PropListIException(const H5std_string &func_name, const H5std_string &message = DEFAULT_MSG);
     PropListIException();
     virtual ~PropListIException() throw() H5_OVERRIDE;
 };
 
-class H5_DLLCPP DataSetIException : public Exception {
+class externCPP DataSetIException : public Exception {
   public:
     DataSetIException(const H5std_string &func_name, const H5std_string &message = DEFAULT_MSG);
     DataSetIException();
     virtual ~DataSetIException() throw() H5_OVERRIDE;
 };
 
-class H5_DLLCPP AttributeIException : public Exception {
+class externCPP AttributeIException : public Exception {
   public:
     AttributeIException(const H5std_string &func_name, const H5std_string &message = DEFAULT_MSG);
     AttributeIException();
     virtual ~AttributeIException() throw() H5_OVERRIDE;
 };
 
-class H5_DLLCPP ReferenceException : public Exception {
+class externCPP ReferenceException : public Exception {
   public:
     ReferenceException(const H5std_string &func_name, const H5std_string &message = DEFAULT_MSG);
     ReferenceException();
     virtual ~ReferenceException() throw() H5_OVERRIDE;
 };
 
-class H5_DLLCPP LibraryIException : public Exception {
+class externCPP LibraryIException : public Exception {
   public:
     LibraryIException(const H5std_string &func_name, const H5std_string &message = DEFAULT_MSG);
     LibraryIException();
     virtual ~LibraryIException() throw() H5_OVERRIDE;
 };
 
-class H5_DLLCPP LocationException : public Exception {
+class externCPP LocationException : public Exception {
   public:
     LocationException(const H5std_string &func_name, const H5std_string &message = DEFAULT_MSG);
     LocationException();
     virtual ~LocationException() throw() H5_OVERRIDE;
 };
 
-class H5_DLLCPP IdComponentException : public Exception {
+class externCPP IdComponentException : public Exception {
   public:
     IdComponentException(const H5std_string &func_name, const H5std_string &message = DEFAULT_MSG);
     IdComponentException();

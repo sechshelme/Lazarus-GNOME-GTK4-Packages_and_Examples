@@ -21,7 +21,7 @@ namespace H5 {
      the HDF5's dataspaces.
 */
 //  Inheritance: IdComponent
-class H5_DLLCPP DataSpace : public IdComponent {
+class externCPP DataSpace : public IdComponent {
   public:
     ///\brief Default DataSpace objects
     static const DataSpace &ALL;

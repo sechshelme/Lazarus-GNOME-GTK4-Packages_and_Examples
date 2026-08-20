@@ -113,7 +113,7 @@ extern "C" {
  *          and returned via a call to H5Iobject_verify().
  *
  */
-H5_DLL hid_t H5Iregister(H5I_type_t type, const void *object);
+extern hid_t H5Iregister(H5I_type_t type, const void *object);
 /**
  * \ingroup H5IUD
  *
@@ -136,7 +136,7 @@ H5_DLL hid_t H5Iregister(H5I_type_t type, const void *object);
  * \see H5Iregister()
  *
  */
-H5_DLL void *H5Iobject_verify(hid_t id, H5I_type_t type);
+extern void *H5Iobject_verify(hid_t id, H5I_type_t type);
 /**
  * \ingroup H5IUD
  *
@@ -166,7 +166,7 @@ H5_DLL void *H5Iobject_verify(hid_t id, H5I_type_t type);
  *       to avoid memory leaks.
  *
  */
-H5_DLL void *H5Iremove_verify(hid_t id, H5I_type_t type);
+extern void *H5Iremove_verify(hid_t id, H5I_type_t type);
 /**
  * \ingroup H5I
  *
@@ -190,7 +190,7 @@ H5_DLL void *H5Iremove_verify(hid_t id, H5I_type_t type);
  *       H5Iis_valid().
  *
  */
-H5_DLL H5I_type_t H5Iget_type(hid_t id);
+extern H5I_type_t H5Iget_type(hid_t id);
 /**
  * \ingroup H5I
  *
@@ -214,7 +214,7 @@ H5_DLL H5I_type_t H5Iget_type(hid_t id);
  * \since 1.6.3
  *
  */
-H5_DLL hid_t H5Iget_file_id(hid_t id);
+extern hid_t H5Iget_file_id(hid_t id);
 /**
  * \ingroup H5I
  *
@@ -256,7 +256,7 @@ H5_DLL hid_t H5Iget_file_id(hid_t id);
  * \since 1.6.0
  *
  */
-H5_DLL ssize_t H5Iget_name(hid_t id, char *name /*out*/, size_t size);
+extern ssize_t H5Iget_name(hid_t id, char *name /*out*/, size_t size);
 /**
  * \ingroup H5I
  *
@@ -301,7 +301,7 @@ H5_DLL ssize_t H5Iget_name(hid_t id, char *name /*out*/, size_t size);
  * \since 1.6.2
  *
  */
-H5_DLL int H5Iinc_ref(hid_t id);
+extern int H5Iinc_ref(hid_t id);
 /**
  * \ingroup H5I
  *
@@ -347,7 +347,7 @@ H5_DLL int H5Iinc_ref(hid_t id);
  * \since 1.6.2
  *
  */
-H5_DLL int H5Idec_ref(hid_t id);
+extern int H5Idec_ref(hid_t id);
 /**
  * \ingroup H5I
  *
@@ -371,7 +371,7 @@ H5_DLL int H5Idec_ref(hid_t id);
  * \since 1.6.2
  *
  */
-H5_DLL int H5Iget_ref(hid_t id);
+extern int H5Iget_ref(hid_t id);
 /**
  * \ingroup H5IUD
  *
@@ -403,7 +403,7 @@ H5_DLL int H5Iget_ref(hid_t id);
  *          free_func function should return 0 on success and -1 on failure.
  *
  */
-H5_DLL H5I_type_t H5Iregister_type(size_t hash_size, unsigned reserved, H5I_free_t free_func);
+extern H5I_type_t H5Iregister_type(size_t hash_size, unsigned reserved, H5I_free_t free_func);
 /**
  * \ingroup H5IUD
  *
@@ -427,7 +427,7 @@ H5_DLL H5I_type_t H5Iregister_type(size_t hash_size, unsigned reserved, H5I_free
  *          all identifiers of this type will be deleted.
  *
  */
-H5_DLL herr_t H5Iclear_type(H5I_type_t type, hbool_t force);
+extern herr_t H5Iclear_type(H5I_type_t type, hbool_t force);
 /**
  * \ingroup H5IUD
  *
@@ -450,7 +450,7 @@ H5_DLL herr_t H5Iclear_type(H5I_type_t type, hbool_t force);
  *          variable holding the value of the destroyed type to #H5I_UNINIT.
  *
  */
-H5_DLL herr_t H5Idestroy_type(H5I_type_t type);
+extern herr_t H5Idestroy_type(H5I_type_t type);
 /**
  * \ingroup H5IUD
  *
@@ -469,7 +469,7 @@ H5_DLL herr_t H5Idestroy_type(H5I_type_t type);
  *          been created by a call to H5Iregister_type().
  *
  */
-H5_DLL int H5Iinc_type_ref(H5I_type_t type);
+extern int H5Iinc_type_ref(H5I_type_t type);
 /**
  * \ingroup H5IUD
  *
@@ -489,7 +489,7 @@ H5_DLL int H5Iinc_type_ref(H5I_type_t type);
  *          been created by a call to H5Iregister_type().
  *
  */
-H5_DLL int H5Idec_type_ref(H5I_type_t type);
+extern int H5Idec_type_ref(H5I_type_t type);
 /**
  * \ingroup H5IUD
  *
@@ -508,7 +508,7 @@ H5_DLL int H5Idec_type_ref(H5I_type_t type);
  *          created by a call to H5Iregister_type().
  *
  */
-H5_DLL int H5Iget_type_ref(H5I_type_t type);
+extern int H5Iget_type_ref(H5I_type_t type);
 /**
  * \ingroup H5IUD
  *
@@ -549,7 +549,7 @@ H5_DLL int H5Iget_type_ref(H5I_type_t type);
  *          parameter. It can be used to further define the search at run-time.
  *
  */
-H5_DLL void *H5Isearch(H5I_type_t type, H5I_search_func_t func, void *key);
+extern void *H5Isearch(H5I_type_t type, H5I_search_func_t func, void *key);
 /**
  * \ingroup H5IUD
  *
@@ -569,7 +569,7 @@ H5_DLL void *H5Isearch(H5I_type_t type, H5I_search_func_t func, void *key);
  *          the value 0.
  *
  */
-H5_DLL herr_t H5Inmembers(H5I_type_t type, hsize_t *num_members);
+extern herr_t H5Inmembers(H5I_type_t type, hsize_t *num_members);
 /**
  * \ingroup H5IUD
  *
@@ -585,7 +585,7 @@ H5_DLL herr_t H5Inmembers(H5I_type_t type, hsize_t *num_members);
  * \since 1.8.0
  *
  */
-H5_DLL htri_t H5Itype_exists(H5I_type_t type);
+extern htri_t H5Itype_exists(H5I_type_t type);
 /**
  * \ingroup H5I
  *
@@ -613,7 +613,7 @@ H5_DLL htri_t H5Itype_exists(H5I_type_t type);
  * \since 1.8.3
  *
  */
-H5_DLL htri_t H5Iis_valid(hid_t id);
+extern htri_t H5Iis_valid(hid_t id);
 
 #ifdef __cplusplus
 }
