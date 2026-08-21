@@ -10,203 +10,78 @@ uses
 {$ENDIF}
 
 
-{ src/H5config.h.  Generated from H5config.h.in by configure.   }
-{ src/H5config.h.in.  Generated from configure.ac by autoheader.   }
-{ Define if building universal (internal helper macro)  }
-{ #undef H5_AC_APPLE_UNIVERSAL_BUILD  }
-{ Define if C++ compiler recognizes offsetof  }
-
 const
   H5_CXX_HAVE_OFFSETOF = 1;  
-{ Define if this is a debug build.  }
-{ #undef H5_DEBUG_BUILD  }
-{ Define the default plugins path to compile  }
-  H5_DEFAULT_PLUGINDIR = '/usr/lib/x86_64-linux-gnu/hdf5/serial/plugins';  
-{ Define if dev_t is a scalar  }
-  H5_DEV_T_IS_SCALAR = 1;  
-{ Define if your system is IBM ppc64le and cannot convert some long double
-   values correctly.  }
-{ #undef H5_DISABLE_SOME_LDOUBLE_CONV  }
-{ Define the examples directory  }
-  H5_EXAMPLESDIR = '${prefix}/share/hdf5_examples';  
-{ Define if Fortran C_LONG_DOUBLE is different from C_DOUBLE  }
-  H5_FORTRAN_C_LONG_DOUBLE_IS_UNIQUE = 1;  
-{ Define if we have Fortran C_LONG_DOUBLE  }
-  H5_FORTRAN_HAVE_C_LONG_DOUBLE = 1;  
-{ Define if we have Fortran intrinsic C_SIZEOF  }
-  H5_FORTRAN_HAVE_C_SIZEOF = 1;  
-{ Define if we have Fortran intrinsic SIZEOF  }
-  H5_FORTRAN_HAVE_SIZEOF = 1;  
-{ Define if we have Fortran intrinsic STORAGE_SIZE  }
-  H5_FORTRAN_HAVE_STORAGE_SIZE = 1;  
-{ Determine the size of C long double  }
-  H5_FORTRAN_SIZEOF_LONG_DOUBLE = '16';  
-{ Define Fortran compiler ID  }
-  H5_Fortran_COMPILER_ID = none;  
-{ Define valid Fortran INTEGER KINDs  }
-{ Define to 1 if you have the `alarm' function.  }
-  H5_HAVE_ALARM = 1;  
-{ Define to 1 if you have the <arpa/inet.h> header file.  }
-  H5_HAVE_ARPA_INET_H = 1;  
-{ Define to 1 if you have the `asprintf' function.  }
-  H5_HAVE_ASPRINTF = 1;  
-{ Define if the __attribute__(()) extension is present  }
-  H5_HAVE_ATTRIBUTE = 1;  
-{ Define if the compiler understands C99 designated initialization of structs
-   and unions  }
-  H5_HAVE_C99_DESIGNATED_INITIALIZER = 1;  
-{ Define if the compiler understands the __func__ keyword  }
-  H5_HAVE_C99_FUNC = 1;  
-{ Define to 1 if you have the `clock_gettime' function.  }
-  H5_HAVE_CLOCK_GETTIME = 1;  
-{ Define if the function stack tracing code is to be compiled in  }
-{ #undef H5_HAVE_CODESTACK  }
-{ Define to 1 if you have the <curl/curl.h> header file.  }
-  H5_HAVE_CURL_CURL_H = 1;  
-{ Define if Darwin or Mac OS X  }
-{ #undef H5_HAVE_DARWIN  }
-{ Define to 1 if you have the `difftime' function.  }
-  H5_HAVE_DIFFTIME = 1;  
-{ Define if the direct I/O virtual file driver (VFD) should be compiled  }
-{ #undef H5_HAVE_DIRECT  }
-{ Define to 1 if you have the <dirent.h> header file.  }
-  H5_HAVE_DIRENT_H = 1;  
-{ Define to 1 if you have the <dlfcn.h> header file.  }
-  H5_HAVE_DLFCN_H = 1;  
-{ Define if library information should be embedded in the executables  }
-  H5_HAVE_EMBEDDED_LIBINFO = 1;  
-{ Define to 1 if you have the `fcntl' function.  }
-  H5_HAVE_FCNTL = 1;  
-{ Define to 1 if you have the <features.h> header file.  }
-  H5_HAVE_FEATURES_H = 1;  
-{ Define if support for deflate (zlib) filter is enabled  }
-  H5_HAVE_FILTER_DEFLATE = 1;  
-{ Define if support for szip filter is enabled  }
-  H5_HAVE_FILTER_SZIP = 1;  
-{ Determine if __float128 is available  }
-  H5_HAVE_FLOAT128 = 1;  
-{ Define to 1 if you have the `flock' function.  }
-  H5_HAVE_FLOCK = 1;  
-{ Define to 1 if you have the `fork' function.  }
-  H5_HAVE_FORK = 1;  
-{ Define to 1 if you have the `frexpf' function.  }
-  H5_HAVE_FREXPF = 1;  
-{ Define to 1 if you have the `frexpl' function.  }
-  H5_HAVE_FREXPL = 1;  
-{ Define if the compiler understands the __FUNCTION__ keyword  }
-  H5_HAVE_FUNCTION = 1;  
-{ Determine if INTEGER*16 is available  }
-  H5_HAVE_Fortran_INTEGER_SIZEOF_16 = 1;  
-{ Define to 1 if you have the `GetConsoleScreenBufferInfo' function.  }
-{ #undef H5_HAVE_GETCONSOLESCREENBUFFERINFO  }
-{ Define to 1 if you have the `gethostname' function.  }
-  H5_HAVE_GETHOSTNAME = 1;  
-{ Define to 1 if you have the `getpwuid' function.  }
-  H5_HAVE_GETPWUID = 1;  
-{ Define to 1 if you have the `getrusage' function.  }
-  H5_HAVE_GETRUSAGE = 1;  
-{ Define to 1 if you have the `gettextinfo' function.  }
-{ #undef H5_HAVE_GETTEXTINFO  }
-{ Define to 1 if you have the `gettimeofday' function.  }
-  H5_HAVE_GETTIMEOFDAY = 1;  
-{ Define to 1 if you have the <hdfs.h> header file.  }
-{ #undef H5_HAVE_HDFS_H  }
-{ Define if the compiler understands inline  }
-  H5_HAVE_INLINE = 1;  
-{ Define if parallel library will contain instrumentation to detect correct
-   optimization operation  }
-{ #undef H5_HAVE_INSTRUMENTED_LIBRARY  }
-{ Define to 1 if you have the <inttypes.h> header file.  }
-  H5_HAVE_INTTYPES_H = 1;  
-{ Define to 1 if you have the `ioctl' function.  }
-  H5_HAVE_IOCTL = 1;  
-{ Define to 1 if you have the <io.h> header file.  }
-{ #undef H5_HAVE_IO_H  }
-{ Define to 1 if you have the `crypto' library (-lcrypto).  }
-  H5_HAVE_LIBCRYPTO = 1;  
-{ Define to 1 if you have the `curl' library (-lcurl).  }
-  H5_HAVE_LIBCURL = 1;  
-{ Define to 1 if you have the `dl' library (-ldl).  }
-  H5_HAVE_LIBDL = 1;  
-{ Proceed to build with libhdfs  }
-{ #undef H5_HAVE_LIBHDFS  }
-{ Define to 1 if you have the `jvm' library (-ljvm).  }
-{ #undef H5_HAVE_LIBJVM  }
-{ Define to 1 if you have the `m' library (-lm).  }
-  H5_HAVE_LIBM = 1;  
-{ Define to 1 if you have the `mpe' library (-lmpe).  }
-{ #undef H5_HAVE_LIBMPE  }
-{ Define to 1 if you have the `pthread' library (-lpthread).  }
-  H5_HAVE_LIBPTHREAD = 1;  
-{ Define to 1 if you have the `sz' library (-lsz).  }
-  H5_HAVE_LIBSZ = 1;  
-{ Define to 1 if you have the `ws2_32' library (-lws2_32).  }
-{ #undef H5_HAVE_LIBWS2_32  }
-{ Define to 1 if you have the `z' library (-lz).  }
-  H5_HAVE_LIBZ = 1;  
-{ Define to 1 if you have the `llround' function.  }
-  H5_HAVE_LLROUND = 1;  
-{ Define to 1 if you have the `llroundf' function.  }
-  H5_HAVE_LLROUNDF = 1;  
-{ Define to 1 if you have the `longjmp' function.  }
-  H5_HAVE_LONGJMP = 1;  
-{ Define to 1 if you have the `lround' function.  }
-  H5_HAVE_LROUND = 1;  
-{ Define to 1 if you have the `lroundf' function.  }
-  H5_HAVE_LROUNDF = 1;  
-{ Define to 1 if you have the `lstat' function.  }
-  H5_HAVE_LSTAT = 1;  
-{ Define whether the Mirror virtual file driver (VFD) will be compiled  }
-{ #undef H5_HAVE_MIRROR_VFD  }
-{ Define if we have MPE support  }
-{ #undef H5_HAVE_MPE  }
-{ Define to 1 if you have the <mpe.h> header file.  }
-{ #undef H5_HAVE_MPE_H  }
-{ Define if MPI_Comm_c2f and MPI_Comm_f2c exist  }
-{ #undef H5_HAVE_MPI_MULTI_LANG_Comm  }
-{ Define if MPI_Info_c2f and MPI_Info_f2c exist  }
-{ #undef H5_HAVE_MPI_MULTI_LANG_Info  }
-{ Define to 1 if you have the <netdb.h> header file.  }
-  H5_HAVE_NETDB_H = 1;  
-{ Define to 1 if you have the <netinet/in.h> header file.  }
-  H5_HAVE_NETINET_IN_H = 1;  
-{ Define to 1 if you have the <openssl/evp.h> header file.  }
-  H5_HAVE_OPENSSL_EVP_H = 1;  
-{ Define to 1 if you have the <openssl/hmac.h> header file.  }
-  H5_HAVE_OPENSSL_HMAC_H = 1;  
-{ Define to 1 if you have the <openssl/sha.h> header file.  }
-  H5_HAVE_OPENSSL_SHA_H = 1;  
-{ Define if we have parallel support  }
-{ #undef H5_HAVE_PARALLEL  }
-{ Define if we have support for writing to filtered datasets in parallel  }
-{ #undef H5_HAVE_PARALLEL_FILTERED_WRITES  }
-{ Define if both pread and pwrite exist.  }
-  H5_HAVE_PREADWRITE = 1;  
-{ Define to 1 if you have the <pthread.h> header file.  }
-  H5_HAVE_PTHREAD_H = 1;  
-{ Define to 1 if you have the <pwd.h> header file.  }
-  H5_HAVE_PWD_H = 1;  
-{ Define to 1 if you have the <quadmath.h> header file.  }
-  H5_HAVE_QUADMATH_H = 1;  
-{ Define to 1 if you have the `random' function.  }
-  H5_HAVE_RANDOM = 1;  
-{ Define to 1 if you have the `rand_r' function.  }
-  H5_HAVE_RAND_R = 1;  
-{ Define whether the Read-Only S3 virtual file driver (VFD) should be
-   compiled  }
-  H5_HAVE_ROS3_VFD = 1;  
-{ Define to 1 if you have the `round' function.  }
-  H5_HAVE_ROUND = 1;  
-{ Define to 1 if you have the `roundf' function.  }
-  H5_HAVE_ROUNDF = 1;  
-{ Define to 1 if you have the `setjmp' function.  }
-  H5_HAVE_SETJMP = 1;  
-{ Define to 1 if you have the <setjmp.h> header file.  }
-  H5_HAVE_SETJMP_H = 1;  
-{ Define to 1 if you have the `setsysinfo' function.  }
-{ #undef H5_HAVE_SETSYSINFO  }
-{ Define to 1 if you have the `siglongjmp' function.  }
-  H5_HAVE_SIGLONGJMP = 1;  
+  H5_DEFAULT_PLUGINDIR = '/usr/lib/x86_64-linux-gnu/hdf5/serial/plugins';
+  H5_DEV_T_IS_SCALAR = 1;
+  H5_EXAMPLESDIR = '${prefix}/share/hdf5_examples';
+  H5_FORTRAN_C_LONG_DOUBLE_IS_UNIQUE = 1;
+  H5_FORTRAN_HAVE_C_LONG_DOUBLE = 1;
+  H5_FORTRAN_HAVE_C_SIZEOF = 1;
+  H5_FORTRAN_HAVE_SIZEOF = 1;
+  H5_FORTRAN_HAVE_STORAGE_SIZE = 1;
+  H5_FORTRAN_SIZEOF_LONG_DOUBLE = '16';
+  H5_Fortran_COMPILER_ID = none;
+  H5_HAVE_ALARM = 1;
+  H5_HAVE_ARPA_INET_H = 1;
+  H5_HAVE_ASPRINTF = 1;
+  H5_HAVE_ATTRIBUTE = 1;
+  H5_HAVE_C99_DESIGNATED_INITIALIZER = 1;
+  H5_HAVE_C99_FUNC = 1;
+  H5_HAVE_CLOCK_GETTIME = 1;
+  H5_HAVE_CURL_CURL_H = 1;
+  H5_HAVE_DIFFTIME = 1;
+  H5_HAVE_DIRENT_H = 1;
+  H5_HAVE_DLFCN_H = 1;
+  H5_HAVE_EMBEDDED_LIBINFO = 1;
+  H5_HAVE_FCNTL = 1;
+  H5_HAVE_FEATURES_H = 1;
+  H5_HAVE_FILTER_DEFLATE = 1;
+  H5_HAVE_FILTER_SZIP = 1;
+  H5_HAVE_FLOAT128 = 1;
+  H5_HAVE_FLOCK = 1;
+  H5_HAVE_FORK = 1;
+  H5_HAVE_FREXPF = 1;
+  H5_HAVE_FREXPL = 1;
+  H5_HAVE_FUNCTION = 1;
+  H5_HAVE_Fortran_INTEGER_SIZEOF_16 = 1;
+  H5_HAVE_GETHOSTNAME = 1;
+  H5_HAVE_GETPWUID = 1;
+  H5_HAVE_GETRUSAGE = 1;
+  H5_HAVE_GETTIMEOFDAY = 1;
+  H5_HAVE_INLINE = 1;
+  H5_HAVE_INTTYPES_H = 1;
+  H5_HAVE_IOCTL = 1;
+  H5_HAVE_LIBCRYPTO = 1;
+  H5_HAVE_LIBCURL = 1;
+  H5_HAVE_LIBDL = 1;
+  H5_HAVE_LIBM = 1;
+  H5_HAVE_LIBPTHREAD = 1;
+  H5_HAVE_LIBSZ = 1;
+  H5_HAVE_LIBZ = 1;
+  H5_HAVE_LLROUND = 1;
+  H5_HAVE_LLROUNDF = 1;
+  H5_HAVE_LONGJMP = 1;
+  H5_HAVE_LROUND = 1;
+  H5_HAVE_LROUNDF = 1;
+  H5_HAVE_LSTAT = 1;
+  H5_HAVE_NETDB_H = 1;
+  H5_HAVE_NETINET_IN_H = 1;
+  H5_HAVE_OPENSSL_EVP_H = 1;
+  H5_HAVE_OPENSSL_HMAC_H = 1;
+  H5_HAVE_OPENSSL_SHA_H = 1;
+  H5_HAVE_PREADWRITE = 1;
+  H5_HAVE_PTHREAD_H = 1;
+  H5_HAVE_PWD_H = 1;
+  H5_HAVE_QUADMATH_H = 1;
+  H5_HAVE_RANDOM = 1;
+  H5_HAVE_RAND_R = 1;
+  H5_HAVE_ROS3_VFD = 1;
+  H5_HAVE_ROUND = 1;
+  H5_HAVE_ROUNDF = 1;
+  H5_HAVE_SETJMP = 1;
+  H5_HAVE_SETJMP_H = 1;
+  H5_HAVE_SIGLONGJMP = 1;
 { Define to 1 if you have the `signal' function.  }
   H5_HAVE_SIGNAL = 1;  
 { Define to 1 if you have the `sigprocmask' function.  }

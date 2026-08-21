@@ -12,7 +12,6 @@ uses
   H5DOpublic,
   H5Dpublic,
   H5DSpublic,
-
   H5Epubgen,
   H5Epublic,
   H5f90i,
@@ -24,6 +23,10 @@ uses
   H5FDlog,
   H5FDmirror,
   H5FDmpi,
+
+  H5pubconf,
+
+
   H5FDmpio,
   H5FDmulti,
   H5FDpublic,
@@ -44,7 +47,6 @@ uses
   H5PLpublic,
   H5Ppublic,
   H5PTpublic,
-  H5pubconf,
   H5Rpublic,
   H5TBpublic,
   H5Zpublic, fp_hdf5;

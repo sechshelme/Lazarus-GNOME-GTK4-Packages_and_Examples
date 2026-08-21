@@ -52,7 +52,12 @@ const
 
     Ttime_t=UInt64;
 
+    PFILE=type Pointer;
+
     Tdouble=Double; // ?????
+
+    Tlong_double=Extended;
+    T__float128=array[0..15] of byte;
 
 
 
