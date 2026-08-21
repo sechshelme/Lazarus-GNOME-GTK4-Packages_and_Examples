@@ -87,44 +87,6 @@ extern "C" {
  *      http://www.dbp-consulting.com/tutorials/SuppressingGCCWarnings.html
  *      http://gcc.gnu.org/onlinedocs/gcc/Diagnostic-Pragmas.html#Diagnostic-Pragmas
  */
-#define H5_DIAG_JOINSTR(x, y) x y
-#define H5_DIAG_DO_PRAGMA(x)  _Pragma(#x)
-#define H5_DIAG_PRAGMA(x)     H5_DIAG_DO_PRAGMA(GCC diagnostic x)
-
-#define H5_DIAG_OFF(x) H5_DIAG_PRAGMA(push) H5_DIAG_PRAGMA(ignored H5_DIAG_JOINSTR("-W", x))
-#define H5_DIAG_ON(x)  H5_DIAG_PRAGMA(pop)
-
-/* Macros for enabling/disabling particular GCC-only warnings.
- * These pragmas are only implemented usefully in gcc 4.6+
- */
-#if (((__GNUC__ * 100) + __GNUC_MINOR__) >= 406)
-#define H5_GCC_DIAG_OFF(x) H5_DIAG_OFF(x)
-#define H5_GCC_DIAG_ON(x)  H5_DIAG_ON(x)
-#else
-#define H5_GCC_DIAG_OFF(x)
-#define H5_GCC_DIAG_ON(x)
-#endif
-
-/* Macros for enabling/disabling particular clang-only warnings.
- */
-#if defined(__clang__)
-#define H5_CLANG_DIAG_OFF(x) H5_DIAG_OFF(x)
-#define H5_CLANG_DIAG_ON(x)  H5_DIAG_ON(x)
-#else
-#define H5_CLANG_DIAG_OFF(x)
-#define H5_CLANG_DIAG_ON(x)
-#endif
-
-/* Macros for enabling/disabling particular GCC / clang warnings.
- * These macros should be used for warnings supported by both gcc and clang.
- */
-#if (((__GNUC__ * 100) + __GNUC_MINOR__) >= 406) || defined(__clang__)
-#define H5_GCC_CLANG_DIAG_OFF(x) H5_DIAG_OFF(x)
-#define H5_GCC_CLANG_DIAG_ON(x)  H5_DIAG_ON(x)
-#else
-#define H5_GCC_CLANG_DIAG_OFF(x)
-#define H5_GCC_CLANG_DIAG_ON(x)
-#endif
 
 /* Version numbers */
 /**
@@ -148,44 +110,7 @@ extern "C" {
  */
 #define H5_VERS_INFO "HDF5 library version: 1.10.10"
 
-#define H5check() H5check_version(H5_VERS_MAJOR, H5_VERS_MINOR, H5_VERS_RELEASE)
 
-/* macros for comparing the version */
-/**
- * \brief Determines whether the version of the library being used is greater
- *        than or equal to the specified version
- *
- * \param[in] Maj Major version number - A non-negative integer value
- * \param[in] Min Minor version number - A non-negative integer value
- * \param[in] Rel Release version number - A non-negative integer value
- * \returns A value of 1 is returned if the library version is greater than
- *          or equal to the version number specified.\n
- *          A value of 0 is returned if the library version is less than the
- *          version number specified.\n
- *          A library version is greater than the specified version number if
- *          its major version is larger than the specified major version
- *          number. If the major version numbers are the same, it is greater
- *          than the specified version number if its minor version is larger
- *          than the specified minor version number. If the minor version
- *          numbers are the same, then a library version would be greater than
- *          the specified version number if its release number is larger than
- *          the specified release number.
- *
- * \details The #H5_VERSION_GE and #H5_VERSION_LE macros are used at compile
- *          time to conditionally include or exclude code based on the version
- *          of the HDF5 library against which an application will be linked.
- *
- *          The #H5_VERSION_GE macro compares the version of the HDF5 library
- *          being used against the version number specified in the parameters.
- *
- *          For more information about release versioning, see \ref_h5lib_relver.
- *
- * \since 1.8.7
- *
- */
-#define H5_VERSION_GE(Maj, Min, Rel)                                                                         \
-    (((H5_VERS_MAJOR == Maj) && (H5_VERS_MINOR == Min) && (H5_VERS_RELEASE >= Rel)) ||                       \
-     ((H5_VERS_MAJOR == Maj) && (H5_VERS_MINOR > Min)) || (H5_VERS_MAJOR > Maj))
 
 /**
  * \brief Determines whether the version of the library being used is less
@@ -219,9 +144,6 @@ extern "C" {
  * \since 1.8.7
  *
  */
-#define H5_VERSION_LE(Maj, Min, Rel)                                                                         \
-    (((H5_VERS_MAJOR == Maj) && (H5_VERS_MINOR == Min) && (H5_VERS_RELEASE <= Rel)) ||                       \
-     ((H5_VERS_MAJOR == Maj) && (H5_VERS_MINOR < Min)) || (H5_VERS_MAJOR < Maj))
 
 /**
  * Status return values.  Failed integer functions in HDF5 result almost
@@ -348,27 +270,6 @@ typedef unsigned long long uint64_t;
  * \internal Defined as a (minimum) 64-bit integer type. Use of hssize_t
  * should be discouraged in new code.
  */
-#if H5_SIZEOF_LONG_LONG >= 8
-H5_GCC_DIAG_OFF("long-long")
-typedef unsigned long long hsize_t;
-typedef signed long long   hssize_t;
-H5_GCC_DIAG_ON("long-long")
-#define PRIdHSIZE          H5_PRINTF_LL_WIDTH "d"
-#define PRIiHSIZE          H5_PRINTF_LL_WIDTH "i"
-#define PRIoHSIZE          H5_PRINTF_LL_WIDTH "o"
-#define PRIuHSIZE          H5_PRINTF_LL_WIDTH "u"
-#define PRIxHSIZE          H5_PRINTF_LL_WIDTH "x"
-#define PRIXHSIZE          H5_PRINTF_LL_WIDTH "X"
-#define H5_SIZEOF_HSIZE_T  H5_SIZEOF_LONG_LONG
-#define H5_SIZEOF_HSSIZE_T H5_SIZEOF_LONG_LONG
-#define HSIZE_UNDEF        ULLONG_MAX
-#else
-#error "nothing appropriate for hsize_t"
-#endif
-
-#ifdef H5_HAVE_PARALLEL
-#define HSIZE_AS_MPI_TYPE MPI_UINT64_T
-#endif
 
 /**
  * The address of an object in the file.
@@ -406,15 +307,9 @@ typedef unsigned long long haddr_t;
 #ifdef H5_HAVE_PARALLEL
 #define HADDR_AS_MPI_TYPE MPI_LONG_LONG_INT
 #endif /* H5_HAVE_PARALLEL */
-#define PRIdHADDR H5_PRINTF_LL_WIDTH "d"
-#define PRIoHADDR H5_PRINTF_LL_WIDTH "o"
-#define PRIuHADDR H5_PRINTF_LL_WIDTH "u"
-#define PRIxHADDR H5_PRINTF_LL_WIDTH "x"
-#define PRIXHADDR H5_PRINTF_LL_WIDTH "X"
 #else
 #error "nothing appropriate for haddr_t"
 #endif
-#define H5_PRINTF_HADDR_FMT "%" PRIuHADDR
 #define HADDR_MAX           (HADDR_UNDEF - 1)
 
 /* uint32_t type is used for creation order field for messages.  It may be

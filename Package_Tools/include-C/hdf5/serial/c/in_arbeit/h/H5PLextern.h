@@ -33,8 +33,8 @@
 extern "C" {
 #endif
 
-H5PLUGIN_DLL H5PL_type_t H5PLget_plugin_type(void);
-H5PLUGIN_DLL const void *H5PLget_plugin_info(void);
+ H5PL_type_t H5PLget_plugin_type(void);
+ const void *H5PLget_plugin_info(void);
 
 #ifdef __cplusplus
 }

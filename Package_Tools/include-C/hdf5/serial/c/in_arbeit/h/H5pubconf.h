@@ -23,19 +23,6 @@
 /* Define the examples directory */
 #define H5_EXAMPLESDIR "${prefix}/share/hdf5_examples"
 
-/* Define to dummy `main' function (if any) required to link to the Fortran
-   libraries. */
-/* #undef H5_FC_DUMMY_MAIN */
-
-/* Define if F77 and FC dummy `main' functions are identical. */
-/* #undef H5_FC_DUMMY_MAIN_EQ_F77 */
-
-/* Define to a macro mangling the given C identifier (in lower and upper
-   case), which must not contain underscores, for linking with Fortran. */
-#define H5_FC_FUNC(name,NAME) name ## _
-
-/* As FC_FUNC, but for C identifiers containing underscores. */
-#define H5_FC_FUNC_(name,NAME) name ## _
 
 /* Define if Fortran C_LONG_DOUBLE is different from C_DOUBLE */
 #define H5_FORTRAN_C_LONG_DOUBLE_IS_UNIQUE 1
@@ -59,19 +46,6 @@
 #define H5_Fortran_COMPILER_ID none
 
 /* Define valid Fortran INTEGER KINDs */
-#define H5_H5CONFIG_F_IKIND INTEGER, DIMENSION(1:num_ikinds) :: ikind = (/1,2,4,8,16/)
-
-/* Define number of valid Fortran INTEGER KINDs */
-#define H5_H5CONFIG_F_NUM_IKIND INTEGER, PARAMETER :: num_ikinds = 5
-
-/* Define number of valid Fortran REAL KINDs */
-#define H5_H5CONFIG_F_NUM_RKIND INTEGER, PARAMETER :: num_rkinds = 4
-
-/* Define valid Fortran REAL KINDs */
-#define H5_H5CONFIG_F_RKIND INTEGER, DIMENSION(1:num_rkinds) :: rkind = (/4,8,10,16/)
-
-/* Define valid Fortran REAL KINDs Sizeof */
-#define H5_H5CONFIG_F_RKIND_SIZEOF INTEGER, DIMENSION(1:num_rkinds) :: rkind_sizeof = (/4,8,16,16/)
 
 /* Define to 1 if you have the `alarm' function. */
 #define H5_HAVE_ALARM 1

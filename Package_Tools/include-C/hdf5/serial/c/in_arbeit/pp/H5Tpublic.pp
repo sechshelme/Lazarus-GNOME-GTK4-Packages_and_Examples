@@ -1,4 +1,53 @@
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+unit H5Tpublic;
+interface
+
+{
+  Automatically converted by H2Pas 1.0.0 from H5Tpublic.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    H5Tpublic.h
+}
+
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
+
+Type
+Pchar  = ^char;
+PH5T_bkg_t  = ^H5T_bkg_t;
+PH5T_cdata_t  = ^H5T_cdata_t;
+PH5T_class_t  = ^H5T_class_t;
+PH5T_cmd_t  = ^H5T_cmd_t;
+PH5T_conv_except_t  = ^H5T_conv_except_t;
+PH5T_conv_ret_t  = ^H5T_conv_ret_t;
+PH5T_cset_t  = ^H5T_cset_t;
+PH5T_direction_t  = ^H5T_direction_t;
+PH5T_norm_t  = ^H5T_norm_t;
+PH5T_order_t  = ^H5T_order_t;
+PH5T_pad_t  = ^H5T_pad_t;
+PH5T_pers_t  = ^H5T_pers_t;
+PH5T_sign_t  = ^H5T_sign_t;
+PH5T_str_t  = ^H5T_str_t;
+Phsize_t  = ^hsize_t;
+Phvl_t  = ^hvl_t;
+Plongint  = ^longint;
+Psize_t  = ^size_t;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Copyright by The HDF Group.                                               *
  * All rights reserved.                                                      *
  *                                                                           *
@@ -8,265 +57,380 @@
  * distribution tree, or in https://www.hdfgroup.org/licenses.               *
  * If you do not have access to either file, you may request a copy from     *
  * help@hdfgroup.org.                                                        *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-/*
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  }
+{
  * This file contains public declarations for the H5T module.
- */
-#ifndef H5Tpublic_H
-#define H5Tpublic_H
+  }
+{$ifndef H5Tpublic_H}
+{$define H5Tpublic_H}
+{ Public headers needed by this file  }
+{$include "H5public.h"}
+{$include "H5Ipublic.h"}
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
 
-/* Public headers needed by this file */
-#include "H5public.h"
-#include "H5Ipublic.h"
+function HOFFSET(S,M : longint) : longint;
 
-#define HOFFSET(S, M) (offsetof(S, M))
-
-/**
+{*
  * These are the various classes of datatypes
  * internal If this goes over 16 types (0-15), the file format will need to
  *          change.
- */
-//! <!-- [H5T_class_t_snip] -->
-typedef enum H5T_class_t {
-    H5T_NO_CLASS  = -1, /**< error                                   */
-    H5T_INTEGER   = 0,  /**< integer types                           */
-    H5T_FLOAT     = 1,  /**< floating-point types                    */
-    H5T_TIME      = 2,  /**< date and time types                     */
-    H5T_STRING    = 3,  /**< character string types                  */
-    H5T_BITFIELD  = 4,  /**< bit field types                         */
-    H5T_OPAQUE    = 5,  /**< opaque types                            */
-    H5T_COMPOUND  = 6,  /**< compound types                          */
-    H5T_REFERENCE = 7,  /**< reference types                         */
-    H5T_ENUM      = 8,  /**< enumeration types                       */
-    H5T_VLEN      = 9,  /**< variable-Length types                   */
-    H5T_ARRAY     = 10, /**< array types                             */
-
-    H5T_NCLASSES /**< sentinel: this must be last             */
-} H5T_class_t;
-//! <!-- [H5T_class_t_snip] -->
-
-/**
+  }
+{! <!-- [H5T_class_t_snip] --> }
+{*< error                                    }
+{*< integer types                            }
+{*< floating-point types                     }
+{*< date and time types                      }
+{*< character string types                   }
+{*< bit field types                          }
+{*< opaque types                             }
+{*< compound types                           }
+{*< reference types                          }
+{*< enumeration types                        }
+{*< variable-Length types                    }
+{*< array types                              }
+{*< sentinel: this must be last              }
+type
+  PH5T_class_t = ^TH5T_class_t;
+  TH5T_class_t =  Longint;
+  Const
+    H5T_NO_CLASS = -(1);
+    H5T_INTEGER = 0;
+    H5T_FLOAT = 1;
+    H5T_TIME = 2;
+    H5T_STRING = 3;
+    H5T_BITFIELD = 4;
+    H5T_OPAQUE = 5;
+    H5T_COMPOUND = 6;
+    H5T_REFERENCE = 7;
+    H5T_ENUM = 8;
+    H5T_VLEN = 9;
+    H5T_ARRAY = 10;
+    H5T_NCLASSES = 11;
+;
+{! <!-- [H5T_class_t_snip] --> }
+{*
  * Byte orders
- */
-//! <!-- [H5T_order_t_snip] -->
-typedef enum H5T_order_t {
-    H5T_ORDER_ERROR = -1, /**< error                                   */
-    H5T_ORDER_LE    = 0,  /**< little endian                           */
-    H5T_ORDER_BE    = 1,  /**< bit endian                              */
-    H5T_ORDER_VAX   = 2,  /**< VAX mixed endian                        */
-    H5T_ORDER_MIXED = 3,  /**< Compound type with mixed member orders  */
-    H5T_ORDER_NONE  = 4   /**< no particular order (strings, bits,..)  */
-    /*H5T_ORDER_NONE must be last */
-} H5T_order_t;
-//! <!-- [H5T_order_t_snip] -->
-
-/**
+  }
+{! <!-- [H5T_order_t_snip] --> }
+{*< error                                    }
+{*< little endian                            }
+{*< bit endian                               }
+{*< VAX mixed endian                         }
+{*< Compound type with mixed member orders   }
+{*< no particular order (strings, bits,..)   }
+{H5T_ORDER_NONE must be last  }
+type
+  PH5T_order_t = ^TH5T_order_t;
+  TH5T_order_t =  Longint;
+  Const
+    H5T_ORDER_ERROR = -(1);
+    H5T_ORDER_LE = 0;
+    H5T_ORDER_BE = 1;
+    H5T_ORDER_VAX = 2;
+    H5T_ORDER_MIXED = 3;
+    H5T_ORDER_NONE = 4;
+;
+{! <!-- [H5T_order_t_snip] --> }
+{*
  * Types of integer sign schemes
- */
-//! <!-- [H5T_sign_t_snip] -->
-typedef enum H5T_sign_t {
-    H5T_SGN_ERROR = -1, /**< error                                   */
-    H5T_SGN_NONE  = 0,  /**< this is an unsigned type                */
-    H5T_SGN_2     = 1,  /**< two's complement                        */
-
-    H5T_NSGN = 2 /** sentinel: this must be last!             */
-} H5T_sign_t;
-//! <!-- [H5T_sign_t_snip] -->
-
-/**
+  }
+{! <!-- [H5T_sign_t_snip] --> }
+{*< error                                    }
+{*< this is an unsigned type                 }
+{*< two's complement                         }
+{* sentinel: this must be last!              }
+type
+  PH5T_sign_t = ^TH5T_sign_t;
+  TH5T_sign_t =  Longint;
+  Const
+    H5T_SGN_ERROR = -(1);
+    H5T_SGN_NONE = 0;
+    H5T_SGN_2 = 1;
+    H5T_NSGN = 2;
+;
+{! <!-- [H5T_sign_t_snip] --> }
+{*
  * Floating-point normalization schemes
- */
-//! <!-- [H5T_norm_t_snip] -->
-typedef enum H5T_norm_t {
-    H5T_NORM_ERROR   = -1, /**< error                                   */
-    H5T_NORM_IMPLIED = 0,  /**< msb of mantissa isn't stored, always 1  */
-    H5T_NORM_MSBSET  = 1,  /**< msb of mantissa is always 1             */
-    H5T_NORM_NONE    = 2   /**< not normalized                          */
-    /*H5T_NORM_NONE must be last */
-} H5T_norm_t;
-//! <!-- [H5T_norm_t_snip] -->
-
-/**
+  }
+{! <!-- [H5T_norm_t_snip] --> }
+{*< error                                    }
+{*< msb of mantissa isn't stored, always 1   }
+{*< msb of mantissa is always 1              }
+{*< not normalized                           }
+{H5T_NORM_NONE must be last  }
+type
+  PH5T_norm_t = ^TH5T_norm_t;
+  TH5T_norm_t =  Longint;
+  Const
+    H5T_NORM_ERROR = -(1);
+    H5T_NORM_IMPLIED = 0;
+    H5T_NORM_MSBSET = 1;
+    H5T_NORM_NONE = 2;
+;
+{! <!-- [H5T_norm_t_snip] --> }
+{*
  * Character set to use for text strings.
  * \internal Do not change these values since they appear in HDF5 files!
- */
-typedef enum H5T_cset_t {
-    H5T_CSET_ERROR       = -1, /**< error                           */
-    H5T_CSET_ASCII       = 0,  /**< US ASCII                        */
-    H5T_CSET_UTF8        = 1,  /**< UTF-8 Unicode encoding		     */
-    H5T_CSET_RESERVED_2  = 2,  /**< reserved for later use		     */
-    H5T_CSET_RESERVED_3  = 3,  /**< reserved for later use		     */
-    H5T_CSET_RESERVED_4  = 4,  /**< reserved for later use		     */
-    H5T_CSET_RESERVED_5  = 5,  /**< reserved for later use		     */
-    H5T_CSET_RESERVED_6  = 6,  /**< reserved for later use		     */
-    H5T_CSET_RESERVED_7  = 7,  /**< reserved for later use		     */
-    H5T_CSET_RESERVED_8  = 8,  /**< reserved for later use		     */
-    H5T_CSET_RESERVED_9  = 9,  /**< reserved for later use		     */
-    H5T_CSET_RESERVED_10 = 10, /**< reserved for later use		     */
-    H5T_CSET_RESERVED_11 = 11, /**< reserved for later use		     */
-    H5T_CSET_RESERVED_12 = 12, /**< reserved for later use		     */
-    H5T_CSET_RESERVED_13 = 13, /**< reserved for later use		     */
-    H5T_CSET_RESERVED_14 = 14, /**< reserved for later use		     */
-    H5T_CSET_RESERVED_15 = 15  /**< reserved for later use		     */
-} H5T_cset_t;
-#define H5T_NCSET H5T_CSET_RESERVED_2 /*Number of character sets actually defined  */
-
-/**
+  }
+{*< error                            }
+{*< US ASCII                         }
+{*< UTF-8 Unicode encoding		      }
+{*< reserved for later use		      }
+{*< reserved for later use		      }
+{*< reserved for later use		      }
+{*< reserved for later use		      }
+{*< reserved for later use		      }
+{*< reserved for later use		      }
+{*< reserved for later use		      }
+{*< reserved for later use		      }
+{*< reserved for later use		      }
+{*< reserved for later use		      }
+{*< reserved for later use		      }
+{*< reserved for later use		      }
+{*< reserved for later use		      }
+{*< reserved for later use		      }
+type
+  PH5T_cset_t = ^TH5T_cset_t;
+  TH5T_cset_t =  Longint;
+  Const
+    H5T_CSET_ERROR = -(1);
+    H5T_CSET_ASCII = 0;
+    H5T_CSET_UTF8 = 1;
+    H5T_CSET_RESERVED_2 = 2;
+    H5T_CSET_RESERVED_3 = 3;
+    H5T_CSET_RESERVED_4 = 4;
+    H5T_CSET_RESERVED_5 = 5;
+    H5T_CSET_RESERVED_6 = 6;
+    H5T_CSET_RESERVED_7 = 7;
+    H5T_CSET_RESERVED_8 = 8;
+    H5T_CSET_RESERVED_9 = 9;
+    H5T_CSET_RESERVED_10 = 10;
+    H5T_CSET_RESERVED_11 = 11;
+    H5T_CSET_RESERVED_12 = 12;
+    H5T_CSET_RESERVED_13 = 13;
+    H5T_CSET_RESERVED_14 = 14;
+    H5T_CSET_RESERVED_15 = 15;
+;
+{Number of character sets actually defined   }
+  H5T_NCSET = H5T_CSET_RESERVED_2;  
+{*
  * Type of padding to use in character strings.
  * \internal  Do not change these values since they appear in HDF5 files!
- */
-typedef enum H5T_str_t {
-    H5T_STR_ERROR       = -1, /**< error                           */
-    H5T_STR_NULLTERM    = 0,  /**< null terminate like in C        */
-    H5T_STR_NULLPAD     = 1,  /**< pad with nulls                  */
-    H5T_STR_SPACEPAD    = 2,  /**< pad with spaces like in Fortran */
-    H5T_STR_RESERVED_3  = 3,  /**< reserved for later use		     */
-    H5T_STR_RESERVED_4  = 4,  /**< reserved for later use		     */
-    H5T_STR_RESERVED_5  = 5,  /**< reserved for later use		     */
-    H5T_STR_RESERVED_6  = 6,  /**< reserved for later use		     */
-    H5T_STR_RESERVED_7  = 7,  /**< reserved for later use		     */
-    H5T_STR_RESERVED_8  = 8,  /**< reserved for later use		     */
-    H5T_STR_RESERVED_9  = 9,  /**< reserved for later use		     */
-    H5T_STR_RESERVED_10 = 10, /**< reserved for later use		     */
-    H5T_STR_RESERVED_11 = 11, /**< reserved for later use		     */
-    H5T_STR_RESERVED_12 = 12, /**< reserved for later use		     */
-    H5T_STR_RESERVED_13 = 13, /**< reserved for later use		     */
-    H5T_STR_RESERVED_14 = 14, /**< reserved for later use		     */
-    H5T_STR_RESERVED_15 = 15  /**< reserved for later use		     */
-} H5T_str_t;
-#define H5T_NSTR H5T_STR_RESERVED_3 /*num H5T_str_t types actually defined	     */
-
-/**
+  }
+{*< error                            }
+{*< null terminate like in C         }
+{*< pad with nulls                   }
+{*< pad with spaces like in Fortran  }
+{*< reserved for later use		      }
+{*< reserved for later use		      }
+{*< reserved for later use		      }
+{*< reserved for later use		      }
+{*< reserved for later use		      }
+{*< reserved for later use		      }
+{*< reserved for later use		      }
+{*< reserved for later use		      }
+{*< reserved for later use		      }
+{*< reserved for later use		      }
+{*< reserved for later use		      }
+{*< reserved for later use		      }
+{*< reserved for later use		      }
+type
+  PH5T_str_t = ^TH5T_str_t;
+  TH5T_str_t =  Longint;
+  Const
+    H5T_STR_ERROR = -(1);
+    H5T_STR_NULLTERM = 0;
+    H5T_STR_NULLPAD = 1;
+    H5T_STR_SPACEPAD = 2;
+    H5T_STR_RESERVED_3 = 3;
+    H5T_STR_RESERVED_4 = 4;
+    H5T_STR_RESERVED_5 = 5;
+    H5T_STR_RESERVED_6 = 6;
+    H5T_STR_RESERVED_7 = 7;
+    H5T_STR_RESERVED_8 = 8;
+    H5T_STR_RESERVED_9 = 9;
+    H5T_STR_RESERVED_10 = 10;
+    H5T_STR_RESERVED_11 = 11;
+    H5T_STR_RESERVED_12 = 12;
+    H5T_STR_RESERVED_13 = 13;
+    H5T_STR_RESERVED_14 = 14;
+    H5T_STR_RESERVED_15 = 15;
+;
+{num H5T_str_t types actually defined	      }
+  H5T_NSTR = H5T_STR_RESERVED_3;  
+{*
  * Type of padding to use in other atomic types
- */
-//! <!-- [H5T_pad_t_snip] -->
-typedef enum H5T_pad_t {
-    H5T_PAD_ERROR      = -1, /**< error                           */
-    H5T_PAD_ZERO       = 0,  /**< always set to zero              */
-    H5T_PAD_ONE        = 1,  /**< always set to one               */
-    H5T_PAD_BACKGROUND = 2,  /**< set to background value         */
-
-    H5T_NPAD = 3 /**< sentinel: THIS MUST BE LAST     */
-} H5T_pad_t;
-//! <!-- [H5T_pad_t_snip] -->
-
-/**
+  }
+{! <!-- [H5T_pad_t_snip] --> }
+{*< error                            }
+{*< always set to zero               }
+{*< always set to one                }
+{*< set to background value          }
+{*< sentinel: THIS MUST BE LAST      }
+type
+  PH5T_pad_t = ^TH5T_pad_t;
+  TH5T_pad_t =  Longint;
+  Const
+    H5T_PAD_ERROR = -(1);
+    H5T_PAD_ZERO = 0;
+    H5T_PAD_ONE = 1;
+    H5T_PAD_BACKGROUND = 2;
+    H5T_NPAD = 3;
+;
+{! <!-- [H5T_pad_t_snip] --> }
+{*
  * Commands sent to conversion functions
- */
-typedef enum H5T_cmd_t {
-    H5T_CONV_INIT = 0, /**< query and/or initialize private data	     */
-    H5T_CONV_CONV = 1, /**< convert data from source to dest datatype */
-    H5T_CONV_FREE = 2  /**< function is being removed from path	     */
-} H5T_cmd_t;
-
-/**
+  }
+{*< query and/or initialize private data	      }
+{*< convert data from source to dest datatype  }
+{*< function is being removed from path	      }
+type
+  PH5T_cmd_t = ^TH5T_cmd_t;
+  TH5T_cmd_t =  Longint;
+  Const
+    H5T_CONV_INIT = 0;
+    H5T_CONV_CONV = 1;
+    H5T_CONV_FREE = 2;
+;
+{*
  * How is the `bkg' buffer used by the conversion function?
- */
-typedef enum H5T_bkg_t {
-    H5T_BKG_NO   = 0, /**< background buffer is not needed, send NULL */
-    H5T_BKG_TEMP = 1, /**< bkg buffer used as temp storage only       */
-    H5T_BKG_YES  = 2  /**< init bkg buf with data before conversion   */
-} H5T_bkg_t;
-
-/**
+  }
+{*< background buffer is not needed, send NULL  }
+{*< bkg buffer used as temp storage only        }
+{*< init bkg buf with data before conversion    }
+type
+  PH5T_bkg_t = ^TH5T_bkg_t;
+  TH5T_bkg_t =  Longint;
+  Const
+    H5T_BKG_NO = 0;
+    H5T_BKG_TEMP = 1;
+    H5T_BKG_YES = 2;
+;
+{*
  * Type conversion client data
- */
-//! <!-- [H5T_cdata_t_snip] -->
-typedef struct H5T_cdata_t {
-    H5T_cmd_t command;  /**< what should the conversion function do?    */
-    H5T_bkg_t need_bkg; /**< is the background buffer needed?	     */
-    hbool_t   recalc;   /**< recalculate private data		     */
-    void     *priv;     /**< private data				     */
-} H5T_cdata_t;
-//! <!-- [H5T_cdata_t_snip] -->
-
-/**
+  }
+{! <!-- [H5T_cdata_t_snip] --> }
+{*< what should the conversion function do?     }
+{*< is the background buffer needed?	      }
+{*< recalculate private data		      }
+{*< private data				      }
+type
+  PH5T_cdata_t = ^TH5T_cdata_t;
+  TH5T_cdata_t = record
+      command : TH5T_cmd_t;
+      need_bkg : TH5T_bkg_t;
+      recalc : Thbool_t;
+      priv : pointer;
+    end;
+{! <!-- [H5T_cdata_t_snip] --> }
+{*
  * Conversion function persistence
- */
-typedef enum H5T_pers_t {
-    H5T_PERS_DONTCARE = -1, /**< wild card				     */
-    H5T_PERS_HARD     = 0,  /**< hard conversion function		     */
-    H5T_PERS_SOFT     = 1   /**< soft conversion function		     */
-} H5T_pers_t;
+  }
+{*< wild card				      }
+{*< hard conversion function		      }
+{*< soft conversion function		      }
 
-/**
+  PH5T_pers_t = ^TH5T_pers_t;
+  TH5T_pers_t =  Longint;
+  Const
+    H5T_PERS_DONTCARE = -(1);
+    H5T_PERS_HARD = 0;
+    H5T_PERS_SOFT = 1;
+;
+{*
  * The order to retrieve atomic native datatype
- */
-//! <!-- [H5T_direction_t_snip] -->
-typedef enum H5T_direction_t {
-    H5T_DIR_DEFAULT = 0, /**< default direction is ascending         */
-    H5T_DIR_ASCEND  = 1, /**< in ascending order                     */
-    H5T_DIR_DESCEND = 2  /**< in descending order                    */
-} H5T_direction_t;
-//! <!-- [H5T_direction_t_snip] -->
-
-/**
+  }
+{! <!-- [H5T_direction_t_snip] --> }
+{*< default direction is ascending          }
+{*< in ascending order                      }
+{*< in descending order                     }
+type
+  PH5T_direction_t = ^TH5T_direction_t;
+  TH5T_direction_t =  Longint;
+  Const
+    H5T_DIR_DEFAULT = 0;
+    H5T_DIR_ASCEND = 1;
+    H5T_DIR_DESCEND = 2;
+;
+{! <!-- [H5T_direction_t_snip] --> }
+{*
  * The exception type passed into the conversion callback function
- */
-typedef enum H5T_conv_except_t {
-    H5T_CONV_EXCEPT_RANGE_HI = 0,
-    /**< Source value is greater than destination's range */
-    H5T_CONV_EXCEPT_RANGE_LOW = 1,
-    /**< Source value is less than destination's range */
-    H5T_CONV_EXCEPT_PRECISION = 2,
-    /**< Source value loses precision in destination */
-    H5T_CONV_EXCEPT_TRUNCATE = 3,
-    /**< Source value is truncated in destination */
-    H5T_CONV_EXCEPT_PINF = 4,
-    /**< Source value is positive infinity */
-    H5T_CONV_EXCEPT_NINF = 5,
-    /**< Source value is negative infinity */
-    H5T_CONV_EXCEPT_NAN = 6
-    /**< Source value is \c NaN (not a number, including \c QNaN and \c SNaN) */
-} H5T_conv_except_t;
-
-/**
+  }
+{*< Source value is greater than destination's range  }
+{*< Source value is less than destination's range  }
+{*< Source value loses precision in destination  }
+{*< Source value is truncated in destination  }
+{*< Source value is positive infinity  }
+{*< Source value is negative infinity  }
+{*< Source value is \c NaN (not a number, including \c QNaN and \c SNaN)  }
+type
+  PH5T_conv_except_t = ^TH5T_conv_except_t;
+  TH5T_conv_except_t =  Longint;
+  Const
+    H5T_CONV_EXCEPT_RANGE_HI = 0;
+    H5T_CONV_EXCEPT_RANGE_LOW = 1;
+    H5T_CONV_EXCEPT_PRECISION = 2;
+    H5T_CONV_EXCEPT_TRUNCATE = 3;
+    H5T_CONV_EXCEPT_PINF = 4;
+    H5T_CONV_EXCEPT_NINF = 5;
+    H5T_CONV_EXCEPT_NAN = 6;
+;
+{*
  * The return value from conversion callback function H5T_conv_except_func_t()
- */
-typedef enum H5T_conv_ret_t {
-    H5T_CONV_ABORT     = -1, /**< abort conversion                           */
-    H5T_CONV_UNHANDLED = 0,  /**< callback function failed to handle the exception      */
-    H5T_CONV_HANDLED   = 1   /**< callback function handled the exception successfully  */
-} H5T_conv_ret_t;
-
-/**
+  }
+{*< abort conversion                            }
+{*< callback function failed to handle the exception       }
+{*< callback function handled the exception successfully   }
+type
+  PH5T_conv_ret_t = ^TH5T_conv_ret_t;
+  TH5T_conv_ret_t =  Longint;
+  Const
+    H5T_CONV_ABORT = -(1);
+    H5T_CONV_UNHANDLED = 0;
+    H5T_CONV_HANDLED = 1;
+;
+{*
  * Variable Length Datatype struct in memory (This is only used for VL
  * sequences, not VL strings, which are stored in char *'s)
- */
-typedef struct {
-    size_t len; /**< Length of VL data (in base type units) */
-    void  *p;   /**< Pointer to VL data */
-} hvl_t;
-
-/* Variable Length String information */
-/**
+  }
+{*< Length of VL data (in base type units)  }
+{*< Pointer to VL data  }
+type
+  Phvl_t = ^Thvl_t;
+  Thvl_t = record
+      len : Tsize_t;
+      p : pointer;
+    end;
+{ Variable Length String information  }
+{*
  * Indicate that a string is variable length (null-terminated in C, instead of
  * fixed length)
- */
-#define H5T_VARIABLE ((size_t)(-1))
+  }
 
-/* Opaque information */
-/**
+{ was #define dname def_expr }
+function H5T_VARIABLE : Tsize_t;  
+
+{ Opaque information  }
+{*
  * Maximum length of an opaque tag
  * \internal This could be raised without too much difficulty
- */
-#define H5T_OPAQUE_TAG_MAX 256
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-/**
+  }
+const
+  H5T_OPAQUE_TAG_MAX = 256;  
+{ C++ extern C conditionnal removed }
+{*
  * All datatype conversion functions are...
- */
-//! <!-- [H5T_conv_t_snip] -->
-typedef herr_t (*H5T_conv_t)(hid_t src_id, hid_t dst_id, H5T_cdata_t *cdata, size_t nelmts, size_t buf_stride,
-                             size_t bkg_stride, void *buf, void *bkg, hid_t dset_xfer_plist);
-//! <!-- [H5T_conv_t_snip] -->
+  }
+{! <!-- [H5T_conv_t_snip] --> }
+type
 
-//! <!-- [H5T_conv_except_func_t_snip] -->
-/**
+  TH5T_conv_t = function (src_id:Thid_t; dst_id:Thid_t; cdata:PH5T_cdata_t; nelmts:Tsize_t; buf_stride:Tsize_t; 
+               bkg_stride:Tsize_t; buf:pointer; bkg:pointer; dset_xfer_plist:Thid_t):Therr_t;cdecl;
+{! <!-- [H5T_conv_t_snip] --> }
+{! <!-- [H5T_conv_except_func_t_snip] --> }
+{*
  * \brief Exception handler.
  *
  * \param[in] except_type The kind of exception that occurred
@@ -281,778 +445,112 @@ typedef herr_t (*H5T_conv_t)(hid_t src_id, hid_t dst_id, H5T_cdata_t *cdata, siz
  * \details If an exception like overflow happens during conversion, this
  *          function is called if it's registered through H5Pset_type_conv_cb().
  *
- */
-typedef H5T_conv_ret_t (*H5T_conv_except_func_t)(H5T_conv_except_t except_type, hid_t src_id, hid_t dst_id,
-                                                 void *src_buf, void *dst_buf, void *user_data);
-//! <!-- [H5T_conv_except_func_t_snip] -->
+  }
 
-/* When this header is included from a private header, don't make calls to H5open() */
-#undef H5OPEN
-#ifndef H5private_H
-#define H5OPEN H5open(),
-#else /* H5private_H */
-#define H5OPEN
-#endif /* H5private_H */
+  TH5T_conv_except_func_t = function (except_type:TH5T_conv_except_t; src_id:Thid_t; dst_id:Thid_t; src_buf:pointer; dst_buf:pointer; 
+               user_data:pointer):TH5T_conv_ret_t;cdecl;
+{! <!-- [H5T_conv_except_func_t_snip] --> }
+  var
+    H5T_IEEE_F32BE_g : Thid_t;cvar;external;
+    H5T_IEEE_F32LE_g : Thid_t;cvar;external;
+    H5T_IEEE_F64BE_g : Thid_t;cvar;external;
+    H5T_IEEE_F64LE_g : Thid_t;cvar;external;
+    H5T_STD_I8BE_g : Thid_t;cvar;external;
+    H5T_STD_I8LE_g : Thid_t;cvar;external;
+    H5T_STD_I16BE_g : Thid_t;cvar;external;
+    H5T_STD_I16LE_g : Thid_t;cvar;external;
+    H5T_STD_I32BE_g : Thid_t;cvar;external;
+    H5T_STD_I32LE_g : Thid_t;cvar;external;
+    H5T_STD_I64BE_g : Thid_t;cvar;external;
+    H5T_STD_I64LE_g : Thid_t;cvar;external;
+    H5T_STD_U8BE_g : Thid_t;cvar;external;
+    H5T_STD_U8LE_g : Thid_t;cvar;external;
+    H5T_STD_U16BE_g : Thid_t;cvar;external;
+    H5T_STD_U16LE_g : Thid_t;cvar;external;
+    H5T_STD_U32BE_g : Thid_t;cvar;external;
+    H5T_STD_U32LE_g : Thid_t;cvar;external;
+    H5T_STD_U64BE_g : Thid_t;cvar;external;
+    H5T_STD_U64LE_g : Thid_t;cvar;external;
+    H5T_STD_B8BE_g : Thid_t;cvar;external;
+    H5T_STD_B8LE_g : Thid_t;cvar;external;
+    H5T_STD_B16BE_g : Thid_t;cvar;external;
+    H5T_STD_B16LE_g : Thid_t;cvar;external;
+    H5T_STD_B32BE_g : Thid_t;cvar;external;
+    H5T_STD_B32LE_g : Thid_t;cvar;external;
+    H5T_STD_B64BE_g : Thid_t;cvar;external;
+    H5T_STD_B64LE_g : Thid_t;cvar;external;
+    H5T_STD_REF_OBJ_g : Thid_t;cvar;external;
+    H5T_STD_REF_DSETREG_g : Thid_t;cvar;external;
+    H5T_UNIX_D32BE_g : Thid_t;cvar;external;
+    H5T_UNIX_D32LE_g : Thid_t;cvar;external;
+    H5T_UNIX_D64BE_g : Thid_t;cvar;external;
+    H5T_UNIX_D64LE_g : Thid_t;cvar;external;
+    H5T_C_S1_g : Thid_t;cvar;external;
+    H5T_FORTRAN_S1_g : Thid_t;cvar;external;
+    H5T_VAX_F32_g : Thid_t;cvar;external;
+    H5T_VAX_F64_g : Thid_t;cvar;external;
 
-/*
- * The IEEE floating point types in various byte orders.
- */
-/**
- * \ingroup PDTIEEE
- * 32-bit big-endian IEEE floating-point numbers
- */
-#define H5T_IEEE_F32BE (H5OPEN H5T_IEEE_F32BE_g)
-/**
- * \ingroup PDTIEEE
- * 32-bit little-endian IEEE floating-point numbers
- */
-#define H5T_IEEE_F32LE (H5OPEN H5T_IEEE_F32LE_g)
-/**
- * \ingroup PDTIEEE
- * 64-bit big-endian IEEE floating-point numbers
- */
-#define H5T_IEEE_F64BE (H5OPEN H5T_IEEE_F64BE_g)
-/**
- * \ingroup PDTIEEE
- * 64-bit little-endian IEEE floating-point numbers
- */
-#define H5T_IEEE_F64LE (H5OPEN H5T_IEEE_F64LE_g)
-externVAR hid_t H5T_IEEE_F32BE_g;
-externVAR hid_t H5T_IEEE_F32LE_g;
-externVAR hid_t H5T_IEEE_F64BE_g;
-externVAR hid_t H5T_IEEE_F64LE_g;
+{ was #define dname def_expr }
+function H5T_NATIVE_CHAR : longint; { return type might be wrong }
 
-/*
- * These are "standard" types.  For instance, signed (2's complement) and
- * unsigned integers of various sizes and byte orders.
- */
-/**
- * \ingroup PDTSTD
- * 8-bit big-endian signed integers
- */
-#define H5T_STD_I8BE (H5OPEN H5T_STD_I8BE_g)
-/**
- * \ingroup PDTSTD
- * 8-bit little-endian signed integers
- */
-#define H5T_STD_I8LE (H5OPEN H5T_STD_I8LE_g)
-/**
- * \ingroup PDTSTD
- * 16-bit big-endian signed integers
- */
-#define H5T_STD_I16BE (H5OPEN H5T_STD_I16BE_g)
-/**
- * \ingroup PDTSTD
- * 16-bit little-endian signed integers
- */
-#define H5T_STD_I16LE (H5OPEN H5T_STD_I16LE_g)
-/**
- * \ingroup PDTSTD
- * 32-bit big-endian signed integers
- */
-#define H5T_STD_I32BE (H5OPEN H5T_STD_I32BE_g)
-/**
- * \ingroup PDTSTD
- * 32-bit little-endian signed integers
- */
-#define H5T_STD_I32LE (H5OPEN H5T_STD_I32LE_g)
-/**
- * \ingroup PDTSTD
- * 64-bit big-endian signed integers
- */
-#define H5T_STD_I64BE (H5OPEN H5T_STD_I64BE_g)
-/**
- * \ingroup PDTSTD
- * 64-bit little-endian signed integers
- */
-#define H5T_STD_I64LE (H5OPEN H5T_STD_I64LE_g)
-/**
- * \ingroup PDTSTD
- * 8-bit big-endian unsigned integers
- */
-#define H5T_STD_U8BE (H5OPEN H5T_STD_U8BE_g)
-/**
- * \ingroup PDTSTD
- * 8-bit little-endian unsigned integers
- */
-#define H5T_STD_U8LE (H5OPEN H5T_STD_U8LE_g)
-/**
- * \ingroup PDTSTD
- * 16-bit big-endian unsigned integers
- */
-#define H5T_STD_U16BE (H5OPEN H5T_STD_U16BE_g)
-/**
- * \ingroup PDTSTD
- * 16-bit little-endian unsigned integers
- */
-#define H5T_STD_U16LE (H5OPEN H5T_STD_U16LE_g)
-/**
- * \ingroup PDTSTD
- * 32-bit big-endian unsigned integers
- */
-#define H5T_STD_U32BE (H5OPEN H5T_STD_U32BE_g)
-/**
- * \ingroup PDTSTD
- * 32-bit little-endian unsigned integers
- */
-#define H5T_STD_U32LE (H5OPEN H5T_STD_U32LE_g)
-/**
- * \ingroup PDTSTD
- * 64-bit big-endian unsigned integers
- */
-#define H5T_STD_U64BE (H5OPEN H5T_STD_U64BE_g)
-/**
- * \ingroup PDTSTD
- * 64-bit little-endian unsigned integers
- */
-#define H5T_STD_U64LE (H5OPEN H5T_STD_U64LE_g)
-/**
- * \ingroup PDTSTD
- * 8-bit big-endian bitfield
- */
-#define H5T_STD_B8BE (H5OPEN H5T_STD_B8BE_g)
-/**
- * \ingroup PDTSTD
- * 8-bit little-endian bitfield
- */
-#define H5T_STD_B8LE (H5OPEN H5T_STD_B8LE_g)
-/**
- * \ingroup PDTSTD
- * 16-bit big-endian bitfield
- */
-#define H5T_STD_B16BE (H5OPEN H5T_STD_B16BE_g)
-/**
- * \ingroup PDTSTD
- * 16-bit little-endian bitfield
- */
-#define H5T_STD_B16LE (H5OPEN H5T_STD_B16LE_g)
-/**
- * \ingroup PDTSTD
- * 32-bit big-endian bitfield
- */
-#define H5T_STD_B32BE (H5OPEN H5T_STD_B32BE_g)
-/**
- * \ingroup PDTSTD
- * 32-bit little-endian bitfield
- */
-#define H5T_STD_B32LE (H5OPEN H5T_STD_B32LE_g)
-/**
- * \ingroup PDTSTD
- * 64-bit big-endian bitfield
- */
-#define H5T_STD_B64BE (H5OPEN H5T_STD_B64BE_g)
-/**
- * \ingroup PDTSTD
- * 64-bit little-endian bitfield
- */
-#define H5T_STD_B64LE (H5OPEN H5T_STD_B64LE_g)
-/**
- * \ingroup PDTSTD
- * Object reference
- */
-#define H5T_STD_REF_OBJ (H5OPEN H5T_STD_REF_OBJ_g)
-/**
- * \ingroup PDTSTD
- * Dataset region reference
- */
-#define H5T_STD_REF_DSETREG (H5OPEN H5T_STD_REF_DSETREG_g)
-externVAR hid_t H5T_STD_I8BE_g;
-externVAR hid_t H5T_STD_I8LE_g;
-externVAR hid_t H5T_STD_I16BE_g;
-externVAR hid_t H5T_STD_I16LE_g;
-externVAR hid_t H5T_STD_I32BE_g;
-externVAR hid_t H5T_STD_I32LE_g;
-externVAR hid_t H5T_STD_I64BE_g;
-externVAR hid_t H5T_STD_I64LE_g;
-externVAR hid_t H5T_STD_U8BE_g;
-externVAR hid_t H5T_STD_U8LE_g;
-externVAR hid_t H5T_STD_U16BE_g;
-externVAR hid_t H5T_STD_U16LE_g;
-externVAR hid_t H5T_STD_U32BE_g;
-externVAR hid_t H5T_STD_U32LE_g;
-externVAR hid_t H5T_STD_U64BE_g;
-externVAR hid_t H5T_STD_U64LE_g;
-externVAR hid_t H5T_STD_B8BE_g;
-externVAR hid_t H5T_STD_B8LE_g;
-externVAR hid_t H5T_STD_B16BE_g;
-externVAR hid_t H5T_STD_B16LE_g;
-externVAR hid_t H5T_STD_B32BE_g;
-externVAR hid_t H5T_STD_B32LE_g;
-externVAR hid_t H5T_STD_B64BE_g;
-externVAR hid_t H5T_STD_B64LE_g;
-externVAR hid_t H5T_STD_REF_OBJ_g;
-externVAR hid_t H5T_STD_REF_DSETREG_g;
-
-/*
- * Types which are particular to Unix.
- */
-/**
- * \ingroup PDTUNIX
- */
-#define H5T_UNIX_D32BE (H5OPEN H5T_UNIX_D32BE_g)
-/**
- * \ingroup PDTUNIX
- */
-#define H5T_UNIX_D32LE (H5OPEN H5T_UNIX_D32LE_g)
-/**
- * \ingroup PDTUNIX
- */
-#define H5T_UNIX_D64BE (H5OPEN H5T_UNIX_D64BE_g)
-/**
- * \ingroup PDTUNIX
- */
-#define H5T_UNIX_D64LE (H5OPEN H5T_UNIX_D64LE_g)
-externVAR hid_t H5T_UNIX_D32BE_g;
-externVAR hid_t H5T_UNIX_D32LE_g;
-externVAR hid_t H5T_UNIX_D64BE_g;
-externVAR hid_t H5T_UNIX_D64LE_g;
-
-/*
- * Types particular to the C language.  String types use `bytes' instead
- * of `bits' as their size.
- */
-/**
- * \ingroup PDTS
- * String datatype in C (size defined in bytes rather than in bits)
- */
-#define H5T_C_S1 (H5OPEN H5T_C_S1_g)
-externVAR hid_t H5T_C_S1_g;
-
-/*
- * Types particular to Fortran.
- */
-/**
- * \ingroup PDTS
- * String datatype in Fortran (as defined for the HDF5 C library)
- */
-#define H5T_FORTRAN_S1 (H5OPEN H5T_FORTRAN_S1_g)
-externVAR hid_t H5T_FORTRAN_S1_g;
-
-/*
- * These types are for Intel CPU's.  They are little endian with IEEE
- * floating point.
- */
-/**
- * \ingroup PDTX86
- * 8-bit little-endian signed (2's complement) integers for Intel CPUs
- */
-#define H5T_INTEL_I8 H5T_STD_I8LE
-/**
- * \ingroup PDTX86
- * 16-bit little-endian signed (2's complement) integers for Intel CPUs
- */
-#define H5T_INTEL_I16 H5T_STD_I16LE
-/**
- * \ingroup PDTX86
- * 32-bit little-endian signed (2's complement) integers for Intel CPUs
- */
-#define H5T_INTEL_I32 H5T_STD_I32LE
-/**
- * \ingroup PDTX86
- * 64-bit little-endian signed (2's complement) integers for Intel CPUs
- */
-#define H5T_INTEL_I64 H5T_STD_I64LE
-/**
- * \ingroup PDTX86
- * 8-bit little-endian unsigned integers for Intel CPUs
- */
-#define H5T_INTEL_U8 H5T_STD_U8LE
-/**
- * \ingroup PDTX86
- * 16-bit little-endian unsigned integers for Intel CPUs
- */
-#define H5T_INTEL_U16 H5T_STD_U16LE
-/**
- * \ingroup PDTX86
- * 32-bit little-endian unsigned integers for Intel CPUs
- */
-#define H5T_INTEL_U32 H5T_STD_U32LE
-/**
- * \ingroup PDTX86
- * 64-bit little-endian unsigned integers for Intel CPUs
- */
-#define H5T_INTEL_U64 H5T_STD_U64LE
-/**
- * \ingroup PDTX86
- * 8-bit little-endian bitfield for Intel CPUs
- */
-#define H5T_INTEL_B8 H5T_STD_B8LE
-/**
- * \ingroup PDTX86
- * 16-bit little-endian bitfield for Intel CPUs
- */
-#define H5T_INTEL_B16 H5T_STD_B16LE
-/**
- * \ingroup PDTX86
- * 32-bit little-endian bitfield for Intel CPUs
- */
-#define H5T_INTEL_B32 H5T_STD_B32LE
-/**
- * \ingroup PDTX86
- * 64-bit little-endian bitfield for Intel CPUs
- */
-#define H5T_INTEL_B64 H5T_STD_B64LE
-/**
- * \ingroup PDTX86
- * 32-bit little-endian IEEE floating-point numbers for Intel CPUs
- */
-#define H5T_INTEL_F32 H5T_IEEE_F32LE
-/**
- * \ingroup PDTX86
- * 64-bit little-endian IEEE floating-point numbers for Intel CPUs
- */
-#define H5T_INTEL_F64 H5T_IEEE_F64LE
-
-/*
- * These types are for DEC Alpha CPU's.  They are little endian with IEEE
- * floating point.
- */
-/**
- * \ingroup PDTALPHA
- * 8-bit little-endian signed (2's complement) integers for DEC Alpha CPUs
- */
-#define H5T_ALPHA_I8 H5T_STD_I8LE
-/**
- * \ingroup PDTALPHA
- * 16-bit little-endian signed (2's complement) integers for DEC Alpha CPUs
- */
-#define H5T_ALPHA_I16 H5T_STD_I16LE
-/**
- * \ingroup PDTALPHA
- * 32-bit little-endian signed (2's complement) integers for DEC Alpha CPUs
- */
-#define H5T_ALPHA_I32 H5T_STD_I32LE
-/**
- * \ingroup PDTALPHA
- * 64-bit little-endian signed (2's complement) integers for DEC Alpha CPUs
- */
-#define H5T_ALPHA_I64 H5T_STD_I64LE
-/**
- * \ingroup PDTALPHA
- * 8-bit little-endian unsigned integers for DEC Alpha CPUs
- */
-#define H5T_ALPHA_U8 H5T_STD_U8LE
-/**
- * \ingroup PDTALPHA
- * 16-bit little-endian unsigned integers for DEC Alpha CPUs
- */
-#define H5T_ALPHA_U16 H5T_STD_U16LE
-/**
- * \ingroup PDTALPHA
- * 32-bit little-endian unsigned integers for DEC Alpha CPUs
- */
-#define H5T_ALPHA_U32 H5T_STD_U32LE
-/**
- * \ingroup PDTALPHA
- * 64-bit little-endian unsigned integers for DEC Alpha CPUs
- */
-#define H5T_ALPHA_U64 H5T_STD_U64LE
-/**
- * \ingroup PDTALPHA
- * 8-bit little-endian bitfield for DEC Alpha CPUs
- */
-#define H5T_ALPHA_B8 H5T_STD_B8LE
-/**
- * \ingroup PDTALPHA
- * 16-bit little-endian bitfield for DEC Alpha CPUs
- */
-#define H5T_ALPHA_B16 H5T_STD_B16LE
-/**
- * \ingroup PDTALPHA
- * 32-bit little-endian bitfield for DEC Alpha CPUs
- */
-#define H5T_ALPHA_B32 H5T_STD_B32LE
-/**
- * \ingroup PDTALPHA
- * 64-bit little-endian bitfield for DEC Alpha CPUs
- */
-#define H5T_ALPHA_B64 H5T_STD_B64LE
-/**
- * \ingroup PDTALPHA
- * 32-bit little-endian IEEE floating-point numbers for DEC Alpha CPUs
- */
-#define H5T_ALPHA_F32 H5T_IEEE_F32LE
-/**
- * \ingroup PDTALPHA
- * 64-bit little-endian IEEE floating-point numbers for DEC Alpha CPUs
- */
-#define H5T_ALPHA_F64 H5T_IEEE_F64LE
-
-/*
- * These types are for MIPS cpu's commonly used in SGI systems. They are big
- * endian with IEEE floating point.
- */
-/**
- * \ingroup PDTMIPS
- * 8-bit big-endian signed (2's complement) integers for SGI MIPS CPUs
- */
-#define H5T_MIPS_I8 H5T_STD_I8BE
-/**
- * \ingroup PDTMIPS
- * 16-bit big-endian signed (2's complement) integers for SGI MIPS CPUs
- */
-#define H5T_MIPS_I16 H5T_STD_I16BE
-/**
- * \ingroup PDTMIPS
- * 32-bit big-endian signed (2's complement) integers for SGI MIPS CPUs
- */
-#define H5T_MIPS_I32 H5T_STD_I32BE
-/**
- * \ingroup PDTMIPS
- * 64-bit big-endian signed (2's complement) integers for SGI MIPS CPUs
- */
-#define H5T_MIPS_I64 H5T_STD_I64BE
-/**
- * \ingroup PDTMIPS
- * 8-bit big-endian unsigned integers for SGI MIPS CPUs
- */
-#define H5T_MIPS_U8 H5T_STD_U8BE
-/**
- * \ingroup PDTMIPS
- * 16-bit big-endian unsigned integers for SGI MIPS CPUs
- */
-#define H5T_MIPS_U16 H5T_STD_U16BE
-/**
- * \ingroup PDTMIPS
- * 32-bit big-endian unsigned integers for SGI MIPS CPUs
- */
-#define H5T_MIPS_U32 H5T_STD_U32BE
-/**
- * \ingroup PDTMIPS
- * 64-bit big-endian unsigned integers for SGI MIPS CPUs
- */
-#define H5T_MIPS_U64 H5T_STD_U64BE
-/**
- * \ingroup PDTMIPS
- * 8-bit big-endian bitfield for SGI MIPS CPUs
- */
-#define H5T_MIPS_B8 H5T_STD_B8BE
-/**
- * \ingroup PDTMIPS
- * 16-bit big-endian bitfield for SGI MIPS CPUs
- */
-#define H5T_MIPS_B16 H5T_STD_B16BE
-/**
- * \ingroup PDTMIPS
- * 32-bit big-endian bitfield for SGI MIPS CPUs
- */
-#define H5T_MIPS_B32 H5T_STD_B32BE
-/**
- * \ingroup PDTMIPS
- * 64-bit big-endian bitfield for SGI MIPS CPUs
- */
-#define H5T_MIPS_B64 H5T_STD_B64BE
-/**
- * \ingroup PDTMIPS
- * 32-bit big-endian IEEE floating-point numbers for MIPS CPUs
- */
-#define H5T_MIPS_F32 H5T_IEEE_F32BE
-/**
- * \ingroup PDTMIPS
- * 64-bit big-endian IEEE floating-point numbers for MIPS CPUs
- */
-#define H5T_MIPS_F64 H5T_IEEE_F64BE
-
-/*
- * The VAX floating point types (i.e. in VAX byte order)
- */
-/**
- * \ingroup PDTALPHA
- * 32-bit VAX byte order floating-point numbers for OpenVMS on DEC Alpha CPUs
- */
-#define H5T_VAX_F32 (H5OPEN H5T_VAX_F32_g)
-/**
- * \ingroup PDTALPHA
- * 64-bit VAX byte order floating-point numbers for OpenVMS on DEC Alpha CPUs
- */
-#define H5T_VAX_F64 (H5OPEN H5T_VAX_F64_g)
-externVAR hid_t H5T_VAX_F32_g;
-externVAR hid_t H5T_VAX_F64_g;
-
-/*
- * The predefined native types. These are the types detected by H5detect and
- * they violate the naming scheme a little.  Instead of a class name,
- * precision and byte order as the last component, they have a C-like type
- * name.  If the type begins with `U' then it is the unsigned version of the
- * integer type; other integer types are signed.  The type LLONG corresponds
- * to C's `long long' and LDOUBLE is `long double' (these types might be the
- * same as `LONG' and `DOUBLE' respectively).
- */
-/**
- * \ingroup PDTNAT
- * C-style \c char
- */
-#define H5T_NATIVE_CHAR (CHAR_MIN ? H5T_NATIVE_SCHAR : H5T_NATIVE_UCHAR)
-/**
- * \ingroup PDTNAT
- * C-style \Code{signed char}
- */
-#define H5T_NATIVE_SCHAR (H5OPEN H5T_NATIVE_SCHAR_g)
-/**
- * \ingroup PDTNAT
- * C-style \Code{unsigned char}
- */
-#define H5T_NATIVE_UCHAR (H5OPEN H5T_NATIVE_UCHAR_g)
-/**
- * \ingroup PDTNAT
- * C-style \Code{short}
- */
-#define H5T_NATIVE_SHORT (H5OPEN H5T_NATIVE_SHORT_g)
-/**
- * \ingroup PDTNAT
- * C-style \Code{unsigned short}
- */
-#define H5T_NATIVE_USHORT (H5OPEN H5T_NATIVE_USHORT_g)
-/**
- * \ingroup PDTNAT
- * C-style \Code{int}
- */
-#define H5T_NATIVE_INT (H5OPEN H5T_NATIVE_INT_g)
-/**
- * \ingroup PDTNAT
- * C-style \Code{unsigned int}
- */
-#define H5T_NATIVE_UINT (H5OPEN H5T_NATIVE_UINT_g)
-/**
- * \ingroup PDTNAT
- * C-style \Code{long}
- */
-#define H5T_NATIVE_LONG (H5OPEN H5T_NATIVE_LONG_g)
-/**
- * \ingroup PDTNAT
- * C-style \Code{unsigned long}
- */
-#define H5T_NATIVE_ULONG (H5OPEN H5T_NATIVE_ULONG_g)
-/**
- * \ingroup PDTNAT
- * C-style \Code{long long}
- */
-#define H5T_NATIVE_LLONG (H5OPEN H5T_NATIVE_LLONG_g)
-/**
- * \ingroup PDTNAT
- * C-style \Code{unsigned long long}
- */
-#define H5T_NATIVE_ULLONG (H5OPEN H5T_NATIVE_ULLONG_g)
-/**
- * \ingroup PDTNAT
- * C-style \Code{float}
- */
-#define H5T_NATIVE_FLOAT (H5OPEN H5T_NATIVE_FLOAT_g)
-/**
- * \ingroup PDTNAT
- * C-style \Code{double}
- */
-#define H5T_NATIVE_DOUBLE (H5OPEN H5T_NATIVE_DOUBLE_g)
-#if H5_SIZEOF_LONG_DOUBLE != 0
-/**
- * \ingroup PDTNAT
- * C-style \Code{long double}
- */
-#define H5T_NATIVE_LDOUBLE (H5OPEN H5T_NATIVE_LDOUBLE_g)
-#endif
-/**
- * \ingroup PDTNAT
- * HDF5 8-bit bitfield based on native types
- */
-#define H5T_NATIVE_B8 (H5OPEN H5T_NATIVE_B8_g)
-/**
- * \ingroup PDTNAT
- * HDF5 16-bit bitfield based on native types
- */
-#define H5T_NATIVE_B16 (H5OPEN H5T_NATIVE_B16_g)
-/**
- * \ingroup PDTNAT
- * HDF5 32-bit bitfield based on native types
- */
-#define H5T_NATIVE_B32 (H5OPEN H5T_NATIVE_B32_g)
-/**
- * \ingroup PDTNAT
- * HDF5 64-bit bitfield based on native types
- */
-#define H5T_NATIVE_B64 (H5OPEN H5T_NATIVE_B64_g)
-/**
- * \ingroup PDTNAT
- * HDF5 opaque unit based on native types
- */
-#define H5T_NATIVE_OPAQUE (H5OPEN H5T_NATIVE_OPAQUE_g)
-/**
- * \ingroup PDTNAT
- * HDF5 address type based on native types
- */
-#define H5T_NATIVE_HADDR (H5OPEN H5T_NATIVE_HADDR_g)
-/**
- * \ingroup PDTNAT
- * HDF5 size type based on native types
- */
-#define H5T_NATIVE_HSIZE (H5OPEN H5T_NATIVE_HSIZE_g)
-/**
- * \ingroup PDTNAT
- * HDF5 signed size type based on native types
- */
-#define H5T_NATIVE_HSSIZE (H5OPEN H5T_NATIVE_HSSIZE_g)
-/**
- * \ingroup PDTNAT
- * HDF5 error code type based on native types
- */
-#define H5T_NATIVE_HERR (H5OPEN H5T_NATIVE_HERR_g)
-/**
- * \ingroup PDTNAT
- * HDF5 Boolean type based on native types
- */
-#define H5T_NATIVE_HBOOL (H5OPEN H5T_NATIVE_HBOOL_g)
-externVAR hid_t H5T_NATIVE_SCHAR_g;
-externVAR hid_t H5T_NATIVE_UCHAR_g;
-externVAR hid_t H5T_NATIVE_SHORT_g;
-externVAR hid_t H5T_NATIVE_USHORT_g;
-externVAR hid_t H5T_NATIVE_INT_g;
-externVAR hid_t H5T_NATIVE_UINT_g;
-externVAR hid_t H5T_NATIVE_LONG_g;
-externVAR hid_t H5T_NATIVE_ULONG_g;
-externVAR hid_t H5T_NATIVE_LLONG_g;
-externVAR hid_t H5T_NATIVE_ULLONG_g;
-externVAR hid_t H5T_NATIVE_FLOAT_g;
-externVAR hid_t H5T_NATIVE_DOUBLE_g;
-#if H5_SIZEOF_LONG_DOUBLE != 0
-externVAR hid_t H5T_NATIVE_LDOUBLE_g;
-#endif
-externVAR hid_t H5T_NATIVE_B8_g;
-externVAR hid_t H5T_NATIVE_B16_g;
-externVAR hid_t H5T_NATIVE_B32_g;
-externVAR hid_t H5T_NATIVE_B64_g;
-externVAR hid_t H5T_NATIVE_OPAQUE_g;
-externVAR hid_t H5T_NATIVE_HADDR_g;
-externVAR hid_t H5T_NATIVE_HSIZE_g;
-externVAR hid_t H5T_NATIVE_HSSIZE_g;
-externVAR hid_t H5T_NATIVE_HERR_g;
-externVAR hid_t H5T_NATIVE_HBOOL_g;
-
-/* C9x integer types */
-/**
+  var
+    H5T_NATIVE_SCHAR_g : Thid_t;cvar;external;
+    H5T_NATIVE_UCHAR_g : Thid_t;cvar;external;
+    H5T_NATIVE_SHORT_g : Thid_t;cvar;external;
+    H5T_NATIVE_USHORT_g : Thid_t;cvar;external;
+    H5T_NATIVE_INT_g : Thid_t;cvar;external;
+    H5T_NATIVE_UINT_g : Thid_t;cvar;external;
+    H5T_NATIVE_LONG_g : Thid_t;cvar;external;
+    H5T_NATIVE_ULONG_g : Thid_t;cvar;external;
+    H5T_NATIVE_LLONG_g : Thid_t;cvar;external;
+    H5T_NATIVE_ULLONG_g : Thid_t;cvar;external;
+    H5T_NATIVE_FLOAT_g : Thid_t;cvar;external;
+    H5T_NATIVE_DOUBLE_g : Thid_t;cvar;external;
+{$if H5_SIZEOF_LONG_DOUBLE != 0}
+  var
+    H5T_NATIVE_LDOUBLE_g : Thid_t;cvar;external;
+{$endif}
+  var
+    H5T_NATIVE_B8_g : Thid_t;cvar;external;
+    H5T_NATIVE_B16_g : Thid_t;cvar;external;
+    H5T_NATIVE_B32_g : Thid_t;cvar;external;
+    H5T_NATIVE_B64_g : Thid_t;cvar;external;
+    H5T_NATIVE_OPAQUE_g : Thid_t;cvar;external;
+    H5T_NATIVE_HADDR_g : Thid_t;cvar;external;
+    H5T_NATIVE_HSIZE_g : Thid_t;cvar;external;
+    H5T_NATIVE_HSSIZE_g : Thid_t;cvar;external;
+    H5T_NATIVE_HERR_g : Thid_t;cvar;external;
+    H5T_NATIVE_HBOOL_g : Thid_t;cvar;external;
+{ C9x integer types  }
+{*
  * \ingroup PDTC9x
- */
-#define H5T_NATIVE_INT8 (H5OPEN H5T_NATIVE_INT8_g)
-/**
- * \ingroup PDTC9x
- */
-#define H5T_NATIVE_UINT8 (H5OPEN H5T_NATIVE_UINT8_g)
-/**
- * \ingroup PDTC9x
- */
-#define H5T_NATIVE_INT_LEAST8 (H5OPEN H5T_NATIVE_INT_LEAST8_g)
-/**
- * \ingroup PDTC9x
- */
-#define H5T_NATIVE_UINT_LEAST8 (H5OPEN H5T_NATIVE_UINT_LEAST8_g)
-/**
- * \ingroup PDTC9x
- */
-#define H5T_NATIVE_INT_FAST8 (H5OPEN H5T_NATIVE_INT_FAST8_g)
-/**
- * \ingroup PDTC9x
- */
-#define H5T_NATIVE_UINT_FAST8 (H5OPEN H5T_NATIVE_UINT_FAST8_g)
-externVAR hid_t H5T_NATIVE_INT8_g;
-externVAR hid_t H5T_NATIVE_UINT8_g;
-externVAR hid_t H5T_NATIVE_INT_LEAST8_g;
-externVAR hid_t H5T_NATIVE_UINT_LEAST8_g;
-externVAR hid_t H5T_NATIVE_INT_FAST8_g;
-externVAR hid_t H5T_NATIVE_UINT_FAST8_g;
-
-/**
- * \ingroup PDTC9x
- */
-#define H5T_NATIVE_INT16 (H5OPEN H5T_NATIVE_INT16_g)
-/**
- * \ingroup PDTC9x
- */
-#define H5T_NATIVE_UINT16 (H5OPEN H5T_NATIVE_UINT16_g)
-/**
- * \ingroup PDTC9x
- */
-#define H5T_NATIVE_INT_LEAST16 (H5OPEN H5T_NATIVE_INT_LEAST16_g)
-/**
- * \ingroup PDTC9x
- */
-#define H5T_NATIVE_UINT_LEAST16 (H5OPEN H5T_NATIVE_UINT_LEAST16_g)
-/**
- * \ingroup PDTC9x
- */
-#define H5T_NATIVE_INT_FAST16 (H5OPEN H5T_NATIVE_INT_FAST16_g)
-/**
- * \ingroup PDTC9x
- */
-#define H5T_NATIVE_UINT_FAST16 (H5OPEN H5T_NATIVE_UINT_FAST16_g)
-externVAR hid_t H5T_NATIVE_INT16_g;
-externVAR hid_t H5T_NATIVE_UINT16_g;
-externVAR hid_t H5T_NATIVE_INT_LEAST16_g;
-externVAR hid_t H5T_NATIVE_UINT_LEAST16_g;
-externVAR hid_t H5T_NATIVE_INT_FAST16_g;
-externVAR hid_t H5T_NATIVE_UINT_FAST16_g;
-
-/**
- * \ingroup PDTC9x
- */
-#define H5T_NATIVE_INT32 (H5OPEN H5T_NATIVE_INT32_g)
-/**
- * \ingroup PDTC9x
- */
-#define H5T_NATIVE_UINT32 (H5OPEN H5T_NATIVE_UINT32_g)
-/**
- * \ingroup PDTC9x
- */
-#define H5T_NATIVE_INT_LEAST32 (H5OPEN H5T_NATIVE_INT_LEAST32_g)
-/**
- * \ingroup PDTC9x
- */
-#define H5T_NATIVE_UINT_LEAST32 (H5OPEN H5T_NATIVE_UINT_LEAST32_g)
-/**
- * \ingroup PDTC9x
- */
-#define H5T_NATIVE_INT_FAST32 (H5OPEN H5T_NATIVE_INT_FAST32_g)
-/**
- * \ingroup PDTC9x
- */
-#define H5T_NATIVE_UINT_FAST32 (H5OPEN H5T_NATIVE_UINT_FAST32_g)
-externVAR hid_t H5T_NATIVE_INT32_g;
-externVAR hid_t H5T_NATIVE_UINT32_g;
-externVAR hid_t H5T_NATIVE_INT_LEAST32_g;
-externVAR hid_t H5T_NATIVE_UINT_LEAST32_g;
-externVAR hid_t H5T_NATIVE_INT_FAST32_g;
-externVAR hid_t H5T_NATIVE_UINT_FAST32_g;
-
-/**
- * \ingroup PDTC9x
- */
-#define H5T_NATIVE_INT64 (H5OPEN H5T_NATIVE_INT64_g)
-/**
- * \ingroup PDTC9x
- */
-#define H5T_NATIVE_UINT64 (H5OPEN H5T_NATIVE_UINT64_g)
-/**
- * \ingroup PDTC9x
- */
-#define H5T_NATIVE_INT_LEAST64 (H5OPEN H5T_NATIVE_INT_LEAST64_g)
-/**
- * \ingroup PDTC9x
- */
-#define H5T_NATIVE_UINT_LEAST64 (H5OPEN H5T_NATIVE_UINT_LEAST64_g)
-/**
- * \ingroup PDTC9x
- */
-#define H5T_NATIVE_INT_FAST64 (H5OPEN H5T_NATIVE_INT_FAST64_g)
-/**
- * \ingroup PDTC9x
- */
-#define H5T_NATIVE_UINT_FAST64 (H5OPEN H5T_NATIVE_UINT_FAST64_g)
-externVAR hid_t H5T_NATIVE_INT64_g;
-externVAR hid_t H5T_NATIVE_UINT64_g;
-externVAR hid_t H5T_NATIVE_INT_LEAST64_g;
-externVAR hid_t H5T_NATIVE_UINT_LEAST64_g;
-externVAR hid_t H5T_NATIVE_INT_FAST64_g;
-externVAR hid_t H5T_NATIVE_UINT_FAST64_g;
-
-/* Operations defined on all datatypes */
-/**
+  }
+    H5T_NATIVE_INT8_g : Thid_t;cvar;external;
+    H5T_NATIVE_UINT8_g : Thid_t;cvar;external;
+    H5T_NATIVE_INT_LEAST8_g : Thid_t;cvar;external;
+    H5T_NATIVE_UINT_LEAST8_g : Thid_t;cvar;external;
+    H5T_NATIVE_INT_FAST8_g : Thid_t;cvar;external;
+    H5T_NATIVE_UINT_FAST8_g : Thid_t;cvar;external;
+    H5T_NATIVE_INT16_g : Thid_t;cvar;external;
+    H5T_NATIVE_UINT16_g : Thid_t;cvar;external;
+    H5T_NATIVE_INT_LEAST16_g : Thid_t;cvar;external;
+    H5T_NATIVE_UINT_LEAST16_g : Thid_t;cvar;external;
+    H5T_NATIVE_INT_FAST16_g : Thid_t;cvar;external;
+    H5T_NATIVE_UINT_FAST16_g : Thid_t;cvar;external;
+    H5T_NATIVE_INT32_g : Thid_t;cvar;external;
+    H5T_NATIVE_UINT32_g : Thid_t;cvar;external;
+    H5T_NATIVE_INT_LEAST32_g : Thid_t;cvar;external;
+    H5T_NATIVE_UINT_LEAST32_g : Thid_t;cvar;external;
+    H5T_NATIVE_INT_FAST32_g : Thid_t;cvar;external;
+    H5T_NATIVE_UINT_FAST32_g : Thid_t;cvar;external;
+    H5T_NATIVE_INT64_g : Thid_t;cvar;external;
+    H5T_NATIVE_UINT64_g : Thid_t;cvar;external;
+    H5T_NATIVE_INT_LEAST64_g : Thid_t;cvar;external;
+    H5T_NATIVE_UINT_LEAST64_g : Thid_t;cvar;external;
+    H5T_NATIVE_INT_FAST64_g : Thid_t;cvar;external;
+    H5T_NATIVE_UINT_FAST64_g : Thid_t;cvar;external;
+{ Operations defined on all datatypes  }
+{*
  * \ingroup H5T
  *
  * \brief Creates a new datatype.
@@ -1060,7 +558,7 @@ externVAR hid_t H5T_NATIVE_UINT_FAST64_g;
  * \param[in] type Class of datatype to create
  * \param[in] size  Size, in bytes, of the datatype being created
  *
- * \return \hid_t{datatype}
+ * \return \hid_tdatatype
  *
  * \details H5Tcreate() creates a new datatype of the specified class with the
  *          specified number of bytes. This function is used only with the
@@ -1093,16 +591,17 @@ externVAR hid_t H5T_NATIVE_UINT_FAST64_g;
  *
  * \since 1.2.0
  *
- */
-extern hid_t H5Tcreate(H5T_class_t type, size_t size);
-/**
+  }
+
+function H5Tcreate(_type:TH5T_class_t; size:Tsize_t):Thid_t;cdecl;external;
+{*
  * \ingroup H5T
  *
  * \brief Copies an existing datatype.
  *
  * \type_id
  *
- * \return \hid_t{datatype}
+ * \return \hid_tdatatype
  *
  * \details H5Tcopy() makes a copy of an existing datatype. The returned type
  *          is always transient and unlocked.
@@ -1116,9 +615,9 @@ extern hid_t H5Tcreate(H5T_class_t type, size_t size);
  *          The returned datatype identifier should be released with H5Tclose()
  *          to prevent resource leak.
  *
- */
-extern hid_t H5Tcopy(hid_t type_id);
-/**
+  }
+function H5Tcopy(type_id:Thid_t):Thid_t;cdecl;external;
+{*
  * \ingroup H5T
  *
  * \brief Releases a datatype
@@ -1131,15 +630,15 @@ extern hid_t H5Tcopy(hid_t type_id);
  *          through this datatype identifier is illegal. Failure to release
  *          a datatype with this call will result in resource leaks.
  *
- */
-extern herr_t H5Tclose(hid_t type_id);
-/**
+  }
+function H5Tclose(type_id:Thid_t):Therr_t;cdecl;external;
+{*
  * \ingroup H5T
  *
  * \brief Determines whether two datatype identifiers refer to the same datatype
  *
- * \type_id{type1_id}
- * \type_id{type2_id}
+ * \type_idtype1_id
+ * \type_idtype2_id
  *
  * \return \htri_t
  *
@@ -1148,9 +647,9 @@ extern herr_t H5Tclose(hid_t type_id);
  *
  * \since 1.6 or earlier
  *
- */
-extern htri_t H5Tequal(hid_t type1_id, hid_t type2_id);
-/**
+  }
+function H5Tequal(type1_id:Thid_t; type2_id:Thid_t):Thtri_t;cdecl;external;
+{*
  * \ingroup H5T
  *
  * \brief Locks a datatype
@@ -1165,9 +664,9 @@ extern htri_t H5Tequal(hid_t type1_id, hid_t type2_id);
  *          inadvertently change or delete a predefined type. Once a datatype
  *          is locked it can never be unlocked.
  *
- */
-extern herr_t H5Tlock(hid_t type_id);
-/**
+  }
+function H5Tlock(type_id:Thid_t):Therr_t;cdecl;external;
+{*
  * \ingroup H5T
  *
  * \brief Commits a transient datatype, linking it into the file and creating
@@ -1212,10 +711,11 @@ extern herr_t H5Tlock(hid_t type_id);
  *
  * \since 1.8.0
  *
- */
-extern herr_t H5Tcommit2(hid_t loc_id, const char *name, hid_t type_id, hid_t lcpl_id, hid_t tcpl_id,
-                         hid_t tapl_id);
-/**
+  }
+(* Const before type ignored *)
+function H5Tcommit2(loc_id:Thid_t; name:Pchar; type_id:Thid_t; lcpl_id:Thid_t; tcpl_id:Thid_t; 
+           tapl_id:Thid_t):Therr_t;cdecl;external;
+{*
  * --------------------------------------------------------------------------
  * \ingroup H5T
  *
@@ -1225,7 +725,7 @@ extern herr_t H5Tcommit2(hid_t loc_id, const char *name, hid_t type_id, hid_t lc
  * \param[in] name Name of the datatype to open
  * \tapl_id
  *
- * \return \hid_t{datatype}
+ * \return \hid_tdatatype
  *
  * \details H5Topen2() opens a committed datatype at the location specified
  *          by \p loc_id and returns an identifier for the datatype. \p
@@ -1237,9 +737,10 @@ extern herr_t H5Tcommit2(hid_t loc_id, const char *name, hid_t type_id, hid_t lc
  *
  * \since 1.8.0
  *
- */
-extern hid_t H5Topen2(hid_t loc_id, const char *name, hid_t tapl_id);
-/**
+  }
+(* Const before type ignored *)
+function H5Topen2(loc_id:Thid_t; name:Pchar; tapl_id:Thid_t):Thid_t;cdecl;external;
+{*
  * \ingroup H5T
  *
  * \brief Commits a transient datatype to a file, creating a new named
@@ -1290,16 +791,16 @@ extern hid_t H5Topen2(hid_t loc_id, const char *name, hid_t tapl_id);
  *
  * \since 1.2.0
  *
- */
-extern herr_t H5Tcommit_anon(hid_t loc_id, hid_t type_id, hid_t tcpl_id, hid_t tapl_id);
-/**
+  }
+function H5Tcommit_anon(loc_id:Thid_t; type_id:Thid_t; tcpl_id:Thid_t; tapl_id:Thid_t):Therr_t;cdecl;external;
+{*
  * \ingroup H5T
  *
  * \brief Returns a copy of a datatype's creation property list
  *
  * \type_id
  *
- * \return \hid_t{datatype creation property list}
+ * \return \hid_tdatatype creation property list
  *
  * \details H5Tget_create_plist() returns a property list identifier
  *          for the datatype creation property list associated with the datatype
@@ -1310,9 +811,9 @@ extern herr_t H5Tcommit_anon(hid_t loc_id, hid_t type_id, hid_t tcpl_id, hid_t t
  *
  * \since 1.8.0
  *
- */
-extern hid_t H5Tget_create_plist(hid_t type_id);
-/**
+  }
+function H5Tget_create_plist(type_id:Thid_t):Thid_t;cdecl;external;
+{*
  * \ingroup H5T
  *
  * \brief Determines whether a datatype is a committed type or a transient type
@@ -1323,7 +824,7 @@ extern hid_t H5Tget_create_plist(hid_t type_id);
  *
  * \details H5Tcommitted() queries a type to determine whether the type
  *          specified by the \p dtype_id identifier is a committed (formerly
- *          known as a \Emph{named}) type or a transient type. If this function returns
+ *          known as a \Emphnamed) type or a transient type. If this function returns
  *          a positive value, then the type is committed (that is, it has been
  *          committed, perhaps by some other application). Datasets which
  *          return committed datatypes with H5Dget_type() are able to share
@@ -1333,9 +834,9 @@ extern hid_t H5Tget_create_plist(hid_t type_id);
  *
  * \since 1.6 or earlier
  *
- */
-extern htri_t H5Tcommitted(hid_t type_id);
-/**
+  }
+function H5Tcommitted(type_id:Thid_t):Thtri_t;cdecl;external;
+{*
  * \ingroup H5T
  *
  * \brief Encodes a datatype object description into a binary buffer
@@ -1367,9 +868,9 @@ extern htri_t H5Tcommitted(hid_t type_id);
  *
  * \since 1.2.0
  *
- */
-extern herr_t H5Tencode(hid_t obj_id, void *buf, size_t *nalloc);
-/**
+  }
+function H5Tencode(obj_id:Thid_t; buf:pointer; nalloc:Psize_t):Therr_t;cdecl;external;
+{*
  * \ingroup H5T
  *
  * \brief Decodes a binary object description of datatype and return a new
@@ -1377,7 +878,7 @@ extern herr_t H5Tencode(hid_t obj_id, void *buf, size_t *nalloc);
  *
  * \param[in] buf Buffer for the datatype object to be decoded
  *
- * \return \hid_t{datatype}
+ * \return \hid_tdatatype
  *
  * \details H5Tdecode() Given an object description of datatype in binary in a
  *          buffer, H5Tdecode() reconstructs the HDF5 datatype object and
@@ -1389,9 +890,10 @@ extern herr_t H5Tencode(hid_t obj_id, void *buf, size_t *nalloc);
  *          with H5Tclose() when the identifier is no longer needed so that
  *          resource leaks will not develop.
  *
- */
-extern hid_t H5Tdecode(const void *buf);
-/**
+  }
+(* Const before type ignored *)
+function H5Tdecode(buf:pointer):Thid_t;cdecl;external;
+{*
  * \ingroup H5T
  *
  * \brief Flushes all buffers associated with a committed datatype to disk
@@ -1428,9 +930,9 @@ extern hid_t H5Tdecode(const void *buf);
  *          H5Pset_append_flush()
  *          H5Pset_object_flush_cb()
  *
- */
-extern herr_t H5Tflush(hid_t type_id);
-/**
+  }
+function H5Tflush(type_id:Thid_t):Therr_t;cdecl;external;
+{*
  * \ingroup H5T
  *
  * \brief Refreshes all buffers associated with a committed datatype
@@ -1450,16 +952,15 @@ extern herr_t H5Tflush(hid_t type_id);
  *
  * \since 1.2.0
  *
- */
-extern herr_t H5Trefresh(hid_t type_id);
-
-/* Operations defined on compound datatypes */
-/**
+  }
+function H5Trefresh(type_id:Thid_t):Therr_t;cdecl;external;
+{ Operations defined on compound datatypes  }
+{*
  * \ingroup COMPOUND
  *
  * \brief Adds a new member to a compound datatype.
  *
- * \type_id{parent_id}
+ * \type_idparent_id
  * \param[in] name      Name of the field to insert
  * \param[in] offset    Offset in memory structure of the field to insert
  * \param[in] member_id  Datatype identifier of the field to insert
@@ -1480,9 +981,10 @@ extern herr_t H5Trefresh(hid_t type_id);
  *
  * \since 1.2.0
  *
- */
-extern herr_t H5Tinsert(hid_t parent_id, const char *name, size_t offset, hid_t member_id);
-/**
+  }
+(* Const before type ignored *)
+function H5Tinsert(parent_id:Thid_t; name:Pchar; offset:Tsize_t; member_id:Thid_t):Therr_t;cdecl;external;
+{*
  * \ingroup COMPOUND
  *
  * \brief Recursively removes padding from within a compound datatype
@@ -1496,11 +998,10 @@ extern herr_t H5Tinsert(hid_t parent_id, const char *name, size_t offset, hid_t 
  *
  * \since 1.2.0
  *
- */
-extern herr_t H5Tpack(hid_t type_id);
-
-/* Operations defined on enumeration datatypes */
-/**
+  }
+function H5Tpack(type_id:Thid_t):Therr_t;cdecl;external;
+{ Operations defined on enumeration datatypes  }
+{*
  * \ingroup ENUM
  *
  * \brief Creates a new enumeration datatype
@@ -1508,7 +1009,7 @@ extern herr_t H5Tpack(hid_t type_id);
  * \param[in] base_id Datatype identifier for the base datatype.  Must be an
  *            integer datatype
  *
- * \return \hid_t{enumeration datatype}
+ * \return \hid_tenumeration datatype
  *
  * \details H5Tenum_create() creates a new enumeration datatype based on the
  *          specified base datatype, dtype_id, which must be an integer datatype.
@@ -1520,14 +1021,14 @@ extern herr_t H5Tpack(hid_t type_id);
  *
  * \since 1.2.0
  *
- */
-extern hid_t H5Tenum_create(hid_t base_id);
-/**
+  }
+function H5Tenum_create(base_id:Thid_t):Thid_t;cdecl;external;
+{*
  * \ingroup ENUM
  *
  * \brief Inserts a new enumeration datatype member
  *
- * \type_id{type}
+ * \type_idtype
  * \param[in] name  Name of the new member
  * \param[in] value Pointer to the value of the new member
  *
@@ -1551,15 +1052,17 @@ extern hid_t H5Tenum_create(hid_t base_id);
  *
  * \since 1.2.0
  *
- */
-extern herr_t H5Tenum_insert(hid_t type, const char *name, const void *value);
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function H5Tenum_insert(_type:Thid_t; name:Pchar; value:pointer):Therr_t;cdecl;external;
+{*
  * \ingroup ENUM
  *
  * \brief Returns the symbol name corresponding to a specified member of an
  *        enumeration datatype
  *
- * \type_id{type}
+ * \type_idtype
  * \param[in] value Value of the enumeration datatype
  * \param[out] name Buffer for output of the symbol name
  * \param[in] size Anticipated size of the symbol name, in bytes
@@ -1577,15 +1080,16 @@ extern herr_t H5Tenum_insert(hid_t type, const char *name, const void *value);
  *
  * \since 1.2.0
  *
- */
-extern herr_t H5Tenum_nameof(hid_t type, const void *value, char *name /*out*/, size_t size);
-/**
+  }
+(* Const before type ignored *)
+{out }function H5Tenum_nameof(_type:Thid_t; value:pointer; name:Pchar; size:Tsize_t):Therr_t;cdecl;external;
+{*
  * \ingroup ENUM
  *
  * \brief Returns the value corresponding to a specified member of an
  *        enumeration datatype
  *
- * \type_id{type}
+ * \type_idtype
  * \param[in] name Symbol name of the enumeration datatype
  * \param[out] value Buffer for the value of the enumeration datatype
  *
@@ -1604,18 +1108,18 @@ extern herr_t H5Tenum_nameof(hid_t type, const void *value, char *name /*out*/, 
  *
  * \since 1.2.0
  *
- */
-extern herr_t H5Tenum_valueof(hid_t type, const char *name, void *value /*out*/);
-
-/* Operations defined on variable-length datatypes */
-/**
+  }
+(* Const before type ignored *)
+{out }function H5Tenum_valueof(_type:Thid_t; name:Pchar; value:pointer):Therr_t;cdecl;external;
+{ Operations defined on variable-length datatypes  }
+{*
  * \ingroup VLEN
  *
  * \brief Creates a new variable-length array datatype
  *
- * \type_id{base_id}, the element type of the datatype to create
+ * \type_idbase_id, the element type of the datatype to create
  *
- * \return \hid_t{variable-length datatype}
+ * \return \hid_tvariable-length datatype
  *
  * \details H5Tvlen_create() creates a new one-dimensional array datatype of
  *          variable-length (VL) with the base datatype \p base_id.
@@ -1640,11 +1144,10 @@ extern herr_t H5Tenum_valueof(hid_t type, const char *name, void *value /*out*/)
  *            the array being of the string or character base type.\n
  *            To create a variable-length string datatype, see \ref_vlen_strings.
  *
- */
-extern hid_t H5Tvlen_create(hid_t base_id);
-
-/* Operations defined on array datatypes */
-/**
+  }
+function H5Tvlen_create(base_id:Thid_t):Thid_t;cdecl;external;
+{ Operations defined on array datatypes  }
+{*
  * \ingroup ARRAY
  *
  * \brief Creates an array datatype object
@@ -1653,7 +1156,7 @@ extern hid_t H5Tvlen_create(hid_t base_id);
  * \param[in] ndims Rank of the array
  * \param[in] dim Size of each array dimension
  *
- * \return \hid_t{array datatype}
+ * \return \hid_tarray datatype
  *
  * \details H5Tarray_create2() creates a new array datatype object.\n\n
  *          \p base_id is the datatype of every element of the array, i.e.,
@@ -1667,9 +1170,10 @@ extern hid_t H5Tvlen_create(hid_t base_id);
  *
  * \since 1.8.0
  *
- */
-extern hid_t H5Tarray_create2(hid_t base_id, unsigned ndims, const hsize_t dim[/* ndims */]);
-/**
+  }
+(* Const before type ignored *)
+{ ndims  }function H5Tarray_create2(base_id:Thid_t; ndims:dword; dim:Phsize_t):Thid_t;cdecl;external;
+{*
  * \ingroup ARRAY
  *
  * \brief Returns the rank of an array datatype
@@ -1684,9 +1188,9 @@ extern hid_t H5Tarray_create2(hid_t base_id, unsigned ndims, const hsize_t dim[/
  *
  * \since 1.2.0
  *
- */
-extern int H5Tget_array_ndims(hid_t type_id);
-/**
+  }
+function H5Tget_array_ndims(type_id:Thid_t):longint;cdecl;external;
+{*
  * \ingroup ARRAY
  *
  * \brief Retrieves sizes of array dimensions
@@ -1702,16 +1206,15 @@ extern int H5Tget_array_ndims(hid_t type_id);
  *
  * \since 1.2.0
  *
- */
-extern int H5Tget_array_dims2(hid_t type_id, hsize_t dims[]);
-
-/* Operations defined on opaque datatypes */
-/**
+  }
+function H5Tget_array_dims2(type_id:Thid_t; dims:Phsize_t):longint;cdecl;external;
+{ Operations defined on opaque datatypes  }
+{*
  * \ingroup OPAQUE
  *
  * \brief Tags an opaque datatype
  *
- * \type_id{type} of an opaque datatype
+ * \type_idtype of an opaque datatype
  * \param[in] tag Descriptive ASCII string with which the opaque datatype is
  *                to be tagged
  *
@@ -1728,14 +1231,15 @@ extern int H5Tget_array_dims2(hid_t type_id, hsize_t dims[]);
  *                maximum size of an opaque datatype tag, was added in
  *                H5Tpublic.h.
  *
- */
-extern herr_t H5Tset_tag(hid_t type, const char *tag);
-/**
+  }
+(* Const before type ignored *)
+function H5Tset_tag(_type:Thid_t; tag:Pchar):Therr_t;cdecl;external;
+{*
  * \ingroup OPAQUE
  *
  * \brief Gets the tag associated with an opaque datatype
  *
- * \type_id{type} of an opaque datatype
+ * \type_idtype of an opaque datatype
  *
  * \return Returns a pointer to an allocated string if successful; otherwise
  *         returns NULL.
@@ -1746,18 +1250,17 @@ extern herr_t H5Tset_tag(hid_t type, const char *tag);
  * \attention The tag is returned via a pointer to an allocated string, which
  *            the caller must free.
  *
- */
-extern char *H5Tget_tag(hid_t type);
-
-/* Querying property values */
-/**
+  }
+function H5Tget_tag(_type:Thid_t):Pchar;cdecl;external;
+{ Querying property values  }
+{*
  * \ingroup H5T
  *
  * \brief Returns the base datatype from which a datatype is derived
  *
- * \type_id{type}
+ * \type_idtype
  *
- * \return \hid_t{datatype}
+ * \return \hid_tdatatype
  *
  * \details H5Tget_super() returns the base datatype from which the datatype
  *          \p type_id is derived.  In the case of an enumeration type, the
@@ -1767,9 +1270,9 @@ extern char *H5Tget_tag(hid_t type);
  *          with H5Tclose()  when the identifier is no longer needed so that
  *          resource leaks will not develop.
  *
- */
-extern hid_t H5Tget_super(hid_t type);
-/**
+  }
+function H5Tget_super(_type:Thid_t):Thid_t;cdecl;external;
+{*
  * \ingroup H5T
  *
  * \brief Returns a datatype class
@@ -1790,9 +1293,9 @@ extern hid_t H5Tget_super(hid_t type);
  *       be readable and modifiable only on the originating computing
  *       platform; it will not be portable to other platforms.
  *
- */
-extern H5T_class_t H5Tget_class(hid_t type_id);
-/**
+  }
+function H5Tget_class(type_id:Thid_t):TH5T_class_t;cdecl;external;
+{*
  * \ingroup H5T
  *
  * \brief Determines whether a datatype contains any datatypes of the given
@@ -1816,9 +1319,9 @@ extern H5T_class_t H5Tget_class(hid_t type_id);
  *
  * \since 1.6.0
  *
- */
-extern htri_t H5Tdetect_class(hid_t type_id, H5T_class_t cls);
-/**
+  }
+function H5Tdetect_class(type_id:Thid_t; cls:TH5T_class_t):Thtri_t;cdecl;external;
+{*
  * \ingroup H5T
  *
  * \brief Returns the size of a datatype
@@ -1845,9 +1348,9 @@ extern htri_t H5Tdetect_class(hid_t type_id, H5T_class_t cls);
  * \see H5Tset_size()
  *
  * \since 1.2.0
- */
-extern size_t H5Tget_size(hid_t type_id);
-/**
+  }
+function H5Tget_size(type_id:Thid_t):Tsize_t;cdecl;external;
+{*
  * \ingroup ATOM
  *
  * \brief Returns the byte order of an atomic datatype
@@ -1871,9 +1374,9 @@ extern size_t H5Tget_size(hid_t type_id);
  *
  * \since 1.2.0
  *
- */
-extern H5T_order_t H5Tget_order(hid_t type_id);
-/**
+  }
+function H5Tget_order(type_id:Thid_t):TH5T_order_t;cdecl;external;
+{*
  * \ingroup ATOM
  *
  * \brief Returns the precision of an atomic datatype
@@ -1891,9 +1394,9 @@ extern H5T_order_t H5Tget_order(hid_t type_id);
  *
  * \since 1.2.0
  *
- */
-extern size_t H5Tget_precision(hid_t type_id);
-/**
+  }
+function H5Tget_precision(type_id:Thid_t):Tsize_t;cdecl;external;
+{*
  * \ingroup ATOM
  *
  * \brief Retrieves the bit offset of the first significant bit
@@ -1911,7 +1414,7 @@ extern size_t H5Tget_precision(hid_t type_id);
  *          datum with 16-bits of precision having the value 0x1122 then it
  *          will be laid out in memory as (from small byte address toward
  *          larger byte addresses):
- *          \code{.unparsed}
+ *          \code.unparsed
  *          0:  [ pad]  [0x11]  [0x22]  [ pad]
  *          1:  [ pad]  [0x22]  [0x11]  [ pad]
  *          2:  [0x11]  [ pad]  [ pad]  [0x22]
@@ -1920,9 +1423,9 @@ extern size_t H5Tget_precision(hid_t type_id);
  *
  * \since 1.2.0
  *
- */
-extern int H5Tget_offset(hid_t type_id);
-/**
+  }
+function H5Tget_offset(type_id:Thid_t):longint;cdecl;external;
+{*
  * \ingroup ATOM
  *
  * \brief Retrieves the padding type of the least and most-significant bit padding
@@ -1939,9 +1442,9 @@ extern int H5Tget_offset(hid_t type_id);
  *
  * \since 1.2.0
  *
- */
-extern herr_t H5Tget_pad(hid_t type_id, H5T_pad_t *lsb /*out*/, H5T_pad_t *msb /*out*/);
-/**
+  }
+{out }{out }function H5Tget_pad(type_id:Thid_t; lsb:PH5T_pad_t; msb:PH5T_pad_t):Therr_t;cdecl;external;
+{*
  * \ingroup ATOM
  *
  * \brief Retrieves the sign type for an integer type
@@ -1956,9 +1459,9 @@ extern herr_t H5Tget_pad(hid_t type_id, H5T_pad_t *lsb /*out*/, H5T_pad_t *msb /
  *
  * \since 1.2.0
  *
- */
-extern H5T_sign_t H5Tget_sign(hid_t type_id);
-/**
+  }
+function H5Tget_sign(type_id:Thid_t):TH5T_sign_t;cdecl;external;
+{*
  * \ingroup ATOM
  *
  * \brief Retrieves floating point datatype bit field information
@@ -1980,10 +1483,10 @@ extern H5T_sign_t H5Tget_sign(hid_t type_id);
  *
  * \since 1.2.0
  *
- */
-extern herr_t H5Tget_fields(hid_t type_id, size_t *spos /*out*/, size_t *epos /*out*/, size_t *esize /*out*/,
-                            size_t *mpos /*out*/, size_t *msize /*out*/);
-/**
+  }
+{out }{out }{out }{out }{out }function H5Tget_fields(type_id:Thid_t; spos:Psize_t; epos:Psize_t; esize:Psize_t; mpos:Psize_t; 
+           msize:Psize_t):Therr_t;cdecl;external;
+{*
  * \ingroup ATOM
  *
  * \brief Retrieves the exponent bias of a floating-point type
@@ -1996,9 +1499,9 @@ extern herr_t H5Tget_fields(hid_t type_id, size_t *spos /*out*/, size_t *epos /*
  *
  * \since 1.2.0
  *
- */
-extern size_t H5Tget_ebias(hid_t type_id);
-/**
+  }
+function H5Tget_ebias(type_id:Thid_t):Tsize_t;cdecl;external;
+{*
  * --------------------------------------------------------------------------
  * \ingroup ATOM
  *
@@ -2015,9 +1518,9 @@ extern size_t H5Tget_ebias(hid_t type_id);
  *
  * \since 1.2.0
  *
- */
-extern H5T_norm_t H5Tget_norm(hid_t type_id);
-/**
+  }
+function H5Tget_norm(type_id:Thid_t):TH5T_norm_t;cdecl;external;
+{*
  * \ingroup ATOM
  *
  * \brief Retrieves the internal padding type for unused bits in floating-point
@@ -2034,9 +1537,9 @@ extern H5T_norm_t H5Tget_norm(hid_t type_id);
  *
  * \since 1.2.0
  *
- */
-extern H5T_pad_t H5Tget_inpad(hid_t type_id);
-/**
+  }
+function H5Tget_inpad(type_id:Thid_t):TH5T_pad_t;cdecl;external;
+{*
  * \ingroup ATOM
  *
  * \brief Retrieves the type of padding used for a string datatype
@@ -2055,9 +1558,9 @@ extern H5T_pad_t H5Tget_inpad(hid_t type_id);
  *
  * \since 1.2.0
  *
- */
-extern H5T_str_t H5Tget_strpad(hid_t type_id);
-/**
+  }
+function H5Tget_strpad(type_id:Thid_t):TH5T_str_t;cdecl;external;
+{*
  * \ingroup COMPENUM
  *
  * \brief Retrieves the number of elements in a compound or enumeration datatype
@@ -2072,9 +1575,9 @@ extern H5T_str_t H5Tget_strpad(hid_t type_id);
  *
  * \since 1.2.0
  *
- */
-extern int H5Tget_nmembers(hid_t type_id);
-/**
+  }
+function H5Tget_nmembers(type_id:Thid_t):longint;cdecl;external;
+{*
  * \ingroup COMPENUM
  *
  * \brief Retrieves the name of a compound or enumeration datatype member
@@ -2099,9 +1602,9 @@ extern int H5Tget_nmembers(hid_t type_id);
  *
  * \since 1.2.0
  *
- */
-extern char *H5Tget_member_name(hid_t type_id, unsigned membno);
-/**
+  }
+function H5Tget_member_name(type_id:Thid_t; membno:dword):Pchar;cdecl;external;
+{*
  * \ingroup COMPENUM
  *
  * \brief Retrieves the index of a compound or enumeration datatype member
@@ -2121,9 +1624,10 @@ extern char *H5Tget_member_name(hid_t type_id, unsigned membno);
  *
  * \since 1.2.0
  *
- */
-extern int H5Tget_member_index(hid_t type_id, const char *name);
-/**
+  }
+(* Const before type ignored *)
+function H5Tget_member_index(type_id:Thid_t; name:Pchar):longint;cdecl;external;
+{*
  * \ingroup COMPOUND
  *
  * \brief Retrieves the offset of a field of a compound datatype
@@ -2145,9 +1649,9 @@ extern int H5Tget_member_index(hid_t type_id, const char *name);
  *
  * \since 1.2.0
  *
- */
-extern size_t H5Tget_member_offset(hid_t type_id, unsigned membno);
-/**
+  }
+function H5Tget_member_offset(type_id:Thid_t; membno:dword):Tsize_t;cdecl;external;
+{*
  * \ingroup COMPOUND
  *
  * \brief Returns datatype class of compound datatype member
@@ -2166,9 +1670,9 @@ extern size_t H5Tget_member_offset(hid_t type_id, unsigned membno);
  *
  * \since 1.2.0
  *
- */
-extern H5T_class_t H5Tget_member_class(hid_t type_id, unsigned membno);
-/**
+  }
+function H5Tget_member_class(type_id:Thid_t; membno:dword):TH5T_class_t;cdecl;external;
+{*
  * \ingroup COMPOUND
  *
  * \brief Returns the datatype of the specified member
@@ -2187,9 +1691,9 @@ extern H5T_class_t H5Tget_member_class(hid_t type_id, unsigned membno);
  *
  * \since 1.2.0
  *
- */
-extern hid_t H5Tget_member_type(hid_t type_id, unsigned membno);
-/**
+  }
+function H5Tget_member_type(type_id:Thid_t; membno:dword):Thid_t;cdecl;external;
+{*
  * \ingroup ENUM
  *
  * \brief Returns the value of an enumeration datatype member
@@ -2214,9 +1718,9 @@ extern hid_t H5Tget_member_type(hid_t type_id, unsigned membno);
  *
  * \since 1.2.0
  *
- */
-extern herr_t H5Tget_member_value(hid_t type_id, unsigned membno, void *value /*out*/);
-/**
+  }
+{out }function H5Tget_member_value(type_id:Thid_t; membno:dword; value:pointer):Therr_t;cdecl;external;
+{*
  * \ingroup ATOM
  *
  * \brief Retrieves the character set type of a string datatype
@@ -2232,9 +1736,9 @@ extern herr_t H5Tget_member_value(hid_t type_id, unsigned membno, void *value /*
  *
  * \since 1.2.0
  *
- */
-extern H5T_cset_t H5Tget_cset(hid_t type_id);
-/**
+  }
+function H5Tget_cset(type_id:Thid_t):TH5T_cset_t;cdecl;external;
+{*
  * \ingroup ATOM
  *
  * \brief Determines whether datatype is a variable-length string
@@ -2255,9 +1759,9 @@ extern H5T_cset_t H5Tget_cset(hid_t type_id);
  *
  * \since 1.6.0
  *
- */
-extern htri_t H5Tis_variable_str(hid_t type_id);
-/**
+  }
+function H5Tis_variable_str(type_id:Thid_t):Thtri_t;cdecl;external;
+{*
  * \ingroup H5T
  *
  * \brief Returns the native datatype identifier of a specified datatype
@@ -2265,7 +1769,7 @@ extern htri_t H5Tis_variable_str(hid_t type_id);
  * \type_id
  * \param[in] direction Direction of search
  *
- * \return \hid_t{native datatype}
+ * \return \hid_tnative datatype
  *
  * \details H5Tget_native_type() returns the equivalent native datatype
  *          identifier for the datatype specified by \p type_id.
@@ -2339,11 +1843,10 @@ extern htri_t H5Tis_variable_str(hid_t type_id);
  *
  * \since 1.6.0
  *
- */
-extern hid_t H5Tget_native_type(hid_t type_id, H5T_direction_t direction);
-
-/* Setting property values */
-/**
+  }
+function H5Tget_native_type(type_id:Thid_t; direction:TH5T_direction_t):Thid_t;cdecl;external;
+{ Setting property values  }
+{*
  * \ingroup H5T
  *
  * \brief Sets size for a datatype.
@@ -2389,9 +1892,9 @@ extern hid_t H5Tget_native_type(hid_t type_id, H5T_direction_t direction);
  *
  * \since 1.2.0
  *
- */
-extern herr_t H5Tset_size(hid_t type_id, size_t size);
-/**
+  }
+function H5Tset_size(type_id:Thid_t; size:Tsize_t):Therr_t;cdecl;external;
+{*
  * \ingroup ATOM
  *
  * \brief Sets the byte order of a datatype
@@ -2428,9 +1931,9 @@ extern herr_t H5Tset_size(hid_t type_id, size_t size);
  *
  * \since 1.2.0
  *
- */
-extern herr_t H5Tset_order(hid_t type_id, H5T_order_t order);
-/**
+  }
+function H5Tset_order(type_id:Thid_t; order:TH5T_order_t):Therr_t;cdecl;external;
+{*
  * \ingroup ATOM
  *
  * \brief Sets the precision of an atomic datatype
@@ -2458,9 +1961,9 @@ extern herr_t H5Tset_order(hid_t type_id, H5T_order_t order);
  *
  * \since 1.2.0
  *
- */
-extern herr_t H5Tset_precision(hid_t type_id, size_t prec);
-/**
+  }
+function H5Tset_precision(type_id:Thid_t; prec:Tsize_t):Therr_t;cdecl;external;
+{*
  * \ingroup ATOM
  *
  * \brief Sets the bit offset of the first significant bit
@@ -2478,7 +1981,7 @@ extern herr_t H5Tset_precision(hid_t type_id, size_t prec);
  *          if we have a 32-bit datum with 16-bits of precision having the
  *          value 0x1122, then it will be laid out in memory as (from small
  *          byte address toward larger byte addresses):
- *          \code{.unparsed}
+ *          \code.unparsed
  *          0:  [ pad]  [0x11]  [0x22]  [ pad]
  *          1:  [ pad]  [0x22]  [0x11]  [ pad]
  *          2:  [0x11]  [ pad]  [ pad]  [0x22]
@@ -2492,9 +1995,9 @@ extern herr_t H5Tset_precision(hid_t type_id, size_t prec);
  *
  * \since 1.2.0
  *
- */
-extern herr_t H5Tset_offset(hid_t type_id, size_t offset);
-/**
+  }
+function H5Tset_offset(type_id:Thid_t; offset:Tsize_t):Therr_t;cdecl;external;
+{*
  * \ingroup ATOM
  *
  * \brief Sets the least and most-significant bits padding types
@@ -2511,9 +2014,9 @@ extern herr_t H5Tset_offset(hid_t type_id, size_t offset);
  *
  * \since 1.2.0
  *
- */
-extern herr_t H5Tset_pad(hid_t type_id, H5T_pad_t lsb, H5T_pad_t msb);
-/**
+  }
+function H5Tset_pad(type_id:Thid_t; lsb:TH5T_pad_t; msb:TH5T_pad_t):Therr_t;cdecl;external;
+{*
  * \ingroup ATOM
  *
  * \brief Sets the sign property for an integer type
@@ -2528,9 +2031,9 @@ extern herr_t H5Tset_pad(hid_t type_id, H5T_pad_t lsb, H5T_pad_t msb);
  *
  * \since 1.2.0
  *
- */
-extern herr_t H5Tset_sign(hid_t type_id, H5T_sign_t sign);
-/**
+  }
+function H5Tset_sign(type_id:Thid_t; sign:TH5T_sign_t):Therr_t;cdecl;external;
+{*
  * \ingroup ATOM
  *
  * \brief Sets locations and sizes of floating point bit fields
@@ -2555,9 +2058,10 @@ extern herr_t H5Tset_sign(hid_t type_id, H5T_sign_t sign);
  *
  * \since 1.2.0
  *
- */
-extern herr_t H5Tset_fields(hid_t type_id, size_t spos, size_t epos, size_t esize, size_t mpos, size_t msize);
-/**
+  }
+function H5Tset_fields(type_id:Thid_t; spos:Tsize_t; epos:Tsize_t; esize:Tsize_t; mpos:Tsize_t; 
+           msize:Tsize_t):Therr_t;cdecl;external;
+{*
  * \ingroup ATOM
  *
  * \brief Sets the exponent bias of a floating-point type
@@ -2571,9 +2075,9 @@ extern herr_t H5Tset_fields(hid_t type_id, size_t spos, size_t epos, size_t esiz
  *
  * \since 1.2.0
  *
- */
-extern herr_t H5Tset_ebias(hid_t type_id, size_t ebias);
-/**
+  }
+function H5Tset_ebias(type_id:Thid_t; ebias:Tsize_t):Therr_t;cdecl;external;
+{*
  * \ingroup ATOM
  *
  * \brief Sets the mantissa normalization of a floating-point datatype
@@ -2589,9 +2093,9 @@ extern herr_t H5Tset_ebias(hid_t type_id, size_t ebias);
  *
  * \since 1.2.0
  *
- */
-extern herr_t H5Tset_norm(hid_t type_id, H5T_norm_t norm);
-/**
+  }
+function H5Tset_norm(type_id:Thid_t; norm:TH5T_norm_t):Therr_t;cdecl;external;
+{*
  * \ingroup ATOM
  *
  * \brief Fills unused internal floating-point bits
@@ -2610,9 +2114,9 @@ extern herr_t H5Tset_norm(hid_t type_id, H5T_norm_t norm);
  *
  * \since 1.2.0
  *
- */
-extern herr_t H5Tset_inpad(hid_t type_id, H5T_pad_t pad);
-/**
+  }
+function H5Tset_inpad(type_id:Thid_t; pad:TH5T_pad_t):Therr_t;cdecl;external;
+{*
  * \ingroup ATOM
  *
  * \brief Sets character set to be used in a string or character datatype
@@ -2643,9 +2147,9 @@ extern herr_t H5Tset_inpad(hid_t type_id, H5T_pad_t pad);
  *
  * \since 1.2.0
  *
- */
-extern herr_t H5Tset_cset(hid_t type_id, H5T_cset_t cset);
-/**
+  }
+function H5Tset_cset(type_id:Thid_t; cset:TH5T_cset_t):Therr_t;cdecl;external;
+{*
  * \ingroup ATOM
  *
  * \brief Defines the type of padding used for character strings
@@ -2675,18 +2179,17 @@ extern herr_t H5Tset_cset(hid_t type_id, H5T_cset_t cset);
  *
  * \since 1.2.0
  *
- */
-extern herr_t H5Tset_strpad(hid_t type_id, H5T_str_t strpad);
-
-/**
+  }
+function H5Tset_strpad(type_id:Thid_t; strpad:TH5T_str_t):Therr_t;cdecl;external;
+{*
  * \ingroup CONV
  *
  * \brief Registers a datatype conversion function
  *
  * \param[in] pers Conversion function type
  * \param[in] name Name displayed in diagnostic output
- * \type_id{src_id} of source datatype
- * \type_id{dst_id} of destination datatype
+ * \type_idsrc_id of source datatype
+ * \type_iddst_id of destination datatype
  * \param[in] func Function to convert between source and destination datatypes
  *
  * \return \herr_t
@@ -2695,9 +2198,9 @@ extern herr_t H5Tset_strpad(hid_t type_id, H5T_str_t strpad);
  *          datatype conversion path. The parameter \p pers indicates whether a
  *          conversion function is hard (#H5T_PERS_HARD) or soft
  *          (#H5T_PERS_SOFT). User-defined functions employing compiler casting
- *          are designated as \Emph{hard}; other user-defined conversion
+ *          are designated as \Emphhard; other user-defined conversion
  *          functions registered with the HDF5 library (with H5Tregister() )
- *          are designated as \Emph{soft}. The HDF5 library also has its own
+ *          are designated as \Emphsoft. The HDF5 library also has its own
  *          hard and soft conversion functions.
  *
  *          A conversion path can have only one hard function. When type is
@@ -2724,17 +2227,18 @@ extern herr_t H5Tset_strpad(hid_t type_id, H5T_str_t strpad);
  * \since 1.6.3 The following change occurred in the \ref H5T_conv_t function:
  *              the \c nelmts parameter type changed to size_t.
  *
- */
-extern herr_t H5Tregister(H5T_pers_t pers, const char *name, hid_t src_id, hid_t dst_id, H5T_conv_t func);
-/**
+  }
+(* Const before type ignored *)
+function H5Tregister(pers:TH5T_pers_t; name:Pchar; src_id:Thid_t; dst_id:Thid_t; func:TH5T_conv_t):Therr_t;cdecl;external;
+{*
  * \ingroup CONV
  *
  * \brief Removes a conversion function
  *
  * \param[in] pers Conversion function type
  * \param[in] name Name displayed in diagnostic output
- * \type_id{src_id} of source datatype
- * \type_id{dst_id} of destination datatype
+ * \type_idsrc_id of source datatype
+ * \type_iddst_id of destination datatype
  * \param[in] func Function to convert between source and destination datatypes
  *
  * \return \herr_t
@@ -2759,15 +2263,16 @@ extern herr_t H5Tregister(H5T_pers_t pers, const char *name, hid_t src_id, hid_t
  * \version 1.6.3 The following change occurred in the \ref H5T_conv_t function:
  *                the \c nelmts parameter type changed to size_t.
  *
- */
-extern herr_t H5Tunregister(H5T_pers_t pers, const char *name, hid_t src_id, hid_t dst_id, H5T_conv_t func);
-/**
+  }
+(* Const before type ignored *)
+function H5Tunregister(pers:TH5T_pers_t; name:Pchar; src_id:Thid_t; dst_id:Thid_t; func:TH5T_conv_t):Therr_t;cdecl;external;
+{*
  * \ingroup CONV
  *
  * \brief Finds a conversion function
  *
- * \type_id{src_id} of source datatype
- * \type_id{dst_id} of destination datatype
+ * \type_idsrc_id of source datatype
+ * \type_iddst_id of destination datatype
  * \param[out] pcdata Pointer to type conversion data
  *
  * \return Returns a pointer to a suitable conversion function if successful.
@@ -2779,15 +2284,15 @@ extern herr_t H5Tunregister(H5T_pers_t pers, const char *name, hid_t src_id, hid
  *          initialized by the soft type conversion function of this path when
  *          the conversion function was installed on the path.
  *
- */
-extern H5T_conv_t H5Tfind(hid_t src_id, hid_t dst_id, H5T_cdata_t **pcdata);
-/**
+  }
+function H5Tfind(src_id:Thid_t; dst_id:Thid_t; pcdata:PPH5T_cdata_t):TH5T_conv_t;cdecl;external;
+{*
  * \ingroup CONV
  *
  * \brief Check whether the library’s default conversion is hard conversion
  *
- * \type_id{src_id} of source datatype
- * \type_id{dst_id} of destination datatype
+ * \type_idsrc_id of source datatype
+ * \type_iddst_id of destination datatype
  *
  * \return \htri_t
  *
@@ -2799,20 +2304,20 @@ extern H5T_conv_t H5Tfind(hid_t src_id, hid_t dst_id, H5T_cdata_t **pcdata);
  *
  * \since 1.8.0
  *
- */
-extern htri_t H5Tcompiler_conv(hid_t src_id, hid_t dst_id);
-/**
+  }
+function H5Tcompiler_conv(src_id:Thid_t; dst_id:Thid_t):Thtri_t;cdecl;external;
+{*
  * --------------------------------------------------------------------------
  * \ingroup CONV
  *
  * \brief Converts data from one specified datatype to another
  *
- * \type_id{src_id} of source datatype
- * \type_id{dst_id} of destination datatype
+ * \type_idsrc_id of source datatype
+ * \type_iddst_id of destination datatype
  * \param[in] nelmts Size of array \p buf
  * \param[in,out] buf Array containing pre- and post-conversion values
  * \param[in] background Optional background buffer
- * \dxpl_id{plist_id}
+ * \dxpl_idplist_id
  *
  * \return \herr_t
  *
@@ -2840,23 +2345,18 @@ extern htri_t H5Tcompiler_conv(hid_t src_id, hid_t dst_id);
  * \version 1.6.3 \p nelmts parameter type changed to size_t.
  * \version 1.4.0 \p nelmts parameter type changed to hsize_t.
  *
- */
-extern herr_t H5Tconvert(hid_t src_id, hid_t dst_id, size_t nelmts, void *buf, void *background,
-                         hid_t plist_id);
-
-/* Symbols defined for compatibility with previous versions of the HDF5 API.
+  }
+function H5Tconvert(src_id:Thid_t; dst_id:Thid_t; nelmts:Tsize_t; buf:pointer; background:pointer; 
+           plist_id:Thid_t):Therr_t;cdecl;external;
+{ Symbols defined for compatibility with previous versions of the HDF5 API.
  *
  * Use of these symbols is deprecated.
- */
-
-#ifndef H5_NO_DEPRECATED_SYMBOLS
-
-/* Macros */
-
-/* Typedefs */
-
-/* Function prototypes */
-/**
+  }
+{$ifndef H5_NO_DEPRECATED_SYMBOLS}
+{ Macros  }
+{ Typedefs  }
+{ Function prototypes  }
+{*
  * \ingroup H5T
  *
  * \brief Commits a transient datatype to a file, creating a new named datatype
@@ -2899,9 +2399,11 @@ extern herr_t H5Tconvert(hid_t src_id, hid_t dst_id, size_t nelmts, void *buf, v
  *          in this release.
  * \since 1.2.0
  *
- */
-extern herr_t H5Tcommit1(hid_t loc_id, const char *name, hid_t type_id);
-/**
+  }
+(* Const before type ignored *)
+
+function H5Tcommit1(loc_id:Thid_t; name:Pchar; type_id:Thid_t):Therr_t;cdecl;external;
+{*
  * \ingroup H5T
  *
  * \brief Opens a named datatype
@@ -2925,9 +2427,10 @@ extern herr_t H5Tcommit1(hid_t loc_id, const char *name, hid_t type_id);
  *
  * \since 1.2.0
  *
- */
-extern hid_t H5Topen1(hid_t loc_id, const char *name);
-/**
+  }
+(* Const before type ignored *)
+function H5Topen1(loc_id:Thid_t; name:Pchar):Thid_t;cdecl;external;
+{*
  * \ingroup ARRAY
  *
  * \brief Creates an array datatype object
@@ -2937,7 +2440,7 @@ extern hid_t H5Topen1(hid_t loc_id, const char *name);
  * \param[in] dim Size of each array dimension
  * \param[in] perm Dimension permutation   (Currently not implemented.)
  *
- * \return \hid_t{array datatype}
+ * \return \hid_tarray datatype
  *
  * \deprecated This function has been renamed from H5Tarray_create() and is
  *             deprecated in favor of the macro #H5Tarray_create or the function
@@ -2960,10 +2463,11 @@ extern hid_t H5Topen1(hid_t loc_id, const char *name);
  *          and deprecated in this release.
  * \since 1.4.0
  *
- */
-extern hid_t H5Tarray_create1(hid_t base_id, int ndims, const hsize_t dim[/* ndims */],
-                              const int perm[/* ndims */]);
-/**
+  }
+(* Const before type ignored *)
+{ ndims  }(* Const before type ignored *)
+{ ndims  }function H5Tarray_create1(base_id:Thid_t; ndims:longint; dim:Phsize_t; perm:Plongint):Thid_t;cdecl;external;
+{*
  * \ingroup ARRAY
  *
  * \brief Retrieves sizes of array dimensions
@@ -2988,12 +2492,42 @@ extern hid_t H5Tarray_create1(hid_t base_id, int ndims, const hsize_t dim[/* ndi
  *          and deprecated in this release.
  * \since 1.2.0
  *
- */
-extern int H5Tget_array_dims1(hid_t type_id, hsize_t dims[], int perm[]);
+  }
+function H5Tget_array_dims1(type_id:Thid_t; dims:Phsize_t; perm:Plongint):longint;cdecl;external;
+{$endif}
+{ H5_NO_DEPRECATED_SYMBOLS  }
+{ C++ end of extern C conditionnal removed }
+{$endif}
+{ H5Tpublic_H  }
 
-#endif /* H5_NO_DEPRECATED_SYMBOLS */
+implementation
 
-#ifdef __cplusplus
-}
-#endif
-#endif /* H5Tpublic_H */
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function HOFFSET(S,M : longint) : longint;
+begin
+  HOFFSET:=offsetof(S,M);
+end;
+
+{ was #define dname def_expr }
+function H5T_VARIABLE : Tsize_t;
+  begin
+    H5T_VARIABLE:=Tsize_t(-(1));
+  end;
+
+{ was #define dname def_expr }
+function H5T_NATIVE_CHAR : longint; { return type might be wrong }
+  var
+     if_local1 : longint;
+  (* result types are not known *)
+  begin
+    if CHAR_MIN then
+      if_local1:=H5T_NATIVE_SCHAR
+    else
+      if_local1:=H5T_NATIVE_UCHAR;
+    H5T_NATIVE_CHAR:=if_local1;
+  end;
+
+
+end.

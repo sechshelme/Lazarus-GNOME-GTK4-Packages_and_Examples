@@ -9,7 +9,7 @@ uses
 
 const
   {$IFDEF Linux}
-  libgraphene = 'libgraphene-1.0';
+  libgraphene = 'graphene-1.0';
   {$ENDIF}
 
   {$IFDEF Windows}
@@ -23,7 +23,6 @@ const
   {$DEFINE read_interface}
   {$include fp_graphene_includes.inc}
   {$UNDEF read_interface}
-
 
 implementation
 
