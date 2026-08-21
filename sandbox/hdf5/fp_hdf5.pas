@@ -45,8 +45,15 @@ const
     Pssize_t = ^Tssize_t;
 
     Thsize_t=SizeUInt    ;
+    Phsize_t=^Thsize_t;
+
+    Thssize_t=SizeUInt    ;
+    Phssize_t=^Thssize_t;
+
+    Ttime_t=UInt64;
 
     Tdouble=Double; // ?????
+
 
 
   {$IFDEF FPC}

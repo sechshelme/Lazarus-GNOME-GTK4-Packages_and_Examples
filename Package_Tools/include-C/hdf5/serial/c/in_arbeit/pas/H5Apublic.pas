@@ -3,7 +3,7 @@ unit H5Apublic;
 interface
 
 uses
-  fp_hdf5, H5public;
+  fp_hdf5, H5public, H5Ipublic, H5Opublic, H5Tpublic;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
