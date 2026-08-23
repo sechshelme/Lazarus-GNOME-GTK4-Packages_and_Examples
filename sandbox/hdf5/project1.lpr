@@ -23,19 +23,18 @@ uses
   H5FDlog,
   H5FDmirror,
   H5FDmpi,
-
+  H5Fpublic,
+  H5FDpublic,
   H5pubconf,
-
-
   H5FDmpio,
   H5FDmulti,
-  H5FDpublic,
+
+
   H5FDros3,
   H5FDsec2,
   H5FDsplitter,
   H5FDstdio,
   H5FDwindows,
-  H5Fpublic,
   H5Gpublic,
   H5IMpublic,
   H5Include,

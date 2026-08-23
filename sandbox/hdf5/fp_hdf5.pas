@@ -60,6 +60,13 @@ const
     T__float128=array[0..15] of byte;
 
 
+    // === Externes;
+    TMPI_Comm=type Pointer;
+    PMPI_Comm=^TMPI_Comm;
+    TMPI_Info=type Pointer;
+    PMPI_Info=^TMPI_Info;
+
+
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

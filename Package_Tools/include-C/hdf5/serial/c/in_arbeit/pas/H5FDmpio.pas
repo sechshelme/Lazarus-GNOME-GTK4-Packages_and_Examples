@@ -3,7 +3,7 @@ unit H5FDmpio;
 interface
 
 uses
-  fp_hdf5, H5public, H5Ipublic;
+  fp_hdf5, H5public, H5Ipublic, H5FDmpi;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
