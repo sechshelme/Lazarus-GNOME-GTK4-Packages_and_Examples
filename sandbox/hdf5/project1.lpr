@@ -28,21 +28,19 @@ uses
   H5pubconf,
   H5FDmpio,
   H5FDmulti,
-
-
   H5FDros3,
   H5FDsec2,
   H5FDsplitter,
   H5FDstdio,
+  H5Lpublic,
   H5FDwindows,
   H5Gpublic,
+
   H5IMpublic,
   H5Include,
   H5LDpublic,
-  H5Lpublic,
   H5LTpublic,
   H5MMpublic,
-  H5PLextern,
   H5PLpublic,
   H5Ppublic,
   H5PTpublic,
