@@ -193,6 +193,7 @@ const
 type
   TH5T_conv_t = function(src_id: Thid_t; dst_id: Thid_t; cdata: PH5T_cdata_t; nelmts: Tsize_t; buf_stride: Tsize_t; bkg_stride: Tsize_t; buf: pointer; bkg: pointer; dset_xfer_plist: Thid_t): Therr_t; cdecl;
   TH5T_conv_except_func_t = function(except_type: TH5T_conv_except_t; src_id: Thid_t; dst_id: Thid_t; src_buf: pointer; dst_buf: pointer; user_data: pointer): TH5T_conv_ret_t; cdecl;
+  PH5T_conv_except_func_t = ^TH5T_conv_except_func_t;
 
 var
   H5T_IEEE_F32BE_g: Thid_t; cvar;external libhdf5;

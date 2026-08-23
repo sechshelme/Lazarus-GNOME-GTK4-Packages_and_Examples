@@ -107,6 +107,7 @@ const
 
 type
   TH5O_mcdt_search_cb_t = function(op_data: pointer): TH5O_mcdt_search_ret_t; cdecl;
+  PH5O_mcdt_search_cb_t = ^TH5O_mcdt_search_cb_t;
 
 function H5Oopen(loc_id: Thid_t; name: pchar; lapl_id: Thid_t): Thid_t; cdecl; external libhdf5;
 function H5Oopen_by_addr(loc_id: Thid_t; addr: Thaddr_t): Thid_t; cdecl; external libhdf5;

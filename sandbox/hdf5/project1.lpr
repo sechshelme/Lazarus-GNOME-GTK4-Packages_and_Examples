@@ -35,18 +35,20 @@ uses
   H5Lpublic,
   H5FDwindows,
   H5Gpublic,
-
   H5IMpublic,
   H5Include,
   H5LDpublic,
   H5LTpublic,
   H5MMpublic,
   H5PLpublic,
+  H5Zpublic,
   H5Ppublic,
+
   H5PTpublic,
   H5Rpublic,
   H5TBpublic,
-  H5Zpublic, fp_hdf5;
+
+  fp_hdf5;
 
   procedure main;
   begin

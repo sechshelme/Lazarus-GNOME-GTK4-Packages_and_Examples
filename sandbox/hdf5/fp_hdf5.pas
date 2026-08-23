@@ -53,6 +53,8 @@ const
     Ttime_t=UInt64;
 
     PFILE=type Pointer;
+    Toff_t=type Int64;
+    Poff_t=^Toff_t;
 
     Tdouble=Double; // ?????
 

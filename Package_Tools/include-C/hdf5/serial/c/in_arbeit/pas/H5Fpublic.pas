@@ -128,6 +128,7 @@ type
   end;
 
   TH5F_flush_cb_t = function(object_id: Thid_t; udata: pointer): Therr_t; cdecl;
+  PH5F_flush_cb_t = ^TH5F_flush_cb_t;
 
 function H5Fis_hdf5(filename: pchar): Thtri_t; cdecl; external libhdf5;
 function H5Fcreate(filename: pchar; flags: dword; fcpl_id: Thid_t; fapl_id: Thid_t): Thid_t; cdecl; external libhdf5;
