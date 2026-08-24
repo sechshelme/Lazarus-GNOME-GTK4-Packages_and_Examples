@@ -108,10 +108,10 @@ type
     filter: TH5Z_func_t;
   end;
 
-function H5Zregister(cls: pointer): Therr_t; cdecl; external libhdf5;
-function H5Zunregister(id: TH5Z_filter_t): Therr_t; cdecl; external libhdf5;
-function H5Zfilter_avail(id: TH5Z_filter_t): Thtri_t; cdecl; external libhdf5;
-function H5Zget_filter_info(filter: TH5Z_filter_t; filter_config_flags: Pdword): Therr_t; cdecl; external libhdf5;
+function H5Zregister(cls: pointer): Therr_t; cdecl; external libhdf5_serial;
+function H5Zunregister(id: TH5Z_filter_t): Therr_t; cdecl; external libhdf5_serial;
+function H5Zfilter_avail(id: TH5Z_filter_t): Thtri_t; cdecl; external libhdf5_serial;
+function H5Zget_filter_info(filter: TH5Z_filter_t; filter_config_flags: Pdword): Therr_t; cdecl; external libhdf5_serial;
 
 type
   PH5Z_class1_t = ^TH5Z_class1_t;

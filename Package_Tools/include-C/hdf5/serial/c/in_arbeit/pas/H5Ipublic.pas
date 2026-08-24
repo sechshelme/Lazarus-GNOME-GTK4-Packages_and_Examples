@@ -42,25 +42,25 @@ type
   TH5I_free_t = function(para1: pointer): Therr_t; cdecl;
   TH5I_search_func_t = function(obj: pointer; id: Thid_t; key: pointer): longint; cdecl;
 
-function H5Iregister(_type: TH5I_type_t; obj: pointer): Thid_t; cdecl; external libhdf5;
-function H5Iobject_verify(id: Thid_t; _type: TH5I_type_t): pointer; cdecl; external libhdf5;
-function H5Iremove_verify(id: Thid_t; _type: TH5I_type_t): pointer; cdecl; external libhdf5;
-function H5Iget_type(id: Thid_t): TH5I_type_t; cdecl; external libhdf5;
-function H5Iget_file_id(id: Thid_t): Thid_t; cdecl; external libhdf5;
-function H5Iget_name(id: Thid_t; name: pchar; size: Tsize_t): Tssize_t; cdecl; external libhdf5;
-function H5Iinc_ref(id: Thid_t): longint; cdecl; external libhdf5;
-function H5Idec_ref(id: Thid_t): longint; cdecl; external libhdf5;
-function H5Iget_ref(id: Thid_t): longint; cdecl; external libhdf5;
-function H5Iregister_type(hash_size: Tsize_t; reserved: dword; free_func: TH5I_free_t): TH5I_type_t; cdecl; external libhdf5;
-function H5Iclear_type(_type: TH5I_type_t; force: Thbool_t): Therr_t; cdecl; external libhdf5;
-function H5Idestroy_type(_type: TH5I_type_t): Therr_t; cdecl; external libhdf5;
-function H5Iinc_type_ref(_type: TH5I_type_t): longint; cdecl; external libhdf5;
-function H5Idec_type_ref(_type: TH5I_type_t): longint; cdecl; external libhdf5;
-function H5Iget_type_ref(_type: TH5I_type_t): longint; cdecl; external libhdf5;
-function H5Isearch(_type: TH5I_type_t; func: TH5I_search_func_t; key: pointer): pointer; cdecl; external libhdf5;
-function H5Inmembers(_type: TH5I_type_t; num_members: Phsize_t): Therr_t; cdecl; external libhdf5;
-function H5Itype_exists(_type: TH5I_type_t): Thtri_t; cdecl; external libhdf5;
-function H5Iis_valid(id: Thid_t): Thtri_t; cdecl; external libhdf5;
+function H5Iregister(_type: TH5I_type_t; obj: pointer): Thid_t; cdecl; external libhdf5_serial;
+function H5Iobject_verify(id: Thid_t; _type: TH5I_type_t): pointer; cdecl; external libhdf5_serial;
+function H5Iremove_verify(id: Thid_t; _type: TH5I_type_t): pointer; cdecl; external libhdf5_serial;
+function H5Iget_type(id: Thid_t): TH5I_type_t; cdecl; external libhdf5_serial;
+function H5Iget_file_id(id: Thid_t): Thid_t; cdecl; external libhdf5_serial;
+function H5Iget_name(id: Thid_t; name: pchar; size: Tsize_t): Tssize_t; cdecl; external libhdf5_serial;
+function H5Iinc_ref(id: Thid_t): longint; cdecl; external libhdf5_serial;
+function H5Idec_ref(id: Thid_t): longint; cdecl; external libhdf5_serial;
+function H5Iget_ref(id: Thid_t): longint; cdecl; external libhdf5_serial;
+function H5Iregister_type(hash_size: Tsize_t; reserved: dword; free_func: TH5I_free_t): TH5I_type_t; cdecl; external libhdf5_serial;
+function H5Iclear_type(_type: TH5I_type_t; force: Thbool_t): Therr_t; cdecl; external libhdf5_serial;
+function H5Idestroy_type(_type: TH5I_type_t): Therr_t; cdecl; external libhdf5_serial;
+function H5Iinc_type_ref(_type: TH5I_type_t): longint; cdecl; external libhdf5_serial;
+function H5Idec_type_ref(_type: TH5I_type_t): longint; cdecl; external libhdf5_serial;
+function H5Iget_type_ref(_type: TH5I_type_t): longint; cdecl; external libhdf5_serial;
+function H5Isearch(_type: TH5I_type_t; func: TH5I_search_func_t; key: pointer): pointer; cdecl; external libhdf5_serial;
+function H5Inmembers(_type: TH5I_type_t; num_members: Phsize_t): Therr_t; cdecl; external libhdf5_serial;
+function H5Itype_exists(_type: TH5I_type_t): Thtri_t; cdecl; external libhdf5_serial;
+function H5Iis_valid(id: Thid_t): Thtri_t; cdecl; external libhdf5_serial;
 
 // === Konventiert am: 21-8-26 14:24:03 ===
 

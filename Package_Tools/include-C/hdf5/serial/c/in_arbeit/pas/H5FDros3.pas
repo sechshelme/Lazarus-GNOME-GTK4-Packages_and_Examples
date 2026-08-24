@@ -26,9 +26,9 @@ type
     secret_key: array[0..(H5FD_ROS3_MAX_SECRET_KEY_LEN + 1) - 1] of char;
   end;
 
-function H5FD_ros3_init: Thid_t; cdecl; external libhdf5;
-function H5Pget_fapl_ros3(fapl_id: Thid_t; fa_out: PH5FD_ros3_fapl_t): Therr_t; cdecl; external libhdf5;
-function H5Pset_fapl_ros3(fapl_id: Thid_t; fa: PH5FD_ros3_fapl_t): Therr_t; cdecl; external libhdf5;
+function H5FD_ros3_init: Thid_t; cdecl; external libhdf5_serial;
+function H5Pget_fapl_ros3(fapl_id: Thid_t; fa_out: PH5FD_ros3_fapl_t): Therr_t; cdecl; external libhdf5_serial;
+function H5Pset_fapl_ros3(fapl_id: Thid_t; fa: PH5FD_ros3_fapl_t): Therr_t; cdecl; external libhdf5_serial;
 
 function H5FD_ROS3: Thid_t;
 
@@ -38,8 +38,7 @@ function H5FD_ROS3: Thid_t;
 implementation
 
 
-{ was #define dname def_expr }
-function H5FD_ROS3: Thid_t; { return type might be wrong }
+function H5FD_ROS3: Thid_t;
 begin
   H5FD_ROS3 := H5FD_ros3_init;
 end;

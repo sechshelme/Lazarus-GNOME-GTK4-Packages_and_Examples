@@ -10,8 +10,8 @@ uses
   {$ENDIF}
 
 
-function H5FD_stdio_init: Thid_t; cdecl; external libhdf5;
-function H5Pset_fapl_stdio(fapl_id: Thid_t): Therr_t; cdecl; external libhdf5;
+function H5FD_stdio_init: Thid_t; cdecl; external libhdf5_serial;
+function H5Pset_fapl_stdio(fapl_id: Thid_t): Therr_t; cdecl; external libhdf5_serial;
 
 function H5FD_STDIO: Thid_t;
 

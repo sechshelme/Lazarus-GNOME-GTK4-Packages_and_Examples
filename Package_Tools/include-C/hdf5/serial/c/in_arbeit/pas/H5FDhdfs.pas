@@ -27,9 +27,9 @@ type
     stream_buffer_size: Tint32_t;
   end;
 
-function H5FD_hdfs_init: Thid_t; cdecl; external libhdf5;
-function H5Pget_fapl_hdfs(fapl_id: Thid_t; fa_out: PH5FD_hdfs_fapl_t): Therr_t; cdecl; external libhdf5;
-function H5Pset_fapl_hdfs(fapl_id: Thid_t; fa: PH5FD_hdfs_fapl_t): Therr_t; cdecl; external libhdf5;
+function H5FD_hdfs_init: Thid_t; cdecl; external libhdf5_serial;
+function H5Pget_fapl_hdfs(fapl_id: Thid_t; fa_out: PH5FD_hdfs_fapl_t): Therr_t; cdecl; external libhdf5_serial;
+function H5Pset_fapl_hdfs(fapl_id: Thid_t; fa: PH5FD_hdfs_fapl_t): Therr_t; cdecl; external libhdf5_serial;
 
 function H5FD_HDFS: Thid_t;
 

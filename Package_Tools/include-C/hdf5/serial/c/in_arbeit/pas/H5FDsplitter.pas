@@ -27,9 +27,9 @@ type
     ignore_wo_errs: Thbool_t;
   end;
 
-function H5FD_splitter_init: Thid_t; cdecl; external libhdf5;
-function H5Pset_fapl_splitter(fapl_id: Thid_t; config_ptr: PH5FD_splitter_vfd_config_t): Therr_t; cdecl; external libhdf5;
-function H5Pget_fapl_splitter(fapl_id: Thid_t; config_ptr: PH5FD_splitter_vfd_config_t): Therr_t; cdecl; external libhdf5;
+function H5FD_splitter_init: Thid_t; cdecl; external libhdf5_serial;
+function H5Pset_fapl_splitter(fapl_id: Thid_t; config_ptr: PH5FD_splitter_vfd_config_t): Therr_t; cdecl; external libhdf5_serial;
+function H5Pget_fapl_splitter(fapl_id: Thid_t; config_ptr: PH5FD_splitter_vfd_config_t): Therr_t; cdecl; external libhdf5_serial;
 
 function H5FD_SPLITTER: Thid_t;
 

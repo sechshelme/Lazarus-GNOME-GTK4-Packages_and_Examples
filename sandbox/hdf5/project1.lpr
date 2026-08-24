@@ -14,41 +14,48 @@ uses
   H5DSpublic,
   H5Epubgen,
   H5Epublic,
-  H5f90i,
-  H5f90i_gen,
   H5FDcore,
-  H5FDdirect,
   H5FDfamily,
-  H5FDhdfs,
   H5FDlog,
-  H5FDmirror,
-  H5FDmpi,
   H5Fpublic,
   H5FDpublic,
   H5pubconf,
-  H5FDmpio,
   H5FDmulti,
-  H5FDros3,
   H5FDsec2,
-  H5FDsplitter,
   H5FDstdio,
   H5Lpublic,
-  H5FDwindows,
   H5Gpublic,
-  H5IMpublic,
   H5Include,
   H5LDpublic,
-  H5LTpublic,
   H5MMpublic,
   H5PLpublic,
   H5Zpublic,
   H5Ppublic,
-
-  H5PTpublic,
   H5Rpublic,
-  H5TBpublic,
+
+  H5FDros3,
+  H5FDhdfs,
+  H5FDsplitter,
+
+  H5TBpublic,        // libhdf5_serial_hl
+  H5LTpublic,        // libhdf5_serial_hl
+  H5IMpublic,        // libhdf5_serial_hl
+  H5PTpublic,        // libhdf5_serial_hl
+
+  H5f90i,            // libhdf5_serial_fortan
+  H5f90i_gen,        // libhdf5_serial_fortan
+
+  H5FDdirect,        // libhdf5_openmpi
+  H5FDmirror,        // libhdf5_openmpi
+  H5FDmpi,           // libhdf5_openmpi
+  H5FDmpio,          // libhdf5_openmpi
+
+  H5FDwindows,       // windows
+
 
   fp_hdf5;
+
+//  H5LTpublic / H5IMpublic / H5TBpublic / H5PTpublic
 
   procedure main;
   begin

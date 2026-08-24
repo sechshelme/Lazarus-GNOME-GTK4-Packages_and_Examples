@@ -38,8 +38,8 @@ const
   H5FD_LOG_FREE = $00080000;  
   H5FD_LOG_ALL = ((((((H5FD_LOG_FREE or H5FD_LOG_ALLOC) or H5FD_LOG_TIME_IO) or H5FD_LOG_NUM_IO) or H5FD_LOG_FLAVOR) or H5FD_LOG_FILE_IO) or H5FD_LOG_LOC_IO) or H5FD_LOG_META_IO;  
 
-function H5FD_log_init:Thid_t;cdecl;external libhdf5;
-function H5Pset_fapl_log(fapl_id:Thid_t; logfile:Pchar; flags:qword; buf_size:Tsize_t):Therr_t;cdecl;external libhdf5;
+function H5FD_log_init:Thid_t;cdecl;external libhdf5_serial;
+function H5Pset_fapl_log(fapl_id:Thid_t; logfile:Pchar; flags:qword; buf_size:Tsize_t):Therr_t;cdecl;external libhdf5_serial;
 
 function H5FD_LOG : Thid_t;
 

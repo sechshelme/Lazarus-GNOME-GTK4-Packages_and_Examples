@@ -10,7 +10,7 @@ uses
   {$ENDIF}
 
 
-function H5Pset_fapl_windows(fapl_id: Thid_t): Therr_t; cdecl; external libhdf5;
+function H5Pset_fapl_windows(fapl_id: Thid_t): Therr_t; cdecl; external libhdf5_serial;
 
 function H5FD_WINDOWS: Thid_t;
 

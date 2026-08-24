@@ -4,7 +4,7 @@ interface
 
 const
   {$IFDEF Linux}
-  libhdf5 = 'hdf5';
+  libhdf5_serial = 'hdf5_serial';
   {$ENDIF}
 
   {$IFDEF Windows}

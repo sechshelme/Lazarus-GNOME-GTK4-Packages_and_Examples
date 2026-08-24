@@ -28,17 +28,17 @@ type
     mounted: Thbool_t;
   end;
 
-function H5Gcreate2(loc_id: Thid_t; name: pchar; lcpl_id: Thid_t; gcpl_id: Thid_t; gapl_id: Thid_t): Thid_t; cdecl; external libhdf5;
-function H5Gcreate_anon(loc_id: Thid_t; gcpl_id: Thid_t; gapl_id: Thid_t): Thid_t; cdecl; external libhdf5;
-function H5Gopen2(loc_id: Thid_t; name: pchar; gapl_id: Thid_t): Thid_t; cdecl; external libhdf5;
-function H5Gget_create_plist(group_id: Thid_t): Thid_t; cdecl; external libhdf5;
-function H5Gget_info(loc_id: Thid_t; ginfo: PH5G_info_t): Therr_t; cdecl; external libhdf5;
-function H5Gget_info_by_name(loc_id: Thid_t; name: pchar; ginfo: PH5G_info_t; lapl_id: Thid_t): Therr_t; cdecl; external libhdf5;
+function H5Gcreate2(loc_id: Thid_t; name: pchar; lcpl_id: Thid_t; gcpl_id: Thid_t; gapl_id: Thid_t): Thid_t; cdecl; external libhdf5_serial;
+function H5Gcreate_anon(loc_id: Thid_t; gcpl_id: Thid_t; gapl_id: Thid_t): Thid_t; cdecl; external libhdf5_serial;
+function H5Gopen2(loc_id: Thid_t; name: pchar; gapl_id: Thid_t): Thid_t; cdecl; external libhdf5_serial;
+function H5Gget_create_plist(group_id: Thid_t): Thid_t; cdecl; external libhdf5_serial;
+function H5Gget_info(loc_id: Thid_t; ginfo: PH5G_info_t): Therr_t; cdecl; external libhdf5_serial;
+function H5Gget_info_by_name(loc_id: Thid_t; name: pchar; ginfo: PH5G_info_t; lapl_id: Thid_t): Therr_t; cdecl; external libhdf5_serial;
 function H5Gget_info_by_idx(loc_id: Thid_t; group_name: pchar; idx_type: TH5_index_t; order: TH5_iter_order_t; n: Thsize_t;
-  ginfo: PH5G_info_t; lapl_id: Thid_t): Therr_t; cdecl; external libhdf5;
-function H5Gflush(group_id: Thid_t): Therr_t; cdecl; external libhdf5;
-function H5Grefresh(group_id: Thid_t): Therr_t; cdecl; external libhdf5;
-function H5Gclose(group_id: Thid_t): Therr_t; cdecl; external libhdf5;
+  ginfo: PH5G_info_t; lapl_id: Thid_t): Therr_t; cdecl; external libhdf5_serial;
+function H5Gflush(group_id: Thid_t): Therr_t; cdecl; external libhdf5_serial;
+function H5Grefresh(group_id: Thid_t): Therr_t; cdecl; external libhdf5_serial;
+function H5Gclose(group_id: Thid_t): Therr_t; cdecl; external libhdf5_serial;
 
 const
   H5G_SAME_LOC = H5L_SAME_LOC;
@@ -81,21 +81,21 @@ type
     ohdr: TH5O_stat_t;
   end;
 
-function H5Gcreate1(loc_id: Thid_t; name: pchar; size_hint: Tsize_t): Thid_t; cdecl; external libhdf5;
-function H5Gopen1(loc_id: Thid_t; name: pchar): Thid_t; cdecl; external libhdf5;
-function H5Glink(cur_loc_id: Thid_t; _type: TH5G_link_t; cur_name: pchar; new_name: pchar): Therr_t; cdecl; external libhdf5;
-function H5Glink2(cur_loc_id: Thid_t; cur_name: pchar; _type: TH5G_link_t; new_loc_id: Thid_t; new_name: pchar): Therr_t; cdecl; external libhdf5;
-function H5Gmove(src_loc_id: Thid_t; src_name: pchar; dst_name: pchar): Therr_t; cdecl; external libhdf5;
-function H5Gmove2(src_loc_id: Thid_t; src_name: pchar; dst_loc_id: Thid_t; dst_name: pchar): Therr_t; cdecl; external libhdf5;
-function H5Gunlink(loc_id: Thid_t; name: pchar): Therr_t; cdecl; external libhdf5;
-function H5Gget_linkval(loc_id: Thid_t; name: pchar; size: Tsize_t; buf: pchar): Therr_t; cdecl; external libhdf5;
-function H5Gset_comment(loc_id: Thid_t; name: pchar; comment: pchar): Therr_t; cdecl; external libhdf5;
-function H5Gget_comment(loc_id: Thid_t; name: pchar; bufsize: Tsize_t; buf: pchar): longint; cdecl; external libhdf5;
-function H5Giterate(loc_id: Thid_t; name: pchar; idx: Plongint; op: TH5G_iterate_t; op_data: pointer): Therr_t; cdecl; external libhdf5;
-function H5Gget_num_objs(loc_id: Thid_t; num_objs: Phsize_t): Therr_t; cdecl; external libhdf5;
-function H5Gget_objinfo(loc_id: Thid_t; name: pchar; follow_link: Thbool_t; statbuf: PH5G_stat_t): Therr_t; cdecl; external libhdf5;
-function H5Gget_objname_by_idx(loc_id: Thid_t; idx: Thsize_t; name: pchar; size: Tsize_t): Tssize_t; cdecl; external libhdf5;
-function H5Gget_objtype_by_idx(loc_id: Thid_t; idx: Thsize_t): TH5G_obj_t; cdecl; external libhdf5;
+function H5Gcreate1(loc_id: Thid_t; name: pchar; size_hint: Tsize_t): Thid_t; cdecl; external libhdf5_serial;
+function H5Gopen1(loc_id: Thid_t; name: pchar): Thid_t; cdecl; external libhdf5_serial;
+function H5Glink(cur_loc_id: Thid_t; _type: TH5G_link_t; cur_name: pchar; new_name: pchar): Therr_t; cdecl; external libhdf5_serial;
+function H5Glink2(cur_loc_id: Thid_t; cur_name: pchar; _type: TH5G_link_t; new_loc_id: Thid_t; new_name: pchar): Therr_t; cdecl; external libhdf5_serial;
+function H5Gmove(src_loc_id: Thid_t; src_name: pchar; dst_name: pchar): Therr_t; cdecl; external libhdf5_serial;
+function H5Gmove2(src_loc_id: Thid_t; src_name: pchar; dst_loc_id: Thid_t; dst_name: pchar): Therr_t; cdecl; external libhdf5_serial;
+function H5Gunlink(loc_id: Thid_t; name: pchar): Therr_t; cdecl; external libhdf5_serial;
+function H5Gget_linkval(loc_id: Thid_t; name: pchar; size: Tsize_t; buf: pchar): Therr_t; cdecl; external libhdf5_serial;
+function H5Gset_comment(loc_id: Thid_t; name: pchar; comment: pchar): Therr_t; cdecl; external libhdf5_serial;
+function H5Gget_comment(loc_id: Thid_t; name: pchar; bufsize: Tsize_t; buf: pchar): longint; cdecl; external libhdf5_serial;
+function H5Giterate(loc_id: Thid_t; name: pchar; idx: Plongint; op: TH5G_iterate_t; op_data: pointer): Therr_t; cdecl; external libhdf5_serial;
+function H5Gget_num_objs(loc_id: Thid_t; num_objs: Phsize_t): Therr_t; cdecl; external libhdf5_serial;
+function H5Gget_objinfo(loc_id: Thid_t; name: pchar; follow_link: Thbool_t; statbuf: PH5G_stat_t): Therr_t; cdecl; external libhdf5_serial;
+function H5Gget_objname_by_idx(loc_id: Thid_t; idx: Thsize_t; name: pchar; size: Tsize_t): Tssize_t; cdecl; external libhdf5_serial;
+function H5Gget_objtype_by_idx(loc_id: Thid_t; idx: Thsize_t): TH5G_obj_t; cdecl; external libhdf5_serial;
 
 // === Konventiert am: 21-8-26 14:14:16 ===
 

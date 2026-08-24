@@ -25,10 +25,10 @@ type
     remote_ip: array[0..(H5FD_MIRROR_MAX_IP_LEN + 1) - 1] of char;
   end;
 
-function H5FD_mirror_init: Thid_t; cdecl; external libhdf5;
+function H5FD_mirror_init: Thid_t; cdecl; external libhdf5_serial;
 
-function H5Pget_fapl_mirror(fapl_id: Thid_t; fa_out: PH5FD_mirror_fapl_t): Therr_t; cdecl; external libhdf5;
-function H5Pset_fapl_mirror(fapl_id: Thid_t; fa: PH5FD_mirror_fapl_t): Therr_t; cdecl; external libhdf5;
+function H5Pget_fapl_mirror(fapl_id: Thid_t; fa_out: PH5FD_mirror_fapl_t): Therr_t; cdecl; external libhdf5_serial;
+function H5Pset_fapl_mirror(fapl_id: Thid_t; fa: PH5FD_mirror_fapl_t): Therr_t; cdecl; external libhdf5_serial;
 
 
 // === Konventiert am: 20-8-26 19:43:43 ===

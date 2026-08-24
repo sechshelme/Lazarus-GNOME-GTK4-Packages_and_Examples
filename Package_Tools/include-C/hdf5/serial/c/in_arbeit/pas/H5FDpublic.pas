@@ -143,27 +143,27 @@ type
     udata: pointer;
   end;
 
-function H5FDregister(cls: PH5FD_class_t): Thid_t; cdecl; external libhdf5;
-function H5FDunregister(driver_id: Thid_t): Therr_t; cdecl; external libhdf5;
-function H5FDopen(name: pchar; flags: dword; fapl_id: Thid_t; maxaddr: Thaddr_t): PH5FD_t; cdecl; external libhdf5;
-function H5FDclose(file_: PH5FD_t): Therr_t; cdecl; external libhdf5;
-function H5FDcmp(f1: PH5FD_t; f2: PH5FD_t): longint; cdecl; external libhdf5;
-function H5FDquery(f: PH5FD_t; flags: Pdword): longint; cdecl; external libhdf5;
-function H5FDalloc(file_: PH5FD_t; _type: TH5FD_mem_t; dxpl_id: Thid_t; size: Thsize_t): Thaddr_t; cdecl; external libhdf5;
-function H5FDfree(file_: PH5FD_t; _type: TH5FD_mem_t; dxpl_id: Thid_t; addr: Thaddr_t; size: Thsize_t): Therr_t; cdecl; external libhdf5;
-function H5FDget_eoa(file_: PH5FD_t; _type: TH5FD_mem_t): Thaddr_t; cdecl; external libhdf5;
-function H5FDset_eoa(file_: PH5FD_t; _type: TH5FD_mem_t; eoa: Thaddr_t): Therr_t; cdecl; external libhdf5;
-function H5FDget_eof(file_: PH5FD_t; _type: TH5FD_mem_t): Thaddr_t; cdecl; external libhdf5;
-function H5FDget_vfd_handle(file_: PH5FD_t; fapl: Thid_t; file_handle: Ppointer): Therr_t; cdecl; external libhdf5;
+function H5FDregister(cls: PH5FD_class_t): Thid_t; cdecl; external libhdf5_serial;
+function H5FDunregister(driver_id: Thid_t): Therr_t; cdecl; external libhdf5_serial;
+function H5FDopen(name: pchar; flags: dword; fapl_id: Thid_t; maxaddr: Thaddr_t): PH5FD_t; cdecl; external libhdf5_serial;
+function H5FDclose(file_: PH5FD_t): Therr_t; cdecl; external libhdf5_serial;
+function H5FDcmp(f1: PH5FD_t; f2: PH5FD_t): longint; cdecl; external libhdf5_serial;
+function H5FDquery(f: PH5FD_t; flags: Pdword): longint; cdecl; external libhdf5_serial;
+function H5FDalloc(file_: PH5FD_t; _type: TH5FD_mem_t; dxpl_id: Thid_t; size: Thsize_t): Thaddr_t; cdecl; external libhdf5_serial;
+function H5FDfree(file_: PH5FD_t; _type: TH5FD_mem_t; dxpl_id: Thid_t; addr: Thaddr_t; size: Thsize_t): Therr_t; cdecl; external libhdf5_serial;
+function H5FDget_eoa(file_: PH5FD_t; _type: TH5FD_mem_t): Thaddr_t; cdecl; external libhdf5_serial;
+function H5FDset_eoa(file_: PH5FD_t; _type: TH5FD_mem_t; eoa: Thaddr_t): Therr_t; cdecl; external libhdf5_serial;
+function H5FDget_eof(file_: PH5FD_t; _type: TH5FD_mem_t): Thaddr_t; cdecl; external libhdf5_serial;
+function H5FDget_vfd_handle(file_: PH5FD_t; fapl: Thid_t; file_handle: Ppointer): Therr_t; cdecl; external libhdf5_serial;
 function H5FDread(file_: PH5FD_t; _type: TH5FD_mem_t; dxpl_id: Thid_t; addr: Thaddr_t; size: Tsize_t;
-  buf: pointer): Therr_t; cdecl; external libhdf5;
+  buf: pointer): Therr_t; cdecl; external libhdf5_serial;
 function H5FDwrite(file_: PH5FD_t; _type: TH5FD_mem_t; dxpl_id: Thid_t; addr: Thaddr_t; size: Tsize_t;
-  buf: pointer): Therr_t; cdecl; external libhdf5;
-function H5FDflush(file_: PH5FD_t; dxpl_id: Thid_t; closing: Thbool_t): Therr_t; cdecl; external libhdf5;
-function H5FDtruncate(file_: PH5FD_t; dxpl_id: Thid_t; closing: Thbool_t): Therr_t; cdecl; external libhdf5;
-function H5FDlock(file_: PH5FD_t; rw: Thbool_t): Therr_t; cdecl; external libhdf5;
-function H5FDunlock(file_: PH5FD_t): Therr_t; cdecl; external libhdf5;
-function H5FDdriver_query(driver_id: Thid_t; flags: Pdword): Therr_t; cdecl; external libhdf5;
+  buf: pointer): Therr_t; cdecl; external libhdf5_serial;
+function H5FDflush(file_: PH5FD_t; dxpl_id: Thid_t; closing: Thbool_t): Therr_t; cdecl; external libhdf5_serial;
+function H5FDtruncate(file_: PH5FD_t; dxpl_id: Thid_t; closing: Thbool_t): Therr_t; cdecl; external libhdf5_serial;
+function H5FDlock(file_: PH5FD_t; rw: Thbool_t): Therr_t; cdecl; external libhdf5_serial;
+function H5FDunlock(file_: PH5FD_t): Therr_t; cdecl; external libhdf5_serial;
+function H5FDdriver_query(driver_id: Thid_t; flags: Pdword): Therr_t; cdecl; external libhdf5_serial;
 
 // === Konventiert am: 20-8-26 19:43:33 ===
 

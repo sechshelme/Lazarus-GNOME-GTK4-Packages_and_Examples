@@ -78,20 +78,20 @@ type
     peak_alloc_blocks_count: Tsize_t;
   end;
 
-function H5open: Therr_t; cdecl; external libhdf5;
-function H5close: Therr_t; cdecl; external libhdf5;
-function H5dont_atexit: Therr_t; cdecl; external libhdf5;
-function H5garbage_collect: Therr_t; cdecl; external libhdf5;
+function H5open: Therr_t; cdecl; external libhdf5_serial;
+function H5close: Therr_t; cdecl; external libhdf5_serial;
+function H5dont_atexit: Therr_t; cdecl; external libhdf5_serial;
+function H5garbage_collect: Therr_t; cdecl; external libhdf5_serial;
 function H5set_free_list_limits(reg_global_lim: longint; reg_list_lim: longint; arr_global_lim: longint; arr_list_lim: longint; blk_global_lim: longint;
-  blk_list_lim: longint): Therr_t; cdecl; external libhdf5;
-function H5get_free_list_sizes(reg_size: Psize_t; arr_size: Psize_t; blk_size: Psize_t; fac_size: Psize_t): Therr_t; cdecl; external libhdf5;
-function H5get_alloc_stats(stats: PH5_alloc_stats_t): Therr_t; cdecl; external libhdf5;
-function H5get_libversion(majnum: Pdword; minnum: Pdword; relnum: Pdword): Therr_t; cdecl; external libhdf5;
-function H5check_version(majnum: dword; minnum: dword; relnum: dword): Therr_t; cdecl; external libhdf5;
-function H5is_library_threadsafe(is_ts: Phbool_t): Therr_t; cdecl; external libhdf5;
-function H5free_memory(mem: pointer): Therr_t; cdecl; external libhdf5;
-function H5allocate_memory(size: Tsize_t; clear: Thbool_t): pointer; cdecl; external libhdf5;
-function H5resize_memory(mem: pointer; size: Tsize_t): pointer; cdecl; external libhdf5;
+  blk_list_lim: longint): Therr_t; cdecl; external libhdf5_serial;
+function H5get_free_list_sizes(reg_size: Psize_t; arr_size: Psize_t; blk_size: Psize_t; fac_size: Psize_t): Therr_t; cdecl; external libhdf5_serial;
+function H5get_alloc_stats(stats: PH5_alloc_stats_t): Therr_t; cdecl; external libhdf5_serial;
+function H5get_libversion(majnum: Pdword; minnum: Pdword; relnum: Pdword): Therr_t; cdecl; external libhdf5_serial;
+function H5check_version(majnum: dword; minnum: dword; relnum: dword): Therr_t; cdecl; external libhdf5_serial;
+function H5is_library_threadsafe(is_ts: Phbool_t): Therr_t; cdecl; external libhdf5_serial;
+function H5free_memory(mem: pointer): Therr_t; cdecl; external libhdf5_serial;
+function H5allocate_memory(size: Tsize_t; clear: Thbool_t): pointer; cdecl; external libhdf5_serial;
+function H5resize_memory(mem: pointer; size: Tsize_t): pointer; cdecl; external libhdf5_serial;
 
 // === Konventiert am: 21-8-26 14:40:17 ===
 

@@ -94,43 +94,43 @@ type
   TH5D_chunk_iter_op_t = function(offset: Phsize_t; filter_mask: dword; addr: Thaddr_t; size: Thsize_t; op_data: pointer): longint; cdecl;
 
 function H5Dcreate2(loc_id: Thid_t; name: pchar; type_id: Thid_t; space_id: Thid_t; lcpl_id: Thid_t;
-  dcpl_id: Thid_t; dapl_id: Thid_t): Thid_t; cdecl; external libhdf5;
-function H5Dcreate_anon(loc_id: Thid_t; type_id: Thid_t; space_id: Thid_t; dcpl_id: Thid_t; dapl_id: Thid_t): Thid_t; cdecl; external libhdf5;
-function H5Dopen2(loc_id: Thid_t; name: pchar; dapl_id: Thid_t): Thid_t; cdecl; external libhdf5;
-function H5Dget_space(dset_id: Thid_t): Thid_t; cdecl; external libhdf5;
-function H5Dget_space_status(dset_id: Thid_t; allocation: PH5D_space_status_t): Therr_t; cdecl; external libhdf5;
-function H5Dget_type(dset_id: Thid_t): Thid_t; cdecl; external libhdf5;
-function H5Dget_create_plist(dset_id: Thid_t): Thid_t; cdecl; external libhdf5;
-function H5Dget_access_plist(dset_id: Thid_t): Thid_t; cdecl; external libhdf5;
-function H5Dget_storage_size(dset_id: Thid_t): Thsize_t; cdecl; external libhdf5;
-function H5Dget_chunk_storage_size(dset_id: Thid_t; offset: Phsize_t; chunk_bytes: Phsize_t): Therr_t; cdecl; external libhdf5;
-function H5Dget_num_chunks(dset_id: Thid_t; fspace_id: Thid_t; nchunks: Phsize_t): Therr_t; cdecl; external libhdf5;
-function H5Dget_chunk_info_by_coord(dset_id: Thid_t; offset: Phsize_t; filter_mask: Pdword; addr: Phaddr_t; size: Phsize_t): Therr_t; cdecl; external libhdf5;
-function H5Dchunk_iter(dset_id: Thid_t; dxpl_id: Thid_t; cb: TH5D_chunk_iter_op_t; op_data: pointer): Therr_t; cdecl; external libhdf5;
+  dcpl_id: Thid_t; dapl_id: Thid_t): Thid_t; cdecl; external libhdf5_serial;
+function H5Dcreate_anon(loc_id: Thid_t; type_id: Thid_t; space_id: Thid_t; dcpl_id: Thid_t; dapl_id: Thid_t): Thid_t; cdecl; external libhdf5_serial;
+function H5Dopen2(loc_id: Thid_t; name: pchar; dapl_id: Thid_t): Thid_t; cdecl; external libhdf5_serial;
+function H5Dget_space(dset_id: Thid_t): Thid_t; cdecl; external libhdf5_serial;
+function H5Dget_space_status(dset_id: Thid_t; allocation: PH5D_space_status_t): Therr_t; cdecl; external libhdf5_serial;
+function H5Dget_type(dset_id: Thid_t): Thid_t; cdecl; external libhdf5_serial;
+function H5Dget_create_plist(dset_id: Thid_t): Thid_t; cdecl; external libhdf5_serial;
+function H5Dget_access_plist(dset_id: Thid_t): Thid_t; cdecl; external libhdf5_serial;
+function H5Dget_storage_size(dset_id: Thid_t): Thsize_t; cdecl; external libhdf5_serial;
+function H5Dget_chunk_storage_size(dset_id: Thid_t; offset: Phsize_t; chunk_bytes: Phsize_t): Therr_t; cdecl; external libhdf5_serial;
+function H5Dget_num_chunks(dset_id: Thid_t; fspace_id: Thid_t; nchunks: Phsize_t): Therr_t; cdecl; external libhdf5_serial;
+function H5Dget_chunk_info_by_coord(dset_id: Thid_t; offset: Phsize_t; filter_mask: Pdword; addr: Phaddr_t; size: Phsize_t): Therr_t; cdecl; external libhdf5_serial;
+function H5Dchunk_iter(dset_id: Thid_t; dxpl_id: Thid_t; cb: TH5D_chunk_iter_op_t; op_data: pointer): Therr_t; cdecl; external libhdf5_serial;
 function H5Dget_chunk_info(dset_id: Thid_t; fspace_id: Thid_t; chk_idx: Thsize_t; offset: Phsize_t; filter_mask: Pdword;
-  addr: Phaddr_t; size: Phsize_t): Therr_t; cdecl; external libhdf5;
-function H5Dget_offset(dset_id: Thid_t): Thaddr_t; cdecl; external libhdf5;
+  addr: Phaddr_t; size: Phsize_t): Therr_t; cdecl; external libhdf5_serial;
+function H5Dget_offset(dset_id: Thid_t): Thaddr_t; cdecl; external libhdf5_serial;
 function H5Dread(dset_id: Thid_t; mem_type_id: Thid_t; mem_space_id: Thid_t; file_space_id: Thid_t; dxpl_id: Thid_t;
-  buf: pointer): Therr_t; cdecl; external libhdf5;
+  buf: pointer): Therr_t; cdecl; external libhdf5_serial;
 function H5Dwrite(dset_id: Thid_t; mem_type_id: Thid_t; mem_space_id: Thid_t; file_space_id: Thid_t; dxpl_id: Thid_t;
-  buf: pointer): Therr_t; cdecl; external libhdf5;
+  buf: pointer): Therr_t; cdecl; external libhdf5_serial;
 function H5Dwrite_chunk(dset_id: Thid_t; dxpl_id: Thid_t; filters: Tuint32_t; offset: Phsize_t; data_size: Tsize_t;
-  buf: pointer): Therr_t; cdecl; external libhdf5;
-function H5Dread_chunk(dset_id: Thid_t; dxpl_id: Thid_t; offset: Phsize_t; filters: Puint32_t; buf: pointer): Therr_t; cdecl; external libhdf5;
-function H5Diterate(buf: pointer; type_id: Thid_t; space_id: Thid_t; op: TH5D_operator_t; operator_data: pointer): Therr_t; cdecl; external libhdf5;
-function H5Dvlen_reclaim(type_id: Thid_t; space_id: Thid_t; dxpl_id: Thid_t; buf: pointer): Therr_t; cdecl; external libhdf5;
-function H5Dvlen_get_buf_size(dset_id: Thid_t; type_id: Thid_t; space_id: Thid_t; size: Phsize_t): Therr_t; cdecl; external libhdf5;
-function H5Dfill(fill: pointer; fill_type_id: Thid_t; buf: pointer; buf_type_id: Thid_t; space_id: Thid_t): Therr_t; cdecl; external libhdf5;
-function H5Dset_extent(dset_id: Thid_t; size: Phsize_t): Therr_t; cdecl; external libhdf5;
-function H5Dflush(dset_id: Thid_t): Therr_t; cdecl; external libhdf5;
-function H5Drefresh(dset_id: Thid_t): Therr_t; cdecl; external libhdf5;
-function H5Dscatter(op: TH5D_scatter_func_t; op_data: pointer; type_id: Thid_t; dst_space_id: Thid_t; dst_buf: pointer): Therr_t; cdecl; external libhdf5;
+  buf: pointer): Therr_t; cdecl; external libhdf5_serial;
+function H5Dread_chunk(dset_id: Thid_t; dxpl_id: Thid_t; offset: Phsize_t; filters: Puint32_t; buf: pointer): Therr_t; cdecl; external libhdf5_serial;
+function H5Diterate(buf: pointer; type_id: Thid_t; space_id: Thid_t; op: TH5D_operator_t; operator_data: pointer): Therr_t; cdecl; external libhdf5_serial;
+function H5Dvlen_reclaim(type_id: Thid_t; space_id: Thid_t; dxpl_id: Thid_t; buf: pointer): Therr_t; cdecl; external libhdf5_serial;
+function H5Dvlen_get_buf_size(dset_id: Thid_t; type_id: Thid_t; space_id: Thid_t; size: Phsize_t): Therr_t; cdecl; external libhdf5_serial;
+function H5Dfill(fill: pointer; fill_type_id: Thid_t; buf: pointer; buf_type_id: Thid_t; space_id: Thid_t): Therr_t; cdecl; external libhdf5_serial;
+function H5Dset_extent(dset_id: Thid_t; size: Phsize_t): Therr_t; cdecl; external libhdf5_serial;
+function H5Dflush(dset_id: Thid_t): Therr_t; cdecl; external libhdf5_serial;
+function H5Drefresh(dset_id: Thid_t): Therr_t; cdecl; external libhdf5_serial;
+function H5Dscatter(op: TH5D_scatter_func_t; op_data: pointer; type_id: Thid_t; dst_space_id: Thid_t; dst_buf: pointer): Therr_t; cdecl; external libhdf5_serial;
 function H5Dgather(src_space_id: Thid_t; src_buf: pointer; type_id: Thid_t; dst_buf_size: Tsize_t; dst_buf: pointer;
-  op: TH5D_gather_func_t; op_data: pointer): Therr_t; cdecl; external libhdf5;
-function H5Dclose(dset_id: Thid_t): Therr_t; cdecl; external libhdf5;
-function H5Ddebug(dset_id: Thid_t): Therr_t; cdecl; external libhdf5;
-function H5Dformat_convert(dset_id: Thid_t): Therr_t; cdecl; external libhdf5;
-function H5Dget_chunk_index_type(did: Thid_t; idx_type: PH5D_chunk_index_t): Therr_t; cdecl; external libhdf5;
+  op: TH5D_gather_func_t; op_data: pointer): Therr_t; cdecl; external libhdf5_serial;
+function H5Dclose(dset_id: Thid_t): Therr_t; cdecl; external libhdf5_serial;
+function H5Ddebug(dset_id: Thid_t): Therr_t; cdecl; external libhdf5_serial;
+function H5Dformat_convert(dset_id: Thid_t): Therr_t; cdecl; external libhdf5_serial;
+function H5Dget_chunk_index_type(did: Thid_t; idx_type: PH5D_chunk_index_t): Therr_t; cdecl; external libhdf5_serial;
 
 const
   H5D_CHUNK_BTREE = H5D_CHUNK_IDX_BTREE;
@@ -144,9 +144,9 @@ const
   H5D_XFER_DIRECT_CHUNK_READ_OFFSET_NAME = 'direct_chunk_read_offset';
   H5D_XFER_DIRECT_CHUNK_READ_FILTERS_NAME = 'direct_chunk_read_filters';
 
-function H5Dcreate1(loc_id: Thid_t; name: pchar; type_id: Thid_t; space_id: Thid_t; dcpl_id: Thid_t): Thid_t; cdecl; external libhdf5;
-function H5Dopen1(loc_id: Thid_t; name: pchar): Thid_t; cdecl; external libhdf5;
-function H5Dextend(dset_id: Thid_t; size: Phsize_t): Therr_t; cdecl; external libhdf5;
+function H5Dcreate1(loc_id: Thid_t; name: pchar; type_id: Thid_t; space_id: Thid_t; dcpl_id: Thid_t): Thid_t; cdecl; external libhdf5_serial;
+function H5Dopen1(loc_id: Thid_t; name: pchar): Thid_t; cdecl; external libhdf5_serial;
+function H5Dextend(dset_id: Thid_t; size: Phsize_t): Therr_t; cdecl; external libhdf5_serial;
 
 // === Konventiert am: 20-8-26 19:37:25 ===
 
