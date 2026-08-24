@@ -5,10 +5,16 @@ interface
 const
   {$IFDEF Linux}
   libhdf5_serial = 'hdf5_serial';
+  libhdf5_serial_hl = 'hdf5_serial_hl';
+  libhdf5_serial_fortran = 'hdf5_serial_fortran';
+  libhdf5_openmpi = 'hdf5_openmpi';
   {$ENDIF}
 
   {$IFDEF Windows}
-  libhdf5 = 'hdf5';
+  libhdf5_serial = 'hdf5_serial.dll';
+  libhdf5_serial_hl = 'hdf5_serial_hl.dll';
+  libhdf5_serial_fortran = 'hdf5_serial_fortran.dll';
+  libhdf5_openmpi = 'hdf5_openmpi.dll';
   {$ENDIF}
 
   type
