@@ -19,7 +19,7 @@
 #define G_USB_TYPE_DEVICE  (g_usb_device_get_type())
 #define G_USB_DEVICE_ERROR (g_usb_device_error_quark())
 
-G_DECLARE_DERIVABLE_TYPE(GUsbDevice, g_usb_device, G_USB, DEVICE, GObject)
+//G_DECLARE_DERIVABLE_TYPE(GUsbDevice, g_usb_device, G_USB, DEVICE, GObject)
 
 /**
  * GUsbDeviceDirection:

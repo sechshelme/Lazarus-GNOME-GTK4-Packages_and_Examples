@@ -16,7 +16,7 @@
 #define G_USB_TYPE_CONTEXT  (g_usb_context_get_type())
 #define G_USB_CONTEXT_ERROR (g_usb_context_error_quark())
 
-G_DECLARE_DERIVABLE_TYPE(GUsbContext, g_usb_context, G_USB, CONTEXT, GObject)
+//G_DECLARE_DERIVABLE_TYPE(GUsbContext, g_usb_context, G_USB, CONTEXT, GObject)
 
 struct _GUsbContextClass {
 	GObjectClass parent_class;
@@ -59,7 +59,7 @@ g_usb_context_set_flags(GUsbContext *self, GUsbContextFlags flags);
 GUsbContextFlags
 g_usb_context_get_flags(GUsbContext *self);
 
-G_DEPRECATED
+//xxxxxxG_DEPRECATED
 GUsbSource *
 g_usb_context_get_source(GUsbContext *self, GMainContext *main_ctx);
 GMainContext *

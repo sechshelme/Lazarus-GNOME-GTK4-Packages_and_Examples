@@ -23,11 +23,11 @@ typedef struct _GUsbSource GUsbSource;
  **/
 typedef enum { G_USB_SOURCE_ERROR_INTERNAL } GUsbSourceError;
 
-G_DEPRECATED_FOR(g_usb_context_error_quark)
+//xxxxxG_DEPRECATED_FOR(g_usb_context_error_quark)
 GQuark
 g_usb_source_error_quark(void);
 
-G_DEPRECATED
+//xxxxxG_DEPRECATED
 void
 g_usb_source_set_callback(GUsbSource *self, GSourceFunc func, gpointer data, GDestroyNotify notify);
 

@@ -43,15 +43,12 @@
 #define G_USB_MICRO_VERSION		8
 
 /**
- * G_USB_CHECK_VERSION:
- *
- * Check whether a gusb version equal to or greater than
- * major.minor.micro.
- */
 #define G_USB_CHECK_VERSION(major,minor,micro)    \
     (G_USB_MAJOR_VERSION > (major) || \
      (G_USB_MAJOR_VERSION == (major) && G_USB_MINOR_VERSION > (minor)) || \
      (G_USB_MAJOR_VERSION == (major) && G_USB_MINOR_VERSION == (minor) && \
       G_USB_MICRO_VERSION >= (micro)))
+ */
+
 
 const gchar	*g_usb_version_string	(void);

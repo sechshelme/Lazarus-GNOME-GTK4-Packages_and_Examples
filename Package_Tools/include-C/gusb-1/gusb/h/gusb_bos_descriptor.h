@@ -12,7 +12,7 @@
 
 
 #define G_USB_TYPE_BOS_DESCRIPTOR (g_usb_bos_descriptor_get_type())
-G_DECLARE_FINAL_TYPE(GUsbBosDescriptor, g_usb_bos_descriptor, G_USB, BOS_DESCRIPTOR, GObject)
+//G_DECLARE_FINAL_TYPE(GUsbBosDescriptor, g_usb_bos_descriptor, G_USB, BOS_DESCRIPTOR, GObject)
 
 guint8
 g_usb_bos_descriptor_get_capability(GUsbBosDescriptor *self);

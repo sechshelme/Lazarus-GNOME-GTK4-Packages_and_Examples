@@ -13,7 +13,7 @@
 
 
 #define G_USB_TYPE_INTERFACE (g_usb_interface_get_type())
-G_DECLARE_FINAL_TYPE(GUsbInterface, g_usb_interface, G_USB, INTERFACE, GObject)
+//G_DECLARE_FINAL_TYPE(GUsbInterface, g_usb_interface, G_USB, INTERFACE, GObject)
 
 guint8
 g_usb_interface_get_length(GUsbInterface *self);

@@ -12,7 +12,7 @@
 
 
 #define G_USB_TYPE_DEVICE_EVENT (g_usb_device_event_get_type())
-G_DECLARE_FINAL_TYPE(GUsbDeviceEvent, g_usb_device_event, G_USB, DEVICE_EVENT, GObject)
+//G_DECLARE_FINAL_TYPE(GUsbDeviceEvent, g_usb_device_event, G_USB, DEVICE_EVENT, GObject)
 
 const gchar *
 g_usb_device_event_get_id(GUsbDeviceEvent *self);

@@ -12,7 +12,7 @@
 
 
 #define G_USB_TYPE_ENDPOINT (g_usb_endpoint_get_type())
-G_DECLARE_FINAL_TYPE(GUsbEndpoint, g_usb_endpoint, G_USB, ENDPOINT, GObject)
+//G_DECLARE_FINAL_TYPE(GUsbEndpoint, g_usb_endpoint, G_USB, ENDPOINT, GObject)
 
 guint8
 g_usb_endpoint_get_kind(GUsbEndpoint *self);
