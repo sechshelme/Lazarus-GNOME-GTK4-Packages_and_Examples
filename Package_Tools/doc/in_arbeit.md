@@ -689,6 +689,12 @@ libhyperscan-dev  // neu libvectorscan-dev
 
 libtinysparql
 
+stb_image (( ?????
+
+/usr/include/x86_64-linux-gnu/openmpi
+
+gusb
+
 --------------
 
 Lib Ähnlich mathGL
@@ -932,6 +938,38 @@ cat /etc/os-release
 # GST GTK4
 sudo apt install gstreamer1.0-gtk4
 https://github.com/GStreamer/gst-plugins-rs
+
+
+A="https://"
+B="gitlab."
+C="freedesktop.org"
+D="/api/v4/issues?"
+E="author_username=sechshelme"
+F="&scope=all"
+curl -s "${A}${B}${C}${D}${E}${F}" | grep -oP '"iid":\d+|"title":"[^"]+"|"state":"[^"]+"'
+
+
+
+
+
+A="https://"
+B="gitlab."
+C="gnome.org"
+D="/api/v4/issues?"
+E="author_username=sechshelme"
+F="&scope=all"
+curl -s "${A}${B}${C}${D}${E}${F}" | grep -oP '"iid":\d+|"title":"[^"]+"|"state":"[^"]+"'
+
+
+A="https://"
+B="api."
+C="github.com"
+D="/search/issues?q="
+E="author:sechshelme+type:issue"
+curl -s -H "User-Agent: Mozilla" "${A}${B}${C}${D}${E}" | grep -oP '"title":"[^"]+"|"html_url":"[^"]+"'
+
+
+
 
 
 
