@@ -7,12 +7,16 @@ uses
 
 const
   {$IFDEF Linux}
-  libgusb = 'gusb-1.0';
+  libgusb = 'gusb';
   {$ENDIF}
 
   {$IFDEF Windows}
   libgusb = 'libgusb-2.dll';
   {$ENDIF}
+
+  type
+  PJsonObject=type Pointer;
+  PJsonBuilder=type Pointer;
 
 
   {$IFDEF FPC}
