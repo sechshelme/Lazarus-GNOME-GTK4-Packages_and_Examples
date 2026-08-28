@@ -8,12 +8,11 @@ const
   {$ENDIF}
 
   {$IFDEF Windows}
-  libdatrie = 'datrie.dll';  // ????
+  libdatrie = 'libdatrie-1.dll';
   {$ENDIF}
 
 type
   PFILE = type Pointer;
-
   Tsize_t = SizeUInt;
 
 
@@ -108,12 +107,7 @@ function trie_state_walk(s: PTrieState; c: TAlphaChar): boolean; cdecl; external
 function trie_state_is_walkable(s: PTrieState; c: TAlphaChar): boolean; cdecl; external libdatrie;
 function trie_state_walkable_chars(s: PTrieState; chars: PAlphaChar; chars_nelm: longint): longint; cdecl; external libdatrie;
 
-function trie_state_is_terminal(s: PTrieState): boolean;
-
 function trie_state_is_single(s: PTrieState): boolean; cdecl; external libdatrie;
-
-function trie_state_is_leaf(s: PTrieState): boolean;
-
 function trie_state_get_data(s: PTrieState): TTrieData; cdecl; external libdatrie;
 
 function trie_iterator_new(s: PTrieState): PTrieIterator; cdecl; external libdatrie;
@@ -124,9 +118,10 @@ function trie_iterator_get_data(iter: PTrieIterator): TTrieData; cdecl; external
 
 // === Konventiert am: 2-12-25 17:08:28 ===
 
+function trie_state_is_terminal(s: PTrieState): boolean;
+function trie_state_is_leaf(s: PTrieState): boolean;
 
 implementation
-
 
 function trie_state_is_terminal(s: PTrieState): boolean;
 begin
