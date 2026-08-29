@@ -357,6 +357,7 @@ const
     (libs: 'libmatio'; units: 'fp_rist'),
     (libs: 'libhdf5'; units: 'fp_hdf5'),
     (libs: 'libgusb'; units: 'fp_gusb'),
+    (libs: 'libflint'; units: 'fp_flint'),
 
 
     (libs: ''; units: ''));

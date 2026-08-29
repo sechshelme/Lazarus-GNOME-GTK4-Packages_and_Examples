@@ -75,7 +75,7 @@ var
   s: string;
 begin
   Memo1.Clear;
-  slFile := FindAllFiles('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/gusb-1/gusb', '*.h', True);
+  slFile := FindAllFiles('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/flint', '*.h', True);
   Memo1.Lines := slFile;
 
   for i := 0 to slFile.Count - 1 do begin
@@ -131,10 +131,8 @@ begin
       slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_FORMAT', ';//', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_ALLOC_SIZE', ';//', [rfReplaceAll]);
 
-      slHeader[j] := StringReplace(slHeader[j], 'SPELLING_AVAILABLE_IN_ALL', 'extern', [rfReplaceAll]);
-//      slHeader[j] := StringReplace(slHeader[j], 'fp_glib2;', 'fp_glib2, fp_appstream;', [rfReplaceAll]);
-
-//slHeader[j] := StringReplace(slHeader[j], 'OMPI_DECLSPEC', 'extern', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'ACF_INLINE', 'extern', [rfReplaceAll]);
+//      slHeader[j] := StringReplace(slHeader[j], '}', ';', [rfReplaceAll]);
 
 
 
