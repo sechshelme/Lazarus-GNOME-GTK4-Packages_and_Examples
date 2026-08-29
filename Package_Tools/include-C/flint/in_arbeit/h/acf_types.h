@@ -22,7 +22,7 @@ typedef struct
 {
     arf_struct real;
     arf_struct imag;
-;
+}
 acf_struct;
 
 typedef acf_struct acf_t[1];

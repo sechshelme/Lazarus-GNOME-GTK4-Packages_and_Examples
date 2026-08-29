@@ -47,9 +47,9 @@ typedef struct
     short tab_pos;
     char nlimbs;
     char negative;
-; arb_hypgeom_gamma_coeff_t;
+} arb_hypgeom_gamma_coeff_t;
 
-FLINT_DLL extern arb_hypgeom_gamma_coeff_t arb_hypgeom_gamma_coeffs[ARB_HYPGEOM_GAMMA_TAB_NUM];
+ extern arb_hypgeom_gamma_coeff_t arb_hypgeom_gamma_coeffs[ARB_HYPGEOM_GAMMA_TAB_NUM];
 int _arb_hypgeom_gamma_coeff_shallow(arf_t c, mag_t err, slong i, slong prec);
 
 void arb_hypgeom_gamma_stirling(arb_t res, const arb_t x, int reciprocal, slong prec);

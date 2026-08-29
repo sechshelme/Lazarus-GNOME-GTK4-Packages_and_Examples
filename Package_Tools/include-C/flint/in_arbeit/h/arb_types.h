@@ -22,7 +22,7 @@ typedef struct
 {
     fmpz exp;
     mp_limb_t man;
-;
+}
 mag_struct;
 
 typedef mag_struct mag_t[1];
@@ -33,7 +33,7 @@ typedef struct
 {
     arf_struct mid;
     mag_struct rad;
-;
+}
 arb_struct;
 
 typedef arb_struct arb_t[1];
@@ -46,7 +46,8 @@ typedef struct
     slong r;
     slong c;
     arb_ptr * rows;
-;
+}
+
 arb_mat_struct;
 
 typedef arb_mat_struct arb_mat_t[1];
@@ -56,7 +57,8 @@ typedef struct
     arb_ptr coeffs;
     slong alloc;
     slong length;
-;
+}
+
 arb_poly_struct;
 
 typedef arb_poly_struct arb_poly_t[1];

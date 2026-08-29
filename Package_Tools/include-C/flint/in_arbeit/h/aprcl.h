@@ -31,7 +31,7 @@ typedef struct
     n_factor_t rs;
     fmpz_factor_t qs;
     int * qs_used;
-; _aprcl_config;
+} _aprcl_config;
 
 typedef _aprcl_config aprcl_config[1];
 
@@ -42,7 +42,7 @@ typedef struct
     ulong p;
     ulong q;
     fmpz_mod_ctx_t ctx;
-; _unity_zpq;
+} _unity_zpq;
 
 typedef _unity_zpq unity_zpq[1];
 
@@ -53,7 +53,7 @@ typedef struct
     ulong p;
     ulong exp;
     fmpz_mod_ctx_t ctx;
-; _unity_zp;
+} _unity_zp;
 
 typedef _unity_zp unity_zp[1];
 
@@ -64,7 +64,7 @@ typedef enum
     PRIME,
     COMPOSITE,
     PROBABPRIME
-; primality_test_status;
+} primality_test_status;
 
 /* Useful functions */
 int _aprcl_p_ind(const aprcl_config conf, ulong p);

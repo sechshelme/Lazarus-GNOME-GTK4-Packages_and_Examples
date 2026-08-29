@@ -131,7 +131,7 @@ begin
       slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_FORMAT', ';//', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_ALLOC_SIZE', ';//', [rfReplaceAll]);
 
-      slHeader[j] := StringReplace(slHeader[j], 'ACF_INLINE', 'extern', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'ARB_INLINE', 'extern', [rfReplaceAll]);
 //      slHeader[j] := StringReplace(slHeader[j], '}', ';', [rfReplaceAll]);
 
 

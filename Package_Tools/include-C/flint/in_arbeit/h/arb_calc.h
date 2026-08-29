@@ -18,7 +18,7 @@
 extern "C" {
 #endif
 
-extern FLINT_TLS_PREFIX int arb_calc_verbose;
+extern  int arb_calc_verbose;
 
 typedef int (*arb_calc_func_t)(arb_ptr out,
     const arb_t inp, void * param, slong order, slong prec);
@@ -27,21 +27,21 @@ typedef int (*arb_calc_func_t)(arb_ptr out,
 #define ARB_CALC_IMPRECISE_INPUT 1
 #define ARB_CALC_NO_CONVERGENCE 2
 
-/* Root-finding */
+/*
 
 static __inline__ void
 arf_interval_init(arf_interval_t v)
 {
     arf_init(&v->a);
     arf_init(&v->b);
-;
+}
 
 static __inline__ void
 arf_interval_clear(arf_interval_t v)
 {
     arf_clear(&v->a);
     arf_clear(&v->b);
-;
+}
 
 static __inline__ arf_interval_ptr
 _arf_interval_vec_init(slong n)
@@ -53,7 +53,7 @@ _arf_interval_vec_init(slong n)
         arf_interval_init(v + i);
 
     return v;
-;
+}
 
 static __inline__ void
 _arf_interval_vec_clear(arf_interval_ptr v, slong n)
@@ -62,27 +62,29 @@ _arf_interval_vec_clear(arf_interval_ptr v, slong n)
     for (i = 0; i < n; i++)
         arf_interval_clear(v + i);
     flint_free(v);
-;
+}
 
 static __inline__ void
 arf_interval_set(arf_interval_t v, const arf_interval_t u)
 {
     arf_set(&v->a, &u->a);
     arf_set(&v->b, &u->b);
-;
+}
 
 static __inline__ void
 arf_interval_swap(arf_interval_t v, arf_interval_t u)
 {
     arf_swap(&v->a, &u->a);
     arf_swap(&v->b, &u->b);
-;
+}
 
 static __inline__ void
 arf_interval_get_arb(arb_t x, const arf_interval_t v, slong prec)
 {
     arb_set_interval_arf(x, &v->a, &v->b, prec);
-;
+}
+
+*/
 
 #ifdef FLINT_HAVE_FILE
 void arf_interval_fprintd(FILE * file, const arf_interval_t v, slong n);

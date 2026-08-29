@@ -12,17 +12,6 @@
 #ifndef ARB_FPWRAP_H
 #define ARB_FPWRAP_H
 
-#ifdef ARB_FPWRAP_INLINES_C
-#define ARB_FPWRAP_INLINE
-#else
-#define ARB_FPWRAP_INLINE static __inline__
-#endif
-
-#include "flint.h"
-
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 #define FPWRAP_SUCCESS 0
 #define FPWRAP_UNABLE 1
@@ -35,7 +24,7 @@ typedef struct
 {
     double real;
     double imag;
-;
+}
 complex_double;
 
 int arb_fpwrap_double_exp(double * res, double x, int flags);

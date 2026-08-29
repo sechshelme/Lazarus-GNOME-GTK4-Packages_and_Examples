@@ -12,19 +12,6 @@
 #ifndef ARB_POLY_H
 #define ARB_POLY_H
 
-#ifdef ARB_POLY_INLINES_C
-#define ARB_POLY_INLINE
-#else
-#define ARB_POLY_INLINE static __inline__
-#endif
-
-#include "fmpq_types.h"
-#include "arb.h"
-#include "acb_types.h"
-
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 /* Memory management */
 
@@ -40,12 +27,8 @@ void _arb_poly_set_length(arb_poly_t poly, slong len);
 
 void _arb_poly_normalise(arb_poly_t poly);
 
-ARB_POLY_INLINE void
+extern void
 arb_poly_swap(arb_poly_t poly1, arb_poly_t poly2)
-{
-    arb_poly_struct t = *poly1;
-    *poly1 = *poly2;
-    *poly2 = t;
 ;
 
 void arb_poly_set(arb_poly_t poly, const arb_poly_t src);
@@ -58,48 +41,31 @@ void arb_poly_set_trunc_round(arb_poly_t res, const arb_poly_t poly, slong n, sl
 
 /* Basic manipulation */
 
-ARB_POLY_INLINE slong arb_poly_length(const arb_poly_t poly)
-{
-    return poly->length;
+extern slong arb_poly_length(const arb_poly_t poly)
 ;
 
-ARB_POLY_INLINE slong arb_poly_degree(const arb_poly_t poly)
-{
-    return poly->length - 1;
+extern slong arb_poly_degree(const arb_poly_t poly)
 ;
 
 slong arb_poly_valuation(const arb_poly_t poly);
 
-ARB_POLY_INLINE int
+extern int
 arb_poly_is_zero(const arb_poly_t z)
-{
-    return arb_poly_length(z) == 0;
 ;
 
-ARB_POLY_INLINE int
+extern int
 arb_poly_is_one(const arb_poly_t z)
-{
-    return (arb_poly_length(z) == 1) && arb_is_one(z->coeffs);
 ;
 
-ARB_POLY_INLINE int
+extern int
 arb_poly_is_x(const arb_poly_t z)
-{
-    return (arb_poly_length(z) == 2) && arb_is_zero(z->coeffs)
-        && arb_is_one(z->coeffs + 1);
 ;
 
-ARB_POLY_INLINE void arb_poly_zero(arb_poly_t poly)
-{
-    poly->length = 0;
+extern void arb_poly_zero(arb_poly_t poly)
 ;
 
-ARB_POLY_INLINE void
+extern void
 arb_poly_one(arb_poly_t poly)
-{
-    arb_poly_fit_length(poly, 1);
-    arb_one(poly->coeffs);
-    _arb_poly_set_length(poly, 1);
 ;
 
 void arb_poly_set_coeff_si(arb_poly_t poly, slong n, slong x);
@@ -121,17 +87,8 @@ void _arb_poly_shift_left(arb_ptr res, arb_srcptr poly, slong len, slong n);
 
 void arb_poly_shift_left(arb_poly_t res, const arb_poly_t poly, slong n);
 
-ARB_POLY_INLINE void
+extern void
 arb_poly_truncate(arb_poly_t poly, slong newlen)
-{
-    if (poly->length > newlen)
-    {
-        slong i;
-        for (i = newlen; i < poly->length; i++)
-            arb_zero(poly->coeffs + i);
-        poly->length = newlen;
-        _arb_poly_normalise(poly);
-    ;
 ;
 
 /* Conversions */
@@ -140,12 +97,8 @@ void arb_poly_set_fmpz_poly(arb_poly_t poly, const fmpz_poly_t src, slong prec);
 
 void arb_poly_set_fmpq_poly(arb_poly_t poly, const fmpq_poly_t src, slong prec);
 
-ARB_POLY_INLINE void
+extern void
 arb_poly_set_arb(arb_poly_t poly, const arb_t c)
-{
-    arb_poly_fit_length(poly, 1);
-    arb_set(poly->coeffs, c);
-    _arb_poly_set_length(poly, !arb_is_zero(poly->coeffs));
 ;
 
 void arb_poly_set_si(arb_poly_t poly, slong c);
@@ -207,38 +160,20 @@ void arb_poly_add_series(arb_poly_t res, const arb_poly_t poly1,
 void arb_poly_sub_series(arb_poly_t res, const arb_poly_t poly1,
               const arb_poly_t poly2, slong len, slong prec);
 
-ARB_POLY_INLINE void
+extern void
 arb_poly_neg(arb_poly_t res, const arb_poly_t poly)
-{
-    arb_poly_fit_length(res, poly->length);
-    _arb_vec_neg(res->coeffs, poly->coeffs, poly->length);
-    _arb_poly_set_length(res, poly->length);
 ;
 
-ARB_POLY_INLINE void
+extern void
 arb_poly_scalar_mul_2exp_si(arb_poly_t res, const arb_poly_t poly, slong c)
-{
-    arb_poly_fit_length(res, poly->length);
-    _arb_vec_scalar_mul_2exp_si(res->coeffs, poly->coeffs, poly->length, c);
-    _arb_poly_set_length(res, poly->length);
 ;
 
-ARB_POLY_INLINE void
+extern void
 arb_poly_scalar_mul(arb_poly_t res, const arb_poly_t poly, const arb_t c, slong prec)
-{
-    arb_poly_fit_length(res, poly->length);
-    _arb_vec_scalar_mul(res->coeffs, poly->coeffs, poly->length, c, prec);
-    _arb_poly_set_length(res, poly->length);
-    _arb_poly_normalise(res);
 ;
 
-ARB_POLY_INLINE void
+extern void
 arb_poly_scalar_div(arb_poly_t res, const arb_poly_t poly, const arb_t c, slong prec)
-{
-    arb_poly_fit_length(res, poly->length);
-    _arb_vec_scalar_div(res->coeffs, poly->coeffs, poly->length, c, prec);
-    _arb_poly_set_length(res, poly->length);
-    _arb_poly_normalise(res);
 ;
 
 void _arb_poly_mullow_ztrunc(arb_ptr res,
@@ -278,13 +213,9 @@ void _arb_poly_mul(arb_ptr C,
 void arb_poly_mul(arb_poly_t res, const arb_poly_t poly1,
               const arb_poly_t poly2, slong prec);
 
-ARB_POLY_INLINE void
+extern void
 _arb_poly_mul_monic(arb_ptr res, arb_srcptr poly1, slong len1,
     arb_srcptr poly2, slong len2, slong prec)
-{
-    if (len1 + len2 - 2 > 0)
-        _arb_poly_mullow(res, poly1, len1, poly2, len2, len1 + len2 - 2, prec);
-    arb_one(res + len1 + len2 - 2);
 ;
 
 void _arb_poly_inv_series(arb_ptr Qinv,
@@ -645,74 +576,25 @@ void _arb_poly_root_bound_fujiwara(mag_t bound, arb_srcptr poly, slong len);
 
 void arb_poly_root_bound_fujiwara(mag_t bound, arb_poly_t poly);
 
-ARB_POLY_INLINE slong
+extern slong
 arb_poly_allocated_bytes(const arb_poly_t x)
-{
-    return _arb_vec_allocated_bytes(x->coeffs, x->alloc);
 ;
 
 /* Macros */
 
 
 /* counts zero bits in the binary representation of e */
-ARB_POLY_INLINE int
+extern int
 n_zerobits(mp_limb_t e)
-{
-    int zeros = 0;
-
-    while (e > 1)
-    {
-        zeros += !(e & 1);
-        e >>= 1;
-    ;
-
-    return zeros;
 ;
 
 /* Computes the length of the result when raising a polynomial of
    length *len* to the power *exp* and truncating to length *trunc*,
    without overflow. Assumes poly_len >= 1. */
-ARB_POLY_INLINE slong
+extern slong
 poly_pow_length(slong poly_len, ulong exp, slong trunc)
-{
-    mp_limb_t hi, lo;
-    umul_ppmm(hi, lo, poly_len - 1, exp);
-    add_ssaaaa(hi, lo, hi, lo, 0, 1);
-    if (hi != 0 || lo > (mp_limb_t) WORD_MAX)
-        return trunc;
-    return FLINT_MIN((slong) lo, trunc);
 ;
 
-#ifndef NEWTON_INIT
 
-#define NEWTON_INIT(from, to) \
-    { \
-        slong __steps[FLINT_BITS], __i, __from, __to; \
-        __steps[__i = 0] = __to = (to); \
-        __from = (from); \
-        while (__to > __from) \
-            __steps[++__i] = (__to = (__to + 1) / 2); \
 
-#define NEWTON_BASECASE(bc_to) { slong bc_to = __to;
-
-#define NEWTON_END_BASECASE ;
-
-#define NEWTON_LOOP(step_from, step_to) \
-        { \
-            for (__i--; __i >= 0; __i--) \
-            { \
-                slong step_from = __steps[__i+1]; \
-                slong step_to = __steps[__i]; \
-
-#define NEWTON_END_LOOP ;;
-
-#define NEWTON_END ;
-
-#endif
-
-#ifdef __cplusplus
-;
-#endif
-
-#endif
 

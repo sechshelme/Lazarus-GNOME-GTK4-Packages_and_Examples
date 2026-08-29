@@ -9,31 +9,18 @@
     (at your option) any later version.  See <http://www.gnu.org/licenses/>.
 */
 
-#ifndef ARB_H
-#define ARB_H
-
-#ifdef ARB_INLINES_C
-#define ARB_INLINE
-#else
-#define ARB_INLINE static __inline__
-#endif
-
-#include "arf.h"
-#include "arb_types.h"
-
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 #define __ARB_VERSION 2
 #define __ARB_VERSION_MINOR 23
 #define __ARB_VERSION_PATCHLEVEL 0
 #define ARB_VERSION "2.23.0"
+/*xxxxxxxxxxx
 #define __ARB_RELEASE (__ARB_VERSION * 10000 + \
                          __ARB_VERSION_MINOR * 100 + \
                          __ARB_VERSION_PATCHLEVEL)
+*/
 
-FLINT_DLL extern const char * arb_version;
+extern const char * arb_version;
 
 #define arb_midref(x) (&(x)->mid)
 #define arb_radref(x) (&(x)->rad)
@@ -42,11 +29,8 @@ FLINT_DLL extern const char * arb_version;
 
 #define ARB_RND ARF_RND_DOWN
 
-ARB_INLINE void
+extern void
 arb_init(arb_t x)
-{
-    arf_init(arb_midref(x));
-    mag_init(arb_radref(x));
 ;
 
 void arb_clear(arb_t x);
@@ -54,26 +38,19 @@ void arb_clear(arb_t x);
 arb_ptr _arb_vec_init(slong n);
 void _arb_vec_clear(arb_ptr v, slong n);
 
-ARB_INLINE arf_ptr arb_mid_ptr(arb_t z) { return arb_midref(z); ;
-ARB_INLINE mag_ptr arb_rad_ptr(arb_t z) { return arb_radref(z); ;
+extern arf_ptr arb_mid_ptr(arb_t z) ;
+extern mag_ptr arb_rad_ptr(arb_t z) ;
 
-ARB_INLINE int
+extern int
 arb_is_exact(const arb_t x)
-{
-    return mag_is_zero(arb_radref(x));
 ;
 
-ARB_INLINE int
+extern int
 arb_equal(const arb_t x, const arb_t y)
-{
-    return arf_equal(arb_midref(x), arb_midref(y)) &&
-           mag_equal(arb_radref(x), arb_radref(y));
 ;
 
-ARB_INLINE int
+extern int
 arb_equal_si(const arb_t x, slong y)
-{
-    return arf_equal_si(arb_midref(x), y) && mag_is_zero(arb_radref(x));
 ;
 
 /* implementations are in arb/richcmp.c */
@@ -86,47 +63,28 @@ int arb_ge(const arb_t x, const arb_t y);
 
 void arb_zero(arb_t x);
 
-ARB_INLINE int
+extern int
 arb_is_zero(const arb_t x)
-{
-    return arf_is_zero(arb_midref(x)) && mag_is_zero(arb_radref(x));
 ;
 
-ARB_INLINE void
+extern void
 arb_pos_inf(arb_t x)
-{
-    arf_pos_inf(arb_midref(x));
-    mag_zero(arb_radref(x));
 ;
 
-ARB_INLINE void
+extern void
 arb_neg_inf(arb_t x)
-{
-    arf_neg_inf(arb_midref(x));
-    mag_zero(arb_radref(x));
 ;
 
-ARB_INLINE void
+extern void
 arb_zero_pm_inf(arb_t x)
-{
-    arf_zero(arb_midref(x));
-    mag_inf(arb_radref(x));
 ;
 
-ARB_INLINE void
+extern void
 arb_zero_pm_one(arb_t x)
-{
-    arf_zero(arb_midref(x));
-    mag_one(arb_radref(x));
 ;
 
-ARB_INLINE void
+extern void
 arb_unit_interval(arb_t x)
-{
-    arf_one(arb_midref(x));
-    mag_one(arb_radref(x));
-    ARF_EXP(arb_midref(x))--;
-    MAG_EXP(arb_radref(x))--;
 ;
 
 void arb_indeterminate(arb_t x);
@@ -135,12 +93,8 @@ int arb_is_finite(const arb_t x);
 
 void arb_set(arb_t x, const arb_t y);
 
-ARB_INLINE void
+extern void
 arb_swap(arb_t x, arb_t y)
-{
-    arb_struct t = *x;
-    *x = *y;
-    *y = t;
 ;
 
 void arb_set_round(arb_t z, const arb_t x, slong prec);
@@ -168,11 +122,8 @@ int arb_set_str(arb_t res, const char * inp, slong prec);
 char * arb_get_str(const arb_t x, slong n, ulong flags);
 
 
-ARB_INLINE void
+extern void
 arb_set_arf(arb_t x, const arf_t y)
-{
-    arf_set(arb_midref(x), y);
-    mag_zero(arb_radref(x));
 ;
 
 void arb_set_si(arb_t x, slong y);
@@ -183,21 +134,16 @@ void arb_set_d(arb_t x, double y);
 
 void arb_set_fmpz(arb_t x, const fmpz_t y);
 
-ARB_INLINE void
+extern void
 arb_set_fmpz_2exp(arb_t x, const fmpz_t y, const fmpz_t exp)
-{
-    arf_set_fmpz_2exp(arb_midref(x), y, exp);
-    mag_zero(arb_radref(x));
 ;
 
 void arb_set_round_fmpz_2exp(arb_t y, const fmpz_t x, const fmpz_t exp, slong prec);
 
 void arb_set_round_fmpz(arb_t y, const fmpz_t x, slong prec);
 
-ARB_INLINE int
+extern int
 arb_is_one(const arb_t f)
-{
-    return arf_is_one(arb_midref(f)) && mag_is_zero(arb_radref(f));
 ;
 
 void arb_one(arb_t f);
@@ -214,25 +160,16 @@ void arb_printn(const arb_t x, slong digits, ulong flags);
 
 void arb_mul_2exp_si(arb_t y, const arb_t x, slong e);
 
-ARB_INLINE void
+extern void
 arb_mul_2exp_fmpz(arb_t y, const arb_t x, const fmpz_t e)
-{
-    arf_mul_2exp_fmpz(arb_midref(y), arb_midref(x), e);
-    mag_mul_2exp_fmpz(arb_radref(y), arb_radref(x), e);
 ;
 
-ARB_INLINE int
+extern int
 arb_is_int(const arb_t x)
-{
-    return mag_is_zero(arb_radref(x)) &&
-           arf_is_int(arb_midref(x));
 ;
 
-ARB_INLINE int
+extern int
 arb_is_int_2exp_si(const arb_t x, slong e)
-{
-    return mag_is_zero(arb_radref(x)) &&
-           arf_is_int_2exp_si(arb_midref(x), e);
 ;
 
 /* implementations are in arb/richcmp.c */
@@ -251,27 +188,16 @@ void arb_get_mag_lower(mag_t z, const arb_t x);
 
 void arb_get_mag_lower_nonnegative(mag_t z, const arb_t x);
 
-ARB_INLINE void
+extern void
 arb_get_mag(mag_t z, const arb_t x)
-{
-    mag_t t;
-    mag_init_set_arf(t, arb_midref(x));
-    mag_add(z, t, arb_radref(x));
-    mag_clear(t);
 ;
 
-ARB_INLINE void
+extern void
 arb_get_mid_arb(arb_t z, const arb_t x)
-{
-    arf_set(arb_midref(z), arb_midref(x));
-    mag_zero(arb_radref(z));
 ;
 
-ARB_INLINE void
+extern void
 arb_get_rad_arb(arb_t z, const arb_t x)
-{
-    arf_set_mag(arb_midref(z), arb_radref(x));
-    mag_zero(arb_radref(z));
 ;
 
 void arb_get_abs_ubound_arf(arf_t u, const arb_t x, slong prec);
@@ -283,18 +209,14 @@ void arb_nonnegative_part(arb_t res, const arb_t x);
 
 slong arb_rel_error_bits(const arb_t x);
 
-ARB_INLINE slong
+extern slong
 arb_rel_accuracy_bits(const arb_t x)
-{
-    return -arb_rel_error_bits(x);
 ;
 
 slong arb_rel_one_accuracy_bits(const arb_t x);
 
-ARB_INLINE slong
+extern slong
 arb_bits(const arb_t x)
-{
-    return arf_bits(arb_midref(x));
 ;
 
 void arb_randtest_exact(arb_t x, flint_rand_t state, slong prec, slong mag_bits);
@@ -317,10 +239,8 @@ void arb_add_error_2exp_fmpz(arb_t x, const fmpz_t err);
 
 void arb_add_error(arb_t x, const arb_t error);
 
-ARB_INLINE void
+extern void
 arb_add_error_mag(arb_t x, const mag_t err)
-{
-    mag_add(arb_radref(x), arb_radref(x), err);
 ;
 
 int arb_contains_arf(const arb_t x, const arf_t y);
@@ -449,16 +369,12 @@ void arb_div_arf_newton(arb_t res, const arb_t x, const arf_t y, slong prec);
 void arb_div_newton(arb_t res, const arb_t x, const arb_t y, slong prec);
 void arb_fmpz_divapprox(fmpz_t res, const fmpz_t x, const fmpz_t y);
 
-ARB_INLINE void
+extern void
 arb_inv(arb_t y, const arb_t x, slong prec)
-{
-    arb_ui_div(y, 1, x, prec);
 ;
 
-ARB_INLINE void
+extern void
 arb_set_fmpq(arb_t y, const fmpq_t x, slong prec)
-{
-    arb_fmpz_div_fmpz(y, fmpq_numref(x), fmpq_denref(x), prec);
 ;
 
 void arb_sqrt(arb_t z, const arb_t x, slong prec);
@@ -613,242 +529,109 @@ void arb_primorial_ui(arb_t res, ulong n, slong prec);
 
 void arb_lambertw(arb_t res, const arb_t x, int flags, slong prec);
 
-ARB_INLINE void
+extern void
 arb_sqr(arb_t res, const arb_t val, slong prec)
-{
-    arb_mul(res, val, val, prec);
 ;
 
-#define ARB_DEF_CACHED_CONSTANT(name, comp_func) \
-    FLINT_TLS_PREFIX slong name ## _cached_prec = 0; \
-    FLINT_TLS_PREFIX arb_t name ## _cached_value; \
-    void name ## _cleanup(void) \
-    { \
-        arb_clear(name ## _cached_value); \
-        name ## _cached_prec = 0; \
-    ; \
-    void name(arb_t x, slong prec) \
-    { \
-        if (name ## _cached_prec < prec) \
-        { \
-            if (name ## _cached_prec == 0) \
-            { \
-                arb_init(name ## _cached_value); \
-                flint_register_cleanup_function(name ## _cleanup); \
-            ; \
-            comp_func(name ## _cached_value, prec + 32); \
-            name ## _cached_prec = prec; \
-        ; \
-        arb_set_round(x, name ## _cached_value, prec); \
-    ;
 
 /* vector functions */
 
-ARB_INLINE arb_ptr
+extern arb_ptr
 _arb_vec_entry_ptr(arb_ptr vec, slong i)
-{
-    return vec + i;
 ;
 
-ARB_INLINE void
+extern void
 _arb_vec_printn(arb_srcptr vec, slong len, slong ndigits, ulong flags)
-{
-    slong i;
-    for (i = 0; i < len; i++)
-    {
-        arb_printn(vec + i, ndigits, flags);
-        if (i < len - 1)
-            flint_printf(", ");
-    ;
 ;
 
-ARB_INLINE void
+extern void
 _arb_vec_zero(arb_ptr A, slong n)
-{
-    slong i;
-    for (i = 0; i < n; i++)
-        arb_zero(A + i);
 ;
 
-ARB_INLINE int
+extern int
 _arb_vec_is_zero(arb_srcptr vec, slong len)
-{
-    slong i;
-    for (i = 0; i < len; i++)
-        if (!arb_is_zero(vec + i))
-            return 0;
-    return 1;
 ;
 
-ARB_INLINE int
+extern int
 _arb_vec_is_finite(arb_srcptr x, slong len)
-{
-    slong i;
-
-    for (i = 0; i < len; i++)
-        if (!arb_is_finite(x + i))
-            return 0;
-
-    return 1;
 ;
 
-ARB_INLINE void
+extern void
 _arb_vec_set(arb_ptr res, arb_srcptr vec, slong len)
-{
-    slong i;
-    for (i = 0; i < len; i++)
-        arb_set(res + i, vec + i);
 ;
 
-ARB_INLINE void
+extern void
 _arb_vec_set_round(arb_ptr res, arb_srcptr vec, slong len, slong prec)
-{
-    slong i;
-    for (i = 0; i < len; i++)
-        arb_set_round(res + i, vec + i, prec);
 ;
 
-ARB_INLINE void
+extern void
 _arb_vec_swap(arb_ptr res, arb_ptr vec, slong len)
-{
-    slong i;
-    for (i = 0; i < len; i++)
-        arb_swap(res + i, vec + i);
 ;
 
-ARB_INLINE void
+extern void
 _arb_vec_neg(arb_ptr B, arb_srcptr A, slong n)
-{
-    slong i;
-    for (i = 0; i < n; i++)
-        arb_neg(B + i, A + i);
 ;
 
-ARB_INLINE void
+extern void
 _arb_vec_sub(arb_ptr C, arb_srcptr A,
     arb_srcptr B, slong n, slong prec)
-{
-    slong i;
-    for (i = 0; i < n; i++)
-        arb_sub(C + i, A + i, B + i, prec);
 ;
 
-ARB_INLINE void
+extern void
 _arb_vec_add(arb_ptr C, arb_srcptr A,
     arb_srcptr B, slong n, slong prec)
-{
-    slong i;
-    for (i = 0; i < n; i++)
-        arb_add(C + i, A + i, B + i, prec);
 ;
 
-ARB_INLINE void
+extern void
 _arb_vec_scalar_mul(arb_ptr res, arb_srcptr vec,
     slong len, const arb_t c, slong prec)
-{
-    slong i;
-    for (i = 0; i < len; i++)
-        arb_mul(res + i, vec + i, c, prec);
 ;
 
-ARB_INLINE void
+extern void
 _arb_vec_scalar_div(arb_ptr res, arb_srcptr vec,
     slong len, const arb_t c, slong prec)
-{
-    slong i;
-    for (i = 0; i < len; i++)
-        arb_div(res + i, vec + i, c, prec);
 ;
 
-ARB_INLINE void
+extern void
 _arb_vec_scalar_mul_fmpz(arb_ptr res, arb_srcptr vec,
     slong len, const fmpz_t c, slong prec)
-{
-    slong i;
-    arf_t t;
-    arf_init(t);
-    arf_set_fmpz(t, c);
-    for (i = 0; i < len; i++)
-        arb_mul_arf(res + i, vec + i, t, prec);
-    arf_clear(t);
 ;
 
-ARB_INLINE void
+extern void
 _arb_vec_scalar_mul_2exp_si(arb_ptr res, arb_srcptr src, slong len, slong c)
-{
-    slong i;
-    for (i = 0; i < len; i++)
-        arb_mul_2exp_si(res + i, src + i, c);
 ;
 
-ARB_INLINE void
+extern void
 _arb_vec_scalar_addmul(arb_ptr res, arb_srcptr vec,
     slong len, const arb_t c, slong prec)
-{
-    slong i;
-    for (i = 0; i < len; i++)
-        arb_addmul(res + i, vec + i, c, prec);
 ;
 
 void _arb_vec_get_mag(mag_t bound, arb_srcptr vec, slong len);
 
-ARB_INLINE slong
+extern slong
 _arb_vec_bits(arb_srcptr x, slong len)
-{
-    slong i, b, c;
-
-    b = 0;
-    for (i = 0; i < len; i++)
-    {
-        c = arb_bits(x + i);
-        b = FLINT_MAX(b, c);
-    ;
-
-    return b;
 ;
 
 void _arb_vec_set_powers(arb_ptr xs, const arb_t x, slong len, slong prec);
 
-ARB_INLINE void
+extern void
 _arb_vec_add_error_arf_vec(arb_ptr res, arf_srcptr err, slong len)
-{
-    slong i;
-    for (i = 0; i < len; i++)
-        arb_add_error_arf(res + i, err + i);
 ;
 
-ARB_INLINE void
+extern void
 _arb_vec_add_error_mag_vec(arb_ptr res, mag_srcptr err, slong len)
-{
-    slong i;
-    for (i = 0; i < len; i++)
-        mag_add(arb_radref(res + i), arb_radref(res + i), err + i);
 ;
 
-ARB_INLINE void
+extern void
 _arb_vec_indeterminate(arb_ptr vec, slong len)
-{
-    slong i;
-    for (i = 0; i < len; i++)
-        arb_indeterminate(vec + i);
 ;
 
-ARB_INLINE void
+extern void
 _arb_vec_trim(arb_ptr res, arb_srcptr vec, slong len)
-{
-    slong i;
-    for (i = 0; i < len; i++)
-        arb_trim(res + i, vec + i);
 ;
 
-ARB_INLINE int
+extern int
 _arb_vec_get_unique_fmpz_vec(fmpz * res,  arb_srcptr vec, slong len)
-{
-    slong i;
-    for (i = 0; i < len; i++)
-        if (!arb_get_unique_fmpz(res + i, vec + i))
-            return 0;
-    return 1;
 ;
 
 /* arctangent implementation */
@@ -862,10 +645,10 @@ _arb_vec_get_unique_fmpz_vec(fmpz * res,  arb_srcptr vec, slong len)
 #define ARB_ATAN_TAB2_PREC 4608
 #define ARB_ATAN_TAB2_LIMBS (ARB_ATAN_TAB2_PREC / FLINT_BITS)
 
-FLINT_DLL extern const mp_limb_t arb_atan_tab1[1 << ARB_ATAN_TAB1_BITS][ARB_ATAN_TAB1_LIMBS];
-FLINT_DLL extern const mp_limb_t arb_atan_tab21[1 << ARB_ATAN_TAB21_BITS][ARB_ATAN_TAB2_LIMBS];
-FLINT_DLL extern const mp_limb_t arb_atan_tab22[1 << ARB_ATAN_TAB22_BITS][ARB_ATAN_TAB2_LIMBS];
-FLINT_DLL extern const mp_limb_t arb_atan_pi2_minus_one[ARB_ATAN_TAB2_LIMBS];
+ extern const mp_limb_t arb_atan_tab1[1 << ARB_ATAN_TAB1_BITS][ARB_ATAN_TAB1_LIMBS];
+ extern const mp_limb_t arb_atan_tab21[1 << ARB_ATAN_TAB21_BITS][ARB_ATAN_TAB2_LIMBS];
+ extern const mp_limb_t arb_atan_tab22[1 << ARB_ATAN_TAB22_BITS][ARB_ATAN_TAB2_LIMBS];
+ extern const mp_limb_t arb_atan_pi2_minus_one[ARB_ATAN_TAB2_LIMBS];
 
 void
 _arb_atan_taylor_naive(mp_ptr y, mp_limb_t * error,
@@ -891,11 +674,11 @@ void arb_atan_arf_newton(arb_t res, const arf_t x, slong prec);
 #define ARB_LOG_TAB2_PREC 4608
 #define ARB_LOG_TAB2_LIMBS (ARB_LOG_TAB2_PREC / FLINT_BITS)
 
-FLINT_DLL extern const mp_limb_t arb_log_tab11[1 << ARB_LOG_TAB11_BITS][ARB_LOG_TAB1_LIMBS];
-FLINT_DLL extern const mp_limb_t arb_log_tab12[1 << ARB_LOG_TAB12_BITS][ARB_LOG_TAB1_LIMBS];
-FLINT_DLL extern const mp_limb_t arb_log_tab21[1 << ARB_LOG_TAB21_BITS][ARB_LOG_TAB2_LIMBS];
-FLINT_DLL extern const mp_limb_t arb_log_tab22[1 << ARB_LOG_TAB22_BITS][ARB_LOG_TAB2_LIMBS];
-FLINT_DLL extern const mp_srcptr arb_log_log2_tab;
+ extern const mp_limb_t arb_log_tab11[1 << ARB_LOG_TAB11_BITS][ARB_LOG_TAB1_LIMBS];
+ extern const mp_limb_t arb_log_tab12[1 << ARB_LOG_TAB12_BITS][ARB_LOG_TAB1_LIMBS];
+ extern const mp_limb_t arb_log_tab21[1 << ARB_LOG_TAB21_BITS][ARB_LOG_TAB2_LIMBS];
+ extern const mp_limb_t arb_log_tab22[1 << ARB_LOG_TAB22_BITS][ARB_LOG_TAB2_LIMBS];
+ extern const mp_srcptr arb_log_log2_tab;
 
 void arb_log_newton(arb_t res, const arb_t x, slong prec);
 void arb_log_arf_newton(arb_t res, const arf_t x, slong prec);
@@ -904,7 +687,7 @@ void arb_log_arf_newton(arb_t res, const arf_t x, slong prec);
 
 #define ARB_LOG_PRIME_CACHE_NUM 13
 
-FLINT_DLL extern const mp_limb_t arb_log_p_tab[ARB_LOG_PRIME_CACHE_NUM][ARB_LOG_TAB2_LIMBS];
+ extern const mp_limb_t arb_log_p_tab[ARB_LOG_PRIME_CACHE_NUM][ARB_LOG_TAB2_LIMBS];
 void arb_log_primes_vec_bsplit(arb_ptr res, slong n, slong prec);
 
 void _arb_log_p_ensure_cached(slong prec);
@@ -926,9 +709,9 @@ arb_srcptr _arb_log_p_cache_vec(void);
 #define ARB_EXP_TAB2_PREC 4608
 #define ARB_EXP_TAB2_LIMBS (ARB_EXP_TAB2_PREC / FLINT_BITS)
 
-FLINT_DLL extern const mp_limb_t arb_exp_tab1[ARB_EXP_TAB1_NUM][ARB_EXP_TAB1_LIMBS];
-FLINT_DLL extern const mp_limb_t arb_exp_tab21[ARB_EXP_TAB21_NUM][ARB_EXP_TAB2_LIMBS];
-FLINT_DLL extern const mp_limb_t arb_exp_tab22[ARB_EXP_TAB22_NUM][ARB_EXP_TAB2_LIMBS];
+ extern const mp_limb_t arb_exp_tab1[ARB_EXP_TAB1_NUM][ARB_EXP_TAB1_LIMBS];
+ extern const mp_limb_t arb_exp_tab21[ARB_EXP_TAB21_NUM][ARB_EXP_TAB2_LIMBS];
+ extern const mp_limb_t arb_exp_tab22[ARB_EXP_TAB22_NUM][ARB_EXP_TAB2_LIMBS];
 
 void _arb_exp_taylor_naive(mp_ptr y, mp_limb_t * error,
     mp_srcptr x, mp_size_t xn, ulong N);
@@ -974,12 +757,12 @@ void arb_exp_arf(arb_t z, const arf_t x, slong prec, int minus_one, slong maglim
 #define ARB_SIN_COS_TAB2_PREC 4608
 #define ARB_SIN_COS_TAB2_LIMBS (ARB_SIN_COS_TAB2_PREC / FLINT_BITS)
 
-FLINT_DLL extern const mp_limb_t arb_sin_cos_tab1[2 * ARB_SIN_COS_TAB1_NUM][ARB_SIN_COS_TAB1_LIMBS];
-FLINT_DLL extern const mp_limb_t arb_sin_cos_tab21[2 * ARB_SIN_COS_TAB21_NUM][ARB_SIN_COS_TAB2_LIMBS];
-FLINT_DLL extern const mp_limb_t arb_sin_cos_tab22[2 * ARB_SIN_COS_TAB22_NUM][ARB_SIN_COS_TAB2_LIMBS];
+ extern const mp_limb_t arb_sin_cos_tab1[2 * ARB_SIN_COS_TAB1_NUM][ARB_SIN_COS_TAB1_LIMBS];
+ extern const mp_limb_t arb_sin_cos_tab21[2 * ARB_SIN_COS_TAB21_NUM][ARB_SIN_COS_TAB2_LIMBS];
+ extern const mp_limb_t arb_sin_cos_tab22[2 * ARB_SIN_COS_TAB22_NUM][ARB_SIN_COS_TAB2_LIMBS];
 
 #define ARB_PI4_TAB_LIMBS (4608 / FLINT_BITS)
-FLINT_DLL extern const mp_limb_t arb_pi4_tab[ARB_PI4_TAB_LIMBS];
+ extern const mp_limb_t arb_pi4_tab[ARB_PI4_TAB_LIMBS];
 
 void _arb_sin_cos_taylor_naive(mp_ptr ysin, mp_ptr ycos, mp_limb_t * error,
     mp_srcptr x, mp_size_t xn, ulong N);
@@ -1008,7 +791,7 @@ void arb_atan_gauss_primes_vec_bsplit(arb_ptr res, slong n, slong prec);
 #define ARB_SIN_COS_ATAN_REDUCTION_DEFAULT_MAX_PREC 4000000
 #define ARB_SIN_COS_ATAN_REDUCTION_PREC 2600
 
-FLINT_DLL extern const mp_limb_t arb_atan_gauss_tab[ARB_ATAN_GAUSS_PRIME_CACHE_NUM][ARB_ATAN_TAB2_LIMBS];
+extern const mp_limb_t arb_atan_gauss_tab[ARB_ATAN_GAUSS_PRIME_CACHE_NUM][ARB_ATAN_TAB2_LIMBS];
 
 void _arb_atan_gauss_p_ensure_cached(slong prec);
 arb_srcptr _arb_atan_gauss_p_cache_vec(void);
@@ -1016,30 +799,8 @@ arb_srcptr _arb_atan_gauss_p_cache_vec(void);
 void arb_sin_cos_arf_atan_reduction(arb_t res1, arb_t res2, const arf_t x, slong prec);
 
 
-ARB_INLINE flint_bitcnt_t
+extern flint_bitcnt_t
 _arb_mpn_leading_zeros(mp_srcptr d, mp_size_t n)
-{
-    mp_limb_t t;
-    mp_size_t zero_limbs;
-    flint_bitcnt_t bits;
-
-    zero_limbs = 0;
-
-    while (1)
-    {
-        t = d[n - zero_limbs - 1];
-
-        if (t != 0)
-        {
-            bits = flint_clz(t);
-            return bits + FLINT_BITS * zero_limbs;
-        ;
-
-        zero_limbs++;
-
-        if (zero_limbs == n)
-            return FLINT_BITS * zero_limbs;
-    ;
 ;
 
 void _arb_atan_sum_bs_simple(fmpz_t T, fmpz_t Q, flint_bitcnt_t * Qexp,
@@ -1052,36 +813,16 @@ void arb_atan_arf_bb(arb_t z, const arf_t x, slong prec);
 
 void arb_atan_frac_bsplit(arb_t s, const fmpz_t p, const fmpz_t q, int hyperbolic, slong prec);
 
-ARB_INLINE slong
+extern slong
 arb_allocated_bytes(const arb_t x)
-{
-    return arf_allocated_bytes(arb_midref(x)) + mag_allocated_bytes(arb_radref(x));
 ;
 
-ARB_INLINE slong
+extern slong
 _arb_vec_allocated_bytes(arb_srcptr vec, slong len)
-{
-    slong i, size;
-
-    size = len * sizeof(arb_struct);
-
-    for (i = 0; i < len; i++)
-        size += arb_allocated_bytes(vec + i);
-
-    return size;
 ;
 
-ARB_INLINE double
+extern double
 _arb_vec_estimate_allocated_bytes(slong len, slong prec)
-{
-    double size;
-
-    size = len * (double) sizeof(arb_struct);
-
-    if (prec > ARF_NOPTR_LIMBS * FLINT_BITS)
-        size += len * (double) ((prec + FLINT_BITS - 1) / FLINT_BITS) * sizeof(mp_limb_t);
-
-    return size;
 ;
 
 int arb_load_str(arb_t res, const char * data);

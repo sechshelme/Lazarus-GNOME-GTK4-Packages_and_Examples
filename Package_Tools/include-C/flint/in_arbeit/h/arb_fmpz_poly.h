@@ -12,11 +12,6 @@
 #ifndef ARB_FMPZ_POLY_H
 #define ARB_FMPZ_POLY_H
 
-#ifdef ARB_FMPZ_POLY_INLINES_C
-#define ARB_FMPZ_POLY_INLINE
-#else
-#define ARB_FMPZ_POLY_INLINE static __inline__
-#endif
 
 #include "fmpz_poly.h"
 #include "acb_types.h"
@@ -46,10 +41,7 @@ ulong arb_fmpz_poly_deflation(const fmpz_poly_t input);
 
 void arb_fmpz_poly_complex_roots(acb_ptr roots, const fmpz_poly_t poly, int flags, slong target_prec);
 
-ARB_FMPZ_POLY_INLINE
 void arb_fmpz_poly_cos_minpoly(fmpz_poly_t res, ulong n)
-{
-    fmpz_poly_cos_minpoly(res, n);
 ;
 
 void arb_fmpz_poly_gauss_period_minpoly(fmpz_poly_t res, ulong q, ulong n);
