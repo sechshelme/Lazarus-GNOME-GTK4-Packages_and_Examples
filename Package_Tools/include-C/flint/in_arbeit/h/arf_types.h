@@ -24,21 +24,23 @@ extern "C" {
 typedef struct
 {
     mp_limb_t d[ARF_NOPTR_LIMBS];
-;
+}
 mantissa_noptr_struct;
 
 typedef struct
 {
     mp_size_t alloc;
     mp_ptr d;
-;
+}
+
 mantissa_ptr_struct;
 
 typedef union
 {
     mantissa_noptr_struct noptr;
     mantissa_ptr_struct ptr;
-;
+}
+
 mantissa_struct;
 
 typedef struct
@@ -46,7 +48,8 @@ typedef struct
     fmpz exp;
     mp_size_t size;
     mantissa_struct d;
-;
+}
+
 arf_struct;
 
 typedef arf_struct arf_t[1];
@@ -57,7 +60,8 @@ typedef struct
 {
     arf_struct a;
     arf_struct b;
-;
+}
+
 arf_interval_struct;
 
 typedef arf_interval_struct arf_interval_t[1];

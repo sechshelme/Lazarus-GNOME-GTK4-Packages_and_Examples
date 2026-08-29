@@ -20,26 +20,17 @@
 extern "C" {
 #endif
 
-extern slong FLINT_TLS_PREFIX bernoulli_cache_num;
+extern slong  bernoulli_cache_num;
 
-extern FLINT_TLS_PREFIX fmpq * bernoulli_cache;
+extern  fmpq * bernoulli_cache;
 
 void bernoulli_cache_compute(slong n);
 
-/*
-Crude bound for the bits in d(n) = denom(B_n).
-By von Staudt-Clausen, d(n) = prod_{p-1 | n; p
-    <= prod_{k | n; 2k
-    <= n^{sigma_0(n);.
-
-We get a more accurate estimate taking the square root of this.
-Further, at least for sufficiently large n,
-sigma_0(n) < exp(1.066 log(n) / log(log(n))).
-*/
+/*xxxxxxxxx
 static __inline__ slong bernoulli_denom_size(slong n)
 {
     return 0.5 * 1.4427 * log(n) * pow(n, 1.066 / log(log(n)));
-;
+}
 
 static __inline__ slong bernoulli_zeta_terms(ulong s, slong prec)
 {
@@ -47,7 +38,7 @@ static __inline__ slong bernoulli_zeta_terms(ulong s, slong prec)
     N = pow(2.0, (prec + 1.0) / (s - 1.0));
     N += ((N % 2) == 0);
     return N;
-;
+}
 
 static __inline__ slong bernoulli_power_prec(slong i, ulong s1, slong wp)
 {
@@ -55,14 +46,11 @@ static __inline__ slong bernoulli_power_prec(slong i, ulong s1, slong wp)
     return FLINT_MAX(p, 10);
 ;
 
-/* we should technically add O(log(n)) guard bits, but this is unnecessary
-   in practice since the denominator estimate is quite a bit larger
-   than the true denominators
- */
 static __inline__ slong bernoulli_global_prec(ulong nmax)
 {
     return arith_bernoulli_number_size(nmax) + bernoulli_denom_size(nmax);
-;
+*/
+
 
 
 /* avoid potential numerical problems for very small n */
@@ -78,7 +66,7 @@ typedef struct
     arb_t prefactor;
     arb_t two_pi_squared;
     ulong n;
-;
+}
 bernoulli_rev_struct;
 
 typedef bernoulli_rev_struct bernoulli_rev_t[1];
@@ -90,13 +78,6 @@ void bernoulli_rev_next(fmpz_t numer, fmpz_t denom, bernoulli_rev_t iter);
 void bernoulli_rev_clear(bernoulli_rev_t iter);
 
 void bernoulli_fmpq_vec_no_cache(fmpq * res, ulong a, slong num);
-
-#define BERNOULLI_ENSURE_CACHED(n) \
-  do { \
-    slong __n = (n); \
-    if (__n >= bernoulli_cache_num) \
-        bernoulli_cache_compute(__n + 1); \
-  ; while (0); \
 
 slong bernoulli_bound_2exp_si(ulong n);
 

@@ -9,20 +9,6 @@
     (at your option) any later version.  See <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CA_FIELD_H
-#define CA_FIELD_H
-
-#ifdef CA_FIELD_INLINES_C
-#define CA_FIELD_INLINE
-#else
-#define CA_FIELD_INLINE static __inline__
-#endif
-
-#include "ca.h"
-
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 /* Types *********************************************************************/
 

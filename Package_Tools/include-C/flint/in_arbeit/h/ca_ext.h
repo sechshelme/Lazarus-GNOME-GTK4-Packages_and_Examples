@@ -9,20 +9,6 @@
     (at your option) any later version.  See <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CA_EXT_H
-#define CA_EXT_H
-
-#ifdef CA_EXT_INLINES_C
-#define CA_EXT_INLINE
-#else
-#define CA_EXT_INLINE static __inline__
-#endif
-
-#include "ca.h"
-
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 /* Types *********************************************************************/
 
@@ -35,45 +21,20 @@ void ca_ext_init_fxy(ca_ext_t res, calcium_func_code func, const ca_t x, const c
 void ca_ext_init_fxn(ca_ext_t res, calcium_func_code func, ca_srcptr x, slong nargs, ca_ctx_t ctx);
 
 /* todo: this could avoid rehashing, ... */
-CA_EXT_INLINE void
+extern void
 ca_ext_init_set(ca_ext_t res, const ca_ext_t x, ca_ctx_t ctx)
-{
-    if (CA_EXT_HEAD(x) == CA_QQBar)
-    {
-        ca_ext_init_qqbar(res, CA_EXT_QQBAR(x), ctx);
-    ;
-    else
-    {
-        ca_ext_init_fxn(res, CA_EXT_HEAD(x), CA_EXT_FUNC_ARGS(x), CA_EXT_FUNC_NARGS(x), ctx);
-    ;
 ;
 
 void ca_ext_clear(ca_ext_t res, ca_ctx_t ctx);
 
-CA_EXT_INLINE slong ca_ext_nargs(const ca_ext_t x, ca_ctx_t ctx)
-{
-    if (CA_EXT_HEAD(x) == CA_QQBar)
-        return 0;
-    else
-        return CA_EXT_FUNC_NARGS(x);
+extern slong ca_ext_nargs(const ca_ext_t x, ca_ctx_t ctx)
 ;
 
-CA_EXT_INLINE void ca_ext_get_arg(ca_t res, const ca_ext_t x, slong i, ca_ctx_t ctx)
-{
-    if (CA_EXT_HEAD(x) == CA_QQBar || i < 0 || i >= CA_EXT_FUNC_NARGS(x))
-    {
-        flint_printf("ca_ext_get_arg: index out of range\n");
-        flint_abort();
-    ;
-    else
-    {
-        ca_set(res, CA_EXT_FUNC_ARGS(x) + i, ctx);
-    ;
+extern void ca_ext_get_arg(ca_t res, const ca_ext_t x, slong i, ca_ctx_t ctx)
+
 ;
 
-CA_EXT_INLINE ulong ca_ext_hash(const ca_ext_t x, ca_ctx_t ctx)
-{
-    return CA_EXT_HASH(x);
+extern ulong ca_ext_hash(const ca_ext_t x, ca_ctx_t ctx)
 ;
 
 int ca_ext_equal_repr(const ca_ext_t x, const ca_ext_t y, ca_ctx_t ctx);

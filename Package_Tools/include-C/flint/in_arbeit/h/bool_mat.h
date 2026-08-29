@@ -12,17 +12,6 @@
 #ifndef BOOL_MAT_H
 #define BOOL_MAT_H
 
-#ifdef BOOL_MAT_INLINES_C
-#define BOOL_MAT_INLINE
-#else
-#define BOOL_MAT_INLINE static __inline__
-#endif
-
-#include "fmpz_types.h"
-
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 typedef struct
 {
@@ -30,7 +19,7 @@ typedef struct
     slong r;
     slong c;
     int **rows;
-;
+}
 bool_mat_struct;
 
 typedef bool_mat_struct bool_mat_t[1];
@@ -38,16 +27,12 @@ typedef bool_mat_struct bool_mat_t[1];
 #define bool_mat_nrows(mat) ((mat)->r)
 #define bool_mat_ncols(mat) ((mat)->c)
 
-BOOL_MAT_INLINE int
+extern int
 bool_mat_get_entry(const bool_mat_t mat, slong i, slong j)
-{
-    return mat->rows[i][j];
 ;
 
-BOOL_MAT_INLINE void
+extern void
 bool_mat_set_entry(bool_mat_t mat, slong i, slong j, int value)
-{
-    mat->rows[i][j] = value;
 ;
 
 /* Memory management */
@@ -56,12 +41,8 @@ void bool_mat_init(bool_mat_t mat, slong r, slong c);
 
 void bool_mat_clear(bool_mat_t mat);
 
-BOOL_MAT_INLINE void
+extern void
 bool_mat_swap(bool_mat_t mat1, bool_mat_t mat2)
-{
-    bool_mat_struct t = *mat1;
-    *mat1 = *mat2;
-    *mat2 = t;
 ;
 
 /* Conversions */
@@ -100,16 +81,12 @@ int bool_mat_is_transitive(const bool_mat_t mat);
 
 int bool_mat_is_nilpotent(const bool_mat_t mat);
 
-BOOL_MAT_INLINE int
+extern int
 bool_mat_is_empty(const bool_mat_t mat)
-{
-    return (mat->r == 0) || (mat->c == 0);
 ;
 
-BOOL_MAT_INLINE int
+extern int
 bool_mat_is_square(const bool_mat_t mat)
-{
-    return (mat->r == mat->c);
 ;
 
 /* Special matrices */
@@ -138,10 +115,8 @@ void bool_mat_mul_entrywise(bool_mat_t res, const bool_mat_t mat1, const bool_ma
 
 void bool_mat_pow_ui(bool_mat_t B, const bool_mat_t A, ulong exp);
 
-BOOL_MAT_INLINE void
+extern void
 bool_mat_sqr(bool_mat_t B, const bool_mat_t A)
-{
-    bool_mat_mul(B, A, A);
 ;
 
 /* Special functions */

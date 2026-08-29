@@ -12,17 +12,6 @@
 #ifndef CA_MAT_H
 #define CA_MAT_H
 
-#ifdef CA_MAT_INLINES_C
-#define CA_MAT_INLINE
-#else
-#define CA_MAT_INLINE static __inline__
-#endif
-
-#include "ca_poly.h"
-
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 /* Matrix object */
 
@@ -32,7 +21,7 @@ typedef struct
     slong r;
     slong c;
     ca_ptr * rows;
-;
+}
 ca_mat_struct;
 
 typedef ca_mat_struct ca_mat_t[1];
@@ -41,10 +30,8 @@ typedef ca_mat_struct ca_mat_t[1];
 #define ca_mat_nrows(mat) ((mat)->r)
 #define ca_mat_ncols(mat) ((mat)->c)
 
-CA_MAT_INLINE ca_ptr
+extern ca_ptr
 ca_mat_entry_ptr(ca_mat_t mat, slong i, slong j)
-{
-    return ca_mat_entry(mat, i, j);
 ;
 
 /* Memory management */
@@ -53,36 +40,26 @@ void ca_mat_init(ca_mat_t mat, slong r, slong c, ca_ctx_t ctx);
 
 void ca_mat_clear(ca_mat_t mat, ca_ctx_t ctx);
 
-CA_MAT_INLINE void
+extern void
 ca_mat_swap(ca_mat_t mat1, ca_mat_t mat2, ca_ctx_t ctx)
-{
-    ca_mat_struct t = *mat1;
-    *mat1 = *mat2;
-    *mat2 = t;
 ;
 
 /* Window matrices */
 
 void ca_mat_window_init(ca_mat_t window, const ca_mat_t mat, slong r1, slong c1, slong r2, slong c2, ca_ctx_t ctx);
 
-CA_MAT_INLINE void
+extern void
 ca_mat_window_clear(ca_mat_t window, ca_ctx_t ctx)
-{
-    flint_free(window->rows);
 ;
 
 /* Shape */
 
-CA_MAT_INLINE int
+extern int
 ca_mat_is_empty(const ca_mat_t mat)
-{
-    return (mat->r == 0) || (mat->c == 0);
 ;
 
-CA_MAT_INLINE int
+extern int
 ca_mat_is_square(const ca_mat_t mat)
-{
-    return (mat->r == mat->c);
 ;
 
 /* Conversions */
@@ -143,90 +120,40 @@ void ca_mat_mul(ca_mat_t C, const ca_mat_t A, const ca_mat_t B, ca_ctx_t ctx);
 void ca_mat_mul_classical(ca_mat_t C, const ca_mat_t A, const ca_mat_t B, ca_ctx_t ctx);
 void ca_mat_mul_same_nf(ca_mat_t C, const ca_mat_t A, const ca_mat_t B, ca_field_t K, ca_ctx_t ctx);
 
-CA_MAT_INLINE void
+extern void
 ca_mat_mul_si(ca_mat_t B, const ca_mat_t A, slong c, ca_ctx_t ctx)
-{
-    slong i, j;
-
-    for (i = 0; i < ca_mat_nrows(A); i++)
-        for (j = 0; j < ca_mat_ncols(A); j++)
-            ca_mul_si(ca_mat_entry(B, i, j), ca_mat_entry(A, i, j), c, ctx);
 ;
 
-CA_MAT_INLINE void
+extern void
 ca_mat_mul_fmpz(ca_mat_t B, const ca_mat_t A, const fmpz_t c, ca_ctx_t ctx)
-{
-    slong i, j;
-
-    for (i = 0; i < ca_mat_nrows(A); i++)
-        for (j = 0; j < ca_mat_ncols(A); j++)
-            ca_mul_fmpz(ca_mat_entry(B, i, j), ca_mat_entry(A, i, j), c, ctx);
 ;
 
-CA_MAT_INLINE void
+extern void
 ca_mat_mul_fmpq(ca_mat_t B, const ca_mat_t A, const fmpq_t c, ca_ctx_t ctx)
-{
-    slong i, j;
-
-    for (i = 0; i < ca_mat_nrows(A); i++)
-        for (j = 0; j < ca_mat_ncols(A); j++)
-            ca_mul_fmpq(ca_mat_entry(B, i, j), ca_mat_entry(A, i, j), c, ctx);
 ;
 
-CA_MAT_INLINE void
+extern void
 ca_mat_mul_ca(ca_mat_t B, const ca_mat_t A, const ca_t c, ca_ctx_t ctx)
-{
-    slong i, j;
-
-    for (i = 0; i < ca_mat_nrows(A); i++)
-        for (j = 0; j < ca_mat_ncols(A); j++)
-            ca_mul(ca_mat_entry(B, i, j), ca_mat_entry(A, i, j), c, ctx);
 ;
 
-CA_MAT_INLINE void
+extern void
 ca_mat_div_si(ca_mat_t B, const ca_mat_t A, slong c, ca_ctx_t ctx)
-{
-    slong i, j;
-
-    for (i = 0; i < ca_mat_nrows(A); i++)
-        for (j = 0; j < ca_mat_ncols(A); j++)
-            ca_div_si(ca_mat_entry(B, i, j), ca_mat_entry(A, i, j), c, ctx);
 ;
 
-CA_MAT_INLINE void
+extern void
 ca_mat_div_fmpz(ca_mat_t B, const ca_mat_t A, const fmpz_t c, ca_ctx_t ctx)
-{
-    slong i, j;
-
-    for (i = 0; i < ca_mat_nrows(A); i++)
-        for (j = 0; j < ca_mat_ncols(A); j++)
-            ca_div_fmpz(ca_mat_entry(B, i, j), ca_mat_entry(A, i, j), c, ctx);
 ;
 
-CA_MAT_INLINE void
+extern void
 ca_mat_div_fmpq(ca_mat_t B, const ca_mat_t A, const fmpq_t c, ca_ctx_t ctx)
-{
-    slong i, j;
-
-    for (i = 0; i < ca_mat_nrows(A); i++)
-        for (j = 0; j < ca_mat_ncols(A); j++)
-            ca_div_fmpq(ca_mat_entry(B, i, j), ca_mat_entry(A, i, j), c, ctx);
 ;
 
-CA_MAT_INLINE void
+extern void
 ca_mat_div_ca(ca_mat_t B, const ca_mat_t A, const ca_t c, ca_ctx_t ctx)
-{
-    slong i, j;
-
-    for (i = 0; i < ca_mat_nrows(A); i++)
-        for (j = 0; j < ca_mat_ncols(A); j++)
-            ca_div(ca_mat_entry(B, i, j), ca_mat_entry(A, i, j), c, ctx);
 ;
 
-CA_MAT_INLINE void
+extern void
 ca_mat_sqr(ca_mat_t res, const ca_mat_t A, ca_ctx_t ctx)
-{
-    ca_mat_mul(res, A, A, ctx);
 ;
 
 void ca_mat_pow_ui_binexp(ca_mat_t B, const ca_mat_t A, ulong exp, ca_ctx_t ctx);
@@ -244,25 +171,8 @@ void ca_mat_trace(ca_t trace, const ca_mat_t mat, ca_ctx_t ctx);
 
 truth_t ca_mat_find_pivot(slong * pivot_row, ca_mat_t mat, slong start_row, slong end_row, slong column, ca_ctx_t ctx);
 
-CA_MAT_INLINE void
+extern void
 _ca_mat_swap_rows(ca_mat_t mat, slong * perm, slong r, slong s)
-{
-    if (r != s)
-    {
-        ca_ptr u;
-        slong t;
-
-        if (perm != NULL)
-        {
-            t = perm[s];
-            perm[s] = perm[r];
-            perm[r] = t;
-        ;
-
-        u = mat->rows[s];
-        mat->rows[s] = mat->rows[r];
-        mat->rows[r] = u;
-    ;
 ;
 
 int ca_mat_lu_classical(slong * rank, slong * P, ca_mat_t LU, const ca_mat_t A, int rank_check, ca_ctx_t ctx);

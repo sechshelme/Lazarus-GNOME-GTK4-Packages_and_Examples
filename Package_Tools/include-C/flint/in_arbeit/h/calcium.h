@@ -12,19 +12,6 @@
 #ifndef CALCIUM_H
 #define CALCIUM_H
 
-#ifdef CALCIUM_INLINES_C
-#define CALCIUM_INLINE
-#else
-#define CALCIUM_INLINE static __inline__
-#endif
-
-#include "fmpz.h"
-#include "acb_types.h"
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 /* Global library definitions */
 
 const char * calcium_version(void);
@@ -33,9 +20,12 @@ const char * calcium_version(void);
 #define __CALCIUM_VERSION_MINOR 4
 #define __CALCIUM_VERSION_PATCHLEVEL 1
 #define CALCIUM_VERSION "0.4.0"
+
+/*xxxxxxxxxx
 #define __CALCIUM_RELEASE (__CALCIUM_VERSION * 10000 + \
                          __CALCIUM_VERSION_MINOR * 100 + \
                          __CALCIUM_VERSION_PATCHLEVEL)
+*/
 
 /* Input and output */
 
@@ -45,7 +35,7 @@ typedef struct
     char * s;
     slong len;
     slong alloc;
-;
+}
 calcium_stream_struct;
 
 typedef calcium_stream_struct calcium_stream_t[1];
@@ -54,6 +44,7 @@ typedef calcium_stream_struct calcium_stream_t[1];
 void calcium_stream_init_file(calcium_stream_t out, FILE * fp);
 #endif
 
+/*xxxxxxxxx
 CALCIUM_INLINE
 void calcium_stream_init_str(calcium_stream_t out)
 {
@@ -62,37 +53,38 @@ void calcium_stream_init_str(calcium_stream_t out)
     out->s[0] = '\0';
     out->len = 0;
     out->alloc = 16;
-;
+}
+*/
 
 void calcium_write(calcium_stream_t out, const char * s);
 void calcium_write_si(calcium_stream_t out, slong x);
 void calcium_write_fmpz(calcium_stream_t out, const fmpz_t c);
 void calcium_write_acb(calcium_stream_t out, const acb_t z, slong digits, ulong flags);
 
+/*xxxxxxxxx
 CALCIUM_INLINE
 void calcium_write_free(calcium_stream_t out, char * s)
 {
     calcium_write(out, s);
     flint_free(s);
-;
-
-/* Triple-valued logic */
+}*/
 
 typedef enum
 {
     T_TRUE,
     T_FALSE,
     T_UNKNOWN
-; truth_t;
+}truth_t;
 
+
+/*xxxxxxxxx
 CALCIUM_INLINE void truth_print(truth_t t)
 {
     if (t == T_TRUE) flint_printf("T_TRUE");
     if (t == T_FALSE) flint_printf("T_FALSE");
     if (t == T_UNKNOWN) flint_printf("T_UNKNOWN");
-;
-
-/* IDs for builtin mathematical functions and constants */
+}
+*/
 typedef enum
 {
     /* Special case for representing qqbar instances */
@@ -150,13 +142,13 @@ typedef enum
     CA_RiemannZeta,
     CA_HurwitzZeta,
     CA_FUNC_CODE_LENGTH
-; calcium_func_code;
+} calcium_func_code;
 
 const char * calcium_func_name(calcium_func_code func);
 
-/* Flint extras */
 
-/* slower alternative: fmpz_fdiv_ui(x 1000000007) */
+
+/*xxxxxxxxxxxxx
 CALCIUM_INLINE ulong calcium_fmpz_hash(const fmpz_t x)
 {
     if (!COEFF_IS_MPZ(*x))
@@ -165,12 +157,7 @@ CALCIUM_INLINE ulong calcium_fmpz_hash(const fmpz_t x)
     {
         __mpz_struct * z = COEFF_TO_PTR(*x);
         return (z->_mp_size > 0) ? z->_mp_d[0] : -z->_mp_d[0];
-    ;
-;
+    }
+}
 
-#ifdef __cplusplus
-;
-#endif
-
-#endif
-
+*/

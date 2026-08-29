@@ -9,20 +9,6 @@
     (at your option) any later version.  See <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CA_POLY_H
-#define CA_POLY_H
-
-#ifdef CA_POLY_INLINES_C
-#define CA_POLY_INLINE
-#else
-#define CA_POLY_INLINE static __inline__
-#endif
-
-#include "ca_vec.h"
-
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 /* Polynomial object */
 
@@ -31,16 +17,14 @@ typedef struct
     ca_struct * coeffs;
     slong alloc;
     slong length;
-;
+}
 ca_poly_struct;
 
 typedef ca_poly_struct ca_poly_t[1];
 
 /* todo: return NULL when out of bounds? */
-CA_POLY_INLINE ca_ptr
+extern ca_ptr
 ca_poly_coeff_ptr(ca_poly_t poly, slong i)
-{
-    return poly->coeffs + i;
 ;
 
 /* Vectors of polynomials */
@@ -50,7 +34,7 @@ typedef struct
     ca_poly_struct * entries;
     slong length;
     slong alloc;
-;
+}
 ca_poly_vec_struct;
 
 typedef ca_poly_vec_struct ca_poly_vec_t[1];
@@ -64,12 +48,8 @@ void ca_poly_fit_length(ca_poly_t poly, slong len, ca_ctx_t ctx);
 void _ca_poly_set_length(ca_poly_t poly, slong len, ca_ctx_t ctx);
 void _ca_poly_normalise(ca_poly_t poly, ca_ctx_t ctx);
 
-CA_POLY_INLINE void
+extern void
 ca_poly_swap(ca_poly_t poly1, ca_poly_t poly2, ca_ctx_t ctx)
-{
-    ca_poly_struct t = *poly1;
-    *poly1 = *poly2;
-    *poly2 = t;
 ;
 
 /* Assignment and simple values */
@@ -77,25 +57,16 @@ ca_poly_swap(ca_poly_t poly1, ca_poly_t poly2, ca_ctx_t ctx)
 void ca_poly_set_ca(ca_poly_t poly, const ca_t x, ca_ctx_t ctx);
 void ca_poly_set_si(ca_poly_t poly, slong x, ca_ctx_t ctx);
 
-CA_POLY_INLINE void
+extern void
 ca_poly_zero(ca_poly_t poly, ca_ctx_t ctx)
-{
-    _ca_poly_set_length(poly, 0, ctx);
 ;
 
-CA_POLY_INLINE void
+extern void
 ca_poly_x(ca_poly_t poly, ca_ctx_t ctx)
-{
-    ca_poly_fit_length(poly, 2, ctx);
-    ca_zero(poly->coeffs, ctx);
-    ca_one(poly->coeffs + 1, ctx);
-    _ca_poly_set_length(poly, 2, ctx);
 ;
 
-CA_POLY_INLINE void
+extern void
 ca_poly_one(ca_poly_t poly, ca_ctx_t ctx)
-{
-    ca_poly_set_si(poly, 1, ctx);
 ;
 
 void ca_poly_set(ca_poly_t res, const ca_poly_t src, ca_ctx_t ctx);
@@ -151,33 +122,17 @@ void ca_poly_sub(ca_poly_t res, const ca_poly_t poly1, const ca_poly_t poly2, ca
 void _ca_poly_mul(ca_ptr C, ca_srcptr A, slong lenA, ca_srcptr B, slong lenB, ca_ctx_t ctx);
 void ca_poly_mul(ca_poly_t res, const ca_poly_t poly1, const ca_poly_t poly2, ca_ctx_t ctx);
 
-CA_POLY_INLINE void
+extern void
 ca_poly_mul_ca(ca_poly_t res, const ca_poly_t poly, const ca_t c, ca_ctx_t ctx)
-{
-    ca_poly_fit_length(res, poly->length, ctx);
-    _ca_vec_scalar_mul_ca(res->coeffs, poly->coeffs, poly->length, c, ctx);
-    _ca_poly_set_length(res, poly->length, ctx);
-    _ca_poly_normalise(res, ctx);
 ;
 
-CA_POLY_INLINE void
+extern void
 ca_poly_div_ca(ca_poly_t res, const ca_poly_t poly, const ca_t c, ca_ctx_t ctx)
-{
-    ca_poly_fit_length(res, poly->length, ctx);
-    _ca_vec_scalar_div_ca(res->coeffs, poly->coeffs, poly->length, c, ctx);
-    _ca_poly_set_length(res, poly->length, ctx);
-    _ca_poly_normalise(res, ctx);
 ;
 
 /* todo: improve, document */
-CA_POLY_INLINE void
+extern void
 ca_poly_div_fmpz(ca_poly_t res, const ca_poly_t poly, const fmpz_t c, ca_ctx_t ctx)
-{
-    ca_t t;
-    ca_init(t, ctx);
-    ca_set_fmpz(t, c, ctx);
-    ca_poly_div_ca(res, res, t, ctx);
-    ca_clear(t, ctx);
 ;
 
 void _ca_poly_mullow_same_nf(ca_ptr C, ca_srcptr A, slong Alen, ca_srcptr B, slong Blen, slong len, ca_field_t K, ca_ctx_t ctx);
