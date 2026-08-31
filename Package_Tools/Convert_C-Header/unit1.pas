@@ -75,7 +75,7 @@ var
   s: string;
 begin
   Memo1.Clear;
-  slFile := FindAllFiles('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/flint', '*.h', True);
+  slFile := FindAllFiles('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/sodium', '*.h', True);
   Memo1.Lines := slFile;
 
   for i := 0 to slFile.Count - 1 do begin
@@ -131,7 +131,7 @@ begin
       slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_FORMAT', ';//', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_ALLOC_SIZE', ';//', [rfReplaceAll]);
 
-      slHeader[j] := StringReplace(slHeader[j], 'ARB_INLINE', 'extern', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'SODIUM_EXPORT', 'extern', [rfReplaceAll]);
 //      slHeader[j] := StringReplace(slHeader[j], '}', ';', [rfReplaceAll]);
 
 
