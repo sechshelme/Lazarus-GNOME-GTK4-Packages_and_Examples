@@ -3,75 +3,72 @@ unit crypto_box_curve25519xchacha20poly1305;
 interface
 
 uses
-  fp_sodium;
+  fp_sodium, crypto_stream_chacha20;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
-
-{$ifndef crypto_box_curve25519xchacha20poly1305_H}
-{$define crypto_box_curve25519xchacha20poly1305_H}
-{$include <stddef.h>}
-{$include "crypto_stream_xchacha20.h"}
-{$include "export.h"}
-(** unsupported pragma#pragma GCC diagnostic ignored "-Wlong-long"*)
 
 const
-  crypto_box_curve25519xchacha20poly1305_SEEDBYTES = 32;  
+  crypto_box_curve25519xchacha20poly1305_SEEDBYTES_ = 32;
 
-function crypto_box_curve25519xchacha20poly1305_seedbytes:Tsize_t;cdecl;external libsodium;
+function crypto_box_curve25519xchacha20poly1305_seedbytes: Tsize_t; cdecl; external libsodium;
+
 const
-  crypto_box_curve25519xchacha20poly1305_PUBLICKEYBYTES = 32;  
+  crypto_box_curve25519xchacha20poly1305_PUBLICKEYBYTES_ = 32;
 
-function crypto_box_curve25519xchacha20poly1305_publickeybytes:Tsize_t;cdecl;external libsodium;
+function crypto_box_curve25519xchacha20poly1305_publickeybytes: Tsize_t; cdecl; external libsodium;
+
 const
-  crypto_box_curve25519xchacha20poly1305_SECRETKEYBYTES = 32;  
+  crypto_box_curve25519xchacha20poly1305_SECRETKEYBYTES_ = 32;
 
-function crypto_box_curve25519xchacha20poly1305_secretkeybytes:Tsize_t;cdecl;external libsodium;
+function crypto_box_curve25519xchacha20poly1305_secretkeybytes: Tsize_t; cdecl; external libsodium;
+
 const
-  crypto_box_curve25519xchacha20poly1305_BEFORENMBYTES = 32;  
+  crypto_box_curve25519xchacha20poly1305_BEFORENMBYTES_ = 32;
 
-function crypto_box_curve25519xchacha20poly1305_beforenmbytes:Tsize_t;cdecl;external libsodium;
+function crypto_box_curve25519xchacha20poly1305_beforenmbytes: Tsize_t; cdecl; external libsodium;
+
 const
-  crypto_box_curve25519xchacha20poly1305_NONCEBYTES = 24;  
+  crypto_box_curve25519xchacha20poly1305_NONCEBYTES_ = 24;
 
-function crypto_box_curve25519xchacha20poly1305_noncebytes:Tsize_t;cdecl;external libsodium;
+function crypto_box_curve25519xchacha20poly1305_noncebytes: Tsize_t; cdecl; external libsodium;
+
 const
-  crypto_box_curve25519xchacha20poly1305_MACBYTES = 16;  
+  crypto_box_curve25519xchacha20poly1305_MACBYTES_ = 16;
 
-function crypto_box_curve25519xchacha20poly1305_macbytes:Tsize_t;cdecl;external libsodium;
+function crypto_box_curve25519xchacha20poly1305_macbytes: Tsize_t; cdecl; external libsodium;
+
 const
-  crypto_box_curve25519xchacha20poly1305_MESSAGEBYTES_MAX = crypto_stream_xchacha20_MESSAGEBYTES_MAX-crypto_box_curve25519xchacha20poly1305_MACBYTES;  
+  crypto_box_curve25519xchacha20poly1305_MESSAGEBYTES_MAX_ = crypto_stream_xchacha20_MESSAGEBYTES_MAX_ - crypto_box_curve25519xchacha20poly1305_MACBYTES_;
 
-function crypto_box_curve25519xchacha20poly1305_messagebytes_max:Tsize_t;cdecl;external libsodium;
-function crypto_box_curve25519xchacha20poly1305_seed_keypair(pk:Pbyte; sk:Pbyte; seed:Pbyte):longint;cdecl;external libsodium;
-function crypto_box_curve25519xchacha20poly1305_keypair(pk:Pbyte; sk:Pbyte):longint;cdecl;external libsodium;
-function crypto_box_curve25519xchacha20poly1305_easy(c:Pbyte; m:Pbyte; mlen:qword; n:Pbyte; pk:Pbyte; 
-           sk:Pbyte):longint;cdecl;external libsodium;
-function crypto_box_curve25519xchacha20poly1305_open_easy(m:Pbyte; c:Pbyte; clen:qword; n:Pbyte; pk:Pbyte; 
-           sk:Pbyte):longint;cdecl;external libsodium;
-function crypto_box_curve25519xchacha20poly1305_detached(c:Pbyte; mac:Pbyte; m:Pbyte; mlen:qword; n:Pbyte; 
-           pk:Pbyte; sk:Pbyte):longint;cdecl;external libsodium;
-function crypto_box_curve25519xchacha20poly1305_open_detached(m:Pbyte; c:Pbyte; mac:Pbyte; clen:qword; n:Pbyte; 
-           pk:Pbyte; sk:Pbyte):longint;cdecl;external libsodium;
-{ -- Precomputation interface --  }
-function crypto_box_curve25519xchacha20poly1305_beforenm(k:Pbyte; pk:Pbyte; sk:Pbyte):longint;cdecl;external libsodium;
-function crypto_box_curve25519xchacha20poly1305_easy_afternm(c:Pbyte; m:Pbyte; mlen:qword; n:Pbyte; k:Pbyte):longint;cdecl;external libsodium;
-function crypto_box_curve25519xchacha20poly1305_open_easy_afternm(m:Pbyte; c:Pbyte; clen:qword; n:Pbyte; k:Pbyte):longint;cdecl;external libsodium;
-function crypto_box_curve25519xchacha20poly1305_detached_afternm(c:Pbyte; mac:Pbyte; m:Pbyte; mlen:qword; n:Pbyte; 
-           k:Pbyte):longint;cdecl;external libsodium;
-function crypto_box_curve25519xchacha20poly1305_open_detached_afternm(m:Pbyte; c:Pbyte; mac:Pbyte; clen:qword; n:Pbyte; 
-           k:Pbyte):longint;cdecl;external libsodium;
-{ -- Ephemeral SK interface --  }
+function crypto_box_curve25519xchacha20poly1305_messagebytes_max: Tsize_t; cdecl; external libsodium;
+function crypto_box_curve25519xchacha20poly1305_seed_keypair(pk: pbyte; sk: pbyte; seed: pbyte): longint; cdecl; external libsodium;
+function crypto_box_curve25519xchacha20poly1305_keypair(pk: pbyte; sk: pbyte): longint; cdecl; external libsodium;
+function crypto_box_curve25519xchacha20poly1305_easy(c: pbyte; m: pbyte; mlen: qword; n: pbyte; pk: pbyte;
+  sk: pbyte): longint; cdecl; external libsodium;
+function crypto_box_curve25519xchacha20poly1305_open_easy(m: pbyte; c: pbyte; clen: qword; n: pbyte; pk: pbyte;
+  sk: pbyte): longint; cdecl; external libsodium;
+function crypto_box_curve25519xchacha20poly1305_detached(c: pbyte; mac: pbyte; m: pbyte; mlen: qword; n: pbyte;
+  pk: pbyte; sk: pbyte): longint; cdecl; external libsodium;
+function crypto_box_curve25519xchacha20poly1305_open_detached(m: pbyte; c: pbyte; mac: pbyte; clen: qword; n: pbyte;
+  pk: pbyte; sk: pbyte): longint; cdecl; external libsodium;
+
+function crypto_box_curve25519xchacha20poly1305_beforenm(k: pbyte; pk: pbyte; sk: pbyte): longint; cdecl; external libsodium;
+function crypto_box_curve25519xchacha20poly1305_easy_afternm(c: pbyte; m: pbyte; mlen: qword; n: pbyte; k: pbyte): longint; cdecl; external libsodium;
+function crypto_box_curve25519xchacha20poly1305_open_easy_afternm(m: pbyte; c: pbyte; clen: qword; n: pbyte; k: pbyte): longint; cdecl; external libsodium;
+function crypto_box_curve25519xchacha20poly1305_detached_afternm(c: pbyte; mac: pbyte; m: pbyte; mlen: qword; n: pbyte;
+  k: pbyte): longint; cdecl; external libsodium;
+function crypto_box_curve25519xchacha20poly1305_open_detached_afternm(m: pbyte; c: pbyte; mac: pbyte; clen: qword; n: pbyte;
+  k: pbyte): longint; cdecl; external libsodium;
+
 const
-  crypto_box_curve25519xchacha20poly1305_SEALBYTES = crypto_box_curve25519xchacha20poly1305_PUBLICKEYBYTES+crypto_box_curve25519xchacha20poly1305_MACBYTES;  
+  crypto_box_curve25519xchacha20poly1305_SEALBYTES_ = crypto_box_curve25519xchacha20poly1305_PUBLICKEYBYTES_ + crypto_box_curve25519xchacha20poly1305_MACBYTES_;
 
-function crypto_box_curve25519xchacha20poly1305_sealbytes:Tsize_t;cdecl;external libsodium;
-function crypto_box_curve25519xchacha20poly1305_seal(c:Pbyte; m:Pbyte; mlen:qword; pk:Pbyte):longint;cdecl;external libsodium;
-function crypto_box_curve25519xchacha20poly1305_seal_open(m:Pbyte; c:Pbyte; clen:qword; pk:Pbyte; sk:Pbyte):longint;cdecl;external libsodium;
-{ C++ end of extern C conditionnal removed }
-{$endif}
+function crypto_box_curve25519xchacha20poly1305_sealbytes: Tsize_t; cdecl; external libsodium;
+function crypto_box_curve25519xchacha20poly1305_seal(c: pbyte; m: pbyte; mlen: qword; pk: pbyte): longint; cdecl; external libsodium;
+function crypto_box_curve25519xchacha20poly1305_seal_open(m: pbyte; c: pbyte; clen: qword; pk: pbyte; sk: pbyte): longint; cdecl; external libsodium;
 
 // === Konventiert am: 31-8-26 15:48:52 ===
 

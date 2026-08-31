@@ -3,69 +3,66 @@ unit crypto_box_curve25519xsalsa20poly1305;
 interface
 
 uses
-  fp_sodium;
+  fp_sodium, crypto_stream_xsalsa20;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
-
-{$ifndef crypto_box_curve25519xsalsa20poly1305_H}
-{$define crypto_box_curve25519xsalsa20poly1305_H}
-{$include <stddef.h>}
-{$include "crypto_stream_xsalsa20.h"}
-{$include "export.h"}
-(** unsupported pragma#pragma GCC diagnostic ignored "-Wlong-long"*)
 
 const
-  crypto_box_curve25519xsalsa20poly1305_SEEDBYTES = 32;  
+  crypto_box_curve25519xsalsa20poly1305_SEEDBYTES_ = 32;
 
-function crypto_box_curve25519xsalsa20poly1305_seedbytes:Tsize_t;cdecl;external libsodium;
+function crypto_box_curve25519xsalsa20poly1305_seedbytes: Tsize_t; cdecl; external libsodium;
+
 const
-  crypto_box_curve25519xsalsa20poly1305_PUBLICKEYBYTES = 32;  
+  crypto_box_curve25519xsalsa20poly1305_PUBLICKEYBYTES_ = 32;
 
-function crypto_box_curve25519xsalsa20poly1305_publickeybytes:Tsize_t;cdecl;external libsodium;
+function crypto_box_curve25519xsalsa20poly1305_publickeybytes: Tsize_t; cdecl; external libsodium;
+
 const
-  crypto_box_curve25519xsalsa20poly1305_SECRETKEYBYTES = 32;  
+  crypto_box_curve25519xsalsa20poly1305_SECRETKEYBYTES_ = 32;
 
-function crypto_box_curve25519xsalsa20poly1305_secretkeybytes:Tsize_t;cdecl;external libsodium;
+function crypto_box_curve25519xsalsa20poly1305_secretkeybytes: Tsize_t; cdecl; external libsodium;
+
 const
-  crypto_box_curve25519xsalsa20poly1305_BEFORENMBYTES = 32;  
+  crypto_box_curve25519xsalsa20poly1305_BEFORENMBYTES_ = 32;
 
-function crypto_box_curve25519xsalsa20poly1305_beforenmbytes:Tsize_t;cdecl;external libsodium;
+function crypto_box_curve25519xsalsa20poly1305_beforenmbytes: Tsize_t; cdecl; external libsodium;
+
 const
-  crypto_box_curve25519xsalsa20poly1305_NONCEBYTES = 24;  
+  crypto_box_curve25519xsalsa20poly1305_NONCEBYTES_ = 24;
 
-function crypto_box_curve25519xsalsa20poly1305_noncebytes:Tsize_t;cdecl;external libsodium;
+function crypto_box_curve25519xsalsa20poly1305_noncebytes: Tsize_t; cdecl; external libsodium;
+
 const
-  crypto_box_curve25519xsalsa20poly1305_MACBYTES = 16;  
+  crypto_box_curve25519xsalsa20poly1305_MACBYTES_ = 16;
 
-function crypto_box_curve25519xsalsa20poly1305_macbytes:Tsize_t;cdecl;external libsodium;
-{ Only for the libsodium API - The NaCl compatibility API would require BOXZEROBYTES extra bytes  }
+function crypto_box_curve25519xsalsa20poly1305_macbytes: Tsize_t; cdecl; external libsodium;
+
 const
-  crypto_box_curve25519xsalsa20poly1305_MESSAGEBYTES_MAX = crypto_stream_xsalsa20_MESSAGEBYTES_MAX-crypto_box_curve25519xsalsa20poly1305_MACBYTES;  
+  crypto_box_curve25519xsalsa20poly1305_MESSAGEBYTES_MAX_ = crypto_stream_xsalsa20_MESSAGEBYTES_MAX_ - crypto_box_curve25519xsalsa20poly1305_MACBYTES_;
 
-function crypto_box_curve25519xsalsa20poly1305_messagebytes_max:Tsize_t;cdecl;external libsodium;
-function crypto_box_curve25519xsalsa20poly1305_seed_keypair(pk:Pbyte; sk:Pbyte; seed:Pbyte):longint;cdecl;external libsodium;
-function crypto_box_curve25519xsalsa20poly1305_keypair(pk:Pbyte; sk:Pbyte):longint;cdecl;external libsodium;
-function crypto_box_curve25519xsalsa20poly1305_beforenm(k:Pbyte; pk:Pbyte; sk:Pbyte):longint;cdecl;external libsodium;
-{ -- NaCl compatibility interface ; Requires padding --  }
+function crypto_box_curve25519xsalsa20poly1305_messagebytes_max: Tsize_t; cdecl; external libsodium;
+function crypto_box_curve25519xsalsa20poly1305_seed_keypair(pk: pbyte; sk: pbyte; seed: pbyte): longint; cdecl; external libsodium;
+function crypto_box_curve25519xsalsa20poly1305_keypair(pk: pbyte; sk: pbyte): longint; cdecl; external libsodium;
+function crypto_box_curve25519xsalsa20poly1305_beforenm(k: pbyte; pk: pbyte; sk: pbyte): longint; cdecl; external libsodium;
+
 const
-  crypto_box_curve25519xsalsa20poly1305_BOXZEROBYTES = 16;  
+  crypto_box_curve25519xsalsa20poly1305_BOXZEROBYTES_ = 16;
 
-function crypto_box_curve25519xsalsa20poly1305_boxzerobytes:Tsize_t;cdecl;external libsodium;
+function crypto_box_curve25519xsalsa20poly1305_boxzerobytes: Tsize_t; cdecl; external libsodium;
+
 const
-  crypto_box_curve25519xsalsa20poly1305_ZEROBYTES = crypto_box_curve25519xsalsa20poly1305_BOXZEROBYTES+crypto_box_curve25519xsalsa20poly1305_MACBYTES;  
+  crypto_box_curve25519xsalsa20poly1305_ZEROBYTES_ = crypto_box_curve25519xsalsa20poly1305_BOXZEROBYTES_ + crypto_box_curve25519xsalsa20poly1305_MACBYTES_;
 
-function crypto_box_curve25519xsalsa20poly1305_zerobytes:Tsize_t;cdecl;external libsodium;
-function crypto_box_curve25519xsalsa20poly1305(c:Pbyte; m:Pbyte; mlen:qword; n:Pbyte; pk:Pbyte; 
-           sk:Pbyte):longint;cdecl;external libsodium;
-function crypto_box_curve25519xsalsa20poly1305_open(m:Pbyte; c:Pbyte; clen:qword; n:Pbyte; pk:Pbyte; 
-           sk:Pbyte):longint;cdecl;external libsodium;
-function crypto_box_curve25519xsalsa20poly1305_afternm(c:Pbyte; m:Pbyte; mlen:qword; n:Pbyte; k:Pbyte):longint;cdecl;external libsodium;
-function crypto_box_curve25519xsalsa20poly1305_open_afternm(m:Pbyte; c:Pbyte; clen:qword; n:Pbyte; k:Pbyte):longint;cdecl;external libsodium;
-{ C++ end of extern C conditionnal removed }
-{$endif}
+function crypto_box_curve25519xsalsa20poly1305_zerobytes: Tsize_t; cdecl; external libsodium;
+function crypto_box_curve25519xsalsa20poly1305(c: pbyte; m: pbyte; mlen: qword; n: pbyte; pk: pbyte;
+  sk: pbyte): longint; cdecl; external libsodium;
+function crypto_box_curve25519xsalsa20poly1305_open(m: pbyte; c: pbyte; clen: qword; n: pbyte; pk: pbyte;
+  sk: pbyte): longint; cdecl; external libsodium;
+function crypto_box_curve25519xsalsa20poly1305_afternm(c: pbyte; m: pbyte; mlen: qword; n: pbyte; k: pbyte): longint; cdecl; external libsodium;
+function crypto_box_curve25519xsalsa20poly1305_open_afternm(m: pbyte; c: pbyte; clen: qword; n: pbyte; k: pbyte): longint; cdecl; external libsodium;
 
 // === Konventiert am: 31-8-26 16:26:24 ===
 

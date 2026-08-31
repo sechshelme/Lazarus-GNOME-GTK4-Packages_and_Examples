@@ -5,98 +5,82 @@ interface
 uses
   fp_sodium;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
-
-{$ifndef crypto_aead_chacha20poly1305_H}
-{$define crypto_aead_chacha20poly1305_H}
-{$include <stddef.h>}
-{$include "export.h"}
-(** unsupported pragma#pragma GCC diagnostic ignored "-Wlong-long"*)
-{ -- IETF ChaCha20-Poly1305 construction with a 96-bit nonce and a 32-bit internal counter --  }
 
 const
-  crypto_aead_chacha20poly1305_ietf_KEYBYTES = 32;  
+  crypto_aead_chacha20poly1305_ietf_KEYBYTES_ = 32;
 
-function crypto_aead_chacha20poly1305_ietf_keybytes:Tsize_t;cdecl;external libsodium;
+function crypto_aead_chacha20poly1305_ietf_keybytes: Tsize_t; cdecl; external libsodium;
+
 const
-  crypto_aead_chacha20poly1305_ietf_NSECBYTES = 0;  
+  crypto_aead_chacha20poly1305_ietf_NSECBYTES_ = 0;
 
-function crypto_aead_chacha20poly1305_ietf_nsecbytes:Tsize_t;cdecl;external libsodium;
+function crypto_aead_chacha20poly1305_ietf_nsecbytes: Tsize_t; cdecl; external libsodium;
+
 const
-  crypto_aead_chacha20poly1305_ietf_NPUBBYTES = 12;  
+  crypto_aead_chacha20poly1305_ietf_NPUBBYTES_ = 12;
 
-function crypto_aead_chacha20poly1305_ietf_npubbytes:Tsize_t;cdecl;external libsodium;
+function crypto_aead_chacha20poly1305_ietf_npubbytes: Tsize_t; cdecl; external libsodium;
+
 const
-  crypto_aead_chacha20poly1305_ietf_ABYTES = 16;  
+  crypto_aead_chacha20poly1305_ietf_ABYTES_ = 16;
 
-function crypto_aead_chacha20poly1305_ietf_abytes:Tsize_t;cdecl;external libsodium;
-{ was #define dname def_expr }
-function crypto_aead_chacha20poly1305_ietf_MESSAGEBYTES_MAX : longint; { return type might be wrong }
+function crypto_aead_chacha20poly1305_ietf_abytes: Tsize_t; cdecl; external libsodium;
 
-function crypto_aead_chacha20poly1305_ietf_messagebytes_max:Tsize_t;cdecl;external libsodium;
-function crypto_aead_chacha20poly1305_ietf_encrypt(c:Pbyte; clen_p:Pqword; m:Pbyte; mlen:qword; ad:Pbyte; 
-           adlen:qword; nsec:Pbyte; npub:Pbyte; k:Pbyte):longint;cdecl;external libsodium;
-function crypto_aead_chacha20poly1305_ietf_decrypt(m:Pbyte; mlen_p:Pqword; nsec:Pbyte; c:Pbyte; clen:qword; 
-           ad:Pbyte; adlen:qword; npub:Pbyte; k:Pbyte):longint;cdecl;external libsodium;
-function crypto_aead_chacha20poly1305_ietf_encrypt_detached(c:Pbyte; mac:Pbyte; maclen_p:Pqword; m:Pbyte; mlen:qword; 
-           ad:Pbyte; adlen:qword; nsec:Pbyte; npub:Pbyte; k:Pbyte):longint;cdecl;external libsodium;
-function crypto_aead_chacha20poly1305_ietf_decrypt_detached(m:Pbyte; nsec:Pbyte; c:Pbyte; clen:qword; mac:Pbyte; 
-           ad:Pbyte; adlen:qword; npub:Pbyte; k:Pbyte):longint;cdecl;external libsodium;
-procedure crypto_aead_chacha20poly1305_ietf_keygen(k:array[0..(crypto_aead_chacha20poly1305_ietf_KEYBYTES)-1] of byte);cdecl;external libsodium;
-{ -- Original ChaCha20-Poly1305 construction with a 64-bit nonce and a 64-bit internal counter --  }
 const
-  crypto_aead_chacha20poly1305_KEYBYTES = 32;  
+  crypto_aead_chacha20poly1305_ietf_MESSAGEBYTES_MAX_ = 274877906880;
 
-function crypto_aead_chacha20poly1305_keybytes:Tsize_t;cdecl;external libsodium;
-const
-  crypto_aead_chacha20poly1305_NSECBYTES = 0;  
+function crypto_aead_chacha20poly1305_ietf_messagebytes_max: Tsize_t; cdecl; external libsodium;
+function crypto_aead_chacha20poly1305_ietf_encrypt(c: pbyte; clen_p: Pqword; m: pbyte; mlen: qword; ad: pbyte;
+  adlen: qword; nsec: pbyte; npub: pbyte; k: pbyte): longint; cdecl; external libsodium;
+function crypto_aead_chacha20poly1305_ietf_decrypt(m: pbyte; mlen_p: Pqword; nsec: pbyte; c: pbyte; clen: qword;
+  ad: pbyte; adlen: qword; npub: pbyte; k: pbyte): longint; cdecl; external libsodium;
+function crypto_aead_chacha20poly1305_ietf_encrypt_detached(c: pbyte; mac: pbyte; maclen_p: Pqword; m: pbyte; mlen: qword;
+  ad: pbyte; adlen: qword; nsec: pbyte; npub: pbyte; k: pbyte): longint; cdecl; external libsodium;
+function crypto_aead_chacha20poly1305_ietf_decrypt_detached(m: pbyte; nsec: pbyte; c: pbyte; clen: qword; mac: pbyte;
+  ad: pbyte; adlen: qword; npub: pbyte; k: pbyte): longint; cdecl; external libsodium;
+procedure crypto_aead_chacha20poly1305_ietf_keygen(k: pbyte); cdecl; external libsodium;
 
-function crypto_aead_chacha20poly1305_nsecbytes:Tsize_t;cdecl;external libsodium;
 const
-  crypto_aead_chacha20poly1305_NPUBBYTES = 8;  
+  crypto_aead_chacha20poly1305_KEYBYTES_ = 32;
 
-function crypto_aead_chacha20poly1305_npubbytes:Tsize_t;cdecl;external libsodium;
-const
-  crypto_aead_chacha20poly1305_ABYTES = 16;  
+function crypto_aead_chacha20poly1305_keybytes: Tsize_t; cdecl; external libsodium;
 
-function crypto_aead_chacha20poly1305_abytes:Tsize_t;cdecl;external libsodium;
 const
-  crypto_aead_chacha20poly1305_MESSAGEBYTES_MAX = SODIUM_SIZE_MAX-crypto_aead_chacha20poly1305_ABYTES;  
+  crypto_aead_chacha20poly1305_NSECBYTES_ = 0;
 
-function crypto_aead_chacha20poly1305_messagebytes_max:Tsize_t;cdecl;external libsodium;
-function crypto_aead_chacha20poly1305_encrypt(c:Pbyte; clen_p:Pqword; m:Pbyte; mlen:qword; ad:Pbyte; 
-           adlen:qword; nsec:Pbyte; npub:Pbyte; k:Pbyte):longint;cdecl;external libsodium;
-function crypto_aead_chacha20poly1305_decrypt(m:Pbyte; mlen_p:Pqword; nsec:Pbyte; c:Pbyte; clen:qword; 
-           ad:Pbyte; adlen:qword; npub:Pbyte; k:Pbyte):longint;cdecl;external libsodium;
-function crypto_aead_chacha20poly1305_encrypt_detached(c:Pbyte; mac:Pbyte; maclen_p:Pqword; m:Pbyte; mlen:qword; 
-           ad:Pbyte; adlen:qword; nsec:Pbyte; npub:Pbyte; k:Pbyte):longint;cdecl;external libsodium;
-function crypto_aead_chacha20poly1305_decrypt_detached(m:Pbyte; nsec:Pbyte; c:Pbyte; clen:qword; mac:Pbyte; 
-           ad:Pbyte; adlen:qword; npub:Pbyte; k:Pbyte):longint;cdecl;external libsodium;
-procedure crypto_aead_chacha20poly1305_keygen(k:array[0..(crypto_aead_chacha20poly1305_KEYBYTES)-1] of byte);cdecl;external libsodium;
-{ Aliases  }
+function crypto_aead_chacha20poly1305_nsecbytes: Tsize_t; cdecl; external libsodium;
+
 const
-  crypto_aead_chacha20poly1305_IETF_KEYBYTES = crypto_aead_chacha20poly1305_ietf_KEYBYTES;  
-  crypto_aead_chacha20poly1305_IETF_NSECBYTES = crypto_aead_chacha20poly1305_ietf_NSECBYTES;  
-  crypto_aead_chacha20poly1305_IETF_NPUBBYTES = crypto_aead_chacha20poly1305_ietf_NPUBBYTES;  
-  crypto_aead_chacha20poly1305_IETF_ABYTES = crypto_aead_chacha20poly1305_ietf_ABYTES;  
-  crypto_aead_chacha20poly1305_IETF_MESSAGEBYTES_MAX = crypto_aead_chacha20poly1305_ietf_MESSAGEBYTES_MAX;  
-{ C++ end of extern C conditionnal removed }
-{$endif}
+  crypto_aead_chacha20poly1305_NPUBBYTES_ = 8;
+
+function crypto_aead_chacha20poly1305_npubbytes: Tsize_t; cdecl; external libsodium;
+
+const
+  crypto_aead_chacha20poly1305_ABYTES_ = 16;
+
+function crypto_aead_chacha20poly1305_abytes: Tsize_t; cdecl; external libsodium;
+
+const
+  crypto_aead_chacha20poly1305_MESSAGEBYTES_MAX_ = SODIUM_SIZE_MAX - crypto_aead_chacha20poly1305_ABYTES_;
+
+function crypto_aead_chacha20poly1305_messagebytes_max: Tsize_t; cdecl; external libsodium;
+function crypto_aead_chacha20poly1305_encrypt(c: pbyte; clen_p: Pqword; m: pbyte; mlen: qword; ad: pbyte;
+  adlen: qword; nsec: pbyte; npub: pbyte; k: pbyte): longint; cdecl; external libsodium;
+function crypto_aead_chacha20poly1305_decrypt(m: pbyte; mlen_p: Pqword; nsec: pbyte; c: pbyte; clen: qword;
+  ad: pbyte; adlen: qword; npub: pbyte; k: pbyte): longint; cdecl; external libsodium;
+function crypto_aead_chacha20poly1305_encrypt_detached(c: pbyte; mac: pbyte; maclen_p: Pqword; m: pbyte; mlen: qword;
+  ad: pbyte; adlen: qword; nsec: pbyte; npub: pbyte; k: pbyte): longint; cdecl; external libsodium;
+function crypto_aead_chacha20poly1305_decrypt_detached(m: pbyte; nsec: pbyte; c: pbyte; clen: qword; mac: pbyte;
+  ad: pbyte; adlen: qword; npub: pbyte; k: pbyte): longint; cdecl; external libsodium;
+procedure crypto_aead_chacha20poly1305_keygen(k: pbyte); cdecl; external libsodium;
 
 // === Konventiert am: 31-8-26 15:49:11 ===
 
 
 implementation
-
-
-{ was #define dname def_expr }
-function crypto_aead_chacha20poly1305_ietf_MESSAGEBYTES_MAX : longint; { return type might be wrong }
-  begin
-    crypto_aead_chacha20poly1305_ietf_MESSAGEBYTES_MAX:=SODIUM_MIN(SODIUM_SIZE_MAX-crypto_aead_chacha20poly1305_ietf_ABYTES,64*((1 shl 32)-1));
-  end;
-
 
 end.
