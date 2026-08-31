@@ -1,0 +1,54 @@
+unit crypto_stream_xchacha20;
+
+interface
+
+uses
+  fp_sodium;
+
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{$ifndef crypto_stream_xchacha20_H}
+{$define crypto_stream_xchacha20_H}
+{
+ *  WARNING: This is just a stream cipher. It is NOT authenticated encryption.
+ *  While it provides some protection against eavesdropping, it does NOT
+ *  provide any security against active attacks.
+ *  Unless you know what you're doing, what you are looking for is probably
+ *  the crypto_box functions.
+  }
+{$include <stddef.h>}
+{$include <stdint.h>}
+{$include "export.h"}
+(** unsupported pragma#pragma GCC diagnostic ignored "-Wlong-long"*)
+
+const
+  crypto_stream_xchacha20_KEYBYTES = 32;  
+
+function crypto_stream_xchacha20_keybytes:Tsize_t;cdecl;external libsodium;
+const
+  crypto_stream_xchacha20_NONCEBYTES = 24;  
+
+function crypto_stream_xchacha20_noncebytes:Tsize_t;cdecl;external libsodium;
+const
+  crypto_stream_xchacha20_MESSAGEBYTES_MAX = SODIUM_SIZE_MAX;  
+
+function crypto_stream_xchacha20_messagebytes_max:Tsize_t;cdecl;external libsodium;
+function crypto_stream_xchacha20(c:Pbyte; clen:qword; n:Pbyte; k:Pbyte):longint;cdecl;external libsodium;
+function crypto_stream_xchacha20_xor(c:Pbyte; m:Pbyte; mlen:qword; n:Pbyte; k:Pbyte):longint;cdecl;external libsodium;
+function crypto_stream_xchacha20_xor_ic(c:Pbyte; m:Pbyte; mlen:qword; n:Pbyte; ic:Tuint64_t; 
+           k:Pbyte):longint;cdecl;external libsodium;
+procedure crypto_stream_xchacha20_keygen(k:array[0..(crypto_stream_xchacha20_KEYBYTES)-1] of byte);cdecl;external libsodium;
+{ C++ end of extern C conditionnal removed }
+{$endif}
+
+// === Konventiert am: 31-8-26 17:29:08 ===
+
+
+implementation
+
+
+
+end.
