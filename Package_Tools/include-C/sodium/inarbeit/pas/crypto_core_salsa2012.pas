@@ -5,36 +5,31 @@ interface
 uses
   fp_sodium;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
-
-{$ifndef crypto_core_salsa2012_H}
-{$define crypto_core_salsa2012_H}
-{$include <stddef.h>}
-{$include "export.h"}
-{ C++ extern C conditionnal removed }
 
 const
-  crypto_core_salsa2012_OUTPUTBYTES = 64;  
+  crypto_core_salsa2012_OUTPUTBYTES_ = 64;
 
-function crypto_core_salsa2012_outputbytes:Tsize_t;cdecl;external libsodium;
+function crypto_core_salsa2012_outputbytes: Tsize_t; cdecl; external libsodium;
+
 const
-  crypto_core_salsa2012_INPUTBYTES = 16;  
+  crypto_core_salsa2012_INPUTBYTES_ = 16;
 
-function crypto_core_salsa2012_inputbytes:Tsize_t;cdecl;external libsodium;
+function crypto_core_salsa2012_inputbytes: Tsize_t; cdecl; external libsodium;
+
 const
-  crypto_core_salsa2012_KEYBYTES = 32;  
+  crypto_core_salsa2012_KEYBYTES_ = 32;
 
-function crypto_core_salsa2012_keybytes:Tsize_t;cdecl;external libsodium;
+function crypto_core_salsa2012_keybytes: Tsize_t; cdecl; external libsodium;
+
 const
-  crypto_core_salsa2012_CONSTBYTES = 16;  
+  crypto_core_salsa2012_CONSTBYTES_ = 16;
 
-function crypto_core_salsa2012_constbytes:Tsize_t;cdecl;external libsodium;
-function crypto_core_salsa2012(out:Pbyte; in:Pbyte; k:Pbyte; c:Pbyte):longint;cdecl;external libsodium;
-{ C++ end of extern C conditionnal removed }
-{$endif}
+function crypto_core_salsa2012_constbytes: Tsize_t; cdecl; external libsodium;
+function crypto_core_salsa2012(out_: pbyte; in_: pbyte; k: pbyte; c: pbyte): longint; cdecl; external libsodium;
 
 // === Konventiert am: 31-8-26 16:26:04 ===
 

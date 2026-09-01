@@ -3,7 +3,7 @@ unit crypto_box_curve25519xchacha20poly1305;
 interface
 
 uses
-  fp_sodium, crypto_stream_chacha20;
+  fp_sodium, crypto_stream_xchacha20;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

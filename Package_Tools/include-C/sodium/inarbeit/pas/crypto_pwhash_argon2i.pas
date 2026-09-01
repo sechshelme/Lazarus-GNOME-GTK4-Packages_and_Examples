@@ -5,127 +5,109 @@ interface
 uses
   fp_sodium;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
-
-{$ifndef crypto_pwhash_argon2i_H}
-{$define crypto_pwhash_argon2i_H}
-{$include <limits.h>}
-{$include <stddef.h>}
-{$include <stdint.h>}
-{$include "export.h"}
-(** unsupported pragma#pragma GCC diagnostic ignored "-Wlong-long"*)
 
 const
-  crypto_pwhash_argon2i_ALG_ARGON2I13 = 1;  
+  crypto_pwhash_argon2i_ALG_ARGON2I13_ = 1;
 
-function crypto_pwhash_argon2i_alg_argon2i13:longint;cdecl;external libsodium;
+function crypto_pwhash_argon2i_alg_argon2i13: longint; cdecl; external libsodium;
+
 const
-  crypto_pwhash_argon2i_BYTES_MIN = 16;  
+  crypto_pwhash_argon2i_BYTES_MIN_ = 16;
 
-function crypto_pwhash_argon2i_bytes_min:Tsize_t;cdecl;external libsodium;
-{ was #define dname def_expr }
-function crypto_pwhash_argon2i_BYTES_MAX : longint; { return type might be wrong }
+function crypto_pwhash_argon2i_bytes_min: Tsize_t; cdecl; external libsodium;
 
-function crypto_pwhash_argon2i_bytes_max:Tsize_t;cdecl;external libsodium;
 const
-  crypto_pwhash_argon2i_PASSWD_MIN = 0;  
+  crypto_pwhash_argon2i_BYTES_MAX_ = 4294967295;
 
-function crypto_pwhash_argon2i_passwd_min:Tsize_t;cdecl;external libsodium;
+function crypto_pwhash_argon2i_bytes_max: Tsize_t; cdecl; external libsodium;
+
 const
-  crypto_pwhash_argon2i_PASSWD_MAX = 4294967295;  
+  crypto_pwhash_argon2i_PASSWD_MIN_ = 0;
 
-function crypto_pwhash_argon2i_passwd_max:Tsize_t;cdecl;external libsodium;
+function crypto_pwhash_argon2i_passwd_min: Tsize_t; cdecl; external libsodium;
+
 const
-  crypto_pwhash_argon2i_SALTBYTES = 16;  
+  crypto_pwhash_argon2i_PASSWD_MAX_ = 4294967295;
 
-function crypto_pwhash_argon2i_saltbytes:Tsize_t;cdecl;external libsodium;
+function crypto_pwhash_argon2i_passwd_max: Tsize_t; cdecl; external libsodium;
+
 const
-  crypto_pwhash_argon2i_STRBYTES = 128;  
+  crypto_pwhash_argon2i_SALTBYTES_ = 16;
 
-function crypto_pwhash_argon2i_strbytes:Tsize_t;cdecl;external libsodium;
+function crypto_pwhash_argon2i_saltbytes: Tsize_t; cdecl; external libsodium;
+
 const
-  crypto_pwhash_argon2i_STRPREFIX = '$argon2i$';  
+  crypto_pwhash_argon2i_STRBYTES_ = 128;
 
-function crypto_pwhash_argon2i_strprefix:Pchar;cdecl;external libsodium;
+function crypto_pwhash_argon2i_strbytes: Tsize_t; cdecl; external libsodium;
+
 const
-  crypto_pwhash_argon2i_OPSLIMIT_MIN = 3;  
+  crypto_pwhash_argon2i_STRPREFIX_ = '$argon2i$';
 
-function crypto_pwhash_argon2i_opslimit_min:Tsize_t;cdecl;external libsodium;
+function crypto_pwhash_argon2i_strprefix: pchar; cdecl; external libsodium;
+
 const
-  crypto_pwhash_argon2i_OPSLIMIT_MAX = 4294967295;  
+  crypto_pwhash_argon2i_OPSLIMIT_MIN_ = 3;
 
-function crypto_pwhash_argon2i_opslimit_max:Tsize_t;cdecl;external libsodium;
+function crypto_pwhash_argon2i_opslimit_min: Tsize_t; cdecl; external libsodium;
+
 const
-  crypto_pwhash_argon2i_MEMLIMIT_MIN = 8192;  
+  crypto_pwhash_argon2i_OPSLIMIT_MAX_ = 4294967295;
 
-function crypto_pwhash_argon2i_memlimit_min:Tsize_t;cdecl;external libsodium;
-{ was #define dname def_expr }
-function crypto_pwhash_argon2i_MEMLIMIT_MAX : longint; { return type might be wrong }
+function crypto_pwhash_argon2i_opslimit_max: Tsize_t; cdecl; external libsodium;
 
-function crypto_pwhash_argon2i_memlimit_max:Tsize_t;cdecl;external libsodium;
 const
-  crypto_pwhash_argon2i_OPSLIMIT_INTERACTIVE = 4;  
+  crypto_pwhash_argon2i_MEMLIMIT_MIN_ = 8192;
 
-function crypto_pwhash_argon2i_opslimit_interactive:Tsize_t;cdecl;external libsodium;
+function crypto_pwhash_argon2i_memlimit_min: Tsize_t; cdecl; external libsodium;
+
 const
-  crypto_pwhash_argon2i_MEMLIMIT_INTERACTIVE = 33554432;  
+  crypto_pwhash_argon2i_MEMLIMIT_MAX_ = 4398046510080;
 
-function crypto_pwhash_argon2i_memlimit_interactive:Tsize_t;cdecl;external libsodium;
+function crypto_pwhash_argon2i_memlimit_max: Tsize_t; cdecl; external libsodium;
+
 const
-  crypto_pwhash_argon2i_OPSLIMIT_MODERATE = 6;  
+  crypto_pwhash_argon2i_OPSLIMIT_INTERACTIVE_ = 4;
 
-function crypto_pwhash_argon2i_opslimit_moderate:Tsize_t;cdecl;external libsodium;
+function crypto_pwhash_argon2i_opslimit_interactive: Tsize_t; cdecl; external libsodium;
+
 const
-  crypto_pwhash_argon2i_MEMLIMIT_MODERATE = 134217728;  
+  crypto_pwhash_argon2i_MEMLIMIT_INTERACTIVE_ = 33554432;
 
-function crypto_pwhash_argon2i_memlimit_moderate:Tsize_t;cdecl;external libsodium;
+function crypto_pwhash_argon2i_memlimit_interactive: Tsize_t; cdecl; external libsodium;
+
 const
-  crypto_pwhash_argon2i_OPSLIMIT_SENSITIVE = 8;  
+  crypto_pwhash_argon2i_OPSLIMIT_MODERATE_ = 6;
 
-function crypto_pwhash_argon2i_opslimit_sensitive:Tsize_t;cdecl;external libsodium;
+function crypto_pwhash_argon2i_opslimit_moderate: Tsize_t; cdecl; external libsodium;
+
 const
-  crypto_pwhash_argon2i_MEMLIMIT_SENSITIVE = 536870912;  
+  crypto_pwhash_argon2i_MEMLIMIT_MODERATE_ = 134217728;
 
-function crypto_pwhash_argon2i_memlimit_sensitive:Tsize_t;cdecl;external libsodium;
-function crypto_pwhash_argon2i(out:Pbyte; outlen:qword; passwd:Pchar; passwdlen:qword; salt:Pbyte; 
-           opslimit:qword; memlimit:Tsize_t; alg:longint):longint;cdecl;external libsodium;
-function crypto_pwhash_argon2i_str(out:array[0..(crypto_pwhash_argon2i_STRBYTES)-1] of char; passwd:Pchar; passwdlen:qword; opslimit:qword; memlimit:Tsize_t):longint;cdecl;external libsodium;
-function crypto_pwhash_argon2i_str_verify(str:array[0..(crypto_pwhash_argon2i_STRBYTES)-1] of char; passwd:Pchar; passwdlen:qword):longint;cdecl;external libsodium;
-function crypto_pwhash_argon2i_str_needs_rehash(str:array[0..(crypto_pwhash_argon2i_STRBYTES)-1] of char; opslimit:qword; memlimit:Tsize_t):longint;cdecl;external libsodium;
-{ C++ end of extern C conditionnal removed }
-{$endif}
+function crypto_pwhash_argon2i_memlimit_moderate: Tsize_t; cdecl; external libsodium;
+
+const
+  crypto_pwhash_argon2i_OPSLIMIT_SENSITIVE_ = 8;
+
+function crypto_pwhash_argon2i_opslimit_sensitive: Tsize_t; cdecl; external libsodium;
+
+const
+  crypto_pwhash_argon2i_MEMLIMIT_SENSITIVE_ = 536870912;
+
+function crypto_pwhash_argon2i_memlimit_sensitive: Tsize_t; cdecl; external libsodium;
+function crypto_pwhash_argon2i(out_: pbyte; outlen: qword; passwd: pchar; passwdlen: qword; salt: pbyte;
+  opslimit: qword; memlimit: Tsize_t; alg: longint): longint; cdecl; external libsodium;
+function crypto_pwhash_argon2i_str(out_: pchar; passwd: pchar; passwdlen: qword; opslimit: qword; memlimit: Tsize_t): longint; cdecl; external libsodium;
+function crypto_pwhash_argon2i_str_verify(str: pchar; passwd: pchar; passwdlen: qword): longint; cdecl; external libsodium;
+function crypto_pwhash_argon2i_str_needs_rehash(str: pchar; opslimit: qword; memlimit: Tsize_t): longint; cdecl; external libsodium;
 
 // === Konventiert am: 31-8-26 17:11:44 ===
 
 
 implementation
-
-
-{ was #define dname def_expr }
-function crypto_pwhash_argon2i_BYTES_MAX : longint; { return type might be wrong }
-  begin
-    crypto_pwhash_argon2i_BYTES_MAX:=SODIUM_MIN(SODIUM_SIZE_MAX,4294967295);
-  end;
-
-{ was #define dname def_expr }
-function crypto_pwhash_argon2i_MEMLIMIT_MAX : longint; { return type might be wrong }
-  var
-     if_local1, if_local2 : longint;
-  (* result types are not known *)
-  begin
-    if SIZE_MAX>=4398046510080 then
-      if_local1:=4398046510080
-    else
-      if_local1:=SIZE_MAX>=2147483648;
-    if if_local1 then
-      if_local2:=2147483648
-    else
-      if_local2:=32768;
-    crypto_pwhash_argon2i_MEMLIMIT_MAX:=if_local2;
-  end;
-
 
 end.

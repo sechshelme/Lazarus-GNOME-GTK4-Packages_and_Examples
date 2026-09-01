@@ -3,45 +3,39 @@ unit crypto_kdf;
 interface
 
 uses
-  fp_sodium;
+  fp_sodium, crypto_kdf_blake2b;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
-
-{$ifndef crypto_kdf_H}
-{$define crypto_kdf_H}
-{$include <stddef.h>}
-{$include <stdint.h>}
-{$include "crypto_kdf_blake2b.h"}
-{$include "export.h"}
-(** unsupported pragma#pragma GCC diagnostic ignored "-Wlong-long"*)
 
 const
-  crypto_kdf_BYTES_MIN = crypto_kdf_blake2b_BYTES_MIN;  
+  crypto_kdf_BYTES_MIN_ = crypto_kdf_blake2b_BYTES_MIN_;
 
-function crypto_kdf_bytes_min:Tsize_t;cdecl;external libsodium;
+function crypto_kdf_bytes_min: Tsize_t; cdecl; external libsodium;
+
 const
-  crypto_kdf_BYTES_MAX = crypto_kdf_blake2b_BYTES_MAX;  
+  crypto_kdf_BYTES_MAX_ = crypto_kdf_blake2b_BYTES_MAX_;
 
-function crypto_kdf_bytes_max:Tsize_t;cdecl;external libsodium;
+function crypto_kdf_bytes_max: Tsize_t; cdecl; external libsodium;
+
 const
-  crypto_kdf_CONTEXTBYTES = crypto_kdf_blake2b_CONTEXTBYTES;  
+  crypto_kdf_CONTEXTBYTES_ = crypto_kdf_blake2b_CONTEXTBYTES_;
 
-function crypto_kdf_contextbytes:Tsize_t;cdecl;external libsodium;
+function crypto_kdf_contextbytes: Tsize_t; cdecl; external libsodium;
+
 const
-  crypto_kdf_KEYBYTES = crypto_kdf_blake2b_KEYBYTES;  
+  crypto_kdf_KEYBYTES_ = crypto_kdf_blake2b_KEYBYTES_;
 
-function crypto_kdf_keybytes:Tsize_t;cdecl;external libsodium;
+function crypto_kdf_keybytes: Tsize_t; cdecl; external libsodium;
+
 const
-  crypto_kdf_PRIMITIVE = 'blake2b';  
+  crypto_kdf_PRIMITIVE_ = 'blake2b';
 
-function crypto_kdf_primitive:Pchar;cdecl;external libsodium;
-function crypto_kdf_derive_from_key(subkey:Pbyte; subkey_len:Tsize_t; subkey_id:Tuint64_t; ctx:array[0..(crypto_kdf_CONTEXTBYTES)-1] of char; key:array[0..(crypto_kdf_KEYBYTES)-1] of byte):longint;cdecl;external libsodium;
-procedure crypto_kdf_keygen(k:array[0..(crypto_kdf_KEYBYTES)-1] of byte);cdecl;external libsodium;
-{ C++ end of extern C conditionnal removed }
-{$endif}
+function crypto_kdf_primitive: pchar; cdecl; external libsodium;
+function crypto_kdf_derive_from_key(subkey: pbyte; subkey_len: Tsize_t; subkey_id: Tuint64_t; ctx: pchar; key: pbyte): longint; cdecl; external libsodium;
+procedure crypto_kdf_keygen(k: pbyte); cdecl; external libsodium;
 
 // === Konventiert am: 31-8-26 17:11:57 ===
 

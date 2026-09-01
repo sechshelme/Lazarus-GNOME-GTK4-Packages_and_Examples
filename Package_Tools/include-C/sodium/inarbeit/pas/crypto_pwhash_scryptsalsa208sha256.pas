@@ -10,50 +10,50 @@ uses
 {$ENDIF}
 
 
-{$ifndef crypto_pwhash_scryptsalsa208sha256_H}
-{$define crypto_pwhash_scryptsalsa208sha256_H}
-{$include <limits.h>}
-{$include <stddef.h>}
-{$include <stdint.h>}
-{$include "export.h"}
-(** unsupported pragma#pragma GCC diagnostic ignored "-Wlong-long"*)
-
 const
   crypto_pwhash_scryptsalsa208sha256_BYTES_MIN = 16;  
 
 function crypto_pwhash_scryptsalsa208sha256_bytes_min:Tsize_t;cdecl;external libsodium;
-{ was #define dname def_expr }
+
 function crypto_pwhash_scryptsalsa208sha256_BYTES_MAX : longint; { return type might be wrong }
 
 function crypto_pwhash_scryptsalsa208sha256_bytes_max:Tsize_t;cdecl;external libsodium;
+
 const
   crypto_pwhash_scryptsalsa208sha256_PASSWD_MIN = 0;  
 
 function crypto_pwhash_scryptsalsa208sha256_passwd_min:Tsize_t;cdecl;external libsodium;
+
 const
   crypto_pwhash_scryptsalsa208sha256_PASSWD_MAX = SODIUM_SIZE_MAX;  
 
 function crypto_pwhash_scryptsalsa208sha256_passwd_max:Tsize_t;cdecl;external libsodium;
+
 const
   crypto_pwhash_scryptsalsa208sha256_SALTBYTES = 32;  
 
 function crypto_pwhash_scryptsalsa208sha256_saltbytes:Tsize_t;cdecl;external libsodium;
+
 const
   crypto_pwhash_scryptsalsa208sha256_STRBYTES = 102;  
 
 function crypto_pwhash_scryptsalsa208sha256_strbytes:Tsize_t;cdecl;external libsodium;
+
 const
   crypto_pwhash_scryptsalsa208sha256_STRPREFIX = '$7$';  
 
 function crypto_pwhash_scryptsalsa208sha256_strprefix:Pchar;cdecl;external libsodium;
+
 const
   crypto_pwhash_scryptsalsa208sha256_OPSLIMIT_MIN = 32768;  
 
 function crypto_pwhash_scryptsalsa208sha256_opslimit_min:Tsize_t;cdecl;external libsodium;
+
 const
   crypto_pwhash_scryptsalsa208sha256_OPSLIMIT_MAX = 4294967295;  
 
 function crypto_pwhash_scryptsalsa208sha256_opslimit_max:Tsize_t;cdecl;external libsodium;
+
 const
   crypto_pwhash_scryptsalsa208sha256_MEMLIMIT_MIN = 16777216;  
 
@@ -62,18 +62,22 @@ function crypto_pwhash_scryptsalsa208sha256_memlimit_min:Tsize_t;cdecl;external 
 function crypto_pwhash_scryptsalsa208sha256_MEMLIMIT_MAX : longint; { return type might be wrong }
 
 function crypto_pwhash_scryptsalsa208sha256_memlimit_max:Tsize_t;cdecl;external libsodium;
+
 const
   crypto_pwhash_scryptsalsa208sha256_OPSLIMIT_INTERACTIVE = 524288;  
 
 function crypto_pwhash_scryptsalsa208sha256_opslimit_interactive:Tsize_t;cdecl;external libsodium;
+
 const
   crypto_pwhash_scryptsalsa208sha256_MEMLIMIT_INTERACTIVE = 16777216;  
 
 function crypto_pwhash_scryptsalsa208sha256_memlimit_interactive:Tsize_t;cdecl;external libsodium;
+
 const
   crypto_pwhash_scryptsalsa208sha256_OPSLIMIT_SENSITIVE = 33554432;  
 
 function crypto_pwhash_scryptsalsa208sha256_opslimit_sensitive:Tsize_t;cdecl;external libsodium;
+
 const
   crypto_pwhash_scryptsalsa208sha256_MEMLIMIT_SENSITIVE = 1073741824;  
 
@@ -85,8 +89,6 @@ function crypto_pwhash_scryptsalsa208sha256_str_verify(str:array[0..(crypto_pwha
 function crypto_pwhash_scryptsalsa208sha256_ll(passwd:Puint8_t; passwdlen:Tsize_t; salt:Puint8_t; saltlen:Tsize_t; N:Tuint64_t; 
            r:Tuint32_t; p:Tuint32_t; buf:Puint8_t; buflen:Tsize_t):longint;cdecl;external libsodium;
 function crypto_pwhash_scryptsalsa208sha256_str_needs_rehash(str:array[0..(crypto_pwhash_scryptsalsa208sha256_STRBYTES)-1] of char; opslimit:qword; memlimit:Tsize_t):longint;cdecl;external libsodium;
-{ C++ end of extern C conditionnal removed }
-{$endif}
 
 // === Konventiert am: 31-8-26 17:19:16 ===
 
