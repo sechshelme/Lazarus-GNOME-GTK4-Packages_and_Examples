@@ -1,11 +1,7 @@
 program project1;
 
 uses
- fftw3,
- fftw_mpi,
- fftw_threads,
-
- fp_fftw;
+ fp_fftw3;
 
 procedure main;
 begin
