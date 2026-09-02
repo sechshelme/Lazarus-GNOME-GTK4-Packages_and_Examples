@@ -3,68 +3,46 @@ unit fftw3;
 interface
 
 uses
-  fp_fftw3;
+  fp_fftw;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
-{
-#if !defined(FFTW_NO_Complex) && defined(_Complex_I) && defined(complex) && defined(I)
-#  define FFTW_DEFINE_COMPLEX(R, C) typedef R _Complex C
-#else
-#  define FFTW_DEFINE_COMPLEX(R, C) typedef R C[2]
-#endif
-
-#define FFTW_CONCAT(prefix, name) prefix ## name
-#define FFTW_MANGLE_DOUBLE(name) FFTW_CONCAT(fftw_, name)
-#define FFTW_MANGLE_FLOAT(name) FFTW_CONCAT(fftwf_, name)
-#define FFTW_MANGLE_LONG_DOUBLE(name) FFTW_CONCAT(fftwl_, name)
-#define FFTW_MANGLE_QUAD(name) FFTW_CONCAT(fftwq_, name)
- }
 type
-  Tfftw_r2r_kind_do_not_use_me =  Longint;
-  Const
-    FFTW_R2HC = 0;
-    FFTW_HC2R = 1;
-    FFTW_DHT = 2;
-    FFTW_REDFT00 = 3;
-    FFTW_REDFT01 = 4;
-    FFTW_REDFT10 = 5;
-    FFTW_REDFT11 = 6;
-    FFTW_RODFT00 = 7;
-    FFTW_RODFT01 = 8;
-    FFTW_RODFT10 = 9;
-    FFTW_RODFT11 = 10;
+  Tfftw_r2r_kind_do_not_use_me = longint;
+const
+  FFTW_R2HC = 0;
+  FFTW_HC2R = 1;
+  FFTW_DHT = 2;
+  FFTW_REDFT00 = 3;
+  FFTW_REDFT01 = 4;
+  FFTW_REDFT10 = 5;
+  FFTW_REDFT11 = 6;
+  FFTW_RODFT00 = 7;
+  FFTW_RODFT01 = 8;
+  FFTW_RODFT10 = 9;
+  FFTW_RODFT11 = 10;
 
-{ dimension size  }
-{ input stride  }
-{ output stride  }
 type
   Pfftw_iodim_do_not_use_me = ^Tfftw_iodim_do_not_use_me;
   Tfftw_iodim_do_not_use_me = record
-      n : longint;
-      is : longint;
-      os : longint;
-    end;
+    n: longint;
+    is_: longint;
+    os: longint;
+  end;
 
-{$include <stddef.h> /* for ptrdiff_t */}
-{ dimension size  }
-{ input stride  }
-{ output stride  }
 type
   Pfftw_iodim64_do_not_use_me = ^Tfftw_iodim64_do_not_use_me;
   Tfftw_iodim64_do_not_use_me = record
-      n : Tptrdiff_t;
-      is : Tptrdiff_t;
-      os : Tptrdiff_t;
-    end;
+    n: Tptrdiff_t;
+    is_: Tptrdiff_t;
+    os: Tptrdiff_t;
+  end;
 
-
-  Tfftw_write_char_func_do_not_use_me = procedure (c:char; para2:pointer);cdecl;
-
-  Tfftw_read_char_func_do_not_use_me = function (para1:pointer):longint;cdecl;
+  Tfftw_write_char_func_do_not_use_me = procedure(c: char; para2: pointer); cdecl;
+  Tfftw_read_char_func_do_not_use_me = function(para1: pointer): longint; cdecl;
 {
 
 #define FFTW_DEFINE_API(X, R, C)                                        \
@@ -412,57 +390,38 @@ FFTW_DEFINE_API(FFTW_MANGLE_QUAD, __float128, fftwq_complex)
  }
 
 const
-  FFTW_FORWARD = -(1);  
-
-{ was #define dname def_expr }
-function FFTW_BACKWARD : longint; { return type might be wrong }
+  FFTW_FORWARD = -(1);
+  FFTW_BACKWARD = (1);
 
 const
-  FFTW_NO_TIMELIMIT = -(1.0);  
-{ documented flags  }
-  FFTW_MEASURE = 0;  
-  FFTW_DESTROY_INPUT = 1 shl 0;  
-  FFTW_UNALIGNED = 1 shl 1;  
-  FFTW_CONSERVE_MEMORY = 1 shl 2;  
-{ NO_EXHAUSTIVE is default  }
-  FFTW_EXHAUSTIVE = 1 shl 3;  
-{ cancels FFTW_DESTROY_INPUT  }
-  FFTW_PRESERVE_INPUT = 1 shl 4;  
-{ IMPATIENT is default  }
-  FFTW_PATIENT = 1 shl 5;  
-  FFTW_ESTIMATE = 1 shl 6;  
-  FFTW_WISDOM_ONLY = 1 shl 21;  
-{ undocumented beyond-guru flags  }
-  FFTW_ESTIMATE_PATIENT = 1 shl 7;  
-  FFTW_BELIEVE_PCOST = 1 shl 8;  
-  FFTW_NO_DFT_R2HC = 1 shl 9;  
-  FFTW_NO_NONTHREADED = 1 shl 10;  
-  FFTW_NO_BUFFERING = 1 shl 11;  
-  FFTW_NO_INDIRECT_OP = 1 shl 12;  
-{ NO_LARGE_GENERIC is default  }
-  FFTW_ALLOW_LARGE_GENERIC = 1 shl 13;  
-  FFTW_NO_RANK_SPLITS = 1 shl 14;  
-  FFTW_NO_VRANK_SPLITS = 1 shl 15;  
-  FFTW_NO_VRECURSE = 1 shl 16;  
-  FFTW_NO_SIMD = 1 shl 17;  
-  FFTW_NO_SLOW = 1 shl 18;  
-  FFTW_NO_FIXED_RADIX_LARGE_N = 1 shl 19;  
-  FFTW_ALLOW_PRUNING = 1 shl 20;  
-{ __cplusplus  }
-{$endif}
-{ FFTW3_H  }
+  FFTW_NO_TIMELIMIT = -(1.0);
+  FFTW_MEASURE = 0;
+  FFTW_DESTROY_INPUT = 1 shl 0;
+  FFTW_UNALIGNED = 1 shl 1;
+  FFTW_CONSERVE_MEMORY = 1 shl 2;
+  FFTW_EXHAUSTIVE = 1 shl 3;
+  FFTW_PRESERVE_INPUT = 1 shl 4;
+  FFTW_PATIENT = 1 shl 5;
+  FFTW_ESTIMATE = 1 shl 6;
+  FFTW_WISDOM_ONLY = 1 shl 21;
+  FFTW_ESTIMATE_PATIENT = 1 shl 7;
+  FFTW_BELIEVE_PCOST = 1 shl 8;
+  FFTW_NO_DFT_R2HC = 1 shl 9;
+  FFTW_NO_NONTHREADED = 1 shl 10;
+  FFTW_NO_BUFFERING = 1 shl 11;
+  FFTW_NO_INDIRECT_OP = 1 shl 12;
+  FFTW_ALLOW_LARGE_GENERIC = 1 shl 13;
+  FFTW_NO_RANK_SPLITS = 1 shl 14;
+  FFTW_NO_VRANK_SPLITS = 1 shl 15;
+  FFTW_NO_VRECURSE = 1 shl 16;
+  FFTW_NO_SIMD = 1 shl 17;
+  FFTW_NO_SLOW = 1 shl 18;
+  FFTW_NO_FIXED_RADIX_LARGE_N = 1 shl 19;
+  FFTW_ALLOW_PRUNING = 1 shl 20;
 
-// === Konventiert am: 2-9-26 15:02:50 ===
+  // === Konventiert am: 2-9-26 15:02:50 ===
 
 
 implementation
-
-
-{ was #define dname def_expr }
-function FFTW_BACKWARD : longint; { return type might be wrong }
-  begin
-    FFTW_BACKWARD:=+(1);
-  end;
-
 
 end.

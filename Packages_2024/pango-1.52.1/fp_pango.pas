@@ -64,7 +64,6 @@ type
   {$include fp_pango_includes.inc}
   {$UNDEF read_interface}
 
-
 implementation
 
 {$DEFINE read_implementation}
