@@ -2,7 +2,7 @@ unit fp_fftw3;
 
 interface
 
-  const
+const
   {$IFDEF Linux}
   libfftw3 = 'fftw3';
   libfftw3_threads = 'fftw3_threads';
@@ -40,46 +40,46 @@ interface
   {$ENDIF}
 
 type
-      Tptrdiff_t=PtrInt;
-    Pptrdiff_t=^Tptrdiff_t;
+  Tptrdiff_t = PtrInt;
+  Pptrdiff_t = ^Tptrdiff_t;
 
-  type
-    Tdouble = Double;
-    Pdouble = ^Tdouble;
+type
+  //    Tdouble = Double;
+  //    Pdouble = ^Tdouble;
 
-    Tfloat = Single;
-    Pfloat = ^Tfloat;
+  //    Tfloat = Single;
+  //    Pfloat = ^Tfloat;
 
-    Tlongdouble = Extended;
-    Plongdouble = ^Tlongdouble;
+  Tlongdouble = extended;
+  Plongdouble = ^Tlongdouble;
 
-    Tfloat128 = array[0..15] of Byte;
-    Pfloat128 = ^Tfloat128;
+  Tfloat128 = array[0..15] of byte;
+  Pfloat128 = ^Tfloat128;
 
 
-    Tfftw_complex = record
-      re: Double;
-      im: Double;
-    end;
-    Pfftw_complex = ^Tfftw_complex;
+  Tfftw_complex = record
+    re: double;
+    im: double;
+  end;
+  Pfftw_complex = ^Tfftw_complex;
 
-    Tfftwf_complex = record
-      re: Single;
-      im: Single;
-    end;
-    Pfftwf_complex = ^Tfftwf_complex;
+  Tfftwf_complex = record
+    re: single;
+    im: single;
+  end;
+  Pfftwf_complex = ^Tfftwf_complex;
 
-    Tfftwl_complex = record
-      re: Tlongdouble;
-      im: Tlongdouble;
-    end;
-    Pfftwl_complex = ^Tfftwl_complex;
+  Tfftwl_complex = record
+    re: Tlongdouble;
+    im: Tlongdouble;
+  end;
+  Pfftwl_complex = ^Tfftwl_complex;
 
-    Tfftwq_complex = record
-      re: Tfloat128;
-      im: Tfloat128;
-    end;
-    Pfftwq_complex = ^Tfftwq_complex;
+  Tfftwq_complex = record
+    re: Tfloat128;
+    im: Tfloat128;
+  end;
+  Pfftwq_complex = ^Tfftwq_complex;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -122,415 +122,495 @@ type
 
   // ==========
 
-  type
-  Tfftwf_plan    = type Pointer;
-  Tfftw_plan            = type Pointer;
-  Tfftwl_plan           = type Pointer;
-  Tfftwq_plan           = type Pointer;
+type
+  Tfftwf_plan = type Pointer;
+  Tfftw_plan = type Pointer;
+  Tfftwl_plan = type Pointer;
+  Tfftwq_plan = type Pointer;
 
-  Pfftwf_iodim           = Pfftw_iodim_do_not_use_me;
-  Pfftw_iodim           = Pfftw_iodim_do_not_use_me;
-  Pfftwl_iodim          = Pfftw_iodim_do_not_use_me;
-  Pfftwq_iodim          = Pfftw_iodim_do_not_use_me;
+  Pfftwf_iodim = Pfftw_iodim_do_not_use_me;
+  Pfftw_iodim = Pfftw_iodim_do_not_use_me;
+  Pfftwl_iodim = Pfftw_iodim_do_not_use_me;
+  Pfftwq_iodim = Pfftw_iodim_do_not_use_me;
 
-  PTfftwf_iodim64         = Pfftw_iodim64_do_not_use_me;
-  PTfftw_iodim64        = Pfftw_iodim64_do_not_use_me;
-  PTfftwl_iodim64       = Pfftw_iodim64_do_not_use_me;
-  PTfftwq_iodim64       = Pfftw_iodim64_do_not_use_me;
+  PTfftwf_iodim64 = Pfftw_iodim64_do_not_use_me;
+  PTfftw_iodim64 = Pfftw_iodim64_do_not_use_me;
+  PTfftwl_iodim64 = Pfftw_iodim64_do_not_use_me;
+  PTfftwq_iodim64 = Pfftw_iodim64_do_not_use_me;
 
-  Tfftwf_r2r_kind        = Tfftw_r2r_kind_do_not_use_me;
-  Tfftw_r2r_kind        = Tfftw_r2r_kind_do_not_use_me;
-  Tfftwl_r2r_kind       = Tfftw_r2r_kind_do_not_use_me;
-  Tfftwq_r2r_kind       = Tfftw_r2r_kind_do_not_use_me;
+  Tfftwf_r2r_kind = Tfftw_r2r_kind_do_not_use_me;
+  Pfftwf_r2r_kind = ^Tfftwf_r2r_kind;
+  Tfftw_r2r_kind = Tfftw_r2r_kind_do_not_use_me;
+  Pfftw_r2r_kind = ^Tfftw_r2r_kind;
+  Tfftwl_r2r_kind = Tfftw_r2r_kind_do_not_use_me;
+  Pfftwl_r2r_kind = ^Tfftwl_r2r_kind;
+  Tfftwq_r2r_kind = Tfftw_r2r_kind_do_not_use_me;
+  Pfftwq_r2r_kind = ^Tfftwq_r2r_kind;
 
   fftwf_write_char_func = Tfftw_write_char_func_do_not_use_me;
-  fftw_write_char_func  = Tfftw_write_char_func_do_not_use_me;
+  fftw_write_char_func = Tfftw_write_char_func_do_not_use_me;
   fftwl_write_char_func = Tfftw_write_char_func_do_not_use_me;
   fftwq_write_char_func = Tfftw_write_char_func_do_not_use_me;
 
-  fftwf_read_char_func  = Tfftw_read_char_func_do_not_use_me;
-  fftw_read_char_func   = Tfftw_read_char_func_do_not_use_me;
-  fftwl_read_char_func  = Tfftw_read_char_func_do_not_use_me;
-  fftwq_read_char_func  = Tfftw_read_char_func_do_not_use_me;
+  fftwf_read_char_func = Tfftw_read_char_func_do_not_use_me;
+  fftw_read_char_func = Tfftw_read_char_func_do_not_use_me;
+  fftwl_read_char_func = Tfftw_read_char_func_do_not_use_me;
+  fftwq_read_char_func = Tfftw_read_char_func_do_not_use_me;
 
-  // ========== execute ==========
-  procedure fftwf_execute(p: Tfftwf_plan); cdecl; external;
-  procedure fftw_execute(p: Tfftw_plan); cdecl; external;
-  procedure fftwl_execute(p: Tfftwl_plan); cdecl; external;
-  procedure fftwq_execute(p: Tfftwq_plan); cdecl; external;
+// ========== execute ==========
+procedure fftwf_execute(p: Tfftwf_plan); cdecl; external libfftw3;
+procedure fftw_execute(p: Tfftw_plan); cdecl; external libfftw3;
+procedure fftwl_execute(p: Tfftwl_plan); cdecl; external libfftw3;
+procedure fftwq_execute(p: Tfftwq_plan); cdecl; external libfftw3;
 
-  // ========== plan_dft ==========
-  function fftwf_plan_dft(rank: int32; n: pint32; in_: Pfftwf_complex; out_: Pfftwf_complex; sign: int32; flags: uint32): Tfftwf_plan; cdecl; external;
-  function fftw_plan_dft(rank: int32; n: pint32; in_: Pfftw_complex; out_: Pfftw_complex; sign: int32; flags: uint32): Tfftw_plan; cdecl; external;
-  function fftwl_plan_dft(rank: int32; n: pint32; in_: Pfftwl_complex; out_: Pfftwl_complex; sign: int32; flags: uint32): Tfftwl_plan; cdecl; external;
-  function fftwq_plan_dft(rank: int32; n: pint32; in_: Pfftwq_complex; out_: Pfftwq_complex; sign: int32; flags: uint32): Tfftwq_plan; cdecl; external;
+// ========== plan_dft ==========
+function fftwf_plan_dft(rank: int32; n: pint32; in_: Pfftwf_complex; out_: Pfftwf_complex; sign: int32; flags: uint32): Tfftwf_plan; cdecl; external libfftw3;
+function fftw_plan_dft(rank: int32; n: pint32; in_: Pfftw_complex; out_: Pfftw_complex; sign: int32; flags: uint32): Tfftw_plan; cdecl; external libfftw3;
+function fftwl_plan_dft(rank: int32; n: pint32; in_: Pfftwl_complex; out_: Pfftwl_complex; sign: int32; flags: uint32): Tfftwl_plan; cdecl; external libfftw3;
+function fftwq_plan_dft(rank: int32; n: pint32; in_: Pfftwq_complex; out_: Pfftwq_complex; sign: int32; flags: uint32): Tfftwq_plan; cdecl; external libfftw3;
 
-  // ========== plan_dft_1d ==========
-  function fftwf_plan_dft_1d(n: int32; in_: Pfftwf_complex; out_: Pfftwf_complex; sign: int32; flags: uint32): Tfftwf_plan; cdecl; external;
-  function fftw_plan_dft_1d(n: int32; in_: Pfftw_complex; out_: Pfftw_complex; sign: int32; flags: uint32): Tfftw_plan; cdecl; external;
-  function fftwl_plan_dft_1d(n: int32; in_: Pfftwl_complex; out_: Pfftwl_complex; sign: int32; flags: uint32): Tfftwl_plan; cdecl; external;
-  function fftwq_plan_dft_1d(n: int32; in_: Pfftwq_complex; out_: Pfftwq_complex; sign: int32; flags: uint32): Tfftwq_plan; cdecl; external;
+// ========== plan_dft_1d ==========
+function fftwf_plan_dft_1d(n: int32; in_: Pfftwf_complex; out_: Pfftwf_complex; sign: int32; flags: uint32): Tfftwf_plan; cdecl; external libfftw3;
+function fftw_plan_dft_1d(n: int32; in_: Pfftw_complex; out_: Pfftw_complex; sign: int32; flags: uint32): Tfftw_plan; cdecl; external libfftw3;
+function fftwl_plan_dft_1d(n: int32; in_: Pfftwl_complex; out_: Pfftwl_complex; sign: int32; flags: uint32): Tfftwl_plan; cdecl; external libfftw3;
+function fftwq_plan_dft_1d(n: int32; in_: Pfftwq_complex; out_: Pfftwq_complex; sign: int32; flags: uint32): Tfftwq_plan; cdecl; external libfftw3;
 
-  // ========== plan_dft_2d ==========
-  function fftwf_plan_dft_2d(n0: int32; n1: int32; in_: Pfftwf_complex; out_: Pfftwf_complex; sign: int32; flags: uint32): Tfftwf_plan; cdecl; external;
-  function fftw_plan_dft_2d(n0: int32; n1: int32; in_: Pfftw_complex; out_: Pfftw_complex; sign: int32; flags: uint32): Tfftw_plan; cdecl; external;
-  function fftwl_plan_dft_2d(n0: int32; n1: int32; in_: Pfftwl_complex; out_: Pfftwl_complex; sign: int32; flags: uint32): Tfftwl_plan; cdecl; external;
-  function fftwq_plan_dft_2d(n0: int32; n1: int32; in_: Pfftwq_complex; out_: Pfftwq_complex; sign: int32; flags: uint32): Tfftwq_plan; cdecl; external;
+// ========== plan_dft_2d ==========
+function fftwf_plan_dft_2d(n0: int32; n1: int32; in_: Pfftwf_complex; out_: Pfftwf_complex; sign: int32; flags: uint32): Tfftwf_plan; cdecl; external libfftw3;
+function fftw_plan_dft_2d(n0: int32; n1: int32; in_: Pfftw_complex; out_: Pfftw_complex; sign: int32; flags: uint32): Tfftw_plan; cdecl; external libfftw3;
+function fftwl_plan_dft_2d(n0: int32; n1: int32; in_: Pfftwl_complex; out_: Pfftwl_complex; sign: int32; flags: uint32): Tfftwl_plan; cdecl; external libfftw3;
+function fftwq_plan_dft_2d(n0: int32; n1: int32; in_: Pfftwq_complex; out_: Pfftwq_complex; sign: int32; flags: uint32): Tfftwq_plan; cdecl; external libfftw3;
 
-  // ========== plan_dft_3d ==========
-  function fftwf_plan_dft_3d(n0: int32; n1: int32; n2: int32; in_: Pfftwf_complex; out_: Pfftwf_complex; sign: int32; flags: uint32): Tfftwf_plan; cdecl; external;
-  function fftw_plan_dft_3d(n0: int32; n1: int32; n2: int32; in_: Pfftw_complex; out_: Pfftw_complex; sign: int32; flags: uint32): Tfftw_plan; cdecl; external;
-  function fftwl_plan_dft_3d(n0: int32; n1: int32; n2: int32; in_: Pfftwl_complex; out_: Pfftwl_complex; sign: int32; flags: uint32): Tfftwl_plan; cdecl; external;
-  function fftwq_plan_dft_3d(n0: int32; n1: int32; n2: int32; in_: Pfftwq_complex; out_: Pfftwq_complex; sign: int32; flags: uint32): Tfftwq_plan; cdecl; external;
+// ========== plan_dft_3d ==========
+function fftwf_plan_dft_3d(n0: int32; n1: int32; n2: int32; in_: Pfftwf_complex; out_: Pfftwf_complex; sign: int32; flags: uint32): Tfftwf_plan; cdecl; external libfftw3;
+function fftw_plan_dft_3d(n0: int32; n1: int32; n2: int32; in_: Pfftw_complex; out_: Pfftw_complex; sign: int32; flags: uint32): Tfftw_plan; cdecl; external libfftw3;
+function fftwl_plan_dft_3d(n0: int32; n1: int32; n2: int32; in_: Pfftwl_complex; out_: Pfftwl_complex; sign: int32; flags: uint32): Tfftwl_plan; cdecl; external libfftw3;
+function fftwq_plan_dft_3d(n0: int32; n1: int32; n2: int32; in_: Pfftwq_complex; out_: Pfftwq_complex; sign: int32; flags: uint32): Tfftwq_plan; cdecl; external libfftw3;
 
+// ========== plan_many_dft ==========
+function fftwf_plan_many_dft(rank: int32; n: pint32; howmany: int32; in_: Pfftwf_complex; inembed: pint32; istride: int32; idist: int32; out_: Pfftwf_complex; onembed: pint32; ostride: int32; odist: int32; sign: int32; flags: uint32): Tfftwf_plan; cdecl; external libfftw3;
+function fftw_plan_many_dft(rank: int32; n: pint32; howmany: int32; in_: Pfftw_complex; inembed: pint32; istride: int32; idist: int32; out_: Pfftw_complex; onembed: pint32; ostride: int32; odist: int32; sign: int32; flags: uint32): Tfftw_plan; cdecl; external libfftw3;
+function fftwl_plan_many_dft(rank: int32; n: pint32; howmany: int32; in_: Pfftwl_complex; inembed: pint32; istride: int32; idist: int32; out_: Pfftwl_complex; onembed: pint32; ostride: int32; odist: int32; sign: int32; flags: uint32): Tfftwl_plan; cdecl; external libfftw3;
+function fftwq_plan_many_dft(rank: int32; n: pint32; howmany: int32; in_: Pfftwq_complex; inembed: pint32; istride: int32; idist: int32; out_: Pfftwq_complex; onembed: pint32; ostride: int32; odist: int32; sign: int32; flags: uint32): Tfftwq_plan; cdecl; external libfftw3;
 
-{
+// ========== plan_guru_dft ==========
+function fftwf_plan_guru_dft(rank: int32; dims: Pfftwf_iodim; howmany_rank: int32; howmany_dims: Pfftwf_iodim; in_: Pfftwf_complex; out_: Pfftwf_complex; sign: int32; flags: uint32): Tfftwf_plan; cdecl; external libfftw3;
+function fftw_plan_guru_dft(rank: int32; dims: Pfftw_iodim; howmany_rank: int32; howmany_dims: Pfftw_iodim; in_: Pfftw_complex; out_: Pfftw_complex; sign: int32; flags: uint32): Tfftw_plan; cdecl; external libfftw3;
+function fftwl_plan_guru_dft(rank: int32; dims: Pfftwl_iodim; howmany_rank: int32; howmany_dims: Pfftwl_iodim; in_: Pfftwl_complex; out_: Pfftwl_complex; sign: int32; flags: uint32): Tfftwl_plan; cdecl; external libfftw3;
+function fftwq_plan_guru_dft(rank: int32; dims: Pfftwq_iodim; howmany_rank: int32; howmany_dims: Pfftwq_iodim; in_: Pfftwq_complex; out_: Pfftwq_complex; sign: int32; flags: uint32): Tfftwq_plan; cdecl; external libfftw3;
 
-#define FFTW_DEFINE_API(X, R, C)                                        \
-                                                                        \
-FFTW_DEFINE_COMPLEX(R, C);                                              \
-                                                                        \
-typedef struct X(plan_s) *X(plan);                                      \
-                                                                        \
-typedef struct fftw_iodim_do_not_use_me X(iodim);                       \
-typedef struct fftw_iodim64_do_not_use_me X(iodim64);                   \
-                                                                        \
-typedef enum fftw_r2r_kind_do_not_use_me X(r2r_kind);                   \
-                                                                        \
-typedef fftw_write_char_func_do_not_use_me X(write_char_func);          \
-typedef fftw_read_char_func_do_not_use_me X(read_char_func);            \
-                                                                        \
-FFTW_EXTERN void                                                        \
-FFTW_CDECL X(execute)(const X(plan) p);                                 \
-                                                                        \
-FFTW_EXTERN X(plan)                                                     \
-FFTW_CDECL X(plan_dft)(int rank, const int *n,                          \
-                       C *in, C *out, int sign, unsigned flags);        \
-                                                                        \
-FFTW_EXTERN X(plan)                                                     \
-FFTW_CDECL X(plan_dft_1d)(int n, C *in, C *out, int sign,               \
-                          unsigned flags);                              \
-FFTW_EXTERN X(plan)                                                     \
-FFTW_CDECL X(plan_dft_2d)(int n0, int n1,                               \
-                          C *in, C *out, int sign, unsigned flags);     \
-FFTW_EXTERN X(plan)                                                     \
-FFTW_CDECL X(plan_dft_3d)(int n0, int n1, int n2,                       \
-                          C *in, C *out, int sign, unsigned flags);     \
+// ========== plan_guru_split_dft ==========
+function fftwf_plan_guru_split_dft(rank: int32; dims: Pfftwf_iodim; howmany_rank: int32; howmany_dims: Pfftwf_iodim; ri: PSingle; ii: PSingle; ro: PSingle; io: PSingle; flags: uint32): Tfftwf_plan; cdecl; external libfftw3;
+function fftw_plan_guru_split_dft(rank: int32; dims: Pfftw_iodim; howmany_rank: int32; howmany_dims: Pfftw_iodim; ri: PDouble; ii: PDouble; ro: PDouble; io: PDouble; flags: uint32): Tfftw_plan; cdecl; external libfftw3;
+function fftwl_plan_guru_split_dft(rank: int32; dims: Pfftwl_iodim; howmany_rank: int32; howmany_dims: Pfftwl_iodim; ri: Plongdouble; ii: Plongdouble; ro: Plongdouble; io: Plongdouble; flags: uint32): Tfftwl_plan; cdecl; external libfftw3;
+function fftwq_plan_guru_split_dft(rank: int32; dims: Pfftwq_iodim; howmany_rank: int32; howmany_dims: Pfftwq_iodim; ri: PFloat128; ii: PFloat128; ro: PFloat128; io: PFloat128; flags: uint32): Tfftwq_plan; cdecl; external libfftw3;
 
+// ========== plan_guru64_dft ==========
+function fftwf_plan_guru64_dft(rank: int32; dims: PTfftwf_iodim64; howmany_rank: int32; howmany_dims: PTfftwf_iodim64; in_: Pfftwf_complex; out_: Pfftwf_complex; sign: int32; flags: uint32): Tfftwf_plan; cdecl; external libfftw3;
+function fftw_plan_guru64_dft(rank: int32; dims: PTfftw_iodim64; howmany_rank: int32; howmany_dims: PTfftw_iodim64; in_: Pfftw_complex; out_: Pfftw_complex; sign: int32; flags: uint32): Tfftw_plan; cdecl; external libfftw3;
+function fftwl_plan_guru64_dft(rank: int32; dims: PTfftwl_iodim64; howmany_rank: int32; howmany_dims: PTfftwl_iodim64; in_: Pfftwl_complex; out_: Pfftwl_complex; sign: int32; flags: uint32): Tfftwl_plan; cdecl; external libfftw3;
+function fftwq_plan_guru64_dft(rank: int32; dims: PTfftwq_iodim64; howmany_rank: int32; howmany_dims: PTfftwq_iodim64; in_: Pfftwq_complex; out_: Pfftwq_complex; sign: int32; flags: uint32): Tfftwq_plan; cdecl; external libfftw3;
 
-                                                                        \
-FFTW_EXTERN X(plan)                                                     \
-FFTW_CDECL X(plan_many_dft)(int rank, const int *n,                     \
-                            int howmany,                                \
-                            C *in, const int *inembed,                  \
-                            int istride, int idist,                     \
-                            C *out, const int *onembed,                 \
-                            int ostride, int odist,                     \
-                            int sign, unsigned flags);                  \
-                                                                        \
-FFTW_EXTERN X(plan)                                                     \
-FFTW_CDECL X(plan_guru_dft)(int rank, const X(iodim) *dims,             \
-                            int howmany_rank,                           \
-                            const X(iodim) *howmany_dims,               \
-                            C *in, C *out,                              \
-                            int sign, unsigned flags);                  \
-FFTW_EXTERN X(plan)                                                     \
-FFTW_CDECL X(plan_guru_split_dft)(int rank, const X(iodim) *dims,       \
-                                  int howmany_rank,                     \
-                                  const X(iodim) *howmany_dims,         \
-                                  R *ri, R *ii, R *ro, R *io,           \
-                                  unsigned flags);                      \
-                                                                        \
-FFTW_EXTERN X(plan)                                                     \
-FFTW_CDECL X(plan_guru64_dft)(int rank,                                 \
-                              const X(iodim64) *dims,                   \
-                              int howmany_rank,                         \
-                              const X(iodim64) *howmany_dims,           \
-                              C *in, C *out,                            \
-                              int sign, unsigned flags);                \
-FFTW_EXTERN X(plan)                                                     \
-FFTW_CDECL X(plan_guru64_split_dft)(int rank,                           \
-                                    const X(iodim64) *dims,             \
-                                    int howmany_rank,                   \
-                                    const X(iodim64) *howmany_dims,     \
-                                    R *ri, R *ii, R *ro, R *io,         \
-                                    unsigned flags);                    \
-                                                                        \
-FFTW_EXTERN void                                                        \
-FFTW_CDECL X(execute_dft)(const X(plan) p, C *in, C *out);              \
-                                                                        \
-FFTW_EXTERN void                                                        \
-FFTW_CDECL X(execute_split_dft)(const X(plan) p, R *ri, R *ii,          \
-                                      R *ro, R *io);                    \
-                                                                        \
-FFTW_EXTERN X(plan)                                                     \
-FFTW_CDECL X(plan_many_dft_r2c)(int rank, const int *n,                 \
-                                int howmany,                            \
-                                R *in, const int *inembed,              \
-                                int istride, int idist,                 \
-                                C *out, const int *onembed,             \
-                                int ostride, int odist,                 \
-                                unsigned flags);                        \
-                                                                        \
-FFTW_EXTERN X(plan)                                                     \
-FFTW_CDECL X(plan_dft_r2c)(int rank, const int *n,                      \
-                           R *in, C *out, unsigned flags);              \
-                                                                        \
-FFTW_EXTERN X(plan)                                                     \
-FFTW_CDECL X(plan_dft_r2c_1d)(int n,R *in,C *out,unsigned flags);       \
-                                                                        \
-FFTW_EXTERN X(plan)                                                     \
-FFTW_CDECL X(plan_dft_r2c_2d)(int n0, int n1,                           \
-                              R *in, C *out, unsigned flags);           \
-                                                                        \
-FFTW_EXTERN X(plan)                                                     \
-FFTW_CDECL X(plan_dft_r2c_3d)(int n0, int n1,                           \
-                              int n2,                                   \
-                              R *in, C *out, unsigned flags);           \
-                                                                        \
-FFTW_EXTERN X(plan)                                                     \
-FFTW_CDECL X(plan_many_dft_c2r)(int rank, const int *n,                 \
-                                int howmany,                            \
-                                C *in, const int *inembed,              \
-                                int istride, int idist,                 \
-                                R *out, const int *onembed,             \
-                                int ostride, int odist,                 \
-                                unsigned flags);                        \
-                                                                        \
-FFTW_EXTERN X(plan)                                                     \
-FFTW_CDECL X(plan_dft_c2r)(int rank, const int *n,                      \
-                           C *in, R *out, unsigned flags);              \
-                                                                        \
-FFTW_EXTERN X(plan)                                                     \
-FFTW_CDECL X(plan_dft_c2r_1d)(int n,C *in,R *out,unsigned flags);       \
-                                                                        \
-FFTW_EXTERN X(plan)                                                     \
-FFTW_CDECL X(plan_dft_c2r_2d)(int n0, int n1,                           \
-                              C *in, R *out, unsigned flags);           \
-                                                                        \
-FFTW_EXTERN X(plan)                                                     \
-FFTW_CDECL X(plan_dft_c2r_3d)(int n0, int n1,                           \
-                              int n2,                                   \
-                              C *in, R *out, unsigned flags);           \
-                                                                        \
-FFTW_EXTERN X(plan)                                                     \
-FFTW_CDECL X(plan_guru_dft_r2c)(int rank, const X(iodim) *dims,         \
-                                int howmany_rank,                       \
-                                const X(iodim) *howmany_dims,           \
-                                R *in, C *out,                          \
-                                unsigned flags);                        \
-                                                                        \
-FFTW_EXTERN X(plan)                                                     \
-FFTW_CDECL X(plan_guru_dft_c2r)(int rank, const X(iodim) *dims,         \
-                                int howmany_rank,                       \
-                                const X(iodim) *howmany_dims,           \
-                                C *in, R *out,                          \
-                                unsigned flags);                        \
-                                                                        \
-FFTW_EXTERN X(plan)                                                     \
-FFTW_CDECL X(plan_guru_split_dft_r2c)(int rank, const X(iodim) *dims,   \
-                                      int howmany_rank,                 \
-                                      const X(iodim) *howmany_dims,     \
-                                      R *in, R *ro, R *io,              \
-                                      unsigned flags);                  \
-                                                                        \
-FFTW_EXTERN X(plan)                                                     \
-FFTW_CDECL X(plan_guru_split_dft_c2r)(int rank, const X(iodim) *dims,   \
-                                      int howmany_rank,                 \
-                                      const X(iodim) *howmany_dims,     \
-                                      R *ri, R *ii, R *out,             \
-                                      unsigned flags);                  \
-                                                                        \
-FFTW_EXTERN X(plan)                                                     \
-FFTW_CDECL X(plan_guru64_dft_r2c)(int rank,                             \
-                                  const X(iodim64) *dims,               \
-                                  int howmany_rank,                     \
-                                  const X(iodim64) *howmany_dims,       \
-                                  R *in, C *out,                        \
-                                  unsigned flags);                      \
-                                                                        \
-FFTW_EXTERN X(plan)                                                     \
-FFTW_CDECL X(plan_guru64_dft_c2r)(int rank,                             \
-                                  const X(iodim64) *dims,               \
-                                  int howmany_rank,                     \
-                                  const X(iodim64) *howmany_dims,       \
-                                  C *in, R *out,                        \
-                                  unsigned flags);                      \
-                                                                        \
-FFTW_EXTERN X(plan)                                                     \
-FFTW_CDECL X(plan_guru64_split_dft_r2c)(int rank, const X(iodim64) *dims, \
-                                        int howmany_rank,               \
-                                        const X(iodim64) *howmany_dims, \
-                                        R *in, R *ro, R *io,            \
-                                        unsigned flags);                \
-FFTW_EXTERN X(plan)                                                     \
-FFTW_CDECL X(plan_guru64_split_dft_c2r)(int rank, const X(iodim64) *dims, \
-                                        int howmany_rank,               \
-                                        const X(iodim64) *howmany_dims, \
-                                        R *ri, R *ii, R *out,           \
-                                        unsigned flags);                \
-                                                                        \
-FFTW_EXTERN void                                                        \
-FFTW_CDECL X(execute_dft_r2c)(const X(plan) p, R *in, C *out);          \
-                                                                        \
-FFTW_EXTERN void                                                        \
-FFTW_CDECL X(execute_dft_c2r)(const X(plan) p, C *in, R *out);          \
-                                                                        \
-FFTW_EXTERN void                                                        \
-FFTW_CDECL X(execute_split_dft_r2c)(const X(plan) p,                    \
-                                    R *in, R *ro, R *io);               \
-                                                                        \
-FFTW_EXTERN void                                                        \
-FFTW_CDECL X(execute_split_dft_c2r)(const X(plan) p,                    \
-                                    R *ri, R *ii, R *out);              \
-                                                                        \
-FFTW_EXTERN X(plan)                                                     \
-FFTW_CDECL X(plan_many_r2r)(int rank, const int *n,                     \
-                            int howmany,                                \
-                            R *in, const int *inembed,                  \
-                            int istride, int idist,                     \
-                            R *out, const int *onembed,                 \
-                            int ostride, int odist,                     \
-                            const X(r2r_kind) *kind, unsigned flags);   \
-                                                                        \
-FFTW_EXTERN X(plan)                                                     \
-FFTW_CDECL X(plan_r2r)(int rank, const int *n, R *in, R *out,           \
-                       const X(r2r_kind) *kind, unsigned flags);        \
-                                                                        \
-FFTW_EXTERN X(plan)                                                     \
-FFTW_CDECL X(plan_r2r_1d)(int n, R *in, R *out,                         \
-                          X(r2r_kind) kind, unsigned flags);            \
-                                                                        \
-FFTW_EXTERN X(plan)                                                     \
-FFTW_CDECL X(plan_r2r_2d)(int n0, int n1, R *in, R *out,                \
-                          X(r2r_kind) kind0, X(r2r_kind) kind1,         \
-                          unsigned flags);                              \
-                                                                        \
-FFTW_EXTERN X(plan)                                                     \
-FFTW_CDECL X(plan_r2r_3d)(int n0, int n1, int n2,                       \
-                          R *in, R *out, X(r2r_kind) kind0,             \
-                          X(r2r_kind) kind1, X(r2r_kind) kind2,         \
-                          unsigned flags);                              \
-                                                                        \
-FFTW_EXTERN X(plan)                                                     \
-FFTW_CDECL X(plan_guru_r2r)(int rank, const X(iodim) *dims,             \
-                            int howmany_rank,                           \
-                            const X(iodim) *howmany_dims,               \
-                            R *in, R *out,                              \
-                            const X(r2r_kind) *kind, unsigned flags);   \
-                                                                        \
-FFTW_EXTERN X(plan)                                                     \
-FFTW_CDECL X(plan_guru64_r2r)(int rank, const X(iodim64) *dims,         \
-                              int howmany_rank,                         \
-                              const X(iodim64) *howmany_dims,           \
-                              R *in, R *out,                            \
-                              const X(r2r_kind) *kind, unsigned flags); \
-                                                                        \
-FFTW_EXTERN void                                                        \
-FFTW_CDECL X(execute_r2r)(const X(plan) p, R *in, R *out);              \
-                                                                        \
-FFTW_EXTERN void                                                        \
-FFTW_CDECL X(destroy_plan)(X(plan) p);                                  \
-                                                                        \
-FFTW_EXTERN void                                                        \
-FFTW_CDECL X(forget_wisdom)(void);                                      \
-FFTW_EXTERN void                                                        \
-FFTW_CDECL X(cleanup)(void);                                            \
-                                                                        \
-FFTW_EXTERN void                                                        \
-FFTW_CDECL X(set_timelimit)(double t);                                  \
-                                                                        \
-FFTW_EXTERN void                                                        \
-FFTW_CDECL X(plan_with_nthreads)(int nthreads);                         \
-                                                                        \
-FFTW_EXTERN int                                                         \
-FFTW_CDECL X(planner_nthreads)(void);                                   \
-                                                                        \
-FFTW_EXTERN int                                                         \
-FFTW_CDECL X(init_threads)(void);                                       \
-                                                                        \
-FFTW_EXTERN void                                                        \
-FFTW_CDECL X(cleanup_threads)(void);                                    \
-                                                                        \
-FFTW_EXTERN void                                                        \
-FFTW_CDECL X(threads_set_callback)(                                     \
-     void (*parallel_loop)(void *(*work)(char *),                       \
-     char *jobdata, size_t elsize, int njobs, void *data), void *data); \
-                                                                        \
-FFTW_EXTERN void                                                        \
-FFTW_CDECL X(make_planner_thread_safe)(void);                           \
-                                                                        \
-FFTW_EXTERN int                                                         \
-FFTW_CDECL X(export_wisdom_to_filename)(const char *filename);          \
-                                                                        \
-FFTW_EXTERN void                                                        \
-FFTW_CDECL X(export_wisdom_to_file)(FILE *output_file);                 \
-                                                                        \
-FFTW_EXTERN char *                                                      \
-FFTW_CDECL X(export_wisdom_to_string)(void);                            \
-                                                                        \
-FFTW_EXTERN void                                                        \
-FFTW_CDECL X(export_wisdom)(X(write_char_func) write_char,              \
-                                  void *data);                          \
-FFTW_EXTERN int                                                         \
-FFTW_CDECL X(import_system_wisdom)(void);                               \
-                                                                        \
-FFTW_EXTERN int                                                         \
-FFTW_CDECL X(import_wisdom_from_filename)(const char *filename);        \
-                                                                        \
-FFTW_EXTERN int                                                         \
-FFTW_CDECL X(import_wisdom_from_file)(FILE *input_file);                \
-                                                                        \
-FFTW_EXTERN int                                                         \
-FFTW_CDECL X(import_wisdom_from_string)(const char *input_string);      \
-                                                                        \
-FFTW_EXTERN int                                                         \
-FFTW_CDECL X(import_wisdom)(X(read_char_func) read_char, void *data);   \
-                                                                        \
-FFTW_EXTERN void                                                        \
-FFTW_CDECL X(fprint_plan)(const X(plan) p, FILE *output_file);          \
-                                                                        \
-FFTW_EXTERN void                                                        \
-FFTW_CDECL X(print_plan)(const X(plan) p);                              \
-                                                                        \
-FFTW_EXTERN char *                                                      \
-FFTW_CDECL X(sprint_plan)(const X(plan) p);                             \
-                                                                        \
-FFTW_EXTERN void *                                                      \
-FFTW_CDECL X(malloc)(size_t n);                                         \
-                                                                        \
-FFTW_EXTERN R *                                                         \
-FFTW_CDECL X(alloc_real)(size_t n);                                     \
-FFTW_EXTERN C *                                                         \
-FFTW_CDECL X(alloc_complex)(size_t n);                                  \
-                                                                        \
-FFTW_EXTERN void                                                        \
-FFTW_CDECL X(free)(void *p);                                            \
-                                                                        \
-FFTW_EXTERN void                                                        \
-FFTW_CDECL X(flops)(const X(plan) p,                                    \
-                    double *add, double *mul, double *fmas);            \
-FFTW_EXTERN double                                                      \
-FFTW_CDECL X(estimate_cost)(const X(plan) p);                           \
-                                                                        \
-FFTW_EXTERN double                                                      \
-FFTW_CDECL X(cost)(const X(plan) p);                                    \
-                                                                        \
-FFTW_EXTERN int                                                         \
-FFTW_CDECL X(alignment_of)(R *p);                                       \
-                                                                        \
-FFTW_EXTERN const char X(version)[];                                    \
-FFTW_EXTERN const char X(cc)[];                                         \
-FFTW_EXTERN const char X(codelet_optim)[];
+// ========== plan_guru64_split_dft ==========
+function fftwf_plan_guru64_split_dft(rank: int32; dims: PTfftwf_iodim64; howmany_rank: int32; howmany_dims: PTfftwf_iodim64; ri: PSingle; ii: PSingle; ro: PSingle; io: PSingle; flags: uint32): Tfftwf_plan; cdecl; external libfftw3;
+function fftw_plan_guru64_split_dft(rank: int32; dims: PTfftw_iodim64; howmany_rank: int32; howmany_dims: PTfftw_iodim64; ri: PDouble; ii: PDouble; ro: PDouble; io: PDouble; flags: uint32): Tfftw_plan; cdecl; external libfftw3;
+function fftwl_plan_guru64_split_dft(rank: int32; dims: PTfftwl_iodim64; howmany_rank: int32; howmany_dims: PTfftwl_iodim64; ri: Plongdouble; ii: Plongdouble; ro: Plongdouble; io: Plongdouble; flags: uint32): Tfftwl_plan; cdecl; external libfftw3;
+function fftwq_plan_guru64_split_dft(rank: int32; dims: PTfftwq_iodim64; howmany_rank: int32; howmany_dims: PTfftwq_iodim64; ri: PFloat128; ii: PFloat128; ro: PFloat128; io: PFloat128; flags: uint32): Tfftwq_plan; cdecl; external libfftw3;
 
+// ========== execute_dft ==========
+procedure fftwf_execute_dft(p: Tfftwf_plan; in_: Pfftwf_complex; out_: Pfftwf_complex); cdecl; external libfftw3;
+procedure fftw_execute_dft(p: Tfftw_plan; in_: Pfftw_complex; out_: Pfftw_complex); cdecl; external libfftw3;
+procedure fftwl_execute_dft(p: Tfftwl_plan; in_: Pfftwl_complex; out_: Pfftwl_complex); cdecl; external libfftw3;
+procedure fftwq_execute_dft(p: Tfftwq_plan; in_: Pfftwq_complex; out_: Pfftwq_complex); cdecl; external libfftw3;
 
+// ========== execute_split_dft ==========
+procedure fftwf_execute_split_dft(p: Tfftwf_plan; ri: PSingle; ii: PSingle; ro: PSingle; io: PSingle); cdecl; external libfftw3;
+procedure fftw_execute_split_dft(p: Tfftw_plan; ri: PDouble; ii: PDouble; ro: PDouble; io: PDouble); cdecl; external libfftw3;
+procedure fftwl_execute_split_dft(p: Tfftwl_plan; ri: Plongdouble; ii: Plongdouble; ro: Plongdouble; io: Plongdouble); cdecl; external libfftw3;
+procedure fftwq_execute_split_dft(p: Tfftwq_plan; ri: PFloat128; ii: PFloat128; ro: PFloat128; io: PFloat128); cdecl; external libfftw3;
 
-FFTW_DEFINE_API(FFTW_MANGLE_DOUBLE, double, fftw_complex)
-FFTW_DEFINE_API(FFTW_MANGLE_FLOAT, float, fftwf_complex)
-FFTW_DEFINE_API(FFTW_MANGLE_LONG_DOUBLE, long double, fftwl_complex)
-FFTW_DEFINE_API(FFTW_MANGLE_QUAD, __float128, fftwq_complex)
+// ========== plan_many_dft_r2c ==========
+function fftwf_plan_many_dft_r2c(rank: int32; n: pint32; howmany: int32; in_: PSingle; inembed: pint32; istride: int32; idist: int32; out_: Pfftwf_complex; onembed: pint32; ostride: int32; odist: int32; flags: uint32): Tfftwf_plan; cdecl; external libfftw3;
+function fftw_plan_many_dft_r2c(rank: int32; n: pint32; howmany: int32; in_: PDouble; inembed: pint32; istride: int32; idist: int32; out_: Pfftw_complex; onembed: pint32; ostride: int32; odist: int32; flags: uint32): Tfftw_plan; cdecl; external libfftw3;
+function fftwl_plan_many_dft_r2c(rank: int32; n: pint32; howmany: int32; in_: Plongdouble; inembed: pint32; istride: int32; idist: int32; out_: Pfftwl_complex; onembed: pint32; ostride: int32; odist: int32; flags: uint32): Tfftwl_plan; cdecl; external libfftw3;
+function fftwq_plan_many_dft_r2c(rank: int32; n: pint32; howmany: int32; in_: PFloat128; inembed: pint32; istride: int32; idist: int32; out_: Pfftwq_complex; onembed: pint32; ostride: int32; odist: int32; flags: uint32): Tfftwq_plan; cdecl; external libfftw3;
 
- }
+// ========== plan_dft_r2c ==========
+function fftwf_plan_dft_r2c(rank: int32; n: pint32; in_: PSingle; out_: Pfftwf_complex; flags: uint32): Tfftwf_plan; cdecl; external libfftw3;
+function fftw_plan_dft_r2c(rank: int32; n: pint32; in_: PDouble; out_: Pfftw_complex; flags: uint32): Tfftw_plan; cdecl; external libfftw3;
+function fftwl_plan_dft_r2c(rank: int32; n: pint32; in_: Plongdouble; out_: Pfftwl_complex; flags: uint32): Tfftwl_plan; cdecl; external libfftw3;
+function fftwq_plan_dft_r2c(rank: int32; n: pint32; in_: PFloat128; out_: Pfftwq_complex; flags: uint32): Tfftwq_plan; cdecl; external libfftw3;
+
+// ========== plan_dft_r2c_1d ==========
+function fftwf_plan_dft_r2c_1d(n: int32; in_: PSingle; out_: Pfftwf_complex; flags: uint32): Tfftwf_plan; cdecl; external libfftw3;
+function fftw_plan_dft_r2c_1d(n: int32; in_: PDouble; out_: Pfftw_complex; flags: uint32): Tfftw_plan; cdecl; external libfftw3;
+function fftwl_plan_dft_r2c_1d(n: int32; in_: Plongdouble; out_: Pfftwl_complex; flags: uint32): Tfftwl_plan; cdecl; external libfftw3;
+function fftwq_plan_dft_r2c_1d(n: int32; in_: PFloat128; out_: Pfftwq_complex; flags: uint32): Tfftwq_plan; cdecl; external libfftw3;
+
+// ========== plan_dft_r2c_2d ==========
+function fftwf_plan_dft_r2c_2d(n0: int32; n1: int32; in_: PSingle; out_: Pfftwf_complex; flags: uint32): Tfftwf_plan; cdecl; external libfftw3;
+function fftw_plan_dft_r2c_2d(n0: int32; n1: int32; in_: PDouble; out_: Pfftw_complex; flags: uint32): Tfftw_plan; cdecl; external libfftw3;
+function fftwl_plan_dft_r2c_2d(n0: int32; n1: int32; in_: Plongdouble; out_: Pfftwl_complex; flags: uint32): Tfftwl_plan; cdecl; external libfftw3;
+function fftwq_plan_dft_r2c_2d(n0: int32; n1: int32; in_: PFloat128; out_: Pfftwq_complex; flags: uint32): Tfftwq_plan; cdecl; external libfftw3;
+
+// ========== plan_dft_r2c_3d ==========
+function fftwf_plan_dft_r2c_3d(n0: int32; n1: int32; n2: int32; in_: PSingle; out_: Pfftwf_complex; flags: uint32): Tfftwf_plan; cdecl; external libfftw3;
+function fftw_plan_dft_r2c_3d(n0: int32; n1: int32; n2: int32; in_: PDouble; out_: Pfftw_complex; flags: uint32): Tfftw_plan; cdecl; external libfftw3;
+function fftwl_plan_dft_r2c_3d(n0: int32; n1: int32; n2: int32; in_: Plongdouble; out_: Pfftwl_complex; flags: uint32): Tfftwl_plan; cdecl; external libfftw3;
+function fftwq_plan_dft_r2c_3d(n0: int32; n1: int32; n2: int32; in_: PFloat128; out_: Pfftwq_complex; flags: uint32): Tfftwq_plan; cdecl; external libfftw3;
+
+// ========== plan_many_dft_c2r ==========
+function fftwf_plan_many_dft_c2r(rank: int32; n: pint32; howmany: int32; in_: Pfftwf_complex; inembed: pint32; istride: int32; idist: int32; out_: PSingle; onembed: pint32; ostride: int32; odist: int32; flags: uint32): Tfftwf_plan; cdecl; external libfftw3;
+function fftw_plan_many_dft_c2r(rank: int32; n: pint32; howmany: int32; in_: Pfftw_complex; inembed: pint32; istride: int32; idist: int32; out_: PDouble; onembed: pint32; ostride: int32; odist: int32; flags: uint32): Tfftw_plan; cdecl; external libfftw3;
+function fftwl_plan_many_dft_c2r(rank: int32; n: pint32; howmany: int32; in_: Pfftwl_complex; inembed: pint32; istride: int32; idist: int32; out_: Plongdouble; onembed: pint32; ostride: int32; odist: int32; flags: uint32): Tfftwl_plan; cdecl; external libfftw3;
+function fftwq_plan_many_dft_c2r(rank: int32; n: pint32; howmany: int32; in_: Pfftwq_complex; inembed: pint32; istride: int32; idist: int32; out_: PFloat128; onembed: pint32; ostride: int32; odist: int32; flags: uint32): Tfftwq_plan; cdecl; external libfftw3;
+
+// ========== plan_dft_c2r ==========
+function fftwf_plan_dft_c2r(rank: int32; n: pint32; in_: Pfftwf_complex; out_: PSingle; flags: uint32): Tfftwf_plan; cdecl; external libfftw3;
+function fftw_plan_dft_c2r(rank: int32; n: pint32; in_: Pfftw_complex; out_: PDouble; flags: uint32): Tfftw_plan; cdecl; external libfftw3;
+function fftwl_plan_dft_c2r(rank: int32; n: pint32; in_: Pfftwl_complex; out_: Plongdouble; flags: uint32): Tfftwl_plan; cdecl; external libfftw3;
+function fftwq_plan_dft_c2r(rank: int32; n: pint32; in_: Pfftwq_complex; out_: PFloat128; flags: uint32): Tfftwq_plan; cdecl; external libfftw3;
+
+// ========== plan_dft_c2r_1d ==========
+function fftwf_plan_dft_c2r_1d(n: int32; in_: Pfftwf_complex; out_: PSingle; flags: uint32): Tfftwf_plan; cdecl; external libfftw3;
+function fftw_plan_dft_c2r_1d(n: int32; in_: Pfftw_complex; out_: PDouble; flags: uint32): Tfftw_plan; cdecl; external libfftw3;
+function fftwl_plan_dft_c2r_1d(n: int32; in_: Pfftwl_complex; out_: Plongdouble; flags: uint32): Tfftwl_plan; cdecl; external libfftw3;
+function fftwq_plan_dft_c2r_1d(n: int32; in_: Pfftwq_complex; out_: PFloat128; flags: uint32): Tfftwq_plan; cdecl; external libfftw3;
+
+// ========== plan_dft_c2r_2d ==========
+function fftwf_plan_dft_c2r_2d(n0: int32; n1: int32; in_: Pfftwf_complex; out_: PSingle; flags: uint32): Tfftwf_plan; cdecl; external libfftw3;
+function fftw_plan_dft_c2r_2d(n0: int32; n1: int32; in_: Pfftw_complex; out_: PDouble; flags: uint32): Tfftw_plan; cdecl; external libfftw3;
+function fftwl_plan_dft_c2r_2d(n0: int32; n1: int32; in_: Pfftwl_complex; out_: Plongdouble; flags: uint32): Tfftwl_plan; cdecl; external libfftw3;
+function fftwq_plan_dft_c2r_2d(n0: int32; n1: int32; in_: Pfftwq_complex; out_: PFloat128; flags: uint32): Tfftwq_plan; cdecl; external libfftw3;
+
+// ========== plan_dft_c2r_3d ==========
+function fftwf_plan_dft_c2r_3d(n0: int32; n1: int32; n2: int32; in_: Pfftwf_complex; out_: PSingle; flags: uint32): Tfftwf_plan; cdecl; external libfftw3;
+function fftw_plan_dft_c2r_3d(n0: int32; n1: int32; n2: int32; in_: Pfftw_complex; out_: PDouble; flags: uint32): Tfftw_plan; cdecl; external libfftw3;
+function fftwl_plan_dft_c2r_3d(n0: int32; n1: int32; n2: int32; in_: Pfftwl_complex; out_: Plongdouble; flags: uint32): Tfftwl_plan; cdecl; external libfftw3;
+function fftwq_plan_dft_c2r_3d(n0: int32; n1: int32; n2: int32; in_: Pfftwq_complex; out_: PFloat128; flags: uint32): Tfftwq_plan; cdecl; external libfftw3;
+
+// ========== plan_guru_dft_r2c ==========
+function fftwf_plan_guru_dft_r2c(rank: int32; dims: Pfftwf_iodim; howmany_rank: int32; howmany_dims: Pfftwf_iodim; in_: PSingle; out_: Pfftwf_complex; flags: uint32): Tfftwf_plan; cdecl; external libfftw3;
+function fftw_plan_guru_dft_r2c(rank: int32; dims: Pfftw_iodim; howmany_rank: int32; howmany_dims: Pfftw_iodim; in_: PDouble; out_: Pfftw_complex; flags: uint32): Tfftw_plan; cdecl; external libfftw3;
+function fftwl_plan_guru_dft_r2c(rank: int32; dims: Pfftwl_iodim; howmany_rank: int32; howmany_dims: Pfftwl_iodim; in_: Plongdouble; out_: Pfftwl_complex; flags: uint32): Tfftwl_plan; cdecl; external libfftw3;
+function fftwq_plan_guru_dft_r2c(rank: int32; dims: Pfftwq_iodim; howmany_rank: int32; howmany_dims: Pfftwq_iodim; in_: PFloat128; out_: Pfftwq_complex; flags: uint32): Tfftwq_plan; cdecl; external libfftw3;
+
+// ========== plan_guru_dft_c2r ==========
+function fftwf_plan_guru_dft_c2r(rank: int32; dims: Pfftwf_iodim; howmany_rank: int32; howmany_dims: Pfftwf_iodim; in_: Pfftwf_complex; out_: PSingle; flags: uint32): Tfftwf_plan; cdecl; external libfftw3;
+function fftw_plan_guru_dft_c2r(rank: int32; dims: Pfftw_iodim; howmany_rank: int32; howmany_dims: Pfftw_iodim; in_: Pfftw_complex; out_: PDouble; flags: uint32): Tfftw_plan; cdecl; external libfftw3;
+function fftwl_plan_guru_dft_c2r(rank: int32; dims: Pfftwl_iodim; howmany_rank: int32; howmany_dims: Pfftwl_iodim; in_: Pfftwl_complex; out_: Plongdouble; flags: uint32): Tfftwl_plan; cdecl; external libfftw3;
+function fftwq_plan_guru_dft_c2r(rank: int32; dims: Pfftwq_iodim; howmany_rank: int32; howmany_dims: Pfftwq_iodim; in_: Pfftwq_complex; out_: PFloat128; flags: uint32): Tfftwq_plan; cdecl; external libfftw3;
+
+// ========== plan_guru_split_dft_r2c ==========
+function fftwf_plan_guru_split_dft_r2c(rank: int32; dims: Pfftwf_iodim; howmany_rank: int32; howmany_dims: Pfftwf_iodim; in_: PSingle; ro: PSingle; io: PSingle; flags: uint32): Tfftwf_plan; cdecl; external libfftw3;
+function fftw_plan_guru_split_dft_r2c(rank: int32; dims: Pfftw_iodim; howmany_rank: int32; howmany_dims: Pfftw_iodim; in_: PDouble; ro: PDouble; io: PDouble; flags: uint32): Tfftw_plan; cdecl; external libfftw3;
+function fftwl_plan_guru_split_dft_r2c(rank: int32; dims: Pfftwl_iodim; howmany_rank: int32; howmany_dims: Pfftwl_iodim; in_: Plongdouble; ro: Plongdouble; io: Plongdouble; flags: uint32): Tfftwl_plan; cdecl; external libfftw3;
+function fftwq_plan_guru_split_dft_r2c(rank: int32; dims: Pfftwq_iodim; howmany_rank: int32; howmany_dims: Pfftwq_iodim; in_: PFloat128; ro: PFloat128; io: PFloat128; flags: uint32): Tfftwq_plan; cdecl; external libfftw3;
+
+// ========== plan_guru_split_dft_c2r ==========
+function fftwf_plan_guru_split_dft_c2r(rank: int32; dims: Pfftwf_iodim; howmany_rank: int32; howmany_dims: Pfftwf_iodim; ri: PSingle; ii: PSingle; out_: PSingle; flags: uint32): Tfftwf_plan; cdecl; external libfftw3;
+function fftw_plan_guru_split_dft_c2r(rank: int32; dims: Pfftw_iodim; howmany_rank: int32; howmany_dims: Pfftw_iodim; ri: PDouble; ii: PDouble; out_: PDouble; flags: uint32): Tfftw_plan; cdecl; external libfftw3;
+function fftwl_plan_guru_split_dft_c2r(rank: int32; dims: Pfftwl_iodim; howmany_rank: int32; howmany_dims: Pfftwl_iodim; ri: Plongdouble; ii: Plongdouble; out_: Plongdouble; flags: uint32): Tfftwl_plan; cdecl; external libfftw3;
+function fftwq_plan_guru_split_dft_c2r(rank: int32; dims: Pfftwq_iodim; howmany_rank: int32; howmany_dims: Pfftwq_iodim; ri: PFloat128; ii: PFloat128; out_: PFloat128; flags: uint32): Tfftwq_plan; cdecl; external libfftw3;
+
+// ========== plan_guru64_dft_r2c ==========
+function fftwf_plan_guru64_dft_r2c(rank: int32; dims: PTfftwf_iodim64; howmany_rank: int32; howmany_dims: PTfftwf_iodim64; in_: PSingle; out_: Pfftwf_complex; flags: uint32): Tfftwf_plan; cdecl; external libfftw3;
+function fftw_plan_guru64_dft_r2c(rank: int32; dims: PTfftw_iodim64; howmany_rank: int32; howmany_dims: PTfftw_iodim64; in_: PDouble; out_: Pfftw_complex; flags: uint32): Tfftw_plan; cdecl; external libfftw3;
+function fftwl_plan_guru64_dft_r2c(rank: int32; dims: PTfftwl_iodim64; howmany_rank: int32; howmany_dims: PTfftwl_iodim64; in_: Plongdouble; out_: Pfftwl_complex; flags: uint32): Tfftwl_plan; cdecl; external libfftw3;
+function fftwq_plan_guru64_dft_r2c(rank: int32; dims: PTfftwq_iodim64; howmany_rank: int32; howmany_dims: PTfftwq_iodim64; in_: PFloat128; out_: Pfftwq_complex; flags: uint32): Tfftwq_plan; cdecl; external libfftw3;
+
+// ========== plan_guru64_dft_c2r ==========
+function fftwf_plan_guru64_dft_c2r(rank: int32; dims: PTfftwf_iodim64; howmany_rank: int32; howmany_dims: PTfftwf_iodim64; in_: Pfftwf_complex; out_: PSingle; flags: uint32): Tfftwf_plan; cdecl; external libfftw3;
+function fftw_plan_guru64_dft_c2r(rank: int32; dims: PTfftw_iodim64; howmany_rank: int32; howmany_dims: PTfftw_iodim64; in_: Pfftw_complex; out_: PDouble; flags: uint32): Tfftw_plan; cdecl; external libfftw3;
+function fftwl_plan_guru64_dft_c2r(rank: int32; dims: PTfftwl_iodim64; howmany_rank: int32; howmany_dims: PTfftwl_iodim64; in_: Pfftwl_complex; out_: Plongdouble; flags: uint32): Tfftwl_plan; cdecl; external libfftw3;
+function fftwq_plan_guru64_dft_c2r(rank: int32; dims: PTfftwq_iodim64; howmany_rank: int32; howmany_dims: PTfftwq_iodim64; in_: Pfftwq_complex; out_: PFloat128; flags: uint32): Tfftwq_plan; cdecl; external libfftw3;
+
+// ========== plan_guru64_split_dft_r2c ==========
+function fftwf_plan_guru64_split_dft_r2c(rank: int32; dims: PTfftwf_iodim64; howmany_rank: int32; howmany_dims: PTfftwf_iodim64; in_: PSingle; ro: PSingle; io: PSingle; flags: uint32): Tfftwf_plan; cdecl; external libfftw3;
+function fftw_plan_guru64_split_dft_r2c(rank: int32; dims: PTfftw_iodim64; howmany_rank: int32; howmany_dims: PTfftw_iodim64; in_: PDouble; ro: PDouble; io: PDouble; flags: uint32): Tfftw_plan; cdecl; external libfftw3;
+function fftwl_plan_guru64_split_dft_r2c(rank: int32; dims: PTfftwl_iodim64; howmany_rank: int32; howmany_dims: PTfftwl_iodim64; in_: Plongdouble; ro: Plongdouble; io: Plongdouble; flags: uint32): Tfftwl_plan; cdecl; external libfftw3;
+function fftwq_plan_guru64_split_dft_r2c(rank: int32; dims: PTfftwq_iodim64; howmany_rank: int32; howmany_dims: PTfftwq_iodim64; in_: PFloat128; ro: PFloat128; io: PFloat128; flags: uint32): Tfftwq_plan; cdecl; external libfftw3;
+
+// ========== plan_guru64_split_dft_c2r ==========
+function fftwf_plan_guru64_split_dft_c2r(rank: int32; dims: PTfftwf_iodim64; howmany_rank: int32; howmany_dims: PTfftwf_iodim64; ri: PSingle; ii: PSingle; out_: PSingle; flags: uint32): Tfftwf_plan; cdecl; external libfftw3;
+function fftw_plan_guru64_split_dft_c2r(rank: int32; dims: PTfftw_iodim64; howmany_rank: int32; howmany_dims: PTfftw_iodim64; ri: PDouble; ii: PDouble; out_: PDouble; flags: uint32): Tfftw_plan; cdecl; external libfftw3;
+function fftwl_plan_guru64_split_dft_c2r(rank: int32; dims: PTfftwl_iodim64; howmany_rank: int32; howmany_dims: PTfftwl_iodim64; ri: Plongdouble; ii: Plongdouble; out_: Plongdouble; flags: uint32): Tfftwl_plan; cdecl; external libfftw3;
+function fftwq_plan_guru64_split_dft_c2r(rank: int32; dims: PTfftwq_iodim64; howmany_rank: int32; howmany_dims: PTfftwq_iodim64; ri: PFloat128; ii: PFloat128; out_: PFloat128; flags: uint32): Tfftwq_plan; cdecl; external libfftw3;
+
+// ========== execute_dft_r2c ==========
+procedure fftwf_execute_dft_r2c(p: Tfftwf_plan; in_: PSingle; out_: Pfftwf_complex); cdecl; external libfftw3;
+procedure fftw_execute_dft_r2c(p: Tfftw_plan; in_: PDouble; out_: Pfftw_complex); cdecl; external libfftw3;
+procedure fftwl_execute_dft_r2c(p: Tfftwl_plan; in_: Plongdouble; out_: Pfftwl_complex); cdecl; external libfftw3;
+procedure fftwq_execute_dft_r2c(p: Tfftwq_plan; in_: PFloat128; out_: Pfftwq_complex); cdecl; external libfftw3;
+
+// ========== execute_dft_c2r ==========
+procedure fftwf_execute_dft_c2r(p: Tfftwf_plan; in_: Pfftwf_complex; out_: PSingle); cdecl; external libfftw3;
+procedure fftw_execute_dft_c2r(p: Tfftw_plan; in_: Pfftw_complex; out_: PDouble); cdecl; external libfftw3;
+procedure fftwl_execute_dft_c2r(p: Tfftwl_plan; in_: Pfftwl_complex; out_: Plongdouble); cdecl; external libfftw3;
+procedure fftwq_execute_dft_c2r(p: Tfftwq_plan; in_: Pfftwq_complex; out_: PFloat128); cdecl; external libfftw3;
+
+// ========== execute_split_dft_r2c ==========
+procedure fftwf_execute_split_dft_r2c(p: Tfftwf_plan; in_: PSingle; ro: PSingle; io: PSingle); cdecl; external libfftw3;
+procedure fftw_execute_split_dft_r2c(p: Tfftw_plan; in_: PDouble; ro: PDouble; io: PDouble); cdecl; external libfftw3;
+procedure fftwl_execute_split_dft_r2c(p: Tfftwl_plan; in_: Plongdouble; ro: Plongdouble; io: Plongdouble); cdecl; external libfftw3;
+procedure fftwq_execute_split_dft_r2c(p: Tfftwq_plan; in_: PFloat128; ro: PFloat128; io: PFloat128); cdecl; external libfftw3;
+
+// ========== execute_split_dft_c2r ==========
+procedure fftwf_execute_split_dft_c2r(p: Tfftwf_plan; ri: PSingle; ii: PSingle; out_: PSingle); cdecl; external libfftw3;
+procedure fftw_execute_split_dft_c2r(p: Tfftw_plan; ri: PDouble; ii: PDouble; out_: PDouble); cdecl; external libfftw3;
+procedure fftwl_execute_split_dft_c2r(p: Tfftwl_plan; ri: Plongdouble; ii: Plongdouble; out_: Plongdouble); cdecl; external libfftw3;
+procedure fftwq_execute_split_dft_c2r(p: Tfftwq_plan; ri: PFloat128; ii: PFloat128; out_: PFloat128); cdecl; external libfftw3;
+
+// ========== plan_many_r2r ==========
+function fftwf_plan_many_r2r(rank: int32; n: pint32; howmany: int32; in_: PSingle; inembed: pint32; istride: int32; idist: int32; out_: PSingle; onembed: pint32; ostride: int32; odist: int32; kind: Pfftwf_r2r_kind; flags: uint32): Tfftwf_plan; cdecl; external libfftw3;
+function fftw_plan_many_r2r(rank: int32; n: pint32; howmany: int32; in_: PDouble; inembed: pint32; istride: int32; idist: int32; out_: PDouble; onembed: pint32; ostride: int32; odist: int32; kind: Pfftw_r2r_kind; flags: uint32): Tfftw_plan; cdecl; external libfftw3;
+function fftwl_plan_many_r2r(rank: int32; n: pint32; howmany: int32; in_: Plongdouble; inembed: pint32; istride: int32; idist: int32; out_: Plongdouble; onembed: pint32; ostride: int32; odist: int32; kind: Pfftwl_r2r_kind; flags: uint32): Tfftwl_plan; cdecl; external libfftw3;
+function fftwq_plan_many_r2r(rank: int32; n: pint32; howmany: int32; in_: PFloat128; inembed: pint32; istride: int32; idist: int32; out_: PFloat128; onembed: pint32; ostride: int32; odist: int32; kind: Pfftwq_r2r_kind; flags: uint32): Tfftwq_plan; cdecl; external libfftw3;
+
+// ========== plan_r2r ==========
+function fftwf_plan_r2r(rank: int32; n: pint32; in_: PSingle; out_: PSingle; kind: Pfftwf_r2r_kind; flags: uint32): Tfftwf_plan; cdecl; external libfftw3;
+function fftw_plan_r2r(rank: int32; n: pint32; in_: PDouble; out_: PDouble; kind: Pfftw_r2r_kind; flags: uint32): Tfftw_plan; cdecl; external libfftw3;
+function fftwl_plan_r2r(rank: int32; n: pint32; in_: Plongdouble; out_: Plongdouble; kind: Pfftwl_r2r_kind; flags: uint32): Tfftwl_plan; cdecl; external libfftw3;
+function fftwq_plan_r2r(rank: int32; n: pint32; in_: PFloat128; out_: PFloat128; kind: Pfftwq_r2r_kind; flags: uint32): Tfftwq_plan; cdecl; external libfftw3;
+
+// ========== plan_r2r_1d ==========
+function fftwf_plan_r2r_1d(n: int32; in_: PSingle; out_: PSingle; kind: Tfftwf_r2r_kind; flags: uint32): Tfftwf_plan; cdecl; external libfftw3;
+function fftw_plan_r2r_1d(n: int32; in_: PDouble; out_: PDouble; kind: Tfftw_r2r_kind; flags: uint32): Tfftw_plan; cdecl; external libfftw3;
+function fftwl_plan_r2r_1d(n: int32; in_: Plongdouble; out_: Plongdouble; kind: Tfftwl_r2r_kind; flags: uint32): Tfftwl_plan; cdecl; external libfftw3;
+function fftwq_plan_r2r_1d(n: int32; in_: PFloat128; out_: PFloat128; kind: Tfftwq_r2r_kind; flags: uint32): Tfftwq_plan; cdecl; external libfftw3;
+
+// ========== plan_r2r_2d ==========
+function fftwf_plan_r2r_2d(n0: int32; n1: int32; in_: PSingle; out_: PSingle; kind0: Tfftwf_r2r_kind; kind1: Tfftwf_r2r_kind; flags: uint32): Tfftwf_plan; cdecl; external libfftw3;
+function fftw_plan_r2r_2d(n0: int32; n1: int32; in_: PDouble; out_: PDouble; kind0: Tfftw_r2r_kind; kind1: Tfftw_r2r_kind; flags: uint32): Tfftw_plan; cdecl; external libfftw3;
+function fftwl_plan_r2r_2d(n0: int32; n1: int32; in_: Plongdouble; out_: Plongdouble; kind0: Tfftwl_r2r_kind; kind1: Tfftwl_r2r_kind; flags: uint32): Tfftwl_plan; cdecl; external libfftw3;
+function fftwq_plan_r2r_2d(n0: int32; n1: int32; in_: PFloat128; out_: PFloat128; kind0: Tfftwq_r2r_kind; kind1: Tfftwq_r2r_kind; flags: uint32): Tfftwq_plan; cdecl; external libfftw3;
+
+// ========== plan_r2r_3d ==========
+function fftwf_plan_r2r_3d(n0: int32; n1: int32; n2: int32; in_: PSingle; out_: PSingle; kind0: Tfftwf_r2r_kind; kind1: Tfftwf_r2r_kind; kind2: Tfftwf_r2r_kind; flags: uint32): Tfftwf_plan; cdecl; external libfftw3;
+function fftw_plan_r2r_3d(n0: int32; n1: int32; n2: int32; in_: PDouble; out_: PDouble; kind0: Tfftw_r2r_kind; kind1: Tfftw_r2r_kind; kind2: Tfftw_r2r_kind; flags: uint32): Tfftw_plan; cdecl; external libfftw3;
+function fftwl_plan_r2r_3d(n0: int32; n1: int32; n2: int32; in_: Plongdouble; out_: Plongdouble; kind0: Tfftwl_r2r_kind; kind1: Tfftwl_r2r_kind; kind2: Tfftwl_r2r_kind; flags: uint32): Tfftwl_plan; cdecl; external libfftw3;
+function fftwq_plan_r2r_3d(n0: int32; n1: int32; n2: int32; in_: PFloat128; out_: PFloat128; kind0: Tfftwq_r2r_kind; kind1: Tfftwq_r2r_kind; kind2: Tfftwq_r2r_kind; flags: uint32): Tfftwq_plan; cdecl; external libfftw3;
+
+// ========== plan_guru_r2r ==========
+function fftwf_plan_guru_r2r(rank: int32; dims: Pfftwf_iodim; howmany_rank: int32; howmany_dims: Pfftwf_iodim; in_: PSingle; out_: PSingle; kind: Pfftwf_r2r_kind; flags: uint32): Tfftwf_plan; cdecl; external libfftw3;
+function fftw_plan_guru_r2r(rank: int32; dims: Pfftw_iodim; howmany_rank: int32; howmany_dims: Pfftw_iodim; in_: PDouble; out_: PDouble; kind: Pfftw_r2r_kind; flags: uint32): Tfftw_plan; cdecl; external libfftw3;
+function fftwl_plan_guru_r2r(rank: int32; dims: Pfftwl_iodim; howmany_rank: int32; howmany_dims: Pfftwl_iodim; in_: Plongdouble; out_: Plongdouble; kind: Pfftwl_r2r_kind; flags: uint32): Tfftwl_plan; cdecl; external libfftw3;
+function fftwq_plan_guru_r2r(rank: int32; dims: Pfftwq_iodim; howmany_rank: int32; howmany_dims: Pfftwq_iodim; in_: PFloat128; out_: PFloat128; kind: Pfftwq_r2r_kind; flags: uint32): Tfftwq_plan; cdecl; external libfftw3;
+
+// ========== plan_guru64_r2r ==========
+function fftwf_plan_guru64_r2r(rank: int32; dims: PTfftwf_iodim64; howmany_rank: int32; howmany_dims: PTfftwf_iodim64; in_: PSingle; out_: PSingle; kind: Pfftwf_r2r_kind; flags: uint32): Tfftwf_plan; cdecl; external libfftw3;
+function fftw_plan_guru64_r2r(rank: int32; dims: PTfftw_iodim64; howmany_rank: int32; howmany_dims: PTfftw_iodim64; in_: PDouble; out_: PDouble; kind: Pfftw_r2r_kind; flags: uint32): Tfftw_plan; cdecl; external libfftw3;
+function fftwl_plan_guru64_r2r(rank: int32; dims: PTfftwl_iodim64; howmany_rank: int32; howmany_dims: PTfftwl_iodim64; in_: Plongdouble; out_: Plongdouble; kind: Pfftwl_r2r_kind; flags: uint32): Tfftwl_plan; cdecl; external libfftw3;
+function fftwq_plan_guru64_r2r(rank: int32; dims: PTfftwq_iodim64; howmany_rank: int32; howmany_dims: PTfftwq_iodim64; in_: PFloat128; out_: PFloat128; kind: Pfftwq_r2r_kind; flags: uint32): Tfftwq_plan; cdecl; external libfftw3;
+
+// ========== execute_r2r ==========
+procedure fftwf_execute_r2r(p: Tfftwf_plan; in_: PSingle; out_: PSingle); cdecl; external libfftw3;
+procedure fftw_execute_r2r(p: Tfftw_plan; in_: PDouble; out_: PDouble); cdecl; external libfftw3;
+procedure fftwl_execute_r2r(p: Tfftwl_plan; in_: Plongdouble; out_: Plongdouble); cdecl; external libfftw3;
+procedure fftwq_execute_r2r(p: Tfftwq_plan; in_: PFloat128; out_: PFloat128); cdecl; external libfftw3;
+
+// ========== destroy_plan ==========
+procedure fftwf_destroy_plan(p: Tfftwf_plan); cdecl; external libfftw3;
+procedure fftw_destroy_plan(p: Tfftw_plan); cdecl; external libfftw3;
+procedure fftwl_destroy_plan(p: Tfftwl_plan); cdecl; external libfftw3;
+procedure fftwq_destroy_plan(p: Tfftwq_plan); cdecl; external libfftw3;
+
+// ========== forget_wisdom ==========
+procedure fftwf_forget_wisdom; cdecl; external libfftw3;
+procedure fftw_forget_wisdom; cdecl; external libfftw3;
+procedure fftwl_forget_wisdom; cdecl; external libfftw3;
+procedure fftwq_forget_wisdom; cdecl; external libfftw3;
+
+// ========== cleanup ==========
+procedure fftwf_cleanup; cdecl; external libfftw3;
+procedure fftw_cleanup; cdecl; external libfftw3;
+procedure fftwl_cleanup; cdecl; external libfftw3;
+procedure fftwq_cleanup; cdecl; external libfftw3;
+
+// ========== set_timelimit ==========
+procedure fftwf_set_timelimit(t: double); cdecl; external libfftw3;
+procedure fftw_set_timelimit(t: double); cdecl; external libfftw3;
+procedure fftwl_set_timelimit(t: double); cdecl; external libfftw3;
+procedure fftwq_set_timelimit(t: double); cdecl; external libfftw3;
+
+// ========== plan_with_nthreads ==========
+procedure fftwf_plan_with_nthreads(nthreads: int32); cdecl; external libfftw3;
+procedure fftw_plan_with_nthreads(nthreads: int32); cdecl; external libfftw3;
+procedure fftwl_plan_with_nthreads(nthreads: int32); cdecl; external libfftw3;
+procedure fftwq_plan_with_nthreads(nthreads: int32); cdecl; external libfftw3;
+
+// ========== planner_nthreads ==========
+function fftwf_planner_nthreads: int32; cdecl; external libfftw3;
+function fftw_planner_nthreads: int32; cdecl; external libfftw3;
+function fftwl_planner_nthreads: int32; cdecl; external libfftw3;
+function fftwq_planner_nthreads: int32; cdecl; external libfftw3;
+
+// ========== init_threads ==========
+function fftwf_init_threads: int32; cdecl; external libfftw3;
+function fftw_init_threads: int32; cdecl; external libfftw3;
+function fftwl_init_threads: int32; cdecl; external libfftw3;
+function fftwq_init_threads: int32; cdecl; external libfftw3;
+
+// ========== cleanup_threads ==========
+procedure fftwf_cleanup_threads; cdecl; external libfftw3;
+procedure fftw_cleanup_threads; cdecl; external libfftw3;
+procedure fftwl_cleanup_threads; cdecl; external libfftw3;
+procedure fftwq_cleanup_threads; cdecl; external libfftw3;
+
+// ========== threads_set_callback ==========
+type
+  Tfftw_threads_work_func = function(p: pchar): Pointer; cdecl;
+  Tfftw_threads_parallel_loop_func = procedure(work: Tfftw_threads_work_func; jobdata: pchar; elsize: Ptruint; njobs: int32; data: Pointer); cdecl;
+
+procedure fftwf_threads_set_callback(parallel_loop: Tfftw_threads_parallel_loop_func; data: Pointer); cdecl; external libfftw3;
+procedure fftw_threads_set_callback(parallel_loop: Tfftw_threads_parallel_loop_func; data: Pointer); cdecl; external libfftw3;
+procedure fftwl_threads_set_callback(parallel_loop: Tfftw_threads_parallel_loop_func; data: Pointer); cdecl; external libfftw3;
+procedure fftwq_threads_set_callback(parallel_loop: Tfftw_threads_parallel_loop_func; data: Pointer); cdecl; external libfftw3;
+
+// ========== make_planner_thread_safe ==========
+procedure fftwf_make_planner_thread_safe; cdecl; external libfftw3;
+procedure fftw_make_planner_thread_safe; cdecl; external libfftw3;
+procedure fftwl_make_planner_thread_safe; cdecl; external libfftw3;
+procedure fftwq_make_planner_thread_safe; cdecl; external libfftw3;
+
+// ========== export_wisdom_to_filename ==========
+function fftwf_export_wisdom_to_filename(filename: pansichar): int32; cdecl; external libfftw3;
+function fftw_export_wisdom_to_filename(filename: pansichar): int32; cdecl; external libfftw3;
+function fftwl_export_wisdom_to_filename(filename: pansichar): int32; cdecl; external libfftw3;
+function fftwq_export_wisdom_to_filename(filename: pansichar): int32; cdecl; external libfftw3;
+
+// ========== export_wisdom_to_file ==========
+procedure fftwf_export_wisdom_to_file(output_file: Pointer); cdecl; external libfftw3;
+procedure fftw_export_wisdom_to_file(output_file: Pointer); cdecl; external libfftw3;
+procedure fftwl_export_wisdom_to_file(output_file: Pointer); cdecl; external libfftw3;
+procedure fftwq_export_wisdom_to_file(output_file: Pointer); cdecl; external libfftw3;
+
+// ========== export_wisdom_to_string ==========
+function fftwf_export_wisdom_to_string: pansichar; cdecl; external libfftw3;
+function fftw_export_wisdom_to_string: pansichar; cdecl; external libfftw3;
+function fftwl_export_wisdom_to_string: pansichar; cdecl; external libfftw3;
+function fftwq_export_wisdom_to_string: pansichar; cdecl; external libfftw3;
+
+// ========== export_wisdom ==========
+procedure fftwf_export_wisdom(write_char: fftwf_write_char_func; data: Pointer); cdecl; external libfftw3;
+procedure fftw_export_wisdom(write_char: fftw_write_char_func; data: Pointer); cdecl; external libfftw3;
+procedure fftwl_export_wisdom(write_char: fftwl_write_char_func; data: Pointer); cdecl; external libfftw3;
+procedure fftwq_export_wisdom(write_char: fftwq_write_char_func; data: Pointer); cdecl; external libfftw3;
+
+// ========== import_system_wisdom ==========
+function fftwf_import_system_wisdom: int32; cdecl; external libfftw3;
+function fftw_import_system_wisdom: int32; cdecl; external libfftw3;
+function fftwl_import_system_wisdom: int32; cdecl; external libfftw3;
+function fftwq_import_system_wisdom: int32; cdecl; external libfftw3;
+
+// ========== import_wisdom_from_filename ==========
+function fftwf_import_wisdom_from_filename(filename: pansichar): int32; cdecl; external libfftw3;
+function fftw_import_wisdom_from_filename(filename: pansichar): int32; cdecl; external libfftw3;
+function fftwl_import_wisdom_from_filename(filename: pansichar): int32; cdecl; external libfftw3;
+function fftwq_import_wisdom_from_filename(filename: pansichar): int32; cdecl; external libfftw3;
+
+// ========== import_wisdom_from_file ==========
+function fftwf_import_wisdom_from_file(input_file: Pointer): int32; cdecl; external libfftw3;
+function fftw_import_wisdom_from_file(input_file: Pointer): int32; cdecl; external libfftw3;
+function fftwl_import_wisdom_from_file(input_file: Pointer): int32; cdecl; external libfftw3;
+function fftwq_import_wisdom_from_file(input_file: Pointer): int32; cdecl; external libfftw3;
+
+// ========== import_wisdom_from_string ==========
+function fftwf_import_wisdom_from_string(input_string: pansichar): int32; cdecl; external libfftw3;
+function fftw_import_wisdom_from_string(input_string: pansichar): int32; cdecl; external libfftw3;
+function fftwl_import_wisdom_from_string(input_string: pansichar): int32; cdecl; external libfftw3;
+function fftwq_import_wisdom_from_string(input_string: pansichar): int32; cdecl; external libfftw3;
+
+// ========== import_wisdom ==========
+function fftwf_import_wisdom(read_char: fftwf_read_char_func; data: Pointer): int32; cdecl; external libfftw3;
+function fftw_import_wisdom(read_char: fftw_read_char_func; data: Pointer): int32; cdecl; external libfftw3;
+function fftwl_import_wisdom(read_char: fftwl_read_char_func; data: Pointer): int32; cdecl; external libfftw3;
+function fftwq_import_wisdom(read_char: fftwq_read_char_func; data: Pointer): int32; cdecl; external libfftw3;
+
+// ========== fprint_plan ==========
+procedure fftwf_fprint_plan(p: Tfftwf_plan; output_file: Pointer); cdecl; external libfftw3;
+procedure fftw_fprint_plan(p: Tfftw_plan; output_file: Pointer); cdecl; external libfftw3;
+procedure fftwl_fprint_plan(p: Tfftwl_plan; output_file: Pointer); cdecl; external libfftw3;
+procedure fftwq_fprint_plan(p: Tfftwq_plan; output_file: Pointer); cdecl; external libfftw3;
+
+// ========== print_plan ==========
+procedure fftwf_print_plan(p: Tfftwf_plan); cdecl; external libfftw3;
+procedure fftw_print_plan(p: Tfftw_plan); cdecl; external libfftw3;
+procedure fftwl_print_plan(p: Tfftwl_plan); cdecl; external libfftw3;
+procedure fftwq_print_plan(p: Tfftwq_plan); cdecl; external libfftw3;
+
+// ========== sprint_plan ==========
+function fftwf_sprint_plan(p: Tfftwf_plan): pansichar; cdecl; external libfftw3;
+function fftw_sprint_plan(p: Tfftw_plan): pansichar; cdecl; external libfftw3;
+function fftwl_sprint_plan(p: Tfftwl_plan): pansichar; cdecl; external libfftw3;
+function fftwq_sprint_plan(p: Tfftwq_plan): pansichar; cdecl; external libfftw3;
+
+// ========== malloc ==========
+function fftwf_malloc(n: Ptruint): Pointer; cdecl; external libfftw3;
+function fftw_malloc(n: Ptruint): Pointer; cdecl; external libfftw3;
+function fftwl_malloc(n: Ptruint): Pointer; cdecl; external libfftw3;
+function fftwq_malloc(n: Ptruint): Pointer; cdecl; external libfftw3;
+
+// ========== alloc_real ==========
+function fftwf_alloc_real(n: Ptruint): PSingle; cdecl; external libfftw3;
+function fftw_alloc_real(n: Ptruint): PDouble; cdecl; external libfftw3;
+function fftwl_alloc_real(n: Ptruint): Plongdouble; cdecl; external libfftw3;
+function fftwq_alloc_real(n: Ptruint): PFloat128; cdecl; external libfftw3;
+
+// ========== alloc_complex ==========
+function fftwf_alloc_complex(n: Ptruint): Pfftwf_complex; cdecl; external libfftw3;
+function fftw_alloc_complex(n: Ptruint): Pfftw_complex; cdecl; external libfftw3;
+function fftwl_alloc_complex(n: Ptruint): Pfftwl_complex; cdecl; external libfftw3;
+function fftwq_alloc_complex(n: Ptruint): Pfftwq_complex; cdecl; external libfftw3;
+
+// ========== free ==========
+procedure fftwf_free(p: Pointer); cdecl; external libfftw3;
+procedure fftw_free(p: Pointer); cdecl; external libfftw3;
+procedure fftwl_free(p: Pointer); cdecl; external libfftw3;
+procedure fftwq_free(p: Pointer); cdecl; external libfftw3;
+
+// ========== flops ==========
+procedure fftwf_flops(p: Tfftwf_plan; add: PDouble; mul: PDouble; fmas: PDouble); cdecl; external libfftw3;
+procedure fftw_flops(p: Tfftw_plan; add: PDouble; mul: PDouble; fmas: PDouble); cdecl; external libfftw3;
+procedure fftwl_flops(p: Tfftwl_plan; add: PDouble; mul: PDouble; fmas: PDouble); cdecl; external libfftw3;
+procedure fftwq_flops(p: Tfftwq_plan; add: PDouble; mul: PDouble; fmas: PDouble); cdecl; external libfftw3;
+
+// ========== estimate_cost ==========
+function fftwf_estimate_cost(p: Tfftwf_plan): double; cdecl; external libfftw3;
+function fftw_estimate_cost(p: Tfftw_plan): double; cdecl; external libfftw3;
+function fftwl_estimate_cost(p: Tfftwl_plan): double; cdecl; external libfftw3;
+function fftwq_estimate_cost(p: Tfftwq_plan): double; cdecl; external libfftw3;
+
+// ========== cost ==========
+function fftwf_cost(p: Tfftwf_plan): double; cdecl; external libfftw3;
+function fftw_cost(p: Tfftw_plan): double; cdecl; external libfftw3;
+function fftwl_cost(p: Tfftwl_plan): double; cdecl; external libfftw3;
+function fftwq_cost(p: Tfftwq_plan): double; cdecl; external libfftw3;
+
+// ========== alignment_of ==========
+function fftwf_alignment_of(p: PSingle): int32; cdecl; external libfftw3;
+function fftw_alignment_of(p: PDouble): int32; cdecl; external libfftw3;
+function fftwl_alignment_of(p: Plongdouble): int32; cdecl; external libfftw3;
+function fftwq_alignment_of(p: PFloat128): int32; cdecl; external libfftw3;
+
+// ========== version ==========
+var
+  fftwf_version: pansichar; cvar; external libfftw3;
+  fftw_version: pansichar; cvar; external libfftw3;
+  fftwl_version: pansichar; cvar; external libfftw3;
+  fftwq_version: pansichar; cvar; external libfftw3;
+
+  // ========== cc ==========
+  fftwf_cc: pansichar; cvar; external libfftw3;
+  fftw_cc: pansichar; cvar; external libfftw3;
+  fftwl_cc: pansichar; cvar; external libfftw3;
+  fftwq_cc: pansichar; cvar; external libfftw3;
+
+  // ========== codelet_optim ==========
+  fftwf_codelet_optim: pansichar; cvar; external libfftw3;
+  fftw_codelet_optim: pansichar; cvar; external libfftw3;
+  fftwl_codelet_optim: pansichar; cvar; external libfftw3;
+  fftwq_codelet_optim: pansichar; cvar; external libfftw3;
 
 const
   FFTW_FORWARD = -(1);
