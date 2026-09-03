@@ -5,168 +5,219 @@ interface
 uses
   fp_fftw3;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
 type
   Pfftw_mpi_ddim_do_not_use_me = ^Tfftw_mpi_ddim_do_not_use_me;
   Tfftw_mpi_ddim_do_not_use_me = record
-      n : Tptrdiff_t;
-      ib : Tptrdiff_t;
-      ob : Tptrdiff_t;
-    end;
+    n: Tptrdiff_t;
+    ib: Tptrdiff_t;
+    ob: Tptrdiff_t;
+  end;
 
-{
+type
+  // ========== ddim Aliase ==========
+  Pfftwf_mpi_ddim = Pfftw_mpi_ddim_do_not_use_me;
+  Pfftw_mpi_ddim = Pfftw_mpi_ddim_do_not_use_me;
+  Pfftwl_mpi_ddim = Pfftw_mpi_ddim_do_not_use_me;
 
-#define FFTW_MPI_DEFINE_API(XM, X, R, C)			\
-								\
-typedef struct fftw_mpi_ddim_do_not_use_me XM(ddim);		\
-								\
-FFTW_EXTERN void XM(init)(void);				\
-FFTW_EXTERN void XM(cleanup)(void);				\
-								\
-FFTW_EXTERN ptrdiff_t XM(local_size_many_transposed)		\
-     (int rnk, const ptrdiff_t *n, ptrdiff_t howmany,		\
-      ptrdiff_t block0, ptrdiff_t block1, MPI_Comm comm,	\
-      ptrdiff_t *local_n0, ptrdiff_t *local_0_start,		\
-      ptrdiff_t *local_n1, ptrdiff_t *local_1_start);		\
-FFTW_EXTERN ptrdiff_t XM(local_size_many)			\
-     (int rnk, const ptrdiff_t *n, ptrdiff_t howmany,		\
-      ptrdiff_t block0, MPI_Comm comm,				\
-      ptrdiff_t *local_n0, ptrdiff_t *local_0_start);		\
-FFTW_EXTERN ptrdiff_t XM(local_size_transposed)			\
-     (int rnk, const ptrdiff_t *n, MPI_Comm comm,		\
-      ptrdiff_t *local_n0, ptrdiff_t *local_0_start,		\
-      ptrdiff_t *local_n1, ptrdiff_t *local_1_start);		\
-FFTW_EXTERN ptrdiff_t XM(local_size)				\
-     (int rnk, const ptrdiff_t *n, MPI_Comm comm,		\
-      ptrdiff_t *local_n0, ptrdiff_t *local_0_start);		\
-FFTW_EXTERN ptrdiff_t XM(local_size_many_1d)(			\
-     ptrdiff_t n0, ptrdiff_t howmany,				\
-     MPI_Comm comm, int sign, unsigned flags,			\
-     ptrdiff_t *local_ni, ptrdiff_t *local_i_start,		\
-     ptrdiff_t *local_no, ptrdiff_t *local_o_start);		\
-FFTW_EXTERN ptrdiff_t XM(local_size_1d)(			\
-     ptrdiff_t n0, MPI_Comm comm, int sign, unsigned flags,	\
-     ptrdiff_t *local_ni, ptrdiff_t *local_i_start,		\
-     ptrdiff_t *local_no, ptrdiff_t *local_o_start);		\
-FFTW_EXTERN ptrdiff_t XM(local_size_2d)(			\
-     ptrdiff_t n0, ptrdiff_t n1, MPI_Comm comm,			\
-     ptrdiff_t *local_n0, ptrdiff_t *local_0_start);		\
-FFTW_EXTERN ptrdiff_t XM(local_size_2d_transposed)(		\
-     ptrdiff_t n0, ptrdiff_t n1, MPI_Comm comm,			\
-     ptrdiff_t *local_n0, ptrdiff_t *local_0_start,		\
-     ptrdiff_t *local_n1, ptrdiff_t *local_1_start);		\
-FFTW_EXTERN ptrdiff_t XM(local_size_3d)(			\
-     ptrdiff_t n0, ptrdiff_t n1, ptrdiff_t n2, MPI_Comm comm,	\
-     ptrdiff_t *local_n0, ptrdiff_t *local_0_start);		\
-FFTW_EXTERN ptrdiff_t XM(local_size_3d_transposed)(		\
-     ptrdiff_t n0, ptrdiff_t n1, ptrdiff_t n2, MPI_Comm comm,	\
-     ptrdiff_t *local_n0, ptrdiff_t *local_0_start,		\
-     ptrdiff_t *local_n1, ptrdiff_t *local_1_start);		\
-								\
-FFTW_EXTERN X(plan) XM(plan_many_transpose)			\
-     (ptrdiff_t n0, ptrdiff_t n1,				\
-      ptrdiff_t howmany, ptrdiff_t block0, ptrdiff_t block1,	\
-      R *in, R *out, MPI_Comm comm, unsigned flags);		\
-FFTW_EXTERN X(plan) XM(plan_transpose)				\
-     (ptrdiff_t n0, ptrdiff_t n1,				\
-      R *in, R *out, MPI_Comm comm, unsigned flags);		\
-								\
-FFTW_EXTERN X(plan) XM(plan_many_dft)				\
-     (int rnk, const ptrdiff_t *n, ptrdiff_t howmany,		\
-      ptrdiff_t block, ptrdiff_t tblock, C *in, C *out,		\
-      MPI_Comm comm, int sign, unsigned flags);			\
-FFTW_EXTERN X(plan) XM(plan_dft)				\
-     (int rnk, const ptrdiff_t *n, C *in, C *out,		\
-      MPI_Comm comm, int sign, unsigned flags);			\
-FFTW_EXTERN X(plan) XM(plan_dft_1d)				\
-     (ptrdiff_t n0, C *in, C *out,				\
-      MPI_Comm comm, int sign, unsigned flags);			\
-FFTW_EXTERN X(plan) XM(plan_dft_2d)				\
-     (ptrdiff_t n0, ptrdiff_t n1, C *in, C *out,		\
-      MPI_Comm comm, int sign, unsigned flags);			\
-FFTW_EXTERN X(plan) XM(plan_dft_3d)				\
-     (ptrdiff_t n0, ptrdiff_t n1, ptrdiff_t n2, C *in, C *out,	\
-      MPI_Comm comm, int sign, unsigned flags);			\
-								\
-FFTW_EXTERN X(plan) XM(plan_many_r2r)				\
-     (int rnk, const ptrdiff_t *n, ptrdiff_t howmany,		\
-      ptrdiff_t iblock, ptrdiff_t oblock, R *in, R *out,	\
-      MPI_Comm comm, const X(r2r_kind) *kind, unsigned flags);	\
-FFTW_EXTERN X(plan) XM(plan_r2r)				\
-     (int rnk, const ptrdiff_t *n, R *in, R *out,		\
-      MPI_Comm comm, const X(r2r_kind) *kind, unsigned flags);	\
-FFTW_EXTERN X(plan) XM(plan_r2r_2d)				\
-     (ptrdiff_t n0, ptrdiff_t n1, R *in, R *out, MPI_Comm comm,	\
-      X(r2r_kind) kind0, X(r2r_kind) kind1, unsigned flags);	\
-FFTW_EXTERN X(plan) XM(plan_r2r_3d)				\
-     (ptrdiff_t n0, ptrdiff_t n1, ptrdiff_t n2,			\
-      R *in, R *out, MPI_Comm comm, X(r2r_kind) kind0,		\
-      X(r2r_kind) kind1, X(r2r_kind) kind2, unsigned flags);	\
-								\
-FFTW_EXTERN X(plan) XM(plan_many_dft_r2c)			\
-     (int rnk, const ptrdiff_t *n, ptrdiff_t howmany,		\
-      ptrdiff_t iblock, ptrdiff_t oblock, R *in, C *out,	\
-      MPI_Comm comm, unsigned flags);				\
-FFTW_EXTERN X(plan) XM(plan_dft_r2c)				\
-     (int rnk, const ptrdiff_t *n, R *in, C *out,		\
-      MPI_Comm comm, unsigned flags);				\
-FFTW_EXTERN X(plan) XM(plan_dft_r2c_2d)				\
-     (ptrdiff_t n0, ptrdiff_t n1, R *in, C *out,		\
-      MPI_Comm comm, unsigned flags);				\
-FFTW_EXTERN X(plan) XM(plan_dft_r2c_3d)				\
-     (ptrdiff_t n0, ptrdiff_t n1, ptrdiff_t n2, R *in, C *out,	\
-      MPI_Comm comm, unsigned flags);				\
-								\
-FFTW_EXTERN X(plan) XM(plan_many_dft_c2r)			\
-     (int rnk, const ptrdiff_t *n, ptrdiff_t howmany,		\
-      ptrdiff_t iblock, ptrdiff_t oblock, C *in, R *out,	\
-      MPI_Comm comm, unsigned flags);				\
-FFTW_EXTERN X(plan) XM(plan_dft_c2r)				\
-     (int rnk, const ptrdiff_t *n, C *in, R *out,		\
-      MPI_Comm comm, unsigned flags);				\
-FFTW_EXTERN X(plan) XM(plan_dft_c2r_2d)				\
-     (ptrdiff_t n0, ptrdiff_t n1, C *in, R *out,		\
-      MPI_Comm comm, unsigned flags);				\
-FFTW_EXTERN X(plan) XM(plan_dft_c2r_3d)				\
-     (ptrdiff_t n0, ptrdiff_t n1, ptrdiff_t n2, C *in, R *out,	\
-      MPI_Comm comm, unsigned flags);				\
-								\
-FFTW_EXTERN void XM(gather_wisdom)(MPI_Comm comm_);		\
-FFTW_EXTERN void XM(broadcast_wisdom)(MPI_Comm comm_);          \
-								\
-FFTW_EXTERN void XM(execute_dft)(X(plan) p, C *in, C *out);	\
-FFTW_EXTERN void XM(execute_dft_r2c)(X(plan) p, R *in, C *out);	\
-FFTW_EXTERN void XM(execute_dft_c2r)(X(plan) p, C *in, R *out);	\
-FFTW_EXTERN void XM(execute_r2r)(X(plan) p, R *in, R *out); 
+// ========== mpi_init ==========
+procedure fftwf_mpi_init; cdecl; external libfftw3_mpi;
+procedure fftw_mpi_init; cdecl; external libfftw3_mpi;
+procedure fftwl_mpi_init; cdecl; external libfftw3_mpi;
 
- }
-{ 
+// ========== mpi_cleanup ==========
+procedure fftwf_mpi_cleanup; cdecl; external libfftw3_mpi;
+procedure fftw_mpi_cleanup; cdecl; external libfftw3_mpi;
+procedure fftwl_mpi_cleanup; cdecl; external libfftw3_mpi;
 
-#define FFTW_MPI_MANGLE_DOUBLE(name) FFTW_MANGLE_DOUBLE(FFTW_CONCAT(mpi_,name))
-#define FFTW_MPI_MANGLE_FLOAT(name) FFTW_MANGLE_FLOAT(FFTW_CONCAT(mpi_,name))
-#define FFTW_MPI_MANGLE_LONG_DOUBLE(name) FFTW_MANGLE_LONG_DOUBLE(FFTW_CONCAT(mpi_,name))
+// ========== mpi_local_size_many_transposed ==========
+function fftwf_mpi_local_size_many_transposed(rnk: int32; n: PPtruint; howmany: Ptruint; block0: Ptruint; block1: Ptruint; comm: TMPI_Comm; local_n0: PPtruint; local_0_start: PPtruint; local_n1: PPtruint; local_1_start: PPtruint): Ptruint; cdecl; external libfftw3_mpi;
+function fftw_mpi_local_size_many_transposed(rnk: int32; n: PPtruint; howmany: Ptruint; block0: Ptruint; block1: Ptruint; comm: TMPI_Comm; local_n0: PPtruint; local_0_start: PPtruint; local_n1: PPtruint; local_1_start: PPtruint): Ptruint; cdecl; external libfftw3_mpi;
+function fftwl_mpi_local_size_many_transposed(rnk: int32; n: PPtruint; howmany: Ptruint; block0: Ptruint; block1: Ptruint; comm: TMPI_Comm; local_n0: PPtruint; local_0_start: PPtruint; local_n1: PPtruint; local_1_start: PPtruint): Ptruint; cdecl; external libfftw3_mpi;
 
-FFTW_MPI_DEFINE_API(FFTW_MPI_MANGLE_DOUBLE, FFTW_MANGLE_DOUBLE, double, fftw_complex)
-FFTW_MPI_DEFINE_API(FFTW_MPI_MANGLE_FLOAT, FFTW_MANGLE_FLOAT, float, fftwf_complex)
-FFTW_MPI_DEFINE_API(FFTW_MPI_MANGLE_LONG_DOUBLE, FFTW_MANGLE_LONG_DOUBLE, long double, fftwl_complex)
- }
+// ========== mpi_local_size_many ==========
+function fftwf_mpi_local_size_many(rnk: int32; n: PPtruint; howmany: Ptruint; block0: Ptruint; comm: TMPI_Comm; local_n0: PPtruint; local_0_start: PPtruint): Ptruint; cdecl; external libfftw3_mpi;
+function fftw_mpi_local_size_many(rnk: int32; n: PPtruint; howmany: Ptruint; block0: Ptruint; comm: TMPI_Comm; local_n0: PPtruint; local_0_start: PPtruint): Ptruint; cdecl; external libfftw3_mpi;
+function fftwl_mpi_local_size_many(rnk: int32; n: PPtruint; howmany: Ptruint; block0: Ptruint; comm: TMPI_Comm; local_n0: PPtruint; local_0_start: PPtruint): Ptruint; cdecl; external libfftw3_mpi;
+
+// ========== mpi_local_size_transposed ==========
+function fftwf_mpi_local_size_transposed(rnk: int32; n: PPtruint; comm: TMPI_Comm; local_n0: PPtruint; local_0_start: PPtruint; local_n1: PPtruint; local_1_start: PPtruint): Ptruint; cdecl; external libfftw3_mpi;
+function fftw_mpi_local_size_transposed(rnk: int32; n: PPtruint; comm: TMPI_Comm; local_n0: PPtruint; local_0_start: PPtruint; local_n1: PPtruint; local_1_start: PPtruint): Ptruint; cdecl; external libfftw3_mpi;
+function fftwl_mpi_local_size_transposed(rnk: int32; n: PPtruint; comm: TMPI_Comm; local_n0: PPtruint; local_0_start: PPtruint; local_n1: PPtruint; local_1_start: PPtruint): Ptruint; cdecl; external libfftw3_mpi;
+
+// ========== mpi_local_size ==========
+function fftwf_mpi_local_size(rnk: int32; n: PPtruint; comm: TMPI_Comm; local_n0: PPtruint; local_0_start: PPtruint): Ptruint; cdecl; external libfftw3_mpi;
+function fftw_mpi_local_size(rnk: int32; n: PPtruint; comm: TMPI_Comm; local_n0: PPtruint; local_0_start: PPtruint): Ptruint; cdecl; external libfftw3_mpi;
+function fftwl_mpi_local_size(rnk: int32; n: PPtruint; comm: TMPI_Comm; local_n0: PPtruint; local_0_start: PPtruint): Ptruint; cdecl; external libfftw3_mpi;
+
+// ========== mpi_local_size_many_1d ==========
+function fftwf_mpi_local_size_many_1d(n0: Ptruint; howmany: Ptruint; comm: TMPI_Comm; sign: int32; flags: uint32; local_ni: PPtruint; local_i_start: PPtruint; local_no: PPtruint; local_o_start: PPtruint): Ptruint; cdecl; external libfftw3_mpi;
+function fftw_mpi_local_size_many_1d(n0: Ptruint; howmany: Ptruint; comm: TMPI_Comm; sign: int32; flags: uint32; local_ni: PPtruint; local_i_start: PPtruint; local_no: PPtruint; local_o_start: PPtruint): Ptruint; cdecl; external libfftw3_mpi;
+function fftwl_mpi_local_size_many_1d(n0: Ptruint; howmany: Ptruint; comm: TMPI_Comm; sign: int32; flags: uint32; local_ni: PPtruint; local_i_start: PPtruint; local_no: PPtruint; local_o_start: PPtruint): Ptruint; cdecl; external libfftw3_mpi;
+
+// ========== mpi_local_size_1d ==========
+function fftwf_mpi_local_size_1d(n0: Ptruint; comm: TMPI_Comm; sign: int32; flags: uint32; local_ni: PPtruint; local_i_start: PPtruint; local_no: PPtruint; local_o_start: PPtruint): Ptruint; cdecl; external libfftw3_mpi;
+function fftw_mpi_local_size_1d(n0: Ptruint; comm: TMPI_Comm; sign: int32; flags: uint32; local_ni: PPtruint; local_i_start: PPtruint; local_no: PPtruint; local_o_start: PPtruint): Ptruint; cdecl; external libfftw3_mpi;
+function fftwl_mpi_local_size_1d(n0: Ptruint; comm: TMPI_Comm; sign: int32; flags: uint32; local_ni: PPtruint; local_i_start: PPtruint; local_no: PPtruint; local_o_start: PPtruint): Ptruint; cdecl; external libfftw3_mpi;
+
+// ========== mpi_local_size_2d ==========
+function fftwf_mpi_local_size_2d(n0: Ptruint; n1: Ptruint; comm: TMPI_Comm; local_n0: PPtruint; local_0_start: PPtruint): Ptruint; cdecl; external libfftw3_mpi;
+function fftw_mpi_local_size_2d(n0: Ptruint; n1: Ptruint; comm: TMPI_Comm; local_n0: PPtruint; local_0_start: PPtruint): Ptruint; cdecl; external libfftw3_mpi;
+function fftwl_mpi_local_size_2d(n0: Ptruint; n1: Ptruint; comm: TMPI_Comm; local_n0: PPtruint; local_0_start: PPtruint): Ptruint; cdecl; external libfftw3_mpi;
+
+// ========== mpi_local_size_2d_transposed ==========
+function fftwf_mpi_local_size_2d_transposed(n0: Ptruint; n1: Ptruint; comm: TMPI_Comm; local_n0: PPtruint; local_0_start: PPtruint; local_n1: PPtruint; local_1_start: PPtruint): Ptruint; cdecl; external libfftw3_mpi;
+function fftw_mpi_local_size_2d_transposed(n0: Ptruint; n1: Ptruint; comm: TMPI_Comm; local_n0: PPtruint; local_0_start: PPtruint; local_n1: PPtruint; local_1_start: PPtruint): Ptruint; cdecl; external libfftw3_mpi;
+function fftwl_mpi_local_size_2d_transposed(n0: Ptruint; n1: Ptruint; comm: TMPI_Comm; local_n0: PPtruint; local_0_start: PPtruint; local_n1: PPtruint; local_1_start: PPtruint): Ptruint; cdecl; external libfftw3_mpi;
+
+// ========== mpi_local_size_3d ==========
+function fftwf_mpi_local_size_3d(n0: Ptruint; n1: Ptruint; n2: Ptruint; comm: TMPI_Comm; local_n0: PPtruint; local_0_start: PPtruint): Ptruint; cdecl; external libfftw3_mpi;
+function fftw_mpi_local_size_3d(n0: Ptruint; n1: Ptruint; n2: Ptruint; comm: TMPI_Comm; local_n0: PPtruint; local_0_start: PPtruint): Ptruint; cdecl; external libfftw3_mpi;
+function fftwl_mpi_local_size_3d(n0: Ptruint; n1: Ptruint; n2: Ptruint; comm: TMPI_Comm; local_n0: PPtruint; local_0_start: PPtruint): Ptruint; cdecl; external libfftw3_mpi;
+
+// ========== mpi_local_size_3d_transposed ==========
+function fftwf_mpi_local_size_3d_transposed(n0: Ptruint; n1: Ptruint; n2: Ptruint; comm: TMPI_Comm; local_n0: PPtruint; local_0_start: PPtruint; local_n1: PPtruint; local_1_start: PPtruint): Ptruint; cdecl; external libfftw3_mpi;
+function fftw_mpi_local_size_3d_transposed(n0: Ptruint; n1: Ptruint; n2: Ptruint; comm: TMPI_Comm; local_n0: PPtruint; local_0_start: PPtruint; local_n1: PPtruint; local_1_start: PPtruint): Ptruint; cdecl; external libfftw3_mpi;
+function fftwl_mpi_local_size_3d_transposed(n0: Ptruint; n1: Ptruint; n2: Ptruint; comm: TMPI_Comm; local_n0: PPtruint; local_0_start: PPtruint; local_n1: PPtruint; local_1_start: PPtruint): Ptruint; cdecl; external libfftw3_mpi;
+
+// ========== mpi_plan_many_transpose ==========
+function fftwf_mpi_plan_many_transpose(n0: Ptruint; n1: Ptruint; howmany: Ptruint; block0: Ptruint; block1: Ptruint; in_: PSingle; out_: PSingle; comm: TMPI_Comm; flags: uint32): Tfftwf_plan; cdecl; external libfftw3_mpi;
+function fftw_mpi_plan_many_transpose(n0: Ptruint; n1: Ptruint; howmany: Ptruint; block0: Ptruint; block1: Ptruint; in_: PDouble; out_: PDouble; comm: TMPI_Comm; flags: uint32): Tfftw_plan; cdecl; external libfftw3_mpi;
+function fftwl_mpi_plan_many_transpose(n0: Ptruint; n1: Ptruint; howmany: Ptruint; block0: Ptruint; block1: Ptruint; in_: Tlongdouble; out_: Tlongdouble; comm: TMPI_Comm; flags: uint32): Tfftwl_plan; cdecl; external libfftw3_mpi;
+
+// ========== mpi_plan_transpose ==========
+function fftwf_mpi_plan_transpose(n0: Ptruint; n1: Ptruint; in_: PSingle; out_: PSingle; comm: TMPI_Comm; flags: uint32): Tfftwf_plan; cdecl; external libfftw3_mpi;
+function fftw_mpi_plan_transpose(n0: Ptruint; n1: Ptruint; in_: PDouble; out_: PDouble; comm: TMPI_Comm; flags: uint32): Tfftw_plan; cdecl; external libfftw3_mpi;
+function fftwl_mpi_plan_transpose(n0: Ptruint; n1: Ptruint; in_: Tlongdouble; out_: Tlongdouble; comm: TMPI_Comm; flags: uint32): Tfftwl_plan; cdecl; external libfftw3_mpi;
+
+// ========== mpi_plan_many_dft ==========
+function fftwf_mpi_plan_many_dft(rnk: int32; n: PPtruint; howmany: Ptruint; block: Ptruint; tblock: Ptruint; in_: Pfftwf_complex; out_: Pfftwf_complex; comm: TMPI_Comm; sign: int32; flags: uint32): Tfftwf_plan; cdecl; external libfftw3_mpi;
+function fftw_mpi_plan_many_dft(rnk: int32; n: PPtruint; howmany: Ptruint; block: Ptruint; tblock: Ptruint; in_: Pfftw_complex; out_: Pfftw_complex; comm: TMPI_Comm; sign: int32; flags: uint32): Tfftw_plan; cdecl; external libfftw3_mpi;
+function fftwl_mpi_plan_many_dft(rnk: int32; n: PPtruint; howmany: Ptruint; block: Ptruint; tblock: Ptruint; in_: Pfftwl_complex; out_: Pfftwl_complex; comm: TMPI_Comm; sign: int32; flags: uint32): Tfftwl_plan; cdecl; external libfftw3_mpi;
+
+// ========== mpi_plan_dft ==========
+function fftwf_mpi_plan_dft(rnk: int32; n: PPtruint; in_: Pfftwf_complex; out_: Pfftwf_complex; comm: TMPI_Comm; sign: int32; flags: uint32): Tfftwf_plan; cdecl; external libfftw3_mpi;
+function fftw_mpi_plan_dft(rnk: int32; n: PPtruint; in_: Pfftw_complex; out_: Pfftw_complex; comm: TMPI_Comm; sign: int32; flags: uint32): Tfftw_plan; cdecl; external libfftw3_mpi;
+function fftwl_mpi_plan_dft(rnk: int32; n: PPtruint; in_: Pfftwl_complex; out_: Pfftwl_complex; comm: TMPI_Comm; sign: int32; flags: uint32): Tfftwl_plan; cdecl; external libfftw3_mpi;
+
+// ========== mpi_plan_dft_1d ==========
+function fftwf_mpi_plan_dft_1d(n0: Ptruint; in_: Pfftwf_complex; out_: Pfftwf_complex; comm: TMPI_Comm; sign: int32; flags: uint32): Tfftwf_plan; cdecl; external libfftw3_mpi;
+function fftw_mpi_plan_dft_1d(n0: Ptruint; in_: Pfftw_complex; out_: Pfftw_complex; comm: TMPI_Comm; sign: int32; flags: uint32): Tfftw_plan; cdecl; external libfftw3_mpi;
+function fftwl_mpi_plan_dft_1d(n0: Ptruint; in_: Pfftwl_complex; out_: Pfftwl_complex; comm: TMPI_Comm; sign: int32; flags: uint32): Tfftwl_plan; cdecl; external libfftw3_mpi;
+
+// ========== mpi_plan_dft_2d ==========
+function fftwf_mpi_plan_dft_2d(n0: Ptruint; n1: Ptruint; in_: Pfftwf_complex; out_: Pfftwf_complex; comm: TMPI_Comm; sign: int32; flags: uint32): Tfftwf_plan; cdecl; external libfftw3_mpi;
+function fftw_mpi_plan_dft_2d(n0: Ptruint; n1: Ptruint; in_: Pfftw_complex; out_: Pfftw_complex; comm: TMPI_Comm; sign: int32; flags: uint32): Tfftw_plan; cdecl; external libfftw3_mpi;
+function fftwl_mpi_plan_dft_2d(n0: Ptruint; n1: Ptruint; in_: Pfftwl_complex; out_: Pfftwl_complex; comm: TMPI_Comm; sign: int32; flags: uint32): Tfftwl_plan; cdecl; external libfftw3_mpi;
+
+// ========== mpi_plan_dft_3d ==========
+function fftwf_mpi_plan_dft_3d(n0: Ptruint; n1: Ptruint; n2: Ptruint; in_: Pfftwf_complex; out_: Pfftwf_complex; comm: TMPI_Comm; sign: int32; flags: uint32): Tfftwf_plan; cdecl; external libfftw3_mpi;
+function fftw_mpi_plan_dft_3d(n0: Ptruint; n1: Ptruint; n2: Ptruint; in_: Pfftw_complex; out_: Pfftw_complex; comm: TMPI_Comm; sign: int32; flags: uint32): Tfftw_plan; cdecl; external libfftw3_mpi;
+function fftwl_mpi_plan_dft_3d(n0: Ptruint; n1: Ptruint; n2: Ptruint; in_: Pfftwl_complex; out_: Pfftwl_complex; comm: TMPI_Comm; sign: int32; flags: uint32): Tfftwl_plan; cdecl; external libfftw3_mpi;
+
+// ========== mpi_plan_many_r2r ==========
+function fftwf_mpi_plan_many_r2r(rnk: int32; n: PPtruint; howmany: Ptruint; iblock: Ptruint; oblock: Ptruint; in_: PSingle; out_: PSingle; comm: TMPI_Comm; kind: Pfftwf_r2r_kind; flags: uint32): Tfftwf_plan; cdecl; external libfftw3_mpi;
+function fftw_mpi_plan_many_r2r(rnk: int32; n: PPtruint; howmany: Ptruint; iblock: Ptruint; oblock: Ptruint; in_: PDouble; out_: PDouble; comm: TMPI_Comm; kind: Pfftw_r2r_kind; flags: uint32): Tfftw_plan; cdecl; external libfftw3_mpi;
+function fftwl_mpi_plan_many_r2r(rnk: int32; n: PPtruint; howmany: Ptruint; iblock: Ptruint; oblock: Ptruint; in_: Tlongdouble; out_: Tlongdouble; comm: TMPI_Comm; kind: Pfftwl_r2r_kind; flags: uint32): Tfftwl_plan; cdecl; external libfftw3_mpi;
+
+// ========== mpi_plan_r2r ==========
+function fftwf_mpi_plan_r2r(rnk: int32; n: PPtruint; in_: PSingle; out_: PSingle; comm: TMPI_Comm; kind: Pfftwf_r2r_kind; flags: uint32): Tfftwf_plan; cdecl; external libfftw3_mpi;
+function fftw_mpi_plan_r2r(rnk: int32; n: PPtruint; in_: PDouble; out_: PDouble; comm: TMPI_Comm; kind: Pfftw_r2r_kind; flags: uint32): Tfftw_plan; cdecl; external libfftw3_mpi;
+function fftwl_mpi_plan_r2r(rnk: int32; n: PPtruint; in_: Tlongdouble; out_: Tlongdouble; comm: TMPI_Comm; kind: Pfftwl_r2r_kind; flags: uint32): Tfftwl_plan; cdecl; external libfftw3_mpi;
+
+// ========== mpi_plan_r2r_2d ==========
+function fftwf_mpi_plan_r2r_2d(n0: Ptruint; n1: Ptruint; in_: PSingle; out_: PSingle; comm: TMPI_Comm; kind0: Tfftwf_r2r_kind; kind1: Tfftwf_r2r_kind; flags: uint32): Tfftwf_plan; cdecl; external libfftw3_mpi;
+function fftw_mpi_plan_r2r_2d(n0: Ptruint; n1: Ptruint; in_: PDouble; out_: PDouble; comm: TMPI_Comm; kind0: Tfftw_r2r_kind; kind1: Tfftw_r2r_kind; flags: uint32): Tfftw_plan; cdecl; external libfftw3_mpi;
+function fftwl_mpi_plan_r2r_2d(n0: Ptruint; n1: Ptruint; in_: Tlongdouble; out_: Tlongdouble; comm: TMPI_Comm; kind0: Tfftwl_r2r_kind; kind1: Tfftwl_r2r_kind; flags: uint32): Tfftwl_plan; cdecl; external libfftw3_mpi;
+
+// ========== mpi_plan_r2r_3d ==========
+function fftwf_mpi_plan_r2r_3d(n0: Ptruint; n1: Ptruint; n2: Ptruint; in_: PSingle; out_: PSingle; comm: TMPI_Comm; kind0: Tfftwf_r2r_kind; kind1: Tfftwf_r2r_kind; kind2: Tfftwf_r2r_kind; flags: uint32): Tfftwf_plan; cdecl; external libfftw3_mpi;
+function fftw_mpi_plan_r2r_3d(n0: Ptruint; n1: Ptruint; n2: Ptruint; in_: PDouble; out_: PDouble; comm: TMPI_Comm; kind0: Tfftw_r2r_kind; kind1: Tfftw_r2r_kind; kind2: Tfftw_r2r_kind; flags: uint32): Tfftw_plan; cdecl; external libfftw3_mpi;
+function fftwl_mpi_plan_r2r_3d(n0: Ptruint; n1: Ptruint; n2: Ptruint; in_: Tlongdouble; out_: Tlongdouble; comm: TMPI_Comm; kind0: Tfftwl_r2r_kind; kind1: Tfftwl_r2r_kind; kind2: Tfftwl_r2r_kind; flags: uint32): Tfftwl_plan; cdecl; external libfftw3_mpi;
+
+// ========== mpi_plan_many_dft_r2c ==========
+function fftwf_mpi_plan_many_dft_r2c(rnk: int32; n: PPtruint; howmany: Ptruint; iblock: Ptruint; oblock: Ptruint; in_: PSingle; out_: Pfftwf_complex; comm: TMPI_Comm; flags: uint32): Tfftwf_plan; cdecl; external libfftw3_mpi;
+function fftw_mpi_plan_many_dft_r2c(rnk: int32; n: PPtruint; howmany: Ptruint; iblock: Ptruint; oblock: Ptruint; in_: PDouble; out_: Pfftw_complex; comm: TMPI_Comm; flags: uint32): Tfftw_plan; cdecl; external libfftw3_mpi;
+function fftwl_mpi_plan_many_dft_r2c(rnk: int32; n: PPtruint; howmany: Ptruint; iblock: Ptruint; oblock: Ptruint; in_: Tlongdouble; out_: Pfftwl_complex; comm: TMPI_Comm; flags: uint32): Tfftwl_plan; cdecl; external libfftw3_mpi;
+
+// ========== mpi_plan_dft_r2c ==========
+function fftwf_mpi_plan_dft_r2c(rnk: int32; n: PPtruint; in_: PSingle; out_: Pfftwf_complex; comm: TMPI_Comm; flags: uint32): Tfftwf_plan; cdecl; external libfftw3_mpi;
+function fftw_mpi_plan_dft_r2c(rnk: int32; n: PPtruint; in_: PDouble; out_: Pfftw_complex; comm: TMPI_Comm; flags: uint32): Tfftw_plan; cdecl; external libfftw3_mpi;
+function fftwl_mpi_plan_dft_r2c(rnk: int32; n: PPtruint; in_: Tlongdouble; out_: Pfftwl_complex; comm: TMPI_Comm; flags: uint32): Tfftwl_plan; cdecl; external libfftw3_mpi;
+
+// ========== mpi_plan_dft_r2c_2d ==========
+function fftwf_mpi_plan_dft_r2c_2d(n0: Ptruint; n1: Ptruint; in_: PSingle; out_: Pfftwf_complex; comm: TMPI_Comm; flags: uint32): Tfftwf_plan; cdecl; external libfftw3_mpi;
+function fftw_mpi_plan_dft_r2c_2d(n0: Ptruint; n1: Ptruint; in_: PDouble; out_: Pfftw_complex; comm: TMPI_Comm; flags: uint32): Tfftw_plan; cdecl; external libfftw3_mpi;
+function fftwl_mpi_plan_dft_r2c_2d(n0: Ptruint; n1: Ptruint; in_: Tlongdouble; out_: Pfftwl_complex; comm: TMPI_Comm; flags: uint32): Tfftwl_plan; cdecl; external libfftw3_mpi;
+
+// ========== mpi_plan_dft_r2c_3d ==========
+function fftwf_mpi_plan_dft_r2c_3d(n0: Ptruint; n1: Ptruint; n2: Ptruint; in_: PSingle; out_: Pfftwf_complex; comm: TMPI_Comm; flags: uint32): Tfftwf_plan; cdecl; external libfftw3_mpi;
+function fftw_mpi_plan_dft_r2c_3d(n0: Ptruint; n1: Ptruint; n2: Ptruint; in_: PDouble; out_: Pfftw_complex; comm: TMPI_Comm; flags: uint32): Tfftw_plan; cdecl; external libfftw3_mpi;
+function fftwl_mpi_plan_dft_r2c_3d(n0: Ptruint; n1: Ptruint; n2: Ptruint; in_: Tlongdouble; out_: Pfftwl_complex; comm: TMPI_Comm; flags: uint32): Tfftwl_plan; cdecl; external libfftw3_mpi;
+
+// ========== mpi_plan_many_dft_c2r ==========
+function fftwf_mpi_plan_many_dft_c2r(rnk: int32; n: PPtruint; howmany: Ptruint; iblock: Ptruint; oblock: Ptruint; in_: Pfftwf_complex; out_: PSingle; comm: TMPI_Comm; flags: uint32): Tfftwf_plan; cdecl; external libfftw3_mpi;
+function fftw_mpi_plan_many_dft_c2r(rnk: int32; n: PPtruint; howmany: Ptruint; iblock: Ptruint; oblock: Ptruint; in_: Pfftw_complex; out_: PDouble; comm: TMPI_Comm; flags: uint32): Tfftw_plan; cdecl; external libfftw3_mpi;
+function fftwl_mpi_plan_many_dft_c2r(rnk: int32; n: PPtruint; howmany: Ptruint; iblock: Ptruint; oblock: Ptruint; in_: Pfftwl_complex; out_: Tlongdouble; comm: TMPI_Comm; flags: uint32): Tfftwl_plan; cdecl; external libfftw3_mpi;
+
+// ========== mpi_plan_dft_c2r ==========
+function fftwf_mpi_plan_dft_c2r(rnk: int32; n: PPtruint; in_: Pfftwf_complex; out_: PSingle; comm: TMPI_Comm; flags: uint32): Tfftwf_plan; cdecl; external libfftw3_mpi;
+function fftw_mpi_plan_dft_c2r(rnk: int32; n: PPtruint; in_: Pfftw_complex; out_: PDouble; comm: TMPI_Comm; flags: uint32): Tfftw_plan; cdecl; external libfftw3_mpi;
+function fftwl_mpi_plan_dft_c2r(rnk: int32; n: PPtruint; in_: Pfftwl_complex; out_: Tlongdouble; comm: TMPI_Comm; flags: uint32): Tfftwl_plan; cdecl; external libfftw3_mpi;
+
+// ========== mpi_plan_dft_c2r_2d ==========
+function fftwf_mpi_plan_dft_c2r_2d(n0: Ptruint; n1: Ptruint; in_: Pfftwf_complex; out_: PSingle; comm: TMPI_Comm; flags: uint32): Tfftwf_plan; cdecl; external libfftw3_mpi;
+function fftw_mpi_plan_dft_c2r_2d(n0: Ptruint; n1: Ptruint; in_: Pfftw_complex; out_: PDouble; comm: TMPI_Comm; flags: uint32): Tfftw_plan; cdecl; external libfftw3_mpi;
+function fftwl_mpi_plan_dft_c2r_2d(n0: Ptruint; n1: Ptruint; in_: Pfftwl_complex; out_: Tlongdouble; comm: TMPI_Comm; flags: uint32): Tfftwl_plan; cdecl; external libfftw3_mpi;
+
+// ========== mpi_plan_dft_c2r_3d ==========
+function fftwf_mpi_plan_dft_c2r_3d(n0: Ptruint; n1: Ptruint; n2: Ptruint; in_: Pfftwf_complex; out_: PSingle; comm: TMPI_Comm; flags: uint32): Tfftwf_plan; cdecl; external libfftw3_mpi;
+function fftw_mpi_plan_dft_c2r_3d(n0: Ptruint; n1: Ptruint; n2: Ptruint; in_: Pfftw_complex; out_: PDouble; comm: TMPI_Comm; flags: uint32): Tfftw_plan; cdecl; external libfftw3_mpi;
+function fftwl_mpi_plan_dft_c2r_3d(n0: Ptruint; n1: Ptruint; n2: Ptruint; in_: Pfftwl_complex; out_: Tlongdouble; comm: TMPI_Comm; flags: uint32): Tfftwl_plan; cdecl; external libfftw3_mpi;
+
+// ========== mpi_gather_wisdom ==========
+procedure fftwf_mpi_gather_wisdom(comm_: TMPI_Comm); cdecl; external libfftw3_mpi;
+procedure fftw_mpi_gather_wisdom(comm_: TMPI_Comm); cdecl; external libfftw3_mpi;
+procedure fftwl_mpi_gather_wisdom(comm_: TMPI_Comm); cdecl; external libfftw3_mpi;
+
+// ========== mpi_broadcast_wisdom ==========
+procedure fftwf_mpi_broadcast_wisdom(comm_: TMPI_Comm); cdecl; external libfftw3_mpi;
+procedure fftw_mpi_broadcast_wisdom(comm_: TMPI_Comm); cdecl; external libfftw3_mpi;
+procedure fftwl_mpi_broadcast_wisdom(comm_: TMPI_Comm); cdecl; external libfftw3_mpi;
+
+// ========== mpi_execute_dft ==========
+procedure fftwf_mpi_execute_dft(p: Tfftwf_plan; in_: Pfftwf_complex; out_: Pfftwf_complex); cdecl; external libfftw3_mpi;
+procedure fftw_mpi_execute_dft(p: Tfftw_plan; in_: Pfftw_complex; out_: Pfftw_complex); cdecl; external libfftw3_mpi;
+procedure fftwl_mpi_execute_dft(p: Tfftwl_plan; in_: Pfftwl_complex; out_: Pfftwl_complex); cdecl; external libfftw3_mpi;
+
+// ========== mpi_execute_dft_r2c ==========
+procedure fftwf_mpi_execute_dft_r2c(p: Tfftwf_plan; in_: PSingle; out_: Pfftwf_complex); cdecl; external libfftw3_mpi;
+procedure fftw_mpi_execute_dft_r2c(p: Tfftw_plan; in_: PDouble; out_: Pfftw_complex); cdecl; external libfftw3_mpi;
+procedure fftwl_mpi_execute_dft_r2c(p: Tfftwl_plan; in_: Tlongdouble; out_: Pfftwl_complex); cdecl; external libfftw3_mpi;
+
+// ========== mpi_execute_dft_c2r ==========
+procedure fftwf_mpi_execute_dft_c2r(p: Tfftwf_plan; in_: Pfftwf_complex; out_: PSingle); cdecl; external libfftw3_mpi;
+procedure fftw_mpi_execute_dft_c2r(p: Tfftw_plan; in_: Pfftw_complex; out_: PDouble); cdecl; external libfftw3_mpi;
+procedure fftwl_mpi_execute_dft_c2r(p: Tfftwl_plan; in_: Pfftwl_complex; out_: Tlongdouble); cdecl; external libfftw3_mpi;
+
+// ========== mpi_execute_r2r ==========
+procedure fftwf_mpi_execute_r2r(p: Tfftwf_plan; in_: PSingle; out_: PSingle); cdecl; external libfftw3_mpi;
+procedure fftw_mpi_execute_r2r(p: Tfftw_plan; in_: PDouble; out_: PDouble); cdecl; external libfftw3_mpi;
+procedure fftwl_mpi_execute_r2r(p: Tfftwl_plan; in_: Tlongdouble; out_: Tlongdouble); cdecl; external libfftw3_mpi;
+
 
 const
-  FFTW_MPI_DEFAULT_BLOCK = 0;  
-{ MPI-specific flags  }
-  FFTW_MPI_SCRAMBLED_IN = 1 shl 27;  
-  FFTW_MPI_SCRAMBLED_OUT = 1 shl 28;  
-  FFTW_MPI_TRANSPOSED_IN = 1 shl 29;  
-  FFTW_MPI_TRANSPOSED_OUT = 1 shl 30;  
-{ __cplusplus  }
-{$endif}
-{ FFTW3_MPI_H  }
+  FFTW_MPI_DEFAULT_BLOCK = 0;
+  FFTW_MPI_SCRAMBLED_IN = 1 shl 27;
+  FFTW_MPI_SCRAMBLED_OUT = 1 shl 28;
+  FFTW_MPI_TRANSPOSED_IN = 1 shl 29;
+  FFTW_MPI_TRANSPOSED_OUT = 1 shl 30;
 
-// === Konventiert am: 3-9-26 13:55:41 ===
+  // === Konventiert am: 3-9-26 13:55:41 ===
 
 
 implementation

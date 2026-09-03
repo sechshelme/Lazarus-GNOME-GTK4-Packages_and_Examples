@@ -44,12 +44,6 @@ type
   Pptrdiff_t = ^Tptrdiff_t;
 
 type
-  //    Tdouble = Double;
-  //    Pdouble = ^Tdouble;
-
-  //    Tfloat = Single;
-  //    Pfloat = ^Tfloat;
-
   Tlongdouble = extended;
   Plongdouble = ^Tlongdouble;
 
@@ -57,29 +51,21 @@ type
   Pfloat128 = ^Tfloat128;
 
 
-  Tfftw_complex = record
-    re: double;
-    im: double;
-  end;
-  Pfftw_complex = ^Tfftw_complex;
-
-  Tfftwf_complex = record
-    re: single;
-    im: single;
-  end;
+type
+  Tfftwf_complex = array[0..1] of single;
   Pfftwf_complex = ^Tfftwf_complex;
 
-  Tfftwl_complex = record
-    re: Tlongdouble;
-    im: Tlongdouble;
-  end;
+  Tfftw_complex = array[0..1] of double;
+  Pfftw_complex = ^Tfftw_complex;
+
+  Tfftwl_complex = array[0..1] of Tlongdouble;
   Pfftwl_complex = ^Tfftwl_complex;
 
-  Tfftwq_complex = record
-    re: Tfloat128;
-    im: Tfloat128;
-  end;
+  Tfftwq_complex = array[0..1] of Tfloat128;
   Pfftwq_complex = ^Tfftwq_complex;
+
+  // === externes
+  TMPI_Comm = int32;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -434,44 +420,44 @@ procedure fftwl_set_timelimit(t: double); cdecl; external libfftw3;
 procedure fftwq_set_timelimit(t: double); cdecl; external libfftw3;
 
 // ========== plan_with_nthreads ==========
-procedure fftwf_plan_with_nthreads(nthreads: int32); cdecl; external libfftw3;
-procedure fftw_plan_with_nthreads(nthreads: int32); cdecl; external libfftw3;
-procedure fftwl_plan_with_nthreads(nthreads: int32); cdecl; external libfftw3;
-procedure fftwq_plan_with_nthreads(nthreads: int32); cdecl; external libfftw3;
+procedure fftwf_plan_with_nthreads(nthreads: int32); cdecl; external libfftw3f_threads;
+procedure fftw_plan_with_nthreads(nthreads: int32); cdecl; external libfftw3f_threads;
+procedure fftwl_plan_with_nthreads(nthreads: int32); cdecl; external libfftw3f_threads;
+procedure fftwq_plan_with_nthreads(nthreads: int32); cdecl; external libfftw3f_threads;
 
 // ========== planner_nthreads ==========
-function fftwf_planner_nthreads: int32; cdecl; external libfftw3;
-function fftw_planner_nthreads: int32; cdecl; external libfftw3;
-function fftwl_planner_nthreads: int32; cdecl; external libfftw3;
-function fftwq_planner_nthreads: int32; cdecl; external libfftw3;
+function fftwf_planner_nthreads: int32; cdecl; external libfftw3f_threads;
+function fftw_planner_nthreads: int32; cdecl; external libfftw3f_threads;
+function fftwl_planner_nthreads: int32; cdecl; external libfftw3f_threads;
+function fftwq_planner_nthreads: int32; cdecl; external libfftw3f_threads;
 
 // ========== init_threads ==========
-function fftwf_init_threads: int32; cdecl; external libfftw3;
-function fftw_init_threads: int32; cdecl; external libfftw3;
-function fftwl_init_threads: int32; cdecl; external libfftw3;
-function fftwq_init_threads: int32; cdecl; external libfftw3;
+function fftwf_init_threads: int32; cdecl; external libfftw3f_threads;
+function fftw_init_threads: int32; cdecl; external libfftw3f_threads;
+function fftwl_init_threads: int32; cdecl; external libfftw3f_threads;
+function fftwq_init_threads: int32; cdecl; external libfftw3f_threads;
 
 // ========== cleanup_threads ==========
-procedure fftwf_cleanup_threads; cdecl; external libfftw3;
-procedure fftw_cleanup_threads; cdecl; external libfftw3;
-procedure fftwl_cleanup_threads; cdecl; external libfftw3;
-procedure fftwq_cleanup_threads; cdecl; external libfftw3;
+procedure fftwf_cleanup_threads; cdecl; external libfftw3_threads;
+procedure fftw_cleanup_threads; cdecl; external libfftw3_threads;
+procedure fftwl_cleanup_threads; cdecl; external libfftw3_threads;
+procedure fftwq_cleanup_threads; cdecl; external libfftw3_threads;
 
 // ========== threads_set_callback ==========
 type
   Tfftw_threads_work_func = function(p: pchar): Pointer; cdecl;
   Tfftw_threads_parallel_loop_func = procedure(work: Tfftw_threads_work_func; jobdata: pchar; elsize: Ptruint; njobs: int32; data: Pointer); cdecl;
 
-procedure fftwf_threads_set_callback(parallel_loop: Tfftw_threads_parallel_loop_func; data: Pointer); cdecl; external libfftw3;
-procedure fftw_threads_set_callback(parallel_loop: Tfftw_threads_parallel_loop_func; data: Pointer); cdecl; external libfftw3;
-procedure fftwl_threads_set_callback(parallel_loop: Tfftw_threads_parallel_loop_func; data: Pointer); cdecl; external libfftw3;
-procedure fftwq_threads_set_callback(parallel_loop: Tfftw_threads_parallel_loop_func; data: Pointer); cdecl; external libfftw3;
+procedure fftwf_threads_set_callback(parallel_loop: Tfftw_threads_parallel_loop_func; data: Pointer); cdecl; external libfftw3_threads;
+procedure fftw_threads_set_callback(parallel_loop: Tfftw_threads_parallel_loop_func; data: Pointer); cdecl; external libfftw3_threads;
+procedure fftwl_threads_set_callback(parallel_loop: Tfftw_threads_parallel_loop_func; data: Pointer); cdecl; external libfftw3_threads;
+procedure fftwq_threads_set_callback(parallel_loop: Tfftw_threads_parallel_loop_func; data: Pointer); cdecl; external libfftw3_threads;
 
 // ========== make_planner_thread_safe ==========
-procedure fftwf_make_planner_thread_safe; cdecl; external libfftw3;
-procedure fftw_make_planner_thread_safe; cdecl; external libfftw3;
-procedure fftwl_make_planner_thread_safe; cdecl; external libfftw3;
-procedure fftwq_make_planner_thread_safe; cdecl; external libfftw3;
+procedure fftwf_make_planner_thread_safe; cdecl; external libfftw3_threads;
+procedure fftw_make_planner_thread_safe; cdecl; external libfftw3_threads;
+procedure fftwl_make_planner_thread_safe; cdecl; external libfftw3_threads;
+procedure fftwq_make_planner_thread_safe; cdecl; external libfftw3_threads;
 
 // ========== export_wisdom_to_filename ==========
 function fftwf_export_wisdom_to_filename(filename: pansichar): int32; cdecl; external libfftw3;
