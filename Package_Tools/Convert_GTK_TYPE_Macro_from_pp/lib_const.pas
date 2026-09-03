@@ -360,6 +360,7 @@ const
     (libs: 'libflint'; units: 'fp_flint'),
     (libs: 'libsodium'; units: 'fp_sodium'),
     (libs: 'libfftw3'; units: 'fp_fftw3'),
+    (libs: 'liblerc'; units: 'fp_fftw3'),
 
 
 
