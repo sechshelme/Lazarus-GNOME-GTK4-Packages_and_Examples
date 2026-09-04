@@ -27,6 +27,6 @@ typedef struct {
   #define CFP_NAMESPACE cfp
 #endif
 
-extern const cfp_api CFP_NAMESPACE;
+extern_ const cfp_api CFP_NAMESPACE;
 
 #endif

@@ -362,6 +362,7 @@ const
     (libs: 'libfftw3'; units: 'fp_fftw3'),
     (libs: 'liblerc'; units: 'fp_fftw3'),
     (libs: 'libzfp'; units: 'fp_fftw3'),
+    (libs: 'librabbitmq'; units: 'fp_rabbitmq'),
 
 
 

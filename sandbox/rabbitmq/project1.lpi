@@ -27,6 +27,9 @@
       <Unit>
         <Filename Value="project1.lpr"/>
       </Unit>
+      <Unit>
+        <Filename Value="fp_rabbitmq.pas"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -36,6 +39,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
+      <OtherUnitFiles Value="/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/ampq/"/>
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Linking>
