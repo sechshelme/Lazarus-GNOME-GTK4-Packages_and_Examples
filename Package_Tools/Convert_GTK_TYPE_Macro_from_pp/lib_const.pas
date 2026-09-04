@@ -361,6 +361,7 @@ const
     (libs: 'libsodium'; units: 'fp_sodium'),
     (libs: 'libfftw3'; units: 'fp_fftw3'),
     (libs: 'liblerc'; units: 'fp_fftw3'),
+    (libs: 'libzfp'; units: 'fp_fftw3'),
 
 
 

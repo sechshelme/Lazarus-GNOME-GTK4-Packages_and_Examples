@@ -1,4 +1,4 @@
-unit fp_lerc_c;
+unit fp_lerc;
 
 interface
 
