@@ -250,8 +250,7 @@ function zfp_field_alloc: Pzfp_field; cdecl; external libzfp;
 function zfp_field_1d(p: pointer; _type: Tzfp_type; nx: Tsize_t): Pzfp_field; cdecl; external libzfp;
 function zfp_field_2d(p: pointer; _type: Tzfp_type; nx: Tsize_t; ny: Tsize_t): Pzfp_field; cdecl; external libzfp;
 function zfp_field_3d(p: pointer; _type: Tzfp_type; nx: Tsize_t; ny: Tsize_t; nz: Tsize_t): Pzfp_field; cdecl; external libzfp;
-function zfp_field_4d(p: pointer; _type: Tzfp_type; nx: Tsize_t; ny: Tsize_t; nz: Tsize_t;
-  nw: Tsize_t): Pzfp_field; cdecl; external libzfp;
+function zfp_field_4d(p: pointer; _type: Tzfp_type; nx: Tsize_t; ny: Tsize_t; nz: Tsize_t; nw: Tsize_t): Pzfp_field; cdecl; external libzfp;
 procedure zfp_field_free(field: Pzfp_field); cdecl; external libzfp;
 
 function zfp_field_pointer(field: Pzfp_field): pointer; cdecl; external libzfp;
