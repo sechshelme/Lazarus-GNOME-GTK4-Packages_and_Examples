@@ -1,4 +1,4 @@
-unit fp_rabbitmq;
+unit fp_amqp;
 
 interface
 
@@ -40,6 +40,7 @@ type
   PPint64_t = ^Pint64_t;
 
   Tsize_t=SizeUInt;
+  Psize_t=^Tsize_t;
 
 
   {$IFDEF FPC}
