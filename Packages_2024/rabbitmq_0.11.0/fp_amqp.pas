@@ -39,8 +39,8 @@ type
   Pint64_t = ^Tint64_t;
   PPint64_t = ^Pint64_t;
 
-  Tsize_t=SizeUInt;
-  Psize_t=^Tsize_t;
+  Tsize_t = SizeUInt;
+  Psize_t = ^Tsize_t;
 
 
   {$IFDEF FPC}
@@ -48,14 +48,19 @@ type
   {$ENDIF}
 
   {$DEFINE read_interface}
-//  {$include fp_pango_includes.inc}
+  {$include amqp/amqp.inc}
+  {$include amqp/amqp_framing.inc}
+  {$include amqp/amqp_ssl_socket.inc}
+  {$include amqp/amqp_tcp_socket.inc}
   {$UNDEF read_interface}
 
 implementation
 
 {$DEFINE read_implementation}
-//{$include fp_pango_includes.inc}
+{$include amqp/amqp.inc}
+{$include amqp/amqp_framing.inc}
+{$include amqp/amqp_ssl_socket.inc}
+{$include amqp/amqp_tcp_socket.inc}
 {$UNDEF read_implementation}
 
 end.
-

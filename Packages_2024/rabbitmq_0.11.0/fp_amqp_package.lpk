@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <Package Version="5">
-    <Name Value="fp_raqm_package"/>
+    <Name Value="fp_amqp_package"/>
     <Type Value="RunAndDesignTime"/>
     <CompilerOptions>
       <Version Value="11"/>
       <SearchPaths>
-        <OtherUnitFiles Value="../rabbitmq_0.11.0"/>
         <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
     </CompilerOptions>
     <Files>
       <Item>
-        <Filename Value="fp_raqm.pas"/>
-        <UnitName Value="fp_raqm"/>
+        <Filename Value="fp_amqp.pas"/>
+        <UnitName Value="fp_amqp"/>
       </Item>
     </Files>
     <RequiredPkgs>
