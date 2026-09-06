@@ -23,17 +23,6 @@
     <RunParams>
       <FormatVersion Value="2"/>
     </RunParams>
-    <RequiredPackages>
-      <Item>
-        <PackageName Value="fp_box2d_package"/>
-      </Item>
-      <Item>
-        <PackageName Value="fp_GLIB2_package"/>
-      </Item>
-      <Item>
-        <PackageName Value="fp_GTK4_package"/>
-      </Item>
-    </RequiredPackages>
     <Units>
       <Unit>
         <Filename Value="project1.lpr"/>
@@ -53,7 +42,6 @@
       <Debugging>
         <GenerateDebugInfo Value="False"/>
         <RunWithoutDebug Value="True"/>
-        <DebugInfoType Value="dsDwarf3"/>
       </Debugging>
     </Linking>
   </CompilerOptions>
