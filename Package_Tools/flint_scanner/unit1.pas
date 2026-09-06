@@ -40,13 +40,15 @@ implementation
 
 // nm -D libflint.so | grep padic_fprint
 
-Bei flint.h einfügen
+Bei .../src/flint.h einfügen
 #define FLINT_FORCE_INLINE __attribute__((weak)) extern
 
 #define FMPZ_MOD_MPOLY_Q_INLINE __attribute__((weak)) extern
 #define RADIX_INLINE __attribute__((weak)) extern
 #define FQ_ZECH_POLY_INLINE __attribute__((weak)) extern
 #define DLOG_INLINE __attribute__((weak)) extern
+#define FQ_ZECH_MPOLY_INLINE __attribute__((weak)) extern
+
 
 
 
@@ -74,7 +76,8 @@ not found
 
 
 const
-  FlintPath='/home/tux/Schreibtisch/von_Git/flint/flint/';
+  FlintPath='/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/fork/flint_fork/';
+//  FlintPath='/home/tux/Schreibtisch/von_Git/flint/flint/';
 //  FlintPath='/home/tux/Schreibtisch/von_Git/flint/flint-3.0.1/';
 //  FlintPath='/home/tux/Schreibtisch/von_Git/flint/flint-3.4.0/';
 //  FlintPath='/home/tux/Schreibtisch/von_Git/flint/flint-3.6.0/';
