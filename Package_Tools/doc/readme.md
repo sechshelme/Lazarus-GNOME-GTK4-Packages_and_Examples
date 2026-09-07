@@ -47,6 +47,12 @@ for file in *-*; do mv "$file" "${file//-/_}"; done
 sed -i 's/extern\s*(\([^)]*\))/extern \1/g' *.h
 ```
 
+# long suchen
+```
+grep -r "long" . | grep -v "long long"
+```
+
+
 
 
 

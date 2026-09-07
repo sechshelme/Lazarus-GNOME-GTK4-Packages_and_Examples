@@ -1,0 +1,502 @@
+./hdf5/serial/H5Ppublic.h: *                        passed along to class create callback
+./hdf5/serial/H5Ppublic.h: *                        passed along to class copy callback
+./hdf5/serial/H5Ppublic.h: *                        passed along to class close callback
+./hdf5/serial/H5Ppublic.h: *          released with H5Pclose() when the identifier is no longer needed
+./hdf5/serial/H5Ppublic.h: * \param[in,out] mdc_nelmts  <i>No longer used</i>
+./hdf5/serial/H5Ppublic.h: *          Note that the \p mdc_nelmts parameter is no longer used.
+./hdf5/serial/H5Ppublic.h: *            <td>This driver is no longer available.</td>
+./hdf5/serial/H5Ppublic.h: *            <td>This driver is no longer available.</td>
+./hdf5/serial/H5Ppublic.h: *          The returned driver identifier is only valid as long as the
+./hdf5/serial/H5Ppublic.h: *          immediately evicted from the cache as long as it is not referenced
+./hdf5/serial/H5Ppublic.h: *          passed along to the callback function in the parameter
+./hdf5/serial/H5Ppublic.h: * \param[in] mdc_nelmts No longer used; any value passed is ignored
+./hdf5/serial/H5Ppublic.h: *          The \p mdc_nelmts parameter is no longer used; any value passed
+./hdf5/serial/H5Ppublic.h: *          longest time without being accessed through the parent file
+./hdf5/serial/H5Ppublic.h: *          from the cache as long as metadata is not referenced by any other
+./hdf5/serial/H5Ppublic.h: *          The callbacks and their parameters, along with a struct and
+./hdf5/serial/H5Ppublic.h: *      In long sequences of file  closes and opens, infrequently accessed
+./hdf5/serial/H5Ppublic.h: *          is longer than \p name_size with the null terminator, the
+./hdf5/serial/H5Ppublic.h: * \note On Windows, off_t is typically a 32-bit signed long value, which
+./hdf5/serial/H5Ppublic.h: *          dataset’s dataspace. While appending to a dataset along a
+./hdf5/serial/H5Ppublic.h: *                        number will improve performance, as long as
+./hdf5/serial/H5Ppublic.h: * \deprecated{H5Pget_preserve() is deprecated as it is no longer useful;
+./hdf5/serial/H5Ppublic.h: *          mining can only break the data up along the first dimension, so the
+./hdf5/serial/H5Ppublic.h: * \deprecated This function is deprecated as it no longer has any effect;
+./hdf5/serial/H5Ppublic.h: *          along any required information to the user's memory management
+./hdf5/serial/H5Ppublic.h: *       take a long time.
+./hdf5/serial/H5public.h:typedef long ssize_t;
+./hdf5/serial/H5public.h:typedef long               int64_t;
+./hdf5/serial/H5public.h:typedef unsigned long      uint64_t;
+./hdf5/serial/H5public.h:H5_GCC_DIAG_OFF("long-long")
+./hdf5/serial/H5public.h:H5_GCC_DIAG_ON("long-long")
+./hdf5/serial/H5public.h:typedef unsigned long haddr_t;
+./hdf5/serial/H5public.h:typedef unsigned long      uint32_t;
+./hdf5/serial/H5public.h: *          atexit() would jump to a routine which was no longer in memory,
+./hdf5/serial/H5Gpublic.h: *          is no longer required to prevent resource leaks.
+./hdf5/serial/H5Gpublic.h: *          H5Gclose() when the group is no longer needed so that resource
+./hdf5/serial/H5Gpublic.h: *          when it is no longer needed to prevent resource leaks.
+./hdf5/serial/H5Gpublic.h:    unsigned long fileno[2]; /**< file number			*/
+./hdf5/serial/H5Gpublic.h:    unsigned long objno[2];  /**< object number			*/
+./hdf5/serial/H5Gpublic.h: *          no longer needed.
+./hdf5/serial/H5Gpublic.h: *          H5Gclose() when it is no longer needed.
+./hdf5/serial/H5Gpublic.h: *          as long as the file remains open; once a file has been closed, the
+./hdf5/serial/H5Gpublic.h: *          comment is longer than the supplied buffer. If the size of the
+./hdf5/serial/H5Opublic.h:    unsigned long  fileno;    /**< File number that object is located in */
+./hdf5/serial/H5Opublic.h: *          When it is no longer needed, the opened object should be closed with
+./hdf5/serial/H5Opublic.h: *          object-type-specific closing function (such as H5Gclose()) when no longer needed.
+./hdf5/serial/H5Opublic.h: *          An object opened with this function should be closed when it is no longer needed so that
+./hdf5/serial/H5Opublic.h: *          along the path must be verified before the existence of
+./hdf5/serial/H5Opublic.h: *          will be attached to the object to which the attribute belongs
+./hdf5/serial/H5Opublic.h: *          will be attached to the object to which the attribute belongs
+./hdf5/serial/H5Opublic.h: *          along the index specified in \p idx_type.
+./hdf5/serial/H5Opublic.h: *          along the index specified in \p idx_type.
+./hdf5/serial/H5Opublic.h: *          along the index specified in \p idx_type.
+./hdf5/serial/H5Opublic.h: *          along the index specified in \p idx_type.
+./hdf5/serial/H5Lpublic.h: *          target link, intermediate steps along the path must be verified
+./hdf5/serial/H5Lpublic.h: *          \p order specifies the order in which objects are inspected along
+./hdf5/serial/H5Lpublic.h: *          along the index \p idx_type.
+./hdf5/serial/H5Lpublic.h: *          along the index specified in \p idx_type. Valid values include the
+./hdf5/serial/H5Lpublic.h: *          along the index specified in \p idx_type. Valid values include the
+./hdf5/serial/H5Lpublic.h: *          along the index specified in \p idx_type. Valid values include the
+./hdf5/serial/H5IdComponent.h:    // Gets the name of the file, in which an HDF5 object belongs.
+./hdf5/serial/H5pubconf.h:/* Define if your system is IBM ppc64le and cannot convert some long double
+./hdf5/serial/H5pubconf.h:/* Determine the size of C long double */
+./hdf5/serial/H5pubconf.h:/* Define to 1 if you have the `longjmp' function. */
+./hdf5/serial/H5pubconf.h:/* Define to 1 if you have the `siglongjmp' function. */
+./hdf5/serial/H5pubconf.h:/* Define if your system converts long double to (unsigned) long values with
+./hdf5/serial/H5pubconf.h:/* Define if your system can convert (unsigned) long to long double values
+./hdf5/serial/H5pubconf.h:/* The size of `long', as computed by sizeof. */
+./hdf5/serial/H5pubconf.h:/* The size of `long double', as computed by sizeof. */
+./hdf5/serial/H5pubconf.h:/* Define to `long int' if <sys/types.h> does not define. */
+./hdf5/serial/H5pubconf.h:/* Define to `long' if <sys/types.h> does not define. */
+./hdf5/serial/H5pubconf.h:/* Define to `unsigned long' if <sys/types.h> does not define. */
+./hdf5/serial/H5pubconf.h:/* Define to `long' if <sys/types.h> does not define. */
+./hdf5/serial/H5Apublic.h: * \return  Returns the length of the attribute's name, which may be longer
+./hdf5/serial/H5Apublic.h: *          name of the attribute is longer than (\p buf_size -1), the
+./hdf5/serial/H5Location.h:    // The following two constructors are no longer appropriate after the
+./hdf5/serial/H5LTpublic.h: *      - \ref H5LTmake_dataset_long
+./hdf5/serial/H5LTpublic.h: *      - \ref H5LTread_dataset_long
+./hdf5/serial/H5LTpublic.h: *      - \ref H5LTset_attribute_long
+./hdf5/serial/H5LTpublic.h: *      - \ref H5LTset_attribute_long_long
+./hdf5/serial/H5LTpublic.h: *      - \ref H5LTset_attribute_ulong
+./hdf5/serial/H5LTpublic.h: *      - \ref H5LTget_attribute_long
+./hdf5/serial/H5LTpublic.h: *      - \ref H5LTget_attribute_long_long
+./hdf5/serial/H5LTpublic.h: *      - \ref H5LTget_attribute_ulong
+./hdf5/serial/H5LTpublic.h: * \details H5LTmake_dataset_long() creates and writes a dataset
+./hdf5/serial/H5LTpublic.h: *          The dataset’s datatype will be <em>long signed integer</em>,
+./hdf5/serial/H5LTpublic.h:H5_HLDLL herr_t H5LTmake_dataset_long(hid_t loc_id, const char *dset_name, int rank, const hsize_t *dims,
+./hdf5/serial/H5LTpublic.h:                                      const long *buffer);
+./hdf5/serial/H5LTpublic.h: * \details H5LTread_dataset_long() reads a dataset named \p dset_name
+./hdf5/serial/H5LTpublic.h:H5_HLDLL herr_t H5LTread_dataset_long(hid_t loc_id, const char *dset_name, long *buffer);
+./hdf5/serial/H5LTpublic.h: * \details H5LTset_attribute_long() creates and writes a numerical
+./hdf5/serial/H5LTpublic.h:H5_HLDLL herr_t H5LTset_attribute_long(hid_t loc_id, const char *obj_name, const char *attr_name,
+./hdf5/serial/H5LTpublic.h:                                       const long *buffer, size_t size);
+./hdf5/serial/H5LTpublic.h: * \details H5LTset_attribute_long_long() creates and writes a numerical
+./hdf5/serial/H5LTpublic.h:H5_HLDLL herr_t H5LTset_attribute_long_long(hid_t loc_id, const char *obj_name, const char *attr_name,
+./hdf5/serial/H5LTpublic.h: * \details H5LTset_attribute_ulong() creates and writes a numerical
+./hdf5/serial/H5LTpublic.h:H5_HLDLL herr_t H5LTset_attribute_ulong(hid_t loc_id, const char *obj_name, const char *attr_name,
+./hdf5/serial/H5LTpublic.h:                                        const unsigned long *buffer, size_t size);
+./hdf5/serial/H5LTpublic.h: * \details H5LTget_attribute_long() reads an attribute named
+./hdf5/serial/H5LTpublic.h:H5_HLDLL herr_t H5LTget_attribute_long(hid_t loc_id, const char *obj_name, const char *attr_name, long *data);
+./hdf5/serial/H5LTpublic.h: * \brief Reads a \e long \e long attribute.
+./hdf5/serial/H5LTpublic.h: * \details H5LTget_attribute_long_long() reads the attribute
+./hdf5/serial/H5LTpublic.h:H5_HLDLL herr_t H5LTget_attribute_long_long(hid_t loc_id, const char *obj_name, const char *attr_name,
+./hdf5/serial/H5LTpublic.h: * \details H5LTget_attribute_ulong() reads an attribute named
+./hdf5/serial/H5LTpublic.h:H5_HLDLL herr_t H5LTget_attribute_ulong(hid_t loc_id, const char *obj_name, const char *attr_name,
+./hdf5/serial/H5LTpublic.h:                                        unsigned long *data);
+./hdf5/serial/H5Dpublic.h: *          be released with H5Sclose() when the identifier is no longer
+./hdf5/serial/H5Dpublic.h: *          specified by the index \p index. The chunk belongs to a set of
+./hdf5/serial/H5Dpublic.h: *          extended only along the first dimension.
+./hdf5/serial/H5Dpublic.h: *       H5Dset_extent() then that dataspace handle will no longer reflect the
+./hdf5/serial/H5Dpublic.h: * These symbols are no longer used in the library.
+./hdf5/serial/H5Dpublic.h: *          when the dataset is no longer needed so that resource leaks will not
+./hdf5/serial/H5Epubgen.h:H5_DLLVAR hid_t H5E_COMPLEN_g;       /* Name component is too long */
+./hdf5/serial/H5AbstractDs.h:    // via generic member functions, i.e., member functions belong
+./hdf5/serial/H5Tpublic.h: * C-style \Code{long}
+./hdf5/serial/H5Tpublic.h: * C-style \Code{unsigned long}
+./hdf5/serial/H5Tpublic.h: * C-style \Code{long double}
+./hdf5/serial/H5Tpublic.h: *          with H5Tclose() when the identifier is no longer needed so that
+./hdf5/serial/H5Tpublic.h: *          with H5Tclose()  when the identifier is no longer needed so that
+./hdf5/serial/H5Tpublic.h: *          When converting from a longer string to a shorter string, the
+./hdf5/serial/H5Tpublic.h: *          When converting from a shorter string to a longer string, the
+./hdf5/serial/H5Tpublic.h: *          longer string is padded on the end by appending nulls or spaces.
+./hdf5/serial/H5Tpublic.h: *          Release 1.2, this parameter is only used to pass along the
+./hdf5/serial/H5ACpublic.h: * metadata_write_strategy field.  The possible values of this field, along
+./hdf5/serial/H5ACpublic.h:    long int epoch_length;
+./hdf5/serial/H5ACpublic.h:     *   entries in long sequences of cache images.
+./hdf5/serial/H5Zpublic.h: *          will no longer be available to the application.
+./hdf5/serial/H5Rpublic.h: *          longer needed so that resource leaks will not develop. Use the
+./hdf5/serial/H5Rpublic.h: *          function when the identifier is no longer needed.
+./hdf5/serial/H5Rpublic.h: *          longer needed so that resource leaks will not develop. Use the
+./hdf5/serial/H5Object.h:    // Given its name, opens the attribute that belongs to an object at
+./hdf5/serial/H5Object.h:    // Given its index, opens the attribute that belongs to an object at
+./hdf5/serial/H5Object.h:    // Determines the number of attributes belong to this object.
+./hdf5/serial/H5FDpublic.h:    herr_t (*query)(const H5FD_t *f1, unsigned long *flags);
+./hdf5/serial/H5FDpublic.h:    unsigned long       fileno;        /* File 'serial' number     */
+./hdf5/serial/H5FDpublic.h:    unsigned long       feature_flags; /* VFL Driver feature Flags */
+./hdf5/serial/H5FDpublic.h:H5_DLL int     H5FDquery(const H5FD_t *f, unsigned long *flags);
+./hdf5/serial/H5FDpublic.h:H5_DLL herr_t H5FDdriver_query(hid_t driver_id, unsigned long *flags /*out*/);
+./hdf5/serial/H5FDhdfs.h: *     Must not be longer than `H5FD__HDFS_NODE_NAME_SPACE`.
+./hdf5/serial/H5FDhdfs.h: *     Must not be longer than `H5FD__HDFS_KERB_CACHE_PATH_SPACE`.
+./hdf5/serial/H5FDhdfs.h: *     Must not be longer than `H5FD__HDFS_USER_NAME_SPACE`.
+./hdf5/serial/H5Ipublic.h: *          this new ID will belong. This identifier must have been created by
+./hdf5/serial/H5Ipublic.h: * \details H5Iremove_verify() first ensures that \p id belongs to \p type.
+./hdf5/serial/H5Ipublic.h: *          was placed in storage by H5Iregister(). If id does not belong to
+./hdf5/serial/H5Ipublic.h: *          is supposed to belong to. This identifier must have been created by
+./hdf5/serial/H5DSpublic.h: *          the buffer \p label.  If the label is longer than
+./hdf5/serial/H5f90i_gen.h:#define c_float_10 long double
+./hdf5/serial/H5overflow.h:/* src: unsigned, dst: long */
+./hdf5/serial/H5overflow.h:    #define ASSIGN_unsigned_TO_long(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_unsigned_TO_long(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_unsigned_TO_long(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:#endif /* src: unsigned dst: long */
+./hdf5/serial/H5overflow.h:/* src: int8_t, dst: long */
+./hdf5/serial/H5overflow.h:    #define ASSIGN_int8_t_TO_long(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_int8_t_TO_long(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_int8_t_TO_long(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:#endif /* src: int8_t dst: long */
+./hdf5/serial/H5overflow.h:/* src: int, dst: long */
+./hdf5/serial/H5overflow.h:    #define ASSIGN_int_TO_long(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_int_TO_long(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_int_TO_long(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:#endif /* src: int dst: long */
+./hdf5/serial/H5overflow.h:/* Assignment checks for long */
+./hdf5/serial/H5overflow.h:/* src: long, dst: unsigned */
+./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_unsigned(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_unsigned(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_unsigned(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:#endif /* src: long dst: unsigned */
+./hdf5/serial/H5overflow.h:/* src: long, dst: int8_t */
+./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_int8_t(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_int8_t(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_int8_t(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:#endif /* src: long dst: int8_t */
+./hdf5/serial/H5overflow.h:/* src: long, dst: int */
+./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_int(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_int(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_int(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:#endif /* src: long dst: int */
+./hdf5/serial/H5overflow.h:/* src: long, dst: int64_t */
+./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_int64_t(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_int64_t(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_int64_t(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:#endif /* src: long dst: int64_t */
+./hdf5/serial/H5overflow.h:/* src: long, dst: uint8_t */
+./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_uint8_t(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_uint8_t(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_uint8_t(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:#endif /* src: long dst: uint8_t */
+./hdf5/serial/H5overflow.h:/* src: long, dst: uint16_t */
+./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_uint16_t(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_uint16_t(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_uint16_t(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:#endif /* src: long dst: uint16_t */
+./hdf5/serial/H5overflow.h:/* src: long, dst: uint32_t */
+./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_uint32_t(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_uint32_t(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_uint32_t(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:#endif /* src: long dst: uint32_t */
+./hdf5/serial/H5overflow.h:/* src: long, dst: uint64_t */
+./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_uint64_t(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_uint64_t(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_uint64_t(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:#endif /* src: long dst: uint64_t */
+./hdf5/serial/H5overflow.h:/* src: long, dst: ptrdiff_t */
+./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_ptrdiff_t(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_ptrdiff_t(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_ptrdiff_t(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:#endif /* src: long dst: ptrdiff_t */
+./hdf5/serial/H5overflow.h:/* src: long, dst: size_t */
+./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_size_t(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_size_t(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_size_t(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:#endif /* src: long dst: size_t */
+./hdf5/serial/H5overflow.h:/* src: long, dst: ssize_t */
+./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_ssize_t(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_ssize_t(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_ssize_t(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:#endif /* src: long dst: ssize_t */
+./hdf5/serial/H5overflow.h:/* src: long, dst: haddr_t */
+./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_haddr_t(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_haddr_t(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_haddr_t(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:#endif /* src: long dst: haddr_t */
+./hdf5/serial/H5overflow.h:/* src: long, dst: hsize_t */
+./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_hsize_t(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_hsize_t(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_hsize_t(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:#endif /* src: long dst: hsize_t */
+./hdf5/serial/H5overflow.h:/* src: long, dst: hssize_t */
+./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_hssize_t(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_hssize_t(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_hssize_t(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:#endif /* src: long dst: hssize_t */
+./hdf5/serial/H5overflow.h:/* src: long, dst: h5_stat_size_t */
+./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_h5_stat_size_t(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_h5_stat_size_t(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_h5_stat_size_t(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:#endif /* src: long dst: h5_stat_size_t */
+./hdf5/serial/H5overflow.h:/* src: int64_t, dst: long */
+./hdf5/serial/H5overflow.h:    #define ASSIGN_int64_t_TO_long(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_int64_t_TO_long(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_int64_t_TO_long(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:#endif /* src: int64_t dst: long */
+./hdf5/serial/H5overflow.h:/* src: uint8_t, dst: long */
+./hdf5/serial/H5overflow.h:    #define ASSIGN_uint8_t_TO_long(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_uint8_t_TO_long(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_uint8_t_TO_long(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:#endif /* src: uint8_t dst: long */
+./hdf5/serial/H5overflow.h:/* src: uint16_t, dst: long */
+./hdf5/serial/H5overflow.h:    #define ASSIGN_uint16_t_TO_long(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_uint16_t_TO_long(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_uint16_t_TO_long(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:#endif /* src: uint16_t dst: long */
+./hdf5/serial/H5overflow.h:/* src: uint32_t, dst: long */
+./hdf5/serial/H5overflow.h:    #define ASSIGN_uint32_t_TO_long(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_uint32_t_TO_long(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_uint32_t_TO_long(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:#endif /* src: uint32_t dst: long */
+./hdf5/serial/H5overflow.h:/* src: uint64_t, dst: long */
+./hdf5/serial/H5overflow.h:    #define ASSIGN_uint64_t_TO_long(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_uint64_t_TO_long(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_uint64_t_TO_long(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:#endif /* src: uint64_t dst: long */
+./hdf5/serial/H5overflow.h:/* src: ptrdiff_t, dst: long */
+./hdf5/serial/H5overflow.h:    #define ASSIGN_ptrdiff_t_TO_long(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_ptrdiff_t_TO_long(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_ptrdiff_t_TO_long(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:#endif /* src: ptrdiff_t dst: long */
+./hdf5/serial/H5overflow.h:/* src: size_t, dst: long */
+./hdf5/serial/H5overflow.h:    #define ASSIGN_size_t_TO_long(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_size_t_TO_long(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_size_t_TO_long(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:#endif /* src: size_t dst: long */
+./hdf5/serial/H5overflow.h:/* src: ssize_t, dst: long */
+./hdf5/serial/H5overflow.h:    #define ASSIGN_ssize_t_TO_long(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_ssize_t_TO_long(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_ssize_t_TO_long(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:#endif /* src: ssize_t dst: long */
+./hdf5/serial/H5overflow.h:/* src: haddr_t, dst: long */
+./hdf5/serial/H5overflow.h:    #define ASSIGN_haddr_t_TO_long(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_haddr_t_TO_long(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_haddr_t_TO_long(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:#endif /* src: haddr_t dst: long */
+./hdf5/serial/H5overflow.h:/* src: hsize_t, dst: long */
+./hdf5/serial/H5overflow.h:    #define ASSIGN_hsize_t_TO_long(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_hsize_t_TO_long(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_hsize_t_TO_long(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:#endif /* src: hsize_t dst: long */
+./hdf5/serial/H5overflow.h:/* src: hssize_t, dst: long */
+./hdf5/serial/H5overflow.h:    #define ASSIGN_hssize_t_TO_long(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_hssize_t_TO_long(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_hssize_t_TO_long(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:#endif /* src: hssize_t dst: long */
+./hdf5/serial/H5overflow.h:/* src: h5_stat_size_t, dst: long */
+./hdf5/serial/H5overflow.h:    #define ASSIGN_h5_stat_size_t_TO_long(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_h5_stat_size_t_TO_long(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:    #define ASSIGN_h5_stat_size_t_TO_long(dst, dsttype, src, srctype) \
+./hdf5/serial/H5overflow.h:#endif /* src: h5_stat_size_t dst: long */
+./hdf5/serial/H5DOpublic.h: *    \n Appends data to a dataset along a specified dimension.
+./hdf5/serial/H5DOpublic.h: * \brief Appends data to a dataset along a specified dimension.
+./hdf5/serial/H5DOpublic.h: *          number of elements along a dimension specified by a
+./hdf5/serial/H5DOpublic.h: *          those dimensions may be appended to, although only along
+./hdf5/serial/H5Epublic.h: * Warning: don't break, return, or longjmp() from the body of the loop or
+./hdf5/serial/H5Epublic.h: * \param[in] lib_name Name of the client library or application to which the error class belongs
+./hdf5/serial/H5Epublic.h:              error class belongs. Can be \c NULL.
+./hdf5/serial/H5Epublic.h: *          long is returned. The length of the error class name is also
+./hdf5/serial/H5Epublic.h: *          error along the way.
+./hdf5/serial/H5Epublic.h: *          error message of \p size long is returned. The length of the message
+./hdf5/serial/H5Epublic.h: *          the function specified in \p func for each error along the way.
+./hdf5/serial/H5Fpublic.h: *          it is no longer needed.
+./hdf5/serial/H5Fpublic.h: *          longer needed.
+./hdf5/serial/H5Fpublic.h: *            long as the identifier remains valid. In such multiply-opened
+./hdf5/serial/H5Fpublic.h: *          it is no longer needed.
+./hdf5/serial/H5Fpublic.h: * \brief Retrieves name of file to which object belongs
+./hdf5/serial/H5Fpublic.h: *          obj_id belongs. The object can be a file, group, dataset,
+./hdf5/serial/H5Fpublic.h: * \brief Retrieves name of file to which object belongs
+./hdf5/serial/H5Fpublic.h: * \brief Retrieves name of file to which object belongs
+./test.grep:./hdf5/serial/H5Ppublic.h: *                        passed along to class create callback
+./test.grep:./hdf5/serial/H5Ppublic.h: *                        passed along to class copy callback
+./test.grep:./hdf5/serial/H5Ppublic.h: *                        passed along to class close callback
+./test.grep:./hdf5/serial/H5Ppublic.h: *          released with H5Pclose() when the identifier is no longer needed
+./test.grep:./hdf5/serial/H5Ppublic.h: * \param[in,out] mdc_nelmts  <i>No longer used</i>
+./test.grep:./hdf5/serial/H5Ppublic.h: *          Note that the \p mdc_nelmts parameter is no longer used.
+./test.grep:./hdf5/serial/H5Ppublic.h: *            <td>This driver is no longer available.</td>
+./test.grep:./hdf5/serial/H5Ppublic.h: *            <td>This driver is no longer available.</td>
+./test.grep:./hdf5/serial/H5Ppublic.h: *          The returned driver identifier is only valid as long as the
+./test.grep:./hdf5/serial/H5Ppublic.h: *          immediately evicted from the cache as long as it is not referenced
+./test.grep:./hdf5/serial/H5Ppublic.h: *          passed along to the callback function in the parameter
+./test.grep:./hdf5/serial/H5Ppublic.h: * \param[in] mdc_nelmts No longer used; any value passed is ignored
+./test.grep:./hdf5/serial/H5Ppublic.h: *          The \p mdc_nelmts parameter is no longer used; any value passed
+./test.grep:./hdf5/serial/H5Ppublic.h: *          longest time without being accessed through the parent file
+./test.grep:./hdf5/serial/H5Ppublic.h: *          from the cache as long as metadata is not referenced by any other
+./test.grep:./hdf5/serial/H5Ppublic.h: *          The callbacks and their parameters, along with a struct and
+./test.grep:./hdf5/serial/H5Ppublic.h: *      In long sequences of file  closes and opens, infrequently accessed
+./test.grep:./hdf5/serial/H5Ppublic.h: *          is longer than \p name_size with the null terminator, the
+./test.grep:./hdf5/serial/H5Ppublic.h: * \note On Windows, off_t is typically a 32-bit signed long value, which
+./test.grep:./hdf5/serial/H5Ppublic.h: *          dataset’s dataspace. While appending to a dataset along a
+./test.grep:./hdf5/serial/H5Ppublic.h: *                        number will improve performance, as long as
+./test.grep:./hdf5/serial/H5Ppublic.h: * \deprecated{H5Pget_preserve() is deprecated as it is no longer useful;
+./test.grep:./hdf5/serial/H5Ppublic.h: *          mining can only break the data up along the first dimension, so the
+./test.grep:./hdf5/serial/H5Ppublic.h: * \deprecated This function is deprecated as it no longer has any effect;
+./test.grep:./hdf5/serial/H5Ppublic.h: *          along any required information to the user's memory management
+./test.grep:./hdf5/serial/H5Ppublic.h: *       take a long time.
+./test.grep:./hdf5/serial/H5public.h:typedef long ssize_t;
+./test.grep:./hdf5/serial/H5public.h:typedef long               int64_t;
+./test.grep:./hdf5/serial/H5public.h:typedef unsigned long      uint64_t;
+./test.grep:./hdf5/serial/H5public.h:H5_GCC_DIAG_OFF("long-long")
+./test.grep:./hdf5/serial/H5public.h:H5_GCC_DIAG_ON("long-long")
+./test.grep:./hdf5/serial/H5public.h:typedef unsigned long haddr_t;
+./test.grep:./hdf5/serial/H5public.h:typedef unsigned long      uint32_t;
+./test.grep:./hdf5/serial/H5public.h: *          atexit() would jump to a routine which was no longer in memory,
+./test.grep:./hdf5/serial/H5Gpublic.h: *          is no longer required to prevent resource leaks.
+./test.grep:./hdf5/serial/H5Gpublic.h: *          H5Gclose() when the group is no longer needed so that resource
+./test.grep:./hdf5/serial/H5Gpublic.h: *          when it is no longer needed to prevent resource leaks.
+./test.grep:./hdf5/serial/H5Gpublic.h:    unsigned long fileno[2]; /**< file number			*/
+./test.grep:./hdf5/serial/H5Gpublic.h:    unsigned long objno[2];  /**< object number			*/
+./test.grep:./hdf5/serial/H5Gpublic.h: *          no longer needed.
+./test.grep:./hdf5/serial/H5Gpublic.h: *          H5Gclose() when it is no longer needed.
+./test.grep:./hdf5/serial/H5Gpublic.h: *          as long as the file remains open; once a file has been closed, the
+./test.grep:./hdf5/serial/H5Gpublic.h: *          comment is longer than the supplied buffer. If the size of the
+./test.grep:./hdf5/serial/H5Opublic.h:    unsigned long  fileno;    /**< File number that object is located in */
+./test.grep:./hdf5/serial/H5Opublic.h: *          When it is no longer needed, the opened object should be closed with
+./test.grep:./hdf5/serial/H5Opublic.h: *          object-type-specific closing function (such as H5Gclose()) when no longer needed.
+./test.grep:./hdf5/serial/H5Opublic.h: *          An object opened with this function should be closed when it is no longer needed so that
+./test.grep:./hdf5/serial/H5Opublic.h: *          along the path must be verified before the existence of
+./test.grep:./hdf5/serial/H5Opublic.h: *          will be attached to the object to which the attribute belongs
+./test.grep:./hdf5/serial/H5Opublic.h: *          will be attached to the object to which the attribute belongs
+./test.grep:./hdf5/serial/H5Opublic.h: *          along the index specified in \p idx_type.
+./test.grep:./hdf5/serial/H5Opublic.h: *          along the index specified in \p idx_type.
+./test.grep:./hdf5/serial/H5Opublic.h: *          along the index specified in \p idx_type.
+./test.grep:./hdf5/serial/H5Opublic.h: *          along the index specified in \p idx_type.
+./test.grep:./hdf5/serial/H5Lpublic.h: *          target link, intermediate steps along the path must be verified
+./test.grep:./hdf5/serial/H5Lpublic.h: *          \p order specifies the order in which objects are inspected along
+./test.grep:./hdf5/serial/H5Lpublic.h: *          along the index \p idx_type.
+./test.grep:./hdf5/serial/H5Lpublic.h: *          along the index specified in \p idx_type. Valid values include the
+./test.grep:./hdf5/serial/H5Lpublic.h: *          along the index specified in \p idx_type. Valid values include the
+./test.grep:./hdf5/serial/H5Lpublic.h: *          along the index specified in \p idx_type. Valid values include the
+./test.grep:./hdf5/serial/H5IdComponent.h:    // Gets the name of the file, in which an HDF5 object belongs.
+./test.grep:./hdf5/serial/H5pubconf.h:/* Define if your system is IBM ppc64le and cannot convert some long double
+./test.grep:./hdf5/serial/H5pubconf.h:/* Determine the size of C long double */
+./test.grep:./hdf5/serial/H5pubconf.h:/* Define to 1 if you have the `longjmp' function. */
+./test.grep:./hdf5/serial/H5pubconf.h:/* Define to 1 if you have the `siglongjmp' function. */
+./test.grep:./hdf5/serial/H5pubconf.h:/* Define if your system converts long double to (unsigned) long values with
+./test.grep:./hdf5/serial/H5pubconf.h:/* Define if your system can convert (unsigned) long to long double values
+./test.grep:./hdf5/serial/H5pubconf.h:/* The size of `long', as computed by sizeof. */
+./test.grep:./hdf5/serial/H5pubconf.h:/* The size of `long double', as computed by sizeof. */
+./test.grep:./hdf5/serial/H5pubconf.h:/* Define to `long int' if <sys/types.h> does not define. */
+./test.grep:./hdf5/serial/H5pubconf.h:/* Define to `long' if <sys/types.h> does not define. */
+./test.grep:./hdf5/serial/H5pubconf.h:/* Define to `unsigned long' if <sys/types.h> does not define. */
+./test.grep:./hdf5/serial/H5pubconf.h:/* Define to `long' if <sys/types.h> does not define. */
+./test.grep:./hdf5/serial/H5Apublic.h: * \return  Returns the length of the attribute's name, which may be longer
+./test.grep:./hdf5/serial/H5Apublic.h: *          name of the attribute is longer than (\p buf_size -1), the
+./test.grep:./hdf5/serial/H5Location.h:    // The following two constructors are no longer appropriate after the
+./test.grep:./hdf5/serial/H5LTpublic.h: *      - \ref H5LTmake_dataset_long
+./test.grep:./hdf5/serial/H5LTpublic.h: *      - \ref H5LTread_dataset_long
+./test.grep:./hdf5/serial/H5LTpublic.h: *      - \ref H5LTset_attribute_long
+./test.grep:./hdf5/serial/H5LTpublic.h: *      - \ref H5LTset_attribute_long_long
+./test.grep:./hdf5/serial/H5LTpublic.h: *      - \ref H5LTset_attribute_ulong
+./test.grep:./hdf5/serial/H5LTpublic.h: *      - \ref H5LTget_attribute_long
+./test.grep:./hdf5/serial/H5LTpublic.h: *      - \ref H5LTget_attribute_long_long
+./test.grep:./hdf5/serial/H5LTpublic.h: *      - \ref H5LTget_attribute_ulong
+./test.grep:./hdf5/serial/H5LTpublic.h: * \details H5LTmake_dataset_long() creates and writes a dataset
+./test.grep:./hdf5/serial/H5LTpublic.h: *          The dataset’s datatype will be <em>long signed integer</em>,
+./test.grep:./hdf5/serial/H5LTpublic.h:H5_HLDLL herr_t H5LTmake_dataset_long(hid_t loc_id, const char *dset_name, int rank, const hsize_t *dims,
+./test.grep:./hdf5/serial/H5LTpublic.h:                                      const long *buffer);
+./test.grep:./hdf5/serial/H5LTpublic.h: * \details H5LTread_dataset_long() reads a dataset named \p dset_name
+./test.grep:./hdf5/serial/H5LTpublic.h:H5_HLDLL herr_t H5LTread_dataset_long(hid_t loc_id, const char *dset_name, long *buffer);
+./test.grep:./hdf5/serial/H5LTpublic.h: * \details H5LTset_attribute_long() creates and writes a numerical
+./test.grep:./hdf5/serial/H5LTpublic.h:H5_HLDLL herr_t H5LTset_attribute_long(hid_t loc_id, const char *obj_name, const char *attr_name,
+./test.grep:./hdf5/serial/H5LTpublic.h:                                       const long *buffer, size_t size);
+./test.grep:./hdf5/serial/H5LTpublic.h: * \details H5LTset_attribute_long_long() creates and writes a numerical
+./test.grep:./hdf5/serial/H5LTpublic.h:H5_HLDLL herr_t H5LTset_attribute_long_long(hid_t loc_id, const char *obj_name, const char *attr_name,
+./test.grep:./hdf5/serial/H5LTpublic.h: * \details H5LTset_attribute_ulong() creates and writes a numerical
+./test.grep:./hdf5/serial/H5LTpublic.h:H5_HLDLL herr_t H5LTset_attribute_ulong(hid_t loc_id, const char *obj_name, const char *attr_name,
+./test.grep:./hdf5/serial/H5LTpublic.h:                                        const unsigned long *buffer, size_t size);
+./test.grep:./hdf5/serial/H5LTpublic.h: * \details H5LTget_attribute_long() reads an attribute named
+./test.grep:./hdf5/serial/H5LTpublic.h:H5_HLDLL herr_t H5LTget_attribute_long(hid_t loc_id, const char *obj_name, const char *attr_name, long *data);
+./test.grep:./hdf5/serial/H5LTpublic.h: * \brief Reads a \e long \e long attribute.
+./test.grep:./hdf5/serial/H5LTpublic.h: * \details H5LTget_attribute_long_long() reads the attribute
+./test.grep:./hdf5/serial/H5LTpublic.h:H5_HLDLL herr_t H5LTget_attribute_long_long(hid_t loc_id, const char *obj_name, const char *attr_name,
+./test.grep:./hdf5/serial/H5LTpublic.h: * \details H5LTget_attribute_ulong() reads an attribute named
+./test.grep:./hdf5/serial/H5LTpublic.h:H5_HLDLL herr_t H5LTget_attribute_ulong(hid_t loc_id, const char *obj_name, const char *attr_name,
+./test.grep:./hdf5/serial/H5LTpublic.h:                                        unsigned long *data);
+./test.grep:./hdf5/serial/H5Dpublic.h: *          be released with H5Sclose() when the identifier is no longer
+./test.grep:./hdf5/serial/H5Dpublic.h: *          specified by the index \p index. The chunk belongs to a set of
+./test.grep:./hdf5/serial/H5Dpublic.h: *          extended only along the first dimension.
+./test.grep:./hdf5/serial/H5Dpublic.h: *       H5Dset_extent() then that dataspace handle will no longer reflect the
+./test.grep:./hdf5/serial/H5Dpublic.h: * These symbols are no longer used in the library.
+./test.grep:./hdf5/serial/H5Dpublic.h: *          when the dataset is no longer needed so that resource leaks will not
+./test.grep:./hdf5/serial/H5Epubgen.h:H5_DLLVAR hid_t H5E_COMPLEN_g;       /* Name component is too long */
+./test.grep:./hdf5/serial/H5AbstractDs.h:    // via generic member functions, i.e., member functions belong
+./test.grep:./hdf5/serial/H5Tpublic.h: * C-style \Code{long}
+./test.grep:./hdf5/serial/H5Tpublic.h: * C-style \Code{unsigned long}
+./test.grep:./hdf5/serial/H5Tpublic.h: * C-style \Code{long double}
+./test.grep:./hdf5/serial/H5Tpublic.h: *          with H5Tclose() when the identifier is no longer needed so that
+./test.grep:./hdf5/serial/H5Tpublic.h: *          with H5Tclose()  when the identifier is no longer needed so that
+./test.grep:./hdf5/serial/H5Tpublic.h: *          When converting from a longer string to a shorter string, the
+./test.grep:./hdf5/serial/H5Tpublic.h: *          When converting from a shorter string to a longer string, the
+./test.grep:./hdf5/serial/H5Tpublic.h: *          longer string is padded on the end by appending nulls or spaces.
+./test.grep:./hdf5/serial/H5Tpublic.h: *          Release 1.2, this parameter is only used to pass along the
+./test.grep:./hdf5/serial/H5ACpublic.h: * metadata_write_strategy field.  The possible values of this field, along
+./test.grep:./hdf5/serial/H5ACpublic.h:    long int epoch_length;
+./test.grep:./hdf5/serial/H5ACpublic.h:     *   entries in long sequences of cache images.
+./test.grep:./hdf5/serial/H5Zpublic.h: *          will no longer be available to the application.
+./test.grep:./hdf5/serial/H5Rpublic.h: *          longer needed so that resource leaks will not develop. Use the
+./test.grep:./hdf5/serial/H5Rpublic.h: *          function when the identifier is no longer needed.
+./test.grep:./hdf5/serial/H5Rpublic.h: *          longer needed so that resource leaks will not develop. Use the
+./test.grep:./hdf5/serial/H5Object.h:    // Given its name, opens the attribute that belongs to an object at
+./test.grep:./hdf5/serial/H5Object.h:    // Given its index, opens the attribute that belongs to an object at
+./test.grep:./hdf5/serial/H5Object.h:    // Determines the number of attributes belong to this object.
+./test.grep:./hdf5/serial/H5FDpublic.h:    herr_t (*query)(const H5FD_t *f1, unsigned long *flags);
+./test.grep:./hdf5/serial/H5FDpublic.h:    unsigned long       fileno;        /* File 'serial' number     */
+./test.grep:./hdf5/serial/H5FDpublic.h:    unsigned long       feature_flags; /* VFL Driver feature Flags */
+./test.grep:./hdf5/serial/H5FDpublic.h:H5_DLL int     H5FDquery(const H5FD_t *f, unsigned long *flags);
+./test.grep:./hdf5/serial/H5FDpublic.h:H5_DLL herr_t H5FDdriver_query(hid_t driver_id, unsigned long *flags /*out*/);
+./test.grep:./hdf5/serial/H5FDhdfs.h: *     Must not be longer than `H5FD__HDFS_NODE_NAME_SPACE`.
+./test.grep:./hdf5/serial/H5FDhdfs.h: *     Must not be longer than `H5FD__HDFS_KERB_CACHE_PATH_SPACE`.
+./test.grep:./hdf5/serial/H5FDhdfs.h: *     Must not be longer than `H5FD__HDFS_USER_NAME_SPACE`.
+./test.grep:./hdf5/serial/H5Ipublic.h: *          this new ID will belong. This identifier must have been created by
+./test.grep:./hdf5/serial/H5Ipublic.h: * \details H5Iremove_verify() first ensures that \p id belongs to \p type.
+./test.grep:./hdf5/serial/H5Ipublic.h: *          was placed in storage by H5Iregister(). If id does not belong to
+./test.grep:./hdf5/serial/H5Ipublic.h: *          is supposed to belong to. This identifier must have been created by
+./test.grep:./hdf5/serial/H5DSpublic.h: *          the buffer \p label.  If the label is longer than
+./test.grep:./hdf5/serial/H5f90i_gen.h:#define c_float_10 long double
+./test.grep:./hdf5/serial/H5overflow.h:/* src: unsigned, dst: long */
+./test.grep:./hdf5/serial/H5overflow.h:    #define ASSIGN_unsigned_TO_long(dst, dsttype, src, srctype) \
+./test.grep:./hdf5/serial/H5overflow.h:    #define ASSIGN_unsigned_TO_long(dst, dsttype, src, srctype) \
+./test.grep:./hdf5/serial/H5overflow.h:    #define ASSIGN_unsigned_TO_long(dst, dsttype, src, srctype) \
+./test.grep:./hdf5/serial/H5overflow.h:#endif /* src: unsigned dst: long */
+./test.grep:./hdf5/serial/H5overflow.h:/* src: int8_t, dst: long */
+./test.grep:./hdf5/serial/H5overflow.h:    #define ASSIGN_int8_t_TO_long(dst, dsttype, src, srctype) \
+./test.grep:./hdf5/serial/H5overflow.h:    #define ASSIGN_int8_t_TO_long(dst, dsttype, src, srctype) \
+./test.grep:./hdf5/serial/H5overflow.h:    #define ASSIGN_int8_t_TO_long(dst, dsttype, src, srctype) \
+./test.grep:./hdf5/serial/H5overflow.h:#endif /* src: int8_t dst: long */
+./test.grep:./hdf5/serial/H5overflow.h:/* src: int, dst: long */
+./test.grep:./hdf5/serial/H5overflow.h:    #define ASSIGN_int_TO_long(dst, dsttype, src, srctype) \
+./test.grep:./hdf5/serial/H5overflow.h:    #define ASSIGN_int_TO_long(dst, dsttype, src, srctype) \
+./test.grep:./hdf5/serial/H5overflow.h:    #define ASSIGN_int_TO_long(dst, dsttype, src, srctype) \
+./test.grep:./hdf5/serial/H5overflow.h:#endif /* src: int dst: long */
+./test.grep:./hdf5/serial/H5overflow.h:/* Assignment checks for long */
+./test.grep:./hdf5/serial/H5overflow.h:/* src: long, dst: unsigned */
+./test.grep:./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_unsigned(dst, dsttype, src, srctype) \
+./test.grep:./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_unsigned(dst, dsttype, src, srctype) \
+./test.grep:./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_unsigned(dst, dsttype, src, srctype) \
+./test.grep:./hdf5/serial/H5overflow.h:#endif /* src: long dst: unsigned */
+./test.grep:./hdf5/serial/H5overflow.h:/* src: long, dst: int8_t */
+./test.grep:./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_int8_t(dst, dsttype, src, srctype) \
+./test.grep:./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_int8_t(dst, dsttype, src, srctype) \
+./test.grep:./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_int8_t(dst, dsttype, src, srctype) \
+./test.grep:./hdf5/serial/H5overflow.h:#endif /* src: long dst: int8_t */
+./test.grep:./hdf5/serial/H5overflow.h:/* src: long, dst: int */
+./test.grep:./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_int(dst, dsttype, src, srctype) \
+./test.grep:./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_int(dst, dsttype, src, srctype) \
+./test.grep:./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_int(dst, dsttype, src, srctype) \
+./test.grep:./hdf5/serial/H5overflow.h:#endif /* src: long dst: int */
+./test.grep:./hdf5/serial/H5overflow.h:/* src: long, dst: int64_t */
+./test.grep:./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_int64_t(dst, dsttype, src, srctype) \
+./test.grep:./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_int64_t(dst, dsttype, src, srctype) \
+./test.grep:./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_int64_t(dst, dsttype, src, srctype) \
+./test.grep:./hdf5/serial/H5overflow.h:#endif /* src: long dst: int64_t */
+./test.grep:./hdf5/serial/H5overflow.h:/* src: long, dst: uint8_t */
+./test.grep:./hdf5/serial/H5overflow.h:    #define ASSIGN_long_TO_uint8_t(dst, dsttype, src, srctype) \
