@@ -48,6 +48,8 @@ Bei .../src/flint.h einfügen
 #define FQ_ZECH_POLY_INLINE __attribute__((weak)) extern
 #define DLOG_INLINE __attribute__((weak)) extern
 #define FQ_ZECH_MPOLY_INLINE __attribute__((weak)) extern
+#define FMPZ_MPOLY_Q_INLINE __attribute__((weak)) extern
+
 
 
 
@@ -76,11 +78,12 @@ not found
 
 
 const
-  FlintPath='/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/fork/flint_fork/';
-//  FlintPath='/home/tux/Schreibtisch/von_Git/flint/flint/';
-//  FlintPath='/home/tux/Schreibtisch/von_Git/flint/flint-3.0.1/';
-//  FlintPath='/home/tux/Schreibtisch/von_Git/flint/flint-3.4.0/';
-//  FlintPath='/home/tux/Schreibtisch/von_Git/flint/flint-3.6.0/';
+  HeaderPath = '/usr/local/include/flint';
+  SoPath = '/usr/local/lib/libflint.so';
+  //  FlintPath='/home/tux/Schreibtisch/von_Git/flint/flint/';
+  //  FlintPath='/home/tux/Schreibtisch/von_Git/flint/flint-3.0.1/';
+  //  FlintPath='/home/tux/Schreibtisch/von_Git/flint/flint-3.4.0/';
+  //  FlintPath='/home/tux/Schreibtisch/von_Git/flint/flint-3.6.0/';
 
 procedure TForm1.checkProc(const src: string);
 var
@@ -122,23 +125,22 @@ var
   f: file;
   BytesRead: integer;
 begin
-  AssignFile(f, FlintPath+'libflint.so');
+  AssignFile(f, SoPath);
+  FileMode := 0;
   Reset(f, 1);
   SetLength(soText, FileSize(f));
   BlockRead(f, soText[1], FileSize(f), BytesRead);
   CloseFile(f);
 
   Memo1.Clear;
-  slFile := FindAllFiles(FlintPath+'src', '*.h', False);
+  slFile := FindAllFiles(HeaderPath, '*.h', False);
   Memo1.Lines := slFile;
-
-
 
   for i := 0 to slFile.Count - 1 do begin
     slHeader := TStringList.Create;
     slHeader.LoadFromFile(slFile[i]);
 
-       WriteLn(#10, i, '/', slFile.Count - 1, '         ', slFile[i], #10);
+    WriteLn(#10, i, '/', slFile.Count - 1, '         ', slFile[i], #10);
 
     for j := 0 to slHeader.Count - 1 do begin
       s := slHeader[j];

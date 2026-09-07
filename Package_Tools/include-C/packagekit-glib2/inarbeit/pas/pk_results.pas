@@ -3,7 +3,9 @@ unit pk_results;
 interface
 
 uses
-  fp_glib2, fp_packagekit, pk_enum, pk_error;
+  fp_glib2, fp_packagekit, pk_enum, pk_error, pk_package, pk_details, pk_update_detail, pk_category, pk_distro_upgrade,
+  pk_require_restart, pk_transaction_past, pk_files, pk_repo_signature_required, pk_eula_required, pk_media_change_required,
+  pk_repo_detail, pk_package_sack, pk_bitfield;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -70,8 +72,6 @@ function pk_results_get_eula_required_array(results: PPkResults): PGPtrArray; cd
 function pk_results_get_media_change_required_array(results: PPkResults): PGPtrArray; cdecl; external libpackagekit;
 function pk_results_get_repo_detail_array(results: PPkResults): PGPtrArray; cdecl; external libpackagekit;
 
-function PK_RESULTS_TYPE_ERROR: TGType;
-
 // === Konventiert am: 7-9-26 15:13:46 ===
 
 function PK_TYPE_RESULTS: TGType;
@@ -111,12 +111,6 @@ end;
 function PK_RESULTS_GET_CLASS(obj: Pointer): PPkResultsClass;
 begin
   Result := PPkResultsClass(PGTypeInstance(obj)^.g_class);
-end;
-
-
-function PK_RESULTS_TYPE_ERROR: TGType;
-begin
-  PK_RESULTS_TYPE_ERROR := pk_results_error_get_type;
 end;
 
 

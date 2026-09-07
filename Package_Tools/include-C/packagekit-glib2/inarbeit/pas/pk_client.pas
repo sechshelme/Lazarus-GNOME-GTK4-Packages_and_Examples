@@ -3,7 +3,7 @@ unit pk_client;
 interface
 
 uses
-  fp_glib2, fp_packagekit, pk_bitfield;
+  fp_glib2, fp_packagekit, pk_bitfield, pk_results, pk_progress, pk_enum;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -138,7 +138,6 @@ procedure pk_client_set_details_with_deps_size(client: PPkClient; details_with_d
 function pk_client_get_details_with_deps_size(client: PPkClient): Tgboolean; cdecl; external libpackagekit;
 
 function PK_CLIENT_ERROR: TGQuark;
-function PK_CLIENT_TYPE_ERROR: TGType;
 
 // === Konventiert am: 7-9-26 15:04:18 ===
 
@@ -186,11 +185,5 @@ function PK_CLIENT_ERROR: TGQuark;
 begin
   PK_CLIENT_ERROR := pk_client_error_quark;
 end;
-
-function PK_CLIENT_TYPE_ERROR: TGType;
-begin
-  PK_CLIENT_TYPE_ERROR := pk_client_error_get_type;
-end;
-
 
 end.

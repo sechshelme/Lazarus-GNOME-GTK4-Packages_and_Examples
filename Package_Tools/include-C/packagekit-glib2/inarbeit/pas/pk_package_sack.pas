@@ -3,7 +3,7 @@ unit pk_package_sack;
 interface
 
 uses
-  fp_glib2, fp_packagekit, pk_package, pk_enum;
+  fp_glib2, fp_packagekit, pk_package, pk_enum, pk_progress;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -72,9 +72,6 @@ procedure pk_package_sack_get_details_async(sack: PPkPackageSack; cancellable: P
 procedure pk_package_sack_get_update_detail_async(sack: PPkPackageSack; cancellable: PGCancellable; progress_callback: TPkProgressCallback; progress_user_data: Tgpointer; callback: TGAsyncReadyCallback;
   user_data: Tgpointer); cdecl; external libpackagekit;
 
-function PK_PACKAGE_SACK_TYPE_ERROR: tgtylongint;
-
-
 // === Konventiert am: 7-9-26 15:10:52 ===
 
 function PK_TYPE_PACKAGE_SACK: TGType;
@@ -114,12 +111,6 @@ end;
 function PK_PACKAGE_SACK_GET_CLASS(obj: Pointer): PPkPackageSackClass;
 begin
   Result := PPkPackageSackClass(PGTypeInstance(obj)^.g_class);
-end;
-
-
-function PK_PACKAGE_SACK_TYPE_ERROR: longint;
-begin
-  PK_PACKAGE_SACK_TYPE_ERROR := pk_package_sack_error_get_type;
 end;
 
 

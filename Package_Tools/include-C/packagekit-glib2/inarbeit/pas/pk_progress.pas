@@ -90,8 +90,6 @@ function pk_progress_get_sender(progress: PPkProgress): Pgchar; cdecl; external 
 function pk_progress_set_package(progress: PPkProgress; package: PPkPackage): Tgboolean; cdecl; external libpackagekit;
 function pk_progress_get_package(progress: PPkProgress): PPkPackage; cdecl; external libpackagekit;
 
-function PK_PROGRESS_TYPE_ERROR: TGType;
-
 // === Konventiert am: 7-9-26 15:10:37 ===
 
 function PK_TYPE_PROGRESS: TGType;
@@ -131,12 +129,6 @@ end;
 function PK_PROGRESS_GET_CLASS(obj: Pointer): PPkProgressClass;
 begin
   Result := PPkProgressClass(PGTypeInstance(obj)^.g_class);
-end;
-
-
-function PK_PROGRESS_TYPE_ERROR: TGType;
-begin
-  PK_PROGRESS_TYPE_ERROR := pk_progress_error_get_type;
 end;
 
 
