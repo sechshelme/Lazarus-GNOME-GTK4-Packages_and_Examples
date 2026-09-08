@@ -694,12 +694,23 @@ stb_image (( ?????
 /usr/include/x86_64-linux-gnu/openmpi
 
 gusb
+libgd-dev
+libsodium
+libcfitsio10t64
+libarchive
+libmongoose            // einfacher webserver
+libpackagekit-glib2-dev
+aptkit // ????
+libapt-inst
+xraylib
+
 
 --------------
 
 Lib Ähnlich mathGL
 https://github.com/sciapp/gr
 sudo apt install gr-framework  gr-framework-plugin-cairo  libgr-framework-dev
+
 
 
 
@@ -940,36 +951,26 @@ sudo apt install gstreamer1.0-gtk4
 https://github.com/GStreamer/gst-plugins-rs
 
 
-A="https://"
-B="gitlab."
-C="freedesktop.org"
-D="/api/v4/issues?"
-E="author_username=sechshelme"
-F="&scope=all"
-curl -s "${A}${B}${C}${D}${E}${F}" | grep -oP '"iid":\d+|"title":"[^"]+"|"state":"[^"]+"'
+# Issues auflisten
+
+Achtung, die mur Curl geben nur die neusten Issues aus
+
+## Github
+```sh
+gh search issues "author:sechshelme" -L 100
+curl -s -H "User-Agent: Mozilla" "https://api.github.com/search/issues?q=author:sechshelme+type:issue" | jq -r '.items[] | "[\(.state)]\t#\(.number)\t\(.title)"'
+```
+
+## Gnome
+```sh
+curl -s "https://gitlab.gnome.org/api/v4/issues?author_username=sechshelme&scope=all" | jq -r '.[] | "[\(.state)]\t#\(.iid)\t\(.title)"'
+```
 
 
-
-
-
-A="https://"
-B="gitlab."
-C="gnome.org"
-D="/api/v4/issues?"
-E="author_username=sechshelme"
-F="&scope=all"
-curl -s "${A}${B}${C}${D}${E}${F}" | grep -oP '"iid":\d+|"title":"[^"]+"|"state":"[^"]+"'
-
-
-A="https://"
-B="api."
-C="github.com"
-D="/search/issues?q="
-E="author:sechshelme+type:issue"
-curl -s -H "User-Agent: Mozilla" "${A}${B}${C}${D}${E}" | grep -oP '"title":"[^"]+"|"html_url":"[^"]+"'
-
-
-
+## Freedeskop
+```sh
+curl -s "https://gitlab.freedesktop.org/api/v4/issues?author_username=sechshelme&scope=all" | jq -r '.[] | "[\(.state)]\t#\(.iid)\t\(.title)"'
+```
 
 
 
