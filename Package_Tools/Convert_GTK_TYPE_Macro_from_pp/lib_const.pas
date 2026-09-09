@@ -365,6 +365,7 @@ const
     (libs: 'librabbitmq'; units: 'fp_rabbitmq'),
     (libs: 'libpackagekit'; units: 'fp_glib2, fp_packagekit'),
     (libs: 'libxrl'; units: 'fp_xrl'),
+    (libs: 'libgtk4hex'; units: 'fp_xrl'),
 
 
 

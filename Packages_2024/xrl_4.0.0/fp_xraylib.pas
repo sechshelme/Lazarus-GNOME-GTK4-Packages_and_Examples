@@ -1,0 +1,31 @@
+unit fp_xraylib;
+
+interface
+
+const
+  {$IFDEF Linux}
+  libxrl = 'xrl';
+  {$ENDIF}
+
+  {$IFDEF Windows}
+  libxrl = 'libxrl-11.dll';
+  {$ENDIF}
+
+type
+  Tsize_t = SizeUInt;
+
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
+
+  {$DEFINE read_interface}
+  {$include fp_xraylib_includes.inc}
+  {$UNDEF read_interface}
+
+implementation
+
+{$DEFINE read_implementation}
+{$include fp_xraylib_includes.inc}
+{$UNDEF read_implementation}
+
+end.
