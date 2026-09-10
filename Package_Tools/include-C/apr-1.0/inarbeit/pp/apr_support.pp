@@ -1,0 +1,83 @@
+
+unit apr_support;
+interface
+
+{
+  Automatically converted by H2Pas 1.0.0 from apr_support.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    apr_support.h
+}
+
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
+
+Type
+Papr_file_t  = ^apr_file_t;
+Papr_socket_t  = ^apr_socket_t;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{ Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+  }
+{$ifndef APR_SUPPORT_H}
+{$define APR_SUPPORT_H}
+{*
+ * @file apr_support.h
+ * @brief APR Support functions
+  }
+{$include "apr.h"}
+{$include "apr_network_io.h"}
+{$include "apr_file_io.h"}
+{ C++ extern C conditionnal removed }
+{ __cplusplus  }
+{*
+ * @defgroup apr_support Internal APR support functions
+ * @ingroup APR 
+ * @
+  }
+{*
+ * Wait for IO to occur or timeout.
+ *
+ * @param f The file to wait on.
+ * @param s The socket to wait on if @a f is @c NULL.
+ * @param for_read If non-zero wait for data to be available to read,
+ *        otherwise wait for data to be able to be written. 
+ * @return APR_TIMEUP if we run out of time.
+  }
+
+function apr_wait_for_io_or_timeout(f:Papr_file_t; s:Papr_socket_t; for_read:longint):Tapr_status_t;cdecl;external;
+{* @  }
+{ C++ end of extern C conditionnal removed }
+{$endif}
+{ ! APR_SUPPORT_H  }
+
+implementation
+
+
+end.
