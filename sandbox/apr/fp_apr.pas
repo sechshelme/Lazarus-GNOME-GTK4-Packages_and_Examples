@@ -15,6 +15,14 @@ const
   {$PACKRECORDS C}
   {$ENDIF}
 
+type
+  Ttime_t=Int64;
+  Tva_list=type Pointer; // ????
+
+/// ==== am ende löschen
+Papr_pool_t=Pointer;
+PPapr_pool_t=^Papr_pool_t;
+
   {$DEFINE read_interface}
   //  {$include fp_apr_includes.inc}
   {$UNDEF read_interface}

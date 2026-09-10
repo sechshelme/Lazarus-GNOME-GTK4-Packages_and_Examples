@@ -3,7 +3,7 @@ unit apr_allocator;
 interface
 
 uses
-  fp_apr, apr;
+  fp_apr, apr, apr_errno, apr_thread_mutex;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -30,7 +30,7 @@ const
 
 function apr_allocator_create(allocator: PPapr_allocator_t): Tapr_status_t; cdecl; external libapr;
 procedure apr_allocator_destroy(allocator: Papr_allocator_t); cdecl; external libapr;
-function apr_allocator_alloc(allocator: Papr_allocator_t; para2: Tapr_size_tsize): Papr_memnode_t; cdecl; external libapr;
+function apr_allocator_alloc(allocator: Papr_allocator_t; size: Tapr_size_t): Papr_memnode_t; cdecl; external libapr;
 procedure apr_allocator_free(allocator: Papr_allocator_t; memnode: Papr_memnode_t); cdecl; external libapr;
 function apr_allocator_align(allocator: Papr_allocator_t; size: Tapr_size_t): Tapr_size_t; cdecl; external libapr;
 procedure apr_allocator_owner_set(allocator: Papr_allocator_t; pool: Papr_pool_t); cdecl; external libapr;
