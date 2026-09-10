@@ -45,6 +45,9 @@ for file in *-*; do mv "$file" "${file//-/_}"; done
 # Eingeklammerte resulte, Klammern entfernen
 ```
 sed -i 's/extern\s*(\([^)]*\))/extern \1/g' *.h
+
+find . -type f -name "*.h" -exec sed -i -E 's/APR_DECLARE\(([^)]+)\)[[:space:]]*/\1 /g' {} +
+
 ```
 
 # long suchen
