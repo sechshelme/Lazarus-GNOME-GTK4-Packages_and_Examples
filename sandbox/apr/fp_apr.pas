@@ -11,16 +11,28 @@ const
   libapr = 'libapr-1.dll';
   {$ENDIF}
 
+  type
+    Ttime_t=Int64;
+    Piovec=type Pointer;
+  Tva_list=type Pointer; // ????
+
+  const
+    SEEK_SET = 0;
+    SEEK_CUR = 1;
+    SEEK_END = 2;
+
+
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}
 
 type
-  Ttime_t=Int64;
-  Tva_list=type Pointer; // ????
 
-/// ==== am ende löschen
-Papr_pool_t=Pointer;
+
+  Papr_file_t=type Pointer;
+  PPapr_file_t=^Papr_file_t;
+
+Papr_pool_t=type Pointer;
 PPapr_pool_t=^Papr_pool_t;
 
   {$DEFINE read_interface}
