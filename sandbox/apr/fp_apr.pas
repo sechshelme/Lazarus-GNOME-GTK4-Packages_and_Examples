@@ -13,7 +13,8 @@ const
 
   type
     Ttime_t=Int64;
-    Piovec=type Pointer;
+    Psockaddr=type Pointer;
+    Prlimit=type Pointer;
   Tva_list=type Pointer; // ????
 
   const
@@ -34,6 +35,9 @@ type
 
 Papr_pool_t=type Pointer;
 PPapr_pool_t=^Papr_pool_t;
+
+Papr_thread_t=type Pointer;
+PPapr_thread_t=^Papr_thread_t;
 
   {$DEFINE read_interface}
   //  {$include fp_apr_includes.inc}

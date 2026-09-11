@@ -3,7 +3,7 @@ unit apr_network_io;
 interface
 
 uses
-  fp_apr, apr, apr_errno, apr_time;
+  fp_apr, apr, apr_errno, apr_time, apr_want;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

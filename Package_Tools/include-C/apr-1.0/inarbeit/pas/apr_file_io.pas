@@ -3,7 +3,7 @@ unit apr_file_io;
 interface
 
 uses
-  fp_apr, apr, apr_errno, apr_time, apr_file_info;
+  fp_apr, apr, apr_errno, apr_time, apr_file_info, apr_want;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
