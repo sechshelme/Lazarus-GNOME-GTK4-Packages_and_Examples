@@ -50,15 +50,7 @@ type
   Tapr_os_shm_t = Pointer;
 
 type
-  Papr_os_sock_info_t = ^Tapr_os_sock_info_t;
-  Tapr_os_sock_info_t = record
-    os_sock: Papr_os_sock_t;
-    local: Psockaddr;
-    remote: Psockaddr;
-    family: longint;
-    _type: longint;
-    protocol: longint;
-  end;
+  Papr_os_sock_info_t = type Pointer;
 
 type
   Papr_os_global_mutex_t = ^Tapr_os_global_mutex_t;

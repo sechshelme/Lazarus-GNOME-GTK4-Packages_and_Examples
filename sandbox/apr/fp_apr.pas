@@ -4,23 +4,24 @@ interface
 
 const
   {$IFDEF Linux}
-  libapr = 'apr-1';
+//  libapr = 'apr-1';
+  libapr = 'libapr-1.so';
   {$ENDIF}
 
   {$IFDEF Windows}
   libapr = 'libapr-1.dll';
   {$ENDIF}
 
-  type
-    Ttime_t=Int64;
-    Psockaddr=type Pointer;
-    Prlimit=type Pointer;
-  Tva_list=type Pointer; // ????
+type
+  Ttime_t = int64;
+  Psockaddr = type Pointer;
+  Prlimit = type Pointer;
+  Tva_list = type Pointer; // ????
 
-  const
-    SEEK_SET = 0;
-    SEEK_CUR = 1;
-    SEEK_END = 2;
+const
+  SEEK_SET = 0;
+  SEEK_CUR = 1;
+  SEEK_END = 2;
 
 
   {$IFDEF FPC}
@@ -30,14 +31,14 @@ const
 type
 
 
-  Papr_file_t=type Pointer;
-  PPapr_file_t=^Papr_file_t;
+  Papr_file_t = type Pointer;
+  PPapr_file_t = ^Papr_file_t;
 
-Papr_pool_t=type Pointer;
-PPapr_pool_t=^Papr_pool_t;
+  Papr_pool_t = type Pointer;
+  PPapr_pool_t = ^Papr_pool_t;
 
-Papr_thread_t=type Pointer;
-PPapr_thread_t=^Papr_thread_t;
+  Papr_thread_t = type Pointer;
+  PPapr_thread_t = ^Papr_thread_t;
 
   {$DEFINE read_interface}
   //  {$include fp_apr_includes.inc}
