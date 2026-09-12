@@ -367,6 +367,7 @@ const
     (libs: 'libxrl'; units: 'fp_xrl'),
     (libs: 'libgtk4hex'; units: 'fp_xrl'),
     (libs: 'libapr'; units: 'fp_apr'),
+    (libs: 'libapriltag'; units: 'fp_apriltag'),
 
 
 
