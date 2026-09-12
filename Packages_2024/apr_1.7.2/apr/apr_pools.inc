@@ -1,13 +1,4 @@
-unit apr_pools;
-
-interface
-
-uses
-  fp_apr, apr, apr_errno, apr_allocator;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 type
@@ -51,7 +42,10 @@ function apr_pool_create_unmanaged(newpool: PPapr_pool_t): Tapr_status_t;
 
 function apr_pcalloc(p: Papr_pool_t; size: Tapr_size_t): Pointer;
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 function apr_pool_create(newpool: PPapr_pool_t; parent: Papr_pool_t): Tapr_status_t;
 begin
@@ -74,4 +68,4 @@ begin
   FillChar(Result^, size, 0);
 end;
 
-end.
+{$ENDIF read_implementation}

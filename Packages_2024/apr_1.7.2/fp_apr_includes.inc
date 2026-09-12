@@ -1,0 +1,42 @@
+
+
+{$include apr/apr.inc}
+{$include apr/apr_version.inc}
+{$include apr/apr_errno.inc}
+{$include apr/apr_time.inc}
+{$include apr/apr_thread_mutex.inc}
+{$include apr/apr_allocator.inc}
+{$include apr/apr_pools.inc}
+{$include apr/apr_user.inc}
+{$include apr/apr_tables.inc}
+{$include apr/apr_want.inc}
+{$include apr/apr_file_info.inc}
+{$include apr/apr_file_io.inc}
+{$include apr/apr_network_io.inc}
+{$include apr/apr_poll.inc}
+{$include apr/apr_atomic.inc}
+{$include apr/apr_cstr.inc}
+{$include apr/apr_dso.inc}
+{$include apr/apr_encode.inc}
+{$include apr/apr_env.inc}
+{$include apr/apr_escape.inc}
+{$include apr/apr_fnmatch.inc}
+{$include apr/apr_general.inc}
+{$include apr/apr_getopt.inc}
+{$include apr/apr_proc_mutex.inc}
+{$include apr/apr_global_mutex.inc}
+{$include apr/apr_hash.inc}
+{$include apr/apr_lib.inc}
+{$include apr/apr_mmap.inc}
+{$include apr/apr_perms_set.inc}
+{$include apr/apr_thread_cond.inc}
+{$include apr/apr_thread_proc.inc}
+{$include apr/apr_thread_rwlock.inc}
+{$include apr/apr_shm.inc}
+{$include apr/apr_portable.inc}
+{$include apr/apr_random.inc}
+{$include apr/apr_signal.inc}
+{$include apr/apr_skiplist.inc}
+{$include apr/apr_strings.inc}
+{$include apr/apr_support.inc}
+
