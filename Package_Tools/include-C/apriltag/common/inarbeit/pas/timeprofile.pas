@@ -3,7 +3,7 @@ unit timeprofile;
 interface
 
 uses
-  fp_apriltag, zarray;
+  fp_apriltag, zarray, time_util;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

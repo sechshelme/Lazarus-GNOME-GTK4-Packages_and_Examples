@@ -10,44 +10,11 @@ uses
 {$ENDIF}
 
 
-{ Copyright (C) 2013-2016, The Regents of The University of Michigan.
-All rights reserved.
-This software was developed in the APRIL Robotics Lab under the
-direction of Edwin Olson, ebolson@umich.edu. This software may be
-available under alternative licensing terms; contact the address above.
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer.
-2. Redistributions in binary form must reproduce the above copyright notice,
-   this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution.
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
-ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
-ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-The views and conclusions contained in the software and documentation are those
-of the authors and should not be interpreted as representing official policies,
-either expressed or implied, of the Regents of The University of Michigan.
- }
-(** unsupported pragma#pragma once*)
-{$include <stdio.h>}
-{$include <stdarg.h>}
-{$include <stdbool.h>}
-{$include <ctype.h>}
-{$include "zarray.h"}
-{ C++ extern C conditionnal removed }
 type
-  Tstring_buffer = Tstring_buffer_t;
-  Tstring_feeder = Tstring_feeder_t;
-  Pstring_feeder = ^Tstring_feeder;
-  Tstring_feeder = record
+  Pstring_buffer_t=type Pointer;
+
+  Pstring_feeder_t = ^Tstring_feeder_t;
+  Tstring_feeder_t = record
       s : Pchar;
       len : Tsize_t;
       pos : Tsize_t;
@@ -55,42 +22,10 @@ type
       col : longint;
     end;
 
-{*
- * Similar to sprintf(), except that it will malloc() enough space for the
- * formatted string which it returns. It is the caller's responsibility to call
- * free() on the returned string when it is no longer needed.
-  }
-
-function sprintf_alloc(fmt:Pchar; args:array of const):Pchar;cdecl;external libapriltag;
-function sprintf_alloc(fmt:Pchar):Pchar;cdecl;external libapriltag;
-{*
- * Similar to vsprintf(), except that it will malloc() enough space for the
- * formatted string which it returns. It is the caller's responsibility to call
- * free() on the returned string when it is no longer needed.
-  }
+function sprintf_alloc(fmt:Pchar):Pchar;cdecl;varargs;external libapriltag;
 function vsprintf_alloc(fmt:Pchar; args:Tva_list):Pchar;cdecl;external libapriltag;
-{*
- * Concatenates 1 or more strings together and returns the result, which will be a
- * newly allocated string which it is the caller's responsibility to free.
-  }
-function _str_concat_private(first:Pchar; args:array of const):Pchar;cdecl;external libapriltag;
-function _str_concat_private(first:Pchar):Pchar;cdecl;external libapriltag;
-{ Returns the index of the first character that differs: }
+function _str_concat_private(first:Pchar):Pchar;cdecl;varargs;external libapriltag;
 function str_diff_idx(a:Pchar; b:Pchar):longint;cdecl;external libapriltag;
-{*
- * Splits the supplied string into an array of strings by subdividing it at
- * each occurrence of the supplied delimiter string. The split strings will not
- * contain the delimiter. The original string will remain unchanged.
- * If str is composed of all delimiters, an empty array will be returned.
- *
- * It is the caller's responsibilty to free the returned zarray, as well as
- * the strings contained within it, e.g.:
- *
- *   zarray_t *za = str_split("this is a haystack", " ");
- *      => ["this", "is", "a", "haystack"]
- *   zarray_vmap(za, free);
- *   zarray_destroy(za);
-  }
 function str_split(str:Pchar; delim:Pchar):Pzarray_t;cdecl;external libapriltag;
 function str_split_spaces(str:Pchar):Pzarray_t;cdecl;external libapriltag;
 procedure str_split_destroy(s:Pzarray_t);cdecl;external libapriltag;
@@ -125,65 +60,13 @@ static inline bool strcaseeq(const char *str1, const char* str2)
 
   }
 function str_trim(str:Pchar):Pchar;cdecl;external libapriltag;
-{*
- * Trims whitespace characters (i.e. matching isspace()) from the beginning
- * of the supplied string. This change affects the supplied string in-place.
- * The supplied/edited string is returned to enable chained reference.
- *
- * Note: do not pass a string literal to this function
-  }
 function str_lstrip(str:Pchar):Pchar;cdecl;external libapriltag;
-{*
- * Trims whitespace characters (i.e. matching isspace()) from the end of the
- * supplied string. This change affects the supplied string in-place.
- * The supplied/edited string is returned to enable chained reference.
- *
- * Note: do not pass a string literal to this function
-  }
 function str_rstrip(str:Pchar):Pchar;cdecl;external libapriltag;
-{*
- * Returns true if the end of string 'haystack' matches 'needle', else false.
- *
- * Note: An empty needle ("") will match any source.
-  }
 function str_ends_with(haystack:Pchar; needle:Pchar):Tbool;cdecl;external libapriltag;
-{*
- * Returns true if the start of string 'haystack' matches 'needle', else false.
- *
- * Note: An empty needle ("") will match any source.
-  }
 function str_starts_with(haystack:Pchar; needle:Pchar):Tbool;cdecl;external libapriltag;
-{*
- * Returns true if the start of string 'haystack' matches any needle, else false.
- *
- * Note: An empty needle ("") will match any source.
-  }
 function str_starts_with_any(haystack:Pchar; needles:PPchar; num_needles:longint):Tbool;cdecl;external libapriltag;
-{*
- * Returns true if the string 'haystack' matches any needle, else false.
-  }
 function str_matches_any(haystack:Pchar; needles:PPchar; num_needles:longint):Tbool;cdecl;external libapriltag;
-{*
- * Retrieves a (newly-allocated) substring of the given string, 'str', starting
- * from character index 'startidx' through index 'endidx' - 1 (inclusive).
- * An 'endidx' value -1 is equivalent to strlen(str).
- *
- * It is the caller's responsibility to free the returned string.
- *
- * Examples:
- *   str_substring("string", 1, 3) = "tr"
- *   str_substring("string", 2, -1) = "ring"
- *   str_substring("string", 3, 3) = ""
- *
- * Note: startidx must be >= endidx
-  }
 function str_substring(str:Pchar; startidx:Tsize_t; endidx:longint):Pchar;cdecl;external libapriltag;
-{*
- * Retrieves the zero-based index of the beginning of the supplied substring
- * (needle) within the search string (haystack) if it exists.
- *
- * Returns -1 if the supplied needle is not found within the haystack.
-  }
 function str_indexof(haystack:Pchar; needle:Pchar):longint;cdecl;external libapriltag;
 {xxxxxxxxx
     static inline int str_contains(const char *haystack, const char *needle) 

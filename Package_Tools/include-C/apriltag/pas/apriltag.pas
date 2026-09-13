@@ -3,7 +3,7 @@ unit apriltag;
 interface
 
 uses
-  fp_apriltag, matd;
+  fp_apriltag, matd, timeprofile, zarray, workerpool, pthreads_cross, image_types;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -80,7 +80,7 @@ type
 function apriltag_detector_create: Papriltag_detector_t; cdecl; external libapriltag;
 procedure apriltag_detector_add_family_bits(td: Papriltag_detector_t; fam: Papriltag_family_t; bits_corrected: longint); cdecl; external libapriltag;
 
-procedure apriltag_detector_add_family(td: Apriltag_detector_t; fam: Apriltag_family_t);
+procedure apriltag_detector_add_family(td: PApriltag_detector_t; fam: PApriltag_family_t);
 
 procedure apriltag_detector_remove_family(td: Papriltag_detector_t; fam: Papriltag_family_t); cdecl; external libapriltag;
 procedure apriltag_detector_clear_families(td: Papriltag_detector_t); cdecl; external libapriltag;
@@ -95,7 +95,7 @@ function apriltag_to_image(fam: Papriltag_family_t; idx: longint): Pimage_u8_t; 
 
 implementation
 
-procedure apriltag_detector_add_family(td: Apriltag_detector_t; fam: Apriltag_family_t);
+procedure apriltag_detector_add_family(td: PApriltag_detector_t; fam: PApriltag_family_t);
 begin
   apriltag_detector_add_family_bits(td, fam, 2);
 end;

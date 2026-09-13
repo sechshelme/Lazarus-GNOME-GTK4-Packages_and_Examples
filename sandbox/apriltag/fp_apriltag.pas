@@ -40,40 +40,44 @@ type
   Pint64_t = ^Tint64_t;
   PPint64_t = ^Pint64_t;
 
-  Tsize_t=SizeUInt;
+  Tsize_t = SizeUInt;
+
+  Ptimeval = type Pointer;
+  Ptimespec = type Pointer;
+  PFILE = type Pointer;
 
   // am ende umbennen
-  Tbool=Boolean;
-  Tdouble=Double;
+  Tbool = boolean;
+  Tdouble = double;
 
 
 
-  function calloc(__nmemb: Tsize_t; __size: Tsize_t): pointer; cdecl; external libc;
-procedure free(__ptr: pointer); cdecl; external libc;
-function memcpy(__dest: pointer; __src: pointer; __n: Tsize_t): pointer; cdecl; external libc;
-function strncpy(__dest: pchar; __src: pchar; __n: Tsize_t): pchar; cdecl; external libc;
-function printf(__format: pchar): longint; cdecl; varargs; external libc;
-function memset(__s: pointer; __c: longint; __n: Tsize_t): pointer; cdecl; external libc;
-function malloc(__size: Tsize_t): pointer; cdecl; external libc;
-function realloc(__ptr: pointer; __size: Tsize_t): pointer; cdecl; external libc;
-function memmove(__dest: pointer; __src: pointer; __n: Tsize_t): pointer; cdecl; external libc;
-function memcmp(__s1: pointer; __s2: pointer; __n: Tsize_t): longint; cdecl; external libc;
 type
   Tcompar_fn_t = function(para1: pointer; para2: pointer): longint; cdecl;
 
-procedure qsort(__base: pointer; __nmemb: Tsize_t; __size: Tsize_t; __compar: Tcompar_fn_t); cdecl; external libc;
+procedure qsort(base: pointer; nmemb: Tsize_t; size: Tsize_t; compar: Tcompar_fn_t); cdecl; external libc;
+function calloc(nmemb: Tsize_t; size: Tsize_t): pointer; cdecl; external libc;
+procedure free(ptr: pointer); cdecl; external libc;
+function memcpy(dest: pointer; src: pointer; n: Tsize_t): pointer; cdecl; external libc;
+function strncpy(dest: pchar; src: pchar; n: Tsize_t): pchar; cdecl; external libc;
+function printf(format: pchar): longint; cdecl; varargs; external libc;
+function memset(s: pointer; c: longint; n: Tsize_t): pointer; cdecl; external libc;
+function malloc(size: Tsize_t): pointer; cdecl; external libc;
+function realloc(ptr: pointer; size: Tsize_t): pointer; cdecl; external libc;
+function memmove(dest: pointer; src: pointer; n: Tsize_t): pointer; cdecl; external libc;
+function memcmp(s1: pointer; s2: pointer; n: Tsize_t): longint; cdecl; external libc;
+function fprintf(f: Pointer; format: pchar): integer; cdecl; varargs; external libc;
 
 
 
 
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
 
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
-
-  {$DEFINE read_interface}
+{$DEFINE read_interface}
 //  {$include fp_apriltag_includes.inc}
-  {$UNDEF read_interface}
+{$UNDEF read_interface}
 
 implementation
 
@@ -82,4 +86,3 @@ implementation
 {$UNDEF read_implementation}
 
 end.
-
