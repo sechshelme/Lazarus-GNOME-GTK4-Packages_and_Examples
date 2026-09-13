@@ -19,277 +19,316 @@ type
       data : Pchar;
     end;
 
-{*xxxxxxxx
-static inline zarray_t *zarray_create(size_t el_sz)
-
-    assert(el_sz > 0);
-
-    zarray_t *za = (zarray_t*) calloc(1, sizeof(zarray_t));
-    za->el_sz = el_sz;
-    return za;
-
-
-static inline void zarray_destroy(zarray_t *za)
-
-    if (za == NULL)
-        return;
-
-    if (za->data != NULL)
-        free(za->data);
-    memset(za, 0, sizeof(zarray_t));
-    free(za);
-
-
-static inline zarray_t *zarray_copy(const zarray_t *za)
-
-    assert(za != NULL);
-
-    zarray_t *zb = (zarray_t*) calloc(1, sizeof(zarray_t));
-    zb->el_sz = za->el_sz;
-    zb->size = za->size;
-    zb->alloc = za->alloc;
-    zb->data = (char*) malloc(zb->alloc * zb->el_sz);
-    memcpy(zb->data, za->data, za->size * za->el_sz);
-    return zb;
-
-
-static int iceillog2(int v)
-
-    v--;
-    v |= v >> 1;
-    v |= v >> 2;
-    v |= v >> 4;
-    v |= v >> 8;
-    v |= v >> 16;
-    v++;
-    return v;
-
-
-static inline zarray_t *zarray_copy_subset(const zarray_t *za,
-                             int start_idx,
-                             int end_idx_exclusive)
-
-    zarray_t *out = (zarray_t*) calloc(1, sizeof(zarray_t));
-    out->el_sz = za->el_sz;
-    out->size = end_idx_exclusive - start_idx;
-    out->alloc = iceillog2(out->size); // round up pow 2
-    out->data = (char*) malloc(out->alloc * out->el_sz);
-    memcpy(out->data,  za->data +(start_idx*out->el_sz), out->size*out->el_sz);
-    return out;
-
-
-static inline int zarray_size(const zarray_t *za)
-
-    assert(za != NULL);
-
-    return za->size;
-
-
-static inline void zarray_ensure_capacity(zarray_t *za, int capacity)
-
-    assert(za != NULL);
-
-    if (capacity <= za->alloc)
-        return;
-
-    while (za->alloc < capacity) 
-        za->alloc *= 2;
-        if (za->alloc < 8)
-            za->alloc = 8;
-    
-
-    za->data = (char*) realloc(za->data, za->alloc * za->el_sz);
-
-
-static inline void zarray_add(zarray_t *za, const void *p)
-
-    assert(za != NULL);
-    assert(p != NULL);
-
-    zarray_ensure_capacity(za, za->size + 1);
-
-    memcpy(&za->data[za->size*za->el_sz], p, za->el_sz);
-    za->size++;
-
-
-static inline void zarray_get(const zarray_t *za, int idx, void *p)
-
-    assert(za != NULL);
-    assert(p != NULL);
-    assert(idx >= 0);
-    assert(idx < za->size);
-
-    memcpy(p, &za->data[idx*za->el_sz], za->el_sz);
-
-
-inline static void zarray_get_volatile(const zarray_t *za, int idx, void *p)
-
-    assert(za != NULL);
-    assert(p != NULL);
-    assert(idx >= 0);
-    assert(idx < za->size);
-
-    *((void**) p) = &za->data[idx*za->el_sz];
-
-
-inline static void zarray_truncate(zarray_t *za, int sz)
-
-   assert(za != NULL);
-   assert(sz <= za->size);
-   za->size = sz;
-
-
-static inline void zarray_remove_index(zarray_t *za, int idx, int shuffle)
-
-    assert(za != NULL);
-    assert(idx >= 0);
-    assert(idx < za->size);
-
-    if (shuffle) 
-        if (idx < za->size-1)
-            memcpy(&za->data[idx*za->el_sz], &za->data[(za->size-1)*za->el_sz], za->el_sz);
-        za->size--;
-        return;
-     else 
-        // size = 10, idx = 7. Should copy 2 entries (at idx=8 and idx=9).
-        // size = 10, idx = 9. Should copy 0 entries.
-        int ncopy = za->size - idx - 1;
-        if (ncopy > 0)
-            memmove(&za->data[idx*za->el_sz], &za->data[(idx+1)*za->el_sz], ncopy*za->el_sz);
-        za->size--;
-        return;
-    
-
-
-static inline int zarray_remove_value(zarray_t *za, const void *p, int shuffle)
-
-    assert(za != NULL);
-    assert(p != NULL);
-
-    for (int idx = 0; idx < za->size; idx++) 
-        if (!memcmp(p, &za->data[idx*za->el_sz], za->el_sz)) 
-            zarray_remove_index(za, idx, shuffle);
-            return 1;
-        
-    
-
-    return 0;
-
-
-
-static inline void zarray_insert(zarray_t *za, int idx, const void *p)
-
-    assert(za != NULL);
-    assert(p != NULL);
-    assert(idx >= 0);
-    assert(idx <= za->size);
-
-    zarray_ensure_capacity(za, za->size + 1);
-    // size = 10, idx = 7. Should copy three entries (idx=7, idx=8, idx=9)
-    int ncopy = za->size - idx;
-
-    memmove(&za->data[(idx+1)*za->el_sz], &za->data[idx*za->el_sz], ncopy*za->el_sz);
-    memcpy(&za->data[idx*za->el_sz], p, za->el_sz);
-
-    za->size++;
-
-
-
-static inline void zarray_set(zarray_t *za, int idx, const void *p, void *outp)
-
-    assert(za != NULL);
-    assert(p != NULL);
-    assert(idx >= 0);
-    assert(idx < za->size);
-
-    if (outp != NULL)
-        memcpy(outp, &za->data[idx*za->el_sz], za->el_sz);
-
-    memcpy(&za->data[idx*za->el_sz], p, za->el_sz);
-
-
-static inline void zarray_map(zarray_t *za, void (*f)(void*))
-
-    assert(za != NULL);
-    assert(f != NULL);
-
-    for (int idx = 0; idx < za->size; idx++)
-        f(&za->data[idx*za->el_sz]);
-
-
-    void zarray_vmap(zarray_t *za, void (*f)());
-
-static inline void zarray_clear(zarray_t *za)
-
-    assert(za != NULL);
-    za->size = 0;
-
-
-static inline int zarray_contains(const zarray_t *za, const void *p)
-
-    assert(za != NULL);
-    assert(p != NULL);
-
-    for (int idx = 0; idx < za->size; idx++) 
-        if (!memcmp(p, &za->data[idx*za->el_sz], za->el_sz)) 
-            return 1;
-        
-    
-
-    return 0;
-
-
-static inline void zarray_sort(zarray_t *za, int (*compar)(const void*, const void*))
-
-    assert(za != NULL);
-    assert(compar != NULL);
-    if (za->size == 0)
-        return;
-
-    qsort(za->data, za->size, za->el_sz, compar);
-
-
- }
 
 function zstrcmp(a_pp:pointer; b_pp:pointer):longint;cdecl;external libapriltag;
-{xxxxxxxxx
-static inline int zarray_index_of(const zarray_t *za, const void *p)
-
-    assert(za != NULL);
-    assert(p != NULL);
-
-    for (int i = 0; i < za->size; i++) 
-        if (!memcmp(p, &za->data[i*za->el_sz], za->el_sz))
-            return i;
-    
-
-    return -1;
+procedure zarray_vmap(za: Pzarray_t; f: Pointer); cdecl; external libapriltag;
 
 
 
-static inline void zarray_add_all(zarray_t * dest, const zarray_t * source)
-
-    assert(dest->el_sz == source->el_sz);
-
-    // Don't allocate on stack because el_sz could be larger than ~8 MB
-    // stack size
-    char *tmp = (char*)calloc(1, dest->el_sz);
-
-    for (int i = 0; i < zarray_size(source); i++) 
-        zarray_get(source, i, tmp);
-        zarray_add(dest, tmp);
-   
-
-    free(tmp);
-
- }
-{ C++ end of extern C conditionnal removed }
 
 // === Konventiert am: 12-9-26 17:28:31 ===
 
 
 implementation
 
+function zarray_create(el_sz: SizeInt): Pzarray_t;
+var
+  za: Pzarray_t;
+begin
+  if el_sz <= 0 then Halt(1);
+  za := Pzarray_t(calloc(1, SizeOf(Tzarray_t)));
+  za^.el_sz := el_sz;
+  Result := za;
+end;
+
+procedure zarray_destroy(za: Pzarray_t);
+begin
+  if za = nil then    Exit;
+  if za^.data <> nil then    free(za^.data);
+  memset(za, 0, SizeOf(Tzarray_t));
+  free(za);
+end;
+
+function zarray_copy( za: Pzarray_t): Pzarray_t;
+var
+  zb: Pzarray_t;
+begin
+  if za = nil then Halt(1);
+
+  zb := Pzarray_t(calloc(1, SizeOf(Tzarray_t)));
+  zb^.el_sz := za^.el_sz;
+  zb^.size := za^.size;
+  zb^.alloc := za^.alloc;
+  zb^.data := malloc(zb^.alloc * zb^.el_sz);
+  memcpy(zb^.data, za^.data, za^.size * za^.el_sz);
+  Result := zb;
+end;
+
+function iceillog2(v: Integer): Integer;
+begin
+  Dec(v);
+  v := v or (v shr 1);
+  v := v or (v shr 2);
+  v := v or (v shr 4);
+  v := v or (v shr 8);
+  v := v or (v shr 16);
+  Inc(v);
+  Result := v;
+end;
+
+function zarray_copy_subset( za: Pzarray_t; start_idx, end_idx_exclusive: Integer): Pzarray_t;
+var
+  out_za: Pzarray_t;
+begin
+  out_za := Pzarray_t(calloc(1, SizeOf(Tzarray_t)));
+  out_za^.el_sz := za^.el_sz;
+  out_za^.size := end_idx_exclusive - start_idx;
+  out_za^.alloc := iceillog2(out_za^.size);
+ out_za^.data := malloc(out_za^.alloc * out_za^.el_sz);
+  memcpy(out_za^.data, PByte(za^.data) + (start_idx * out_za^.el_sz), out_za^.size * out_za^.el_sz);
+  Result := out_za;
+end;
+
+function zarray_size( za: Pzarray_t): Integer;
+begin
+  if za = nil then Halt(1);
+  Result := za^.size;
+end;
+
+procedure zarray_ensure_capacity(za: Pzarray_t; capacity: Integer);
+begin
+  if za = nil then Halt(1);
+
+  if capacity <= za^.alloc then    Exit;
+
+  while za^.alloc < capacity do  begin
+    za^.alloc := za^.alloc * 2;
+    if za^.alloc < 8 then
+      za^.alloc := 8;
+  end;
+
+  za^.data := realloc(za^.data, za^.alloc * za^.el_sz);
+end;
+
+procedure zarray_add(za: Pzarray_t;  p: Pointer);
+var
+  dest_ptr: Pointer;
+begin
+  if (za = nil) or (p = nil) then Halt(1);
+
+  zarray_ensure_capacity(za, za^.size + 1);
+
+//  dest_ptr := PByte(za^.data) + (za^.size * za^.el_sz);
+//  memcpy(dest_ptr, p, za^.el_sz);
+  memcpy(@za^.data[za^.size*za^.el_sz], p, za^.el_sz);
+  Inc(za^.size);
+end;
+
+procedure zarray_get( za: Pzarray_t; idx: Integer; p: Pointer);
+var
+  src_ptr: Pointer;
+begin
+  if (za = nil) or (p = nil) or (idx < 0) or (idx >= za^.size) then Halt(1);
+
+//  src_ptr := PByte(za^.data) + (idx * za^.el_sz);
+//  memcpy(p, src_ptr, za^.el_sz);
+  memcpy(p, @za^.data[idx*za^.el_sz], za^.el_sz);
+end;
+
+procedure zarray_get_volatile( za: Pzarray_t; idx: Integer; p: Pointer);
+var
+  src_ptr: Pointer;
+begin
+  if (za = nil) or (p = nil) or (idx < 0) or (idx >= za^.size) then Halt(1);
+
+//  src_ptr := PByte(za^.data) + (idx * za^.el_sz);
+//  PPointer(p)^ := src_ptr;
+
+  PPointer(p)^ := @za^.data[idx*za^.el_sz];
+
+end;
+
+procedure zarray_truncate(za: Pzarray_t; sz: Integer);
+begin
+  if (za = nil) or (sz > za^.size) then Halt(1);
+  za^.size := sz;
+end;
+
+procedure zarray_remove_index(za: Pzarray_t; idx: Integer; shuffle: Integer);
+var
+  dest_ptr, src_ptr: Pointer;
+  ncopy: Integer;
+begin
+  if (za = nil) or (idx < 0) or (idx >= za^.size) then Halt(1);
+
+  if shuffle <> 0 then  begin
+    if idx < (za^.size - 1) then    begin
+//      dest_ptr := PByte(za^.data) + (idx * za^.el_sz);
+//      src_ptr := PByte(za^.data) + ((za^.size - 1) * za^.el_sz);
+//      memcpy(dest_ptr, src_ptr, za^.el_sz);
+
+      memcpy(@za^.data[idx*za^.el_sz], @za^.data[(za^.size-1)*za^.el_sz], za^.el_sz);
+      Dec(za^.size);
+    end;
+  end  else  begin
+    ncopy := za^.size - idx - 1;
+    if ncopy > 0 then    begin
+//      dest_ptr := PByte(za^.data) + (idx * za^.el_sz);
+//      src_ptr := PByte(za^.data) + ((idx + 1) * za^.el_sz);
+//      memmove(dest_ptr, src_ptr, ncopy * za^.el_sz);
+      memmove(@za^.data[idx*za^.el_sz], @za^.data[(idx+1)*za^.el_sz], ncopy*za^.el_sz);
+      Dec(za^.size);
+    end;
+  end;
+end;
+
+function zarray_remove_value(za: Pzarray_t; const p: Pointer; shuffle: Integer): Integer;
+var
+  idx: SizeInt;
+  current_item_ptr: Pointer;
+begin
+  if (za = nil) or (p = nil) then Halt(1);
+
+  for idx := 0 to za^.size-1 do  begin
+//    current_item_ptr := PByte(za^.data) + (idx * za^.el_sz);
+
+//      if memcmp(p, current_item_ptr, za^.el_sz) = 0 then    begin
+    if memcmp(p, @za^.data[idx*za^.el_sz], za^.el_sz) = 0 then    begin
+      zarray_remove_index(za, idx, shuffle);
+      Exit(1);
+    end;
+  end;
+
+  Result := 0;
+end;
+
+procedure zarray_insert(za: Pzarray_t; idx: Integer; const p: Pointer);
+var
+  dest_ptr, src_ptr: Pointer;
+  ncopy: Integer;
+begin
+  if (za = nil) or (p = nil) or (idx < 0) or (idx > za^.size) then Halt(1);
+
+  zarray_ensure_capacity(za, za^.size + 1);
+
+  ncopy := za^.size - idx;
+
+//  dest_ptr := PByte(za^.data) + ((idx + 1) * za^.el_sz);
+//  src_ptr := PByte(za^.data) + (idx * za^.el_sz);
+//  memmove(dest_ptr, src_ptr, ncopy * za^.el_sz);
+//  memcpy(src_ptr, p, za^.el_sz);
+memmove(@za^.data[(idx+1)*za^.el_sz], @za^.data[idx*za^.el_sz], ncopy*za^.el_sz);
+memcpy(@za^.data[idx*za^.el_sz], p, za^.el_sz);
+
+  Inc(za^.size);
+end;
+
+procedure zarray_set(za: Pzarray_t; idx: Integer; const p: Pointer; outp: Pointer);
+var
+  item_ptr: Pointer;
+begin
+  if (za = nil) or (p = nil) or (idx < 0) or (idx >= za^.size) then Halt(1);
+
+//  item_ptr := PByte(za^.data) + (idx * za^.el_sz);
+
+  if outp <> nil then  begin
+//    memcpy(outp, item_ptr, za^.el_sz);
+    memcpy(outp, @za^.data[idx*za^.el_sz], za^.el_sz);
+  end;
+
+//  memcpy(item_ptr, p, za^.el_sz);
+  memcpy(@za^.data[idx*za^.el_sz], p, za^.el_sz);
+end;
+
+type
+  Tzarray_map_func = procedure(p: Pointer); cdecl;
+
+procedure zarray_map(za: Pzarray_t; f: Tzarray_map_func);
+var
+  idx: Integer;
+  item_ptr: Pointer;
+begin
+  if (za = nil) or (f = nil) then Halt(1);
+
+  for idx := 0 to za^.size-1 do  begin
+    item_ptr := PByte(za^.data) + (idx * za^.el_sz);
+    f(item_ptr);
+  end;
+end;
+
+
+procedure zarray_clear(za: Pzarray_t);
+begin
+  if za = nil then Halt(1);
+  za^.size := 0;
+end;
+
+
+function zarray_contains(const za: Pzarray_t; const p: Pointer): Integer;
+var
+  idx: Integer;
+  current_item_ptr: Pointer;
+begin
+  if (za = nil) or (p = nil) then Halt(1);
+
+  for idx := 0 to za^.size-1 do  begin
+//    current_item_ptr := PByte(za^.data) + (idx * za^.el_sz);
+
+//    if memcmp(p, current_item_ptr, za^.el_sz) = 0 then    begin
+      if memcmp(p, @za^.data[idx*za^.el_sz], za^.el_sz) = 0 then    begin
+      Exit(1);
+    end;
+  end;
+
+  Result := 0;
+end;
+
+type
+  Tzarray_compar_func = function(p1, p2: Pointer): Integer; cdecl;
+
+procedure zarray_sort(za: Pzarray_t; compar: Tzarray_compar_func);
+begin
+  if (za = nil) or (compar = nil) then Halt(1);
+
+  if za^.size = 0 then    Exit;
+
+  qsort(za^.data, za^.size, za^.el_sz, compar);
+end;
+
+function zarray_index_of(const za: Pzarray_t; const p: Pointer): Integer;
+var
+  i: Integer;
+  current_item_ptr: Pointer;
+begin
+  if (za = nil) or (p = nil) then Halt(1);
+
+  for i := 0 to za^.size -1 do  begin
+//    current_item_ptr := PByte(za^.data) + (i * za^.el_sz);
+
+//      if memcmp(p, current_item_ptr, za^.el_sz) = 0 then    begin
+        if memcmp(p, @za^.data[i*za^.el_sz], za^.el_sz) = 0 then    begin
+      Exit(i);
+    end;
+  end;
+
+  Result := -1;
+end;
+
+procedure zarray_add_all(dest: Pzarray_t; const source: Pzarray_t);
+var
+  tmp: PAnsiChar;
+  i: Integer;
+begin
+  if (dest = nil) or (source = nil) then Halt(1);
+
+  tmp := PAnsiChar(calloc(1, dest^.el_sz));
+
+    for i := 0 to  zarray_size(source)-1 do    begin
+      zarray_get(source, i, tmp);
+      zarray_add(dest, tmp);
+    end;
+    free(tmp);
+end;
 
 
 end.

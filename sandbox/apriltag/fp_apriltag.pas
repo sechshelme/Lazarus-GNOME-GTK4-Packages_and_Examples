@@ -53,6 +53,15 @@ procedure free(__ptr: pointer); cdecl; external libc;
 function memcpy(__dest: pointer; __src: pointer; __n: Tsize_t): pointer; cdecl; external libc;
 function strncpy(__dest: pchar; __src: pchar; __n: Tsize_t): pchar; cdecl; external libc;
 function printf(__format: pchar): longint; cdecl; varargs; external libc;
+function memset(__s: pointer; __c: longint; __n: Tsize_t): pointer; cdecl; external libc;
+function malloc(__size: Tsize_t): pointer; cdecl; external libc;
+function realloc(__ptr: pointer; __size: Tsize_t): pointer; cdecl; external libc;
+function memmove(__dest: pointer; __src: pointer; __n: Tsize_t): pointer; cdecl; external libc;
+function memcmp(__s1: pointer; __s2: pointer; __n: Tsize_t): longint; cdecl; external libc;
+type
+  Tcompar_fn_t = function(para1: pointer; para2: pointer): longint; cdecl;
+
+procedure qsort(__base: pointer; __nmemb: Tsize_t; __size: Tsize_t; __compar: Tcompar_fn_t); cdecl; external libc;
 
 
 
