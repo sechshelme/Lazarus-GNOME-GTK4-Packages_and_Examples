@@ -47,7 +47,7 @@ type
   Ptimeval = type Pointer;
   Ptimespec = type Pointer;
   PFILE = type Pointer;
-  Tva_list=Pointer; // ??????
+  Tva_list = Pointer; // ??????
 
   // am ende umbennen
   Tbool = boolean;
@@ -70,8 +70,6 @@ function realloc(ptr: pointer; size: Tsize_t): pointer; cdecl; external libc;
 function memmove(dest: pointer; src: pointer; n: Tsize_t): pointer; cdecl; external libc;
 function memcmp(s1: pointer; s2: pointer; n: Tsize_t): longint; cdecl; external libc;
 function fprintf(f: Pointer; format: pchar): integer; cdecl; varargs; external libc;
-
-
 
 
 {$IFDEF FPC}
