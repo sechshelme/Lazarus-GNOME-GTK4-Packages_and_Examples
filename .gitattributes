@@ -1,0 +1,4 @@
+# Die originalen C-Header aus der Sprachstatistik ausschließen
+*.h linguist-documentation
+*.c linguist-documentation
+
