@@ -2,3 +2,6 @@
 *.h linguist-documentation
 *.c linguist-documentation
 
+**/*.h linguist-vendored
+**/*.c linguist-vendored
+
