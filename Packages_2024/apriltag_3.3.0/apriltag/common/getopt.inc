@@ -1,4 +1,4 @@
-${$IFDEF read_interface}
+{$IFDEF read_interface}
 
 
 type

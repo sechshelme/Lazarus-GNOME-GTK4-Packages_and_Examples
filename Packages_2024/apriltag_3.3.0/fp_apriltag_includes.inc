@@ -1,5 +1,6 @@
 
 
+// === common
 {$include apriltag/common/matd.inc}
 {$include apriltag/common/zarray.inc}
 {$include apriltag/common/time_util.inc}
@@ -22,11 +23,12 @@
 {$include apriltag/common/string_util.inc}
 {$include apriltag/common/unionfind.inc}
 {$include apriltag/common/zhash.inc}
-//doubles,
-//doubles_floats_impl,
-//floats,
-//math_util,
+//doubles,                 -> static inline
+//doubles_floats_impl,     -> static inline
+//floats,                  -> static inline
+//math_util,               -> static inline
 
+// ==== rooot
 {$include apriltag/apriltag.inc}
 {$include apriltag/apriltag_pose.inc}
 {$include apriltag/tag16h5.inc}
