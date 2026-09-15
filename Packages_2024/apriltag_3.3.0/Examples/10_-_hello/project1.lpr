@@ -2,6 +2,35 @@ program project1;
 uses
   fp_apriltag;
 
+  procedure PrintPattern(tf: Papriltag_family_t);
+  var
+    y, x, p: integer;
+    pixel_val: Tuint8_t;
+    tag_pattern: Pimage_u8_t;
+    max_tags: Tuint32_t;
+  begin
+    max_tags := tf^.ncodes;
+    for p := 0 to max_tags - 1 do begin
+      tag_pattern := apriltag_to_image(tf, p);
+
+      for  y := 0 to tag_pattern^.height - 1 do begin
+        for  x := 0 to tag_pattern^.width - 1 do begin
+          pixel_val := tag_pattern^.buf[y * tag_pattern^.stride + x];
+
+          if pixel_val = 0 then begin
+            printf('##');
+          end else begin
+            printf('  ');
+          end;
+        end;
+        printf(#10);
+      end;
+
+      image_u8_destroy(tag_pattern);
+    end;
+
+  end;
+
   procedure main;
   var
     td: Papriltag_detector_t;
@@ -27,46 +56,36 @@ uses
     tag_id := 586;
 
     tag_pattern := apriltag_to_image(tf, tag_id);
-
-    if tag_pattern <> nil then begin
-      printf(#10'--- VISUELLE DARSTELLUNG DES APRILTAGS (ID: %d) ---'#10, tag_id);
-      for  ty := 0 to tag_pattern^.height - 1 do begin
-        for  tx := 0 to tag_pattern^.width - 1 do begin
-          pixel_val := tag_pattern^.buf[ty * tag_pattern^.stride + tx];
-
-          if pixel_val = 0 then begin
-            printf('##');
-          end else begin
-            printf('  ');
-          end;
-        end;
-        printf(#10);
-      end;
-      printf('--------------------------------------------------'#10#10);
-
-      scale := 15;
-
-      start_x := (width - (tag_pattern^.width * scale)) div 2;
-      start_y := (height - (tag_pattern^.height * scale)) div 2;
-
-      for  ty := 0 to tag_pattern^.height - 1 do begin
-        for  tx := 0 to tag_pattern^.width - 1 do begin
-          pixel_val := tag_pattern^.buf[ty * tag_pattern^.stride + tx];
-
-          for  sy := 0 to scale - 1 do begin
-            for  sx := 0 to scale - 1 do begin
-              px := start_x + (tx * scale) + sx;
-              py := start_y + (ty * scale) + sy;
-              pixel_buffer[py * width + px] := pixel_val;
-            end;
-          end;
-        end;
-      end;
-
-      free(tag_pattern^.buf);
-      free(tag_pattern);
-      printf('AprilTag mit ID %d im Speicher generiert!'#10, tag_id);
+    if tag_pattern = nil then begin
+      Exit;
     end;
+
+    printf(#10'--- VISUELLE DARSTELLUNG DES APRILTAGS (ID: %d) ---'#10, tag_id);
+    PrintPattern(tf);
+
+    printf('--------------------------------------------------'#10#10);
+
+    scale := 15;
+
+    start_x := (width - (tag_pattern^.width * scale)) div 2;
+    start_y := (height - (tag_pattern^.height * scale)) div 2;
+
+    for  ty := 0 to tag_pattern^.height - 1 do begin
+      for  tx := 0 to tag_pattern^.width - 1 do begin
+        pixel_val := tag_pattern^.buf[ty * tag_pattern^.stride + tx];
+
+        for  sy := 0 to scale - 1 do begin
+          for  sx := 0 to scale - 1 do begin
+            px := start_x + (tx * scale) + sx;
+            py := start_y + (ty * scale) + sy;
+            pixel_buffer[py * width + px] := pixel_val;
+          end;
+        end;
+      end;
+    end;
+
+    image_u8_destroy(tag_pattern);
+    printf('AprilTag mit ID %d im Speicher generiert!'#10, tag_id);
 
     im.width := width;
     im.height := height;
